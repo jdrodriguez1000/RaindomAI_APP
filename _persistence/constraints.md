@@ -14,6 +14,8 @@
 | [C-002](#c-002---el-producto-se-despliega-en-vercel) | El producto se despliega en Vercel | Tecnica | Vigente |
 | [C-003](#c-003---etapa-actual-000_preproject) | Etapa actual `000_preproject` | Proceso | Vigente |
 | [C-004](#c-004---entorno-de-ejecucion-windows) | Entorno de ejecucion Windows | Entorno | Vigente |
+| [C-005](#c-005---el-idioma-del-contenido-y-el-de-los-nombres-son-distintos) | El idioma del contenido y el de los nombres son distintos | Proceso | Vigente |
+| [C-006](#c-006---los-principios-de-ingenieria-y-las-reglas-de-operacion-son-vinculantes) | Los principios de ingenieria y las reglas de operacion son vinculantes | Proceso | Vigente |
 
 ---
 
@@ -24,7 +26,7 @@
 | Codigo | `C-XXX`, correlativo, no se reutiliza |
 | Tipo | `Proceso` / `Tecnica` / `Negocio` / `Entorno` |
 | Estado | `Vigente` / `Levantada` |
-| Origen | `usuario` / `manager` / `auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` |
 
 🚨 **Aqui entra solo lo confirmado.** Una limitacion que se supone pero nadie ha confirmado es un
 `A-XXX` en `assumptions.md`; llega aqui cuando se confirma.
@@ -107,3 +109,39 @@ encargo no es una decision: adoptarla exigiria su `D-XXX`, y hoy no existe.
 - **Implicacion:** todo comando que se escriba en un protocolo tiene que correr en ese entorno. Por
   eso las rutas relativas de `project.md` se declaran en forma canonica con separador `/`: funcionan
   igual en los dos interpretes, mientras que la forma con `\` solo funciona en uno.
+
+---
+
+### C-005 - El idioma del contenido y el de los nombres son distintos
+| Campo | Valor |
+|---|---|
+| Tipo | Proceso |
+| Origen | usuario |
+| Estado | Vigente |
+
+- **Restriccion:** la conversacion, los reportes de los agentes y toda la documentacion se escriben
+  en **espanol**; los nombres de archivos y de carpetas, en **ingles**. El enunciado completo vive
+  en la seccion «Idioma» de `CLAUDE.md`, y el porque en `D-017`.
+- **Implicacion:** afecta a cada archivo que se cree a partir de ahora, no solo a los de codigo.
+  Un artefacto nuevo con nombre en espanol incumple, aunque su contenido sea correcto.
+- **No es retroactiva:** lo heredado no se renombra por esta restriccion sola. Lo que ya incumple
+  se deja y se registra como deuda tecnica — hoy, `DT-001`.
+
+---
+
+### C-006 - Los principios de ingenieria y las reglas de operacion son vinculantes
+| Campo | Valor |
+|---|---|
+| Tipo | Proceso |
+| Origen | usuario |
+| Estado | Vigente |
+
+- **Restriccion:** los cinco principios `PI-1`..`PI-5` y las siete reglas de operacion de
+  `CLAUDE.md` obligan a cualquiera que trabaje en este repositorio, `manager` y agentes incluidos.
+  El enunciado vive en `CLAUDE.md` y el porque en `D-018`; aqui no se copia.
+- **Implicacion:** ninguna tarea se da por terminada sin su Definicion de Terminado —test en verde
+  si produce codigo, bloque de verificacion si produce documentacion—, y ninguna ambiguedad se
+  resuelve en silencio: se consulta.
+- **Donde muerde de verdad:** «Separacion de roles» y «Revision independiente» prohiben que quien
+  construyo evalue lo construido. Es la restriccion que `report_auditor` existe para hacer cumplir,
+  y la unica que se rompe sin que nadie lo note si no se lanza.

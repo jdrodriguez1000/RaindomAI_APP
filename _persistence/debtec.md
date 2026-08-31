@@ -10,7 +10,7 @@
 
 | Codigo | Deuda tecnica | Estado | Confirmacion | Importancia | Urgencia |
 |---|---|---|---|---|---|
-| — | — | — | — | — | — |
+| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | No implementada | Confirmada | Baja | No bloqueante |
 
 ---
 
@@ -22,7 +22,7 @@
 | Estado | `Implementada` / `No implementada` / `Cancelada` / `Suspendida` |
 | Importancia | `Alta` / `Media` / `Baja` |
 | Urgencia | `Bloqueante` / `No bloqueante` |
-| Origen | `usuario` / `manager` / `auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` |
 | Confirmacion | `Confirmada` / `Propuesta (pendiente de <quien>)` |
 
 `Implementada` = la deuda ya fue pagada (corregida). `No implementada` = sigue pendiente de pago.
@@ -70,4 +70,23 @@ Plantilla:
 - **Como se paga:** que habria que hacer.
 -->
 
-—
+### DT-001 - `debtec.md` incumple la regla de nombres en ingles
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Confirmada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Origen | usuario |
+| Fecha | 2026-08-31 |
+
+- **Deuda:** `D-017` fija que los nombres de archivos y carpetas van en ingles. `debtec.md`
+  —abreviatura de «deuda tecnica»— es el unico archivo trackeado que no cumple. Se deja como esta.
+- **Por que se tomo:** la regla se decidio con efecto **hacia adelante**. Renombrar obligaria a
+  tocar sus referencias en los tres skills, en los agentes, en `project.md` y en `CLAUDE.md`, sobre
+  un estado que la auditoria `R-001` ya dio por bueno; el beneficio es de coherencia, no funcional.
+- **Costo de no pagarla:** el registro exhibe una excepcion a su propia regla. Mientras este
+  escrita aqui es una excepcion conocida; si nadie la anota, en dos sesiones se lee como que la
+  regla no existe, y el siguiente nombre en espanol entra sin que nadie lo discuta.
+- **Como se paga:** renombrar a `techdebt.md` con `git mv`, actualizar todas sus referencias, y
+  comprobar con `git grep -n "debtec" -- .` que no queda ninguna.

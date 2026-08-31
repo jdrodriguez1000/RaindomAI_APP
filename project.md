@@ -15,8 +15,8 @@
 |---|---|
 | Nombre del proyecto | RaindomAI |
 | Rol de esta sesion | `manager` |
-| Auditoria | agente `auditor`, dentro de este mismo repositorio |
-| Idioma de trabajo | Espanol |
+| Auditoria | agente `report_auditor`, dentro de este mismo repositorio |
+| Idioma de trabajo | **espanol** para la comunicacion y la documentacion; **ingles** para los nombres de archivos y de carpetas |
 | Etapa actual | vive en `_persistence/progress.md`, no aqui |
 
 📌 **La grafia correcta es `RaindomAI`** —con `n`—, y coincide con el remoto. La carpeta de
@@ -50,7 +50,7 @@ el. **Para citar un archivo del proyecto se usa la relativa.**
 |---|---|---|
 | **usuario** | decide alcance, prioridades y lo irreversible | — |
 | **`manager`** (esta sesion) | dirige, coordina, construye, y registra el porque en el momento | **no audita su propio trabajo** |
-| **`auditor`** (agente) | audita un commit ya cerrado, verifica y recomienda | **no construye, no corrige, no decide** |
+| **`report_auditor`** (agente) | audita un commit ya cerrado, verifica y recomienda | **no construye, no corrige, no decide** |
 
 🚨 **Quien construye no puede ser su propio testigo, y por eso el auditor es un agente aparte.**
 Arranca en frio: no vio la conversacion de la jornada, y solo puede leer archivos y `git`. Esa
@@ -64,7 +64,7 @@ paso del cierre de sesion, igual que el arranque se dispara con la primera petic
 momento de arranque que nunca llega.
 
 🚨 **Una recomendacion del auditor no se ejecuta por venir de el.** Entra como tarea con
-`Origen: auditor` en `_persistence/tasks.md`, y solo despues de que `manager` la evalue y la
+`Origen: report_auditor` en `_persistence/tasks.md`, y solo despues de que `manager` la evalue y la
 considere correcta. El rechazo tambien se registra, con su `D-XXX`.
 
 🚨 **El estado de un hallazgo solo lo cambia una auditoria, nunca `manager`.** Un hallazgo se

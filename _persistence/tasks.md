@@ -23,7 +23,7 @@
 | Estado | `Implementada` / `No implementada` / `Cancelada` / `Suspendida` |
 | Importancia | `Alta` / `Media` / `Baja` |
 | Urgencia | `Bloqueante` / `No bloqueante` |
-| Origen | `usuario` / `manager` / `auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` |
 
 **`Origen` es obligatorio y su valor sale de esta lista.** Que significa cada uno:
 
@@ -31,7 +31,7 @@
 |---|---|
 | `usuario` | una peticion o una decision del usuario |
 | `manager` | iniciativa propia al ejecutar |
-| `auditor` | un hallazgo `F-NNN` de una auditoria |
+| `report_auditor` | un hallazgo `F-NNN` de una auditoria |
 
 🚨 **Anadir un valor nuevo es una decision, no una improvisacion.** El criterio es uno solo:
 **nombra un origen de demanda que ninguno de los ya existentes cubre**. Un matiz de un origen
@@ -39,7 +39,7 @@ existente —«usuario, pero por escrito», «auditor, pero de otra pasada»— 
 en el cuerpo de la tarea. Si el criterio se cumple, el valor entra **en esta tabla en la misma
 pasada** en que se escribe la primera tarea que lo usa, con su `D-XXX`.
 
-Regla: una tarea con origen `auditor` solo pasa a ejecutarse despues de que `manager` evalue la
+Regla: una tarea con origen `report_auditor` solo pasa a ejecutarse despues de que `manager` evalue la
 recomendacion y la considere correcta.
 
 🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto

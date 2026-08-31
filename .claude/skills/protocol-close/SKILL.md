@@ -26,13 +26,13 @@ es escribir hechos. Si las dos cosas se contradicen, **manda el diff**.
 |---|---|---|
 | **manager** (sesion de trabajo) | construye, y registra el porque en el momento | — |
 | **El cierre** (este protocolo) | `progress.md`, `tasks.md`, propuestas a `debtec.md`, el informe `_audit/S-XXX.md` | los cuatro del porque |
-| **`auditor`** (agente) | `_audit/R-XXX.md`, `_audit/findings.md`, `_audit/index.md` | no construye, no corrige |
+| **`report_auditor`** (agente) | `_audit/R-XXX.md`, `_audit/findings.md`, `_audit/index.md` | no construye, no corrige |
 
-🚨 **`auditor` corre despues de ti, no a la vez.** Tu cierras y commiteas; el audita ese commit.
+🚨 **`report_auditor` corre despues de ti, no a la vez.** Tu cierras y commiteas; el audita ese commit.
 Por eso **no escribes nada en `_audit/R-XXX.md` ni en `_audit/findings.md`**: son suyos.
 
 ⚠️ Lo que venga de una auditoria se refleja en `_persistence/tasks.md` como tarea con
-`Origen: auditor`, y solo despues de que `manager` la evalue y la considere correcta. **Tu no haces
+`Origen: report_auditor`, y solo despues de que `manager` la evalue y la considere correcta. **Tu no haces
 esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el reporte.
 
 🚨 **No toques `temporal/`.** Es el area de trabajo del usuario, no parte del registro.
@@ -315,7 +315,7 @@ de campos de su entrada. **Las dos se actualizan juntas.**
 `Implementada` · `No implementada` · `Cancelada` · `Suspendida`
 
 Y cada tarea lleva ademas **Importancia** (`Alta` / `Media` / `Baja`) y **Urgencia**
-(`Bloqueante` / `No bloqueante`), mas **Origen** (`usuario` / `manager` / `auditor`).
+(`Bloqueante` / `No bloqueante`), mas **Origen** (`usuario` / `manager` / `report_auditor`).
 
 - Mueve a `Implementada` solo lo que la evidencia respalde.
 - Lo que quedo a medias **sigue en `No implementada`**, y su entrada de detalle dice **en que punto
@@ -402,7 +402,7 @@ cruda**. Son dos grupos, y el segundo se olvida:
 
 | Grupo | Ejemplos |
 |---|---|
-| las de `Origen: auditor` | «verificado que el hallazgo persiste en `HEAD`» |
+| las de `Origen: report_auditor` | «verificado que el hallazgo persiste en `HEAD`» |
 | **las de iniciativa propia que afirman un resultado** | «no hay secretos en el archivo», «cero coincidencias», «los dos numeros cuadran» |
 
 ⚠️ **El segundo grupo no lo pidio nadie, y por eso se cuela sin evidencia.** Una comprobacion que
@@ -628,7 +628,7 @@ Las columnas son `Informe | Sesion | Fecha | Commit auditado | Auditoria | Vered
 Sus convenciones estan escritas dentro del propio `_audit/index.md`: **leelas antes de escribir**.
 
 🚨 **`Pendiente` es lo unico que escribes tu en las tres ultimas columnas.** El veredicto y los
-hallazgos los pone el agente `auditor` cuando corra — tu no puedes saber que va a encontrar alguien
+hallazgos los pone el agente `report_auditor` cuando corra — tu no puedes saber que va a encontrar alguien
 que todavia no ha mirado.
 
 ⚠️ **Y el commit auditado tampoco lo escribes, aunque parezca que si.** No puedes: la fila se
@@ -780,7 +780,7 @@ Informe de auditoria — <`_audit/S-XXX.md` y su fila en `_audit/index.md`, **co
 - **Pedimos auditar:** <los puntos de la seccion 6, en una lista breve>
 
 ### Falta la auditoria
-El commit existe: **`manager` tiene que lanzar ahora el agente `auditor`** sobre <hash corto>.
+El commit existe: **`manager` tiene que lanzar ahora el agente `report_auditor`** sobre <hash corto>.
 La sesion no esta cerrada hasta que esa auditoria este registrada en `_audit/`.
 
 ### Para manana
@@ -804,7 +804,7 @@ La sesion no esta cerrada hasta que esa auditoria este registrada en `_audit/`.
 - **No dupliques.** Cada archivo tiene un trabajo: `progress.md` da la vision general y no detalla
   tareas; el detalle de tareas vive solo en `tasks.md`.
 - **Escribe corto.** Un `progress.md` que nadie lee no orienta a nadie.
-- 🚨 **Tu no lanzas la auditoria, pero la reclamas.** El agente `auditor` corre despues de ti,
+- 🚨 **Tu no lanzas la auditoria, pero la reclamas.** El agente `report_auditor` corre despues de ti,
   sobre el commit que acabas de hacer, y lo lanza `manager`. Tu ultima linea util es recordarselo:
   un cierre sin auditoria deja el trabajo commiteado y sin revisar, que es exactamente el estado que
   este sistema existe para evitar.

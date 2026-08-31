@@ -61,7 +61,7 @@ Nunca digas «la sesion de ayer». Di `S-XXX`.
 |---|---|
 | **manager** (sesion de trabajo) | construye, y registra el porque en el momento |
 | **`session-closer`** | `progress.md`, `tasks.md`, propuestas de deuda, el informe `_audit/S-XXX.md`, el commit y su push |
-| **`auditor`** (agente) | `_audit/R-XXX.md`, `_audit/findings.md` y el veredicto en `_audit/index.md` |
+| **`report_auditor`** (agente) | `_audit/R-XXX.md`, `_audit/findings.md` y el veredicto en `_audit/index.md` |
 
 📥 **`_audit/` es una de tus fuentes obligatorias** (Paso 1c del skill). El auditor corre al final
 de la sesion anterior, sobre su commit, y sus hallazgos llevan ahi desde entonces esperando a que

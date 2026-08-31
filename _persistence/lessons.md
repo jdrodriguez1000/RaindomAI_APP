@@ -13,6 +13,7 @@
 | [L-002](#l-002---un-metodo-traido-de-otro-proyecto-llega-con-sus-codigos-y-esos-no-viajan) | Un metodo traido de otro proyecto llega con sus codigos, y esos no viajan | 2026-08-31 | 000_preproject |
 | [L-003](#l-003---el-mismo-control-en-dos-sitios-tiene-que-ser-literalmente-el-mismo-comando) | El mismo control en dos sitios tiene que ser literalmente el mismo comando | 2026-08-31 | 000_preproject |
 | [L-004](#l-004---un-encabezado-que-cuenta-se-desincroniza-de-lo-que-cuenta) | Un encabezado que cuenta se desincroniza de lo que cuenta | 2026-08-31 | 000_preproject |
+| [L-005](#l-005---renombrar-un-agente-no-es-renombrar-su-archivo) | Renombrar un agente no es renombrar su archivo | 2026-08-31 | 000_preproject |
 
 ---
 
@@ -21,7 +22,7 @@
 | Campo | Valores posibles |
 |---|---|
 | Codigo | `L-XXX`, correlativo, no se reutiliza |
-| Origen | `usuario` / `manager` / `auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` |
 
 Cada leccion registra: contexto, que ocurrio, leccion y como aplicarla.
 
@@ -120,3 +121,31 @@ accion concreta a futuro; si no se puede escribir, lo que hay todavia no es una 
 - **Como aplicarla:** no poner recuentos en titulos ni en prosa cuando lo contado esta en una tabla
   al lado. Si hay que referirse a filas concretas, **numerar la tabla** y citar por numero de fila,
   que es lo que se hizo aqui.
+
+---
+
+### L-005 - Renombrar un agente no es renombrar su archivo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-08-31 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** se pidio que el agente de auditoria pasara a llamarse `report_auditor.md`. La
+  peticion nombraba un archivo.
+- **Que ocurrio:** el nombre por el que se invoca un agente sale del campo `name:` de su
+  frontmatter, no de como se llame el archivo. Renombrar solo el archivo habria dejado el agente
+  respondiendo todavia a `auditor`, con un `.md` llamado de otra forma. **No falla en ningun sitio:**
+  el agente sigue funcionando, y la incoherencia solo la paga quien lea el repositorio despues.
+- **Leccion:** el identificador de un agente vive en tres capas —nombre de archivo, `name:` del
+  frontmatter, y cada referencia escrita en protocolos y registros—, y un rename solo esta hecho
+  cuando las tres coinciden.
+- **Como aplicarla:** ante cualquier rename de agente o skill, cambiar archivo y `name:` a la vez, y
+  cerrar con un barrido de identificadores cuya salida esperada sea **cero lineas**:
+
+```bash
+git grep -nE '`<viejo>`|\*\*<viejo>\*\*|name: <viejo>' -- .claude CLAUDE.md project.md
+```
+
+  Lo que salga fuera de ese ambito —entradas ya cerradas, informes entregados— **no se toca**: se
+  deja y se enlaza con la `D-XXX` del rename.

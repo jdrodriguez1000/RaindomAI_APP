@@ -1,11 +1,11 @@
 ---
 name: protocol-audit
-description: Protocolo de auditoria del proyecto. Audita un commit ya cerrado contra el informe de sesion que contiene, corre los controles mecanicos, verifica si los hallazgos anteriores siguen vivos, y deja el resultado en _audit/R-XXX.md, _audit/findings.md y _audit/index.md, con su commit y su push. Es de solo lectura sobre el proyecto: no construye, no corrige y no decide. Uso exclusivo del agente auditor, que se lanza al terminar el cierre de sesion.
+description: Protocolo de auditoria del proyecto. Audita un commit ya cerrado contra el informe de sesion que contiene, corre los controles mecanicos, verifica si los hallazgos anteriores siguen vivos, y deja el resultado en _audit/R-XXX.md, _audit/findings.md y _audit/index.md, con su commit y su push. Es de solo lectura sobre el proyecto: no construye, no corrige y no decide. Uso exclusivo del agente report_auditor, que se lanza al terminar el cierre de sesion.
 ---
 
 # Protocolo de auditoria
 
-Este protocolo lo ejecuta **unicamente** el agente `auditor`. Juzga una sesion ya cerrada y deja
+Este protocolo lo ejecuta **unicamente** el agente `report_auditor`. Juzga una sesion ya cerrada y deja
 por escrito si lo que su informe afirma se sostiene contra la evidencia.
 
 > 🔑 **La regla que gobierna todo el protocolo: se audita CONTRA EL COMMIT, no contra `HEAD`.**

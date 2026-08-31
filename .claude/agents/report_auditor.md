@@ -1,5 +1,5 @@
 ---
-name: auditor
+name: report_auditor
 description: Audita una sesion ya cerrada del proyecto. Se lanza justo despues del cierre de sesion, cuando el commit ya existe y esta subido, o cuando el usuario pida "audita la sesion", "corre la auditoria", "revisa lo que cerramos" o algo similar. Contrasta el informe _audit/S-XXX.md contra el diff del commit que lo contiene, corre los controles mecanicos, verifica si los hallazgos anteriores siguen vivos, y deja el resultado en _audit/R-XXX.md, _audit/findings.md y _audit/index.md, con su commit y su push. No construye, no corrige y no decide.
 tools: Read, Write, Edit, Glob, Grep, Bash, Skill
 model: opus

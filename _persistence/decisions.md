@@ -24,6 +24,9 @@
 | [D-013](#d-013---la-auditoria-corre-despues-del-commit-no-antes) | La auditoria corre despues del commit, no antes | 2026-08-31 | Vigente |
 | [D-014](#d-014---los-hallazgos-tienen-registro-propio-que-sobrevive-al-rechazo) | Los hallazgos tienen registro propio, que sobrevive al rechazo | 2026-08-31 | Vigente |
 | [D-015](#d-015---cerrar-un-hallazgo-es-de-la-auditoria-no-de-manager) | Cerrar un hallazgo es de la auditoria, no de `manager` | 2026-08-31 | Vigente |
+| [D-016](#d-016---el-agente-auditor-pasa-a-llamarse-report_auditor) | El agente auditor pasa a llamarse `report_auditor` | 2026-08-31 | Vigente |
+| [D-017](#d-017---espanol-para-el-contenido-ingles-para-los-nombres-de-archivos-y-carpetas) | Espanol para el contenido, ingles para los nombres de archivos y carpetas | 2026-08-31 | Vigente |
+| [D-018](#d-018---cinco-principios-de-ingenieria-y-siete-reglas-de-operacion-en-claudemd) | Cinco principios de ingenieria y siete reglas de operacion en `CLAUDE.md` | 2026-08-31 | Vigente |
 
 ---
 
@@ -33,7 +36,7 @@
 |---|---|
 | Codigo | `D-XXX`, correlativo, no se reutiliza |
 | Estado | `Vigente` / `Revocada por D-XXX` |
-| Origen | `usuario` / `manager` / `auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` |
 
 🚨 **Una decision no se borra ni se reescribe: se revoca.** La entrada antigua se queda con
 `Revocada por D-XXX` en su estado, y la nueva explica que cambio y por que. El historial de por que
@@ -367,3 +370,101 @@ sesion cerrada sin auditar. Ver `A-001`.
   en el codigo, y eso se mira, no se declara.
 - **Alternativas descartadas:** que `manager` cierre sus hallazgos tras corregirlos (rapido, y
   convierte el registro en autocertificacion).
+
+---
+
+### D-016 - El agente auditor pasa a llamarse `report_auditor`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-08-31 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el agente de auditoria se llamaba `auditor`, y su archivo
+  `.claude/agents/auditor.md`. El usuario pidio que pasara a llamarse `report_auditor`.
+- **Decision:** se renombra el archivo a `.claude/agents/report_auditor.md`, el `name:` de su
+  frontmatter a `report_auditor`, y **todas las referencias vivas al agente**: `CLAUDE.md`,
+  `project.md`, los tres skills, los otros dos agentes, y el valor de campo `Origen: auditor`, que
+  pasa a `Origen: report_auditor` en las convenciones de los seis archivos de `_persistence/`.
+- **Por que:** en Claude Code el nombre por el que se invoca un agente sale del `name:` de su
+  frontmatter, no del archivo. Renombrar solo el archivo habria dejado el agente respondiendo a
+  `auditor` con un archivo llamado `report_auditor.md` — dos nombres para la misma cosa, y el
+  desalineamiento no falla en ningun sitio: simplemente confunde a quien lo lea despues.
+- **Alcance del cambio, y lo que queda fuera:** se tocan los **identificadores** del agente
+  (backticked, en negrita, el `name:`, la `description:` del skill y los valores de campo). **No se
+  reescribe la palabra «auditor» cuando nombra el rol** —«un auditor externo», «al auditor le
+  cuesta lo mismo»—: ahi es un sustantivo comun, no un handle.
+- **Lo historico no se reescribe:** las entradas ya cerradas que citan `auditor` —`A-001`, `D-012`,
+  los archivos de `_audit/` y la narrativa de `progress.md`— **se dejan tal cual**. Describen lo que
+  se decidio en su momento, y el pasado no se reescribe para que cuadre con el presente. Esta
+  entrada es lo que enlaza un nombre con el otro.
+- **Alternativas descartadas:** renombrar solo el archivo y dejar `name: auditor` (mas barato, deja
+  archivo y agente con nombres distintos); renombrar tambien la palabra «auditor» en toda la prosa
+  (coherencia total, a cambio de un diff enorme y de frases que dejan de leerse en espanol).
+
+**Verificacion — cero identificadores `auditor` vivos:**
+
+```
+$ git grep -nE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' -- .claude CLAUDE.md project.md ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-017 - Espanol para el contenido, ingles para los nombres de archivos y carpetas
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-08-31 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el idioma del proyecto estaba declarado en `project.md` como «Espanol», sin
+  distinguir entre lo que se escribe **dentro** de un archivo y **como se llama** el archivo. En la
+  practica ya se seguian dos idiomas distintos sin que la regla estuviera escrita.
+- **Decision:** **espanol** para la conversacion, los reportes de los agentes y toda la
+  documentacion —`project.md`, `CLAUDE.md`, `_persistence/`, `_audit/`, mensajes de commit y
+  comentarios del codigo—; **ingles** para los nombres de archivos y de carpetas. Queda escrito en
+  la seccion «Idioma» de `CLAUDE.md` y en la fila «Idioma de trabajo» de `project.md`.
+- **Por que:** el contenido lo lee el equipo y se lee mejor en su idioma; los nombres los manejan
+  herramientas, y un nombre en ingles es ASCII, sin acentos ni enes, y no se rompe al cruzar
+  sistemas, remotos ni terminales.
+- **La regla rige hacia adelante, y esa parte la decidio el usuario:** lo que ya existe con otro
+  nombre **no se renombra por esta regla sola**, porque renombrar rompe referencias y reescribe
+  historia ya auditada. El unico archivo trackeado que la incumple es `debtec.md`; se deja y queda
+  registrado como deuda tecnica (`DT-001`) en vez de disimularse.
+- **Alternativas descartadas:** aplicarla retroactivamente y renombrar `debtec.md` a `techdebt.md`
+  (coherente de inmediato, a cambio de tocar referencias en skills, agentes y registros que la
+  auditoria `R-001` ya dio por buenos); dejar la regla sin escribir y seguir por costumbre (funciona
+  hasta que entra alguien que no tiene la costumbre).
+
+---
+
+### D-018 - Cinco principios de ingenieria y siete reglas de operacion en `CLAUDE.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-08-31 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto un cuerpo de principios (`PI-1` a `PI-5`) y siete reglas de
+  operacion, y pidio que los agentes los siguieran.
+- **Decision:** entran en `CLAUDE.md` como dos secciones propias —«Principios de ingenieria» y
+  «Reglas de operacion»—, colocadas antes de las secciones del ciclo de sesion, con el texto del
+  usuario adaptado a la voz del archivo y **sin anadir ni quitar principios**.
+- **Por que ahi y no en `project.md`:** son metodo, no datos del proyecto. `project.md` guarda lo
+  que cambia al llevar el metodo a otro repositorio; estos principios viajan con el metodo.
+- **`PI-5` se escribe con dos casillas, y esa es la unica adaptacion de fondo:** el enunciado
+  original —«toda tarea tiene un test que la respalda, sin excepcion»— se cumple con **un test
+  automatizado en verde** cuando la tarea produce codigo ejecutable, y con **el bloque de
+  verificacion** —orden ejecutada literal y salida cruda— cuando produce documentacion, protocolo o
+  registro. La segunda casilla no es una rebaja: es la exigencia que este repositorio ya aplicaba.
+- **Por que no literal:** el proyecto esta en `000_preproject` y no tiene ni una linea de codigo ni
+  runner de tests. Escrito literal, `PI-5` habria nacido incumplido en cada sesion de esta etapa, y
+  una regla que se incumple desde el primer dia deja de leerse como regla.
+- **Alternativas descartadas:** escribirlo literal y sin matiz (`PI-5` inaplicable hoy); acotarlo a
+  tareas de codigo dejando la documentacion **sin** definicion de terminado (deja fuera justo el
+  tipo de trabajo que hace este proyecto ahora mismo).
+- **Tension declarada, no resuelta en silencio:** «Separacion de roles» y «Revision independiente»
+  chocan con que `manager` «en algunos casos tambien ejecuta». Se resuelve apoyandose en lo que ya
+  existe —`report_auditor` revisa lo que `manager` construyo— y queda escrito en `CLAUDE.md` que,
+  donde choquen, manda el principio.

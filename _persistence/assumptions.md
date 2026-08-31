@@ -22,7 +22,7 @@
 |---|---|
 | Codigo | `A-XXX`, correlativo, no se reutiliza |
 | Estado | `Abierto` / `Confirmado` / `Refutado` |
-| Origen | `usuario` / `manager` / `auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` |
 
 🚨 **Un supuesto que no dice como se refuta no es un supuesto: es una creencia.** Cada entrada
 lleva **como se refuta** y **su disparador** —el momento concreto en que alguien lo va a mirar—.

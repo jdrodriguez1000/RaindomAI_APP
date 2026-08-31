@@ -53,14 +53,14 @@ Si el traspaso y el diff se contradicen, **manda el diff**, y di que hubo discre
 |---|---|
 | **manager** (sesion de trabajo) | construye, y registra el porque en el momento |
 | **Tu** | `progress.md`, `tasks.md`, **propuestas** a `debtec.md`, y el informe `_audit/S-XXX.md` |
-| **auditor** | su propio repositorio; audita, verifica y recomienda |
+| **report_auditor** | su propio repositorio; audita, verifica y recomienda |
 
 🚨 **`_audit/R-XXX.md` y `_audit/findings.md` son del auditor: no los escribes.** El corre
 **despues** de ti, sobre el commit que tu acabas de hacer. Lo tuyo en `_audit/` es el informe
 `S-XXX.md` y su fila en `index.md`, nada mas.
 
 ⚠️ Lo que venga de una auditoria se refleja en `_persistence/tasks.md` como tarea con
-`Origen: auditor`, y solo despues de que `manager` la evalue y la considere correcta. **Tu no haces
+`Origen: report_auditor`, y solo despues de que `manager` la evalue y la considere correcta. **Tu no haces
 esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el reporte.
 
 ## Limites

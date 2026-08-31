@@ -15,12 +15,86 @@ y no se delegan en nadie.
 comprobar que se hizo: el reporte de un agente es una entrega, no un hecho probado. Lo que un
 agente afirme se contrasta con la evidencia igual que lo que afirme cualquiera.
 
-## El agente auditor
+## Idioma
 
-El trabajo de cada jornada lo audita un agente aparte llamado **`auditor`**, dentro de este mismo
-repositorio.
+Dos idiomas, y cada uno tiene su sitio. No es preferencia de estilo: es una regla del proyecto.
 
-- `auditor` **no construye, no corrige y no decide**. Audita, verifica y recomienda.
+| Que | Idioma |
+|---|---|
+| La conversacion con el usuario y los reportes de los agentes | **espanol** |
+| La documentacion: `project.md`, este archivo, `_persistence/`, `_audit/`, los mensajes de commit y los comentarios del codigo | **espanol** |
+| **Los nombres de archivos y de carpetas** | **ingles** |
+
+🔑 **Por que el nombre va aparte del contenido.** Lo que se lee lo lee el equipo, y se lee
+mejor en su idioma. Lo que se escribe en una ruta lo manejan herramientas: un nombre en ingles es
+ASCII, no lleva acentos ni enes, y no se rompe al cruzar sistemas, remotos ni terminales.
+
+⚠️ **Rige hacia adelante.** Lo que ya existe con otro nombre **no se renombra por esta regla
+sola**: renombrar rompe referencias y reescribe historia que ya se audito. Si un nombre heredado
+incumple, se deja y **se registra como deuda tecnica** con su motivo — no se disimula.
+
+## Principios de ingenieria
+
+Cinco principios, y ninguno es opcional. Aplican a cualquiera que trabaje en este repositorio,
+seas tu o sea un agente.
+
+**PI-1. Razona antes de actuar.** Expon pros, contras y suposiciones. Ante ambiguedad, **detente y
+consulta**; nunca elijas en silencio.
+
+**PI-2. Simplicidad primero.** Codigo minimo con interfaces simples. Sin abstracciones, parametros
+ni configurabilidad que nadie pidio.
+
+**PI-3. Cambios quirurgicos.** Solo se toca lo necesario para la tarea. No se refactoriza lo que
+funciona. **No se borra codigo muerto preexistente sin autorizacion.**
+
+**PI-4. Slices verticales.** Una funcionalidad completa —de los datos a la interfaz— a la vez.
+Valida la integracion con un «tracer bullet» antes de ampliar.
+
+**PI-5. Orientado a comportamiento.** Toda tarea lleva algo que la respalda, y la **Definicion de
+Terminado** es que ese algo este en verde:
+
+| Si la tarea produce... | esta Terminada cuando... |
+|---|---|
+| codigo ejecutable | **un test automatizado pasa en verde** |
+| documentacion, protocolo o registro | existe su **bloque de verificacion**: la orden ejecutada literal y su salida cruda |
+
+🚨 **No hay una tercera casilla.** «Sin excepcion» significa exactamente eso: ninguna tarea
+se da por terminada sin una de las dos. Lo que no se puede comprobar no esta hecho, esta afirmado.
+
+⛔ **Y un test escrito para pasar no cuenta.** Un test que no puede fallar es documentacion
+disfrazada de evidencia — mas cara que no tenerlo, porque ademas da confianza.
+
+## Reglas de operacion
+
+- **Persistencia total.** Todo lo producido, decidido o asumido se registra en un archivo, nunca en
+  memoria. Lo que solo vive en la conversacion se pierde al cerrarla.
+- **Adherencia a plantillas.** Se respeta la estructura de cada artefacto: no se agregan secciones,
+  no se omiten, no se expanden.
+- **Una sola tarea.** No se avanza hasta que el objetivo actual este completado y aprobado.
+- **Separacion de roles.** Quien implementa no evalua; quien revisa no reescribe.
+- **Cero decisiones silenciosas.** Ante ambiguedad, detente y consulta. Toda decision de diseno se
+  documenta.
+- **Revision independiente.** Las revisiones las hace un agente o una instancia aparte. **Nunca
+  autoevaluacion.**
+- **Doble validacion.** Aprobacion del stakeholder (negocio) **y** revision tecnica independiente.
+  Las dos son obligatorias; una sola no cierra nada.
+
+🔑 **Estas reglas no son un adorno: ya tienen quien las ejecute en este repositorio.**
+«Persistencia total» es `_persistence/`. «Separacion de roles» y «Revision independiente» son
+`report_auditor`, que audita lo que tu construiste y no lo corrige. «Doble validacion» son las dos
+firmas que hacen falta: la del **usuario**, que es el stakeholder, y la de **`report_auditor`**, que
+es la revision tecnica. Ninguna de las dos sustituye a la otra.
+
+⚠️ **Donde chocan con tu puesto, manda el principio.** Diriges y a veces ejecutas — pero
+lo que ejecutas tu **no lo evaluas tu**. Si te encuentras dando por bueno tu propio trabajo,
+«Revision independiente» ya se rompio, y ningun reporte posterior lo va a notar.
+
+## El agente report_auditor
+
+El trabajo de cada jornada lo audita un agente aparte llamado **`report_auditor`**, dentro de
+este mismo repositorio.
+
+- `report_auditor` **no construye, no corrige y no decide**. Audita, verifica y recomienda.
 - **Audita un commit ya cerrado**, nunca trabajo en curso: se lanza despues del cierre de sesion,
   y sus hallazgos se trabajan en la sesion siguiente.
 - Donde escribe —`_audit/`— y con que codigos, esta en **`project.md`**.
@@ -38,16 +112,17 @@ de sesion, y no algo que se hace «cuando haga falta».
 cuando **una auditoria posterior verifica la correccion sobre un commit posterior**, no cuando a ti
 te parece resuelto. Lo tuyo es evaluarlos, registrarlos y corregirlos; cerrarlos es de el.
 
-## Tratamiento de lo entregado por auditor
+## Tratamiento de lo entregado por report_auditor
 
 Analiza lo que entregue el auditor y decide si es correcto:
 
 - **Si es correcto:** implementarlo.
 - **Si no es correcto:** informar que no se recomienda hacerlo, y explicar por que.
 
-🚨 **Las recomendaciones de `auditor` no se implementan de forma automatica: pasan siempre por esta
-evaluacion previa.** Que venga del auditor no la hace cierta; la hace atendible. Y al reves: que sea
-un agente tuyo no la hace descartable — vio el commit sin el sesgo de haberlo escrito.
+🚨 **Las recomendaciones de `report_auditor` no se implementan de forma automatica: pasan
+siempre por esta evaluacion previa.** Que venga del auditor no la hace cierta; la hace atendible.
+Y al reves: que sea un agente tuyo no la hace descartable — vio el commit sin el sesgo de haberlo
+escrito.
 
 ### Donde estan
 
@@ -69,7 +144,7 @@ recibida es lo primero que veras al empezar la jornada**.
    cada uno **contra `HEAD`** antes de tratarlo. Alguno puede haberse corregido por el camino — y
    comando y salida cruda van al registro, como siempre.
 2. **Registra cada hallazgo** donde le corresponda, citando su codigo `F-NNN`:
-   - lo aceptas y lo haces o lo haras → **`T-XXX`** con `Origen: auditor`
+   - lo aceptas y lo haces o lo haras → **`T-XXX`** con `Origen: report_auditor`
    - lo rechazas **porque el hallazgo es incorrecto** → **`D-XXX`** con la evidencia que lo contradice
    - lo rechazas **aunque tenga razon**, por coste o prioridad → **`D-XXX`** + 🚨 **`DT-XXX`**
 3. **Actualiza su fila en `_audit/findings.md`**: de `Abierto` a `Aceptado — pendiente` o a
@@ -87,8 +162,8 @@ a decir lo que quisieramos que dijera.
 ### Comando y salida cruda, siempre
 
 🚨 **Lo que verifiques antes de aceptar o rechazar se registra con el comando y su salida cruda,
-nunca con la conclusion.** Toda decision con `Origen: auditor` lleva un bloque de verificacion con
-la **orden ejecutada literal** y **lo que devolvio**, tal cual salio.
+nunca con la conclusion.** Toda decision con `Origen: report_auditor` lleva un bloque de
+verificacion con la **orden ejecutada literal** y **lo que devolvio**, tal cual salio.
 
 🚨 **Y lo mismo vale para lo que comprobamos por iniciativa propia.** Si el registro afirma un
 resultado —«no hay secretos», «cero coincidencias», «los dos numeros cuadran»—, ese resultado va con
@@ -239,12 +314,12 @@ llegas al cierre sin haberlos escrito, esa informacion **ya se perdio**.
 ### El cierre no termina en el push: termina en la auditoria
 
 🚨 **Cuando el `session-closer` haya devuelto su reporte y el commit este subido, lanza el agente
-`auditor`** y muestra tambien su reporte. Solo entonces la sesion esta cerrada.
+`report_auditor`** y muestra tambien su reporte. Solo entonces la sesion esta cerrada.
 
 El orden no es negociable, y es el que elegiste al montar este esquema:
 
 1. `session-closer` escribe, commitea y sube → **existe un commit**
-2. `auditor` audita **ese commit**, no el trabajo en curso
+2. `report_auditor` audita **ese commit**, no el trabajo en curso
 3. Sus hallazgos quedan en `_audit/` y **se trabajan en la sesion siguiente**
 
 🔑 **Por que despues del commit y no antes.** El valor entero de una auditoria es que se pueda

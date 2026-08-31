@@ -25,6 +25,7 @@
 | Codigo | Sesion | Fecha | Etapa |
 |---|---|---|---|
 | [S-001](#s-001---primer-cierre-se-monta-la-forma-de-trabajar) | Primer cierre: se monta la forma de trabajar | 2026-08-31 | `000_preproject` |
+| [S-002](#s-002---rename-del-agente-de-auditoria-y-nuevas-reglas-de-claudemd) | Rename del agente de auditoria y nuevas reglas de `CLAUDE.md` | 2026-08-31 | `000_preproject` |
 
 ---
 
@@ -50,32 +51,33 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-08-31 (S-001) |
+| Ultima actualizacion | 2026-08-31 (S-002) |
 | Salud | En marcha |
-| Avance de la etapa | La forma de trabajar quedo montada: los siete archivos de `_persistence/`, `project.md`, `CLAUDE.md`, `.gitignore`, el ciclo de sesion con tres agentes y tres skills (`session-starter`/`protocol-start`, `session-closer`/`protocol-close`, `auditor`/`protocol-audit`), y `_audit/` con su tablero y su registro de hallazgos. Falta cerrar el primer commit y lanzar la primera auditoria. |
+| Avance de la etapa | El primer commit (`6a16e5f`) ya quedo cerrado y su auditoria `R-001` ya corrio sobre `S-001`. En esta sesion se renombro el agente `auditor` a `report_auditor` en todo el repositorio (archivo, `name:`, y cada referencia viva) y se ampliaron `CLAUDE.md` y `project.md` con la regla de idioma (espanol para contenido, ingles para nombres de archivo/carpeta) y con los cinco principios de ingenieria (`PI-1`..`PI-5`) y siete reglas de operacion aportados por el usuario. Sigue pendiente el trabajo de producto: `T-001`, `T-002`, `T-003`. |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`); las etapas posteriores a `000_preproject` no estan declaradas (`T-002`); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y del el depende el ciclo entero del producto (`T-003`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-Se monto desde cero el andamiaje del proyecto en la etapa `000_preproject`: los siete archivos de
-`_persistence/` (arrancados vacios, sin heredar contenido de un proyecto anterior usado como guia
-de forma), `project.md` con los datos propios, `CLAUDE.md`, `.gitignore`, y el ciclo completo de
-sesion con tres agentes/skills. A mitad de jornada se revoco el esquema de dos terminales ya
-construido (`D-008`, revocada por `D-012`) y se sustituyo por un agente auditor dentro de este mismo
-repositorio, lo que obligo a reescribir material y a renombrar el rol `executor` a `manager`
-(`D-010`). Los cuatro archivos del porque quedaron escritos y al dia: 15 decisiones, 4
-restricciones, 3 supuestos y 4 lecciones. Este es el primer cierre del repositorio: no existia
-ningun commit antes de este.
+Se renombro el agente de auditoria de `auditor` a `report_auditor` en todo el repositorio: el
+archivo (`.claude/agents/auditor.md` → `.claude/agents/report_auditor.md`), el `name:` de su
+frontmatter, y cada referencia viva en `CLAUDE.md`, `project.md`, los tres skills, los otros dos
+agentes y el valor de campo `Origen:` en los seis archivos de `_persistence/` (`D-016`). Lo
+historico que cita `auditor` —`A-001`, `D-012`, `_audit/S-001.md`, `_audit/R-001.md`, la narrativa
+de `progress.md`— se dejo tal cual, deliberadamente. Ademas se amplio `CLAUDE.md` con una seccion
+«Idioma» (espanol para contenido y documentacion, ingles para nombres de archivo y carpeta —
+`D-017`, `C-005`) y con «Principios de ingenieria» (`PI-1`..`PI-5`) y «Reglas de operacion» (`D-018`,
+`C-006`), a partir de un cuerpo aportado por el usuario. `debtec.md` quedo registrado como la unica
+excepcion conocida a la regla de idioma (`DT-001`, confirmada por el usuario, no propuesta).
 
 ---
 
 ## 3. Siguiente paso
 
 Definir el alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`), que es
-lo que abre la etapa siguiente a `000_preproject`. En paralelo, lanzar la primera auditoria
-(`auditor`, `protocol-audit`) sobre el commit de este cierre.
+lo que abre la etapa siguiente a `000_preproject`. En paralelo, `manager` debe lanzar `report_auditor`
+sobre el commit de este cierre.
 
 ---
 
@@ -126,6 +128,31 @@ Plantilla:
   Las etapas posteriores a `000_preproject` no estan declaradas (`T-002`). `A-003` — si el historico
   de la fuente oficial es obtenible — sigue sin verificar, y de el depende el ciclo entero del
   producto (`T-003`).
+
+---
+
+### S-002 - Rename del agente de auditoria y nuevas reglas de `CLAUDE.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-08-31 |
+| Etapa | `000_preproject` |
+| Tareas | — (sin tareas de `tasks.md` cerradas esta sesion) |
+
+- **Que se hizo:** dos encargos del usuario. (1) Rename completo del agente `auditor` a
+  `report_auditor`: archivo, `name:` del frontmatter, y todas las referencias vivas —`CLAUDE.md`,
+  `project.md`, los tres skills, los otros dos agentes, y el valor de campo `Origen: auditor` en los
+  seis archivos de `_persistence/`— (`D-016`). Verificado con el comando de la seccion de
+  verificacion de `D-016` (`git grep` sobre `.claude`, `CLAUDE.md` y `project.md` buscando
+  identificadores de `auditor` entre backticks, en negrita, o como `Origen:`/`agente auditor`):
+  cero coincidencias. Lo historico —`A-001`, `D-012`, `_audit/S-001.md`, `_audit/R-001.md`, la
+  narrativa de `progress.md`— se dejo sin tocar. (2) Se añadio a `CLAUDE.md` una seccion «Idioma»
+  (`D-017`, `C-005`) y las secciones «Principios de ingenieria» (`PI-1`..`PI-5`) y «Reglas de
+  operacion» (`D-018`, `C-006`), a partir de texto aportado por el usuario. `PI-5` se adapto con dos
+  casillas —test en verde para codigo, bloque de verificacion para documentacion— en vez de dejarlo
+  literal, decision del usuario. `debtec.md` quedo registrado como la unica excepcion conocida a la
+  regla de idioma (`DT-001`, `Confirmacion: Confirmada`).
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`, sin tocar esta sesion.
+  `DT-001` (renombrar `debtec.md` a `techdebt.md`) sigue sin pagarse.
 
 ---
 

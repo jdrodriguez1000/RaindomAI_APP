@@ -10,6 +10,7 @@
 | Informe | Sesion | Fecha | Commit auditado | Auditoria | Veredicto | Hallazgos |
 |---|---|---|---|---|---|---|
 | `S-001.md` | S-001 | 2026-08-31 | `6a16e5f` | `R-001.md` | Sin hallazgos | - |
+| `S-002.md` | S-002 | 2026-08-31 | Pendiente | Pendiente | Pendiente | - |
 
 ---
 
