@@ -12,7 +12,10 @@
 
 | Codigo | Hallazgo | Auditoria | Gravedad | Estado |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| [F-001](#f-001---el-bloque-de-verificacion-de-d-016-afirma-mas-de-lo-que-su-comando-comprueba) | El bloque de verificacion de `D-016` afirma mas de lo que su comando comprueba | R-002 | Media | Abierto |
+| [F-002](#f-002---quedan-identificadores-auditor-vivos-fuera-del-ambito-del-barrido) | Quedan identificadores `auditor` vivos fuera del ambito del barrido | R-002 | Baja | Abierto |
+| [F-003](#f-003---dt-001-se-registro-como-confirmada-contra-el-paso-5-de-protocol-close) | `DT-001` se registro como `Confirmada` contra el Paso 5 de `protocol-close` | R-002 | Media | Abierto |
+| [F-004](#f-004---session-closermd-describe-a-report_auditor-en-su-propio-repositorio) | `session-closer.md` describe a `report_auditor` en «su propio repositorio» | R-002 | Media | Abierto |
 
 ---
 
@@ -71,4 +74,113 @@ Plantilla:
 - **Que se hizo:** la evaluacion de `manager` y donde quedo registrada.
 -->
 
-—
+### F-001 - El bloque de verificacion de `D-016` afirma mas de lo que su comando comprueba
+| Campo | Valor |
+|---|---|
+| Auditoria | R-002 |
+| Fecha | 2026-08-31 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el bloque de `D-016` se titula «Verificacion — cero identificadores
+  `auditor` vivos», sin acotar ambito, y su comando cubre solo tres rutas:
+
+```
+$ git grep -nE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' badc878 -- .claude CLAUDE.md project.md
+exit=1
+```
+
+  La misma decision declara que el rename alcanza tambien el valor `Origen: auditor` en los seis
+  archivos de `_persistence/` (`decisions.md:387`), y `progress.md:144-147` cita ese exit code como
+  respaldo del rename entero. Aplicado a `_persistence/`, el mismo patron devuelve 18 lineas.
+- **Por que importa:** el ambito reducido tapo una fuga real (`F-002`). Un bloque de verificacion
+  mas ancho en su enunciado que en su comando da por cerrado lo que nadie miro.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-002 - Quedan identificadores `auditor` vivos fuera del ambito del barrido
+| Campo | Valor |
+|---|---|
+| Auditoria | R-002 |
+| Fecha | 2026-08-31 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** dos lineas vivas siguen citando el handle viejo.
+
+```
+$ git show badc878:_persistence/tasks.md | sed -n '39p'
+existente —«usuario, pero por escrito», «auditor, pero de otra pasada»— no es un valor nuevo: va
+
+$ git show badc878:_audit/findings.md | sed -n '3p'
+> Registro de los **hallazgos de auditoria**: lo que el agente `auditor` encontro, y en que acabo
+```
+
+  En `tasks.md:39` la palabra nombra el valor del campo `Origen`, cuya fila ya dice
+  `report_auditor`: no es el sustantivo comun que `D-016` excluye. En `findings.md:3` es la cabecera
+  viva de un registro activo; el motivo con que `D-016` excluye `_audit/` («describen lo que se
+  decidio en su momento») no le aplica.
+- **Por que importa:** poco por si solo; importa como prueba de que el ambito de `F-001` importaba.
+- **Que se hizo:** pendiente de la evaluacion de `manager`. La auditoria **no** corrigio la cabecera
+  de `findings.md`: corregir sobre el commit auditado invalidaria el propio informe.
+
+---
+
+### F-003 - `DT-001` se registro como `Confirmada` contra el Paso 5 de `protocol-close`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-002 |
+| Fecha | 2026-08-31 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git show badc878:_persistence/debtec.md | sed -n '13p'
+| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | No implementada | Confirmada | Baja | No bloqueante |
+
+$ git show badc878:.claude/skills/protocol-close/SKILL.md | sed -n '365,366p'
+2. **Marcada como propuesta**, tanto en el campo `Confirmacion` de la entrada como en el reporte,
+   para que el usuario la confirme o la tumbe.
+```
+
+  El propio `S-002` §6 declara que el valor descansa en el traspaso, no en el diff. No hay `D-XXX`
+  que ampare la excepcion.
+- **Por que importa:** `Confirmacion` existe para distinguir lo confirmado de lo supuesto. Un
+  `Confirmada` escrito por el actor a quien el protocolo se lo prohibe vacia el campo de funcion.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-004 - `session-closer.md` describe a `report_auditor` en «su propio repositorio»
+| Campo | Valor |
+|---|---|
+| Auditoria | R-002 |
+| Fecha | 2026-08-31 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git grep -n "su propio repositorio" badc878 -- .claude
+badc878:.claude/agents/session-closer.md:56:| **report_auditor** | su propio repositorio; audita, verifica y recomienda |
+
+$ git show badc878:project.md | grep -n "dentro de este mismo repositorio"
+19:| Auditoria | agente `report_auditor`, dentro de este mismo repositorio |
+```
+
+- **Por que importa:** resto del esquema de dos terminales que `D-012` revoco, vivo en la tabla de
+  actores que `session-closer` lee en cada cierre. Contradice a `project.md`, a `CLAUDE.md` y a las
+  dos lineas siguientes de su propio archivo.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
