@@ -1,4 +1,4 @@
-# debtec.md
+# techdebt.md
 
 > Registro de la **deuda tecnica** del proyecto: atajos conscientes, soluciones provisionales
 > y pendientes de calidad. Cada item tiene codigo `DT-XXX`, estado, importancia y urgencia.
@@ -10,7 +10,7 @@
 
 | Codigo | Deuda tecnica | Estado | Confirmacion | Importancia | Urgencia |
 |---|---|---|---|---|---|
-| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
+| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | Implementada | Confirmada | Baja | No bloqueante |
 
 ---
 
@@ -73,8 +73,8 @@ Plantilla:
 ### DT-001 - `debtec.md` incumple la regla de nombres en ingles
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
-| Confirmacion | Propuesta (pendiente del usuario) |
+| Estado | Implementada |
+| Confirmacion | Confirmada |
 | Importancia | Baja |
 | Urgencia | No bloqueante |
 | Origen | usuario |
@@ -90,6 +90,14 @@ Plantilla:
   regla no existe, y el siguiente nombre en espanol entra sin que nadie lo discuta.
 - **Como se paga:** renombrar a `techdebt.md` con `git mv`, actualizar todas sus referencias, y
   comprobar con `git grep -n "debtec" -- .` que no queda ninguna.
+
+🕒 **Estado al 2026-09-01: confirmada y pagada.** El usuario confirmo la deuda y pidio pagarla
+en la misma peticion —ordenar el renombrado es confirmar que el atajo era un atajo—, asi que
+`Confirmacion` pasa a `Confirmada` y `Estado` a `Implementada` en la misma pasada. El archivo es
+ahora `_persistence/techdebt.md` (`git mv`), y se reescribieron las **referencias vivas**: los tres
+skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de estructura de `progress.md`.
+**El titulo de esta entrada se deja como esta**, porque nombra el defecto que hubo y no el estado de
+hoy. Alcance y verificacion, en `D-021`.
 
 🕒 **`Confirmacion` revertida a `Propuesta (pendiente del usuario)` el 2026-09-01, tras el
 hallazgo `F-003` de `R-002`.** La entrada nacio en el cierre de `S-002` con `Confirmada`, y el Paso 5

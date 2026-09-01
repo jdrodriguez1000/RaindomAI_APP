@@ -1,6 +1,6 @@
 ---
 name: protocol-close
-description: Protocolo de cierre de sesion del proyecto. Recoge la evidencia real del trabajo (git status, git diff, git log), actualiza de forma obligatoria _persistence/progress.md y _persistence/tasks.md, propone entradas de debtec.md, y solo revisa —sin escribirlos— decisions.md, assumptions.md, constraints.md y lessons.md; despues escribe el informe para la auditoria y deja la sesion cerrada con un commit y su push. Uso exclusivo del agente session-closer, que se lanza al terminar una jornada de trabajo o cuando el usuario pida "cerremos la sesion", "cierra la sesion", "finalicemos el trabajo", "guarda el avance", "terminamos por hoy" o algo similar.
+description: Protocolo de cierre de sesion del proyecto. Recoge la evidencia real del trabajo (git status, git diff, git log), actualiza de forma obligatoria _persistence/progress.md y _persistence/tasks.md, propone entradas de techdebt.md, y solo revisa —sin escribirlos— decisions.md, assumptions.md, constraints.md y lessons.md; despues escribe el informe para la auditoria y deja la sesion cerrada con un commit y su push. Uso exclusivo del agente session-closer, que se lanza al terminar una jornada de trabajo o cuando el usuario pida "cerremos la sesion", "cierra la sesion", "finalicemos el trabajo", "guarda el avance", "terminamos por hoy" o algo similar.
 ---
 
 # Protocolo de cierre de sesion
@@ -25,7 +25,7 @@ es escribir hechos. Si las dos cosas se contradicen, **manda el diff**.
 | Actor | Escribe | No escribe |
 |---|---|---|
 | **manager** (sesion de trabajo) | construye, y registra el porque en el momento | — |
-| **El cierre** (este protocolo) | `progress.md`, `tasks.md`, propuestas a `debtec.md`, el informe `_audit/S-XXX.md` | los cuatro del porque |
+| **El cierre** (este protocolo) | `progress.md`, `tasks.md`, propuestas a `techdebt.md`, el informe `_audit/S-XXX.md` | los cuatro del porque |
 | **`report_auditor`** (agente) | `_audit/R-XXX.md`, `_audit/findings.md`, `_audit/index.md` | no construye, no corrige |
 
 🚨 **`report_auditor` corre despues de ti, no a la vez.** Tu cierras y commiteas; el audita ese commit.
@@ -34,6 +34,11 @@ Por eso **no escribes nada en `_audit/R-XXX.md` ni en `_audit/findings.md`**: so
 ⚠️ Lo que venga de una auditoria se refleja en `_persistence/tasks.md` como tarea con
 `Origen: report_auditor`, y solo despues de que `manager` la evalue y la considere correcta. **Tu no haces
 esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el reporte.
+
+🚨 **Esa `T-XXX` puede existir ya cuando tu llegas, y es lo normal.** `manager` la escribe en el
+momento de aceptar el hallazgo, porque la fila del hallazgo tiene que citar su codigo para ser
+auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
+que `tasks.md` lo produzcas tu, y esta escrita en la convencion del propio archivo.
 
 🚨 **No toques `temporal/`.** Es el area de trabajo del usuario, no parte del registro.
 
@@ -152,7 +157,7 @@ realidad es una prueba bien puesta. Y una alarma que siempre resulta falsa se ap
 el dia que sea verdadera tampoco se mirara.
 
 ```bash
-for f in tasks decisions constraints assumptions lessons debtec progress; do
+for f in tasks decisions constraints assumptions lessons techdebt progress; do
   echo "== $f"
   diff <(awk '/^```/{c=!c; next} !c' "_persistence/$f.md" | grep -oE '^\| \[?[A-Z]+-[0-9]+' | grep -oE '[A-Z]+-[0-9]+' | sort -u) \
        <(awk '/^```/{c=!c; next} !c' "_persistence/$f.md" | grep -oE '^#{3} [A-Z]+-[0-9]+'   | grep -oE '[A-Z]+-[0-9]+' | sort -u)
@@ -241,7 +246,7 @@ Los codigos de este proyecto:
 | `C-XXX` | `constraints.md` | restriccion |
 | `A-XXX` | `assumptions.md` | supuesto sin comprobar |
 | `L-XXX` | `lessons.md` | leccion aprendida |
-| `DT-XXX` | `debtec.md` | deuda tecnica |
+| `DT-XXX` | `techdebt.md` | deuda tecnica |
 
 > 🚨 **El indice y las entradas se actualizan juntos, en la misma pasada.** Ver Paso 2b.
 
@@ -354,7 +359,7 @@ subir le resulta **invisible**.
 
 ---
 
-## Paso 5 — `_persistence/debtec.md`: aqui si propones
+## Paso 5 — `_persistence/techdebt.md`: aqui si propones
 
 La deuda tecnica es el unico registro del porque que **si deja rastro en la evidencia**: algo a
 medias, un `TODO`, una comprobacion que quedo sin hacer, un archivo que quedo inconsistente.
@@ -592,7 +597,7 @@ acuerdo pero que aun no hicimos no esta implementado ni rechazado: **no aparece 
 desaparece del radar.** Esa es la forma en que se pierden los hallazgos buenos.
 
 ⚠️ Un hallazgo rechazado **por coste o prioridad** —no por ser incorrecto— es deuda tecnica por
-definicion y exige su `DT-XXX`. Un rechazo por coste sin entrada en `debtec.md` es, por si solo, un
+definicion y exige su `DT-XXX`. Un rechazo por coste sin entrada en `techdebt.md` es, por si solo, un
 hallazgo del auditor, y no requiere criterio: se comprueba mirando si la entrada existe.
 
 ### 🚨 Si el rechazo clasifica el asunto como reversible o irreversible, dilo como criterio
@@ -753,7 +758,7 @@ retransmite. Un reporte recortado se recorta dos veces.
 ### _persistence/ actualizado
 - progress.md — <S-XXX nueva> · <en una linea, que cambio en «Estado general»>
 - tasks.md — <N implementadas, N pendientes, N nuevas>
-- debtec.md — <sin novedad | PROPUESTA: DT-XXX ... (pendiente de confirmar)>
+- techdebt.md — <sin novedad | PROPUESTA: DT-XXX ... (pendiente de confirmar)>
 
 ### Los cuatro del porque — revisados, no escritos
 - decisions.md — <al dia | falta anotar: ... | 🚨 D-XXX verifica sin comando ni salida>

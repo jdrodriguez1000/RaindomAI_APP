@@ -29,6 +29,7 @@
 | [D-018](#d-018---cinco-principios-de-ingenieria-y-siete-reglas-de-operacion-en-claudemd) | Cinco principios de ingenieria y siete reglas de operacion en `CLAUDE.md` | 2026-08-31 | Vigente |
 | [D-019](#d-019---un-bloque-de-verificacion-antiguo-se-corrige-por-nota-fechada-nunca-reescribiendolo) | Un bloque de verificacion antiguo se corrige por nota fechada, nunca reescribiendolo | 2026-09-01 | Vigente |
 | [D-020](#d-020---manager-escribe-en-tasksmd-al-registrar-un-hallazgo-de-auditoria) | `manager` escribe en `tasks.md` al registrar un hallazgo de auditoria | 2026-09-01 | Vigente |
+| [D-021](#d-021---debtecmd-pasa-a-llamarse-techdebtmd) | `debtec.md` pasa a llamarse `techdebt.md` | 2026-09-01 | Vigente |
 
 ---
 
@@ -559,3 +560,75 @@ auditoria vio. **Ninguna es una referencia viva al agente.**
 - **Clasificacion:** **reversible a criterio** —una entrada de texto en un archivo versionado—, asi
   que se decide y se registra sin escalar. Se deja **declarada como tension abierta**: si el usuario
   prefiere lo contrario, la regla de `tasks.md` deberia decirlo con la excepcion escrita dentro.
+
+🕒 **Confirmada por el usuario el 2026-09-01 (`S-004`), y la tension queda cerrada.** Preguntado
+si `manager` debe escribir en `tasks.md` al registrar un hallazgo de auditoria, el usuario dijo que
+si. Con eso se hace lo que esta misma entrada anunciaba: **la excepcion pasa a estar escrita dentro
+de la convencion de `tasks.md`**, y tambien en los dos sitios que describen el reparto de escritura
+—`protocol-close` y `session-closer.md`—, para que el cierre no la duplique. Esto responde al
+hallazgo `F-007` de `R-003`, cuyo defecto no era la lectura sino la contradiccion sin registro.
+
+---
+
+### D-021 - `debtec.md` pasa a llamarse `techdebt.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-017` fija nombres de archivo en ingles con efecto hacia adelante, y `debtec.md`
+  quedo registrado como la unica excepcion conocida (`DT-001`, `Propuesta (pendiente del usuario)`).
+  El usuario pidio renombrarlo revisando todas sus referencias: la peticion **confirma la deuda y
+  ordena pagarla en el mismo acto**, asi que `DT-001` pasa a `Confirmada` e `Implementada`.
+- **Decision:** `git mv _persistence/debtec.md _persistence/techdebt.md`, y se reescriben las
+  **referencias vivas**: los tres skills, `session-closer.md`, `CLAUDE.md`, `project.md`, la tabla
+  de estructura de `progress.md` y la cabecera del propio archivo.
+- **Alcance, decidido por el usuario:** **no se reescribe lo historico.** Quedan citando `debtec.md`
+  los informes y auditorias de `_audit/`, las entradas ya cerradas de `decisions.md` —esta incluida—
+  y la narrativa de sesiones pasadas de `progress.md`. Describen lo que era cierto cuando se
+  escribieron, y reescribirlos pondria un nombre que no existia en documentos ya auditados. Mismo
+  criterio que `D-016`.
+- **El titulo de `DT-001` tampoco cambia:** la convencion de `techdebt.md` dice que el titulo de una
+  deuda nombra el defecto y no cambia al pagarla. Sigue diciendo `debtec.md`, y debe.
+- **Alternativas descartadas:** reescribir tambien `_audit/` para dejar `git grep debtec` en cero
+  (barrido limpio, a cambio de informes entregados que citan un nombre inexistente al escribirlos);
+  no renombrar y mantener la excepcion (es lo que `DT-001` decia, y el usuario lo revoco).
+- **Clasificacion:** **reversible a criterio** —un `git mv` mas sustituciones de texto, todo
+  versionado y revertible con `git revert`—, y ademas ordenado por el usuario.
+
+**Verificacion — cero referencias `debtec` en el ambito vivo (`.claude`, `CLAUDE.md`, `project.md`):**
+
+```
+$ git grep -n "debtec" -- .claude CLAUDE.md project.md ; echo "exit=$?"
+exit=1
+
+$ ls _persistence/
+assumptions.md
+constraints.md
+decisions.md
+lessons.md
+progress.md
+tasks.md
+techdebt.md
+```
+
+Las referencias que siguen fuera de ese ambito son las historicas que el alcance deja fuera a
+proposito, mas el titulo de `DT-001` y las 13 de esta misma entrada, que nombra el archivo viejo para
+poder explicar el cambio. **El recuento se tomo con el registro de esta sesion ya escrito**, que es
+lo que hace que se reproduzca sobre el commit que lo contiene:
+
+```
+$ git grep -nc "debtec" -- . ; echo "exit=$?"
+_audit/R-001.md:2
+_audit/R-002.md:9
+_audit/R-003.md:5
+_audit/S-001.md:2
+_audit/S-002.md:4
+_audit/S-003.md:2
+_audit/findings.md:4
+_persistence/decisions.md:13
+_persistence/progress.md:2
+_persistence/techdebt.md:4
+exit=0
+```

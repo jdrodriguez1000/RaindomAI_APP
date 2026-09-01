@@ -1,6 +1,6 @@
 ---
 name: protocol-start
-description: Protocolo de inicio de sesion del proyecto. Lee de forma obligatoria el estado de git, project.md, CLAUDE.md, _persistence/progress.md y _persistence/tasks.md; a demanda decisions.md, constraints.md, assumptions.md, lessons.md y debtec.md. Con eso presenta en pantalla donde esta el proyecto, las ultimas tareas realizadas y las siguientes, ordenadas por urgencia e importancia. Es de solo lectura. Uso exclusivo del agente session-starter.
+description: Protocolo de inicio de sesion del proyecto. Lee de forma obligatoria el estado de git, project.md, CLAUDE.md, _persistence/progress.md y _persistence/tasks.md; a demanda decisions.md, constraints.md, assumptions.md, lessons.md y techdebt.md. Con eso presenta en pantalla donde esta el proyecto, las ultimas tareas realizadas y las siguientes, ordenadas por urgencia e importancia. Es de solo lectura. Uso exclusivo del agente session-starter.
 ---
 
 # Protocolo de inicio de sesion
@@ -152,7 +152,7 @@ que la ultima entrada**.
 El **5** se comprueba con una sola orden, y no gasta contexto:
 
 ```bash
-for f in tasks decisions constraints assumptions lessons debtec progress; do
+for f in tasks decisions constraints assumptions lessons techdebt progress; do
   echo "== $f"
   diff <(awk '/^```/{c=!c; next} !c' "_persistence/$f.md" | grep -oE '^\| \[?[A-Z]+-[0-9]+' | grep -oE '[A-Z]+-[0-9]+' | sort -u) \
        <(awk '/^```/{c=!c; next} !c' "_persistence/$f.md" | grep -oE '^#{3} [A-Z]+-[0-9]+'   | grep -oE '[A-Z]+-[0-9]+' | sort -u)
@@ -223,7 +223,7 @@ teniendo clara **que pregunta concreta** quieres responder con cada uno:
 | `_persistence/constraints.md` | las siguientes tareas toquen areas con limites conocidos |
 | `_persistence/assumptions.md` | haya tareas apoyadas en supuestos sin confirmar, o supuestos que puedan haber caducado |
 | `_persistence/lessons.md` | se vaya a repetir un tipo de trabajo que ya fallo antes |
-| `_persistence/debtec.md` | haya deuda que bloquee lo siguiente, o propuestas del cierre sin confirmar |
+| `_persistence/techdebt.md` | haya deuda que bloquee lo siguiente, o propuestas del cierre sin confirmar |
 | `_audit/S-XXX.md` | quieras ver que se dijo de una sesion concreta, o que puntos debiles declaro |
 | el `R-XXX.md` de una auditoria | el Paso 1c muestre hallazgos nuevos **y** el usuario pida el detalle. Por defecto basta con anunciarlos por codigo y gravedad |
 | `_brief/` | el usuario lo pida explicitamente. **No es fuente de estado** — ver la regla del Paso 1 |
@@ -236,7 +236,7 @@ contenido cambia o desaparece sin aviso.
 ## Como se leen estos archivos
 
 Los siete archivos de `_persistence/` tienen la misma forma: **indice arriba, convenciones despues,
-detalle debajo**. El indice de `tasks.md` y `debtec.md` ya trae **estado, importancia y urgencia**
+detalle debajo**. El indice de `tasks.md` y `techdebt.md` ya trae **estado, importancia y urgencia**
 en la propia fila.
 
 > 🔑 **El indice es la respuesta por defecto; el detalle es la excepcion.**
@@ -268,7 +268,7 @@ Extraer los campos cuesta una orden y no gasta contexto:
 grep -E '^\| \[T-' _persistence/tasks.md | grep -E '\| No implementada \|'
 
 # pendientes y bloqueantes — lo que abre el dia
-grep -hE '^\| \[(T|DT)-' _persistence/tasks.md _persistence/debtec.md \
+grep -hE '^\| \[(T|DT)-' _persistence/tasks.md _persistence/techdebt.md \
   | grep -E '\| No implementada \|' | grep 'Bloqueante' | grep -v 'No bloqueante'
 
 # ultima sesion registrada (id mas alto, no fecha)
@@ -282,7 +282,7 @@ Aqui nada se tacha: **el estado va en su columna**, y hay que leerlo.
 | Archivo | No reportes como abierto |
 |---|---|
 | `tasks.md` | `Implementada` · `Cancelada` · `Suspendida` |
-| `debtec.md` | `Implementada` · `Cancelada` · `Suspendida` |
+| `techdebt.md` | `Implementada` · `Cancelada` · `Suspendida` |
 | `decisions.md` | `Revocada por D-XXX` |
 | `assumptions.md` | `Confirmado` · `Refutado` |
 | `constraints.md` | `Levantada` |
@@ -360,7 +360,7 @@ Reglas del reporte:
   aparicion en el archivo: primero las `Bloqueante`, y dentro de ellas `Alta` antes que `Media` y
   `Baja`. Esos campos existen para decidir el orden del dia; usalos.
 - 🔻 **Un bloqueo vigente es OBLIGATORIO si existe, y va el primero de «Siguientes tareas».**
-  Buscalo en `progress.md`, en `tasks.md` y en `debtec.md`.
+  Buscalo en `progress.md`, en `tasks.md` y en `techdebt.md`.
 - ⚠️ **Un bloqueo se cita por su ACCION, no por la fecha en que se espera.** Escribirlo como *«lo
   primero de la proxima etapa»* lo deja gastado en cuanto esa etapa empieza.
 - 🚨 **Un bloqueo no se cuelga de una tarea que no lo tiene.** Si no sabes de cual es, **dilo suelto:

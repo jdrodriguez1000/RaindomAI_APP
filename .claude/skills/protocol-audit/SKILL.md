@@ -117,7 +117,7 @@ desconfianza: es la unica forma de saber si de verdad se corrieron.**
 **a) Indice ↔ detalle en `_persistence/`:**
 
 ```bash
-for f in tasks decisions constraints assumptions lessons debtec progress; do
+for f in tasks decisions constraints assumptions lessons techdebt progress; do
   echo "== $f"
   diff <(git show <hash>:_persistence/$f.md | awk '/^```/{c=!c; next} !c' | grep -oE '^\| \[?[A-Z]+-[0-9]+' | grep -oE '[A-Z]+-[0-9]+' | sort -u) \
        <(git show <hash>:_persistence/$f.md | awk '/^```/{c=!c; next} !c' | grep -oE '^#{3} [A-Z]+-[0-9]+'   | grep -oE '[A-Z]+-[0-9]+' | sort -u)

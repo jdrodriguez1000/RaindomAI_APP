@@ -27,6 +27,7 @@
 | [S-001](#s-001---primer-cierre-se-monta-la-forma-de-trabajar) | Primer cierre: se monta la forma de trabajar | 2026-08-31 | `000_preproject` |
 | [S-002](#s-002---rename-del-agente-de-auditoria-y-nuevas-reglas-de-claudemd) | Rename del agente de auditoria y nuevas reglas de `CLAUDE.md` | 2026-08-31 | `000_preproject` |
 | [S-003](#s-003---se-evaluan-y-registran-los-cuatro-hallazgos-de-r-002) | Se evaluan y registran los cuatro hallazgos de `R-002` | 2026-09-01 | `000_preproject` |
+| [S-004](#s-004---se-acepta-f-007-y-se-paga-dt-001-renombrado-de-techdebtmd) | Se acepta `F-007` y se paga `DT-001` (renombrado de `techdebt.md`) | 2026-09-01 | `000_preproject` |
 
 ---
 
@@ -52,32 +53,33 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-01 (S-003) |
+| Ultima actualizacion | 2026-09-01 (S-004) |
 | Salud | En marcha |
-| Avance de la etapa | El commit `c575bc0` (auditoria `R-002` sobre `S-002`) dejo cuatro hallazgos abiertos (`F-001`..`F-004`). En esta sesion `manager` los evaluo, verifico cada uno contra `HEAD` y los acepto los cuatro: registro `T-004`..`T-007` con `Origen: report_auditor`, corrigio la fuga de dos identificadores `auditor` vivos, acoto por nota fechada el enunciado del bloque de verificacion de `D-016`, devolvio `DT-001` a `Propuesta (pendiente del usuario)` y corrigio la tabla de actores de `session-closer.md`. Quedaron dos decisiones nuevas (`D-019`, `D-020`) y una leccion nueva (`L-006`). Sigue pendiente el trabajo de producto: `T-001`, `T-002`, `T-003`. |
-| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`); las etapas posteriores a `000_preproject` no estan declaradas (`T-002`); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`); `DT-001` sigue esperando la confirmacion del usuario |
+| Avance de la etapa | El commit `cebcb3f` (auditoria `R-003` sobre `S-003`) dejo tres hallazgos abiertos (`F-005`, `F-006`, `F-007`). En esta sesion `manager` evaluo `F-007`: lo verifico contra `HEAD` y lo acepto, registrando `T-008` con `Origen: report_auditor`. La correccion escribio la excepcion de `D-020` **dentro de la convencion de `tasks.md`** (antes solo vivia en el cuerpo de la decision), y la reflejo tambien en `protocol-close` y en `session-closer.md`; la tension de `D-020` queda cerrada con la confirmacion del usuario. Ademas, el usuario pidio pagar `DT-001` en la misma peticion en que la confirmo: `_persistence/debtec.md` se renombro a `_persistence/techdebt.md` (`git mv`) y se reescribieron sus referencias vivas en los tres skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de estructura de `progress.md` (`D-021`). Se registro `L-007` (una excepcion se escribe donde esta la regla, no donde se decidio). `F-005` y `F-006` de `R-003` siguen `Abierto`, sin evaluar esta sesion. Sigue pendiente el trabajo de producto: `T-001`, `T-002`, `T-003`. |
+| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`); las etapas posteriores a `000_preproject` no estan declaradas (`T-002`); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo los cuatro hallazgos que dejo `R-002` sobre `S-002` (`F-001`..`F-004`), verificando
-cada uno contra `HEAD` antes de aceptarlo (los cuatro se aceptaron, ninguno se rechazo). Se
-registraron `T-004`..`T-007` con `Origen: report_auditor`, y sobre cada uno:
+`manager` evaluo el hallazgo `F-007` que dejo `R-003` sobre `S-003`, lo verifico contra `HEAD`
+(`ea0b850`) y lo acepto: `D-020` permitia escribir en `tasks.md` al registrar un hallazgo de
+auditoria, pero la tension solo estaba declarada en el cuerpo de la decision, no en la convencion
+del archivo que la regla contradecia. Se registro `T-008` con `Origen: report_auditor`, se escribio
+la excepcion **dentro de la convencion de `tasks.md`**, y se reflejo tambien en `protocol-close` y en
+`session-closer.md`. El usuario, preguntado, confirmo que `manager` debe escribir esa `T-XXX` en el
+momento de aceptar el hallazgo; la confirmacion quedo anotada en `D-020`, que cierra su tension.
 
-- `F-001` — el bloque de verificacion de `D-016` afirmaba «cero identificadores `auditor` vivos» sin
-  acotar ambito; se le anadio debajo una nota fechada que acota el ambito real y aporta el barrido
-  completo (`D-019`: un bloque de verificacion antiguo se corrige por nota, nunca reescribiendolo).
-- `F-002` — las dos referencias vivas al handle `auditor` que ese ambito estrecho no cubria
-  (`_audit/findings.md:3` y un ejemplo en `_persistence/tasks.md`) se corrigieron a `report_auditor`.
-- `F-003` — `DT-001` volvio de `Confirmada` a `Propuesta (pendiente del usuario)`: ese valor lo
-  habia escrito el cierre de `S-002`, y el Paso 5 de `protocol-close` se lo prohibe.
-- `F-004` — la tabla de actores de `session-closer.md` describia a `report_auditor` en «su propio
-  repositorio», resto del esquema que `D-012` revoco; ahora nombra lo que escribe de verdad.
+Ademas, el usuario pidio pagar `DT-001` en la misma peticion en que la confirmo: se renombro
+`_persistence/debtec.md` a `_persistence/techdebt.md` con `git mv`, y se reescribieron sus
+referencias vivas en los tres skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de
+estructura de este archivo (`D-021`). No se toco lo historico: los informes y auditorias de
+`_audit/`, las entradas ya cerradas de `decisions.md` y la narrativa de sesiones pasadas de este
+archivo siguen citando `debtec.md`, por el mismo criterio que `D-016`. `DT-001` pasa a
+`Confirmada`/`Implementada`.
 
-Ademas: `L-006` (un bloque de verificacion declara su ambito dentro del enunciado), `D-020` (`manager`
-escribe en `tasks.md` al registrar un hallazgo de auditoria, por mandato de `CLAUDE.md`), y una
-observacion nueva en `A-001` (primera senal a favor del supuesto, con material real de `R-002`).
+Se registro `L-007` (una excepcion se escribe donde esta la regla, no donde se decidio).
+`F-005` y `F-006` de `R-003` siguen `Abierto`, sin evaluar esta sesion.
 
 ---
 
@@ -85,7 +87,8 @@ observacion nueva en `A-001` (primera senal a favor del supuesto, con material r
 
 Definir el alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`), que es
 lo que abre la etapa siguiente a `000_preproject`. En paralelo, `manager` debe lanzar `report_auditor`
-sobre el commit de este cierre, y pedir al usuario que confirme o rechace `DT-001` (`F-003`).
+sobre el commit de este cierre, y evaluar los hallazgos `F-005` y `F-006` de `R-003`, que siguen
+`Abierto`.
 
 ---
 
@@ -191,6 +194,28 @@ Plantilla:
 
 ---
 
+### S-004 - Se acepta `F-007` y se paga `DT-001` (renombrado de `techdebt.md`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Etapa | `000_preproject` |
+| Tareas | T-008 |
+
+- **Que se hizo:** `manager` evaluo `F-007` (`R-003` sobre `S-003`), lo verifico contra `HEAD`
+  (`ea0b850`) y lo acepto: registro `T-008` con `Origen: report_auditor` y escribio la excepcion de
+  `D-020` **dentro de la convencion de `tasks.md`**, reflejandola tambien en `protocol-close` y en
+  `session-closer.md`. El usuario confirmo que `manager` debe escribir esa `T-XXX` al aceptar un
+  hallazgo, y esa confirmacion cierra la tension que `D-020` habia dejado declarada. En la misma
+  peticion, el usuario pidio pagar `DT-001`: `_persistence/debtec.md` se renombro a
+  `_persistence/techdebt.md` con `git mv`, y se reescribieron sus referencias vivas en los tres
+  skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de estructura de `progress.md`
+  (`D-021`). `DT-001` pasa a `Confirmada`/`Implementada`. Se registro `L-007` (una excepcion se
+  escribe donde esta la regla, no donde se decidio).
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `F-005` y `F-006` de
+  `R-003` siguen `Abierto`, sin evaluar esta sesion.
+
+---
+
 ## 6. Mapa de persistencia
 
 | Archivo | Registra | Codigo |
@@ -201,4 +226,4 @@ Plantilla:
 | `constraints.md` | Limitaciones y restricciones del proyecto | `C-XXX` |
 | `assumptions.md` | Supuestos vigentes por validar | `A-XXX` |
 | `lessons.md` | Lecciones aprendidas durante la ejecucion | `L-XXX` |
-| `debtec.md` | Deuda tecnica del proyecto | `DT-XXX` |
+| `techdebt.md` | Deuda tecnica del proyecto | `DT-XXX` |

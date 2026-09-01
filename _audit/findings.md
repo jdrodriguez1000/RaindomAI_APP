@@ -18,7 +18,7 @@
 | [F-004](#f-004---session-closermd-describe-a-report_auditor-en-su-propio-repositorio) | `session-closer.md` describe a `report_auditor` en «su propio repositorio» | R-002 | Media | Implementado |
 | [F-005](#f-005---el-bloque-de-verificacion-de-la-observacion-nueva-de-a-001-no-se-reproduce-sobre-su-propio-commit) | El bloque de verificacion de la observacion nueva de `A-001` no se reproduce sobre su propio commit | R-003 | Media | Abierto |
 | [F-006](#f-006---la-nota-de-ambito-de-d-016-registra-recuentos-que-no-cuadran-con-el-commit-que-la-contiene) | La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene | R-003 | Baja | Abierto |
-| [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Abierto |
+| [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Aceptado — pendiente |
 
 ---
 
@@ -275,8 +275,8 @@ ea0b850:_persistence/tasks.md:4
 | Auditoria | R-003 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-008 |
 | Cerrado en | |
 
 - **Que se observo:** `D-020` esta `Vigente` y permite a `manager` escribir en `tasks.md`. La
@@ -294,4 +294,9 @@ exit=1
 - **Por que importa:** quien abra `tasks.md` sin conocer `D-020` lee una prohibicion absoluta que ya
   no rige, y `T-004`..`T-007` la incumplen a la vista. Una tension declarada solo en el cuerpo de la
   decision que la crea no vuelve a mirarla nadie.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo acepta (2026-09-01, sesion `S-004`). Se verifico contra `HEAD`
+  (`ea0b850`) que el defecto seguia vivo. El usuario, preguntado, confirmo que `manager` **si** debe
+  escribir la `T-XXX` al registrar un hallazgo: la lectura de `D-020` era correcta y lo que faltaba
+  era el registro. La excepcion se escribe dentro de la convencion de `tasks.md`, acotada a ese caso,
+  y se refleja en `protocol-close` y en `session-closer.md`. La confirmacion queda anotada en
+  `D-020`. Registrado en `T-008`.

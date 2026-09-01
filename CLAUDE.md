@@ -288,7 +288,7 @@ su propio `S-XXX`.
 
 Al terminar cada sesion de trabajo, **delega en el agente `session-closer`** y muestra su reporte al
 usuario. El recoge la evidencia con `git`, actualiza `progress.md` y `tasks.md`, propone entradas de
-`debtec.md`, y hace el commit de la jornada con su push.
+`techdebt.md`, y hace el commit de la jornada con su push.
 
 Aplica tambien cuando el usuario lo pida a mitad de conversacion: "cerremos la sesion", "cierra la
 sesion", "finalicemos el trabajo", "cerremos", "guarda el avance", "terminamos por hoy" o algo

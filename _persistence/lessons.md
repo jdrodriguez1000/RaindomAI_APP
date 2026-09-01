@@ -15,6 +15,7 @@
 | [L-004](#l-004---un-encabezado-que-cuenta-se-desincroniza-de-lo-que-cuenta) | Un encabezado que cuenta se desincroniza de lo que cuenta | 2026-08-31 | 000_preproject |
 | [L-005](#l-005---renombrar-un-agente-no-es-renombrar-su-archivo) | Renombrar un agente no es renombrar su archivo | 2026-08-31 | 000_preproject |
 | [L-006](#l-006---un-bloque-de-verificacion-declara-su-ambito-dentro-del-enunciado) | Un bloque de verificacion declara su ambito dentro del enunciado | 2026-09-01 | 000_preproject |
+| [L-007](#l-007---una-excepcion-se-escribe-donde-esta-la-regla-no-donde-se-decidio) | Una excepcion se escribe donde esta la regla, no donde se decidio | 2026-09-01 | 000_preproject |
 
 ---
 
@@ -183,3 +184,30 @@ el repositorio entero y **luego** se clasifica cada coincidencia en viva o histo
 
   Cuando un bloque ya escrito afirma de mas, se corrige por nota fechada y no reescribiendolo:
   `D-019`.
+
+---
+
+### L-007 - Una excepcion se escribe donde esta la regla, no donde se decidio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `D-020` decidio que `manager` puede escribir en `tasks.md` al registrar un hallazgo
+  aceptado, y dejo la tension **declarada dentro de la propia decision**. La convencion de
+  `tasks.md` siguio diciendo, en absoluto, que el archivo no se escribe a mano durante la jornada.
+- **Que ocurrio:** `R-003` lo abrio como `F-007`. Nada fallo al ejecutar: la excepcion era correcta
+  y el usuario la confirmo despues. Lo que fallaba era **donde estaba escrita**. Quien abriera
+  `tasks.md` sin haber leido `D-020` veia una prohibicion absoluta y cuatro tareas incumpliendola a
+  la vista, y de ahi solo salen dos lecturas, las dos malas: que la regla no rige, o que el trabajo
+  esta mal hecho.
+- **Leccion:** declarar una tension en el cuerpo de la decision que la crea **no la registra**: la
+  deja donde solo la encuentra quien ya sabia que existia. Una regla y su excepcion se leen juntas o
+  no se leen — y la regla es el sitio donde la gente mira, no la decision.
+- **Como aplicarla:** al registrar una `D-XXX` que abre una excepcion a una regla ya escrita, la
+  misma pasada toca **los dos sitios**: la decision, con su porque; y **el texto de la regla**, con
+  la excepcion enunciada, acotada y citando la `D-XXX`. Si la regla vive en mas de un archivo
+  —protocolo, agente, convencion—, van todos, o el siguiente lector encontrara el que quedo sin
+  tocar. La comprobacion es barata: `git grep` del enunciado absoluto, y que cada sitio que lo
+  repite lleve la excepcion al lado.

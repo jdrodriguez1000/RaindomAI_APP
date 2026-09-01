@@ -16,6 +16,7 @@
 | [T-005](#t-005---corregir-los-dos-identificadores-auditor-vivos-f-002) | Corregir los dos identificadores `auditor` vivos (`F-002`) | Implementada | Baja | No bloqueante |
 | [T-006](#t-006---devolver-dt-001-a-propuesta-pendiente-del-usuario-f-003) | Devolver `DT-001` a `Propuesta (pendiente del usuario)` (`F-003`) | Implementada | Media | No bloqueante |
 | [T-007](#t-007---corregir-la-tabla-de-actores-de-session-closermd-f-004) | Corregir la tabla de actores de `session-closer.md` (`F-004`) | Implementada | Media | No bloqueante |
+| [T-008](#t-008---escribir-en-la-convencion-de-tasksmd-la-excepcion-que-fija-d-020-f-007) | Escribir en la convencion de `tasks.md` la excepcion que fija `D-020` (`F-007`) | Implementada | Media | No bloqueante |
 
 ---
 
@@ -47,7 +48,18 @@ Regla: una tarea con origen `report_auditor` solo pasa a ejecutarse despues de q
 recomendacion y la considere correcta.
 
 🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto
-con `progress.md`.
+con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
+`F-NNN` de una auditoria y lo acepta, escribe **en ese momento** la `T-XXX` con
+`Origen: report_auditor`, sin esperar al cierre. Lo fija `D-020`, confirmada por el usuario el
+2026-09-01.
+
+🔑 **Por que esa excepcion existe.** La fila del hallazgo en `_audit/findings.md` tiene que
+citar el codigo de su tarea para ser auditable, y una fila que cita una `T-XXX` inexistente no lo es.
+Esperar al cierre dejaria el hallazgo evaluado y sin registro durante toda la jornada — el agujero
+que el estado `Aceptado — pendiente` existe justamente para tapar.
+
+⚠️ **Es una excepcion, no una puerta.** Cubre la `T-XXX` que nace de un hallazgo aceptado y nada
+mas: cualquier otra tarea, y el resto del archivo, siguen siendo del `session-closer`.
 
 🚨 **El indice se escribe a mano, sin generador.** Cada fila enlaza por ancla a su tarea.
 
@@ -202,3 +214,25 @@ Plantilla:
   archivo, en una tabla que el `session-closer` lee en cada cierre.
 - **Criterio de cierre:** `git grep -n "su propio repositorio" -- .claude` ya no devuelve esa linea.
   Verificado en el diff de esta sesion.
+
+---
+
+### T-008 - Escribir en la convencion de `tasks.md` la excepcion que fija `D-020` (`F-007`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Sesion | S-004 |
+
+- **Que:** la convencion de este archivo prohibia en absoluto escribirlo a mano durante la jornada,
+  mientras `D-020` permitia a `manager` hacerlo al registrar un hallazgo aceptado. Se escribe la
+  excepcion **dentro de la convencion**, acotada a ese unico caso y con su motivo, y se refleja
+  tambien en `protocol-close` y en `session-closer.md` para que el cierre no duplique la tarea.
+- **Por que:** quien abriera este archivo sin conocer `D-020` leia una prohibicion que ya no regia,
+  con `T-004`..`T-007` incumpliendola a la vista. El defecto no era la lectura de `D-020` sino la
+  contradiccion sin registro.
+- **Criterio de cierre:** la convencion enuncia la excepcion y cita `D-020`; el usuario confirmo la
+  lectura el 2026-09-01, y esa confirmacion quedo anotada en `D-020`. Verificado en el diff de esta
+  sesion.

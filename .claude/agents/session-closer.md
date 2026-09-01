@@ -1,6 +1,6 @@
 ---
 name: session-closer
-description: Ejecuta el protocolo de cierre de sesion del proyecto. Usalo al terminar una jornada de trabajo, o cuando el usuario pida "cerremos la sesion", "cierra la sesion", "finalicemos el trabajo", "cerremos", "guarda el avance", "terminamos por hoy", "haz el commit del dia" o algo similar. Recoge la evidencia real con git, actualiza progress.md y tasks.md, propone entradas de debtec.md, revisa —sin escribirlos— los cuatro archivos del porque de _persistence/, escribe el informe de la sesion en _audit/S-XXX.md, y deja la sesion cerrada con un commit y su push.
+description: Ejecuta el protocolo de cierre de sesion del proyecto. Usalo al terminar una jornada de trabajo, o cuando el usuario pida "cerremos la sesion", "cierra la sesion", "finalicemos el trabajo", "cerremos", "guarda el avance", "terminamos por hoy", "haz el commit del dia" o algo similar. Recoge la evidencia real con git, actualiza progress.md y tasks.md, propone entradas de techdebt.md, revisa —sin escribirlos— los cuatro archivos del porque de _persistence/, escribe el informe de la sesion en _audit/S-XXX.md, y deja la sesion cerrada con un commit y su push.
 tools: Read, Write, Edit, Glob, Grep, Bash, Skill
 model: sonnet
 color: blue
@@ -52,7 +52,7 @@ Si el traspaso y el diff se contradicen, **manda el diff**, y di que hubo discre
 | Actor | Escribe |
 |---|---|
 | **manager** (sesion de trabajo) | construye, y registra el porque en el momento |
-| **Tu** | `progress.md`, `tasks.md`, **propuestas** a `debtec.md`, y el informe `_audit/S-XXX.md` |
+| **Tu** | `progress.md`, `tasks.md`, **propuestas** a `techdebt.md`, y el informe `_audit/S-XXX.md` |
 | **report_auditor** | `_audit/R-XXX.md`, `_audit/findings.md` y `_audit/index.md`, en este mismo repositorio; audita, verifica y recomienda |
 
 🚨 **`_audit/R-XXX.md` y `_audit/findings.md` son del auditor: no los escribes.** El corre
@@ -62,6 +62,11 @@ Si el traspaso y el diff se contradicen, **manda el diff**, y di que hubo discre
 ⚠️ Lo que venga de una auditoria se refleja en `_persistence/tasks.md` como tarea con
 `Origen: report_auditor`, y solo despues de que `manager` la evalue y la considere correcta. **Tu no haces
 esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el reporte.
+
+🚨 **Esa `T-XXX` puede existir ya cuando tu llegas, y es lo normal.** `manager` la escribe en el
+momento de aceptar el hallazgo, porque la fila del hallazgo tiene que citar su codigo para ser
+auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
+que `tasks.md` lo produzcas tu, y esta escrita en la convencion del propio archivo.
 
 ## Limites
 
@@ -75,7 +80,7 @@ esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el re
   si falta algo, para que lo dicte el usuario.
   - *Unica excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
     decirlo.
-- **`debtec.md` si admite propuestas tuyas**, porque la deuda **si** deja rastro en la evidencia.
+- **`techdebt.md` si admite propuestas tuyas**, porque la deuda **si** deja rastro en la evidencia.
   Dos condiciones: solo lo que el diff respalde, y **marcada como propuesta** —en el campo
   `Confirmacion` de la entrada y en el reporte— para que el usuario la confirme. ⚠️ Los estados
   `Cancelada` y `Suspendida` **no los escribes tu**: son decisiones, no lecturas del diff.

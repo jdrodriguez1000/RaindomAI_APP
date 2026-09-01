@@ -145,7 +145,7 @@ envejece sin que nadie la revise y acaba tapando justo lo que el control existe 
 | `C-XXX` | `_persistence/constraints.md` | restriccion |
 | `A-XXX` | `_persistence/assumptions.md` | supuesto |
 | `L-XXX` | `_persistence/lessons.md` | leccion aprendida |
-| `DT-XXX` | `_persistence/debtec.md` | deuda tecnica |
+| `DT-XXX` | `_persistence/techdebt.md` | deuda tecnica |
 | `F-NNN` | `_audit/findings.md` | hallazgo de auditoria |
 | `R-XXX` | `_audit/R-XXX.md` | auditoria de una sesion |
 
