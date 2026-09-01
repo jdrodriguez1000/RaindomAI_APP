@@ -118,6 +118,38 @@ El supuesto **sigue `Abierto`**: van tres auditorias registradas (`R-001`, `R-00
 `R-004`, asi que la revision explicita fijada en el disparador ya toca — queda como asunto propio,
 no se despacha en esta nota.
 
+🕒 **Nota anadida el 2026-09-02 (`S-006`), tras el hallazgo `F-011` de `R-005`.** Los dos bloques
+de arriba **se dejan tal cual se ejecutaron** (`D-019`); lo que se anade es su ancla.
+
+**El bloque de la «señal 2, rehecha» se tomo sobre `HEAD` sin decir cual era.** Cuando se escribio,
+`HEAD` era `e61454b` —el commit anterior al que acabaria conteniendo la nota—, y sobre ese hash el
+resultado registrado se reproduce:
+
+```
+$ git grep -n "| Pendiente |" e61454b -- _audit/index.md ; echo "exit=$?"
+exit=1
+```
+
+Sobre `510d580`, el commit que **si** contiene la nota, devuelve lo contrario, porque el
+`session-closer` ya habia escrito la fila de su propia sesion:
+
+```
+$ git grep -n "| Pendiente |" 510d580 -- _audit/index.md ; echo "exit=$?"
+510d580:_audit/index.md:16:| `S-005.md` | S-005 | 2026-09-01 | Pendiente | Pendiente | Pendiente | - |
+exit=0
+```
+
+⚠️ **La cifra no estaba mal; la declaracion de ambito si.** `_audit/index.md` es justo uno de los
+archivos que el cierre todavia iba a tocar, asi que el recuento cae de lleno en la regla 1 de `D-022`
+—escrita en ese mismo commit—: se fecha o se ancla, nunca se declara reproducible sobre el commit que
+lo contiene. **Leido con el ancla, el enunciado se sostiene entero:** la señal 2 rehecha —«sigue en
+`Pendiente` **al abrirse la sesion siguiente**»— sigue sin cumplirse, y hoy tampoco:
+
+```
+$ git grep -n "| Pendiente |" a800d6b -- _audit/index.md ; echo "exit=$?"
+exit=1
+```
+
 ---
 
 ### A-002 - El brief recibido es el encargo completo

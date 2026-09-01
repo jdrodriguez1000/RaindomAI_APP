@@ -65,8 +65,17 @@ esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el re
 
 🚨 **Esa `T-XXX` puede existir ya cuando tu llegas, y es lo normal.** `manager` la escribe en el
 momento de aceptar el hallazgo, porque la fila del hallazgo tiene que citar su codigo para ser
-auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
-que `tasks.md` lo produzcas tu, y esta escrita en la convencion del propio archivo.
+auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue.
+
+🚨 **Y hay una segunda excepcion, del mismo tipo:** `manager` tambien escribe en `tasks.md` cuando el
+cambio **nace de una decision ya registrada que tu no puedes deducir del `git diff`** —reasignar la
+etapa de una tarea, cambiar la estructura del archivo porque lo pidio el usuario—. Tu arrancas en
+frio: una orden del usuario no deja rastro en el diff.
+
+⚠️ **Son dos excepciones, no una puerta, y las dos se reconocen igual: por la cita.** Toda fila
+editada a mano lleva un `D-XXX` o un `F-NNN` que la respalde, escrito en la propia tarea. **Si la
+cita esta, no es una infraccion: no la deshagas ni la reportes como desfase.** Si falta, eso si va al
+reporte. Las dos estan escritas en la convencion del propio `tasks.md`; lo demas sigue siendo tuyo.
 
 ## Limites
 

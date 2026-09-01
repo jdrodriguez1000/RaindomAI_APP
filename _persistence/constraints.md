@@ -16,6 +16,7 @@
 | [C-004](#c-004---entorno-de-ejecucion-windows) | Entorno de ejecucion Windows | Entorno | Vigente |
 | [C-005](#c-005---el-idioma-del-contenido-y-el-de-los-nombres-son-distintos) | El idioma del contenido y el de los nombres son distintos | Proceso | Vigente |
 | [C-006](#c-006---los-principios-de-ingenieria-y-las-reglas-de-operacion-son-vinculantes) | Los principios de ingenieria y las reglas de operacion son vinculantes | Proceso | Vigente |
+| [C-007](#c-007---las-fuentes-de-la-guia-de-metodo-no-se-editan) | Las fuentes de la guia de metodo no se editan | Proceso | Vigente |
 
 ---
 
@@ -145,3 +146,29 @@ encargo no es una decision: adoptarla exigiria su `D-XXX`, y hoy no existe.
 - **Donde muerde de verdad:** «Separacion de roles» y «Revision independiente» prohiben que quien
   construyo evalue lo construido. Es la restriccion que `report_auditor` existe para hacer cumplir,
   y la unica que se rompe sin que nadie lo note si no se lanza.
+
+---
+
+### C-007 - Las fuentes de la guia de metodo no se editan
+| Campo | Valor |
+|---|---|
+| Tipo | Proceso |
+| Origen | usuario |
+| Estado | Vigente |
+
+- **Restriccion:** los tres archivos de `_methodology/sources/` se conservan **intactos**. No se
+  corrigen, no se actualizan y no se alinean con el documento canonico, ni siquiera cuando este los
+  contradice. El enunciado vive en el encabezado de `_methodology/000_method.md` y llego con el
+  material; aqui no se copia.
+- **Implicacion:** toda correccion del metodo se hace en `000_method.md`, y cuando el cambio
+  contradice una fuente **se registra en su Anexo A** en vez de tocarla. Una fuente que se edita para
+  que cuadre deja de ser fuente: pasa a ser una segunda copia del documento canonico, y entonces ya
+  no se puede saber que decia el material original.
+- **Donde muerde de verdad:** las fuentes conservan identificadores que el documento canonico ya
+  cambio —`F-` para feature y `S-` para scenario, que `D-030` renombro a `FT-` y `SC-`—. Un barrido
+  sobre `_methodology/` que espere cero apariciones **las va a encontrar, y es correcto que las
+  encuentre**. Cualquier control que se escriba sobre esa carpeta tiene que acotar su ambito a
+  `000_method.md`, o contar con ellas.
+- **Lo que la restriccion NO impide:** el control de fuga de datos propios del Paso 1b, que si cubre
+  `sources/` —ese barrido espera cero y hoy da cero—. Conservar el material original no autoriza a
+  que lleve dentro datos de este proyecto; si algun dia los llevara, seria un hallazgo.

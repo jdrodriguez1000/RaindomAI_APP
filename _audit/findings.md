@@ -22,10 +22,10 @@
 | [F-008](#f-008---el-bloque-de-verificacion-de-d-021-afirma-reproducirse-sobre-su-commit-y-no-se-reproduce) | El bloque de verificacion de `D-021` afirma reproducirse sobre su commit y no se reproduce | R-004 | Media | Implementado |
 | [F-009](#f-009---dt-001-queda-implementada-con-un-criterio-de-cierre-que-no-se-cumple) | `DT-001` queda `Implementada` con un criterio de cierre que no se cumple | R-004 | Baja | Implementado |
 | [F-010](#f-010---una-convencion-vigente-de-_auditfindingsmd-cita-un-archivo-que-ya-no-existe) | Una convencion vigente de `_audit/findings.md` cita un archivo que ya no existe | R-004 | Baja | Aceptado — pendiente |
-| [F-011](#f-011---la-nota-nueva-de-a-001-vuelve-a-registrar-un-recuento-sobre-head-que-no-se-reproduce-sobre-su-commit) | La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit | R-005 | Media | Abierto |
-| [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Abierto |
-| [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Abierto |
-| [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Abierto |
+| [F-011](#f-011---la-nota-nueva-de-a-001-vuelve-a-registrar-un-recuento-sobre-head-que-no-se-reproduce-sobre-su-commit) | La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit | R-005 | Media | Aceptado — pendiente |
+| [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Aceptado — pendiente |
+| [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Aceptado — pendiente |
+| [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -57,7 +57,7 @@ acuerdo pero que aun no hicimos no esta implementado ni rechazado: no aparece en
 desaparece del radar. Asi es como se pierden los hallazgos buenos.
 
 ⚠️ **Un rechazo por coste o prioridad es deuda tecnica por definicion**, y exige su `DT-XXX`. Un
-rechazo por coste sin entrada en `debtec.md` es, por si solo, un hallazgo nuevo — y no requiere
+rechazo por coste sin entrada en `techdebt.md` es, por si solo, un hallazgo nuevo — y no requiere
 criterio: se comprueba mirando si la entrada existe.
 
 🚨 **El indice se escribe a mano, sin generador.** Cada fila enlaza por ancla a su hallazgo.
@@ -529,7 +529,7 @@ _persistence/techdebt.md
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
 | Estado | Aceptado — pendiente |
-| Registrado en | T-013 |
+| Registrado en | T-013, T-018 |
 | Cerrado en | |
 
 - **Que se observo:**
@@ -585,14 +585,30 @@ $ git grep -n "debtec" 510d580 -- _audit/findings.md | head -1
 
 ---
 
+🕒 **Actualizacion del 2026-09-02 (`S-006`).** `R-005` mantuvo este hallazgo `Aceptado —
+pendiente` porque `T-013` entrego el criterio pero no la correccion, y señalo en su seccion 5 que
+**nadie podia hacerla**: el auditor tiene prohibido corregir y `manager` tenia prohibido escribir en
+este archivo. El punto muerto se zanja con `D-027`, y la correccion va en `T-018`: la linea de la
+seccion «Convenciones» ya cita el nombre vigente. Las demas apariciones del nombre antiguo en este
+archivo son **citas de evidencia dentro de hallazgos entregados** y se dejan intactas.
+
+```
+$ sed -n '1,70p' _audit/findings.md | grep -n "debtec" ; echo "exit=$?"
+exit=1
+```
+
+⚠️ **El estado no cambia y no puede cambiarlo `manager`:** sigue `Aceptado — pendiente`.
+`Implementado` lo escribe la auditoria siguiente, verificando la correccion sobre un commit
+posterior.
+
 ### F-011 - La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit
 | Campo | Valor |
 |---|---|
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-014 |
 | Cerrado en | |
 
 - **Que se observo:** la nota fechada que corrige `F-005` cierra el enunciado de la señal 2 rehecha
@@ -625,7 +641,23 @@ $ git grep -c "debtec" 510d580 -- . | wc -l
   contrario de lo que la nota afirma — y esa es una de las dos señales que pueden refutar `A-001`.
   `Media` y no `Alta` porque el fondo de la correccion es correcto: la señal quedo bien redefinida y
   el bloque original quedo intacto.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo **acepta** (2026-09-02, sesion `S-006`). Verificado contra `HEAD`
+  (`a800d6b`) antes de tratarlo: el bloque de `A-001` sigue devolviendo `exit=1` sobre `HEAD` y
+  `exit=0` sobre `510d580`, y el recuento global ya no da 12 ni 13 sino **14** — el hallazgo se
+  sostiene entero, y la cifra que crece es la mejor prueba de por que `D-022` exige el ancla.
+
+```
+$ git grep -n "| Pendiente |" a800d6b -- _audit/index.md ; echo "exit=$?"
+exit=1
+
+$ git grep -c "debtec" a800d6b -- . | wc -l
+14
+```
+
+  Corregido en `T-014`: dos notas fechadas anclan los bloques a `e61454b`, el `HEAD` real del
+  momento, donde **si** se reproducen (`exit=1` y 12). Los originales quedan intactos (`D-019`).
+  El asunto de fondo que el hallazgo señala —`D-022` sin mecanismo que la aplique— se atiende
+  aparte, en `T-019`.
 
 ---
 
@@ -635,8 +667,8 @@ $ git grep -c "debtec" 510d580 -- . | wc -l
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-015 |
 | Cerrado en | |
 
 - **Que se observo:** `D-025` generaliza la excepcion de escritura de `manager` sobre `tasks.md` a un
@@ -659,7 +691,23 @@ $ git grep -n "unica excepcion\|salvo la .T-XXX" 510d580 -- .claude CLAUDE.md _p
   skill, no `decisions.md`: con este texto tratara como infraccion una fila de `tasks.md` editada a
   mano que no nazca de un hallazgo. Y `_phases/000_preproject.md:182` nace hoy con la version vieja
   de la regla dentro.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo **acepta** (2026-09-02, sesion `S-006`). Verificado contra `HEAD`
+  (`a800d6b`): los tres sitios seguian afirmando que la excepcion es unica.
+
+```
+$ git grep -n "unica excepcion\|salvo la .T-XXX" a800d6b -- .claude CLAUDE.md _phases _persistence/tasks.md
+a800d6b:.claude/agents/session-closer.md:68:auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
+a800d6b:.claude/skills/protocol-close/SKILL.md:40:auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
+a800d6b:.claude/skills/protocol-close/SKILL.md:447:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+a800d6b:_persistence/tasks.md:57:con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
+a800d6b:_phases/000_preproject.md:182:| `tasks.md` | las tareas y su estado | **`session-closer`**, salvo la `T-XXX` que nace de un hallazgo aceptado |
+exit=0
+```
+
+  Corregido en `T-015`, y se toma ademas el **criterio que la propia auditoria propuso**: la
+  excepcion se reconoce por la cita —un `D-XXX` o un `F-NNN` en la propia tarea—, no por el numero
+  de filas. Los tres textos lo enuncian asi, y al agente se le dice explicitamente que **una fila
+  con su cita no es un desfase**, que era el dano concreto del hallazgo.
 
 ---
 
@@ -669,8 +717,8 @@ $ git grep -n "unica excepcion\|salvo la .T-XXX" 510d580 -- .claude CLAUDE.md _p
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-016 |
 | Cerrado en | |
 
 - **Que se observo:**
@@ -690,7 +738,24 @@ $ git show 510d580:.claude/skills/protocol-close/SKILL.md | grep -n "CLAUDE.md _
   mismo commit, y describe mal el ambito del control. Quien lea `D-023` sin llegar a `D-026`
   concluye que la agnosticidad de `_phases/` no tiene control que la compruebe. `Baja` porque la
   informacion correcta esta a tres entradas de distancia y nada operativo depende de esta linea.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo **acepta** (2026-09-02, sesion `S-006`). Verificado contra `HEAD`
+  (`a800d6b`): la advertencia sigue vigente en `D-023` y el control ya cubre `_phases/`.
+
+```
+$ git grep -n "todavia no entra en el ambito del Paso 1b" a800d6b -- _persistence/decisions.md ; echo "exit=$?"
+a800d6b:_persistence/decisions.md:877:⚠️ **`_phases/` todavia no entra en el ambito del Paso 1b**, que hoy cubre solo `.claude`,
+exit=0
+
+$ git grep -n "CLAUDE.md _phases" a800d6b -- .claude ; echo "exit=$?"
+a800d6b:.claude/skills/protocol-audit/SKILL.md:140:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" <hash> -- .claude CLAUDE.md _phases
+a800d6b:.claude/skills/protocol-close/SKILL.md:96:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases
+exit=0
+```
+
+  Corregido en `T-016` por nota fechada, sin reescribir el original (`D-019`). **El hallazgo se
+  quedaba corto:** la advertencia tambien describia mal el ambito **anterior** —decia tres rutas
+  donde habia dos, y la tercera nunca estuvo en el control—. La nota lo corrige tambien, con su
+  comando sobre `c70b757`.
 
 ---
 
@@ -700,8 +765,8 @@ $ git show 510d580:.claude/skills/protocol-close/SKILL.md | grep -n "CLAUDE.md _
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-017 |
 | Cerrado en | |
 
 - **Que se observo:**
@@ -720,4 +785,32 @@ $ git show 510d580:_audit/index.md | sed -n '14,15p'
 - **Por que importa:** `progress.md` es lo primero que lee `session-starter` en cada arranque, y de
   los tres textos que cuentan lo mismo es el unico que se lee siempre. `Baja` porque no hay
   consecuencia operativa: los seis hallazgos quedaron evaluados y registrados correctamente.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo **acepta** (2026-09-02, sesion `S-006`). Verificado contra `HEAD`
+  (`a800d6b`): la frase sigue ahi, y el tablero sigue desmintiendola.
+
+```
+$ git grep -c "dejo cinco hallazgos abiertos" a800d6b -- _persistence/progress.md
+a800d6b:_persistence/progress.md:1
+
+$ sed -n '14,15p' _audit/index.md
+| `S-003.md` | S-003 | 2026-09-01 | `ea0b850` | `R-003.md` | Con hallazgos (3) | F-005, F-006, F-007 |
+| `S-004.md` | S-004 | 2026-09-01 | `c70b757` | `R-004.md` | Con hallazgos (3) | F-008, F-009, F-010 |
+```
+
+  Corregido en `T-017`. **El hallazgo se quedaba corto por dos lados**, y las dos ampliaciones se
+  registran aqui porque son del mismo defecto, no hallazgos nuevos:
+
+  1. **Un tercer error en la misma frase:** «`manager` evaluo los seis». Fueron **cinco**. `R-003`
+     abrio tres y `R-004` abrio tres, pero `F-007` ya se habia aceptado y corregido en `S-004`
+     (`T-008`). Las cinco tareas que produjo la sesion lo confirman:
+
+```
+$ grep -cE "^[|] Sesion [|] S-005 [|]" _persistence/tasks.md
+5
+```
+
+  2. **El mismo error estaba en tres sitios, no en uno.** Las secciones 1 y 2 —que el cierre
+     sobrescribe— quedaron reescritas; la bitacora, que es historico, lleva nota fechada.
+
+  ⚠️ **Que `manager` escriba en un archivo del cierre lo autoriza `D-027`**, escrita hoy a raiz
+  del punto muerto que esta misma auditoria señalo en su seccion 5.

@@ -17,6 +17,7 @@
 | [L-006](#l-006---un-bloque-de-verificacion-declara-su-ambito-dentro-del-enunciado) | Un bloque de verificacion declara su ambito dentro del enunciado | 2026-09-01 | 000_preproject |
 | [L-007](#l-007---una-excepcion-se-escribe-donde-esta-la-regla-no-donde-se-decidio) | Una excepcion se escribe donde esta la regla, no donde se decidio | 2026-09-01 | 000_preproject |
 | [L-008](#l-008---una-leccion-escrita-solo-como-leccion-no-cambia-la-entrada-siguiente) | Una leccion escrita solo como leccion no cambia la entrada siguiente | 2026-09-01 | 000_preproject |
+| [L-009](#l-009---un-hallazgo-acota-su-ejemplo-no-el-defecto) | Un hallazgo acota su ejemplo, no el defecto | 2026-09-02 | 000_preproject |
 
 ---
 
@@ -244,3 +245,36 @@ el repositorio entero y **luego** se clasifica cada coincidencia en viva o histo
 - ⚠️ **La señal que hay que mirar:** una leccion con dos hallazgos del mismo patron detras ya
   fallo como leccion. La tercera repeticion no aporta informacion nueva; solo confirma que se estaba
   registrando en vez de corrigiendo.
+
+---
+
+### L-009 - Un hallazgo acota su ejemplo, no el defecto
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al corregir los cuatro hallazgos de `R-005`, dos de ellos resultaron describir menos
+  de lo que pasaba. `F-013` decia que una entrada conservaba una advertencia ya desmentida; ademas,
+  esa advertencia **describia mal el ambito anterior del control** —nombraba tres rutas donde habia
+  dos—. `F-014` señalaba una frase con dos errores en una seccion; el mismo error estaba en **tres
+  secciones**, y llevaba ademas un **tercer** error de recuento que el hallazgo no menciona.
+- **Que ocurrio:** en los dos casos, corregir literalmente lo que el hallazgo cita habria dejado el
+  defecto vivo en sitios que nadie estaba mirando — y con la fila del hallazgo diciendo
+  `Aceptado — pendiente`, es decir, con el asunto aparentemente encaminado.
+- **Por que pasa, y no es un descuido del auditor:** el auditor abre un hallazgo **con la evidencia
+  que encontro**, y con una es suficiente para abrirlo. Localizar todas las instancias es trabajo de
+  la correccion, no de la deteccion. Un hallazgo bien escrito prueba que el defecto existe; **no
+  promete que sea el unico sitio donde vive.**
+- **Leccion:** la cita de un hallazgo es **una muestra, no un inventario**. Aceptar un hallazgo
+  obliga a barrer el defecto entero antes de darlo por corregido; leerlo como una lista de tareas
+  cerrada convierte la correccion en parcial y, peor, en **parcial con aspecto de completa**.
+- **Como aplicarla:** al aceptar un `F-NNN`, antes de corregir, **construye el patron que caza el
+  defecto** y correlo sobre el ambito donde pueda vivir. Si devuelve mas lineas que las citadas, esas
+  entran en la misma `T-XXX` — no son hallazgos nuevos, son el mismo defecto. Y **el patron y su
+  ambito se registran** en la tarea, junto con lo que devolvio: es lo unico que distingue «corregi
+  todas» de «corregi las que me señalaron».
+- **Donde queda aplicada:** `T-015`, `T-016`, `T-017` y `T-018` llevan cada una el barrido con el que
+  se comprobo el alcance real, y `T-017` y `T-016` registran explicitamente lo que el hallazgo no
+  nombraba.

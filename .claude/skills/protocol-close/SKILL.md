@@ -37,8 +37,17 @@ esa evaluacion**: si aparece algo de la auditoria sin evaluar, lo dices en el re
 
 🚨 **Esa `T-XXX` puede existir ya cuando tu llegas, y es lo normal.** `manager` la escribe en el
 momento de aceptar el hallazgo, porque la fila del hallazgo tiene que citar su codigo para ser
-auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
-que `tasks.md` lo produzcas tu, y esta escrita en la convencion del propio archivo.
+auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue.
+
+🚨 **Y hay una segunda excepcion, del mismo tipo:** `manager` tambien escribe en `tasks.md` cuando el
+cambio **nace de una decision ya registrada que tu no puedes deducir del `git diff`** —reasignar la
+etapa de una tarea, cambiar la estructura del archivo porque lo pidio el usuario—. Tu arrancas en
+frio: una orden del usuario no deja rastro en el diff.
+
+⚠️ **Son dos excepciones, no una puerta, y las dos se reconocen igual: por la cita.** Toda fila
+editada a mano lleva un `D-XXX` o un `F-NNN` que la respalde, escrito en la propia tarea. **Si la
+cita esta, no es una infraccion: no la deshagas ni la reportes como desfase.** Si falta, eso si va al
+reporte. Las dos estan escritas en la convencion del propio `tasks.md`; lo demas sigue siendo tuyo.
 
 🚨 **No toques `temporal/`.** Es el area de trabajo del usuario, no parte del registro.
 
@@ -93,7 +102,7 @@ como `SIN COMPROBAR — sin commits todavia`.
 Con la evidencia delante, corre este control y **pega su salida cruda en el informe**:
 
 ```bash
-git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases
+git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases _methodology
 ```
 
 Los tres valores salen de `project.md`. Si alguno no esta declarado ahi, este control **no se puede
@@ -428,6 +437,40 @@ evidencia» en «hay evidencia falsa». Senalar, no rellenar.
 
 ⚠️ **Rige hacia adelante.** Las entradas antiguas que solo dijeron «se comprobo» se quedan como
 estan; no las reportes como pendientes.
+
+#### 🚨 Y una segunda pasada sobre los mismos bloques: el **ambito temporal**
+
+El bloque puede llevar su comando y su salida cruda —y aun asi estar mal— si **afirma reproducirse
+sobre un commit que todavia no existia cuando se ejecuto**. Es un defecto distinto del anterior y se
+cuela justo despues de corregirlo.
+
+**El mecanismo es siempre el mismo, y por eso se puede buscar:** el barrido se corre *mientras* se
+escribe la entrada; despues **tu** anades el informe de la sesion, cierras el archivo de estado y
+escribes el de tareas — y con eso cambias el resultado del comando que la entrada acaba de
+registrar. La cifra no envejece: **nace desfasada.**
+
+Sobre las entradas **de esta sesion**, marca las que cumplan las dos condiciones a la vez:
+
+| Condicion | Como se reconoce |
+|---|---|
+| **Ambito alcanzable por el cierre** | el comando barre el repositorio entero (`-- .`, o sin `pathspec`), o nombra una ruta que tu vas a escribir en esta misma pasada |
+| **Se declara reproducible sobre su propio commit** | dice «se reproduce sobre el commit que la contiene», o usa `HEAD` **sin decir cual era** |
+
+Un bloque que cumple una sola no es hallazgo: el ambito acotado a lo que la sesion no toca **si** se
+reproduce, y un recuento global **fechado** —«al momento de escribir esta entrada»— esta bien escrito.
+
+**Como se corrige, y no lo haces tu:** basta **anclarlo a un hash** (`git grep … <hash> -- …`) o
+**fecharlo**. Lo señalas en el reporte del Paso 8 con la entrada y el bloque; `manager` decide cual
+de las dos aplica antes del commit.
+
+⚠️ **Un caso que no se arregla anclando, y conviene reconocerlo:** si el comando mide algo que **tu
+mismo produces en cada cierre** —una fila que escribes siempre antes de commitear—, entonces no
+devuelve nunca el valor «limpio» en un commit de cierre: no mide lo que dice medir, mide que el
+commit es un cierre. Ahi el arreglo no es el ancla sino **el momento de comprobacion**, y eso lo
+replantea `manager`, no tu.
+
+⚠️ **Rige hacia adelante**, igual que la comprobacion anterior: entradas de esta sesion, no las
+antiguas.
 
 ### 🚨 Un riesgo nombrado en el informe y en ningun otro sitio: senalalo
 

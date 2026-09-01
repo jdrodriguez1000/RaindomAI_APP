@@ -22,6 +22,12 @@
 | [T-011](#t-011---acotar-el-bloque-de-verificacion-de-d-021-f-008) | Acotar el bloque de verificacion de `D-021` (`F-008`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-012](#t-012---escribir-en-dt-001-el-criterio-de-cierre-realmente-aplicado-f-009) | Escribir en `DT-001` el criterio de cierre realmente aplicado (`F-009`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-013](#t-013---acotar-el-alcance-historico-de-d-021-f-010) | Acotar el alcance historico de `D-021` (`F-010`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-014](#t-014---anclar-los-dos-recuentos-sobre-head-de-a-001-y-t-012-f-011) | Anclar los dos recuentos sobre `HEAD` de `A-001` y `T-012` (`F-011`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-015](#t-015---propagar-la-segunda-excepcion-de-d-025-a-los-tres-sitios-de-la-regla-f-012) | Propagar la segunda excepcion de `D-025` a los tres sitios de la regla (`F-012`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-016](#t-016---anotar-en-d-023-que-d-026-ya-amplio-el-ambito-del-paso-1b-f-013) | Anotar en `D-023` que `D-026` ya amplio el ambito del Paso 1b (`F-013`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-017](#t-017---corregir-el-recuento-de-hallazgos-de-progressmd-f-014) | Corregir el recuento de hallazgos de `progress.md` (`F-014`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-018](#t-018---corregir-la-convencion-viva-de-auditfindingsmd-f-010) | Corregir la convencion viva de `_audit/findings.md` (`F-010`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-019](#t-019---dar-mecanismo-a-d-022-en-el-paso-6-de-protocol-close) | Dar mecanismo a `D-022` en el Paso 6 de `protocol-close` | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -372,6 +378,20 @@ tuvieran donde ir.
   `CLAUDE.md` y `project.md`, historico intacto por `D-021`— con su comando y su salida cruda. El
   campo «Como se paga» original queda intacto.
 
+🕒 **Nota anadida el 2026-09-02 (`S-006`), tras el hallazgo `F-011` de `R-005`.** La cifra «12
+archivos en `HEAD`» del primer punto se escribio sin decir cual era ese `HEAD`. Era `e61454b`, y
+sobre ese hash se reproduce:
+
+```
+$ git grep -c "debtec" e61454b -- . | wc -l
+12
+```
+
+Sobre `510d580` —el commit que contiene esta ficha— son 13, y sobre `a800d6b` son 14: el recuento
+crece con cada registro que cita el nombre antiguo, que es exactamente el motivo por el que `D-022`
+obliga a anclarlo o fecharlo. **La cifra era correcta; lo que faltaba era el ancla.** El fondo de la
+tarea no cambia.
+
 ---
 
 ### T-013 - Acotar el alcance historico de `D-021` (`F-010`)
@@ -399,3 +419,165 @@ tuvieran donde ir.
 - **Criterio de cierre:** `D-021` lleva la nota fechada con la excepcion enunciada y su motivo, y la
   fila de `F-010` en `_audit/findings.md` cita esta tarea y deja constancia de que la correccion del
   texto es del auditor.
+
+---
+
+### T-014 - Anclar los dos recuentos sobre `HEAD` de `A-001` y `T-012` (`F-011`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-006 |
+
+- **Que:** la nota de `S-005` bajo `A-001` cerraba la senal 2 rehecha con un `git grep ... HEAD` sin
+  decir cual era ese `HEAD`, y la ficha de `T-012` afirmaba «12 archivos en `HEAD`» igual. Se anaden
+  dos notas fechadas que las anclan a `e61454b`, el `HEAD` real del momento, sin reescribir los
+  bloques originales (`D-019`).
+- **Por que:** es el patron de `F-005`, `F-006` y `F-008` reapareciendo **dentro de la correccion de
+  `F-005`**, y contra `D-022`, escrita en ese mismo commit. Quien reprodujera el bloque de `A-001`
+  sobre `510d580` obtenia `exit=0` y concluia que la senal 2 **si** se disparo — lo contrario de lo
+  que la nota afirma, sobre una de las dos senales que pueden refutar `A-001`.
+- **Lo que la verificacion demostro:** las dos cifras **eran correctas**; lo que faltaba era el
+  ancla. Sobre `e61454b` el comando de `A-001` da `exit=1` y el recuento da 12, tal como se
+  registraron. El fondo de las dos entradas no cambia.
+- **Criterio de cierre:** las dos notas existen, cada una con su hash y su salida cruda, los bloques
+  originales quedan intactos, y la nota de `A-001` anade la comprobacion de hoy sobre `a800d6b`.
+
+---
+
+### T-015 - Propagar la segunda excepcion de `D-025` a los tres sitios de la regla (`F-012`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-006 |
+
+- **Que:** `D-025` generalizo a dos casos la excepcion de escritura de `manager` sobre `tasks.md`,
+  pero solo lo escribio en la convencion de `tasks.md`. Los tres sitios que enuncian la regla para
+  quien la ejecuta seguian diciendo «es la unica excepcion». Se reescriben los tres.
+- **Por que:** es `F-007` otra vez, y `F-007` se cerro en `S-004` arreglando **esos mismos tres
+  sitios**. `L-007` —«una excepcion se escribe donde esta la regla, no donde se decidio»— lleva
+  escrita desde entonces. El `session-closer` arranca en frio y lee su skill, no `decisions.md`: con
+  el texto viejo, una fila legitima editada a mano se le lee como infraccion.
+- **Que se hizo, ademas de propagar:** los tres textos pasan a describir la excepcion **por su
+  senal, no por su numero** — toda fila editada a mano lleva un `D-XXX` o un `F-NNN` citado en la
+  propia tarea. Es el criterio que `R-005` propuso: contar filas invitaria a repartir un mismo
+  cambio en dos sesiones para pasar por debajo del umbral. Y se le dice explicitamente al agente que
+  **si la cita esta, no lo reporte como desfase**, que era el dano concreto del hallazgo.
+- **Criterio de cierre:** el barrido de la regla no devuelve ningun enunciado que siga afirmando que
+  la excepcion es unica, y el archivo de la etapa sigue pasando el control de agnosticidad.
+
+---
+
+### T-016 - Anotar en `D-023` que `D-026` ya amplio el ambito del Paso 1b (`F-013`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-006 |
+
+- **Que:** `D-023` cerraba con una advertencia —«esto todavia no entra en el ambito del Paso 1b...
+  queda pendiente de acordarla con el usuario»— que `D-026`, en el mismo commit, ya habia
+  desmentido. Se anade una nota fechada que remite a `D-026`, sin reescribir el original (`D-019`).
+- **Por que:** una entrada `Vigente` afirmaba como pendiente algo ya hecho. Quien lea `D-023` sin
+  llegar a `D-026` concluye que la agnosticidad de esos archivos no tiene control que la compruebe.
+- **Lo que la verificacion anadio al hallazgo:** la advertencia tambien **describia mal el ambito
+  anterior**. Decia que cubria tres rutas; sobre `c70b757` cubria dos, y la tercera nunca estuvo
+  —es justo el archivo donde los datos propios **si** deben vivir—. Va con su comando y su salida.
+- **Criterio de cierre:** la nota existe bajo `D-023`, remite a `D-026`, corrige la descripcion del
+  ambito anterior con evidencia anclada, y el texto original queda intacto.
+
+---
+
+### T-017 - Corregir el recuento de hallazgos de `progress.md` (`F-014`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-006 |
+
+- **Que:** la frase del «Avance de la etapa» atribuia a una sola auditoria cinco hallazgos que
+  abrieron dos, y despues sumaba uno que ya estaba en su propia lista. Se reescribe con la
+  procedencia real de cada uno.
+- **Por que:** ese campo es lo primero que se lee en cada arranque, y de los tres textos que cuentan
+  lo mismo es el unico que se lee siempre. Un recuento que se contradice dentro de la misma frase
+  invita a desconfiar del resto.
+- **Lo que la verificacion anadio al hallazgo:** habia un **tercer error** que `F-014` no nombra
+  —«`manager` evaluo los seis»— cuando fueron **cinco**: una de las dos auditorias abrio tres y la
+  otra tres, pero uno de esos seis ya se habia aceptado y corregido en la sesion anterior. Y el
+  mismo error estaba en **tres sitios**, no solo en el que el hallazgo senala. Los dos que el cierre
+  sobrescribe quedaron corregidos; el de la bitacora, que es historico, lleva nota fechada.
+- **Por que `manager` escribe en un archivo del cierre:** lo autoriza `D-027`, escrita hoy — el
+  texto que senala un hallazgo aceptado lo corrige `manager`, con los limites que esa entrada fija.
+- **Criterio de cierre:** los dos textos reescribibles dicen cinco y nombran bien la procedencia, la
+  bitacora lleva su nota con comando y salida cruda, y ninguna de las tres se contradice.
+
+---
+
+### T-018 - Corregir la convencion viva de `_audit/findings.md` (`F-010`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-006 |
+
+- **Que:** una convencion vigente del registro de hallazgos seguia mandando comprobar una entrada
+  en un archivo que `D-021` renombro y que ya no existe. Se corrige **solo esa linea**.
+- **Por que estaba parada:** `T-013` entrego el criterio que permite tocarla —el registro de
+  hallazgos es historico **salvo sus convenciones vivas**— pero la dejo «pendiente del propio
+  `report_auditor`». `R-005` mostro que ahi no la podia corregir nadie: el auditor tiene prohibido
+  corregir, y `manager` tenia prohibido escribir ahi. Un defecto reconocido por las dos partes y sin
+  dueno. Lo desatasca `D-027`.
+- **Alcance, y es lo que hace segura la correccion:** las demas apariciones del nombre antiguo en
+  ese archivo son **citas de evidencia dentro de hallazgos ya entregados** y no se tocan. Se
+  identifico la unica que vive en la seccion de convenciones y se cambio esa.
+- **Criterio de cierre:** el barrido acotado a la seccion de convenciones devuelve cero, y el
+  recuento del archivo entero solo baja en uno — prueba de que no se toco ninguna cita historica.
+- **Lo que esta tarea NO hace:** cerrar `F-010`. Su fila sigue `Aceptado — pendiente`; el estado
+  `Implementado` lo escribe la auditoria siguiente.
+
+---
+
+### T-019 - Dar mecanismo a `D-022` en el Paso 6 de `protocol-close`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-006 |
+
+- **Que:** `D-022` vivia solo como regla escrita en el registro de decisiones, sin nada que la
+  aplicara. Se anade al Paso 6 del protocolo de cierre una comprobacion mecanica: sobre las entradas
+  de la sesion en curso, marcar las que cumplan **las dos** condiciones —ambito alcanzable por el
+  cierre **y** declararse reproducibles sobre su propio commit— y senalarlas en el reporte.
+- **Por que:** `F-011` es la prueba empirica de que la regla escrita no basta: se incumplio en el
+  mismo commit que la creo, y es la quinta repeticion del mismo patron. `L-008` ya describe
+  exactamente esto —una leccion sin mecanismo que la aplique no evita la reincidencia—. Lo
+  recomendo `R-005` en su seccion de recomendaciones sin hallazgo.
+- **Por que en el cierre y no en la auditoria:** el cierre corre **antes** del commit, asi que
+  atrapa el defecto en vez de abrirlo como hallazgo un dia despues.
+- **Por que exige las dos condiciones:** un ambito acotado a lo que la sesion no toca **si** se
+  reproduce, y un recuento global fechado esta bien escrito. Pedir una sola convertiria el control
+  en ruido, y un control que avisa de todo termina apagado (`D-026`).
+- **Que respeta:** el agente **senala, no corrige** — los cuatro archivos del porque siguen sin ser
+  suyos. Y rige hacia adelante: entradas de la sesion en curso, no las antiguas.
+- **Criterio de cierre:** el Paso 6 lleva la comprobacion con sus dos condiciones, su tabla de
+  reconocimiento, el caso que no se arregla anclando, y la instruccion de senalar sin arreglar. El
+  archivo sigue pasando el control de fuga de datos propios.

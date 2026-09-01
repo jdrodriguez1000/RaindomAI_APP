@@ -98,6 +98,11 @@ proyecto» son *«las dos declaradas, y nada mas»*.
 nombro la inmediata para que las tareas de alcance tuvieran donde ir; la **secuencia completa** sigue
 siendo trabajo pendiente, y su tarea vive ahora en `005_discovery`.
 
+🚨 **Que `_methodology/000_method.md` describa un ciclo completo no declara ninguna de sus
+etapas.** Ese archivo es la **guia de metodo**: dice que etapas existen en el metodo y que pregunta
+responde cada una. Lo que este proyecto ha adoptado es lo que diga la tabla de arriba, y hoy son dos.
+Adoptar cualquier otra exige su `D-XXX` y su archivo en `_phases/`. **Una guia no es un acta.**
+
 ⚠️ **Aqui va el vocabulario, no el avance: que etapas existen, no en cual estamos.** En cual
 estamos vive en `_persistence/progress.md`, que es lo que cambia. Declararlo tambien aqui crearia
 dos sitios que hay que acordarse de actualizar a la vez, y el dia que uno se olvide habria que
@@ -124,6 +129,7 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `_brief/` | El encargo del cliente, tal como llego. **Entrada al proyecto, no registro de el** |
 | `_persistence/` | **Como va** el trabajo: siete archivos, indice arriba y detalle debajo |
 | `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos |
+| `_methodology/` | **Con que criterio** se construye: el metodo de desarrollo —`000_method.md`, el documento canonico— y en `sources/` las fuentes de las que se consolido, que no se editan. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
 
@@ -164,6 +170,18 @@ lo llevaba conserva su texto para que se entienda que se creia y por que dejo de
 definidos**, porque no hay producto declarado todavia. Se añaden a esta tabla en la misma pasada en
 que se escriba el primero, con su `D-XXX`. Un codigo que aparece en un archivo antes que en esta
 tabla es un desfase, no una novedad.
+
+📌 **Hay una propuesta escrita, y esta en `_methodology/000_method.md` (§46):** `N-`
+necesidad, `FT-` feature, `SC-` scenario, `VS-` vertical slice, `T-` task, `TC-` caso de prueba,
+`ADR-` decision arquitectonica. **Propuesta, no declarada:** ninguno entra en esta tabla hasta que
+haya producto y su `D-XXX`.
+
+🚨 **Dos de esos prefijos ya estan tomados en esta tabla, y por eso el metodo usa dos letras.**
+`F-` es el hallazgo de auditoria y `S-` la sesion de trabajo; las fuentes del metodo los usaban para
+feature y scenario. Se cambio el del metodo —`FT-` y `SC-`— y no el del registro, porque el registro
+ya tiene historia escrita en `_audit/` y renombrarlo reescribiria trabajo ya auditado (`D-030`).
+`T-` es la unica coincidencia deliberada: **es el mismo concepto**, la tarea, y darle dos nombres
+segun el archivo seria peor que compartirlo.
 
 ---
 

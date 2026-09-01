@@ -208,10 +208,16 @@ Los datos propios de este proyecto —nombre, rutas, remoto, carpetas, codigos�
 **`project.md`**, y solo ahi: ningun protocolo, agente ni este archivo los lleva escritos dentro.
 Si cambian, se cambian en un sitio.
 
-🚨 **Este archivo, `.claude/` y `_phases/` tienen que poder copiarse a otro proyecto tal cual.**
+🚨 **Este archivo, `.claude/`, `_phases/` y `_methodology/` tienen que poder copiarse a otro
+proyecto tal cual.**
 Por eso no llevan ni un nombre, ni una ruta, ni un host de este proyecto — y el Paso 1b de
-`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los tres. Si algun dia
+`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los cuatro. Si algun dia
 devuelve una linea, es que un dato propio se colo ahi.
+
+🔑 **`_methodology/` esta en esa lista por lo mismo, y con mas motivo:** es el metodo de
+desarrollo entero —que etapas existen, que pregunta responde cada una, que hay que entender antes de
+construir—, escrito sin un solo dato de ningun producto. **Describe el metodo; no declara las etapas
+de este proyecto**: las declaradas son las que diga `project.md`, y ninguna otra.
 
 🔑 **`_phases/` esta en esa lista porque describe el metodo, no el proyecto.** Un archivo de etapa
 dice que se autoriza, que se prohibe y cuando se sale de ella; nada de eso cambia al cambiar de

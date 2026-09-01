@@ -35,6 +35,11 @@
 | [D-024](#d-024---la-etapa-siguiente-a-000_preproject-se-llama-005_discovery) | La etapa siguiente a `000_preproject` se llama `005_discovery` | 2026-09-01 | Vigente |
 | [D-025](#d-025---tasksmd-gana-el-campo-etapa-y-las-tareas-de-alcance-pasan-a-005_discovery) | `tasks.md` gana el campo `Etapa`, y las tareas de alcance pasan a `005_discovery` | 2026-09-01 | Vigente |
 | [D-026](#d-026---el-control-de-fuga-de-datos-del-paso-1b-cubre-tambien-_phases) | El control de fuga de datos del Paso 1b cubre tambien `_phases/` | 2026-09-01 | Vigente |
+| [D-027](#d-027---el-texto-que-señala-un-hallazgo-aceptado-lo-corrige-manager-aunque-el-archivo-sea-de-otro) | El texto que señala un hallazgo aceptado lo corrige `manager`, aunque el archivo sea de otro | 2026-09-02 | Vigente |
+| [D-028](#d-028---_methodology-entra-al-repositorio-como-carpeta-agnostica-dentro-del-control-de-fuga) | `_methodology/` entra al repositorio como carpeta agnostica, dentro del control de fuga | 2026-09-02 | Vigente |
+| [D-029](#d-029---000_methodmd-es-guia-de-metodo-vigente-y-no-declara-las-etapas-del-proyecto) | `000_method.md` es guia de metodo vigente, y no declara las etapas del proyecto | 2026-09-02 | Vigente |
+| [D-030](#d-030---los-codigos-de-producto-del-metodo-se-renombran-a-ft--y-sc-) | Los codigos de producto del metodo se renombran a `FT-` y `SC-` | 2026-09-02 | Vigente |
+| [D-031](#d-031---un-gate-lo-declara-el-usuario-sobre-el-veredicto-tecnico-de-report_auditor) | Un Gate lo declara el usuario, sobre el veredicto tecnico de `report_auditor` | 2026-09-02 | Vigente |
 
 ---
 
@@ -879,6 +884,31 @@ ninguno: todos los del archivo estan en forma generica.
 alguien se acuerde**, que es justo lo que `L-008` describe. Ampliar el ambito del control es una
 modificacion del protocolo y queda pendiente de acordarla con el usuario.
 
+🕒 **Nota anadida el 2026-09-02 (`S-006`), tras el hallazgo `F-013` de `R-005`.** El parrafo de
+arriba **se deja tal cual se escribio** (`D-019`), pero **ya no describe el estado del control**:
+`D-026`, en este mismo commit, amplio el ambito del Paso 1b a `_phases/`. Lo que quedaba «pendiente
+de acordarla con el usuario» se acordo y se aplico antes de cerrar la sesion.
+
+```
+$ git grep -n "CLAUDE.md _phases" 510d580 -- .claude
+510d580:.claude/skills/protocol-audit/SKILL.md:140:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" <hash> -- .claude CLAUDE.md _phases
+510d580:.claude/skills/protocol-close/SKILL.md:96:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases
+```
+
+⚠️ **Y la descripcion del ambito anterior tambien estaba mal.** El parrafo dice que el Paso 1b
+«cubre solo `.claude`, `CLAUDE.md` y `project.md`». Sobre `c70b757` —el commit inmediatamente
+anterior, con el ambito todavia sin ampliar— cubria dos, no tres:
+
+```
+$ git grep -n 'host del remoto>" -- ' c70b757 -- .claude ; echo "exit=$?"
+c70b757:.claude/skills/protocol-close/SKILL.md:96:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md
+exit=0
+```
+
+`project.md` nunca estuvo en el ambito, y no es un olvido: es **el archivo donde los datos propios si
+deben estar**, asi que incluirlo en un control de fuga lo haria devolver una linea correcta en cada
+pasada. El ambito vigente lo fija `D-026` y hay que leerlo ahi, no aqui.
+
 ⚠️ **Consecuencia abierta, y no se resuelve aqui:** hay tareas registradas en `_persistence/tasks.md`
 que definen alcance y objetivo del proyecto y declaran las etapas posteriores, nacidas dentro de
 `000_preproject`. Con esta decision, ese trabajo **no es de esta etapa**. Que se haga con ellas
@@ -1026,3 +1056,263 @@ exit=1
 El patron instancia los tres valores que el Paso 1b toma de `project.md`: nombre del proyecto —en sus
 dos grafias, la del remoto y la de la carpeta en disco—, carpeta raiz de las rutas absolutas y host
 del remoto.
+
+---
+
+### D-027 - El texto que señala un hallazgo aceptado lo corrige `manager`, aunque el archivo sea de otro
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `R-005` dejo `F-010` en un punto muerto de autoria y pidio zanjarlo. El defecto vive
+  en una **convencion vigente** de `_audit/findings.md`, archivo del auditor; pero el auditor tiene
+  prohibido corregir —«ni una linea, ni aunque sea obvio»— y `manager` tiene prohibido escribir ahi
+  mas alla de la fila de estado de cada hallazgo. Resultado: un defecto reconocido por las dos partes
+  que **ninguna de las dos puede tocar**. `F-014` planteaba lo mismo en la otra direccion —texto de
+  `progress.md`, archivo del `session-closer`—.
+- **Decision:** cuando un hallazgo aceptado señala **un texto concreto**, ese texto lo corrige
+  `manager`, aunque el archivo pertenezca a otro agente, citando el `F-NNN` en su `T-XXX`. La
+  correccion no toca nada mas que lo señalado.
+- **Limites, y son la mitad de la decision:**
+
+| ✅ Si se puede corregir | ❌ No se puede corregir |
+|---|---|
+| convenciones, indices y tablas de estado — **registro vivo** | `_audit/R-XXX.md` y `_audit/S-XXX.md` — **documentos entregados**, se corrigen por hallazgo nuevo |
+| las secciones de `progress.md` que el cierre sobrescribe en cada pasada | la bitacora de `progress.md` y los bloques de verificacion antiguos — son historico, y ahi manda `D-019`: nota fechada, nunca reescritura |
+
+- **Por que `manager` y no ampliar el mandato del auditor:** el auditor vale por lo que **no** hace.
+  Un auditor que corrige sobre el commit que audita deja de ser independiente en la pasada siguiente,
+  porque estaria verificando su propia correccion — exactamente lo que la separacion de roles existe
+  para impedir. `manager` corrige y el auditor lo verifica despues: los dos papeles siguen separados.
+- **Por que no rompe «quien construye no evalua»:** `manager` no cambia el **estado** del hallazgo.
+  Sigue escribiendo `Aceptado — pendiente`, y `Implementado` lo escribe la auditoria siguiente. Lo
+  que esta decision reparte es **quien mueve el texto**, no quien declara que quedo bien.
+- **Alternativas descartadas:** ampliar el mandato del auditor a las convenciones de `findings.md`
+  (le da una mano para escribir en el archivo donde lleva la cuenta de sus propios hallazgos, y
+  convierte la pasada siguiente en autoevaluacion); declarar que esa seccion es de `manager` y punto
+  (resuelve `F-010` y deja `F-014` —y el caso simetrico en cualquier otro archivo— igual de
+  atascados); dejarlo sin zanjar (es lo que `R-005` señalo: mientras no se decida, **`F-010` no lo
+  puede cerrar nadie**).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  reparto de escritura entre roles dentro del repositorio, sin efecto fuera de el y revertible con
+  `git revert`.
+
+**Verificacion — el defecto que `F-010` señala sigue vivo antes de aplicar esta decision:**
+
+```
+$ git grep -n "debtec" a800d6b -- _audit/findings.md
+a800d6b:_audit/findings.md:56:rechazo por coste sin entrada en `debtec.md` es, por si solo, un hallazgo nuevo — y no requiere
+```
+
+Una sola linea, dentro de la seccion «Convenciones» —registro vivo, no cita historica—, que manda
+comprobar una entrada en un archivo que `D-021` renombro y que ya no existe.
+
+---
+
+### D-028 - `_methodology/` entra al repositorio como carpeta agnostica, dentro del control de fuga
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto una carpeta `_methodology/` con `000_method.md` —el metodo de
+  desarrollo consolidado— y `sources/` con las tres fuentes de las que se consolido. Llego sin
+  trackear, y el arranque de la sesion la señalo como carpeta sin declarar.
+- **Decision:** entra al repositorio y se declara en la tabla «Carpetas propias» de `project.md`.
+  `000_method.md` es el documento canonico; `sources/` se conserva **intacta** como registro de como
+  se diseño el metodo, y no se edita — lo dice el propio encabezado del documento.
+- **Y entra tambien en el ambito del Paso 1b**, junto a `.claude`, `CLAUDE.md` y `_phases`: en
+  `protocol-close` y en `protocol-audit`, con la prosa de los dos actualizada en la misma pasada.
+- **Por que en el ambito del control:** cumple el criterio que fijo `D-026` —**cero es la respuesta
+  correcta**—. `_methodology/` describe el metodo, no el proyecto: no hay ninguna razon legitima para
+  que aparezca ahi un nombre, una ruta o un host de este proyecto, asi que el control no genera ruido.
+  Y la exigencia de agnosticidad sin mecanismo que la compruebe es exactamente lo que `L-008`
+  describe.
+- **Por que no dentro de `_phases/`:** son cosas distintas. `_phases/` dice **que se hace en una
+  etapa** —que autoriza, que prohibe, cuando se sale—; `_methodology/` dice **con que criterio se
+  construye el producto** y que etapas existen en el metodo. Un archivo de etapa se escribe cuando la
+  etapa se declara; la guia existe antes que cualquiera de ellas.
+- **Alternativas descartadas:** dejarla fuera del repositorio, en el area de trabajo del usuario
+  (desaparece del registro y ningun control la ve — y es la guia que orienta el proyecto entero);
+  anadirla a `.gitignore` (mismo efecto, ademas de dejar el arbol y `project.md` cuadrando por
+  omision); meter el contenido dentro de `CLAUDE.md` (mezcla el metodo de desarrollo del producto con
+  las reglas de operacion de la sesion, y hace crecer sin limite el archivo que todo lo demas lee);
+  declararla sin meterla en el control (crea la exigencia de agnosticidad y ningun comando que la
+  compruebe).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es
+  anadir archivos ya existentes al control de versiones, una fila en una tabla y un pathspec en dos
+  skills; revertible con `git revert` y sin efecto fuera del repositorio.
+
+**Verificacion — el control, con el ambito nuevo, sigue en cero:**
+
+```
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" .claude CLAUDE.md _phases _methodology ; echo "exit=$?"
+exit=1
+```
+
+El patron instancia los tres valores que el Paso 1b toma de `project.md`, con el nombre del proyecto
+en sus dos grafias. Se corre sobre el arbol de trabajo y no sobre un commit **a proposito**:
+`_methodology/` todavia no esta en ningun commit, asi que un `git grep` sobre un hash no la veria.
+
+---
+
+### D-029 - `000_method.md` es guia de metodo vigente, y no declara las etapas del proyecto
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `000_method.md` describe un ciclo completo —descubrimiento, prototipo, gate, baseline,
+  esqueleto, crecimiento, MVP, gate, evolucion—. `project.md` declara dos etapas y dice que lo
+  posterior **no esta decidido**. Si el documento entra tal cual, el proyecto pasa a tener dos
+  respuestas distintas a «que etapas tiene».
+- **Decision:** `000_method.md` es la **guia de metodo vigente** —orienta como se trabaja el proyecto—
+  y **no declara ninguna etapa**. Las declaradas siguen siendo las de la tabla «Etapas» de
+  `project.md`, y hoy son dos. Adoptar cualquier otra exige su `D-XXX` y su archivo en `_phases/`.
+  El usuario lo fijo asi expresamente: **por ahora no se detalla ninguna otra fase**; eso se hara mas
+  adelante.
+- **Como queda escrito, y en tres sitios porque es donde se puede confundir:** un bloque «Alcance de
+  este documento» al principio de `000_method.md`; una nota en la seccion «Etapas» de `project.md`; y
+  una fila nueva en la tabla de prohibiciones de `_phases/000_preproject.md` —dar por adoptado el
+  ciclo de una guia—. Es `L-007` aplicada: la regla se escribe donde se aplica, no solo donde se
+  decidio.
+- **Y el documento gana una seccion que las fuentes no tenian:** el ciclo del metodo empieza en una
+  **necesidad**, asi que la etapa de montar el andamio **no cabe en el**. Queda escrito que esa etapa
+  previa existe, que es deliberado que no lleve numero del flujo del producto, y que su contenido vive
+  en su archivo de etapa. Sin eso, quien lea la guia concluye que el proyecto va con retraso respecto
+  a un diagrama al que nunca pertenecio.
+- **Alternativas descartadas:** adoptar el ciclo completo y declarar todas las etapas en `project.md`
+  (contradice la instruccion del usuario, y declararia como decidido lo que nadie ha decidido — la
+  prohibicion que `_phases/000_preproject.md` ya tenia escrita); dejar el documento sin ese bloque y
+  confiar en que nadie confunda guia con acta (`L-008`: una exigencia sin nada que la ponga delante
+  depende de que alguien se acuerde); no incorporar el documento hasta que se declaren las etapas
+  (deja fuera del registro justo el material que orienta la decision de declararlas).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es texto
+  de encuadre en tres archivos del repositorio, revertible con `git revert`.
+
+**Verificacion — la tabla de etapas no cambio, y sigue diciendo lo mismo que antes:**
+
+```
+$ sed -n '/^| Etapas declaradas/,/^| Etapas posteriores/p' project.md
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+| Etapas posteriores a `005_discovery` | **no registradas** |
+
+$ ls _phases/
+000_preproject.md
+```
+
+Un solo archivo de etapa, y la tabla igual que antes de incorporar la guia: **la guia entro y no
+declaro nada**, que es exactamente lo que esta decision fija.
+
+---
+
+### D-030 - Los codigos de producto del metodo se renombran a `FT-` y `SC-`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** la seccion de identificadores de `000_method.md` declaraba `F-` para feature y `S-`
+  para scenario. La tabla «Codigos» de `project.md` ya usa `F-NNN` para hallazgo de auditoria y
+  `S-XXX` para sesion de trabajo. Dos prefijos, cuatro significados.
+- **Decision:** en el metodo, feature pasa a `FT-` y scenario a `SC-`. Los del registro no se tocan.
+  `N-`, `VS-`, `TC-` y `ADR-` no colisionan y quedan igual. `T-` se comparte **a proposito**: en el
+  metodo es la tarea y en el registro tambien — es el mismo concepto, y darle dos nombres segun el
+  archivo seria peor que compartirlo.
+- **Por que se cambia el del metodo y no el del registro:** el registro **ya tiene historia
+  escrita**. Renombrar `F-NNN` o `S-XXX` obligaria a reescribir los informes de sesion, las
+  auditorias, el tablero y el registro de hallazgos — documentos entregados y ya auditados, que
+  `D-021` clasifica como historico y que `D-019` prohibe reescribir. El metodo, en cambio, todavia no
+  ha instanciado ni un solo codigo: cambiarlo cuesta una tabla.
+- **Por que ahora y no cuando se escriba el primer codigo de producto:** porque el choque se ve hoy y
+  no se vera despues. Cuando aparezca el primer `F-001` de feature, ya habra un `F-011` de hallazgo
+  al lado y la ambiguedad estara escrita en dos sitios. Ademas queda en el documento **la regla
+  general** —contrastar la tabla del metodo contra la del proyecto antes de escribir el primer
+  identificador—, para el choque que aparezca con otro prefijo. Es `L-002` otra vez: un metodo traido
+  de otro proyecto llega con sus codigos, y esos no viajan.
+- **Alternativas descartadas:** renombrar los de auditoria (reescribe registro ya auditado — lo
+  descarto el usuario); aplazar la decision con una advertencia en el documento y una entrada de
+  deuda tecnica (el aplazamiento no ahorra nada: el trabajo es el mismo hoy que dentro de tres meses,
+  y entre medias el documento dice algo que el registro desmiente); usar `FEAT-` y `SCEN-` (mas
+  legibles sueltos, mas ruidosos dentro de una cadena de trazabilidad que se lee entera de un
+  vistazo).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  tabla de prefijos en un documento agnostico que todavia no ha instanciado ninguno.
+
+**Verificacion — no queda ningun `F-` ni `S-` como codigo de producto en el documento:**
+
+```
+$ grep -nE '`F-0|`S-0' _methodology/000_method.md ; echo "exit=$?"
+exit=1
+```
+
+⚠️ **Ese patron solo cubre `000_method.md`, y solo la forma entrecomillada.** Las fuentes de
+`sources/` **conservan `F-` y `S-`**, y es deliberado: no se editan, por decision del propio
+documento, y el Anexo A registra el cambio como decision de consolidacion. Ahi los identificadores
+van dentro de un bloque de codigo y **sin comillas**, asi que el patron de arriba no los ve — hace
+falta otro para verlos:
+
+```
+$ grep -rnE 'F-[0-9]{3}|S-[0-9]{3}' _methodology/sources/
+_methodology/sources/005_vertical.md:461:F-001   Feature
+_methodology/sources/005_vertical.md:462:S-001   Scenario
+_methodology/sources/005_vertical.md:470:F-001
+_methodology/sources/005_vertical.md:472:S-001
+```
+
+🔑 **Los dos patrones juntos dicen lo que uno solo no diria:** el documento canonico esta limpio
+y las fuentes estan intactas. Con el primero a secas, alguien podria leer el `exit=1` como prueba de
+que ya no queda `F-` en ningun sitio de `_methodology/`, y no es cierto.
+
+---
+
+### D-031 - Un Gate lo declara el usuario, sobre el veredicto tecnico de `report_auditor`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** la seccion «Quien declara el Gate» de `000_method.md` era una adicion de
+  consolidacion —ninguna de las tres fuentes asigna dueño al veredicto— y lo resolvia diciendo que
+  lo declara **la terminal auditora**, conectandolo con un esquema de dos terminales que `D-012`
+  revoco en este proyecto. Aqui no hay terminales: hay un agente `report_auditor` que tiene escrito
+  que **no construye, no corrige y no decide**. Declarar un Gate es decidir.
+- **Decision:** hacen falta **dos firmas, y ninguna sustituye a la otra**. `report_auditor` contrasta
+  la evidencia registrada contra los criterios del Gate y emite el **veredicto tecnico**; el
+  **usuario**, como stakeholder, **declara el Gate**; `manager` registra el resultado con su `D-XXX`,
+  se apruebe o no. Es literalmente la «Doble validacion» de `CLAUDE.md`, aplicada al punto donde mas
+  dinero se compromete.
+- **Por que el auditor no decide, aunque sea quien mejor conoce la evidencia:** auditar y decidir son
+  papeles incompatibles. Quien decide asume la consecuencia de la inversion; un auditor que ademas
+  decide **no puede señalar el error de esa decision en la pasada siguiente**, porque estaria
+  revisando la suya. Es el mismo argumento por el que `manager` no cierra sus propios hallazgos
+  (`D-015`) y por el que la correccion la hace `manager` y no el auditor (`D-027`).
+- **Como quedo escrito, y es mas de lo que se pregunto:** la seccion pasa a regir **los dos Gates**,
+  no solo el primero — el segundo tampoco tenia dueño—; se enuncia en vocabulario agnostico —«quien
+  audita», «quien patrocina», «quien coordina»— para que el documento siga siendo copiable a un
+  proyecto que reparta los papeles de otra forma; y se conserva escrito el **limite honesto** del
+  esquema: si a la revision independiente la convoca el propio evaluado, no lanzarla no lo nota nadie.
+  Ese limite ya esta registrado en este proyecto como `A-001`, y el documento no debe fingir que no
+  existe.
+- **Alternativas descartadas:** mantener el sentido literal del metodo y dejar que el auditor declare
+  el Gate (obliga a ampliar su mandato en `project.md`, `CLAUDE.md` y `protocol-audit`, y rompe la
+  separacion de roles sobre la que se monto el esquema entero); dejar la seccion como principio
+  negativo —«no lo declara quien construyo»— sin asignar dueño (es lo que hacian las fuentes, y es
+  justo el vacio que la adicion existia para tapar: un Gate sin dueño lo acaba declarando quien
+  construyo, por omision).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es texto
+  de un documento de metodo sobre una etapa que este proyecto todavia no ha declarado; nada depende
+  de ella hoy.
+
+**Verificacion — no queda ninguna mencion a terminales en el documento:**
+
+```
+$ grep -n "terminal\|Terminal" _methodology/000_method.md ; echo "exit=$?"
+exit=1
+```

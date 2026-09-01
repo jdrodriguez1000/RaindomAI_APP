@@ -21,7 +21,7 @@ va en espanol.
 ## 1. Que autoriza esta etapa
 
 - **Montar y modificar el metodo:** las skills y los agentes de `.claude/`, `CLAUDE.md` y
-  `project.md`.
+  `project.md`, y la guia de metodo si el proyecto la tiene.
 - **Montar y mantener los registros:** los archivos de `_persistence/` y los de `_audit/`.
 - **Registrar el porque en el momento** — decisiones, restricciones, supuestos y lecciones **sobre la
   forma de trabajar**.
@@ -44,6 +44,7 @@ Es la seccion util del archivo: lo que se descarrila solo.
 | **Escribir codigo de producto** | no hay alcance definido todavia; no hay nada que rebanar en slices |
 | **Disenar pantallas o flujos de producto** | todavia no se sabe que problema resuelven |
 | **Declarar etapas posteriores como decididas** | mientras no exista su `D-XXX`, la respuesta correcta es «solo esta declarada la actual» |
+| **Dar por adoptado el ciclo de una guia de metodo** | una guia describe que etapas existen **en el metodo**; cuales ha adoptado el proyecto lo dice su tabla de etapas, y adoptar una exige su `D-XXX` y su archivo de etapa |
 | **Convertir el encargo del cliente en requisito** | `_brief/` es **entrada**, no registro. Lo que el equipo adopte va como `D-XXX` |
 | **Anadir codigos de producto** —necesidades, features, slices, casos de prueba— | la tabla «Codigos» de `project.md` no los define todavia; un codigo que aparece antes que en esa tabla es un desfase |
 | **Dar por cerrado un hallazgo propio** | `Implementado` lo escribe la auditoria siguiente, nunca `manager` |
@@ -140,6 +141,7 @@ project.md        <- los datos propios: nombre, rutas, remoto, carpetas, codigos
 _brief/           <- el encargo del cliente. Entrada, no registro
 _persistence/     <- como va el trabajo: indice arriba y detalle debajo, un archivo por tipo
 _audit/           <- como se comprueba: informe de sesion, auditoria, tablero y hallazgos
+_methodology/     <- con que criterio se construye: el metodo de desarrollo. Agnostico
 _phases/          <- que se hace en cada etapa. Un archivo por etapa declarada
 ```
 
@@ -179,12 +181,24 @@ primero que hace la etapa siguiente.
 | Archivo | Que se escribe aqui en esta etapa | Quien lo escribe |
 |---|---|---|
 | `progress.md` | el estado, la bitacora de sesiones, el siguiente paso | **`session-closer`** |
-| `tasks.md` | las tareas y su estado | **`session-closer`**, salvo la `T-XXX` que nace de un hallazgo aceptado |
+| `tasks.md` | las tareas y su estado | **`session-closer`**, con **dos excepciones** —ver debajo |
 | `decisions.md` | toda eleccion sobre el metodo, con sus **alternativas descartadas** | **`manager`** |
 | `constraints.md` | los limites ya no negociables | **`manager`** |
 | `assumptions.md` | lo no confirmado, **con su forma de validarlo y su disparador** | **`manager`** |
 | `lessons.md` | lo que fallo y se corrigio, o la practica que demostro funcionar | **`manager`** |
 | `techdebt.md` | los atajos aceptados a conciencia | `session-closer` **propone**; confirma el **usuario** |
+
+🚨 **Las dos excepciones de `tasks.md`, porque son las que se confunden con saltarse la regla.**
+`manager` escribe ahi, sin esperar al cierre, en dos casos:
+
+| Caso | Por que no puede esperar al cierre |
+|---|---|
+| La `T-XXX` que nace de un **hallazgo aceptado** | la fila del hallazgo tiene que citar su codigo para ser auditable, y una fila que cita una tarea inexistente no lo es |
+| El cambio que nace de una **decision ya registrada que el cierre no puede deducir del `git diff`** —reasignar la etapa de una tarea, cambiar la estructura del archivo porque lo pidio el usuario— | el agente arranca en frio y solo ve archivos: una orden del usuario no deja rastro en el diff |
+
+⚠️ **Son dos excepciones, no una puerta.** Las dos exigen lo mismo: **un `D-XXX` o un `F-NNN` que las
+respalde, citado en la propia tarea**. Sin esa cita, una edicion a mano es indistinguible de saltarse
+la regla — y entonces la regla deja de existir.
 
 🚨 **Los cuatro del porque no son del `session-closer`, y por eso son los que se pierden.** El agente
 arranca en frio y solo ve archivos; si `manager` llega al cierre sin haberlos escrito, esa informacion
@@ -198,8 +212,8 @@ Cinco cosas. Ninguna es producto, y todas son condicion para poder construirlo.
 
 El arbol de la seccion 5, creado y declarado. No es una convencion de orden: cada carpeta es la
 respuesta a una pregunta distinta —**con que** se construye (`.claude/`), **que** se pidio
-(`_brief/`), **como va** (`_persistence/`), **como se comprueba** (`_audit/`), **que se hace en cada
-etapa** (`_phases/`)—. Un proyecto que empieza sin ellas las improvisa a mitad de camino, y entonces
+(`_brief/`), **como va** (`_persistence/`), **como se comprueba** (`_audit/`), **con que criterio**
+(`_methodology/`), **que se hace en cada etapa** (`_phases/`)—. Un proyecto que empieza sin ellas las improvisa a mitad de camino, y entonces
 ya hay trabajo hecho que no encaja en ninguna.
 
 ### 2. La forma de trabajo entre los tres agentes
