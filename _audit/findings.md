@@ -12,10 +12,13 @@
 
 | Codigo | Hallazgo | Auditoria | Gravedad | Estado |
 |---|---|---|---|---|
-| [F-001](#f-001---el-bloque-de-verificacion-de-d-016-afirma-mas-de-lo-que-su-comando-comprueba) | El bloque de verificacion de `D-016` afirma mas de lo que su comando comprueba | R-002 | Media | Aceptado — pendiente |
-| [F-002](#f-002---quedan-identificadores-auditor-vivos-fuera-del-ambito-del-barrido) | Quedan identificadores `auditor` vivos fuera del ambito del barrido | R-002 | Baja | Aceptado — pendiente |
-| [F-003](#f-003---dt-001-se-registro-como-confirmada-contra-el-paso-5-de-protocol-close) | `DT-001` se registro como `Confirmada` contra el Paso 5 de `protocol-close` | R-002 | Media | Aceptado — pendiente |
-| [F-004](#f-004---session-closermd-describe-a-report_auditor-en-su-propio-repositorio) | `session-closer.md` describe a `report_auditor` en «su propio repositorio» | R-002 | Media | Aceptado — pendiente |
+| [F-001](#f-001---el-bloque-de-verificacion-de-d-016-afirma-mas-de-lo-que-su-comando-comprueba) | El bloque de verificacion de `D-016` afirma mas de lo que su comando comprueba | R-002 | Media | Implementado |
+| [F-002](#f-002---quedan-identificadores-auditor-vivos-fuera-del-ambito-del-barrido) | Quedan identificadores `auditor` vivos fuera del ambito del barrido | R-002 | Baja | Implementado |
+| [F-003](#f-003---dt-001-se-registro-como-confirmada-contra-el-paso-5-de-protocol-close) | `DT-001` se registro como `Confirmada` contra el Paso 5 de `protocol-close` | R-002 | Media | Implementado |
+| [F-004](#f-004---session-closermd-describe-a-report_auditor-en-su-propio-repositorio) | `session-closer.md` describe a `report_auditor` en «su propio repositorio» | R-002 | Media | Implementado |
+| [F-005](#f-005---el-bloque-de-verificacion-de-la-observacion-nueva-de-a-001-no-se-reproduce-sobre-su-propio-commit) | El bloque de verificacion de la observacion nueva de `A-001` no se reproduce sobre su propio commit | R-003 | Media | Abierto |
+| [F-006](#f-006---la-nota-de-ambito-de-d-016-registra-recuentos-que-no-cuadran-con-el-commit-que-la-contiene) | La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene | R-003 | Baja | Abierto |
+| [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Abierto |
 
 ---
 
@@ -80,9 +83,9 @@ Plantilla:
 | Auditoria | R-002 |
 | Fecha | 2026-08-31 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-004 |
-| Cerrado en | |
+| Cerrado en | `ea0b850` (R-003) |
 
 - **Que se observo:** el bloque de `D-016` se titula «Verificacion — cero identificadores
   `auditor` vivos», sin acotar ambito, y su comando cubre solo tres rutas:
@@ -110,9 +113,9 @@ exit=1
 | Auditoria | R-002 |
 | Fecha | 2026-08-31 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-005 |
-| Cerrado en | |
+| Cerrado en | `ea0b850` (R-003) |
 
 - **Que se observo:** dos lineas vivas siguen citando el handle viejo.
 
@@ -142,9 +145,9 @@ $ git show badc878:_audit/findings.md | sed -n '3p'
 | Auditoria | R-002 |
 | Fecha | 2026-08-31 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-006 |
-| Cerrado en | |
+| Cerrado en | `ea0b850` (R-003) |
 
 - **Que se observo:**
 
@@ -174,9 +177,9 @@ $ git show badc878:.claude/skills/protocol-close/SKILL.md | sed -n '365,366p'
 | Auditoria | R-002 |
 | Fecha | 2026-08-31 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-007 |
-| Cerrado en | |
+| Cerrado en | `ea0b850` (R-003) |
 
 - **Que se observo:**
 
@@ -194,3 +197,101 @@ $ git show badc878:project.md | grep -n "dentro de este mismo repositorio"
 - **Que se hizo:** `manager` lo acepta (2026-09-01, sesion `S-003`). La linea seguia viva en `HEAD`
   (`c575bc0`). La fila pasa a nombrar lo que el auditor escribe de verdad —`_audit/R-XXX.md`,
   `_audit/findings.md` y `_audit/index.md`, en este mismo repositorio—. Registrado en `T-007`.
+
+---
+
+### F-005 - El bloque de verificacion de la observacion nueva de `A-001` no se reproduce sobre su propio commit
+| Campo | Valor |
+|---|---|
+| Auditoria | R-003 |
+| Fecha | 2026-09-01 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la observacion del 2026-09-01 bajo `A-001` registra este bloque y concluye
+  «Cero sesiones cerradas sin auditar (señal 2)»:
+
+```
+$ git grep -n "| Pendiente |" -- _audit/index.md ; echo "exit=$?"
+exit=1
+```
+
+  Sobre el commit que contiene esa afirmacion, el mismo comando devuelve una linea:
+
+```
+$ git grep -n "| Pendiente |" ea0b850 -- _audit/index.md ; echo "exit=$?"
+ea0b850:_audit/index.md:14:| `S-003.md` | S-003 | 2026-09-01 | Pendiente | Pendiente | Pendiente | - |
+exit=0
+```
+
+- **Por que importa:** la salida cruda registrada no es reproducible sobre el commit que la contiene,
+  y ademas ese comando **no puede devolver `exit=1` en ningun cierre**: el propio cierre añade la
+  fila de su sesion con `Pendiente` antes de commitear. Como señal de refutacion de `A-001` esta mal
+  construida — mismo patron que `F-001` y `L-006`.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-006 - La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene
+| Campo | Valor |
+|---|---|
+| Auditoria | R-003 |
+| Fecha | 2026-09-01 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota del 2026-09-01 bajo el bloque de verificacion de `D-016` afirma que el
+  barrido se hizo «ya escrito el registro de esta sesion», y registra `_persistence/progress.md:7`
+  sin `_audit/S-003.md`. El mismo comando sobre el commit auditado devuelve:
+
+```
+$ git grep -cE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' ea0b850 -- .
+ea0b850:_audit/R-002.md:28
+ea0b850:_audit/S-001.md:1
+ea0b850:_audit/S-002.md:10
+ea0b850:_audit/S-003.md:3
+ea0b850:_audit/findings.md:6
+ea0b850:_persistence/assumptions.md:1
+ea0b850:_persistence/decisions.md:14
+ea0b850:_persistence/lessons.md:3
+ea0b850:_persistence/progress.md:8
+ea0b850:_persistence/tasks.md:4
+```
+
+- **Por que importa:** las diferencias son lineas escritas despues del barrido y ninguna es una
+  referencia viva, pero la nota declara mas ambito temporal del que tuvo. Repetir dentro de la
+  correccion de `F-001` el defecto que `F-001` describe le resta valor a `L-006`.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-007 - `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar
+| Campo | Valor |
+|---|---|
+| Auditoria | R-003 |
+| Fecha | 2026-09-01 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-020` esta `Vigente` y permite a `manager` escribir en `tasks.md`. La
+  convencion del archivo sigue en absoluto, y la tension no esta en ningun tablero:
+
+```
+$ git show ea0b850:_persistence/tasks.md | sed -n '48,49p'
+🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto
+con `progress.md`.
+
+$ git grep -n "D-020" ea0b850 -- _persistence/debtec.md _persistence/tasks.md ; echo "exit=$?"
+exit=1
+```
+
+- **Por que importa:** quien abra `tasks.md` sin conocer `D-020` lee una prohibicion absoluta que ya
+  no rige, y `T-004`..`T-007` la incumplen a la vista. Una tension declarada solo en el cuerpo de la
+  decision que la crea no vuelve a mirarla nadie.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
