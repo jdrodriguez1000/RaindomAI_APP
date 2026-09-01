@@ -162,19 +162,27 @@ envejece sin que nadie la revise y acaba tapando justo lo que el control existe 
 | `DT-XXX` | `_persistence/techdebt.md` | deuda tecnica |
 | `F-NNN` | `_audit/findings.md` | hallazgo de auditoria |
 | `R-XXX` | `_audit/R-XXX.md` | auditoria de una sesion |
+| `N-XXX` | el artefacto de necesidades de `005_discovery` — **su carpeta esta sin decidir** (`D-035`) | necesidad |
 
 🚨 **Ningun codigo se reutiliza, en ningun archivo.** Un id retirado queda retirado; la entrada que
 lo llevaba conserva su texto para que se entienda que se creia y por que dejo de valer.
 
-⚠️ **Los codigos del producto —necesidades, features, escenarios, slices, casos de prueba— no estan
-definidos**, porque no hay producto declarado todavia. Se añaden a esta tabla en la misma pasada en
-que se escriba el primero, con su `D-XXX`. Un codigo que aparece en un archivo antes que en esta
-tabla es un desfase, no una novedad.
+⚠️ **De los codigos del producto solo esta declarado `N-XXX`** —la necesidad, que es lo unico que
+`005_discovery` produce—. Features, escenarios, slices y casos de prueba **siguen sin definir**,
+porque no hay producto declarado todavia. Se añaden a esta tabla en la misma pasada en que se
+escriba el primero, con su `D-XXX`. Un codigo que aparece en un archivo antes que en esta tabla es un
+desfase, no una novedad.
 
 📌 **Hay una propuesta escrita, y esta en `_methodology/000_method.md` (§46):** `N-`
 necesidad, `FT-` feature, `SC-` scenario, `VS-` vertical slice, `T-` task, `TC-` caso de prueba,
-`ADR-` decision arquitectonica. **Propuesta, no declarada:** ninguno entra en esta tabla hasta que
-haya producto y su `D-XXX`.
+`ADR-` decision arquitectonica. **Propuesta, no declarada:** de esos, `N-` ya entro por `D-034`
+—porque el archivo de etapa de `005_discovery` lo cita y un codigo citado sin declarar es un
+desfase—; los demas no entran hasta que haya producto y su `D-XXX`.
+
+🚨 **Los supuestos y las restricciones del descubrimiento no traen codigo propio.** La guia de
+metodo hablaba de `SUP-` y `RES-`; aqui van a `A-XXX` y `C-XXX`, que ya existen y significan lo
+mismo. Dos prefijos para el mismo concepto obligan a buscar en dos sitios lo que hay sin confirmar
+(`D-034`).
 
 🚨 **Dos de esos prefijos ya estan tomados en esta tabla, y por eso el metodo usa dos letras.**
 `F-` es el hallazgo de auditoria y `S-` la sesion de trabajo; las fuentes del metodo los usaban para

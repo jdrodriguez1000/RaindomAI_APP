@@ -18,6 +18,7 @@
 | [L-007](#l-007---una-excepcion-se-escribe-donde-esta-la-regla-no-donde-se-decidio) | Una excepcion se escribe donde esta la regla, no donde se decidio | 2026-09-01 | 000_preproject |
 | [L-008](#l-008---una-leccion-escrita-solo-como-leccion-no-cambia-la-entrada-siguiente) | Una leccion escrita solo como leccion no cambia la entrada siguiente | 2026-09-01 | 000_preproject |
 | [L-009](#l-009---un-hallazgo-acota-su-ejemplo-no-el-defecto) | Un hallazgo acota su ejemplo, no el defecto | 2026-09-02 | 000_preproject |
+| [L-010](#l-010---un-criterio-de-cierre-cuyo-ambito-incluye-el-registro-no-puede-cumplirse-nunca) | Un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca | 2026-09-02 | 000_preproject |
 
 ---
 
@@ -278,3 +279,45 @@ el repositorio entero y **luego** se clasifica cada coincidencia en viva o histo
 - **Donde queda aplicada:** `T-015`, `T-016`, `T-017` y `T-018` llevan cada una el barrido con el que
   se comprobo el alcance real, y `T-017` y `T-016` registran explicitamente lo que el hallazgo no
   nombraba.
+
+---
+
+### L-010 - Un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `T-015` se cerro con el criterio «el barrido de la regla no devuelve ningun enunciado
+  que siga afirmando que la excepcion es unica». `F-016` lo corrio y devolvio uno. Al corregirlo,
+  aparecio algo que el hallazgo no decia: **ese criterio no podia dar cero en ningun escenario**. El
+  barrido incluye `_persistence/tasks.md`, y el cuerpo de la propia `T-015` cita el texto viejo
+  literalmente para explicar que se corrigio; `_audit/` guarda lo mismo en cada hallazgo. Ninguno de
+  los dos se reescribe (`D-019`).
+- **Que ocurrio:** el criterio no fallo por lo que no se hizo, sino por como estaba escrito. Y el
+  intento de verificarlo cayo en el mismo agujero: **el primer bloque de verificacion que escribi
+  para `T-021` se barria a si mismo** —el patron estaba dentro del ambito, en el archivo que el
+  bloque estaba escribiendo—, y por tanto tampoco se reproducia sobre su propio commit.
+- **Por que es distinto de `L-006` y `D-022`, aunque suene igual:** aquello era sobre **recuentos de
+  ambito global** en un archivo que la sesion todavia iba a tocar, y se resolvia fechandolos. Esto es
+  sobre **criterios de cierre**, y fecharlos no arregla nada: un criterio existe para poder correrse
+  mas tarde. Lo que hay que acotar es el ambito, no la fecha.
+- **Leccion:** un criterio de cierre se escribe sobre **el sitio donde vive el defecto**, nunca sobre
+  el repositorio entero. Todo registro que documenta una correccion —el hallazgo, la tarea, la
+  auditoria— cita el texto defectuoso para explicarse; incluir ese registro en el ambito garantiza
+  coincidencias para siempre, y entonces el criterio no mide si se arreglo, mide si alguien lo
+  escribio.
+- **Como aplicarla, y hay dos casillas:**
+  - **Al escribir el criterio:** nombra el ambito —«en `.claude`, `CLAUDE.md` y `_phases/`»— y
+    **enumera lo que puede quedar y por que no cuenta**. Un criterio que espera exactamente dos
+    coincidencias conocidas es mas util que uno que espera cero y nunca lo consigue.
+  - **Al escribir el bloque que lo verifica:** comprueba que el ambito **no incluye el archivo donde
+    estas escribiendo el bloque**. Si lo incluye, el bloque se caza a si mismo en cuanto se guarda.
+- **Donde queda aplicada:** `T-021` lleva el criterio acotado y sus dos bloques de verificacion
+  reproducibles, y `T-015` lleva la nota fechada que precisa como debia leerse el suyo.
+
+⚠️ **Esta leccion todavia no tiene mecanismo**, y por `L-008` eso significa que depende de que quien
+escriba el proximo criterio se acuerde. El Paso 6 de `protocol-close` (`T-019`) ya marca los bloques
+de verificacion cuyo ambito alcanza lo que el cierre reescribe — es el mismo tipo de control, y
+ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.

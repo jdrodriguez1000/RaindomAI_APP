@@ -26,8 +26,8 @@
 | [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Implementado |
 | [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Implementado |
 | [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Implementado |
-| [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Abierto |
-| [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Abierto |
+| [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Aceptado — pendiente |
+| [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -825,8 +825,8 @@ $ grep -cE "^[|] Sesion [|] S-005 [|]" _persistence/tasks.md
 | Auditoria | R-006 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-020` |
 | Cerrado en | |
 
 - **Que se observo:** `D-023` es una decision **vigente** cuyo titulo dice «Cada etapa declarada
@@ -858,7 +858,26 @@ exit=1
   `session-starter` lee al arrancar: desaparece del radar en cuanto nadie se acuerde de repetirlo.
   `Media` y no `Alta` porque `T-001` sigue sin arrancar y hoy no bloquea nada; sera bloqueante el
   dia que la etapa empiece.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-007`). Verificado contra `HEAD` (`111fc40`) antes
+  de evaluarlo: el hallazgo seguia vivo, tal cual. Se abre `T-020` y **se escribe el archivo en la
+  misma sesion**, porque el usuario pidio abordar `005_discovery` justo despues. De las dos opciones
+  que ofrecia la auditoria —una `T-XXX` o una `DT-XXX` de aplazamiento— se tomo la primera: aplazar
+  habria sido registrar deuda sobre algo que ya tocaba hacer. `Aceptado — pendiente` y no
+  `Implementado`, que lo escribe la auditoria siguiente.
+
+```
+$ grep -n "Etapas declaradas" project.md
+79:| Etapas declaradas | `000_preproject`, `005_discovery` |
+
+$ ls -1 _phases/
+000_preproject.md
+
+$ grep -niE "phases" _persistence/tasks.md ; echo "exit=$?"
+exit=1
+```
+
+  *(los tres comandos, ejecutados sobre `111fc40` antes de tocar nada — el segundo devuelve ya dos
+  archivos, y el tercero deja de estar vacio, en cuanto se aplica `T-020`.)*
 
 ---
 
@@ -868,8 +887,8 @@ exit=1
 | Auditoria | R-006 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-021` |
 | Cerrado en | |
 
 - **Que se observo:** `T-015` declara como criterio de cierre «el barrido de la regla no devuelve
@@ -894,4 +913,24 @@ d906a5d:_persistence/tasks.md:63:con `progress.md`. **Tiene una unica excepcion,
   Quien vuelva a correr el barrido encontrara una coincidencia y no sabra si es un resto o un
   descuido. `Baja` porque el fondo esta bien: los tres sitios que `F-012` señalaba estan corregidos y
   ningun agente queda con la regla vieja.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-007`). Verificado contra `HEAD` (`111fc40`) antes
+  de evaluarlo: el enunciado seguia vivo. Se abre `T-021` y se corrige en la misma sesion. De las dos
+  opciones que ofrecia la auditoria se tomo **reescribir la convencion**, no acotar el criterio de
+  `T-015`: el defecto estaba en la regla, que la lee quien ejecuta; el criterio solo la comprobaba.
+  `T-015` conserva su texto y recibe una **nota fechada** que precisa como debia leerse (`D-019`).
+  `Aceptado — pendiente` y no `Implementado`, que lo escribe la auditoria siguiente.
+
+  ⚠️ **Y una precision que el hallazgo no pedia, por `L-009`:** el criterio de `T-015`, tal como
+  estaba escrito, **no podia cumplirse nunca**. Un barrido global siempre devolvera las citas
+  literales del texto viejo que guardan `_audit/` y el propio cuerpo de `T-015`, y ninguna de las dos
+  se reescribe. Por eso `T-021` no hereda ese criterio: lo acota al sitio donde la regla se enuncia.
+
+```
+$ grep -rn "unica excepcion\|salvo la .T-XXX" .claude CLAUDE.md _phases _persistence/tasks.md
+.claude/skills/protocol-close/SKILL.md:490:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+_persistence/tasks.md:63:con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
+_persistence/tasks.md:463:  quien la ejecuta seguian diciendo «es la unica excepcion». Se reescriben los tres.
+```
+
+  *(ejecutado sobre `111fc40` antes de tocar nada. La linea 63 es la que `T-021` corrige; las otras
+  dos son otra regla y una cita historica.)*

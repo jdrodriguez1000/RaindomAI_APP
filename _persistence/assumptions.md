@@ -13,6 +13,7 @@
 | [A-001](#a-001---un-auditor-lanzado-por-el-auditado-conserva-independencia-suficiente) | Un auditor lanzado por el auditado conserva independencia suficiente | 2026-08-31 | Abierto |
 | [A-002](#a-002---el-brief-recibido-es-el-encargo-completo) | El brief recibido es el encargo completo | 2026-08-31 | Abierto |
 | [A-003](#a-003---el-historico-de-la-fuente-oficial-es-obtenible-de-forma-automatizable) | El historico de la fuente oficial es obtenible de forma automatizable | 2026-08-31 | Abierto |
+| [A-004](#a-004---existe-acceso-al-patrocinador-y-a-personas-que-puedan-hablar-del-proceso-real) | Existe acceso al patrocinador y a personas que puedan hablar del proceso real | 2026-09-02 | Abierto |
 
 ---
 
@@ -195,3 +196,37 @@ que el anexo describe excluir los que salieron **en cualquiera de los dos**. Son
 
 🚨 **Es el supuesto mas caro de los tres.** Si resulta falso, no cae una funcionalidad: cae el ciclo
 entero de la aplicacion, porque las secciones 5 a 19 del brief dependen todas del historico.
+
+---
+
+### A-004 - Existe acceso al patrocinador y a personas que puedan hablar del proceso real
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Abierto |
+| Origen | manager |
+
+- **Supuesto:** hay alguien alcanzable a quien preguntar —el patrocinador del encargo, y personas que
+  hoy hacen el trabajo que la aplicacion pretende tocar— y ese acceso durara lo que dure la etapa de
+  descubrimiento.
+- **Por que se supone:** el archivo de etapa que se escribio en esta sesion lo pone como **entrada
+  obligatoria**: «si falta el acceso, la etapa no puede empezar». Se escribio esa regla sin que nadie
+  haya confirmado que el acceso existe. Hoy la unica entrada real del proyecto es el encargo escrito
+  en `_brief/`, que es un documento, no una persona.
+- **Por que se registra ahora y no al abrir la etapa:** porque **ya se construyo encima**. La etapa
+  esta declarada, su archivo existe, y las tareas de alcance (`T-001`, `T-002`) estan asignadas a
+  ella. Si el acceso no existe, ninguna de las tres cosas sirve tal como estan escritas.
+- **Como se refuta:** que no haya un interlocutor identificable para el encargo; o que lo haya pero
+  no responda; o que responda y no conozca el proceso real —un patrocinador que solo puede describir
+  la solucion que imagina, y nadie que pueda describir como se hace hoy el trabajo.
+- **Disparador:** **la primera tarea de `005_discovery` que requiera preguntarle algo a alguien**, que
+  sera `T-001`. No se abre la etapa sin resolverlo antes.
+
+🚨 **Si este supuesto es falso, lo que sale de la etapa no es descubrimiento: es invencion
+documentada.** Y es peor que no tenerla, porque llega con la forma de un artefacto validado. El
+resultado correcto en ese caso no es rellenar los cinco artefactos con lo que dice el brief, sino
+escalarlo al usuario y decidir si la etapa puede empezar.
+
+⚠️ **No lo confunde con `A-002`.** Aquel supone que el brief **esta completo**; este supone que hay
+**alguien a quien preguntar** cuando no lo este. Un brief completo no sustituye el acceso: el
+descubrimiento existe para contrastar lo escrito contra lo que pasa de verdad.

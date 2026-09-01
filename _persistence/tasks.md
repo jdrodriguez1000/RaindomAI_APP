@@ -28,6 +28,9 @@
 | [T-017](#t-017---corregir-el-recuento-de-hallazgos-de-progressmd-f-014) | Corregir el recuento de hallazgos de `progress.md` (`F-014`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-018](#t-018---corregir-la-convencion-viva-de-auditfindingsmd-f-010) | Corregir la convencion viva de `_audit/findings.md` (`F-010`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-019](#t-019---dar-mecanismo-a-d-022-en-el-paso-6-de-protocol-close) | Dar mecanismo a `D-022` en el Paso 6 de `protocol-close` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-020](#t-020---escribir-el-archivo-de-etapa-_phases005_discoverymd-f-015) | Escribir el archivo de etapa `_phases/005_discovery.md` (`F-015`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-021](#t-021---reescribir-la-apertura-de-la-convencion-de-tasksmd-f-016) | Reescribir la apertura de la convencion de `tasks.md` (`F-016`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-022](#t-022---escribir-las-cinco-plantillas-de-_templates005_discovery) | Escribir las cinco plantillas de `_templates/005_discovery/` | No implementada | Media | No bloqueante | `005_discovery` |
 
 ---
 
@@ -60,17 +63,17 @@ Regla: una tarea con origen `report_auditor` solo pasa a ejecutarse despues de q
 recomendacion y la considere correcta.
 
 🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto
-con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
-`F-NNN` de una auditoria y lo acepta, escribe **en ese momento** la `T-XXX` con
+con `progress.md`. **Tiene dos excepciones, y las dos estan escritas.** La primera: cuando `manager`
+evalua un hallazgo `F-NNN` de una auditoria y lo acepta, escribe **en ese momento** la `T-XXX` con
 `Origen: report_auditor`, sin esperar al cierre. Lo fija `D-020`, confirmada por el usuario el
 2026-09-01.
 
-🔑 **Por que esa excepcion existe.** La fila del hallazgo en `_audit/findings.md` tiene que
+🔑 **Por que esa primera excepcion existe.** La fila del hallazgo en `_audit/findings.md` tiene que
 citar el codigo de su tarea para ser auditable, y una fila que cita una `T-XXX` inexistente no lo es.
 Esperar al cierre dejaria el hallazgo evaluado y sin registro durante toda la jornada — el agujero
 que el estado `Aceptado — pendiente` existe justamente para tapar.
 
-**Y tiene una segunda excepcion, escrita el 2026-09-01 (`D-025`):** `manager` tambien escribe aqui
+**La segunda, escrita el 2026-09-01 (`D-025`):** `manager` tambien escribe aqui
 cuando el cambio **nace de una decision ya registrada que el `session-closer` no puede deducir del
 `git diff`** — reasignar la etapa de una tarea, o cambiar la estructura del archivo porque lo pidio
 el usuario. El agente arranca en frio y solo ve archivos: una orden del usuario no deja rastro en el
@@ -473,6 +476,14 @@ tarea no cambia.
 - **Criterio de cierre:** el barrido de la regla no devuelve ningun enunciado que siga afirmando que
   la excepcion es unica, y el archivo de la etapa sigue pasando el control de agnosticidad.
 
+🕒 **Nota anadida el 2026-09-02 (`S-007`), tras el hallazgo `F-016` de `R-006`.** El criterio de
+arriba **se deja tal cual se escribio** (`D-019`), y hay que leerlo con esta precision: «ningun
+enunciado» significaba **ningun enunciado vivo de esta regla**, no ninguna coincidencia del patron.
+Tal como quedo redactado, el barrido no puede dar cero nunca: siempre devolvera la regla de los
+supuestos `A-XXX` de `protocol-close`, que es otra, y la cita historica que esta tarea hace del texto
+viejo cuatro lineas mas arriba. El criterio corregido —enumerando lo que si puede quedar— vive en
+`T-021`, que es donde se atendio el hallazgo.
+
 ---
 
 ### T-016 - Anotar en `D-023` que `D-026` ya amplio el ambito del Paso 1b (`F-013`)
@@ -581,3 +592,118 @@ tarea no cambia.
 - **Criterio de cierre:** el Paso 6 lleva la comprobacion con sus dos condiciones, su tabla de
   reconocimiento, el caso que no se arregla anclando, y la instruccion de senalar sin arreglar. El
   archivo sigue pasando el control de fuga de datos propios.
+
+---
+
+### T-020 - Escribir el archivo de etapa `_phases/005_discovery.md` (`F-015`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-007 |
+
+- **Que:** `D-023` es una decision vigente cuyo cuerpo dice «un archivo por etapa declarada».
+  `project.md` declara dos etapas y `_phases/` contenia una. Se escribe el archivo que faltaba,
+  siguiendo la estructura de ocho secciones de `_phases/000_preproject.md`.
+- **Por que:** era la tercera sesion consecutiva en que el asunto se nombraba sin agendarse —`D-024`
+  lo anoto como advertencia, `R-005` lo repitio sin hallazgo, `S-006` lo volvio a nombrar—. Un
+  incumplimiento de una decision vigente que solo vive en prosa dentro de informes **no aparece en
+  este archivo, que es lo que `session-starter` lee al arrancar**: desaparece del radar en cuanto
+  nadie se acuerde de repetirlo.
+- **De donde sale el contenido:** de dos archivos que el usuario aporto como guia, adaptados y no
+  copiados (`D-033`), y de la guia de metodo del proyecto para la taxonomia de actores, los
+  interesados y el Gate. Los codigos se resolvieron en `D-034` y la ubicacion de las plantillas en
+  `D-035`.
+- **Que se resolvio de paso, y no lo pedia el hallazgo:** el archivo **autoriza explicitamente
+  definir el alcance y el objetivo, y declarar las etapas posteriores**. `D-025` ya habia mandado
+  esas tareas a `005_discovery`, pero ningun archivo decia que la etapa las autorizara — vivian en
+  una etapa sin permiso escrito para ejecutarlas.
+- **Criterio de cierre:** `_phases/` contiene un archivo por cada etapa de la fila «Etapas
+  declaradas» de `project.md`, y el control de fuga de datos propios del Paso 1b sigue devolviendo
+  cero lineas sobre `.claude CLAUDE.md _phases _methodology`.
+
+---
+
+### T-021 - Reescribir la apertura de la convencion de `tasks.md` (`F-016`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-007 |
+
+- **Que:** la convencion de este archivo seguia abriendo con «Tiene una unica excepcion, y esta
+  escrita» aunque cuatro parrafos mas abajo anunciaba la segunda (`D-025`). Se reescribe a «Tiene dos
+  excepciones, y las dos estan escritas», y se ajustan los dos parrafos que la seguian para que no
+  las presenten como una y un añadido.
+- **Por que:** era el mismo patron de `F-009` —un criterio de cierre autodeclarado que no se cumple
+  al correrlo—, y aparecia dentro de la tarea que corrigio un hallazgo sobre ese mismo descuido.
+  Quien volviera a correr el barrido de `T-015` encontraria una coincidencia y no sabria si era un
+  resto o un descuido.
+- **Que se hizo ademas, por `L-009`:** el hallazgo citaba **un** enunciado, y una correccion que
+  barre solo el ejemplo citado deja vivo el defecto. Se barrieron tambien las variantes que el patron
+  del hallazgo no cubria —«una sola excepcion», «la excepcion es unica», «solo una excepcion»— sobre
+  todo el repositorio. No aparecio ninguna mas viva de esta regla.
+- **Por que esta opcion y no la otra:** `R-006` ofrecia dos caminos —reescribir la convencion, o
+  acotar el criterio de cierre de `T-015`—. Se hizo el primero porque es donde estaba el defecto: la
+  regla mal enunciada la lee quien ejecuta, y el criterio de `T-015` solo la comprueba. `T-015` queda
+  con su texto intacto y una **nota fechada** que precisa como debia leerse (`D-019`), porque
+  reescribir el criterio de una tarea ya cerrada seria cambiar la historia auditada.
+- **Criterio de cierre, y viene acotado a proposito:** el barrido corre sobre **el sitio donde la
+  regla se enuncia**, no sobre el repositorio entero. En `.claude`, `CLAUDE.md` y `_phases/` deja una
+  sola coincidencia, y es de otra regla —la de los supuestos `A-XXX` en `protocol-close`—; y en la
+  seccion «Convenciones» de este archivo no deja ninguna, en ninguna de sus variantes.
+- **Por que acotado, y no «cero coincidencias en el repositorio»:** ese es el enunciado que hundio a
+  `T-015` y abrio `F-016`. Un barrido global **no puede dar cero nunca**: `_audit/` guarda los
+  hallazgos que citan el texto viejo literalmente, y el cuerpo de `T-015` tambien lo cita — y ninguno
+  de los dos se reescribe (`D-019`). Un criterio que no puede cumplirse no mide nada.
+
+**Verificacion — donde la regla se enuncia para quien la ejecuta:**
+
+```
+$ grep -rn "unica excepcion\|salvo la .T-XXX" .claude CLAUDE.md _phases ; echo "exit=$?"
+.claude/skills/protocol-close/SKILL.md:490:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+exit=0
+```
+
+**Y la seccion «Convenciones» de este archivo, con las tres variantes que el hallazgo no citaba:**
+
+```
+$ sed -n '/^## Convenciones/,/^## Tareas/p' _persistence/tasks.md | grep -n "unica excepcion\|una sola excepcion\|la excepcion es unica\|solo una excepcion" ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### T-022 - Escribir las cinco plantillas de `_templates/005_discovery/`
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `005_discovery` |
+| Origen | usuario |
+| Sesion | S-007 |
+
+- **Que:** escribir las plantillas de los cinco artefactos del descubrimiento —necesidades, actores,
+  interesados, hipotesis, y restricciones con supuestos— en `_templates/005_discovery/`, crear la
+  carpeta y declararla en la tabla «Carpetas propias» de `project.md`.
+- **Por que:** `_phases/005_discovery.md` remite a esas plantillas y hoy no existen; mientras no
+  existan, un artefacto de la etapa se escribe a mano y no hay adherencia a plantilla que comprobar
+  —que es una de las reglas de operacion de `CLAUDE.md`.
+- **Por que no se hizo en esta sesion:** el usuario pidio expresamente no escribirlas todavia
+  (`D-035`). La carpeta y su fila en `project.md` entran **en esta misma tarea y no antes**, porque
+  `git` no versiona carpetas vacias y una fila sin carpeta produce una diferencia en el control de
+  carpetas de cada cierre.
+- **Que no resuelve esta tarea:** donde viven los artefactos **rellenos** sigue sin decidir (`D-035`).
+  Esa decision es de cuando se abra la etapa, y necesita su propio `D-XXX`.
+- **Respaldo de la escritura a mano en este archivo:** `D-035`, decision del usuario que el
+  `session-closer` no puede deducir del `git diff` — la segunda excepcion de la convencion de arriba.
+- **Criterio de cierre:** `_templates/005_discovery/` existe con las cinco plantillas, tiene su fila
+  en «Carpetas propias» de `project.md`, y el control de carpetas del cierre no devuelve diferencias
+  sin justificar.

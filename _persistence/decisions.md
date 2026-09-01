@@ -40,6 +40,10 @@
 | [D-029](#d-029---000_methodmd-es-guia-de-metodo-vigente-y-no-declara-las-etapas-del-proyecto) | `000_method.md` es guia de metodo vigente, y no declara las etapas del proyecto | 2026-09-02 | Vigente |
 | [D-030](#d-030---los-codigos-de-producto-del-metodo-se-renombran-a-ft--y-sc-) | Los codigos de producto del metodo se renombran a `FT-` y `SC-` | 2026-09-02 | Vigente |
 | [D-031](#d-031---un-gate-lo-declara-el-usuario-sobre-el-veredicto-tecnico-de-report_auditor) | Un Gate lo declara el usuario, sobre el veredicto tecnico de `report_auditor` | 2026-09-02 | Vigente |
+| [D-032](#d-032---las-entradas-de-esta-sesion-se-fechan-2026-09-02-por-continuidad-con-el-registro) | Las entradas de esta sesion se fechan 2026-09-02, por continuidad con el registro | 2026-09-02 | Vigente |
+| [D-033](#d-033---el-archivo-de-etapa-de-descubrimiento-se-adapta-de-la-guia-del-usuario-no-se-copia) | El archivo de etapa de descubrimiento se adapta de la guia del usuario, no se copia | 2026-09-02 | Vigente |
+| [D-034](#d-034---n-xxx-es-el-codigo-de-necesidad-los-supuestos-y-restricciones-siguen-siendo-a-xxx-y-c-xxx) | `N-XXX` es el codigo de necesidad; los supuestos y restricciones siguen siendo `A-XXX` y `C-XXX` | 2026-09-02 | Vigente |
+| [D-035](#d-035---las-plantillas-de-los-artefactos-de-descubrimiento-viven-en-_templates005_discovery) | Las plantillas de los artefactos de descubrimiento viven en `_templates/005_discovery/` | 2026-09-02 | Vigente |
 
 ---
 
@@ -1314,5 +1318,171 @@ que ya no queda `F-` en ningun sitio de `_methodology/`, y no es cierto.
 
 ```
 $ grep -n "terminal\|Terminal" _methodology/000_method.md ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-032 - Las entradas de esta sesion se fechan 2026-09-02, por continuidad con el registro
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el reloj del entorno de esta sesion devuelve `2026-09-01`, pero las dos ultimas
+  entradas del registro —`S-006` y `R-006`— estan fechadas `2026-09-02`. Escribir las entradas de hoy
+  con la fecha del sistema dejaria el registro con trabajo posterior fechado antes que el anterior.
+- **Decision:** las entradas de esta sesion se fechan **2026-09-02**. Lo zanjo el usuario al
+  preguntarselo.
+- **Por que se registra algo tan pequeño:** una auditoria que compare fechas con el orden de los
+  commits va a ver una discrepancia entre el reloj del entorno y el registro. Sin esta entrada, esa
+  discrepancia parece un descuido; con ella, es una eleccion con dueño.
+- **Alternativas descartadas:** usar `2026-09-01`, la fecha del sistema (deja el registro leyendose
+  hacia atras, y obliga a explicarlo en cada entrada de la jornada); usar `2026-09-03` (inventa un
+  dia que nadie ha dicho que haya pasado).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  campo de texto en entradas nuevas del registro; nada externo depende de el.
+
+**Verificacion — la fecha de la ultima auditoria registrada:**
+
+```
+$ grep -n "^| Fecha |" _audit/R-006.md | head -1
+8:| Fecha | 2026-09-02 |
+```
+
+---
+
+### D-033 - El archivo de etapa de descubrimiento se adapta de la guia del usuario, no se copia
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto en su area de trabajo dos archivos como guia para escribir
+  `_phases/005_discovery.md`: un archivo de fase de descubrimiento de un proyecto anterior, y un
+  documento sobre las entradas posibles del descubrimiento. El primero **no encaja tal cual en este
+  repositorio**: esta escrito para un esquema de dos terminales que `D-012` revoco, cita el archivo
+  de metodo por una ruta que aqui no existe, escribe los registros en `_memory/` en vez de
+  `_persistence/`, y usa codigos `SUP-` y `RES-` que duplican conceptos de `A-XXX` y `C-XXX`.
+- **Decision:** el archivo nuevo **se adapta, no se copia**. Conserva del original lo que es metodo
+  —los siete pasos del procedimiento, la separacion necesidad/solucion, las nueve preguntas, la
+  comprobacion del actor originador, la hipotesis con condicion de falsacion, el `NO CONTINUA`— y se
+  reescribe todo lo que era dato de aquel proyecto o vocabulario de aquel esquema. La estructura de
+  ocho secciones se toma de `_phases/000_preproject.md`, que es la que este repositorio ya usa.
+- **Que se incorporo del segundo archivo:** la seccion 3 gana los **tres puntos de partida** del
+  descubrimiento —problema percibido, idea, oportunidad—, la informacion complementaria, y el
+  principio de que **las entradas son puntos de partida, no conclusiones**. El archivo original no
+  tenia nada de eso: entraba directo a «una necesidad expresada por alguien».
+- **Que se añadio y no estaba en ninguno de los dos:** que esta etapa **autoriza definir el alcance y
+  el objetivo** —lo que `000_preproject` tiene prohibido— y **declarar las etapas posteriores**, que
+  es donde `D-025` ya habia mandado esas tareas. Sin esa linea, las tareas de alcance vivirian en una
+  etapa que no las autoriza.
+- **Alternativas descartadas:** copiar el archivo del usuario tal cual y corregirlo despues (deja
+  vocabulario de otro esquema dentro de un archivo que el control de agnosticidad da por bueno,
+  porque ese control busca datos propios, no incoherencias de metodo); escribirlo desde cero
+  ignorando la guia (tira el trabajo de metodo que el usuario ya habia hecho, que es justo lo que
+  aporta).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  archivo nuevo y versionado, que no borra nada y se puede reescribir entero.
+
+**Verificacion — el archivo existe y el control de fuga de datos propios del Paso 1b sigue en cero:**
+
+```
+$ ls _phases/
+000_preproject.md
+005_discovery.md
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|C:\\\\Users|USUARIO|jdrodriguez" .claude CLAUDE.md _phases _methodology ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-034 - `N-XXX` es el codigo de necesidad; los supuestos y restricciones siguen siendo `A-XXX` y `C-XXX`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** la guia del usuario registraba las salidas del descubrimiento con tres codigos
+  propios: `N-xxx` para necesidad, `SUP-xxx` para supuesto y `RES-xxx` para restriccion. Este
+  repositorio ya tiene `A-XXX` para supuestos y `C-XXX` para restricciones, cada uno con su archivo,
+  sus convenciones y su historia escrita. La tabla «Codigos» de `project.md` no define todavia ningun
+  codigo de producto.
+- **Decision:** **entra un codigo nuevo y solo uno.** `N-XXX` se declara como necesidad en la tabla
+  «Codigos» de `project.md`. Los supuestos y las restricciones que produzca el descubrimiento van a
+  `_persistence/assumptions.md` y `_persistence/constraints.md` como `A-XXX` y `C-XXX`, con las
+  convenciones que esos archivos ya tienen. Lo zanjo el usuario.
+- **Por que no entran `SUP-` y `RES-`:** serian **dos codigos para el mismo concepto**, viviendo en
+  archivos distintos. Un supuesto del descubrimiento y un supuesto del andamio son la misma cosa
+  —algo que se cree y no se ha verificado— y darles prefijo distinto segun de que etapa nacieron
+  obliga a mirar en dos sitios para saber que hay sin confirmar. Es el mismo argumento de `D-030`: un
+  prefijo que significa dos cosas segun el archivo hace ilegible justo lo que la trazabilidad existe
+  para poder leer.
+- **Por que `N-XXX` si entra, y no colisiona:** ningun codigo del registro usa hoy la inicial `N`, y
+  la necesidad **no tiene equivalente** en `_persistence/` — no es una decision, ni un supuesto, ni
+  una restriccion. Es la propuesta de la guia de metodo, y ahi no habia choque que resolver.
+- **Que archivo se declara en la tabla:** el artefacto de necesidades de `005_discovery`. **Su
+  carpeta todavia no esta decidida** (`D-035`), asi que la fila lo dice en vez de inventar una ruta.
+- **Alternativas descartadas:** declarar los tres codigos, fiel a la guia (dos sitios para el mismo
+  concepto, ver arriba); no declarar ninguno hasta escribir el primer `N-001` (el archivo de etapa ya
+  cita `N-XXX`, y `project.md` dice que un codigo que aparece en un archivo antes que en esa tabla es
+  un desfase — declararlo ahora es lo que evita el desfase).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — todavia
+  no existe ningun `N-001` escrito, asi que cambiar de prefijo hoy no reescribe nada.
+
+**Verificacion — no hay ningun codigo `N-` vivo en el registro con el que pueda colisionar:**
+
+```
+$ grep -rnoE "\bN-[0-9]{3}\b" _persistence/ _audit/ ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-035 - Las plantillas de los artefactos de descubrimiento viven en `_templates/005_discovery/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el descubrimiento produce cinco artefactos —necesidades, actores, interesados,
+  hipotesis, y restricciones con supuestos—. La guia del usuario los ponia en una carpeta
+  `_discovery/` y dejaba anotado que sus plantillas «aun no estan escritas». Habia que decidir dos
+  cosas distintas que es facil confundir: donde viven **las plantillas** y donde viven **los
+  artefactos rellenos**.
+- **Decision:** las **plantillas** viven en `_templates/005_discovery/`, una por artefacto, y **no se
+  escriben todavia**, por indicacion expresa del usuario. Donde viven **los artefactos rellenos queda
+  sin decidir**, y se decide al abrir la etapa.
+- **Por que la carpeta no se crea hoy:** `git` no versiona carpetas vacias, y la tabla «Carpetas
+  propias» de `project.md` se contrasta contra el arbol **en las dos direcciones** en cada cierre.
+  Declarar la fila hoy, sin contenido que la sostenga, produciria una diferencia en ese control desde
+  el primer cierre. La carpeta y su fila entran juntas, en la misma pasada que las plantillas.
+- **Por que el archivo de etapa dice «sin decidir» en vez de suponer una ruta:** una ruta supuesta se
+  cita, se copia y acaba en veinte sitios antes de que nadie la confirme; corregirla despues cuesta
+  mas que no haberla escrito nunca. Es la misma regla que `project.md` aplica a las etapas
+  posteriores.
+- **Grafia:** la carpeta se llama `_templates/`, con la grafia inglesa correcta. El usuario la
+  escribio como `_templetes` y confirmo la correccion al preguntarsela. Los nombres de carpeta van en
+  ingles por `D-017`, y aceptar la variante habria abierto una deuda tecnica por un error de tecleo.
+- **Alternativas descartadas:** guardar plantillas y artefactos rellenos en la misma carpeta (se
+  pregunto, y el usuario eligio que la carpeta contenga solo las plantillas); crear ya
+  `_templates/005_discovery/` con las cinco plantillas (el usuario pidio expresamente no escribirlas
+  todavia).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — hoy no
+  existe ningun archivo en esa ruta, asi que cambiarla no rompe ninguna referencia.
+
+**Verificacion — la carpeta no existe todavia, y por eso no tiene fila en `project.md`:**
+
+```
+$ ls -d _templates 2>&1 ; echo "exit=$?"
+ls: cannot access '_templates': No such file or directory
+exit=2
+
+$ grep -n "_templates" project.md ; echo "exit=$?"
 exit=1
 ```
