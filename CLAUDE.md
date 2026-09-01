@@ -208,10 +208,15 @@ Los datos propios de este proyecto —nombre, rutas, remoto, carpetas, codigos�
 **`project.md`**, y solo ahi: ningun protocolo, agente ni este archivo los lleva escritos dentro.
 Si cambian, se cambian en un sitio.
 
-🚨 **Este archivo y `.claude/` tienen que poder copiarse a otro proyecto tal cual.** Por eso no
-llevan ni un nombre, ni una ruta, ni un host de este proyecto — y el Paso 1b de `protocol-close` lo
-comprueba en cada cierre buscando exactamente eso. Si algun dia devuelve una linea, es que un dato
-propio se colo aqui.
+🚨 **Este archivo, `.claude/` y `_phases/` tienen que poder copiarse a otro proyecto tal cual.**
+Por eso no llevan ni un nombre, ni una ruta, ni un host de este proyecto — y el Paso 1b de
+`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los tres. Si algun dia
+devuelve una linea, es que un dato propio se colo ahi.
+
+🔑 **`_phases/` esta en esa lista porque describe el metodo, no el proyecto.** Un archivo de etapa
+dice que se autoriza, que se prohibe y cuando se sale de ella; nada de eso cambia al cambiar de
+producto. Donde hace falta un dato propio, se referencia `project.md` — y los codigos se escriben
+genericos (`T-XXX`, `D-XXX`, `F-NNN`), nunca instanciados.
 
 ⚠️ En `project.md` va solo **lo estable**. Lo que cambia cada jornada —etapa, avance, bloqueos— va
 a `_persistence/progress.md`.

@@ -99,6 +99,27 @@ skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de estructura 
 **El titulo de esta entrada se deja como esta**, porque nombra el defecto que hubo y no el estado de
 hoy. Alcance y verificacion, en `D-021`.
 
+🕒 **Nota anadida el 2026-09-01 (`S-005`), tras el hallazgo `F-009` de `R-004`.** El campo «Como se
+paga» de arriba **se deja tal cual se escribio** y pide `git grep -n "debtec" -- .` en cero, sin
+acotar ambito. Ese criterio literal **no se cumple y no se pretendio cumplir**: `D-021` acoto el
+pago al ambito vivo y dejo lo historico intacto a proposito. Escrito el criterio absoluto y no la
+excepcion, quien lo aplique tal cual concluye que la deuda no esta pagada.
+
+**El criterio de cierre realmente aplicado es este:** cero referencias `debtec` en `.claude`,
+`CLAUDE.md` y `project.md` —el ambito vivo que fija `D-021`—, con lo historico de `_audit/`,
+`decisions.md` y la narrativa de `progress.md` intacto por decision del usuario. Sobre `HEAD`:
+
+```
+$ git grep -n "debtec" HEAD -- .claude CLAUDE.md project.md ; echo "exit=$?"
+exit=1
+
+$ git ls-tree --name-only HEAD _persistence/ | grep -i debt
+_persistence/techdebt.md
+```
+
+⚠️ Con ese criterio, `DT-001` esta pagada. Con el literal de «Como se paga», no lo estaria nunca
+—reescribir `_audit/` es justo lo que `D-021` descarto—. **Manda el de esta nota.**
+
 🕒 **`Confirmacion` revertida a `Propuesta (pendiente del usuario)` el 2026-09-01, tras el
 hallazgo `F-003` de `R-002`.** La entrada nacio en el cierre de `S-002` con `Confirmada`, y el Paso 5
 de `protocol-close` prohibe expresamente ese valor al `session-closer`: lo que el escribe va

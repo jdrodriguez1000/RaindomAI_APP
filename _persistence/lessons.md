@@ -16,6 +16,7 @@
 | [L-005](#l-005---renombrar-un-agente-no-es-renombrar-su-archivo) | Renombrar un agente no es renombrar su archivo | 2026-08-31 | 000_preproject |
 | [L-006](#l-006---un-bloque-de-verificacion-declara-su-ambito-dentro-del-enunciado) | Un bloque de verificacion declara su ambito dentro del enunciado | 2026-09-01 | 000_preproject |
 | [L-007](#l-007---una-excepcion-se-escribe-donde-esta-la-regla-no-donde-se-decidio) | Una excepcion se escribe donde esta la regla, no donde se decidio | 2026-09-01 | 000_preproject |
+| [L-008](#l-008---una-leccion-escrita-solo-como-leccion-no-cambia-la-entrada-siguiente) | Una leccion escrita solo como leccion no cambia la entrada siguiente | 2026-09-01 | 000_preproject |
 
 ---
 
@@ -211,3 +212,35 @@ el repositorio entero y **luego** se clasifica cada coincidencia en viva o histo
   —protocolo, agente, convencion—, van todos, o el siguiente lector encontrara el que quedo sin
   tocar. La comprobacion es barata: `git grep` del enunciado absoluto, y que cada sitio que lo
   repite lleve la excepcion al lado.
+
+---
+
+### L-008 - Una leccion escrita solo como leccion no cambia la entrada siguiente
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `L-006` —«un bloque de verificacion declara su ambito dentro del enunciado»— se
+  escribio en `S-003` a raiz de `F-001`. La entrada inmediatamente posterior, `D-021`, escrita en
+  `S-004`, reincidio en el mismo defecto: `R-004` la abrio como `F-008`. Entre medias, `F-006`
+  encontro el mismo fallo **dentro de la propia correccion de `F-001`**.
+- **Que ocurrio:** tres hallazgos del mismo patron en tres sesiones seguidas, con la leccion ya
+  escrita en las tres. Nadie la incumplio por descuido de lectura: `L-006` hablaba del ambito **de
+  rutas**, y lo que fallaba era el **temporal** —un recuento tomado antes de que el cierre
+  terminara de escribir el registro—. La leccion era correcta y no cubria el caso, y como estaba
+  guardada en `lessons.md` y no en el sitio donde se escriben los bloques, nada la puso delante de
+  quien iba a repetir el fallo.
+- **Leccion:** una leccion que solo vive en `lessons.md` **no tiene ningun mecanismo que la
+  aplique**. `lessons.md` es memoria, no control: lo lee quien va a buscarla, y quien esta a punto
+  de repetir el error no sabe que tiene que buscarla. La reincidencia en la entrada siguiente no es
+  una anecdota — es la prueba de que el registro se hizo y el cambio no.
+- **Como aplicarla:** cuando una leccion se repita, deja de tratarla como leccion. Convertirla en
+  **una regla escrita donde se hace el trabajo** —la convencion del archivo, el paso del protocolo,
+  la plantilla— que es lo que dice `L-007`; y, si se puede, en **un comando que la compruebe**, que
+  es lo unico que no depende de que alguien se acuerde. `D-022` es ese paso para este caso concreto:
+  la regla existe, y lo que queda pendiente es llevarla al sitio donde se aplica.
+- ⚠️ **La señal que hay que mirar:** una leccion con dos hallazgos del mismo patron detras ya
+  fallo como leccion. La tercera repeticion no aporta informacion nueva; solo confirma que se estaba
+  registrando en vez de corrigiendo.

@@ -85,6 +85,39 @@ Cero sesiones cerradas sin auditar (señal 2), y cero auditorias `Sin hallazgos`
 (señal 1). El supuesto **sigue `Abierto`**: una sola pasada no lo confirma, y la revision explicita
 esta fijada a las **tres auditorias registradas** —hoy hay dos, `R-001` y `R-002`—.
 
+🕒 **Nota anadida el 2026-09-01 (`S-005`), tras el hallazgo `F-005` de `R-003`.** El bloque de
+arriba **se deja tal cual se ejecuto** (`D-019`); lo que se corrige es lo que se le puede pedir.
+
+**Lo que el bloque probaba de verdad.** El `exit=1` se tomo **antes de que el cierre escribiera la
+fila de su propia sesion**. Sobre `ea0b850`, el commit que contiene esa afirmacion, el mismo comando
+devuelve una linea:
+
+```
+$ git grep -n "| Pendiente |" ea0b850 -- _audit/index.md ; echo "exit=$?"
+ea0b850:_audit/index.md:14:| `S-003.md` | S-003 | 2026-09-01 | Pendiente | Pendiente | Pendiente | - |
+exit=0
+```
+
+**Y el defecto de fondo no es la cifra: es que la señal 2 no podia dispararse nunca.** El
+`session-closer` anade la fila de su sesion con `Auditoria: Pendiente` **antes** de commitear, asi
+que ese comando devuelve `exit=0` en todo commit de cierre —incluido uno en el que la auditoria si
+se lanzo despues— y `exit=1` solo una vez que la auditoria ya paso. Como criterio de refutacion, lo
+que medi no era «una sesion se quedo sin auditar» sino «este commit es un cierre».
+
+**Señal 2, rehecha con su momento de comprobacion.** Una sesion cerrada cuenta como **sin auditar**
+cuando su fila de `_audit/index.md` sigue en `Pendiente` **al abrirse la sesion siguiente**, no en el
+instante del cierre. Ese es el momento en que el Paso 1c de `protocol-start` la mira, y el unico en
+que el valor `Pendiente` significa algo. Medido asi, hoy la señal sigue sin cumplirse:
+
+```
+$ git grep -n "| Pendiente |" HEAD -- _audit/index.md ; echo "exit=$?"
+exit=1
+```
+
+El supuesto **sigue `Abierto`**: van tres auditorias registradas (`R-001`, `R-002`, `R-003`) mas
+`R-004`, asi que la revision explicita fijada en el disparador ya toca — queda como asunto propio,
+no se despacha en esta nota.
+
 ---
 
 ### A-002 - El brief recibido es el encargo completo

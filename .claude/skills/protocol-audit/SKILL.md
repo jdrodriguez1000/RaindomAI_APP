@@ -137,7 +137,7 @@ busca su razon en `project.md` o en una `D-XXX`. Si esta escrita, no hay nada qu
 **c) Fuga de datos propios en lo que deberia ser agnostico:**
 
 ```bash
-git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" <hash> -- .claude CLAUDE.md
+git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" <hash> -- .claude CLAUDE.md _phases
 ```
 
 🔑 **Cero lineas es lo correcto.** Cualquier linea es un hallazgo: un dato del proyecto se colo en un

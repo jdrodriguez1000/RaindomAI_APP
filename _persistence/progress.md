@@ -28,6 +28,7 @@
 | [S-002](#s-002---rename-del-agente-de-auditoria-y-nuevas-reglas-de-claudemd) | Rename del agente de auditoria y nuevas reglas de `CLAUDE.md` | 2026-08-31 | `000_preproject` |
 | [S-003](#s-003---se-evaluan-y-registran-los-cuatro-hallazgos-de-r-002) | Se evaluan y registran los cuatro hallazgos de `R-002` | 2026-09-01 | `000_preproject` |
 | [S-004](#s-004---se-acepta-f-007-y-se-paga-dt-001-renombrado-de-techdebtmd) | Se acepta `F-007` y se paga `DT-001` (renombrado de `techdebt.md`) | 2026-09-01 | `000_preproject` |
+| [S-005](#s-005---se-evaluan-f-005-a-f-010-nace-_phases-y-se-declara-005_discovery) | Se evaluan `F-005` a `F-010`, nace `_phases/` y se declara `005_discovery` | 2026-09-01 | `000_preproject` |
 
 ---
 
@@ -53,42 +54,43 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-01 (S-004) |
+| Ultima actualizacion | 2026-09-01 (S-005) |
 | Salud | En marcha |
-| Avance de la etapa | El commit `cebcb3f` (auditoria `R-003` sobre `S-003`) dejo tres hallazgos abiertos (`F-005`, `F-006`, `F-007`). En esta sesion `manager` evaluo `F-007`: lo verifico contra `HEAD` y lo acepto, registrando `T-008` con `Origen: report_auditor`. La correccion escribio la excepcion de `D-020` **dentro de la convencion de `tasks.md`** (antes solo vivia en el cuerpo de la decision), y la reflejo tambien en `protocol-close` y en `session-closer.md`; la tension de `D-020` queda cerrada con la confirmacion del usuario. Ademas, el usuario pidio pagar `DT-001` en la misma peticion en que la confirmo: `_persistence/debtec.md` se renombro a `_persistence/techdebt.md` (`git mv`) y se reescribieron sus referencias vivas en los tres skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de estructura de `progress.md` (`D-021`). Se registro `L-007` (una excepcion se escribe donde esta la regla, no donde se decidio). `F-005` y `F-006` de `R-003` siguen `Abierto`, sin evaluar esta sesion. Sigue pendiente el trabajo de producto: `T-001`, `T-002`, `T-003`. |
-| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`); las etapas posteriores a `000_preproject` no estan declaradas (`T-002`); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
+| Avance de la etapa | El commit `e61454b` (auditoria `R-004` sobre `S-004`) dejo cinco hallazgos abiertos (`F-005`, `F-006`, `F-008`, `F-009`, `F-010`), sumados al `F-006` ya abierto por `R-003`. `manager` evaluo los seis y los acepto todos, verificando cada uno contra `HEAD` antes de tratarlo: `T-009`..`T-013` corrigen por nota fechada (`D-019`) los bloques de verificacion de `A-001`, `D-016`, `D-021`, `DT-001` y el alcance historico de `D-021` sobre `_audit/findings.md`. De ahi nace `D-022` (un recuento de ambito global se fecha, nunca se declara reproducible sobre su propio commit) y `L-008` (una leccion escrita solo como leccion no cambia la entrada siguiente, tras tres hallazgos del mismo patron). Por separado, el usuario aporto una guia externa y pidio crear `_phases/`: nace `_phases/000_preproject.md` (`D-023`), agnostico y sin datos del proyecto, que deja escrito que esta etapa **no define alcance ni objetivo**. Esto dejo sin etapa a `T-001` y `T-002`; el usuario decidio declarar la etapa siguiente, `005_discovery` (`D-024`), anadir el campo `Etapa` a `tasks.md` y mover ahi las dos tareas (`D-025`). El ambito del control de fuga del Paso 1b se amplio a `_phases/` (`D-026`). |
+| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, ahora en etapa `005_discovery`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo el hallazgo `F-007` que dejo `R-003` sobre `S-003`, lo verifico contra `HEAD`
-(`ea0b850`) y lo acepto: `D-020` permitia escribir en `tasks.md` al registrar un hallazgo de
-auditoria, pero la tension solo estaba declarada en el cuerpo de la decision, no en la convencion
-del archivo que la regla contradecia. Se registro `T-008` con `Origen: report_auditor`, se escribio
-la excepcion **dentro de la convencion de `tasks.md`**, y se reflejo tambien en `protocol-close` y en
-`session-closer.md`. El usuario, preguntado, confirmo que `manager` debe escribir esa `T-XXX` en el
-momento de aceptar el hallazgo; la confirmacion quedo anotada en `D-020`, que cierra su tension.
+`manager` evaluo los seis hallazgos abiertos de `R-003` y `R-004` (`F-005`, `F-006`, `F-008`,
+`F-009`, `F-010`), verificando cada uno contra `HEAD` (`e61454b`) antes de aceptarlo. Los seis
+comparten el mismo patron: un recuento tomado **durante** la jornada y presentado como si valiera
+sobre el commit que acabaria conteniendola. Se corrigieron por nota fechada, sin reescribir el
+bloque original (`D-019`): `T-009` (observacion de `A-001`, que ademas rehace la señal 2 de la
+sesion sin auditar para que sea disparable), `T-010` (nota de `D-016`), `T-011` (bloque de
+`D-021`), `T-012` (criterio de cierre de `DT-001`) y `T-013` (alcance historico de `D-021` sobre
+`_audit/findings.md`, con la correccion del texto vivo pendiente del propio `report_auditor`). De
+ahi nace `D-022`, que fija la regla general —un recuento de ambito global se fecha, nunca se
+declara reproducible sobre su propio commit— y `L-008`, que registra que una leccion sin mecanismo
+que la aplique (`L-006`) no evito la reincidencia en `D-021`.
 
-Ademas, el usuario pidio pagar `DT-001` en la misma peticion en que la confirmo: se renombro
-`_persistence/debtec.md` a `_persistence/techdebt.md` con `git mv`, y se reescribieron sus
-referencias vivas en los tres skills, `session-closer.md`, `CLAUDE.md`, `project.md` y la tabla de
-estructura de este archivo (`D-021`). No se toco lo historico: los informes y auditorias de
-`_audit/`, las entradas ya cerradas de `decisions.md` y la narrativa de sesiones pasadas de este
-archivo siguen citando `debtec.md`, por el mismo criterio que `D-016`. `DT-001` pasa a
-`Confirmada`/`Implementada`.
-
-Se registro `L-007` (una excepcion se escribe donde esta la regla, no donde se decidio).
-`F-005` y `F-006` de `R-003` siguen `Abierto`, sin evaluar esta sesion.
+Por separado, el usuario aporto una guia externa de otro metodo y pidio escribir, con esa guia como
+forma y no como contenido, el archivo de la etapa en curso: nace `_phases/`, con
+`_phases/000_preproject.md` (`D-023`), agnostico y sin datos del proyecto ni codigos instanciados.
+Ese archivo deja escrito que `000_preproject` **no define alcance ni objetivo**, lo que dejo sin
+etapa a `T-001` y `T-002` (nacidas ahi por falta de otra declarada). El usuario decidio: declarar la
+etapa siguiente, `005_discovery` (`D-024`); anadir el campo `Etapa` a `tasks.md`, obligatorio y en
+el indice, y mover las dos tareas ahi (`D-025`); y ampliar el ambito del control de fuga del Paso 1b
+a `_phases/` (`D-026`), en `protocol-close` y en `protocol-audit`.
 
 ---
 
 ## 3. Siguiente paso
 
-Definir el alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`), que es
-lo que abre la etapa siguiente a `000_preproject`. En paralelo, `manager` debe lanzar `report_auditor`
-sobre el commit de este cierre, y evaluar los hallazgos `F-005` y `F-006` de `R-003`, que siguen
-`Abierto`.
+`manager` debe lanzar `report_auditor` sobre el commit de este cierre. En paralelo, definir el
+alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, ahora en etapa
+`005_discovery`), que es lo que de verdad abre esa etapa — nombrarla no la empieza.
 
 ---
 
@@ -213,6 +215,40 @@ Plantilla:
   escribe donde esta la regla, no donde se decidio).
 - **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `F-005` y `F-006` de
   `R-003` siguen `Abierto`, sin evaluar esta sesion.
+
+---
+
+### S-005 - Se evaluan `F-005` a `F-010`, nace `_phases/` y se declara `005_discovery`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Etapa | `000_preproject` |
+| Tareas | T-009, T-010, T-011, T-012, T-013 |
+
+- **Que se hizo:** `manager` evaluo los seis hallazgos abiertos por `R-003` y `R-004` (`F-005`,
+  `F-006`, `F-008`, `F-009`, `F-010`), verifico cada uno contra `HEAD` (`e61454b`) y los acepto
+  todos. Los seis son el mismo defecto: un recuento tomado durante la jornada, presentado como si
+  valiera sobre el commit que lo contendria. Se corrigieron por nota fechada sin reescribir el
+  bloque original (`D-019`): `T-009` (observacion de `A-001`, que ademas rehace la señal 2 —«sesion
+  sin auditar»— para que sea disparable), `T-010` (nota de `D-016`), `T-011` (bloque de `D-021`),
+  `T-012` (criterio de cierre de `DT-001`) y `T-013` (alcance historico de `D-021`, que dejaba fuera
+  del barrido las convenciones vivas de `_audit/findings.md`; la correccion del texto de esa linea
+  queda pendiente del propio `report_auditor`). Se registro `D-022` (regla general: un recuento de
+  ambito global se fecha, nunca se declara reproducible sobre su propio commit) y `L-008` (una
+  leccion sin mecanismo que la aplique no evita la reincidencia — tres hallazgos del mismo patron en
+  tres sesiones, con `L-006` ya escrita en las tres).
+
+  Por separado, el usuario aporto una guia externa de otro metodo y pidio escribir con ella como
+  forma —no como contenido— el archivo de la etapa en curso: nace `_phases/000_preproject.md`
+  (`D-023`), agnostico, sin datos del proyecto ni codigos instanciados. Ese archivo deja escrito que
+  `000_preproject` **no define alcance ni objetivo**, lo que dejo sin etapa a `T-001` y `T-002`
+  (nacidas ahi por no haber otra declarada). El usuario decidio: declarar `005_discovery` como etapa
+  siguiente (`D-024`); anadir el campo `Etapa`, obligatorio, a `tasks.md` —ficha e indice— y mover
+  ahi las dos tareas (`D-025`); y ampliar el ambito del control de fuga del Paso 1b a `_phases/`
+  (`D-026`), en `protocol-close` y en `protocol-audit`.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `D-022` deja sin
+  resolver, y anotado en su propio texto, si la regla que enuncia debe llevarse a `CLAUDE.md` o a
+  `protocol-close` — no tiene todavia un codigo propio que lo agende.
 
 ---
 

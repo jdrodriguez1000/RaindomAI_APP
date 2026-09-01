@@ -30,6 +30,11 @@
 | [D-019](#d-019---un-bloque-de-verificacion-antiguo-se-corrige-por-nota-fechada-nunca-reescribiendolo) | Un bloque de verificacion antiguo se corrige por nota fechada, nunca reescribiendolo | 2026-09-01 | Vigente |
 | [D-020](#d-020---manager-escribe-en-tasksmd-al-registrar-un-hallazgo-de-auditoria) | `manager` escribe en `tasks.md` al registrar un hallazgo de auditoria | 2026-09-01 | Vigente |
 | [D-021](#d-021---debtecmd-pasa-a-llamarse-techdebtmd) | `debtec.md` pasa a llamarse `techdebt.md` | 2026-09-01 | Vigente |
+| [D-022](#d-022---un-recuento-de-ambito-global-se-fecha-no-se-declara-reproducible-sobre-su-commit) | Un recuento de ambito global se fecha, no se declara reproducible sobre su commit | 2026-09-01 | Vigente |
+| [D-023](#d-023---cada-etapa-declarada-tiene-su-archivo-agnostico-en-_phases) | Cada etapa declarada tiene su archivo agnostico en `_phases/` | 2026-09-01 | Vigente |
+| [D-024](#d-024---la-etapa-siguiente-a-000_preproject-se-llama-005_discovery) | La etapa siguiente a `000_preproject` se llama `005_discovery` | 2026-09-01 | Vigente |
+| [D-025](#d-025---tasksmd-gana-el-campo-etapa-y-las-tareas-de-alcance-pasan-a-005_discovery) | `tasks.md` gana el campo `Etapa`, y las tareas de alcance pasan a `005_discovery` | 2026-09-01 | Vigente |
+| [D-026](#d-026---el-control-de-fuga-de-datos-del-paso-1b-cubre-tambien-_phases) | El control de fuga de datos del Paso 1b cubre tambien `_phases/` | 2026-09-01 | Vigente |
 
 ---
 
@@ -446,6 +451,36 @@ entrada en `decisions.md`, `L-005` y `L-006` en `lessons.md`, `T-004` y `T-005` 
 —en `findings.md`— los bloques de evidencia de `F-001` y `F-002`, que citan literal lo que la
 auditoria vio. **Ninguna es una referencia viva al agente.**
 
+🕒 **Segunda nota, anadida el 2026-09-01 (`S-005`), tras el hallazgo `F-006` de `R-003`.** La nota
+de arriba dice que su barrido se hizo «ya escrito el registro de esta sesion». No fue asi: se tomo
+**antes** de que el cierre terminara de escribirlo. Sobre `ea0b850`, el commit que la contiene, el
+mismo comando da otras cifras:
+
+```
+$ git grep -cE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' ea0b850 -- . ; echo "exit=$?"
+ea0b850:_audit/R-002.md:28
+ea0b850:_audit/S-001.md:1
+ea0b850:_audit/S-002.md:10
+ea0b850:_audit/S-003.md:3
+ea0b850:_audit/findings.md:6
+ea0b850:_persistence/assumptions.md:1
+ea0b850:_persistence/decisions.md:14
+ea0b850:_persistence/lessons.md:3
+ea0b850:_persistence/progress.md:8
+ea0b850:_persistence/tasks.md:4
+exit=0
+```
+
+Dos diferencias: `progress.md` da **8** y no 7, y aparece `_audit/S-003.md:3`, el informe de cierre
+de esa misma sesion. Las dos son lineas escritas **despues** del barrido, y **ninguna es una
+referencia viva al agente** —el informe de cierre y la narrativa de `progress.md` son historico, y
+el ambito vivo sigue en `exit=1`, como muestra el segundo comando de la nota anterior—. El fondo se
+sostiene; lo que no se sostiene es la declaracion de alcance temporal.
+
+⚠️ **Leelo asi:** el recuento de la nota anterior es el estado **al momento de escribirla**, no
+sobre el commit que la contiene. Que ese defecto aparezca dentro de la correccion de `F-001` es
+exactamente lo que `L-006` queria evitar.
+
 ---
 
 ### D-017 - Espanol para el contenido, ingles para los nombres de archivos y carpetas
@@ -632,3 +667,362 @@ _persistence/progress.md:2
 _persistence/techdebt.md:4
 exit=0
 ```
+
+🕒 **Nota anadida el 2026-09-01 (`S-005`), tras el hallazgo `F-008` de `R-004`.** El bloque de
+arriba **se deja tal cual se ejecuto** (`D-019`). Lo que se corrige es su frase final: **el recuento
+no se reproduce sobre el commit que contiene esta entrada.** Se tomo antes de que el cierre
+terminara de escribir el registro de la sesion. Sobre `c70b757`:
+
+```
+$ git grep -nc "debtec" c70b757 -- . ; echo "exit=$?"
+c70b757:_audit/R-001.md:2
+c70b757:_audit/R-002.md:9
+c70b757:_audit/R-003.md:5
+c70b757:_audit/S-001.md:2
+c70b757:_audit/S-002.md:4
+c70b757:_audit/S-003.md:2
+c70b757:_audit/S-004.md:17
+c70b757:_audit/findings.md:4
+c70b757:_persistence/decisions.md:13
+c70b757:_persistence/progress.md:6
+c70b757:_persistence/techdebt.md:4
+exit=0
+```
+
+Tres diferencias con lo registrado arriba: `progress.md` da **6** y no 2; falta la linea entera
+`_audit/S-004.md:17`, que es el informe de cierre escrito despues del barrido; y **las 13 de
+`decisions.md` no son «las 13 de esta misma entrada»** — solo **9** caen dentro de `D-021`, que
+empieza en la linea 573. Las otras cuatro son la fila del indice y tres citas de entradas
+anteriores:
+
+```
+$ git grep -n "debtec" c70b757 -- _persistence/decisions.md | head -4
+c70b757:_persistence/decisions.md:32:| [D-021](#d-021---debtecmd-pasa-a-llamarse-techdebtmd) | `debtec.md` pasa a llamarse `techdebt.md` | 2026-09-01 | Vigente |
+c70b757:_persistence/decisions.md:130:  **`manager`, en el momento en que las cosas pasan**. `debtec.md` admite propuestas del cierre,
+c70b757:_persistence/decisions.md:470:  historia ya auditada. El unico archivo trackeado que la incumple es `debtec.md`; se deja y queda
+c70b757:_persistence/decisions.md:472:- **Alternativas descartadas:** aplicarla retroactivamente y renombrar `debtec.md` a `techdebt.md`
+
+$ git show c70b757:_persistence/decisions.md | grep -n "^### D-021"
+573:### D-021 - `debtec.md` pasa a llamarse `techdebt.md`
+
+$ git grep -n "debtec" c70b757 -- _persistence/decisions.md | awk -F: '$3>=573' | wc -l
+9
+```
+
+⚠️ **Leelo asi:** el recuento del bloque anterior es el estado **al momento de escribir esta
+entrada**, no sobre su commit. **Lo que si se sostiene sin matices es el ambito vivo** —el primer
+comando del bloque, `exit=1` sobre `.claude`, `CLAUDE.md` y `project.md`—, que es el criterio de
+cierre real de esta decision.
+
+🔻 **El defecto no es la cifra, es la frase.** `D-021` es la primera entrada escrita despues de
+`L-006`, y no solo omitio su alcance: **afirmo explicitamente una reproducibilidad que no tenia**.
+Un registro que se autodeclara reproducible y no lo es cuesta mas que uno que calla, porque
+desalienta la comprobacion.
+
+🕒 **Segunda nota, anadida el 2026-09-01 (`S-005`), tras el hallazgo `F-010` de `R-004`. Alcance
+acotado.** El apartado «Alcance» de arriba clasifica **`_audit/` entero** como historico. Eso es
+correcto para los informes `S-XXX.md` y las auditorias `R-XXX.md`, que son documentos entregados y
+no se reescriben — pero **`_audit/findings.md` y `_audit/index.md` no son documentos entregados**:
+son registros vivos, y sus secciones de convenciones se siguen aplicando en cada pasada. El criterio
+se aplico por carpeta en vez de por naturaleza del texto, y dejo fuera del barrido una regla vigente
+que manda comprobar una entrada en un archivo que ya no existe:
+
+```
+$ git grep -n "debtec" HEAD -- _audit/findings.md | head -1
+HEAD:_audit/findings.md:56:rechazo por coste sin entrada en `debtec.md` es, por si solo, un hallazgo nuevo — y no requiere
+
+$ git ls-tree --name-only HEAD _persistence/ | grep -i debt
+_persistence/techdebt.md
+```
+
+**El alcance de esta decision se lee, desde hoy, asi:** `_audit/` es historico **salvo las secciones
+de convenciones de `findings.md` y de `index.md`**, que son ambito vivo y entran en el mismo criterio
+que `.claude`, `CLAUDE.md` y `project.md`.
+
+⚠️ **La correccion de esa linea no es de `manager`.** `_audit/findings.md` lo escribe
+`report_auditor`; lo unico que `manager` toca ahi es la fila de estado de cada hallazgo. Lo que esta
+nota entrega es el criterio que permite corregirla; el texto lo corrige el auditor en una pasada
+posterior. Queda anotado en la fila de `F-010`.
+
+---
+
+### D-022 - Un recuento de ambito global se fecha, no se declara reproducible sobre su commit
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** tres hallazgos —`F-005`, `F-006` y `F-008`— son el mismo defecto en tres entradas
+  distintas, y el ultimo se escribio **despues** de `L-006`, que ya lo describia. `L-006` pedia
+  declarar el ambito **de rutas**; ninguno de los tres fallo por ahi. Fallaron por el ambito
+  **temporal**: un recuento tomado durante la jornada y presentado como si valiera sobre el commit
+  que acabaria conteniendolo.
+- **El mecanismo, que es siempre el mismo:** un barrido sobre el repositorio entero —`git grep …
+  -- .`, o `| Pendiente |` en `_audit/index.md`— se corre mientras se escribe la entrada. Despues el
+  cierre anade `_audit/S-XXX.md`, cierra `progress.md` y escribe `tasks.md`, y **cambia el resultado
+  del propio comando que la entrada acaba de registrar**. La cifra no envejece: nace desfasada.
+- **Decision, en dos reglas:**
+  1. **Un bloque cuyo ambito incluye archivos que la sesion todavia va a escribir se enuncia con su
+     fecha**, no con su commit: «al momento de escribir esta entrada», nunca «se reproduce sobre el
+     commit que la contiene».
+  2. **Si lo que se quiere es reproducibilidad, se acota el ambito a lo que la sesion no escribe** y
+     se dice cual es. El ambito vivo —`.claude`, `CLAUDE.md`, `project.md`— cumple eso, y por eso el
+     primer comando de `D-021` si se reproduce; el global nunca lo hara.
+- **Por que importa mas que la cifra:** una entrada que **se autodeclara reproducible y no lo es**
+  cuesta mas que una que calla. La que calla invita a comprobar; la que lo afirma desalienta la
+  comprobacion, y el error sobrevive hasta que alguien la corre igualmente. `F-008` es exactamente
+  ese caso.
+- **Caso especial, y es el que hace falta escribir:** `git grep -n "| Pendiente |" -- _audit/index.md`
+  **no puede devolver `exit=1` en ningun commit de cierre**, porque el `session-closer` anade la fila
+  de su sesion con `Pendiente` antes de commitear. Un control asi no mide lo que dice medir: mide si
+  el commit es un cierre. Por eso la señal 2 de `A-001` se rehace con su momento de comprobacion —al
+  abrirse la sesion siguiente— en la nota que entrega `T-009`.
+- **Alternativas descartadas:** prohibir los recuentos globales en los bloques de verificacion
+  (elimina el defecto y tambien la unica evidencia de ambito completo que `F-001` pedia); tomar
+  siempre el recuento contra el commit anterior (se reproduce, pero mide un estado que no es el que
+  la entrada describe); dejarlo en `L-006` y confiar en que se aplique (ya se probo: `D-021` es la
+  entrada inmediatamente posterior y reincidio).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  regla de redaccion sobre archivos de registro, sin efecto fuera del repositorio y revertible con
+  `git revert`.
+- **Lo que esta decision NO hace todavia:** llevar la regla a `CLAUDE.md` o a `protocol-close`, que
+  es donde `L-007` diria que tiene que estar para que la aplique quien no leyo esta entrada. Queda
+  pendiente de decidir con el usuario, y anotado aqui para que no se pierda.
+
+**Verificacion — las dos formas, sobre `HEAD` (`e61454b`):**
+
+```
+$ git grep -n "debtec" HEAD -- .claude CLAUDE.md project.md ; echo "exit=$?"
+exit=1
+
+$ git grep -c "debtec" HEAD -- . | wc -l
+12
+```
+
+El primero esta acotado a lo que la sesion no reescribe, y **se reproducira sobre el commit de este
+cierre**. El segundo incluye `_persistence/` y `_audit/`, que esta sesion esta escribiendo ahora
+mismo: vale **al momento de escribir esta entrada** y sera otro numero en el commit — que es
+justamente lo que esta decision obliga a decir en vez de callar.
+
+---
+
+### D-023 - Cada etapa declarada tiene su archivo agnostico en `_phases/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto `temporal/005_discovery.md`, un archivo de **otro metodo** que
+  describe una etapa de Descubrimiento, y pidio escribir con esa guia el archivo equivalente para la
+  etapa que este proyecto tiene en curso, `000_preproject`, en una carpeta `_phases/`.
+- **Decision:** nace `_phases/`, con **un archivo por etapa declarada**, y el primero es
+  `_phases/000_preproject.md`. Cada archivo dice **que autoriza la etapa, que prohibe, sus entradas,
+  su procedimiento, sus artefactos, su condicion de salida, que registra y que entrega a la
+  siguiente**. La carpeta queda declarada en la tabla «Carpetas propias» de `project.md`.
+- 🚨 **Los archivos de `_phases/` son agnosticos**, y esa es la parte que mas condiciona como se
+  escriben: el usuario los quiere reutilizables como guia en cualquier proyecto. No llevan dentro
+  ningun nombre, ruta ni codigo instanciado; los codigos aparecen en forma generica —`T-XXX`,
+  `D-XXX`, `A-XXX`, `F-NNN`—, y donde hace falta un dato del proyecto se referencia `project.md`.
+  Es el mismo criterio que ya rige para `.claude/` y `CLAUDE.md`.
+- 🚨 **`000_preproject` NO define el alcance ni el objetivo del proyecto**, y asi queda escrito en su
+  tabla de prohibiciones. La etapa monta el andamio; decidir el producto es de la etapa siguiente. Se
+  sale de `000_preproject` cuando el andamio se sostiene, no cuando se sabe que se va a construir.
+- **Lo que la etapa entrega, fijado por el usuario, son cinco cosas:** la estructura minima de
+  carpetas y archivos; la forma de trabajo entre los tres agentes; la memoria del proyecto en
+  `_persistence/`; la gestion de las auditorias; y los datos propios del proyecto en `project.md`.
+  **La condicion de salida es el espejo de esas cinco**, mas la exigencia de que no quede ningun
+  `F-NNN` sin evaluar — lo unico que la etapa puede pedirle a la auditoria sin invadirla.
+- **Vocabulario:** **«etapa» y «fase» son la misma cosa en esta metodologia**, y se usan
+  indistintamente. Lo zanjo el usuario. La carpeta se llama `_phases/` en ingles por `D-017` y
+  `C-005`, que separan el idioma del nombre del idioma del contenido.
+- **Por que una carpeta propia y no `project.md` ni `CLAUDE.md`:** `project.md` guarda **datos** —que
+  es cada cosa y donde esta— y dice explicitamente que el porque no va ahi; `CLAUDE.md` es el metodo
+  entero y ya tiene que poder copiarse tal cual. Lo que una etapa autoriza y prohibe no es ninguna de
+  las dos cosas: cambia de etapa en etapa, y con una etapa por archivo se lee solo la que esta en
+  curso.
+- **La guia se tomo como forma, no como contenido.** No se importaron de `005_discovery.md`: sus
+  rutas (`methodology/`, `_memory/`, `_discovery/`, `templates/`, `tech-debt.md`), que aqui no
+  existen; su reparto entre «terminal ejecutora» y «terminal auditora», que `D-012` revoco; ni sus
+  codigos `N-xxx`, `RES-xxx` y `SUP-xxx`, que chocarian con `C-XXX` y `A-XXX` en la tabla «Codigos»
+  de `project.md`. Tampoco se adopto su contenido de Descubrimiento —las nueve preguntas, la
+  taxonomia de actores, la hipotesis con condicion de falsacion—: describe una etapa que este
+  proyecto **no ha declarado**, y darla por adoptada seria convertir una propuesta en decision sin
+  `D-XXX`. Ese material es el candidato natural para un `_phases/` de la etapa de descubrimiento el
+  dia que se declare.
+- **Alternativas descartadas:** meter la descripcion de la etapa dentro de `project.md` (un archivo
+  menos, a cambio de mezclar datos estables con procedimiento y de hacer crecer sin limite el archivo
+  que todo lo demas lee); escribirlo con los datos de este proyecto y generalizarlo despues (es como
+  nacio `.claude/`, y costo un barrido y un control permanente —el Paso 1b— desenredarlo); copiar
+  `005_discovery.md` tal cual y adaptarlo (arranca con vocabulario paralelo y carpetas inexistentes,
+  y el arreglo cuesta mas que escribirlo desde la evidencia).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es crear
+  un archivo y una fila en una tabla, sin efecto fuera del repositorio y revertible con `git revert`.
+
+**Verificacion — el archivo no lleva datos del proyecto ni codigos instanciados:**
+
+```
+$ grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" _phases/ -r ; echo "exit=$?"
+exit=1
+
+$ grep -nE "[A-Z]{1,2}-[0-9]+" _phases/000_preproject.md ; echo "exit=$?"
+exit=1
+```
+
+El primer patron es el mismo que el Paso 1b de `protocol-close` aplica a `.claude`, `CLAUDE.md` y
+`project.md`. El segundo caza cualquier codigo instanciado (`T-001`, `D-015`, `A-003`…) y no devuelve
+ninguno: todos los del archivo estan en forma generica.
+
+⚠️ **`_phases/` todavia no entra en el ambito del Paso 1b**, que hoy cubre solo `.claude`,
+`CLAUDE.md` y `project.md`. Mientras no entre, la agnosticidad de estos archivos **depende de que
+alguien se acuerde**, que es justo lo que `L-008` describe. Ampliar el ambito del control es una
+modificacion del protocolo y queda pendiente de acordarla con el usuario.
+
+⚠️ **Consecuencia abierta, y no se resuelve aqui:** hay tareas registradas en `_persistence/tasks.md`
+que definen alcance y objetivo del proyecto y declaran las etapas posteriores, nacidas dentro de
+`000_preproject`. Con esta decision, ese trabajo **no es de esta etapa**. Que se haga con ellas
+—moverlas a la etapa siguiente, o dejarlas donde estan como excepcion registrada— es del usuario y
+queda anotado aqui para que no se pierda.
+
+---
+
+### D-024 - La etapa siguiente a `000_preproject` se llama `005_discovery`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-023` dejo escrito que `000_preproject` **no define alcance ni objetivo** del
+  proyecto. Eso dejo sin etapa a las dos tareas que hacen justamente eso, que habian nacido dentro de
+  `000_preproject` porque no habia otra declarada. Una tarea sin etapa a la que pertenecer no aparece
+  en ninguna condicion de salida: ni bloquea la etapa actual ni pertenece a la siguiente.
+- **Decision:** la etapa siguiente se llama **`005_discovery`**, y es la que define alcance y
+  objetivo. Entra en la tabla «Etapas» de `project.md`, que pasa a declarar dos.
+- **Por que solo la inmediata y no la secuencia entera:** porque lo unico que hacia falta resolver
+  era **donde van las tareas de alcance**. Declarar de golpe toda la secuencia seria adoptar la
+  propuesta del brief sin haberla evaluado — exactamente lo que `project.md` advierte que no se haga.
+- 🚨 **Esto NO cierra la tarea de declarar las etapas posteriores.** Su criterio escrito —«la tabla
+  «Etapas» lista mas de una etapa»— ya se cumple literalmente por efecto de esta decision, y aun asi
+  la tarea sigue abierta: lo que la cierra es la **secuencia completa**, decidida y registrada. Queda
+  anotado en la propia tarea y en `project.md` para que nadie la de por hecha leyendo la tabla.
+- **Alternativas descartadas:** declarar la secuencia completa del brief (§22) en esta misma pasada
+  (resuelve el problema y de paso adopta siete etapas que nadie ha evaluado); dejar las dos tareas en
+  `000_preproject` como excepcion registrada (contradice `D-023` el mismo dia en que se escribio, y
+  una etapa cuya prohibicion principal tiene excepcion no prohibe nada); crear la etapa con un
+  identificador provisional (acaba citado en sitios que despues hay que renombrar).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  fila en una tabla y un identificador que todavia no tiene archivos ni historia detras.
+
+**Verificacion — la tabla «Etapas» de `project.md` declara dos:**
+
+```
+$ sed -n '/^| Etapas declaradas/,/^| Etapas posteriores/p' project.md
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+| Etapas posteriores a `005_discovery` | **no registradas** |
+```
+
+⚠️ **`005_discovery` esta declarada pero todavia no tiene su archivo en `_phases/`.** `D-023` dice
+que cada etapa declarada tiene el suyo, asi que hoy hay una etapa declarada sin describir. Se deja
+constancia: es trabajo de la propia etapa, no de esta decision.
+
+---
+
+### D-025 - `tasks.md` gana el campo `Etapa`, y las tareas de alcance pasan a `005_discovery`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario ordeno mover a `005_discovery` las dos tareas que definen alcance y
+  declaran las etapas posteriores. `tasks.md` **no tenia ningun campo donde expresar eso**: sus
+  campos eran `Estado`, `Importancia`, `Urgencia`, `Origen` y `Sesion`. `Sesion` dice **cuando** se
+  registro la tarea, no **a que etapa pertenece**, y las dos cosas dejan de coincidir en cuanto una
+  tarea sobrevive a su etapa.
+- **Decision, en tres partes:**
+  1. **`tasks.md` gana el campo `Etapa`**, obligatorio, con valor de la tabla «Etapas» de
+     `project.md`. Va en la ficha, en la plantilla **y como columna del indice**.
+  2. **Las dos tareas de alcance pasan a `005_discovery`**; las once restantes quedan en
+     `000_preproject`. Cada una lleva su nota fechada; **ningun texto anterior se reescribe**.
+  3. **La excepcion de escritura de `manager` sobre `tasks.md` se generaliza**, y queda escrita
+     dentro de la convencion del archivo: ademas de la `T-XXX` que nace de un hallazgo aceptado,
+     `manager` escribe aqui cuando el cambio **nace de una decision registrada que el
+     `session-closer` no puede deducir del `git diff`**.
+- **Por que el campo va tambien en el indice:** la condicion de salida de una etapa pregunta «que
+  queda abierto **de esta etapa**». Con `Etapa` solo en la ficha, responder eso obliga a abrir las
+  trece; con la columna, se lee de un vistazo. Un campo que hay que ir a buscar acaba sin llenarse.
+- **Por que se generaliza la excepcion en vez de anadir una segunda a medida:** `L-007` ya costo un
+  hallazgo —una excepcion escrita solo donde se decidio y no donde esta la regla—. Dos excepciones
+  puntuales invitan a una tercera; el criterio de fondo es uno solo y se puede enunciar: **el cierre
+  escribe lo que el diff demuestra, `manager` escribe lo que el diff no puede saber**.
+- 🚨 **La excepcion exige su cita.** Toda edicion a mano tiene que apoyarse en un `D-XXX` o un
+  `F-NNN` citado en la propia tarea. Sin esa cita no se distingue de saltarse la regla, y una regla
+  que no se puede distinguir de su incumplimiento ya no rige.
+- **Alternativas descartadas:** no anadir campo y expresar el traslado solo en el cuerpo de la tarea
+  (mas barato, pero deja la pertenencia a una etapa fuera de todo control mecanico); usar el estado
+  `Suspendida` para las dos (miente: no estan suspendidas, estan asignadas a otra etapa); dejar el
+  campo solo en la ficha y no en el indice (menos diff hoy, peor lectura cada vez que se pregunte que
+  falta de la etapa).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son
+  campos de un archivo de registro, versionados y revertibles con `git revert`.
+
+**Verificacion — el campo existe en las trece fichas, y las dos tareas estan en la etapa nueva:**
+
+```
+$ grep -oE "^\| Etapa \| .[0-9_a-z]+" _persistence/tasks.md | sort | uniq -c
+     11 | Etapa | `000_preproject
+      2 | Etapa | `005_discovery
+      1 | Etapa | una
+
+$ grep -n "005_discovery" _persistence/tasks.md | head -2
+12:| [T-001](#t-001---definir-alcance-y-objetivo-del-proyecto) | Definir alcance y objetivo del proyecto | No implementada | Alta | Bloqueante | `005_discovery` |
+13:| [T-002](#t-002---declarar-las-etapas-posteriores-a-000_preproject) | Declarar las etapas posteriores a `000_preproject` | No implementada | Media | No bloqueante | `005_discovery` |
+```
+
+11 + 2 = 13, que son todas las tareas registradas. La tercera linea —`| Etapa | una`— es la fila de
+la tabla de convenciones, no una ficha; la de la plantilla no la cuenta este patron porque su valor
+esta vacio.
+
+---
+
+### D-026 - El control de fuga de datos del Paso 1b cubre tambien `_phases/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `D-023` exige que los archivos de `_phases/` sean agnosticos, reutilizables como guia
+  en cualquier proyecto. El Paso 1b de `protocol-close` —el unico control que comprueba eso— se
+  acotaba a `.claude/` y `CLAUDE.md`. La exigencia existia sin nada que la comprobara.
+- **Decision:** el ambito del control pasa a `.claude CLAUDE.md _phases`, en `protocol-close`
+  (Paso 1b) y en `protocol-audit` (control mecanico c). La prosa que declara el ambito se actualiza
+  en la misma pasada, y `CLAUDE.md` y `project.md` pasan a nombrar `_phases/` entre lo que tiene que
+  poder copiarse tal cual.
+- **Por que ahora y no «cuando haga falta»:** `L-008` se escribio hoy mismo por esto — una regla que
+  solo vive escrita, sin mecanismo que la aplique, depende de que alguien se acuerde, y ya se probo
+  que eso no basta. El coste de ampliar el ambito es una palabra en un `git grep`.
+- **Por que `_phases/` si y `_persistence/` no:** el control vale porque **cero es la respuesta
+  correcta** en su ambito. `_persistence/` y `_audit/` estan llenos de nombres y rutas del proyecto
+  de forma legitima; incluirlos convertiria el control en decenas de lineas correctas cada sesion, y
+  un control que avisa de todo termina apagado. `_phases/` cumple el criterio: describe el metodo, no
+  el proyecto.
+- **Alternativas descartadas:** dejarlo en la exigencia escrita de `D-023` y confiar en la disciplina
+  (es literalmente el patron que `L-008` describe); crear un control aparte solo para `_phases/` (dos
+  controles que hacen lo mismo se desincronizan — `L-003`); ampliar el ambito al arbol entero (el
+  control deja de distinguir fugas de menciones legitimas).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  pathspec en dos skills y la prosa que lo declara.
+
+**Verificacion — el control, con el ambito nuevo, sigue en cero:**
+
+```
+$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" -- .claude CLAUDE.md _phases ; echo "exit=$?"
+exit=1
+```
+
+El patron instancia los tres valores que el Paso 1b toma de `project.md`: nombre del proyecto —en sus
+dos grafias, la del remoto y la de la carpeta en disco—, carpeta raiz de las rutas absolutas y host
+del remoto.

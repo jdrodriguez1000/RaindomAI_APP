@@ -76,20 +76,27 @@ hallazgos, el registro diria lo que quisieramos que dijera.
 
 | Campo | Valor |
 |---|---|
-| Etapas declaradas | `000_preproject` |
-| Etapas posteriores | **no registradas** |
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+| Etapas posteriores a `005_discovery` | **no registradas** |
 
 `000_preproject` es la etapa en la que no se construye producto: se monta la forma de trabajar
 —protocolos, persistencia, canal con la auditoria—. Es deliberado que tenga nombre propio y no un
 numero del flujo del producto: meterla en la nomenclatura de las demas seria fingir que el producto
 avanza cuando lo que avanza es el andamio.
 
-🚨 **Que etapas vienen despues no esta decidido, y este archivo no lo va a inventar.** El brief del
-cliente (`_brief/client_brief.md`, §22) **propone** una secuencia —Idea → Definicion del producto →
-Especificacion → Diseño → Desarrollo asistido por IA → Pruebas → Iteracion—, pero **un encargo no es
-una decision**: lo que el equipo adopte tiene que quedar como `D-XXX` en `decisions.md`, y hoy no
-lo esta. Hasta entonces, la respuesta correcta a «que etapas tiene el proyecto» es *«solo esta
-declarada la actual»*.
+`005_discovery` es la etapa siguiente: la que define **alcance y objetivo** del proyecto, trabajo que
+`000_preproject` tiene expresamente prohibido. Lo fija `D-024`, por decision del usuario.
+
+🚨 **Lo que viene despues de `005_discovery` sigue sin decidir, y este archivo no lo va a inventar.**
+El brief del cliente (`_brief/client_brief.md`, §22) **propone** una secuencia —Idea → Definicion del
+producto → Especificacion → Diseño → Desarrollo asistido por IA → Pruebas → Iteracion—, pero **un
+encargo no es una decision**: lo que el equipo adopte tiene que quedar como `D-XXX` en
+`decisions.md`, y hoy no lo esta. Hasta entonces, la respuesta correcta a «que etapas tiene el
+proyecto» son *«las dos declaradas, y nada mas»*.
+
+⚠️ **Que `005_discovery` este declarada no cierra la tarea de declarar las etapas posteriores.** Se
+nombro la inmediata para que las tareas de alcance tuvieran donde ir; la **secuencia completa** sigue
+siendo trabajo pendiente, y su tarea vive ahora en `005_discovery`.
 
 ⚠️ **Aqui va el vocabulario, no el avance: que etapas existen, no en cual estamos.** En cual
 estamos vive en `_persistence/progress.md`, que es lo que cambia. Declararlo tambien aqui crearia
@@ -117,6 +124,7 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `_brief/` | El encargo del cliente, tal como llego. **Entrada al proyecto, no registro de el** |
 | `_persistence/` | **Como va** el trabajo: siete archivos, indice arriba y detalle debajo |
 | `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos |
+| `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
 
 🚨 **Esta tabla se contrasta contra el arbol en cada cierre de sesion** (Paso 2c de `protocol-close`):
