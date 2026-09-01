@@ -15,7 +15,7 @@
 | `S-004.md` | S-004 | 2026-09-01 | `c70b757` | `R-004.md` | Con hallazgos (3) | F-008, F-009, F-010 |
 | `S-005.md` | S-005 | 2026-09-01 | `510d580` | `R-005.md` | Con hallazgos (4) | F-011, F-012, F-013, F-014 |
 | `S-006.md` | S-006 | 2026-09-02 | `d906a5d` | `R-006.md` | Con hallazgos (2) | F-015, F-016 |
-| `S-007.md` | S-007 | 2026-09-02 | Pendiente | Pendiente | Pendiente | - |
+| `S-007.md` | S-007 | 2026-09-02 | `122b770` | `R-007.md` | Con hallazgos (3) | F-017, F-018, F-019 |
 
 ---
 

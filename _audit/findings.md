@@ -26,8 +26,11 @@
 | [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Implementado |
 | [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Implementado |
 | [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Implementado |
-| [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Aceptado — pendiente |
-| [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Aceptado — pendiente |
+| [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Implementado |
+| [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Implementado |
+| [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Abierto |
+| [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Abierto |
+| [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Abierto |
 
 ---
 
@@ -825,9 +828,9 @@ $ grep -cE "^[|] Sesion [|] S-005 [|]" _persistence/tasks.md
 | Auditoria | R-006 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-020` |
-| Cerrado en | |
+| Cerrado en | R-007 (`122b770`) |
 
 - **Que se observo:** `D-023` es una decision **vigente** cuyo titulo dice «Cada etapa declarada
   tiene su archivo agnostico en `_phases/`». `project.md` declara dos etapas; `_phases/` contiene un
@@ -879,6 +882,12 @@ exit=1
   *(los tres comandos, ejecutados sobre `111fc40` antes de tocar nada — el segundo devuelve ya dos
   archivos, y el tercero deja de estar vacio, en cuanto se aplica `T-020`.)*
 
+- **Cerrado por `R-007`** sobre `122b770`: la correccion esta en el diff de ese commit.
+  `_phases/005_discovery.md` existe, con las mismas ocho secciones que `_phases/000_preproject.md`,
+  sin codigos instanciados y sin fuga de datos propios; `_phases/` contiene ya un archivo por cada
+  etapa de la fila «Etapas declaradas» de `project.md`. Comandos y salidas crudas en `_audit/R-007.md`,
+  seccion 1.
+
 ---
 
 ### F-016 - El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada`
@@ -887,9 +896,9 @@ exit=1
 | Auditoria | R-006 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-021` |
-| Cerrado en | |
+| Cerrado en | R-007 (`122b770`) |
 
 - **Que se observo:** `T-015` declara como criterio de cierre «el barrido de la regla no devuelve
   ningun enunciado que siga afirmando que la excepcion es unica», y queda `Implementada`. El barrido,
@@ -934,3 +943,129 @@ _persistence/tasks.md:463:  quien la ejecuta seguian diciendo «es la unica exce
 
   *(ejecutado sobre `111fc40` antes de tocar nada. La linea 63 es la que `T-021` corrige; las otras
   dos son otra regla y una cita historica.)*
+
+- **Cerrado por `R-007`** sobre `122b770`: la convencion de `tasks.md` abre ahora con «Tiene dos
+  excepciones, y las dos estan escritas», y el barrido sobre la seccion «Convenciones» no devuelve
+  ninguna variante viva; la unica coincidencia en `.claude CLAUDE.md _phases` es de otra regla (los
+  supuestos `A-XXX` de `protocol-close`). `T-015` conserva su texto con su nota fechada (`D-019`).
+  Comandos y salidas crudas en `_audit/R-007.md`, seccion 1. ⚠️ La ficha de `T-021` afirma ademas un
+  barrido de variantes sobre todo el repositorio del que no registra ni patron ni salida: eso es
+  `F-018`, hallazgo nuevo, y no reabre este.
+
+---
+
+### F-017 - `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene
+| Campo | Valor |
+|---|---|
+| Auditoria | R-007 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `T-020` produce documentacion, asi que su Definicion de Terminado es «existe
+  su bloque de verificacion: la orden ejecutada literal y su salida cruda» (`CLAUDE.md`, PI-5). La
+  ficha no lleva ni un bloque de codigo; la de `T-021`, cerrada en la misma pasada, lleva dos:
+
+```
+$ git show 122b770:_persistence/tasks.md | sed -n '/^### T-020/,/^### T-021/p' | grep -c '^~~~'
+0
+
+$ git show 122b770:_persistence/tasks.md | sed -n '/^### T-021/,/^### T-022/p' | grep -c '^~~~'
+4
+
+$ git show 122b770:_audit/S-007.md | grep -n "ver seccion 6"
+27:  arbol de trabajo (ver seccion 6).
+
+$ git show 122b770:_audit/S-007.md | sed -n '/^## 6/,$p' | grep -c '^~~~'
+0
+```
+
+  *(`~~~` transcribe el delimitador de bloque de codigo, para no cerrar este bloque)*
+
+- **Por que importa:** el criterio **si se cumple** —`R-007` lo reprodujo—, asi que el registro no
+  miente; lo que falta es la evidencia que lo hace reproducible sin rehacerlo. Es el patron de
+  `F-009` y `F-016` por tercera vez: una tarea `Implementada` sostenida por un veredicto («se
+  comprobo») en vez de por «corri esto, salio esto». `Media` porque `T-020` es la tarea que cierra
+  un hallazgo de auditoria y porque es reincidencia, no primer caso.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-018 - `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-007 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la ficha afirma un resultado sobre un ambito que sus dos bloques de
+  verificacion no cubren —los dos corren acotados—, y el barrido global, reproducido, devuelve una
+  linea que ninguno de los patrones escritos en la ficha alcanza, por ir en mayuscula:
+
+```
+$ git show 122b770:_persistence/tasks.md | sed -n '/^### T-021/,/^### T-022/p' | grep -n "todo el repositorio" -B2
+20-  barre solo el ejemplo citado deja vivo el defecto. Se barrieron tambien las variantes que el patron
+21-  del hallazgo no cubria —«una sola excepcion», «la excepcion es unica», «solo una excepcion»— sobre
+22:  todo el repositorio. No aparecio ninguna mas viva de esta regla.
+
+$ git grep -niE "una sola excepcion|la excepcion es unica|solo una excepcion|unica excepcion" 122b770 -- . | wc -l
+45
+
+$ git grep -nE "Unica excepcion" 122b770 -- .claude
+122b770:.claude/agents/session-closer.md:90:  - *Unica excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
+```
+
+- **Por que importa:** `CLAUDE.md` obliga a que un resultado afirmado por iniciativa propia vaya con
+  «el patron y el ambito con que se obtuvo». Aqui hubo que rehacer el barrido para contrastarlo, y al
+  rehacerlo aparecio una coincidencia que el patron de la ficha no habria encontrado. `Baja` porque
+  esa linea es de otra regla y la conclusion de fondo —ninguna variante viva de la regla vieja— es
+  correcta.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-019 - La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido
+| Campo | Valor |
+|---|---|
+| Auditoria | R-007 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 1 de `_audit/S-007.md` presenta su lista como salida de
+  `git show --stat --name-only --format= HEAD` y la describe como «estos siete mas el nuevo». El
+  comando devuelve diez archivos; la lista enumera ocho, y faltan `_audit/index.md` y el propio
+  `_audit/S-007.md`:
+
+```
+$ git show --stat --name-only --format= 122b770
+_audit/S-007.md
+_audit/findings.md
+_audit/index.md
+_persistence/assumptions.md
+_persistence/decisions.md
+_persistence/lessons.md
+_persistence/progress.md
+_persistence/tasks.md
+_phases/005_discovery.md
+project.md
+
+$ git show 122b770:_audit/S-007.md | sed -n '/^## 1\./,/^## 2\./p' | grep -c '^- `'
+8
+
+$ git show d906a5d:_audit/S-006.md | grep -n "su fila en"
+50:`S-006`) y su fila en `_audit/index.md`.
+```
+
+- **Por que importa:** el informe es la unica pieza que le dice a la auditoria que estado esta
+  juzgando; una lista presentada como salida de un comando que no coincide con el debilita justo lo
+  que la hace util — y `S-006` si declaraba esos dos archivos, asi que es una regresion. `Baja`
+  porque los dos omitidos son mecanica del cierre y ninguno esconde trabajo no declarado.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
