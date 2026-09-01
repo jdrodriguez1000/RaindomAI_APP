@@ -31,6 +31,7 @@
 | [S-005](#s-005---se-evaluan-f-005-a-f-010-nace-_phases-y-se-declara-005_discovery) | Se evaluan `F-005` a `F-010`, nace `_phases/` y se declara `005_discovery` | 2026-09-01 | `000_preproject` |
 | [S-006](#s-006---se-aceptan-f-011-a-f-014-y-f-010-se-desatasca-con-d-027-nace-_methodology) | Se aceptan `F-011` a `F-014` y `F-010` se desatasca con `D-027`; nace `_methodology/` | 2026-09-02 | `000_preproject` |
 | [S-007](#s-007---se-aceptan-f-015-y-f-016-nace-_phases005_discoverymd) | Se aceptan `F-015` y `F-016`; nace `_phases/005_discovery.md` | 2026-09-02 | `000_preproject` |
+| [S-008](#s-008---se-aceptan-f-017-a-f-019-nacen-las-plantillas-de-_templates005_discovery) | Se aceptan `F-017` a `F-019`; nacen las plantillas de `_templates/005_discovery/` | 2026-09-02 | `000_preproject` |
 
 ---
 
@@ -56,42 +57,39 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-02 (S-007) |
+| Ultima actualizacion | 2026-09-02 (S-008) |
 | Salud | En marcha |
-| Avance de la etapa | `R-006` (sobre `d906a5d`) abrio `F-015` y `F-016`. `manager` los evaluo contra `HEAD` (`111fc40`), verifico que ambos seguian vivos, y los acepto: `T-020` escribe el archivo de etapa que `D-023` exige desde `S-005` y que tres sesiones habian nombrado sin agendar, `_phases/005_discovery.md`, adaptando (no copiando) la guia que aporto el usuario (`D-033`); de paso resuelve donde van los codigos del descubrimiento —`N-XXX` nuevo para necesidad, `A-XXX`/`C-XXX` ya existentes para supuestos y restricciones (`D-034`)— y donde viviran sus plantillas, `_templates/005_discovery/`, todavia sin escribir por peticion expresa del usuario (`D-035`, abre `T-022`). `T-021` reescribe la apertura de la convencion de `tasks.md`, que seguia anunciando «una unica excepcion» cuatro parrafos despues de escribir la segunda. Los criterios de cierre de ambas tareas se comprobaron contra el arbol de trabajo antes de cerrarlas: `_phases/` ya contiene un archivo por cada etapa declarada y el control de fuga de datos propios del Paso 1b sigue en cero; el barrido acotado de `T-021` no deja ninguna variante viva de la regla vieja. Se registra `A-004` (acceso al patrocinador y a quienes conocen el proceso real, entrada obligatoria que el propio archivo de etapa declara), `L-010` (un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca — el mismo `F-016`) y `D-032` (las entradas de esta sesion se fechan 2026-09-02 por continuidad con el registro, aunque el reloj del entorno marque 2026-09-01). |
-| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, ahora con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
+| Avance de la etapa | `R-007` (sobre `ae06147`) abrio `F-017`, `F-018` y `F-019`. `manager` verifico los tres contra `HEAD` (`ae06147`) y los acepto. `T-023` añade a la ficha de `T-020` los dos bloques de verificacion que su propio criterio de cierre nombraba y que faltaban, anclados a `122b770` con nota fechada. `T-024` acota la frase de `T-021` que afirmaba un barrido «sobre todo el repositorio» y añade el tercer bloque con ese barrido de verdad, insensible a mayusculas (`L-012`). `T-025` no reescribe `_audit/S-007.md` (`D-040`): endurece la estructura del informe de `protocol-close` para que la seccion 1 exija la salida generada, no una lista redactada (`L-011`). Ademas se escriben las cuatro plantillas de `_templates/005_discovery/` (`T-022`, cerrando lo que `S-007` dejo pendiente): se adaptan de las que aporto el usuario, no se copian (`D-041`); se decide donde viven los artefactos rellenos (`_discovery/`, `D-036`); se decide no escribir plantilla de restricciones y supuestos, porque ya tienen sitio en `_persistence/` (`D-037`, que ademas añade los campos `Dueño` y `Riesgo abierto` a `assumptions.md`); entra el codigo `I-XXX` para interesado (`D-038`); `T-022` se reetiqueta a `000_preproject` porque escribir plantillas es andamiaje, no descubrimiento (`D-039`); y `T-026` extiende el Paso 1b de `protocol-close` a `_templates/` (escrita a mano por `manager` fuera de las dos excepciones de la convencion, declarado asi en la propia ficha). Las entradas de esta sesion se fechan 2026-09-02 por continuidad con el registro (`D-042`). |
+| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo los dos hallazgos abiertos por `R-006` sobre `S-006` (`F-015`, `F-016`),
-verificando cada uno contra `HEAD` (`111fc40`) antes de aceptarlo, y los acepto ambos.
+`manager` evaluo los tres hallazgos abiertos por `R-007` sobre `S-007` (`F-017`, `F-018`, `F-019`),
+verificando cada uno contra `HEAD` (`ae06147`) antes de aceptarlo, y los acepto los tres.
 
-`T-020` escribe `_phases/005_discovery.md`, el archivo de etapa que `D-023` exige desde `S-005`
-—«un archivo por etapa declarada»— y que `D-024`, `R-005` y `S-006` nombraron sin llegar a
-agendar. El contenido se adapta, no se copia, de dos archivos que el usuario aporto como guia
-(`D-033`): conserva el procedimiento de siete pasos, la separacion necesidad/solucion y el
-`NO CONTINUA`, y reescribe lo que era dato de otro proyecto o vocabulario de otro esquema. De paso
-resuelve dos asuntos que quedaban abiertos: los codigos del descubrimiento —entra `N-XXX` para
-necesidad, y los supuestos y restricciones del descubrimiento van a los `A-XXX`/`C-XXX` que ya
-existen, sin prefijos nuevos (`D-034`)— y donde viviran las plantillas de sus cinco artefactos,
-`_templates/005_discovery/`, carpeta que no se crea todavia porque el usuario pidio no escribir
-las plantillas en esta sesion (`D-035`; abre `T-022`).
+`T-023` añade a la ficha de `T-020` los dos bloques de verificacion que su propio criterio de
+cierre nombraba y que no estaban escritos —el listado de `_phases/` contra `project.md`, y el
+control de fuga de datos del Paso 1b—, anclados a `122b770` con nota fechada que declara que se
+añaden despues (el mismo patron que `T-014` aplico a `A-001`). `T-024` acota la frase de `T-021`
+que afirmaba un barrido «sobre todo el repositorio» sin cubrirlo, y añade el tercer bloque con ese
+barrido real, con patron insensible a mayusculas: asi aparecio una coincidencia en
+`session-closer.md:90` que el patron original no alcanzaba, aunque el fondo del hallazgo seguia
+siendo correcto (`L-012`). `T-025` no toca `_audit/S-007.md` (`D-040`): la correccion de `F-019` va
+al mecanismo, endureciendo la estructura del informe de `protocol-close` para que la seccion 1
+exija la salida generada en vez de una lista redactada de memoria (`L-011`).
 
-`T-021` reescribe la apertura de la convencion de `tasks.md`: seguia diciendo «tiene una unica
-excepcion, y esta escrita» cuando cuatro parrafos mas abajo anunciaba la segunda (`D-025`). El
-barrido de correccion se acoto a proposito a los tres sitios donde la regla se enuncia —no al
-repositorio entero—, porque un barrido global no puede dar nunca cero: `_audit/` y el cuerpo de
-`T-015` citan el texto viejo para explicarse, y ninguno de los dos se reescribe (`D-019`). Ese
-mismo defecto —un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca— se
-registra en `L-010`, junto con el hallazgo de que el primer intento de bloque de verificacion para
-`T-021` se barria a si mismo.
-
-Se registra tambien `A-004`: el archivo de etapa declara como entrada obligatoria el acceso al
-patrocinador y a quienes conocen el proceso real, y ese acceso todavia no esta confirmado. Y
-`D-032` deja escrito por que las entradas de esta sesion llevan fecha `2026-09-02` aunque el reloj
-del entorno marque `2026-09-01`: continuidad con `S-006` y `R-006`, que ya llevan esa fecha.
+Se escriben ademas las cuatro plantillas de `_templates/005_discovery/` (`T-022`, cerrando lo que
+`S-007` dejo pendiente), adaptadas —no copiadas— de las que aporto el usuario (`D-041`). De paso se
+zanjan tres asuntos que quedaban abiertos: donde viven los artefactos rellenos del descubrimiento
+—`_discovery/`, sin crear todavia (`D-036`)—; que la quinta plantilla (restricciones y supuestos)
+no se escribe porque ya tiene sitio en `_persistence/`, que gana los campos `Dueño` y
+`Riesgo abierto` para cubrir lo que esa plantilla aportaba (`D-037`); y el codigo de interesado,
+`I-XXX` (`D-038`). `T-022` se reetiqueta de `005_discovery` a `000_preproject`, porque escribir
+plantillas es andamiaje y no responde ninguna pregunta sobre la necesidad del cliente (`D-039`).
+`T-026` extiende el Paso 1b de `protocol-close` a `_templates/`, que nace con la misma condicion de
+agnosticidad que `.claude/`, `_phases/` y `_methodology/`.
 
 ---
 
@@ -355,11 +353,39 @@ barre entera antes de darla por hecha.
   criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca) y `D-032` (las
   entradas de esta sesion se fechan `2026-09-02`, por continuidad con `S-006`/`R-006`, aunque el
   reloj del entorno marque `2026-09-01`).
-- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `T-022` (las cinco
-  plantillas de `_templates/005_discovery/`) queda `No implementada` por peticion expresa del
-  usuario. `A-004` sigue `Abierto`: no hay confirmacion de que exista acceso al patrocinador, y es
-  entrada obligatoria para empezar `005_discovery`. `F-015` y `F-016` quedan `Aceptado — pendiente`
-  hasta que la auditoria siguiente verifique la correccion sobre este commit y los cierre.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `A-004` sigue
+  `Abierto`: no hay confirmacion de que exista acceso al patrocinador, y es entrada obligatoria
+  para empezar `005_discovery`. `F-015` y `F-016` quedan `Aceptado — pendiente` hasta que la
+  auditoria siguiente verifique la correccion sobre este commit y los cierre.
+
+---
+
+### S-008 - Se aceptan `F-017` a `F-019`; nacen las plantillas de `_templates/005_discovery/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | `000_preproject` |
+| Tareas | T-022, T-023, T-024, T-025, T-026 |
+
+- **Que se hizo:** `manager` evaluo los tres hallazgos abiertos por `R-007` sobre `S-007` (`F-017`,
+  `F-018`, `F-019`), verifico cada uno contra `HEAD` (`ae06147`) y los acepto los tres. `T-023`
+  añade a la ficha de `T-020` los dos bloques de verificacion que faltaban, anclados a `122b770`
+  con nota fechada (patron de `T-014`). `T-024` acota la frase de `T-021` que afirmaba un barrido
+  «sobre todo el repositorio» y añade el tercer bloque con ese barrido real, insensible a
+  mayusculas, que encontro una coincidencia en `session-closer.md:90` que el patron original no
+  alcanzaba (`L-012`); el fondo del hallazgo original seguia siendo correcto. `T-025` no reescribe
+  `_audit/S-007.md` (`D-040`): la correccion de `F-019` va al mecanismo de `protocol-close`, cuya
+  seccion 1 ahora exige la salida generada en vez de una lista redactada de memoria (`L-011`).
+  Ademas se escriben las cuatro plantillas de `_templates/005_discovery/` (`T-022`), adaptadas de
+  las que aporto el usuario (`D-041`); se decide donde viven los artefactos rellenos del
+  descubrimiento (`_discovery/`, `D-036`); se decide no escribir la quinta plantilla —restricciones
+  y supuestos—, remitiendola a `_persistence/`, que gana los campos `Dueño` y `Riesgo abierto`
+  (`D-037`); entra el codigo `I-XXX` para interesado (`D-038`); `T-022` se reetiqueta a
+  `000_preproject` (`D-039`); y `T-026` extiende el Paso 1b de `protocol-close` a `_templates/`.
+  Las entradas de esta sesion se fechan `2026-09-02` por continuidad con el registro (`D-042`).
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `A-004` sigue
+  `Abierto`. `F-017`, `F-018` y `F-019` quedan `Aceptado — pendiente` hasta que la auditoria
+  siguiente verifique la correccion sobre este commit y los cierre.
 
 ---
 

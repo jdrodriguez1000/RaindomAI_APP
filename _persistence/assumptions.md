@@ -22,8 +22,25 @@
 | Campo | Valores posibles |
 |---|---|
 | Codigo | `A-XXX`, correlativo, no se reutiliza |
-| Estado | `Abierto` / `Confirmado` / `Refutado` |
+| Estado | `Abierto` / `Confirmado` / `Refutado` / `Riesgo abierto` |
 | Origen | `usuario` / `manager` / `report_auditor` |
+| Dueño | quien tiene que ir a verificarlo — un nombre, no un rol vago |
+
+🚨 **`Dueño` y `Riesgo abierto` entran el 2026-09-02 por `D-037`**, y no son adorno: son lo unico
+que la plantilla de restricciones y supuestos del descubrimiento aportaba y este archivo no tenia.
+Entran aqui, que es donde sirven a cualquier etapa y no solo a una.
+
+| Novedad | Que resuelve |
+|---|---|
+| **`Dueño`** | un supuesto sin dueño no se verifica nunca. El disparador dice **cuando** alguien lo mirara; el dueño dice **quien** |
+| **`Riesgo abierto`** | un supuesto que **no se puede verificar antes de necesitarlo**, y se acepta a sabiendas. Va con **quien lo acepto** y por que no se pudo verificar |
+
+⚠️ **`Riesgo abierto` es una decision, no un cajon de sastre.** Un supuesto que lleva meses
+`Abierto` sin que nadie lo mire **ya es un riesgo abierto**, solo que sin nadie que lo haya
+decidido. La diferencia entre los dos estados no es el tiempo que llevan: es si alguien firmo.
+
+📌 **No es retroactivo.** Los `A-XXX` escritos antes de esta fecha no llevan `Dueño`, y no se les
+añade uno inventado a posteriori — se les pone cuando se toquen por otra razon.
 
 🚨 **Un supuesto que no dice como se refuta no es un supuesto: es una creencia.** Cada entrada
 lleva **como se refuta** y **su disparador** —el momento concreto en que alguien lo va a mirar—.

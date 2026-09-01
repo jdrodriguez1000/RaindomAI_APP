@@ -225,24 +225,27 @@ describir lo que salio.
 
 ## 5. Artefactos que produce
 
-Cinco documentos. **Ninguno es codigo, y ninguno describe una pantalla.**
+Cinco artefactos. **Ninguno es codigo, y ninguno describe una pantalla.**
 
-| Artefacto | Que contiene |
-|---|---|
-| **Necesidades** | los `N-XXX`, cada uno enunciado sin nombrar una pantalla |
-| **Actores** | tipo + actor concreto, **solo los que existen** en este producto |
-| **Interesados** | que aporta y que puede bloquear cada uno |
-| **Hipotesis** | la hipotesis, **con su condicion de falsacion** |
-| **Restricciones y supuestos** | los limites firmes y lo no confirmado, remitidos a `C-XXX` y `A-XXX` |
+| Artefacto | Que contiene | Donde se escribe |
+|---|---|---|
+| **Necesidades** | los `N-XXX`, cada uno enunciado sin nombrar una pantalla | carpeta de artefactos de la etapa, con plantilla |
+| **Actores** | tipo + actor concreto, **solo los que existen** en este producto | carpeta de artefactos de la etapa, con plantilla |
+| **Interesados** | que aporta y que puede bloquear cada uno | carpeta de artefactos de la etapa, con plantilla |
+| **Hipotesis** | la hipotesis, **con su condicion de falsacion** | carpeta de artefactos de la etapa, con plantilla |
+| **Restricciones y supuestos** | los limites firmes y lo no confirmado | **directamente en el registro del proyecto**, como `C-XXX` y `A-XXX` |
 
-**Las plantillas de los cinco viven en `_templates/005_discovery/`.** Estan pendientes de escribir:
-mientras no existan, un artefacto de esta etapa se escribe a mano y **no hay adherencia a plantilla
-que comprobar**.
+🔑 **Cuatro llevan plantilla y el quinto no, y la razon es que el quinto ya tenia sitio.** Los
+supuestos y las restricciones no son propios del descubrimiento: son las mismas dos cosas que el
+proyecto registra en cualquier etapa, y darles un archivo aparte crearia **dos sitios donde mirar
+lo que hay sin confirmar**. Nacen ya en su registro, y no hay que trasladarlos despues.
 
-🚨 **Donde viven los cinco artefactos rellenos todavia no esta decidido, y este archivo no lo va a
-inventar.** Se decide al abrir la etapa, con su `D-XXX` y su fila en la tabla «Carpetas propias» de
-`project.md` si hace falta carpeta nueva. Hasta entonces, la respuesta correcta a «¿donde se
-guardan?» es *«sin decidir»* — no una ruta supuesta que luego haya que corregir en veinte sitios.
+**Las cuatro plantillas viven en `_templates/005_discovery/`**, una por artefacto. Un artefacto de
+esta etapa se escribe copiando su plantilla, y la regla de «adherencia a plantillas» tiene entonces
+contra que comprobarse.
+
+⚠️ **Cual es la carpeta de artefactos y cual es el archivo de cada registro lo dice `project.md`,
+no este archivo** — aqui no se escribe ninguna ruta propia del proyecto.
 
 ⚠️ **Toda carpeta de primer nivel se declara en `project.md`.** El cierre contrasta el arbol contra
 esa tabla **en las dos direcciones**: una carpeta sin fila y una fila sin carpeta son el mismo

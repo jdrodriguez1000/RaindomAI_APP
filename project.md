@@ -131,6 +131,7 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos |
 | `_methodology/` | **Con que criterio** se construye: el metodo de desarrollo —`000_method.md`, el documento canonico— y en `sources/` las fuentes de las que se consolido, que no se editan. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
+| `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por etapa que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
 
 🚨 **Esta tabla se contrasta contra el arbol en cada cierre de sesion** (Paso 2c de `protocol-close`):
@@ -162,13 +163,17 @@ envejece sin que nadie la revise y acaba tapando justo lo que el control existe 
 | `DT-XXX` | `_persistence/techdebt.md` | deuda tecnica |
 | `F-NNN` | `_audit/findings.md` | hallazgo de auditoria |
 | `R-XXX` | `_audit/R-XXX.md` | auditoria de una sesion |
-| `N-XXX` | el artefacto de necesidades de `005_discovery` — **su carpeta esta sin decidir** (`D-035`) | necesidad |
+| `N-XXX` | `_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-036`) | necesidad |
+| `I-XXX` | `_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`) | interesado |
 
 🚨 **Ningun codigo se reutiliza, en ningun archivo.** Un id retirado queda retirado; la entrada que
 lo llevaba conserva su texto para que se entienda que se creia y por que dejo de valer.
 
-⚠️ **De los codigos del producto solo esta declarado `N-XXX`** —la necesidad, que es lo unico que
-`005_discovery` produce—. Features, escenarios, slices y casos de prueba **siguen sin definir**,
+⚠️ **De los codigos del producto solo estan declarados `N-XXX` e `I-XXX`** —la necesidad y el
+interesado, que es lo que `005_discovery` produce con codigo propio; sus supuestos y restricciones
+van a `A-XXX` y `C-XXX`, que ya existian (`D-034`), y no tiene codigo propio ni el actor ni la
+hipotesis, que se identifican por su tipo y por su archivo—. Features, escenarios, slices y casos de
+prueba **siguen sin definir**,
 porque no hay producto declarado todavia. Se añaden a esta tabla en la misma pasada en que se
 escriba el primero, con su `D-XXX`. Un codigo que aparece en un archivo antes que en esta tabla es un
 desfase, no una novedad.
@@ -178,6 +183,10 @@ necesidad, `FT-` feature, `SC-` scenario, `VS-` vertical slice, `T-` task, `TC-`
 `ADR-` decision arquitectonica. **Propuesta, no declarada:** de esos, `N-` ya entro por `D-034`
 —porque el archivo de etapa de `005_discovery` lo cita y un codigo citado sin declarar es un
 desfase—; los demas no entran hasta que haya producto y su `D-XXX`.
+
+📌 **`I-XXX` no sale de esa propuesta: no estaba en ninguna parte.** Entro por `D-038`, con el mismo
+argumento que `N-XXX`: la plantilla de interesados lo cita, y un codigo citado antes de declararse
+es un desfase. La inicial `I` estaba libre en esta tabla.
 
 🚨 **Los supuestos y las restricciones del descubrimiento no traen codigo propio.** La guia de
 metodo hablaba de `SUP-` y `RES-`; aqui van a `A-XXX` y `C-XXX`, que ya existen y significan lo

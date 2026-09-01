@@ -44,6 +44,13 @@
 | [D-033](#d-033---el-archivo-de-etapa-de-descubrimiento-se-adapta-de-la-guia-del-usuario-no-se-copia) | El archivo de etapa de descubrimiento se adapta de la guia del usuario, no se copia | 2026-09-02 | Vigente |
 | [D-034](#d-034---n-xxx-es-el-codigo-de-necesidad-los-supuestos-y-restricciones-siguen-siendo-a-xxx-y-c-xxx) | `N-XXX` es el codigo de necesidad; los supuestos y restricciones siguen siendo `A-XXX` y `C-XXX` | 2026-09-02 | Vigente |
 | [D-035](#d-035---las-plantillas-de-los-artefactos-de-descubrimiento-viven-en-_templates005_discovery) | Las plantillas de los artefactos de descubrimiento viven en `_templates/005_discovery/` | 2026-09-02 | Vigente |
+| [D-036](#d-036---los-artefactos-rellenos-del-descubrimiento-viven-en-_discovery) | Los artefactos rellenos del descubrimiento viven en `_discovery/` | 2026-09-02 | Vigente |
+| [D-037](#d-037---el-descubrimiento-no-lleva-plantilla-de-restricciones-y-supuestos-se-registran-en-_persistence) | El descubrimiento no lleva plantilla de restricciones y supuestos: se registran en `_persistence/` | 2026-09-02 | Vigente |
+| [D-038](#d-038---i-xxx-es-el-codigo-de-interesado) | `I-XXX` es el codigo de interesado | 2026-09-02 | Vigente |
+| [D-039](#d-039---t-022-se-reetiqueta-a-000_preproject-escribir-plantillas-es-andamiaje) | `T-022` se reetiqueta a `000_preproject`: escribir plantillas es andamiaje | 2026-09-02 | Vigente |
+| [D-040](#d-040---_audits-007md-no-se-reescribe-para-corregir-f-019-la-correccion-va-al-mecanismo) | `_audit/S-007.md` no se reescribe para corregir `F-019`: la correccion va al mecanismo | 2026-09-02 | Vigente |
+| [D-041](#d-041---las-cuatro-plantillas-se-adaptan-de-las-del-usuario-no-se-copian) | Las cuatro plantillas se adaptan de las del usuario, no se copian | 2026-09-02 | Vigente |
+| [D-042](#d-042---las-entradas-de-esta-sesion-se-fechan-2026-09-02-por-continuidad-con-el-registro) | Las entradas de esta sesion se fechan 2026-09-02, por continuidad con el registro | 2026-09-02 | Vigente |
 
 ---
 
@@ -1485,4 +1492,335 @@ exit=2
 
 $ grep -n "_templates" project.md ; echo "exit=$?"
 exit=1
+```
+
+---
+
+### D-036 - Los artefactos rellenos del descubrimiento viven en `_discovery/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-035` decidio donde viven **las plantillas** —`_templates/005_discovery/`— y dejo
+  expresamente sin decidir donde viven **los artefactos rellenos**, los que llevaran los `N-XXX`
+  reales del cliente. Al ir a escribir las plantillas, esa mitad abierta dejo de ser aplazable: las
+  plantillas se citan entre si por ruta y sus bloques de comprobacion llevan la ruta escrita dentro.
+  Una plantilla con la ruta en blanco no se puede ejecutar ni enlazar.
+- **Decision:** los artefactos rellenos viven en **`_discovery/`**, carpeta propia de primer nivel.
+  Lo zanjo el usuario. `_templates/005_discovery/` contiene solo las plantillas en blanco;
+  `_discovery/` contiene lo que se rellena.
+- **Por que carpeta aparte y no dentro de `_persistence/`:** son dos cosas distintas y mezclarlas
+  cuesta despues. `_persistence/` registra **como va el trabajo** —sesiones, tareas, decisiones— y
+  sus siete archivos tienen indice, convenciones y estados propios. `_discovery/` registra **que se
+  entendio del producto**, y sus archivos nacen, se cierran y dejan de tocarse. Meterlos en
+  `_persistence/` obligaria a que sus convenciones cubrieran dos regimenes distintos.
+- **Cuando se crea la carpeta:** **no hoy.** No existe ningun artefacto relleno que la sostenga,
+  `git` no versiona carpetas vacias, y la tabla «Carpetas propias» de `project.md` se contrasta
+  contra el arbol en las dos direcciones en cada cierre. La carpeta y su fila entran juntas cuando
+  se rellene la primera plantilla — el mismo argumento que `D-035` uso para `_templates/`.
+- **Por que la ruta si va escrita en las plantillas y no en `_phases/005_discovery.md`:** son dos
+  papeles distintos. El archivo de etapa **describe** —dice que artefactos hay y que contiene cada
+  uno— y por eso remite a `project.md` donde haria falta una ruta. Las plantillas son **el
+  instrumento**: sus bloques de comprobacion se copian y se corren tal cual, y un comando con un
+  hueco dentro no se puede correr. ⚠️ **`_discovery/` no es un dato propio de este proyecto** —es un
+  nombre generico de metodo, en ingles, igual que `_phases/` o `_templates/`—, asi que escribirlo
+  dentro de `_templates/` no rompe la agnosticidad ni dispara el barrido del Paso 1b.
+- **Alternativas descartadas:** meterlos en `_persistence/` (mezcla los dos regimenes, ver arriba);
+  dejarlo sin decidir y escribir las plantillas con la ruta como hueco (deja los bloques de
+  comprobacion sin poder ejecutarse y los enlaces cruzados rotos, que es justo lo que las plantillas
+  existen para evitar).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — hoy no
+  existe ningun archivo en esa ruta, asi que cambiarla no rompe ninguna referencia fuera de las
+  cuatro plantillas.
+
+**Verificacion — la carpeta no existe todavia, y por eso no tiene fila en `project.md`:**
+
+```
+$ ls -d _discovery 2>&1 ; echo "exit=$?"
+ls: cannot access '_discovery': No such file or directory
+exit=2
+
+$ grep -n "_discovery" project.md ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-037 - El descubrimiento no lleva plantilla de restricciones y supuestos: se registran en `_persistence/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `_phases/005_discovery.md` §5 enumera cinco artefactos, y el quinto es
+  «restricciones y supuestos». La guia del usuario traia para el una plantilla completa
+  (`025_constraints.md`) con su tabla de `RES-xxx`, su tabla de `SUP-xxx`, sus estados y su rastro de
+  resueltos. Pero `D-034` ya habia zanjado que los supuestos y las restricciones del descubrimiento
+  van a `_persistence/assumptions.md` y `_persistence/constraints.md` como `A-XXX` y `C-XXX`.
+  Escribir esa plantilla habria creado **un segundo registro del mismo concepto**, que es
+  exactamente lo que `D-034` rechazo.
+- **Decision:** **no se escribe esa plantilla.** `_templates/005_discovery/` lleva cuatro
+  —necesidades, actores, interesados e hipotesis—. Las restricciones y los supuestos que produzca la
+  etapa nacen directamente en `_persistence/constraints.md` y `_persistence/assumptions.md`, con las
+  convenciones que esos archivos ya tienen. Lo zanjo el usuario.
+- **Que se pierde y donde se recupera:** la plantilla descartada aportaba tres cosas que
+  `_persistence/` no tenia. Las tres entran ahi, que es donde sirven a todas las etapas y no solo a
+  una:
+
+| Que aportaba la plantilla | Donde entra |
+|---|---|
+| **Dueño** del supuesto — quien tiene que ir a verificarlo | campo nuevo en las convenciones de `_persistence/assumptions.md` |
+| Estado **`Riesgo abierto`** — no se puede verificar antes de necesitarlo, y se acepta a sabiendas, con quien lo acepto | valor nuevo en la tabla de estados de `assumptions.md` |
+| **«Lo que se decidio NO averiguar todavia»** | una `D-XXX` por caso: posponer una averiguacion es una eleccion entre alternativas, y `decisions.md` ya es su sitio |
+
+- **Que hay que corregir por esta decision:** `_phases/005_discovery.md` §5 decia «Cinco documentos»
+  y «Las plantillas de los cinco viven en `_templates/005_discovery/`». Se reescribe: cuatro con
+  plantilla, y el quinto artefacto remitido a `_persistence/`. El titulo de `T-022` deja de decir
+  «las cinco».
+- **Lo que NO cambia:** el descubrimiento **sigue produciendo cinco artefactos**. Lo que cambia es
+  que uno de ellos no tiene plantilla propia porque su sitio ya existe. `_phases/005_discovery.md`
+  §4 paso 6 sigue mandando lo mismo que mandaba.
+- **Alternativas descartadas:** escribirla completa, adaptando `SUP-`/`RES-` a `A-XXX`/`C-XXX` (dos
+  sitios donde mirar lo que hay sin confirmar, y la obligacion de acordarse de los dos cada vez);
+  escribirla delgada, solo con lo que `_persistence/` no cubre (mismo defecto en pequeño: sigue
+  siendo un segundo sitio, y ademas uno que solo esta medio lleno).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — no borra
+  ningun archivo; si algun dia hiciera falta, escribir la quinta plantilla es trabajo nuevo, no una
+  restauracion.
+
+**Verificacion — no existe ningun `SUP-` ni `RES-` vivo en el registro, y `A-XXX`/`C-XXX` ya estan
+en su sitio:**
+
+```
+$ grep -rnoE "\b(SUP|RES)-[0-9]{3}\b" _persistence/ _audit/ _phases/ project.md ; echo "exit=$?"
+exit=1
+
+$ grep -c "^### A-" _persistence/assumptions.md ; grep -c "^### C-" _persistence/constraints.md
+4
+7
+```
+
+---
+
+### D-038 - `I-XXX` es el codigo de interesado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** la plantilla de interesados necesita una forma estable de citar a cada uno: la ficha
+  de una restriccion dice «quien la impone», la de un actor dice si ademas es interesado, y la tabla
+  de aprobaciones dice quien aprueba que. La guia del usuario usaba `I-001` sin declararlo en ningun
+  sitio. `project.md` es explicito: **un codigo que aparece en un archivo antes que en su tabla
+  «Codigos» es un desfase, no una novedad.**
+- **Decision:** `I-XXX` se declara en la tabla «Codigos» de `project.md` como **interesado**, en la
+  misma pasada en que se escribe la plantilla que lo usa. Lo zanjo el usuario. Su archivo es el
+  artefacto de interesados de `005_discovery`, en `_discovery/` (`D-036`).
+- **Por que no colisiona:** ningun codigo del registro usa hoy la inicial `I`, y el interesado no
+  tiene equivalente en `_persistence/` — no es una decision, ni un supuesto, ni una restriccion, ni
+  un actor. Es el mismo razonamiento que `D-034` hizo con `N-XXX`.
+- **Por que se declara ahora y no cuando se escriba el primer `I-001`:** porque la plantilla ya lo
+  cita, y una plantilla es un archivo del repositorio como cualquier otro. Declararlo hoy es lo que
+  evita el desfase — la misma razon que `D-034` dio para `N-XXX`.
+- **Alternativas descartadas:** listar los interesados sin identificador, solo por nombre y rol (deja
+  sin forma estable de citarlos desde las otras plantillas, y un nombre cambia de grafia cada vez que
+  se teclea); reutilizar `A-XXX` o `C-XXX` (no es ni un supuesto ni una restriccion: es una persona).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — todavia
+  no existe ningun `I-001` escrito, asi que cambiar de prefijo hoy no reescribe nada.
+
+**Verificacion — no hay ningun codigo `I-` vivo en el registro con el que pueda colisionar:**
+
+```
+$ grep -rnoE "\bI-[0-9]{3}\b" _persistence/ _audit/ project.md ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-039 - `T-022` se reetiqueta a `000_preproject`: escribir plantillas es andamiaje
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `R-007` lo observo en sus «recomendaciones sin hallazgo»: `T-022` estaba etiquetada
+  `005_discovery`, pero escribir plantillas no responde ninguna pregunta sobre la necesidad del
+  cliente. No lo abrio como hallazgo porque hoy ningun archivo obliga a lo contrario.
+- **Decision:** `T-022` pasa a `000_preproject`. Lo zanjo el usuario.
+- **Por que:** `000_preproject` es, por definicion, la etapa en la que **no se construye producto: se
+  monta la forma de trabajar**. Una plantilla es forma de trabajar. Si `T-022` se quedara dentro de
+  `005_discovery`, la condicion de salida de esa etapa —seis casillas, todas sobre lo que se entendio
+  del cliente— convivria con una tarea de metodo que no responde a ninguna de las seis.
+- **Que no cambia:** el contenido de la tarea. Cambia **cuando** se hace, no **que** se hace — igual
+  que `D-024` hizo con `T-001` en sentido contrario.
+- **Respaldo de escribirlo a mano en `tasks.md`:** la segunda excepcion de la convencion de ese
+  archivo (`D-025`): un cambio que nace de una decision del usuario y que el `session-closer` no
+  puede deducir del `git diff`.
+- **Alternativas descartadas:** dejarla en `005_discovery` (mezcla la condicion de salida de la etapa
+  con trabajo de metodo, que es justo lo que `R-007` señalo).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  celda de una tabla, y la nota fechada de la ficha conserva de donde venia.
+
+**Verificacion — la ficha y su fila en el indice dicen lo mismo:**
+
+```
+$ grep -n "^| \[T-022\]" _persistence/tasks.md | grep -o "| \`0[0-9_a-z]*\` |$"
+| `000_preproject` |
+
+$ sed -n '/^### T-022/,/^| Origen/p' _persistence/tasks.md | grep -n "Etapa"
+7:| Etapa | `000_preproject` |
+```
+
+---
+
+### D-040 - `_audit/S-007.md` no se reescribe para corregir `F-019`: la correccion va al mecanismo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `F-019` tiene razon. La seccion 1 de `_audit/S-007.md` presenta su lista de archivos
+  como salida de `git show --stat --name-only --format= HEAD`; el comando devuelve diez y la lista
+  enumera ocho, faltando `_audit/index.md` y el propio informe. La correccion obvia seria completar
+  la lista en ese archivo.
+- **Decision:** **no se toca `_audit/S-007.md`.** Se acepta el hallazgo y la correccion se aplica al
+  mecanismo que lo produjo, en `.claude/skills/protocol-close/SKILL.md` (`T-025`).
+- **Por que:** un informe de sesion no es un documento vivo — es la descripcion de **un commit
+  concreto**, y `R-007` ya lo juzgo como estaba. Reescribirlo hoy dejaria a la auditoria describiendo
+  un estado que ya cambio, y a quien lea `R-007` mañana sin poder contrastar ni una linea. Es lo
+  mismo que `CLAUDE.md` prohibe cuando dice que los hallazgos **no se arreglan en el momento**.
+- **Y hay una razon mas, especifica de este hallazgo:** el defecto de `S-007` no es que la lista este
+  corta, es que se **presenta como generada** sin serlo. Completarla a mano hoy produciria
+  exactamente el mismo defecto una vez mas — una lista que dice venir de un comando y que nadie
+  corrio.
+- **Lo incomodo, y se escribe:** el mecanismo ya existia. `SKILL.md` avisa desde antes de que «el
+  cierre anade archivos que no son de contenido —la fila de `_audit/index.md`, el propio informe— y
+  son justo los que se olvidan al escribir de memoria». `S-007` no lo siguio. Por eso `T-025` no
+  inventa una regla nueva: la mueve de un bloque explicativo a la **estructura del informe**, donde
+  no se puede escribir la seccion sin verla. Es `L-008` otra vez: una regla sin mecanismo que la
+  aplique no evita la reincidencia.
+- **Alternativas descartadas:** completar la lista en `S-007.md` (reescribe historia auditada, y
+  vuelve a producir una lista no generada); no hacer nada y anotar la leccion (`L-008` dice que una
+  leccion sin mecanismo no evita la reincidencia, y esta ya iba por la segunda vez).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — no se
+  borra ni se publica nada; se elige donde poner el arreglo, y la eleccion se puede rehacer.
+
+**Verificacion — el hallazgo se sostiene, y el archivo que lo contiene sigue intacto:**
+
+```
+$ git show --stat --name-only --format= 122b770 | wc -l
+10
+
+$ git show 122b770:_audit/S-007.md | sed -n '/^## 1\./,/^## 2\./p' | grep -c '^- `'
+8
+
+$ git status --porcelain -- _audit/S-007.md ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-041 - Las cuatro plantillas se adaptan de las del usuario, no se copian
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto en su area de trabajo cinco plantillas de descubrimiento de un
+  proyecto anterior. Son buen material de metodo —las nueve preguntas, la ficha del Actor Generador,
+  la hipotesis sellada, las tablas de errores que cada plantilla existe para evitar— pero **no
+  encajan tal cual en este repositorio**: estan escritas para el esquema de dos terminales que
+  `D-012` revoco, usan los codigos `SUP-`/`RES-` que `D-034` rechazo, escriben los registros en
+  `_memory/` en vez de `_persistence/`, y citan un archivo de Gate que este proyecto no ha declarado.
+- **Decision:** las plantillas **se adaptan, no se copian**. Es el mismo criterio que `D-033` aplico
+  al archivo de etapa, y por la misma razon.
+- **Que se conserva, porque es metodo:** las nueve preguntas; la ficha de necesidad y la prohibicion
+  de nombrar una pantalla; la ficha del Actor Generador con su veredicto `NO CONTINUA`; la tabla de
+  tipos de actor ausentes; la separacion actor/interesado; la hipotesis de un solo commit con su
+  condicion de falsacion, su umbral y su ventana; el perfil del usuario representativo; las tablas de
+  «errores que esta plantilla existe para evitar»; y la seccion «Guia de llenado» que se borra al
+  cerrar el artefacto.
+- **Que se cambia, y por que:**
+
+| # | Que traia | Que se escribe | Por que |
+|---|---|---|---|
+| 1 | `Escrito por: terminal ejecutora` | `Escrito por: manager` | `D-012` revoco el esquema de dos terminales |
+| 2 | «la auditora», veredicto `NO AUDITABLE` | `report_auditor`, y la consecuencia remitida a su protocolo | ese vocabulario no existe en este repositorio |
+| 3 | `SUP-xxx` / `RES-xxx` | `A-XXX` y `C-XXX` en `_persistence/` | `D-034` |
+| 4 | `_memory/`, y el paso de copiar ahi al cerrar | desaparece | los `A-XXX`/`C-XXX` **nacen** ya en `_persistence/`; no hay que trasladarlos (`D-037`) |
+| 5 | `methodology/000_method.md`, `phases/005_discovery.md` | `_methodology/000_method.md`, `_phases/005_discovery.md` | son las rutas reales |
+| 6 | `phases/015_gate1.md` §3 | «un Gate posterior», sin ruta | esa etapa no esta declarada, y `project.md` prohibe citar una que no lo este |
+| 7 | referencias a `025_constraints.md` | a `_persistence/assumptions.md` y `_persistence/constraints.md` | `D-037` |
+| 8 | rutas `_discovery/...` heredadas | las mismas, pero ya decididas | `D-036` las hace ciertas, no supuestas |
+| 9 | `I-001` sin declarar | `I-XXX`, declarado | `D-038` |
+| 10 | texto con acentos | sin acentos | el resto de la documentacion del repositorio se escribe asi |
+
+- **Que se conserva y podria sorprender:** los ejemplos de la app de recogida de reciclaje. Son de
+  **otro dominio**, no datos de este proyecto, y por eso no disparan el control de agnosticidad; y
+  una plantilla sin ejemplo se rellena peor. El hueco `<NOMBRE DEL PROYECTO>` se conserva igual.
+- **Alternativas descartadas:** copiarlas y corregirlas despues (deja vocabulario de otro esquema
+  dentro de archivos que el control de agnosticidad da por buenos, porque ese control busca datos
+  propios, no incoherencias de metodo — es el mismo argumento de `D-033`); escribirlas desde cero
+  (tira el trabajo de metodo que el usuario ya habia hecho, que es justo lo que aportan).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son
+  archivos nuevos y versionados, que no borran nada.
+
+**Verificacion — las plantillas existen y no arrastran el vocabulario del esquema revocado:**
+
+```
+$ ls _templates/005_discovery/
+005_needs.md
+010_actors.md
+015_stakeholders.md
+020_hypothesis.md
+
+$ grep -rnE "SUP-[0-9]|RES-[0-9]|_memory/|terminal ejecutora|NO AUDITABLE|015_gate1" _templates/ ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-042 - Las entradas de esta sesion se fechan 2026-09-02, por continuidad con el registro
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** el reloj del entorno marca `2026-09-01`, y los commits de `git` llevan esa fecha.
+  Pero `D-032` ya decidio fechar `S-007` como `2026-09-02`, y `R-007` uso la misma. Escribir hoy
+  `2026-09-01` pondria a `S-008` **antes** que la sesion que la precede.
+- **Decision:** las entradas de `S-008` se fechan **`2026-09-02`**, la misma que `S-007` y `R-007`.
+- **Por que la misma fecha y no la siguiente:** `CLAUDE.md` dice expresamente que **puede haber
+  varias sesiones en la misma fecha**, cada una con su `S-XXX`. Compartir fecha con `S-007` es normal
+  y no ambiguo; inventar `2026-09-03` seria fabricar un dia que no existio en ningun reloj ni en
+  ningun commit.
+- **Lo que esto NO hace:** no cambia ninguna fecha ya escrita, y no toca las fechas de `git`, que
+  siguen siendo las que son. La divergencia entre el reloj del entorno y el registro se declara aqui
+  —igual que la declaro `D-032`— para que no se lea como un descuido.
+- **Alternativas descartadas:** usar `2026-09-01`, la del reloj (dejaria a `S-008` fechada antes que
+  `S-007`, y el orden del registro es lo unico que permite leerlo); usar `2026-09-03` (un dia sin
+  respaldo en ningun reloj ni en ningun commit).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  convencion de escritura, y corregirla despues solo cuesta reescribir fechas.
+
+**Verificacion — el reloj y el ultimo commit dicen `2026-09-01`; el registro viene fechado
+`2026-09-02` desde `D-032`:**
+
+```
+$ date +%F
+2026-09-01
+
+$ git log -1 --format="%h %ad" --date=short
+ae06147 2026-09-01
+
+$ grep -c "^| Fecha | 2026-09-02 |" _persistence/decisions.md
+16
 ```

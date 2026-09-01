@@ -102,7 +102,7 @@ como `SIN COMPROBAR — sin commits todavia`.
 Con la evidencia delante, corre este control y **pega su salida cruda en el informe**:
 
 ```bash
-git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases _methodology
+git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases _methodology _templates
 ```
 
 Los tres valores salen de `project.md`. Si alguno no esta declarado ahi, este control **no se puede
@@ -113,9 +113,9 @@ proyecto se ha colado en un archivo que deberia ser reutilizable tal cual, y **s
 hallazgo propio en el informe**: no se arregla en silencio ni se omite.
 
 🚨 **El ambito es parte del control, no un detalle de implementacion.** Se acota a `.claude/`,
-`CLAUDE.md` y `_phases/`, y a nada mas, porque son los **unicos sitios donde «cero» es la respuesta
-correcta**: los tres tienen que poder copiarse a otro proyecto tal cual. El mismo patron sobre el
-arbol entero da siempre positivos **legitimos**:
+`CLAUDE.md`, `_phases/`, `_methodology/` y `_templates/`, y a nada mas, porque son los **unicos
+sitios donde «cero» es la respuesta correcta**: los cinco tienen que poder copiarse a otro proyecto
+tal cual. El mismo patron sobre el arbol entero da siempre positivos **legitimos**:
 
 | Donde | Por que es correcto que aparezca |
 |---|---|
@@ -560,6 +560,12 @@ informe— y son justo los que se olvidan al escribir de memoria. Si prefieres l
 contenido, **dilo**: «los archivos de contenido; el cierre anade ademas…». Una lista declarada
 parcial es honesta; una lista corta presentada como completa, no.
 
+🚨 **Y por eso la seccion 1 no lleva una lista redactada: lleva la salida pegada.** La estructura de
+abajo lo pide asi, y no es una preferencia de formato. Este mismo aviso ya existia cuando `S-007`
+escribio una lista de ocho contra un comando que devolvia diez, y no lo evito: un aviso dentro de un
+bloque explicativo se lee una vez, mientras que un hueco en la plantilla se ve cada vez que se
+escribe la seccion. Una salida pegada tampoco puede quedarse corta — o esta entera, o se nota.
+
 🚨 **Y no filtres «las relevantes» sin decirlo.** Si la seccion 2 solo cubre algunas tareas
 abiertas, la frase lo tiene que decir. El coste de la version correcta es cero; el de la incorrecta
 es que la proxima omision, cuando importe, llegue con la misma cara de completa.
@@ -586,8 +592,12 @@ es que la proxima omision, cuando importe, llegue con la misma cara de completa.
 | F-NNN — <resumen> | No se implementa | `D-NNN` |
 
 ## 1. Que se hizo
-<lo que muestra el diff, con codigos y rutas. Archivos creados, modificados y por que>
-<la lista de archivos sale de `git show --stat`, no de la memoria>
+
+<PEGA AQUI, sin editar, la salida cruda de:>
+<`git show --stat --name-only --format= <commit>`>
+<es la lista completa e incluye los archivos que anade el propio cierre: el informe y la fila de `_audit/index.md`>
+
+<y debajo, lo que muestra el diff: con codigos y rutas, que archivos nacieron, cuales cambiaron y por que>
 
 ## 2. Que NO se hizo, y por que
 <lo que quedo pendiente o a medias, y en que punto quedo>

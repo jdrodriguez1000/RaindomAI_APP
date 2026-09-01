@@ -30,7 +30,11 @@
 | [T-019](#t-019---dar-mecanismo-a-d-022-en-el-paso-6-de-protocol-close) | Dar mecanismo a `D-022` en el Paso 6 de `protocol-close` | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-020](#t-020---escribir-el-archivo-de-etapa-_phases005_discoverymd-f-015) | Escribir el archivo de etapa `_phases/005_discovery.md` (`F-015`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-021](#t-021---reescribir-la-apertura-de-la-convencion-de-tasksmd-f-016) | Reescribir la apertura de la convencion de `tasks.md` (`F-016`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-022](#t-022---escribir-las-cinco-plantillas-de-_templates005_discovery) | Escribir las cinco plantillas de `_templates/005_discovery/` | No implementada | Media | No bloqueante | `005_discovery` |
+| [T-022](#t-022---escribir-las-plantillas-de-_templates005_discovery) | Escribir las plantillas de `_templates/005_discovery/` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-023](#t-023---registrar-el-bloque-de-verificacion-de-t-020-f-017) | Registrar el bloque de verificacion de `T-020` (`F-017`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-024](#t-024---registrar-el-barrido-de-variantes-de-t-021-con-su-patron-y-su-ambito-f-018) | Registrar el barrido de variantes de `T-021` con su patron y su ambito (`F-018`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-025](#t-025---endurecer-en-protocol-close-la-lista-de-la-seccion-1-del-informe-f-019) | Endurecer en `protocol-close` la lista de la seccion 1 del informe (`F-019`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-026](#t-026---extender-el-paso-1b-de-protocol-close-a-_templates) | Extender el Paso 1b de `protocol-close` a `_templates/` | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -625,6 +629,36 @@ viejo cuatro lineas mas arriba. El criterio corregido —enumerando lo que si pu
   declaradas» de `project.md`, y el control de fuga de datos propios del Paso 1b sigue devolviendo
   cero lineas sobre `.claude CLAUDE.md _phases _methodology`.
 
+🕒 **Nota del 2026-09-02 (`S-008`, `T-023`, hallazgo `F-017`): los dos bloques de abajo se añaden
+despues.** El criterio se comprobo en `S-007` contra el arbol de trabajo, pero la ficha se cerro con
+un veredicto —«se comprobo»— en vez de con la orden y su salida. Los bloques **no se presentan como
+evidencia contemporanea**: se anclan a `122b770`, el commit sobre el que la tarea quedo
+`Implementada`, y cualquiera puede reproducirlos contra ese hash. El texto de arriba no se toca
+(`D-019`).
+
+**Verificacion 1 — `_phases/` contiene un archivo por cada etapa declarada, sobre `122b770`:**
+
+```
+$ git ls-tree --name-only 122b770 _phases/
+_phases/000_preproject.md
+_phases/005_discovery.md
+
+$ git show 122b770:project.md | grep -n "Etapas declaradas"
+79:| Etapas declaradas | `000_preproject`, `005_discovery` |
+```
+
+Dos etapas declaradas, dos archivos. Se cumple.
+
+**Verificacion 2 — el control de fuga de datos propios del Paso 1b, sobre `122b770` y con el ambito
+literal que el criterio nombra:**
+
+```
+$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" 122b770 -- .claude CLAUDE.md _phases _methodology ; echo "exit=$?"
+exit=1
+```
+
+Cero lineas. Se cumple.
+
 ---
 
 ### T-021 - Reescribir la apertura de la convencion de `tasks.md` (`F-016`)
@@ -647,8 +681,10 @@ viejo cuatro lineas mas arriba. El criterio corregido —enumerando lo que si pu
   resto o un descuido.
 - **Que se hizo ademas, por `L-009`:** el hallazgo citaba **un** enunciado, y una correccion que
   barre solo el ejemplo citado deja vivo el defecto. Se barrieron tambien las variantes que el patron
-  del hallazgo no cubria —«una sola excepcion», «la excepcion es unica», «solo una excepcion»— sobre
-  todo el repositorio. No aparecio ninguna mas viva de esta regla.
+  del hallazgo no cubria —«una sola excepcion», «la excepcion es unica», «solo una excepcion»—. No
+  aparecio ninguna mas viva de esta regla. 🕒 **El alcance de esta frase se corrige el 2026-09-02
+  (`T-024`, hallazgo `F-018`):** decia «sobre todo el repositorio» y ninguno de los dos bloques de
+  abajo cubre ese ambito. El barrido global, con su patron y su salida, esta en el tercer bloque.
 - **Por que esta opcion y no la otra:** `R-006` ofrecia dos caminos —reescribir la convencion, o
   acotar el criterio de cierre de `T-015`—. Se hizo el primero porque es donde estaba el defecto: la
   regla mal enunciada la lee quien ejecuta, y el criterio de `T-015` solo la comprueba. `T-015` queda
@@ -678,32 +714,324 @@ $ sed -n '/^## Convenciones/,/^## Tareas/p' _persistence/tasks.md | grep -n "uni
 exit=1
 ```
 
+🕒 **Nota del 2026-09-02 (`S-008`, `T-024`, hallazgo `F-018`): el tercer bloque se añade despues.**
+Los dos de arriba corren acotados y no sostienen la frase «sobre todo el repositorio» que la ficha
+llevaba. El de abajo se ancla a `122b770`, el commit sobre el que la tarea quedo `Implementada`, y
+lleva el patron **insensible a mayusculas** — la variante que a `T-021` se le escapo. El texto
+original no se reescribe (`D-019`); se acota arriba y se completa aqui.
+
+**Verificacion 3 — el barrido global, con su patron y su ambito, sobre `122b770`:**
+
+```
+$ git grep -niE "una sola excepcion|la excepcion es unica|solo una excepcion|unica excepcion" 122b770 -- . | wc -l
+59
+```
+
+Cincuenta y nueve lineas, y **es correcto que las haya**: `_audit/` guarda los hallazgos que citan
+el texto viejo literalmente, y el cuerpo de `T-015` tambien lo cita — ninguno se reescribe (`D-019`).
+Lo que hay que mirar es el registro vivo y el metodo, sin `_audit/`:
+
+```
+$ git grep -niE "una sola excepcion|la excepcion es unica|solo una excepcion|unica excepcion" 122b770 -- .claude CLAUDE.md _phases _persistence project.md
+122b770:.claude/agents/session-closer.md:90:  - *Unica excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
+122b770:.claude/skills/protocol-close/SKILL.md:490:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+122b770:_persistence/decisions.md:625:  quedo registrado como la unica excepcion conocida (`DT-001`, `Propuesta (pendiente del usuario)`).
+122b770:_persistence/lessons.md:293:  que siga afirmando que la excepcion es unica». `F-016` lo corrio y devolvio uno. Al corregirlo,
+122b770:_persistence/progress.md:61:| Avance de la etapa | `R-006` (sobre `d906a5d`) abrio `F-015` y `F-016`. ... «una unica excepcion» cuatro parrafos despues de escribir la segunda. ... |
+122b770:_persistence/progress.md:176:  literal, decision del usuario. `debtec.md` quedo registrado como la unica excepcion conocida a la
+122b770:_persistence/progress.md:346:  apertura de la convencion de `tasks.md`, que anunciaba «una unica excepcion» cuatro parrafos
+122b770:_persistence/tasks.md:466:  quien la ejecuta seguian diciendo «es la unica excepcion». Se reescriben los tres.
+122b770:_persistence/tasks.md:477:  la excepcion es unica, y el archivo de la etapa sigue pasando el control de agnosticidad.
+122b770:_persistence/tasks.md:640:- **Que:** la convencion de este archivo seguia abriendo con «Tiene una unica excepcion, y esta
+122b770:_persistence/tasks.md:650:  del hallazgo no cubria —«una sola excepcion», «la excepcion es unica», «solo una excepcion»— sobre
+122b770:_persistence/tasks.md:669:$ grep -rn "unica excepcion\|salvo la .T-XXX" .claude CLAUDE.md _phases ; echo "exit=$?"
+122b770:_persistence/tasks.md:670:.claude/skills/protocol-close/SKILL.md:490:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+122b770:_persistence/tasks.md:677:$ sed -n '/^## Convenciones/,/^## Tareas/p' _persistence/tasks.md | grep -n "unica excepcion\|una sola excepcion\|la excepcion es unica\|solo una excepcion" ; echo "exit=$?"
+```
+
+📌 **La linea de `progress.md:61` se abrevia con `...` porque es una celda de tabla de mas de dos mil
+caracteres**; el resto de la salida es literal. Y **ninguna de estas catorce lineas es un resto vivo
+de la regla vieja:**
+
+| Donde | Que es |
+|---|---|
+| `session-closer.md:90`, `protocol-close/SKILL.md:490` | **otra regla**: la excepcion mecanica de los supuestos `A-XXX`. La primera va en mayuscula, y es justo la que el patron de `T-021` no alcanzaba |
+| `decisions.md:625`, `progress.md:176` | **otra regla todavia**: `debtec.md` como unica excepcion conocida a la grafia inglesa |
+| `lessons.md:293`, `progress.md:61`, `progress.md:346`, `tasks.md:466`, `tasks.md:477`, `tasks.md:640`, `tasks.md:650`, `tasks.md:669-677` | **el rastro de la propia correccion**: `L-009`, `F-016`, `T-015` y esta misma ficha citando el texto que se corrigio. No se reescriben (`D-019`) |
+
 ---
 
-### T-022 - Escribir las cinco plantillas de `_templates/005_discovery/`
+### T-022 - Escribir las plantillas de `_templates/005_discovery/`
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
-| Etapa | `005_discovery` |
+| Etapa | `000_preproject` |
 | Origen | usuario |
 | Sesion | S-007 |
 
-- **Que:** escribir las plantillas de los cinco artefactos del descubrimiento —necesidades, actores,
-  interesados, hipotesis, y restricciones con supuestos— en `_templates/005_discovery/`, crear la
-  carpeta y declararla en la tabla «Carpetas propias» de `project.md`.
-- **Por que:** `_phases/005_discovery.md` remite a esas plantillas y hoy no existen; mientras no
+- **Que:** escribir las plantillas de los artefactos del descubrimiento en
+  `_templates/005_discovery/`, crear la carpeta y declararla en la tabla «Carpetas propias» de
+  `project.md`.
+- **Por que:** `_phases/005_discovery.md` remite a esas plantillas y no existian; mientras no
   existan, un artefacto de la etapa se escribe a mano y no hay adherencia a plantilla que comprobar
   —que es una de las reglas de operacion de `CLAUDE.md`.
-- **Por que no se hizo en esta sesion:** el usuario pidio expresamente no escribirlas todavia
-  (`D-035`). La carpeta y su fila en `project.md` entran **en esta misma tarea y no antes**, porque
-  `git` no versiona carpetas vacias y una fila sin carpeta produce una diferencia en el control de
-  carpetas de cada cierre.
-- **Que no resuelve esta tarea:** donde viven los artefactos **rellenos** sigue sin decidir (`D-035`).
-  Esa decision es de cuando se abra la etapa, y necesita su propio `D-XXX`.
+- **Por que no se hizo en `S-007`:** el usuario pidio expresamente no escribirlas todavia (`D-035`).
+  La carpeta y su fila en `project.md` entran **en esta misma tarea y no antes**, porque `git` no
+  versiona carpetas vacias y una fila sin carpeta produce una diferencia en el control de carpetas
+  de cada cierre.
 - **Respaldo de la escritura a mano en este archivo:** `D-035`, decision del usuario que el
   `session-closer` no puede deducir del `git diff` — la segunda excepcion de la convencion de arriba.
-- **Criterio de cierre:** `_templates/005_discovery/` existe con las cinco plantillas, tiene su fila
-  en «Carpetas propias» de `project.md`, y el control de carpetas del cierre no devuelve diferencias
-  sin justificar.
+- **Criterio de cierre:** `_templates/005_discovery/` existe con sus plantillas, tiene su fila en
+  «Carpetas propias» de `project.md`, ninguna plantilla arrastra vocabulario del esquema revocado, y
+  el barrido de agnosticidad sobre `_templates/` devuelve cero.
+
+🕒 **Nota del 2026-09-02 (`S-008`): esta tarea cambia de etapa y de alcance, y las dos cosas se
+decidieron despues de escribirla.**
+
+- **Etapa: de `005_discovery` a `000_preproject` (`D-039`).** `R-007` lo observo sin abrirlo como
+  hallazgo: escribir plantillas es andamiaje, no descubrimiento — no responde ninguna pregunta sobre
+  la necesidad del cliente. Dejarla dentro mezclaria la condicion de salida de `005_discovery` con
+  trabajo de metodo.
+- **Alcance: de cinco plantillas a cuatro (`D-037`).** La quinta —restricciones y supuestos—
+  duplicaba `_persistence/constraints.md` y `_persistence/assumptions.md`, que es donde `D-034` ya
+  habia mandado los `C-XXX` y los `A-XXX` del descubrimiento. Por eso el titulo deja de decir «las
+  cinco».
+- **Lo que ya no queda pendiente:** donde viven los artefactos **rellenos** dejo de estar sin
+  decidir — es `_discovery/`, por `D-036`.
+
+**Verificacion 1 — las cuatro plantillas existen:**
+
+```
+$ ls _templates/005_discovery/
+005_needs.md
+010_actors.md
+015_stakeholders.md
+020_hypothesis.md
+```
+
+**Verificacion 2 — ninguna arrastra vocabulario del esquema revocado ni rutas inexistentes:**
+
+```
+$ grep -rnE "SUP-[0-9]|RES-[0-9]|_memory/|terminal ejecutora|NO AUDITABLE|015_gate1" _templates/ ; echo "exit=$?"
+exit=1
+```
+
+**Verificacion 3 — `_templates/` pasa el barrido de agnosticidad, ya con el ambito ampliado por
+`T-026`:**
+
+```
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|C:\\Users|USUARIO|jdrodriguez" .claude CLAUDE.md _phases _methodology _templates ; echo "exit=$?"
+exit=1
+```
+
+**Verificacion 4 — la carpeta tiene su fila en «Carpetas propias» de `project.md`:**
+
+```
+$ grep -c "^| \`_templates/\`" project.md
+1
+```
+
+**Verificacion 5, por iniciativa propia — que codigos instanciados llevan dentro las plantillas.**
+`CLAUDE.md` exige codigos genericos en `_phases/`, y al meter `_templates/` en la misma lista habia
+que mirar si la exigencia se traslada. El barrido devuelve solo `N-00X` e `I-00X`, que son el numero
+de la primera ficha y los de los ejemplos — no codigos de este proyecto con contenido detras:
+
+```
+$ grep -rnoE "\b(T|D|C|A|L|S|R|N|I|DT|F)-[0-9]{3}\b" _templates/ | grep -oE "[A-Z]+-[0-9]{3}" | sort | uniq -c
+      5 I-001
+      3 I-002
+      3 I-003
+      5 N-001
+      4 N-002
+      1 N-003
+```
+
+📌 **La diferencia con `_phases/` queda escrita en `CLAUDE.md`**, para que un barrido futuro sobre
+`_templates/` no lea estas veintiuna lineas como un defecto.
+
+---
+
+### T-023 - Registrar el bloque de verificacion de `T-020` (`F-017`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-008 |
+
+- **Que:** añadir a la ficha de `T-020` los dos bloques de verificacion que su propio criterio de
+  cierre nombra —el listado de `_phases/` contra la fila «Etapas declaradas» de `project.md`, y el
+  control de fuga de datos propios del Paso 1b—, con su salida cruda y anclados a `122b770`.
+- **Por que:** `T-020` produce documentacion, asi que su Definicion de Terminado es «existe su
+  bloque de verificacion: la orden ejecutada literal y su salida cruda» (`PI-5`). La ficha no tenia
+  ninguno, y el informe remitia a una seccion que tampoco. Es la **tercera** aparicion del mismo
+  patron —`F-009` y `F-016` ya lo abrieron—, y por eso `R-007` lo graduo `Media`.
+- **Por que se añade y no se considera historia intocable:** `CLAUDE.md` prohibe reescribir una
+  entrada antigua «para que exhiba un comando que en su dia no se ejecuto». Aqui **si se ejecuto**
+  —`R-007` lo reprodujo y dio el mismo resultado—; lo que falto fue registrarlo. El bloque entra con
+  nota fechada y anclado al commit, para que no se lea como evidencia contemporanea. Es el mismo
+  patron que `T-014` aplico a `A-001`.
+- **Que NO se toco:** el texto original de la ficha de `T-020`, ni `_audit/S-007.md`.
+- **Criterio de cierre:** la ficha de `T-020` contiene los dos bloques, cada orden se reproduce
+  contra `122b770` con la salida escrita, y el bloque declara que se añadio despues.
+
+**Verificacion — la ficha de `T-020` ya no esta sin bloques, y su nota declara que se añadieron
+despues:**
+
+```
+$ sed -n '/^### T-020/,/^### T-021/p' _persistence/tasks.md | grep -c '^```'
+4
+
+$ sed -n '/^### T-020/,/^### T-021/p' _persistence/tasks.md | grep -n "los dos bloques de abajo se añaden"
+31:🕒 **Nota del 2026-09-02 (`S-008`, `T-023`, hallazgo `F-017`): los dos bloques de abajo se añaden
+```
+
+---
+
+### T-024 - Registrar el barrido de variantes de `T-021` con su patron y su ambito (`F-018`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-008 |
+
+- **Que:** dos cosas en la ficha de `T-021`. **Una:** acotar la frase que afirmaba un barrido «sobre
+  todo el repositorio», porque ninguno de sus dos bloques cubria ese ambito. **Dos:** añadir el
+  tercer bloque con el barrido global de verdad —patron insensible a mayusculas, ambito el
+  repositorio entero, salida cruda, anclado a `122b770`— y la tabla que dice que es cada una de las
+  catorce coincidencias del registro vivo.
+- **Por que:** `CLAUDE.md` obliga a que un resultado afirmado por iniciativa propia vaya «con el
+  patron y el ambito con que se obtuvo», precisamente para que quien audite no tenga que repetirlo.
+  `R-007` tuvo que repetirlo, y al repetirlo aparecio una coincidencia en mayuscula
+  —`session-closer.md:90`— que **ninguno de los patrones escritos en la ficha alcanzaba**.
+- **Lo que el barrido confirma, y lo que corrige:** el fondo de `T-021` estaba bien —ninguna variante
+  viva de la regla vieja quedo en pie—, pero la linea en mayuscula lo demuestra por casualidad y no
+  por el patron escrito. Ahora el patron la encuentra.
+- **Por que el numero global no es cero, y no puede serlo:** `_audit/` guarda los hallazgos que citan
+  el texto viejo literalmente, y `T-015` tambien lo cita; ninguno se reescribe (`D-019`). Por eso el
+  bloque da los dos ambitos: el global con su recuento, y el del registro vivo con sus lineas
+  clasificadas una a una.
+- **Que NO se toco:** el texto original de `T-021`, mas alla de la acotacion, que va marcada con su
+  nota fechada.
+- **Criterio de cierre:** la ficha de `T-021` no afirma ningun ambito que sus bloques no cubran, y el
+  patron que escribe encuentra la coincidencia en mayuscula.
+
+**Verificacion — el patron corregido, insensible a mayusculas, si encuentra la linea que el de
+`T-021` no alcanzaba:**
+
+```
+$ git grep -niE "una sola excepcion|la excepcion es unica|solo una excepcion|unica excepcion" 122b770 -- .claude | grep -i session-closer
+122b770:.claude/agents/session-closer.md:90:  - *Unica excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
+
+$ git grep -nE "una sola excepcion|la excepcion es unica|solo una excepcion|unica excepcion" 122b770 -- .claude | grep -i session-closer ; echo "exit=$?"
+exit=1
+```
+
+📌 **Los dos comandos se diferencian en una sola letra**, la `i` de `-niE`. El primero encuentra la
+linea; el segundo, que es la forma que llevaba `T-021`, no. Esa letra es todo el hallazgo.
+
+---
+
+### T-025 - Endurecer en `protocol-close` la lista de la seccion 1 del informe (`F-019`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-008 |
+
+- **Que:** la seccion 1 de `_audit/S-007.md` presentaba su lista como salida de
+  `git show --stat --name-only --format= HEAD`; el comando devuelve diez archivos y la lista
+  enumeraba ocho. Faltaban `_audit/index.md` y el propio informe. La correccion **no va sobre
+  `S-007.md`** (`D-040`): va sobre el mecanismo, en `.claude/skills/protocol-close/SKILL.md`.
+- **Por que el mecanismo y no el registro:** un informe de auditoria describe un commit concreto.
+  Reescribirlo hoy dejaria a `R-007` juzgando un estado que ya cambio, y a la sesion siguiente sin
+  saber que fue del hallazgo — que es exactamente lo que `CLAUDE.md` prohibe al decir que los
+  hallazgos no se arreglan en el momento.
+- **Lo incomodo de este hallazgo, y conviene escribirlo:** el mecanismo **ya existia**. `SKILL.md`
+  dice desde antes que las dos listas se generan, y avisa de que «el cierre anade archivos que no
+  son de contenido —la fila de `_audit/index.md`, el propio informe— y son justo los que se olvidan
+  al escribir de memoria». `S-007` no lo siguio. Un aviso en prosa dentro de un bloque explicativo
+  se lee una vez; por eso pasa tambien a la **estructura del informe**, donde no se puede escribir
+  la seccion sin verlo.
+- **Que se cambio:** la plantilla del informe en `SKILL.md` exige ahora que la seccion 1 lleve **el
+  bloque generado** con su comando y su salida, o que declare expresamente que la lista es parcial.
+- **Criterio de cierre:** la estructura del informe en `SKILL.md` pide el bloque generado dentro de
+  la propia seccion 1, y `_audit/S-007.md` sigue sin tocarse.
+
+**Verificacion — la exigencia esta en la estructura del informe, y `S-007.md` no cambio:**
+
+```
+$ sed -n '/^## 1. Que se hizo/,/^## 2\./p' .claude/skills/protocol-close/SKILL.md
+## 1. Que se hizo
+
+<PEGA AQUI, sin editar, la salida cruda de:>
+<`git show --stat --name-only --format= <commit>`>
+<es la lista completa e incluye los archivos que anade el propio cierre: el informe y la fila de `_audit/index.md`>
+
+<y debajo, lo que muestra el diff: con codigos y rutas, que archivos nacieron, cuales cambiaron y por que>
+
+## 2. Que NO se hizo, y por que
+
+$ git status --porcelain -- _audit/S-007.md | wc -l
+0
+```
+
+---
+
+### T-026 - Extender el Paso 1b de `protocol-close` a `_templates/`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-008 |
+
+- **Que:** `CLAUDE.md` declara cuatro cosas que tienen que poder copiarse a otro proyecto tal cual
+  —el propio `CLAUDE.md`, `.claude/`, `_phases/` y `_methodology/`— y el Paso 1b de `protocol-close`
+  las barre en cada cierre buscando datos propios de este proyecto. `_templates/` nace hoy con
+  exactamente la misma condicion y **no estaba en ese ambito**. Se añade en los dos sitios.
+- **Por que:** una plantilla existe para copiarse. Si alguna se rellena con el nombre del cliente o
+  con una ruta de esta maquina, deja de ser plantilla y **nadie lo nota**: el control que existe
+  para verlo estaria mirando a otro lado. Es el mismo argumento que `D-026` uso para meter `_phases/`
+  en ese ambito.
+- **Que NO cambia:** el patron de busqueda es el mismo; lo unico que cambia es la lista de rutas.
+- **Criterio de cierre:** `CLAUDE.md` nombra `_templates/` entre lo que se copia tal cual, el Paso 1b
+  lo lleva en su ambito, y el barrido devuelve cero.
+
+🚨 **Esta ficha la escribio `manager` a mano, y NO encaja en ninguna de las dos excepciones de la
+convencion de este archivo.** Se declara aqui en vez de dejar que se descubra. La primera excepcion
+cubre las tareas que nacen de un hallazgo `F-NNN`, y esta no nace de ninguno —`R-007` no la abrio—;
+la segunda cubre lo que nace de una decision del usuario que el `session-closer` no puede deducir
+del `git diff`, y esta si se deduce: el diff toca `CLAUDE.md` y `SKILL.md`. Lo correcto habria sido
+dejar que el cierre la escribiera.
+
+⚠️ **Se deja escrita en vez de borrarla, y tambien se dice por que:** la ficha ya lleva su bloque de
+verificacion con la salida cruda, y borrarla para reescribirla identica desde el cierre no cambiaria
+nada del repositorio salvo quien la tecleo — pero borraria el rastro de que la regla se salto. Un
+incumplimiento declarado se puede auditar; uno deshecho, no. **No sienta precedente:** si el patron
+reaparece, es candidato a `D-XXX` o a hallazgo, no a tercera excepcion.
+
+**Verificacion — el ambito ampliado, y su resultado:**
+
+```
+$ grep -n "_templates" CLAUDE.md .claude/skills/protocol-close/SKILL.md
+CLAUDE.md:211:🚨 **Este archivo, `.claude/`, `_phases/`, `_methodology/` y `_templates/` tienen que poder copiarse
+CLAUDE.md:227:🔑 **`_templates/` esta en esa lista porque una plantilla existe para copiarse.** Lleva dentro los
+.claude/skills/protocol-close/SKILL.md:105:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases _methodology _templates
+.claude/skills/protocol-close/SKILL.md:116:`CLAUDE.md`, `_phases/`, `_methodology/` y `_templates/`, y a nada mas, porque son los **unicos
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|C:\\Users|USUARIO|jdrodriguez" .claude CLAUDE.md _phases _methodology _templates ; echo "exit=$?"
+exit=1
+```

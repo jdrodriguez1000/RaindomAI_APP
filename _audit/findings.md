@@ -28,9 +28,9 @@
 | [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Implementado |
 | [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Implementado |
 | [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Implementado |
-| [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Abierto |
-| [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Abierto |
-| [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Abierto |
+| [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Aceptado — pendiente |
+| [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Aceptado — pendiente |
+| [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -960,8 +960,8 @@ _persistence/tasks.md:463:  quien la ejecuta seguian diciendo «es la unica exce
 | Auditoria | R-007 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-023` |
 | Cerrado en | |
 
 - **Que se observo:** `T-020` produce documentacion, asi que su Definicion de Terminado es «existe
@@ -989,6 +989,13 @@ $ git show 122b770:_audit/S-007.md | sed -n '/^## 6/,$p' | grep -c '^~~~'
   `F-009` y `F-016` por tercera vez: una tarea `Implementada` sostenida por un veredicto («se
   comprobo») en vez de por «corri esto, salio esto». `Media` porque `T-020` es la tarea que cierra
   un hallazgo de auditoria y porque es reincidencia, no primer caso.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-008`). Verificado contra `HEAD` (`ae06147`) antes
+  de evaluarlo: la ficha de `T-020` seguia sin ningun bloque y la seccion 6 del informe tampoco lo
+  tenia. Se abre `T-023`, que añade a la ficha los dos bloques que su propio criterio nombra, con su
+  salida cruda y anclados a `122b770`, y con nota fechada que declara que se añaden despues — porque
+  las ordenes si se ejecutaron en `S-007` (esta misma auditoria las reprodujo) y lo que falto fue
+  registrarlas. Es el patron de `T-014`. El texto original de `T-020` no se toca (`D-019`).
+  **`Aceptado — pendiente`**, que `Implementado` lo escribe la auditoria siguiente.
 - **Que se hizo:** pendiente de la evaluacion de `manager`.
 
 ---
@@ -999,8 +1006,8 @@ $ git show 122b770:_audit/S-007.md | sed -n '/^## 6/,$p' | grep -c '^~~~'
 | Auditoria | R-007 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-024` |
 | Cerrado en | |
 
 - **Que se observo:** la ficha afirma un resultado sobre un ambito que sus dos bloques de
@@ -1025,7 +1032,12 @@ $ git grep -nE "Unica excepcion" 122b770 -- .claude
   rehacerlo aparecio una coincidencia que el patron de la ficha no habria encontrado. `Baja` porque
   esa linea es de otra regla y la conclusion de fondo —ninguna variante viva de la regla vieja— es
   correcta.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-008`). Verificado contra `HEAD` (`ae06147`) antes
+  de evaluarlo: la frase seguia afirmando un ambito que sus bloques no cubren. Se abre `T-024`, que
+  acota la frase con nota fechada y añade el tercer bloque con el barrido global —patron insensible
+  a mayusculas, ambito el repositorio, salida cruda, anclado a `122b770`— y una tabla que clasifica
+  las catorce coincidencias del registro vivo. **`Aceptado — pendiente`**, que `Implementado` lo
+  escribe la auditoria siguiente.
 
 ---
 
@@ -1035,8 +1047,8 @@ $ git grep -nE "Unica excepcion" 122b770 -- .claude
 | Auditoria | R-007 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-025` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 1 de `_audit/S-007.md` presenta su lista como salida de
@@ -1068,4 +1080,12 @@ $ git show d906a5d:_audit/S-006.md | grep -n "su fila en"
   juzgando; una lista presentada como salida de un comando que no coincide con el debilita justo lo
   que la hace util — y `S-006` si declaraba esos dos archivos, asi que es una regresion. `Baja`
   porque los dos omitidos son mecanica del cierre y ninguno esconde trabajo no declarado.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado el hallazgo el 2026-09-02 (`S-008`), y rechazada la correccion sobre
+  `_audit/S-007.md`.** Verificado contra `HEAD` (`ae06147`) antes de evaluarlo: el comando sigue
+  devolviendo diez archivos y la lista sigue enumerando ocho. La correccion **no se aplica al
+  informe** —`D-040`—: un informe describe un commit ya auditado, y reescribirlo dejaria a `R-007`
+  juzgando un estado que ya cambio. Ademas, completar la lista a mano volveria a producir el mismo
+  defecto: una lista que dice venir de un comando y que nadie corrio. La correccion va al mecanismo,
+  en `T-025`: la exigencia pasa del bloque explicativo a la **estructura del informe** de
+  `protocol-close`, donde no se puede escribir la seccion 1 sin verla. **`Aceptado — pendiente`**,
+  que `Implementado` lo escribe la auditoria siguiente.

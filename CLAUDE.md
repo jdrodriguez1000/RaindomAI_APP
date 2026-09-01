@@ -208,10 +208,10 @@ Los datos propios de este proyecto —nombre, rutas, remoto, carpetas, codigos�
 **`project.md`**, y solo ahi: ningun protocolo, agente ni este archivo los lleva escritos dentro.
 Si cambian, se cambian en un sitio.
 
-🚨 **Este archivo, `.claude/`, `_phases/` y `_methodology/` tienen que poder copiarse a otro
-proyecto tal cual.**
+🚨 **Este archivo, `.claude/`, `_phases/`, `_methodology/` y `_templates/` tienen que poder copiarse
+a otro proyecto tal cual.**
 Por eso no llevan ni un nombre, ni una ruta, ni un host de este proyecto — y el Paso 1b de
-`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los cuatro. Si algun dia
+`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los cinco. Si algun dia
 devuelve una linea, es que un dato propio se colo ahi.
 
 🔑 **`_methodology/` esta en esa lista por lo mismo, y con mas motivo:** es el metodo de
@@ -223,6 +223,18 @@ de este proyecto**: las declaradas son las que diga `project.md`, y ninguna otra
 dice que se autoriza, que se prohibe y cuando se sale de ella; nada de eso cambia al cambiar de
 producto. Donde hace falta un dato propio, se referencia `project.md` — y los codigos se escriben
 genericos (`T-XXX`, `D-XXX`, `F-NNN`), nunca instanciados.
+
+🔑 **`_templates/` esta en esa lista porque una plantilla existe para copiarse.** Lleva dentro los
+huecos, no los datos: donde va el nombre del proyecto hay un hueco. ⚠️ **Y por eso es la mas facil
+de estropear sin que nadie lo note:** una plantilla que alguien rellena en su sitio, en vez de
+copiarla antes, deja de ser plantilla — y solo el barrido del Paso 1b lo ve.
+
+⚠️ **Una diferencia con `_phases/`, y conviene decirla porque parece una contradiccion.** Un archivo
+de etapa escribe los codigos **genericos** (`T-XXX`, `D-XXX`); una plantilla escribe el **primero**
+(`N-001`, `I-001`) y usa los siguientes en sus ejemplos. No es incumplir la regla: el numero de la
+primera ficha es el mismo en cualquier proyecto, asi que no es un dato propio — es parte de la forma
+que la plantilla existe para dar. Lo que una plantilla no puede llevar es un codigo **ya usado por
+este proyecto** con su contenido detras.
 
 ⚠️ En `project.md` va solo **lo estable**. Lo que cambia cada jornada —etapa, avance, bloqueos— va
 a `_persistence/progress.md`.

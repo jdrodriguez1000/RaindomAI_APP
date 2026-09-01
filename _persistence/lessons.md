@@ -19,6 +19,8 @@
 | [L-008](#l-008---una-leccion-escrita-solo-como-leccion-no-cambia-la-entrada-siguiente) | Una leccion escrita solo como leccion no cambia la entrada siguiente | 2026-09-01 | 000_preproject |
 | [L-009](#l-009---un-hallazgo-acota-su-ejemplo-no-el-defecto) | Un hallazgo acota su ejemplo, no el defecto | 2026-09-02 | 000_preproject |
 | [L-010](#l-010---un-criterio-de-cierre-cuyo-ambito-incluye-el-registro-no-puede-cumplirse-nunca) | Un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca | 2026-09-02 | 000_preproject |
+| [L-011](#l-011---un-mecanismo-escrito-como-aviso-se-salta-escrito-como-hueco-de-la-plantilla-no) | Un mecanismo escrito como aviso se salta; escrito como hueco de la plantilla, no | 2026-09-02 | 000_preproject |
+| [L-012](#l-012---un-barrido-que-busca-texto-de-prosa-se-corre-insensible-a-mayusculas-o-no-barre) | Un barrido que busca texto de prosa se corre insensible a mayusculas, o no barre | 2026-09-02 | 000_preproject |
 
 ---
 
@@ -321,3 +323,62 @@ el repositorio entero y **luego** se clasifica cada coincidencia en viva o histo
 escriba el proximo criterio se acuerde. El Paso 6 de `protocol-close` (`T-019`) ya marca los bloques
 de verificacion cuyo ambito alcanza lo que el cierre reescribe — es el mismo tipo de control, y
 ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
+
+---
+
+### L-011 - Un mecanismo escrito como aviso se salta; escrito como hueco de la plantilla, no
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `F-019` señalo que la seccion 1 de `_audit/S-007.md` presenta su lista de archivos
+  como salida de un comando y no coincide con el. Al ir a corregirlo aparecio lo incomodo: **el
+  mecanismo ya existia**. `protocol-close` avisa desde antes de que las dos listas del informe se
+  generan, y ademas advierte de que «el cierre anade archivos que no son de contenido —la fila de
+  `_audit/index.md`, el propio informe— y son justo los que se olvidan al escribir de memoria».
+  Estaba escrito, con el ejemplo exacto del error que despues se cometio.
+- **Que ocurrio:** el aviso vivia en un bloque explicativo, tres pantallas por encima de la
+  estructura del informe. Se lee una vez, al aprender el protocolo; no se vuelve a leer al escribir
+  la seccion. La estructura, en cambio, se tiene delante mientras se redacta.
+- **Por que no es `L-008` otra vez:** `L-008` dice que una **leccion** sin mecanismo no evita la
+  reincidencia. Esto es un paso mas alla y mas desagradable: **habia mecanismo, y tampoco la
+  evito**, porque estaba en el sitio donde se explica y no en el sitio donde se ejecuta.
+- **Leccion:** un mecanismo se pone **donde se hace el trabajo**, no donde se explica el trabajo. La
+  prueba es concreta: si la regla se puede incumplir sin haber tenido que leerla, todavia no es un
+  mecanismo — es un aviso.
+- **Como aplicarla:** cuando una regla diga «esto se genera, no se escribe de memoria», el sitio
+  correcto es **el hueco de la plantilla**, redactado como orden de pegar la salida. Una salida
+  pegada tampoco puede quedarse corta: o esta entera, o se nota. Un texto redactado a partir de ella
+  siempre puede.
+- **Donde queda aplicada:** `T-025`, en la estructura del informe de `protocol-close`.
+
+---
+
+### L-012 - Un barrido que busca texto de prosa se corre insensible a mayusculas, o no barre
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `T-021` barrio las variantes de una regla mal enunciada y concluyo que no quedaba
+  ninguna viva. `F-018` rehizo el barrido y encontro una que sus patrones no alcanzaban:
+  `.claude/agents/session-closer.md:90`, que abre frase y por tanto escribe «Unica excepcion» con
+  mayuscula inicial.
+- **Que ocurrio:** el fondo de `T-021` estaba bien —esa linea es de otra regla, la de los supuestos
+  `A-XXX`— pero **lo estaba por casualidad**. El patron escrito no la habria encontrado nunca, y si
+  hubiera sido un resto de la regla vieja habria sobrevivido al barrido sin que nadie lo notara.
+- **Leccion:** un barrido sobre **texto de prosa** —una frase, un enunciado, una regla redactada—
+  corre con `-i`. La misma frase aparece en minuscula en mitad de un parrafo, en mayuscula al
+  empezar uno, y en cursiva o negrita en el tercero. Un barrido sobre **identificadores** (`T-020`,
+  `F-017`, `A-XXX`) es lo contrario: ahi la mayuscula es parte del codigo y `-i` mete ruido.
+- **Como aplicarla:** al escribir el bloque de verificacion, pregunta que se esta buscando. **Prosa
+  → `grep -i`.** **Codigo → `grep` sin `-i`.** Y si el resultado esperado es «cero», correr las dos
+  formas cuesta un segundo y la diferencia entre ellas es exactamente el agujero.
+- **Un aviso de este entorno, que costo descubrir:** las clases de caracteres acentuados
+  (`[aeiou]` con tildes) **no son fiables** con el `grep` de este `git bash`: compara byte a byte, y
+  la tilde comparte primer byte con la eñe, asi que un patron de vocales acentuadas devuelve lineas
+  que solo llevan eñes. Para comprobar acentos hay que usar `python`, no `grep`.
+- **Donde queda aplicada:** `T-024`, en el tercer bloque de verificacion de `T-021`.
