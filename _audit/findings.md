@@ -16,12 +16,16 @@
 | [F-002](#f-002---quedan-identificadores-auditor-vivos-fuera-del-ambito-del-barrido) | Quedan identificadores `auditor` vivos fuera del ambito del barrido | R-002 | Baja | Implementado |
 | [F-003](#f-003---dt-001-se-registro-como-confirmada-contra-el-paso-5-de-protocol-close) | `DT-001` se registro como `Confirmada` contra el Paso 5 de `protocol-close` | R-002 | Media | Implementado |
 | [F-004](#f-004---session-closermd-describe-a-report_auditor-en-su-propio-repositorio) | `session-closer.md` describe a `report_auditor` en «su propio repositorio» | R-002 | Media | Implementado |
-| [F-005](#f-005---el-bloque-de-verificacion-de-la-observacion-nueva-de-a-001-no-se-reproduce-sobre-su-propio-commit) | El bloque de verificacion de la observacion nueva de `A-001` no se reproduce sobre su propio commit | R-003 | Media | Aceptado — pendiente |
-| [F-006](#f-006---la-nota-de-ambito-de-d-016-registra-recuentos-que-no-cuadran-con-el-commit-que-la-contiene) | La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene | R-003 | Baja | Aceptado — pendiente |
+| [F-005](#f-005---el-bloque-de-verificacion-de-la-observacion-nueva-de-a-001-no-se-reproduce-sobre-su-propio-commit) | El bloque de verificacion de la observacion nueva de `A-001` no se reproduce sobre su propio commit | R-003 | Media | Implementado |
+| [F-006](#f-006---la-nota-de-ambito-de-d-016-registra-recuentos-que-no-cuadran-con-el-commit-que-la-contiene) | La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene | R-003 | Baja | Implementado |
 | [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Implementado |
-| [F-008](#f-008---el-bloque-de-verificacion-de-d-021-afirma-reproducirse-sobre-su-commit-y-no-se-reproduce) | El bloque de verificacion de `D-021` afirma reproducirse sobre su commit y no se reproduce | R-004 | Media | Aceptado — pendiente |
-| [F-009](#f-009---dt-001-queda-implementada-con-un-criterio-de-cierre-que-no-se-cumple) | `DT-001` queda `Implementada` con un criterio de cierre que no se cumple | R-004 | Baja | Aceptado — pendiente |
+| [F-008](#f-008---el-bloque-de-verificacion-de-d-021-afirma-reproducirse-sobre-su-commit-y-no-se-reproduce) | El bloque de verificacion de `D-021` afirma reproducirse sobre su commit y no se reproduce | R-004 | Media | Implementado |
+| [F-009](#f-009---dt-001-queda-implementada-con-un-criterio-de-cierre-que-no-se-cumple) | `DT-001` queda `Implementada` con un criterio de cierre que no se cumple | R-004 | Baja | Implementado |
 | [F-010](#f-010---una-convencion-vigente-de-_auditfindingsmd-cita-un-archivo-que-ya-no-existe) | Una convencion vigente de `_audit/findings.md` cita un archivo que ya no existe | R-004 | Baja | Aceptado — pendiente |
+| [F-011](#f-011---la-nota-nueva-de-a-001-vuelve-a-registrar-un-recuento-sobre-head-que-no-se-reproduce-sobre-su-commit) | La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit | R-005 | Media | Abierto |
+| [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Abierto |
+| [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Abierto |
+| [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Abierto |
 
 ---
 
@@ -209,9 +213,9 @@ $ git show badc878:project.md | grep -n "dentro de este mismo repositorio"
 | Auditoria | R-003 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-009 |
-| Cerrado en | |
+| Cerrado en | `510d580` (R-005) |
 
 - **Que se observo:** la observacion del 2026-09-01 bajo `A-001` registra este bloque y concluye
   «Cero sesiones cerradas sin auditar (señal 2)»:
@@ -252,6 +256,11 @@ exit=1
   cuando su fila sigue en `Pendiente` **al abrirse la sesion siguiente**, no en el instante del
   cierre. Registrado en `T-009`.
 
+- **Cerrado por `R-005`** sobre `510d580`: la nota fechada esta bajo `A-001`, el bloque original
+  quedo intacto (`D-019`), declara su ambito real y rehace la señal 2 con su momento de comprobacion
+  —«al abrirse la sesion siguiente»—, que son los dos puntos del criterio de cierre de `T-009`.
+  ⚠️ **La nota introduce un defecto nuevo, que va como `F-011` y no reabre este.**
+
 ---
 
 ### F-006 - La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene
@@ -260,9 +269,9 @@ exit=1
 | Auditoria | R-003 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-010 |
-| Cerrado en | |
+| Cerrado en | `510d580` (R-005) |
 
 - **Que se observo:** la nota del 2026-09-01 bajo el bloque de verificacion de `D-016` afirma que el
   barrido se hizo «ya escrito el registro de esta sesion», y registra `_persistence/progress.md:7`
@@ -307,6 +316,17 @@ exit=0
   Las dos diferencias son lineas escritas despues del barrido y ninguna es una referencia viva: el
   fondo se sostiene, la declaracion de alcance temporal no. Se anade una segunda nota fechada bajo
   `D-016` con este recuento; los dos bloques anteriores quedan intactos. Registrado en `T-010`.
+
+- **Cerrado por `R-005`** sobre `510d580`: existe la segunda nota fechada bajo `D-016` con su
+  recuento sobre `ea0b850`, reproducido aqui y coincidente linea por linea. Los dos bloques
+  anteriores quedan intactos.
+
+```
+$ git grep -cE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' ea0b850 -- . | tail -3
+ea0b850:_persistence/lessons.md:3
+ea0b850:_persistence/progress.md:8
+ea0b850:_persistence/tasks.md:4
+```
 
 ---
 
@@ -369,9 +389,9 @@ con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manage
 | Auditoria | R-004 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-011 |
-| Cerrado en | |
+| Cerrado en | `510d580` (R-005) |
 
 - **Que se observo:** `D-021` cierra su bloque de verificacion afirmando literalmente que «el
   recuento se tomo con el registro de esta sesion ya escrito, que es lo que hace que se reproduzca
@@ -432,6 +452,15 @@ HEAD:_persistence/decisions.md:13
   sobre `c70b757` y la separacion de las 9 internas; el bloque original queda intacto (`D-019`).
   Registrado en `T-011`.
 
+- **Cerrado por `R-005`** sobre `510d580`: la nota fechada bajo `D-021` corrige la frase, da el
+  recuento sobre `c70b757` y separa las 9 coincidencias internas de las 4 externas. El subclaim se
+  reprodujo:
+
+```
+$ git grep -n "debtec" c70b757 -- _persistence/decisions.md | awk -F: '$3>=573' | wc -l
+9
+```
+
 ---
 
 ### F-009 - `DT-001` queda `Implementada` con un criterio de cierre que no se cumple
@@ -440,9 +469,9 @@ HEAD:_persistence/decisions.md:13
 | Auditoria | R-004 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-012 |
-| Cerrado en | |
+| Cerrado en | `510d580` (R-005) |
 
 - **Que se observo:** el criterio de pago escrito en la entrada es absoluto, y la entrada pasa a
   `Implementada` en el mismo commit:
@@ -478,6 +507,18 @@ exit=1
   Se anade a la nota fechada de `DT-001` el criterio de cierre realmente aplicado —cero en el ambito
   vivo, historico intacto por `D-021`— con su comando y su salida cruda. El campo «Como se paga»
   original no se reescribe. Registrado en `T-012`.
+
+- **Cerrado por `R-005`** sobre `510d580`: la nota de `DT-001` enuncia el criterio de cierre
+  realmente aplicado, y sus dos comandos **si** se reproducen sobre el commit que los contiene. El
+  campo «Como se paga» quedo intacto.
+
+```
+$ git grep -n "debtec" 510d580 -- .claude CLAUDE.md project.md ; echo "exit=$?"
+exit=1
+
+$ git ls-tree --name-only 510d580 _persistence/ | grep -i debt
+_persistence/techdebt.md
+```
 
 ---
 
@@ -526,3 +567,157 @@ _persistence/techdebt.md
   lo escribe `report_auditor`; `manager` solo toca la fila de estado de cada hallazgo. Lo entregado
   aqui es el criterio que permite corregirla — el cambio de `debtec.md` a `techdebt.md` en esa
   convencion lo hace el auditor en una pasada posterior.
+
+- 🚨 **`R-005` lo deja `Aceptado — pendiente` sobre `510d580`, no cerrado.** La parte de `manager`
+  esta hecha (la nota fechada de `D-021` acota `_audit/` a historico salvo las convenciones vivas),
+  pero el defecto sigue vivo:
+
+```
+$ git grep -n "debtec" 510d580 -- _audit/findings.md | head -1
+510d580:_audit/findings.md:56:rechazo por coste sin entrada en `debtec.md` es, por si solo, un hallazgo nuevo — y no requiere
+```
+
+  Y **la auditoria tampoco corrige esa linea**: su protocolo le prohibe corregir nada sobre el commit
+  auditado y solo la autoriza a escribir hallazgos, estados y filas. Quien corrige la seccion de
+  convenciones de este archivo **no esta decidido**, y hasta que `manager` o el usuario lo zanjen con
+  su `D-XXX`, este hallazgo no lo puede cerrar nadie. Ver `R-005`, seccion 5.
+
+
+---
+
+### F-011 - La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit
+| Campo | Valor |
+|---|---|
+| Auditoria | R-005 |
+| Fecha | 2026-09-01 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota fechada que corrige `F-005` cierra el enunciado de la señal 2 rehecha
+  con un bloque sobre `HEAD` que presenta como prueba de que «hoy la señal sigue sin cumplirse»:
+
+```
+$ git grep -n "| Pendiente |" HEAD -- _audit/index.md ; echo "exit=$?"
+exit=1
+```
+
+  Sobre el commit que contiene la nota, el mismo comando devuelve lo contrario:
+
+```
+$ git grep -n "| Pendiente |" 510d580 -- _audit/index.md ; echo "exit=$?"
+510d580:_audit/index.md:16:| `S-005.md` | S-005 | 2026-09-01 | Pendiente | Pendiente | Pendiente | - |
+exit=0
+```
+
+  Segunda instancia, en `_persistence/tasks.md`, ficha de `T-012`: «el comando devuelve **12**
+  archivos en `HEAD`», sin fecha ni ancla. Sobre el commit son 13:
+
+```
+$ git grep -c "debtec" 510d580 -- . | wc -l
+13
+```
+
+- **Por que importa:** es el patron de `F-005`, `F-006` y `F-008` reapareciendo dentro de la
+  correccion de `F-005`, y contra `D-022` regla 1, escrita en el mismo commit. Quien reproduzca el
+  bloque de `A-001` sobre su commit obtiene `exit=0` y concluye que la señal 2 **si** se disparo, lo
+  contrario de lo que la nota afirma — y esa es una de las dos señales que pueden refutar `A-001`.
+  `Media` y no `Alta` porque el fondo de la correccion es correcto: la señal quedo bien redefinida y
+  el bloque original quedo intacto.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-012 - La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion»
+| Campo | Valor |
+|---|---|
+| Auditoria | R-005 |
+| Fecha | 2026-09-01 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-025` generaliza la excepcion de escritura de `manager` sobre `tasks.md` a un
+  segundo caso y la escribe solo en la convencion de ese archivo. Los tres sitios que enuncian la
+  regla para quien la ejecuta siguen diciendo que la excepcion es unica:
+
+```
+$ git grep -n "unica excepcion\|salvo la .T-XXX" 510d580 -- .claude CLAUDE.md _phases _persistence/tasks.md
+510d580:.claude/agents/session-closer.md:68:auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
+510d580:.claude/skills/protocol-close/SKILL.md:40:auditable. **No la dupliques ni la reescribas:** comprueba que esta y sigue. Es la unica excepcion a
+510d580:.claude/skills/protocol-close/SKILL.md:447:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+510d580:_persistence/tasks.md:57:con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
+510d580:_phases/000_preproject.md:182:| `tasks.md` | las tareas y su estado | **`session-closer`**, salvo la `T-XXX` que nace de un hallazgo aceptado |
+```
+
+  La linea 447 es de otro asunto (supuestos) y no cuenta. La 57 de `tasks.md` conserva el enunciado
+  viejo pero el texto siguiente lo corrige explicitamente, asi que se lee entera y no engaña.
+- **Por que importa:** es `F-007` otra vez, y `F-007` se cerro en `S-004` arreglando **esos mismos
+  tres sitios**; `L-007` lleva escrita desde entonces. El `session-closer` arranca en frio y lee su
+  skill, no `decisions.md`: con este texto tratara como infraccion una fila de `tasks.md` editada a
+  mano que no nazca de un hallazgo. Y `_phases/000_preproject.md:182` nace hoy con la version vieja
+  de la regla dentro.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-013 - `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit
+| Campo | Valor |
+|---|---|
+| Auditoria | R-005 |
+| Fecha | 2026-09-01 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git show 510d580:_persistence/decisions.md | grep -n "todavia no entra en el ambito del Paso 1b" -A 3
+877:⚠️ **`_phases/` todavia no entra en el ambito del Paso 1b**, que hoy cubre solo `.claude`,
+878-`CLAUDE.md` y `project.md`. Mientras no entre, la agnosticidad de estos archivos **depende de que
+879-alguien se acuerde**, que es justo lo que `L-008` describe. Ampliar el ambito del control es una
+880-modificacion del protocolo y queda pendiente de acordarla con el usuario.
+
+$ git show 510d580:.claude/skills/protocol-close/SKILL.md | grep -n "CLAUDE.md _phases"
+96:git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases
+```
+
+- **Por que importa:** una entrada `Vigente` presenta como pendiente algo que `D-026` ya hizo en el
+  mismo commit, y describe mal el ambito del control. Quien lea `D-023` sin llegar a `D-026`
+  concluye que la agnosticidad de `_phases/` no tiene control que la compruebe. `Baja` porque la
+  informacion correcta esta a tres entradas de distancia y nada operativo depende de esta linea.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-014 - El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces
+| Campo | Valor |
+|---|---|
+| Auditoria | R-005 |
+| Fecha | 2026-09-01 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git show 510d580:_persistence/progress.md | grep -n "dejo cinco hallazgos abiertos" | cut -c1-220
+59:| Avance de la etapa | El commit `e61454b` (auditoria `R-004` sobre `S-004`) dejo cinco hallazgos abiertos (`F-005`, `F-006`, `F-008`, `F-009`, `F-010`), sumados al `F-006` ya abierto por `R-003`. `manager` evaluo los
+
+$ git show 510d580:_audit/index.md | sed -n '14,15p'
+| `S-003.md` | S-003 | 2026-09-01 | `ea0b850` | `R-003.md` | Con hallazgos (3) | F-005, F-006, F-007 |
+| `S-004.md` | S-004 | 2026-09-01 | `c70b757` | `R-004.md` | Con hallazgos (3) | F-008, F-009, F-010 |
+```
+
+  `R-004` abrio tres; `F-005` y `F-006` los abrio `R-003`. La frase atribuye los cinco a `R-004` y
+  despues suma `F-006` otra vez, que ya esta en su propia lista.
+- **Por que importa:** `progress.md` es lo primero que lee `session-starter` en cada arranque, y de
+  los tres textos que cuentan lo mismo es el unico que se lee siempre. `Baja` porque no hay
+  consecuencia operativa: los seis hallazgos quedaron evaluados y registrados correctamente.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
