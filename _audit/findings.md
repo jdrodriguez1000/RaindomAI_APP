@@ -21,11 +21,13 @@
 | [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Implementado |
 | [F-008](#f-008---el-bloque-de-verificacion-de-d-021-afirma-reproducirse-sobre-su-commit-y-no-se-reproduce) | El bloque de verificacion de `D-021` afirma reproducirse sobre su commit y no se reproduce | R-004 | Media | Implementado |
 | [F-009](#f-009---dt-001-queda-implementada-con-un-criterio-de-cierre-que-no-se-cumple) | `DT-001` queda `Implementada` con un criterio de cierre que no se cumple | R-004 | Baja | Implementado |
-| [F-010](#f-010---una-convencion-vigente-de-_auditfindingsmd-cita-un-archivo-que-ya-no-existe) | Una convencion vigente de `_audit/findings.md` cita un archivo que ya no existe | R-004 | Baja | Aceptado — pendiente |
-| [F-011](#f-011---la-nota-nueva-de-a-001-vuelve-a-registrar-un-recuento-sobre-head-que-no-se-reproduce-sobre-su-commit) | La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit | R-005 | Media | Aceptado — pendiente |
-| [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Aceptado — pendiente |
-| [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Aceptado — pendiente |
-| [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Aceptado — pendiente |
+| [F-010](#f-010---una-convencion-vigente-de-_auditfindingsmd-cita-un-archivo-que-ya-no-existe) | Una convencion vigente de `_audit/findings.md` cita un archivo que ya no existe | R-004 | Baja | Implementado |
+| [F-011](#f-011---la-nota-nueva-de-a-001-vuelve-a-registrar-un-recuento-sobre-head-que-no-se-reproduce-sobre-su-commit) | La nota nueva de `A-001` vuelve a registrar un recuento sobre `HEAD` que no se reproduce sobre su commit | R-005 | Media | Implementado |
+| [F-012](#f-012---la-segunda-excepcion-de-d-025-no-llego-a-los-tres-sitios-que-siguen-diciendo-es-la-unica-excepcion) | La segunda excepcion de `D-025` no llego a los tres sitios que siguen diciendo «es la unica excepcion» | R-005 | Media | Implementado |
+| [F-013](#f-013---d-023-conserva-vigente-una-advertencia-que-d-026-desmiente-en-el-mismo-commit) | `D-023` conserva vigente una advertencia que `D-026` desmiente en el mismo commit | R-005 | Baja | Implementado |
+| [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Implementado |
+| [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Abierto |
+| [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Abierto |
 
 ---
 
@@ -528,9 +530,9 @@ _persistence/techdebt.md
 | Auditoria | R-004 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-013, T-018 |
-| Cerrado en | |
+| Cerrado en | R-006 (`d906a5d`) |
 
 - **Que se observo:**
 
@@ -607,9 +609,9 @@ posterior.
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-014 |
-| Cerrado en | |
+| Cerrado en | R-006 (`d906a5d`) |
 
 - **Que se observo:** la nota fechada que corrige `F-005` cierra el enunciado de la señal 2 rehecha
   con un bloque sobre `HEAD` que presenta como prueba de que «hoy la señal sigue sin cumplirse»:
@@ -667,9 +669,9 @@ $ git grep -c "debtec" a800d6b -- . | wc -l
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-015 |
-| Cerrado en | |
+| Cerrado en | R-006 (`d906a5d`) |
 
 - **Que se observo:** `D-025` generaliza la excepcion de escritura de `manager` sobre `tasks.md` a un
   segundo caso y la escribe solo en la convencion de ese archivo. Los tres sitios que enuncian la
@@ -717,9 +719,9 @@ exit=0
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-016 |
-| Cerrado en | |
+| Cerrado en | R-006 (`d906a5d`) |
 
 - **Que se observo:**
 
@@ -765,9 +767,9 @@ exit=0
 | Auditoria | R-005 |
 | Fecha | 2026-09-01 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-017 |
-| Cerrado en | |
+| Cerrado en | R-006 (`d906a5d`) |
 
 - **Que se observo:**
 
@@ -814,3 +816,82 @@ $ grep -cE "^[|] Sesion [|] S-005 [|]" _persistence/tasks.md
 
   ⚠️ **Que `manager` escriba en un archivo del cierre lo autoriza `D-027`**, escrita hoy a raiz
   del punto muerto que esta misma auditoria señalo en su seccion 5.
+
+---
+
+### F-015 - `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda
+| Campo | Valor |
+|---|---|
+| Auditoria | R-006 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-023` es una decision **vigente** cuyo titulo dice «Cada etapa declarada
+  tiene su archivo agnostico en `_phases/`». `project.md` declara dos etapas; `_phases/` contiene un
+  archivo. No hay `T-XXX` ni `DT-XXX` que lo agende.
+
+```
+$ git show d906a5d:_persistence/decisions.md | grep -n "^### D-023"
+815:### D-023 - Cada etapa declarada tiene su archivo agnostico en `_phases/`
+
+$ git show d906a5d:_persistence/decisions.md | sed -n '819,821p'
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | usuario |
+
+$ git show d906a5d:project.md | grep -n "Etapas declaradas"
+102:| Etapas declaradas | `000_preproject`, `005_discovery` |
+
+$ git ls-tree --name-only d906a5d _phases/
+_phases/000_preproject.md
+
+$ git grep -niE "phases" d906a5d -- _persistence/tasks.md ; echo "exit=$?"
+exit=1
+```
+
+- **Por que importa:** es la tercera sesion consecutiva en que el asunto se nombra sin agendarlo
+  (`D-024` como advertencia, `R-005` como recomendacion sin hallazgo, `S-006` en sus secciones 2 y
+  4). Lo que solo vive en prosa dentro de informes de sesion no aparece en `tasks.md`, que es lo que
+  `session-starter` lee al arrancar: desaparece del radar en cuanto nadie se acuerde de repetirlo.
+  `Media` y no `Alta` porque `T-001` sigue sin arrancar y hoy no bloquea nada; sera bloqueante el
+  dia que la etapa empiece.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-016 - El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-006 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `T-015` declara como criterio de cierre «el barrido de la regla no devuelve
+  ningun enunciado que siga afirmando que la excepcion es unica», y queda `Implementada`. El barrido,
+  sobre el commit que la da por hecha, devuelve un enunciado:
+
+```
+$ git show d906a5d:_persistence/tasks.md | sed -n '/^### T-015/,/^### T-016/p' | grep -n "Criterio de cierre" -A1
+23:- **Criterio de cierre:** el barrido de la regla no devuelve ningun enunciado que siga afirmando que
+24-  la excepcion es unica, y el archivo de la etapa sigue pasando el control de agnosticidad.
+
+$ git grep -n "unica excepcion\|salvo la .T-XXX" d906a5d -- .claude CLAUDE.md _phases _persistence/tasks.md
+d906a5d:.claude/skills/protocol-close/SKILL.md:490:**La unica excepcion, y es mecanica:** si un supuesto `A-XXX` quedo comprobado por la evidencia del
+d906a5d:_persistence/tasks.md:63:con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
+```
+
+  La coincidencia de `protocol-close/SKILL.md:490` es de otra regla (supuestos `A-XXX`) y no cuenta.
+  La de `_persistence/tasks.md:63` si: es la convencion del propio archivo, que sigue abriendo con
+  «Tiene una unica excepcion» aunque cuatro parrafos mas abajo anuncie la segunda.
+- **Por que importa:** es el mismo patron que `F-009` —un criterio de cierre autodeclarado que no se
+  cumple al correrlo—, y aparece dentro de la tarea que corrige un hallazgo sobre ese mismo descuido.
+  Quien vuelva a correr el barrido encontrara una coincidencia y no sabra si es un resto o un
+  descuido. `Baja` porque el fondo esta bien: los tres sitios que `F-012` señalaba estan corregidos y
+  ningun agente queda con la regla vieja.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
