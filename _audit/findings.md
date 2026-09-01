@@ -18,7 +18,10 @@
 | [F-004](#f-004---session-closermd-describe-a-report_auditor-en-su-propio-repositorio) | `session-closer.md` describe a `report_auditor` en «su propio repositorio» | R-002 | Media | Implementado |
 | [F-005](#f-005---el-bloque-de-verificacion-de-la-observacion-nueva-de-a-001-no-se-reproduce-sobre-su-propio-commit) | El bloque de verificacion de la observacion nueva de `A-001` no se reproduce sobre su propio commit | R-003 | Media | Abierto |
 | [F-006](#f-006---la-nota-de-ambito-de-d-016-registra-recuentos-que-no-cuadran-con-el-commit-que-la-contiene) | La nota de ambito de `D-016` registra recuentos que no cuadran con el commit que la contiene | R-003 | Baja | Abierto |
-| [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Aceptado — pendiente |
+| [F-007](#f-007---d-020-declara-una-excepcion-que-la-convencion-de-tasksmd-no-recoge-y-la-tension-queda-sin-registrar) | `D-020` declara una excepcion que la convencion de `tasks.md` no recoge, y la tension queda sin registrar | R-003 | Media | Implementado |
+| [F-008](#f-008---el-bloque-de-verificacion-de-d-021-afirma-reproducirse-sobre-su-commit-y-no-se-reproduce) | El bloque de verificacion de `D-021` afirma reproducirse sobre su commit y no se reproduce | R-004 | Media | Abierto |
+| [F-009](#f-009---dt-001-queda-implementada-con-un-criterio-de-cierre-que-no-se-cumple) | `DT-001` queda `Implementada` con un criterio de cierre que no se cumple | R-004 | Baja | Abierto |
+| [F-010](#f-010---una-convencion-vigente-de-_auditfindingsmd-cita-un-archivo-que-ya-no-existe) | Una convencion vigente de `_audit/findings.md` cita un archivo que ya no existe | R-004 | Baja | Abierto |
 
 ---
 
@@ -275,9 +278,9 @@ ea0b850:_persistence/tasks.md:4
 | Auditoria | R-003 |
 | Fecha | 2026-09-01 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-008 |
-| Cerrado en | |
+| Cerrado en | R-004 (`c70b757`) |
 
 - **Que se observo:** `D-020` esta `Vigente` y permite a `manager` escribir en `tasks.md`. La
   convencion del archivo sigue en absoluto, y la tension no esta en ningun tablero:
@@ -300,3 +303,146 @@ exit=1
   era el registro. La excepcion se escribe dentro de la convencion de `tasks.md`, acotada a ese caso,
   y se refleja en `protocol-close` y en `session-closer.md`. La confirmacion queda anotada en
   `D-020`. Registrado en `T-008`.
+
+- **Que cerro el hallazgo (`R-004`, commit `c70b757`):** la excepcion esta enunciada dentro de la
+  convencion de `_persistence/tasks.md`, acotada al caso y citando `D-020`; se repite en
+  `.claude/skills/protocol-close/SKILL.md` y en `.claude/agents/session-closer.md`; `D-020` lleva su
+  nota fechada de cierre de tension; y no queda ningun tercer sitio con el enunciado absoluto:
+
+```
+$ git grep -n "a mano" c70b757 -- .claude _persistence CLAUDE.md project.md
+c70b757:_persistence/tasks.md:50:🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto
+c70b757:_persistence/progress.md:43:🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto
+(el resto son «El indice se escribe a mano, sin generador», sin relacion)
+
+$ git show c70b757:_persistence/tasks.md | sed -n '50,62p'
+🚨 **Este archivo no se escribe a mano durante la jornada.** Lo produce el cierre de sesion, junto
+con `progress.md`. **Tiene una unica excepcion, y esta escrita:** cuando `manager` evalua un hallazgo
+`F-NNN` de una auditoria y lo acepta, escribe **en ese momento** la `T-XXX` con
+`Origen: report_auditor`, sin esperar al cierre. Lo fija `D-020`, confirmada por el usuario el
+2026-09-01.
+```
+
+---
+
+### F-008 - El bloque de verificacion de `D-021` afirma reproducirse sobre su commit y no se reproduce
+| Campo | Valor |
+|---|---|
+| Auditoria | R-004 |
+| Fecha | 2026-09-01 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-021` cierra su bloque de verificacion afirmando literalmente que «el
+  recuento se tomo con el registro de esta sesion ya escrito, que es lo que hace que se reproduzca
+  sobre el commit que lo contiene», y registra `_persistence/progress.md:2`. Sobre el commit que la
+  contiene el recuento es otro:
+
+```
+$ git grep -nc "debtec" c70b757 -- . ; echo "exit=$?"
+c70b757:_audit/R-001.md:2
+c70b757:_audit/R-002.md:9
+c70b757:_audit/R-003.md:5
+c70b757:_audit/S-001.md:2
+c70b757:_audit/S-002.md:4
+c70b757:_audit/S-003.md:2
+c70b757:_audit/S-004.md:17
+c70b757:_audit/findings.md:4
+c70b757:_persistence/decisions.md:13
+c70b757:_persistence/progress.md:6
+c70b757:_persistence/techdebt.md:4
+exit=0
+```
+
+  `progress.md` da 6 y no 2; falta la linea `_audit/S-004.md:17`; y las 13 de `decisions.md` no son
+  «las 13 de esta misma entrada» — solo 9 caen dentro de `D-021`, que empieza en la linea 573:
+
+```
+$ git grep -n "debtec" c70b757 -- _persistence/decisions.md | head -4
+c70b757:_persistence/decisions.md:32:| [D-021](#d-021---debtecmd-pasa-a-llamarse-techdebtmd) | `debtec.md` pasa a llamarse `techdebt.md` | 2026-09-01 | Vigente |
+c70b757:_persistence/decisions.md:130:  **`manager`, en el momento en que las cosas pasan**. `debtec.md` admite propuestas del cierre,
+c70b757:_persistence/decisions.md:470:  historia ya auditada. El unico archivo trackeado que la incumple es `debtec.md`; se deja y queda
+c70b757:_persistence/decisions.md:472:- **Alternativas descartadas:** aplicarla retroactivamente y renombrar `debtec.md` a `techdebt.md`
+
+$ git show c70b757:_persistence/decisions.md | grep -n "^### D-021"
+573:### D-021 - `debtec.md` pasa a llamarse `techdebt.md`
+```
+
+  `_audit/S-004.md` §4 y §6 declara la discrepancia por iniciativa propia, pero la corrige con **5**
+  para `progress.md`; el valor real sobre el commit es **6**.
+- **Por que importa:** el defecto no es el numero, es la frase. `F-001` y `F-006` ya se abrieron por
+  bloques que afirmaban mas ambito del que su comando comprobaba, y de ahi salieron `D-019` y
+  `L-006`. `D-021` es la primera entrada escrita despues de esa leccion y reincide, ademas
+  **afirmando explicitamente una reproducibilidad que no tiene** — lo que desalienta la
+  comprobacion en vez de solo omitirla.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-009 - `DT-001` queda `Implementada` con un criterio de cierre que no se cumple
+| Campo | Valor |
+|---|---|
+| Auditoria | R-004 |
+| Fecha | 2026-09-01 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el criterio de pago escrito en la entrada es absoluto, y la entrada pasa a
+  `Implementada` en el mismo commit:
+
+```
+$ git show c70b757:_persistence/techdebt.md | sed -n '91,92p'
+- **Como se paga:** renombrar a `techdebt.md` con `git mv`, actualizar todas sus referencias, y
+  comprobar con `git grep -n "debtec" -- .` que no queda ninguna.
+
+$ git show c70b757:_persistence/techdebt.md | sed -n '13p'
+| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | Implementada | Confirmada | Baja | No bloqueante |
+```
+
+  Ese comando devuelve 11 archivos con coincidencias (salida en `F-008`). `D-021` acota el alcance
+  al «ambito vivo» y la nota fechada de `DT-001` remite a `D-021`, pero el texto del criterio no se
+  acota ni se declara superado.
+- **Por que importa:** es el mismo defecto que `F-007`, cuya leccion `L-007` se escribe en este
+  mismo commit —«una excepcion se escribe donde esta la regla, no donde se decidio»— y se repite
+  tres archivos mas alla. Quien aplique el criterio literal concluye que la deuda no esta pagada.
+  Gravedad `Baja` porque la informacion correcta si esta en la misma entrada, en la nota que remite
+  a `D-021`: el dano es de lectura.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-010 - Una convencion vigente de `_audit/findings.md` cita un archivo que ya no existe
+| Campo | Valor |
+|---|---|
+| Auditoria | R-004 |
+| Fecha | 2026-09-01 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git show c70b757:_audit/findings.md | sed -n '52,54p'
+⚠️ **Un rechazo por coste o prioridad es deuda tecnica por definicion**, y exige su `DT-XXX`. Un
+rechazo por coste sin entrada en `debtec.md` es, por si solo, un hallazgo nuevo — y no requiere
+criterio: se comprueba mirando si la entrada existe.
+
+$ git ls-tree --name-only c70b757 _persistence/ | grep -i debt
+_persistence/techdebt.md
+```
+
+  No es una cita historica: es una regla vigente de este mismo archivo, que manda comprobar una
+  entrada en una ruta que ya no existe.
+- **Por que importa:** `D-021` clasifico `_audit/` entero como historico. Es correcto para los
+  `S-XXX.md` y los `R-XXX.md`, que son documentos entregados, pero `findings.md` es un registro
+  vivo cuyas convenciones se siguen aplicando. El criterio se aplico por carpeta y no por naturaleza
+  del texto, y deja fuera del barrido el unico archivo de `_audit/` que sigue rigiendo.
+- **Que se hizo:** pendiente de la evaluacion de `manager`. ⚠️ La linea esta en un archivo que
+  `manager` no escribe: la correccion del texto es del auditor en una pasada posterior. Lo que si es
+  de `manager` es acotar por nota fechada el alcance de `D-021`.
