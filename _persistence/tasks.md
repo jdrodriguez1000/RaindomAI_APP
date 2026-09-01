@@ -12,6 +12,10 @@
 | [T-001](#t-001---definir-alcance-y-objetivo-del-proyecto) | Definir alcance y objetivo del proyecto | No implementada | Alta | Bloqueante |
 | [T-002](#t-002---declarar-las-etapas-posteriores-a-000_preproject) | Declarar las etapas posteriores a `000_preproject` | No implementada | Media | No bloqueante |
 | [T-003](#t-003---verificar-si-el-historico-de-la-fuente-oficial-es-obtenible-a-003) | Verificar si el historico de la fuente oficial es obtenible (`A-003`) | No implementada | Alta | Bloqueante |
+| [T-004](#t-004---acotar-el-enunciado-del-bloque-de-verificacion-de-d-016-f-001) | Acotar el enunciado del bloque de verificacion de `D-016` (`F-001`) | Implementada | Media | No bloqueante |
+| [T-005](#t-005---corregir-los-dos-identificadores-auditor-vivos-f-002) | Corregir los dos identificadores `auditor` vivos (`F-002`) | Implementada | Baja | No bloqueante |
+| [T-006](#t-006---devolver-dt-001-a-propuesta-pendiente-del-usuario-f-003) | Devolver `DT-001` a `Propuesta (pendiente del usuario)` (`F-003`) | Implementada | Media | No bloqueante |
+| [T-007](#t-007---corregir-la-tabla-de-actores-de-session-closermd-f-004) | Corregir la tabla de actores de `session-closer.md` (`F-004`) | Implementada | Media | No bloqueante |
 
 ---
 
@@ -35,9 +39,9 @@
 
 🚨 **Anadir un valor nuevo es una decision, no una improvisacion.** El criterio es uno solo:
 **nombra un origen de demanda que ninguno de los ya existentes cubre**. Un matiz de un origen
-existente —«usuario, pero por escrito», «auditor, pero de otra pasada»— no es un valor nuevo: va
-en el cuerpo de la tarea. Si el criterio se cumple, el valor entra **en esta tabla en la misma
-pasada** en que se escribe la primera tarea que lo usa, con su `D-XXX`.
+existente —«usuario, pero por escrito», «report_auditor, pero de otra pasada»— no es un
+valor nuevo: va en el cuerpo de la tarea. Si el criterio se cumple, el valor entra **en esta
+tabla en la misma pasada** en que se escribe la primera tarea que lo usa, con su `D-XXX`.
 
 Regla: una tarea con origen `report_auditor` solo pasa a ejecutarse despues de que `manager` evalue la
 recomendacion y la considere correcta.
@@ -120,3 +124,81 @@ Plantilla:
   ciclo entero del producto, porque las secciones 5 a 19 del brief dependen todas del historico.
 - **Criterio de cierre:** `A-003` pasa a `Confirmado` (y se traslada a `decisions.md` o
   `constraints.md`) o a `Refutado`, segun lo que se encuentre.
+
+---
+
+### T-004 - Acotar el enunciado del bloque de verificacion de `D-016` (`F-001`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Sesion | S-003 |
+
+- **Que:** el bloque de verificacion de `D-016` se titulaba «cero identificadores `auditor` vivos»
+  sin acotar ambito, mientras su comando cubria solo `.claude`, `CLAUDE.md` y `project.md`. Se anade
+  bajo el bloque —sin tocar el comando ya ejecutado— una nota fechada que declara el ambito real y
+  registra el barrido con ambito completo, con su patron y su salida cruda.
+- **Por que:** un enunciado mas ancho que su comando da por cerrado lo que nadie miro. En este caso
+  concreto tapo una fuga real, que es `F-002`.
+- **Criterio de cierre:** `D-016` lleva la nota de ambito con los dos barridos y sus salidas crudas.
+  Verificado en el diff de esta sesion.
+
+---
+
+### T-005 - Corregir los dos identificadores `auditor` vivos (`F-002`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Sesion | S-003 |
+
+- **Que:** `_audit/findings.md:3` —cabecera viva de un registro activo— y el ejemplo de
+  `_persistence/tasks.md` que nombra el valor del campo `Origen` pasan de `auditor` a
+  `report_auditor`. Los dos son identificadores del agente, no el sustantivo comun que `D-016`
+  excluye, y ninguno es historico.
+- **Por que:** son las dos unicas referencias vivas que el barrido acotado de `D-016` no alcanzo.
+- **Criterio de cierre:** el barrido con ambito completo ya no las devuelve; lo que queda en
+  `findings.md` es evidencia citada de `F-001` y `F-002`. Registrado en la nota de ambito de `D-016`.
+
+---
+
+### T-006 - Devolver `DT-001` a `Propuesta (pendiente del usuario)` (`F-003`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Sesion | S-003 |
+
+- **Que:** `DT-001` se registro como `Confirmada` en el cierre de `S-002`, valor que el Paso 5 de
+  `protocol-close` prohibe al `session-closer`. Vuelve a `Propuesta (pendiente del usuario)` en el
+  indice y en el detalle, con nota fechada que explica el cambio.
+- **Por que:** `Confirmacion` existe para distinguir lo confirmado de lo supuesto. Escrito por quien
+  el protocolo se lo prohibe, el campo deja de significar nada. `manager` tampoco puede confirmarla:
+  el dueno de la confirmacion va dentro del valor, y es el usuario.
+- **Criterio de cierre:** las dos apariciones dicen `Propuesta (pendiente del usuario)`, y la
+  confirmacion queda pedida al usuario. Verificado en el diff de esta sesion.
+
+---
+
+### T-007 - Corregir la tabla de actores de `session-closer.md` (`F-004`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Sesion | S-003 |
+
+- **Que:** la fila de `report_auditor` en la tabla de actores decia «su propio repositorio», resto
+  del esquema de dos terminales que `D-012` revoco. Pasa a nombrar lo que escribe de verdad:
+  `_audit/R-XXX.md`, `_audit/findings.md` y `_audit/index.md`, en este mismo repositorio.
+- **Por que:** contradecia a `project.md`, a `CLAUDE.md` y a las dos lineas siguientes de su propio
+  archivo, en una tabla que el `session-closer` lee en cada cierre.
+- **Criterio de cierre:** `git grep -n "su propio repositorio" -- .claude` ya no devuelve esa linea.
+  Verificado en el diff de esta sesion.

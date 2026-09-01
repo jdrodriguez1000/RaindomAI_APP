@@ -14,6 +14,7 @@
 | [L-003](#l-003---el-mismo-control-en-dos-sitios-tiene-que-ser-literalmente-el-mismo-comando) | El mismo control en dos sitios tiene que ser literalmente el mismo comando | 2026-08-31 | 000_preproject |
 | [L-004](#l-004---un-encabezado-que-cuenta-se-desincroniza-de-lo-que-cuenta) | Un encabezado que cuenta se desincroniza de lo que cuenta | 2026-08-31 | 000_preproject |
 | [L-005](#l-005---renombrar-un-agente-no-es-renombrar-su-archivo) | Renombrar un agente no es renombrar su archivo | 2026-08-31 | 000_preproject |
+| [L-006](#l-006---un-bloque-de-verificacion-declara-su-ambito-dentro-del-enunciado) | Un bloque de verificacion declara su ambito dentro del enunciado | 2026-09-01 | 000_preproject |
 
 ---
 
@@ -149,3 +150,36 @@ git grep -nE '`<viejo>`|\*\*<viejo>\*\*|name: <viejo>' -- .claude CLAUDE.md proj
 
   Lo que salga fuera de ese ambito —entradas ya cerradas, informes entregados— **no se toca**: se
   deja y se enlaza con la `D-XXX` del rename.
+
+🕒 **Matizado el 2026-09-01 por `L-006`, tras `F-001` y `F-002`.** Acotar el barrido a esas
+tres rutas **antes** de mirar es lo que dejo fuera dos referencias vivas. El barrido se corre sobre
+el repositorio entero y **luego** se clasifica cada coincidencia en viva o historica.
+
+---
+
+### L-006 - Un bloque de verificacion declara su ambito dentro del enunciado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** el rename de `auditor` a `report_auditor` (`D-016`) se cerro con un bloque titulado
+  «Verificacion — cero identificadores `auditor` vivos» y un `git grep` con `exit=1`. El titulo no
+  decia sobre que corrio; el comando cubria `.claude`, `CLAUDE.md` y `project.md`.
+- **Que ocurrio:** la auditoria `R-002` corrio el mismo patron sobre `_persistence/` y devolvio 18
+  lineas, y encontro dos referencias vivas al handle viejo (`F-002`). El `exit=1` era cierto; lo
+  falso era la frase que lo acompanaba. Nada fallo: el registro simplemente dio por cerrado un
+  ambito que nadie habia mirado.
+- **Leccion:** un `exit=1` solo prueba lo que estaba dentro del `--` del comando. **El enunciado de
+  un bloque de verificacion no puede ser mas ancho que su ambito**, y un barrido acotado antes de
+  mirar es una conclusion disfrazada de comprobacion.
+- **Como aplicarla:** dos reglas, y las dos son baratas:
+  1. **Barrer primero el repositorio entero**, y solo despues clasificar cada coincidencia. Acotar
+     es el ultimo paso, no el primero.
+  2. **El titulo del bloque nombra su ambito**, literal: «cero identificadores `X` vivos **en
+     `.claude`, `CLAUDE.md` y `project.md`**». Si el titulo no cabe sin el ambito, el ambito es el
+     que esta mal.
+
+  Cuando un bloque ya escrito afirma de mas, se corrige por nota fechada y no reescribiendolo:
+  `D-019`.

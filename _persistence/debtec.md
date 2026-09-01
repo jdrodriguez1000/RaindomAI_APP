@@ -10,7 +10,7 @@
 
 | Codigo | Deuda tecnica | Estado | Confirmacion | Importancia | Urgencia |
 |---|---|---|---|---|---|
-| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | No implementada | Confirmada | Baja | No bloqueante |
+| [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
 
 ---
 
@@ -74,7 +74,7 @@ Plantilla:
 | Campo | Valor |
 |---|---|
 | Estado | No implementada |
-| Confirmacion | Confirmada |
+| Confirmacion | Propuesta (pendiente del usuario) |
 | Importancia | Baja |
 | Urgencia | No bloqueante |
 | Origen | usuario |
@@ -90,3 +90,12 @@ Plantilla:
   regla no existe, y el siguiente nombre en espanol entra sin que nadie lo discuta.
 - **Como se paga:** renombrar a `techdebt.md` con `git mv`, actualizar todas sus referencias, y
   comprobar con `git grep -n "debtec" -- .` que no queda ninguna.
+
+🕒 **`Confirmacion` revertida a `Propuesta (pendiente del usuario)` el 2026-09-01, tras el
+hallazgo `F-003` de `R-002`.** La entrada nacio en el cierre de `S-002` con `Confirmada`, y el Paso 5
+de `protocol-close` prohibe expresamente ese valor al `session-closer`: lo que el escribe va
+**marcado como propuesta**, para que el usuario la confirme o la tumbe. El propio `S-002` §6 admite
+que el valor descansaba en el traspaso de la sesion, no en el diff, y no existe ningun `D-XXX` que
+ampare la excepcion. `manager` **tampoco puede confirmarla**: quien confirma esta escrito dentro del
+valor, y es el usuario. El campo `Origen: usuario` se deja como esta — dice de quien nacio la deuda,
+no que la confirmacion se haya producido.

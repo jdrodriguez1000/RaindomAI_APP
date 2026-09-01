@@ -27,6 +27,8 @@
 | [D-016](#d-016---el-agente-auditor-pasa-a-llamarse-report_auditor) | El agente auditor pasa a llamarse `report_auditor` | 2026-08-31 | Vigente |
 | [D-017](#d-017---espanol-para-el-contenido-ingles-para-los-nombres-de-archivos-y-carpetas) | Espanol para el contenido, ingles para los nombres de archivos y carpetas | 2026-08-31 | Vigente |
 | [D-018](#d-018---cinco-principios-de-ingenieria-y-siete-reglas-de-operacion-en-claudemd) | Cinco principios de ingenieria y siete reglas de operacion en `CLAUDE.md` | 2026-08-31 | Vigente |
+| [D-019](#d-019---un-bloque-de-verificacion-antiguo-se-corrige-por-nota-fechada-nunca-reescribiendolo) | Un bloque de verificacion antiguo se corrige por nota fechada, nunca reescribiendolo | 2026-09-01 | Vigente |
+| [D-020](#d-020---manager-escribe-en-tasksmd-al-registrar-un-hallazgo-de-auditoria) | `manager` escribe en `tasks.md` al registrar un hallazgo de auditoria | 2026-09-01 | Vigente |
 
 ---
 
@@ -409,6 +411,40 @@ $ git grep -nE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' -- .cl
 exit=1
 ```
 
+🕒 **Nota anadida el 2026-09-01, tras el hallazgo `F-001` de `R-002`.** El bloque de arriba
+se deja **tal cual se ejecuto**: no se reescribe lo que se corrio en su dia. Lo que se corrige es su
+enunciado. Su titulo decia «cero identificadores `auditor` vivos» sin acotar ambito, pero el comando
+solo cubre `.claude`, `CLAUDE.md` y `project.md` — **no** los seis archivos de `_persistence/` que
+esta misma decision declara dentro del alcance. Leelo como **«cero identificadores `auditor` vivos
+en `.claude`, `CLAUDE.md` y `project.md`»**, que es lo unico que prueba.
+
+El barrido con el ambito completo, ya corregidas las dos fugas de `F-002` y ya escrito el registro
+de esta sesion, cuenta las coincidencias que quedan por archivo:
+
+```
+$ git grep -cE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' -- . ; echo "exit=$?"
+_audit/R-002.md:28
+_audit/S-001.md:1
+_audit/S-002.md:10
+_audit/findings.md:6
+_persistence/assumptions.md:1
+_persistence/decisions.md:14
+_persistence/lessons.md:3
+_persistence/progress.md:7
+_persistence/tasks.md:4
+exit=0
+
+$ git grep -nE '`auditor`|\*\*auditor\*\*|Origen: auditor|agente auditor' -- .claude CLAUDE.md project.md ; echo "exit=$?"
+exit=1
+```
+
+Las coincidencias que quedan son **historico, evidencia citada y registro de esta correccion**, todo
+ello fuera del alcance que el apartado «Lo historico no se reescribe» dejo a proposito: los informes
+de `_audit/`, la narrativa de `progress.md`, `A-001` en `assumptions.md`, `D-012` y esta misma
+entrada en `decisions.md`, `L-005` y `L-006` en `lessons.md`, `T-004` y `T-005` en `tasks.md`, y
+—en `findings.md`— los bloques de evidencia de `F-001` y `F-002`, que citan literal lo que la
+auditoria vio. **Ninguna es una referencia viva al agente.**
+
 ---
 
 ### D-017 - Espanol para el contenido, ingles para los nombres de archivos y carpetas
@@ -468,3 +504,58 @@ exit=1
   chocan con que `manager` «en algunos casos tambien ejecuta». Se resuelve apoyandose en lo que ya
   existe —`report_auditor` revisa lo que `manager` construyo— y queda escrito en `CLAUDE.md` que,
   donde choquen, manda el principio.
+
+---
+
+### D-019 - Un bloque de verificacion antiguo se corrige por nota fechada, nunca reescribiendolo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-001` (`R-002`) encontro que el bloque de verificacion de `D-016` se titulaba
+  «cero identificadores `auditor` vivos» sin acotar ambito, mientras su comando cubria solo tres
+  rutas. El hallazgo se acepta: el enunciado afirmaba mas de lo que el comando probaba, y ese hueco
+  tapo una fuga real (`F-002`).
+- **Decision:** cuando un bloque de verificacion ya escrito afirma de mas, **el comando y su salida
+  se dejan intactos** y se le anade debajo una **nota fechada** que (1) acota que probo de verdad y
+  (2) aporta el barrido correcto con su patron, su ambito y su salida cruda. No se edita el bloque
+  original ni se sustituye su comando por otro mas ancho.
+- **Por que:** `CLAUDE.md` prohibe reescribir una entrada antigua para que exhiba evidencia que en
+  su dia no se ejecuto —eso convierte «falta evidencia» en «hay evidencia falsa»—. Sustituir el
+  comando viejo por el nuevo produciria exactamente eso: un registro donde parece que en `S-002` se
+  corrio un barrido que nadie corrio. La nota deja las dos cosas visibles: lo que se probo entonces
+  y lo que se probo despues.
+- **Alternativas descartadas:** editar el titulo del bloque para acotarlo (mas limpio de leer, pero
+  borra que la afirmacion ancha existio, que es justo lo que `F-001` documenta); dejarlo como estaba
+  y anotar solo en `findings.md` (el defecto queda vivo en el archivo que la gente lee).
+- **Clasificacion:** **reversible a criterio** —anadir texto a un archivo versionado, sin efecto
+  fuera del repositorio—, asi que se decide y se registra sin escalar. Todavia no existe en
+  `_persistence/` un inventario de acciones irreversibles.
+
+---
+
+### D-020 - `manager` escribe en `tasks.md` al registrar un hallazgo de auditoria
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** dos reglas se cruzan. `tasks.md` dice «este archivo no se escribe a mano durante la
+  jornada: lo produce el cierre de sesion». `CLAUDE.md`, en «Que hacer con una auditoria», ordena a
+  `manager` registrar cada hallazgo aceptado como **`T-XXX` con `Origen: report_auditor`** y citar
+  esa `T-XXX` en la fila de `_audit/findings.md`.
+- **Decision:** para el **unico** caso de registrar un hallazgo de auditoria, manda `CLAUDE.md`:
+  `manager` escribe la `T-XXX` en el momento de evaluar el hallazgo. Todo lo demas de `tasks.md`
+  sigue siendo del `session-closer`.
+- **Por que:** la fila de `findings.md` exige citar la `T-XXX`, y una fila que cita una tarea que no
+  existe no es auditable. Esperar al cierre dejaria el hallazgo evaluado y sin registro durante toda
+  la jornada, que es exactamente el agujero que `Aceptado — pendiente` existe para tapar.
+- **Alternativas descartadas:** dejar la `T-XXX` al `session-closer` y que `manager` solo anote en
+  `findings.md` (rompe la fila, que pide el codigo); registrar el hallazgo solo en `decisions.md`
+  (lo saca del unico tablero donde se mira que falta por hacer).
+- **Clasificacion:** **reversible a criterio** —una entrada de texto en un archivo versionado—, asi
+  que se decide y se registra sin escalar. Se deja **declarada como tension abierta**: si el usuario
+  prefiere lo contrario, la regla de `tasks.md` deberia decirlo con la excepcion escrita dentro.

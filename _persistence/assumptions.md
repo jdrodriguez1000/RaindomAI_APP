@@ -67,6 +67,24 @@ Un supuesto reescrito conserva su enunciado anterior recuperable desde el propio
 ⚠️ **La segunda señal es la que hace este supuesto refutable de verdad.** La primera podria
 explicarse por un trabajo sin defectos; la segunda no admite otra lectura.
 
+🕒 **Observacion del 2026-09-01 (`S-003`), primer disparador con material real.** Ninguna de
+las dos señales de refutacion se cumple, y hay evidencia a favor: `R-002` abrio cuatro hallazgos
+sobre trabajo que `manager` habia hecho el dia anterior, y los cuatro se verificaron ciertos contra
+`HEAD` antes de aceptarlos. Un auditor complaciente es justo el que no los habria abierto.
+
+```
+$ git grep -n "| Pendiente |" -- _audit/index.md ; echo "exit=$?"
+exit=1
+
+$ git grep -nc "Aceptado — pendiente |" -- _audit/findings.md ; echo "exit=$?"
+_audit/findings.md:8
+exit=0
+```
+
+Cero sesiones cerradas sin auditar (señal 2), y cero auditorias `Sin hallazgos` sostenidas
+(señal 1). El supuesto **sigue `Abierto`**: una sola pasada no lo confirma, y la revision explicita
+esta fijada a las **tres auditorias registradas** —hoy hay dos, `R-001` y `R-002`—.
+
 ---
 
 ### A-002 - El brief recibido es el encargo completo

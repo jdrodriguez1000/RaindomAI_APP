@@ -11,6 +11,7 @@
 |---|---|---|---|---|---|---|
 | `S-001.md` | S-001 | 2026-08-31 | `6a16e5f` | `R-001.md` | Sin hallazgos | - |
 | `S-002.md` | S-002 | 2026-08-31 | `badc878` | `R-002.md` | Con hallazgos (4) | F-001, F-002, F-003, F-004 |
+| `S-003.md` | S-003 | 2026-09-01 | Pendiente | Pendiente | Pendiente | - |
 
 ---
 

@@ -26,6 +26,7 @@
 |---|---|---|---|
 | [S-001](#s-001---primer-cierre-se-monta-la-forma-de-trabajar) | Primer cierre: se monta la forma de trabajar | 2026-08-31 | `000_preproject` |
 | [S-002](#s-002---rename-del-agente-de-auditoria-y-nuevas-reglas-de-claudemd) | Rename del agente de auditoria y nuevas reglas de `CLAUDE.md` | 2026-08-31 | `000_preproject` |
+| [S-003](#s-003---se-evaluan-y-registran-los-cuatro-hallazgos-de-r-002) | Se evaluan y registran los cuatro hallazgos de `R-002` | 2026-09-01 | `000_preproject` |
 
 ---
 
@@ -51,25 +52,32 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-08-31 (S-002) |
+| Ultima actualizacion | 2026-09-01 (S-003) |
 | Salud | En marcha |
-| Avance de la etapa | El primer commit (`6a16e5f`) ya quedo cerrado y su auditoria `R-001` ya corrio sobre `S-001`. En esta sesion se renombro el agente `auditor` a `report_auditor` en todo el repositorio (archivo, `name:`, y cada referencia viva) y se ampliaron `CLAUDE.md` y `project.md` con la regla de idioma (espanol para contenido, ingles para nombres de archivo/carpeta) y con los cinco principios de ingenieria (`PI-1`..`PI-5`) y siete reglas de operacion aportados por el usuario. Sigue pendiente el trabajo de producto: `T-001`, `T-002`, `T-003`. |
-| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`); las etapas posteriores a `000_preproject` no estan declaradas (`T-002`); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y del el depende el ciclo entero del producto (`T-003`) |
+| Avance de la etapa | El commit `c575bc0` (auditoria `R-002` sobre `S-002`) dejo cuatro hallazgos abiertos (`F-001`..`F-004`). En esta sesion `manager` los evaluo, verifico cada uno contra `HEAD` y los acepto los cuatro: registro `T-004`..`T-007` con `Origen: report_auditor`, corrigio la fuga de dos identificadores `auditor` vivos, acoto por nota fechada el enunciado del bloque de verificacion de `D-016`, devolvio `DT-001` a `Propuesta (pendiente del usuario)` y corrigio la tabla de actores de `session-closer.md`. Quedaron dos decisiones nuevas (`D-019`, `D-020`) y una leccion nueva (`L-006`). Sigue pendiente el trabajo de producto: `T-001`, `T-002`, `T-003`. |
+| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`); las etapas posteriores a `000_preproject` no estan declaradas (`T-002`); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`); `DT-001` sigue esperando la confirmacion del usuario |
 
 ---
 
 ## 2. Ultimo realizado
 
-Se renombro el agente de auditoria de `auditor` a `report_auditor` en todo el repositorio: el
-archivo (`.claude/agents/auditor.md` → `.claude/agents/report_auditor.md`), el `name:` de su
-frontmatter, y cada referencia viva en `CLAUDE.md`, `project.md`, los tres skills, los otros dos
-agentes y el valor de campo `Origen:` en los seis archivos de `_persistence/` (`D-016`). Lo
-historico que cita `auditor` —`A-001`, `D-012`, `_audit/S-001.md`, `_audit/R-001.md`, la narrativa
-de `progress.md`— se dejo tal cual, deliberadamente. Ademas se amplio `CLAUDE.md` con una seccion
-«Idioma» (espanol para contenido y documentacion, ingles para nombres de archivo y carpeta —
-`D-017`, `C-005`) y con «Principios de ingenieria» (`PI-1`..`PI-5`) y «Reglas de operacion» (`D-018`,
-`C-006`), a partir de un cuerpo aportado por el usuario. `debtec.md` quedo registrado como la unica
-excepcion conocida a la regla de idioma (`DT-001`, confirmada por el usuario, no propuesta).
+`manager` evaluo los cuatro hallazgos que dejo `R-002` sobre `S-002` (`F-001`..`F-004`), verificando
+cada uno contra `HEAD` antes de aceptarlo (los cuatro se aceptaron, ninguno se rechazo). Se
+registraron `T-004`..`T-007` con `Origen: report_auditor`, y sobre cada uno:
+
+- `F-001` — el bloque de verificacion de `D-016` afirmaba «cero identificadores `auditor` vivos» sin
+  acotar ambito; se le anadio debajo una nota fechada que acota el ambito real y aporta el barrido
+  completo (`D-019`: un bloque de verificacion antiguo se corrige por nota, nunca reescribiendolo).
+- `F-002` — las dos referencias vivas al handle `auditor` que ese ambito estrecho no cubria
+  (`_audit/findings.md:3` y un ejemplo en `_persistence/tasks.md`) se corrigieron a `report_auditor`.
+- `F-003` — `DT-001` volvio de `Confirmada` a `Propuesta (pendiente del usuario)`: ese valor lo
+  habia escrito el cierre de `S-002`, y el Paso 5 de `protocol-close` se lo prohibe.
+- `F-004` — la tabla de actores de `session-closer.md` describia a `report_auditor` en «su propio
+  repositorio», resto del esquema que `D-012` revoco; ahora nombra lo que escribe de verdad.
+
+Ademas: `L-006` (un bloque de verificacion declara su ambito dentro del enunciado), `D-020` (`manager`
+escribe en `tasks.md` al registrar un hallazgo de auditoria, por mandato de `CLAUDE.md`), y una
+observacion nueva en `A-001` (primera senal a favor del supuesto, con material real de `R-002`).
 
 ---
 
@@ -77,7 +85,7 @@ excepcion conocida a la regla de idioma (`DT-001`, confirmada por el usuario, no
 
 Definir el alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`), que es
 lo que abre la etapa siguiente a `000_preproject`. En paralelo, `manager` debe lanzar `report_auditor`
-sobre el commit de este cierre.
+sobre el commit de este cierre, y pedir al usuario que confirme o rechace `DT-001` (`F-003`).
 
 ---
 
@@ -153,6 +161,33 @@ Plantilla:
   regla de idioma (`DT-001`, `Confirmacion: Confirmada`).
 - **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`, sin tocar esta sesion.
   `DT-001` (renombrar `debtec.md` a `techdebt.md`) sigue sin pagarse.
+
+---
+
+### S-003 - Se evaluan y registran los cuatro hallazgos de `R-002`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-01 |
+| Etapa | `000_preproject` |
+| Tareas | T-004, T-005, T-006, T-007 |
+
+- **Que se hizo:** `manager` evaluo los cuatro hallazgos abiertos por `R-002` sobre `S-002`
+  (`F-001`..`F-004`), verificando cada uno contra `HEAD` (`c575bc0`) antes de aceptarlo. Los cuatro
+  se aceptaron: `T-004` acoto por nota fechada el enunciado del bloque de verificacion de `D-016`
+  sin reescribir el comando ya ejecutado (`D-019`); `T-005` corrigio los dos identificadores
+  `auditor` vivos que ese ambito estrecho dejo fuera (`_audit/findings.md:3` y un ejemplo de
+  `_persistence/tasks.md`); `T-006` devolvio `DT-001` de `Confirmada` a
+  `Propuesta (pendiente del usuario)`, valor que el Paso 5 de `protocol-close` prohibe escribir al
+  `session-closer`; `T-007` corrigio la tabla de actores de `.claude/agents/session-closer.md`, que
+  describia a `report_auditor` en «su propio repositorio» (resto del esquema que `D-012` revoco).
+  Se registro ademas `L-006` (un bloque de verificacion declara su ambito dentro del enunciado),
+  `D-020` (`manager` escribe en `tasks.md` al registrar un hallazgo de auditoria) y una observacion
+  nueva en `A-001`, primera senal a favor del supuesto con material real. Las cuatro filas de
+  `_audit/findings.md` pasaron de `Abierto` a `Aceptado — pendiente`, citando su `T-XXX`.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `DT-001` sigue sin la
+  confirmacion del usuario (ahora correctamente marcada como pendiente). Los cuatro hallazgos
+  quedan `Aceptado — pendiente` hasta que una auditoria posterior verifique la correccion sobre este
+  commit y los cierre.
 
 ---
 
