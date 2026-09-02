@@ -28,9 +28,13 @@
 | [F-014](#f-014---el-avance-de-la-etapa-de-progressmd-atribuye-mal-la-procedencia-de-los-hallazgos-y-cuenta-f-006-dos-veces) | El «Avance de la etapa» de `progress.md` atribuye mal la procedencia de los hallazgos y cuenta `F-006` dos veces | R-005 | Baja | Implementado |
 | [F-015](#f-015---005_discovery-sigue-declarada-sin-su-archivo-en-_phases-y-ya-nadie-lo-agenda) | `005_discovery` sigue declarada sin su archivo en `_phases/`, y ya nadie lo agenda | R-006 | Media | Implementado |
 | [F-016](#f-016---el-criterio-de-cierre-de-t-015-no-se-cumple-al-ejecutarlo-y-la-tarea-queda-implementada) | El criterio de cierre de `T-015` no se cumple al ejecutarlo, y la tarea queda `Implementada` | R-006 | Baja | Implementado |
-| [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Aceptado — pendiente |
-| [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Aceptado — pendiente |
-| [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Aceptado — pendiente |
+| [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Implementado |
+| [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Implementado |
+| [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Implementado |
+| [F-020](#f-020---la-entrada-de-f-017-en-findingsmd-conserva-la-linea-que-dice-que-sigue-pendiente-de-evaluar) | La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar | R-008 | Baja | Abierto |
+| [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Abierto |
+| [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Abierto |
+| [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Abierto |
 
 ---
 
@@ -960,9 +964,9 @@ _persistence/tasks.md:463:  quien la ejecuta seguian diciendo «es la unica exce
 | Auditoria | R-007 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-023` |
-| Cerrado en | |
+| Cerrado en | `f096fff` (`R-008`) |
 
 - **Que se observo:** `T-020` produce documentacion, asi que su Definicion de Terminado es «existe
   su bloque de verificacion: la orden ejecutada literal y su salida cruda» (`CLAUDE.md`, PI-5). La
@@ -998,6 +1002,12 @@ $ git show 122b770:_audit/S-007.md | sed -n '/^## 6/,$p' | grep -c '^~~~'
   **`Aceptado — pendiente`**, que `Implementado` lo escribe la auditoria siguiente.
 - **Que se hizo:** pendiente de la evaluacion de `manager`.
 
+- **Verificado por `R-008`** sobre `f096fff`: la ficha de `T-020` lleva ahora sus dos bloques
+  con salida cruda anclada a `122b770` y nota fechada que declara que se anadieron despues.
+  Reproducidos: `git ls-tree --name-only 122b770 _phases/` devuelve los dos archivos de etapa, y
+  `git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" 122b770 -- .claude CLAUDE.md _phases _methodology`
+  devuelve `exit=1`. **`Implementado`.**
+
 ---
 
 ### F-018 - `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida
@@ -1006,9 +1016,9 @@ $ git show 122b770:_audit/S-007.md | sed -n '/^## 6/,$p' | grep -c '^~~~'
 | Auditoria | R-007 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-024` |
-| Cerrado en | |
+| Cerrado en | `f096fff` (`R-008`) |
 
 - **Que se observo:** la ficha afirma un resultado sobre un ambito que sus dos bloques de
   verificacion no cubren —los dos corren acotados—, y el barrido global, reproducido, devuelve una
@@ -1039,6 +1049,12 @@ $ git grep -nE "Unica excepcion" 122b770 -- .claude
   las catorce coincidencias del registro vivo. **`Aceptado — pendiente`**, que `Implementado` lo
   escribe la auditoria siguiente.
 
+- **Verificado por `R-008`** sobre `f096fff`: la frase «sobre todo el repositorio» queda acotada
+  con nota fechada y el tercer bloque trae el barrido global. Reproducido:
+  `git grep -niE "..." 122b770 -- . | wc -l` devuelve `59`, y el mismo patron sobre
+  `.claude CLAUDE.md _phases _persistence project.md` devuelve `14` — las cifras escritas en la
+  ficha, al numero. **`Implementado`.**
+
 ---
 
 ### F-019 - La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido
@@ -1047,9 +1063,9 @@ $ git grep -nE "Unica excepcion" 122b770 -- .claude
 | Auditoria | R-007 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-025` |
-| Cerrado en | |
+| Cerrado en | `f096fff` (`R-008`) |
 
 - **Que se observo:** la seccion 1 de `_audit/S-007.md` presenta su lista como salida de
   `git show --stat --name-only --format= HEAD` y la describe como «estos siete mas el nuevo». El
@@ -1089,3 +1105,186 @@ $ git show d906a5d:_audit/S-006.md | grep -n "su fila en"
   en `T-025`: la exigencia pasa del bloque explicativo a la **estructura del informe** de
   `protocol-close`, donde no se puede escribir la seccion 1 sin verla. **`Aceptado — pendiente`**,
   que `Implementado` lo escribe la auditoria siguiente.
+- **Verificado por `R-008`** sobre `f096fff`: la correccion fue al mecanismo, y el efecto se ve en
+  el propio `S-008`. `diff <(git show --name-only --format= f096fff | grep . | sort) <(lista pegada en la seccion 1)`
+  no devuelve nada: dieciseis archivos en el comando, los mismos dieciseis en la lista.
+  `_audit/S-007.md` sigue intacto, como `D-040` decidio. **`Implementado`.**
+
+---
+
+### F-020 - La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar
+| Campo | Valor |
+|---|---|
+| Auditoria | R-008 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la entrada de `F-017` tiene **dos** vinetas «Que se hizo» que se contradicen.
+  `F-018` y `F-019` sustituyeron la linea vieja; `F-017` la dejo y anadio la nueva encima:
+
+```
+$ git show f096fff:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | grep -n "Que se hizo"
+36:- **Que se hizo:** **aceptado** el 2026-09-02 (`S-008`). Verificado contra `HEAD` (`ae06147`) antes
+43:- **Que se hizo:** pendiente de la evaluacion de `manager`.
+```
+
+- **Por que importa:** el registro de hallazgos dice dos cosas incompatibles sobre el mismo
+  hallazgo. La fila del indice y el campo `Estado` llevan el dato bueno, pero quien lea la entrada de
+  arriba abajo se queda con la ultima linea, que afirma que nadie lo evaluo. Es el archivo cuyo unico
+  proposito es que un hallazgo no diga lo que nos convenga.
+- **Que lo corregiria:** borrar la vineta residual «Que se hizo: pendiente de la evaluacion de
+  `manager`» de la entrada de `F-017`, dejando solo la fechada.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-021 - `progress.md` atribuye a `R-007` un commit auditado que no es el suyo
+| Campo | Valor |
+|---|---|
+| Auditoria | R-008 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el campo «Avance de la etapa» abre con «`R-007` (sobre `ae06147`)». `ae06147`
+  es el commit que **contiene** `R-007`, no el que `R-007` audito, que es `122b770`:
+
+```
+$ git grep -n "R-007. (sobre" f096fff -- _persistence
+f096fff:_persistence/progress.md:62:| Avance de la etapa | `R-007` (sobre `ae06147`) abrio `F-017`, `F-018` y `F-019`. ...
+
+$ git show f096fff:_audit/R-007.md | grep -n "Commit auditado"
+7:| Commit auditado | `122b770` |
+
+$ git show f096fff:_audit/index.md | grep "S-007"
+| `S-007.md` | S-007 | 2026-09-02 | `122b770` | `R-007.md` | Con hallazgos (3) | F-017, F-018, F-019 |
+```
+
+- **Por que importa:** `progress.md` es lo que `session-starter` lee al arrancar y lo primero que se
+  cita al reconstruir que paso. Un hash mal atribuido manda a quien lo siga a un commit que no
+  contiene nada de lo que se le dice que encontrara. La entrada de `S-007`, en el mismo archivo,
+  escribio la formula bien: «`R-006` (sobre `d906a5d`)».
+- **Que lo corregiria:** sustituir `ae06147` por `122b770` en esa primera mencion. El segundo
+  `ae06147` de la misma celda —«verifico los tres contra `HEAD` (`ae06147`)»— es correcto y no se
+  toca.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-022 - Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce
+| Campo | Valor |
+|---|---|
+| Auditoria | R-008 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-036`, `D-038` y `D-040` afirman cada uno una salida concreta, y ninguna sale
+  al correr la orden literal.
+
+`D-036` escribe `grep -n "_discovery" project.md ; echo "exit=$?"` con resultado `exit=1`. El patron
+no lleva barra, y la cadena `005_discovery` contiene `_discovery`:
+
+```
+$ git show f096fff:project.md | grep -c "_discovery"
+10
+
+$ git show f096fff:project.md | grep -n "_discovery" | tail -3 ; echo "exit=$?"
+166:| `N-XXX` | `_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-036`) | necesidad |
+167:| `I-XXX` | `_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`) | interesado |
+184:—porque el archivo de etapa de `005_discovery` lo cita y un codigo citado sin declarar es un
+exit=0
+```
+
+Sobre `122b770`, antes de esta sesion, el mismo comando ya devolvia seis lineas: **la salida
+registrada no pudo salir nunca**. Lo que la decision quiere demostrar —que `_discovery/` no tiene
+fila en «Carpetas propias»— si es cierto; el comando escrito no lo demuestra.
+
+`D-038` escribe un barrido de `I-NNN` sobre `_persistence/ _audit/ project.md` con resultado
+`exit=1`:
+
+```
+$ git archive f096fff | tar -x -C "$TMP" ; cd "$TMP"
+$ grep -rnoE "\bI-[0-9]{3}\b" _persistence/ _audit/ project.md ; echo "exit=$?"
+_persistence/decisions.md:1617:I-001
+_persistence/decisions.md:1626:I-001
+_persistence/decisions.md:1633:I-001
+_persistence/decisions.md:1762:I-001
+_persistence/tasks.md:843:I-001
+_persistence/tasks.md:844:I-002
+_persistence/tasks.md:845:I-003
+exit=0
+```
+
+El fondo es correcto —no habia ningun `I-NNN` con el que colisionar **antes** de la decision—, pero
+el bloque se escribio sin anclar, y las siete coincidencias son texto que la propia sesion acababa
+de escribir. Anclado a `122b770` con `git grep`, el bloque diria la verdad.
+
+`D-040` escribe `git status --porcelain -- _audit/S-007.md ; echo "exit=$?"` con resultado `exit=1`.
+`git status` devuelve `0` cuando no tiene nada que reportar:
+
+```
+$ git status --porcelain -- _audit/S-007.md ; echo "exit=$?"
+exit=0
+```
+
+La misma comprobacion escrita en `T-025` como `| wc -l` con resultado `0` si es correcta.
+
+- **Por que importa:** un bloque de verificacion existe para que nadie tenga que rehacer el barrido.
+  Uno cuya salida no se reproduce cuesta mas que no tenerlo: obliga a repetirlo **y** a averiguar si
+  la diferencia es un error de transcripcion o una afirmacion falsa. `Media` porque son tres en un
+  mismo commit y porque la familia —`F-005`, `F-008`, `F-011`— ya llevaba tres avisos.
+- **Que lo corregiria:** en `D-036`, acotar el patron a la fila de «Carpetas propias» que se quiere
+  demostrar; en `D-038`, anclar el barrido a `122b770` con `git grep`; en `D-040`, usar el `| wc -l`
+  que ya emplea `T-025`. `CLAUDE.md` prohibe reescribir una salida antigua para que exhiba lo que no
+  dio: la forma correcta es la nota fechada al lado, no el borrado.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-023 - `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-008 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el informe lo somete a auditoria en su seccion 6 y la ficha lo declara sin
+  disimulo. La convencion de `tasks.md` dice, literal:
+
+```
+$ git show f096fff:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tareas/p' | grep -n "exigen lo mismo" -A 3
+46:⚠️ **Son dos excepciones, no una puerta.** Las dos exigen lo mismo: **un `D-XXX` o un `F-NNN` que
+47-las respalde, citado en la propia tarea**. Sin esa cita, cualquier edicion a mano se vuelve
+48-indistinguible de saltarse la regla — y entonces la regla deja de existir. Lo demas sigue siendo del
+49-`session-closer`.
+```
+
+Y ninguna decision de esta sesion la cubre:
+
+```
+$ git show f096fff:_persistence/decisions.md | grep -n "T-026" ; echo "exit=$?"
+exit=1
+```
+
+- **Por que importa:** declararlo es lo correcto y hay que decirlo — un incumplimiento escrito se
+  audita y uno deshecho no. Pero la desviacion se quedo en prosa dentro de la propia tarea que la
+  comete: `decisions.md`, que es donde `CLAUDE.md` manda el porque de lo que se elige entre
+  alternativas, no la registra; y la convencion de `tasks.md` sigue diciendo «dos excepciones» sin
+  nada al lado que recoja el caso. Es el mismo hueco que `F-007` abrio con `D-020`. `Baja` porque no
+  cambia nada del contenido del repositorio y porque el propio auditado lo puso encima de la mesa.
+- **Que lo corregiria:** una de dos, y la eleccion es de `manager`: registrar una `D-XXX` que asuma
+  la desviacion como caso puntual, con su clasificacion de reversibilidad declarada, y citarla en la
+  ficha; o, si el patron se considera legitimo, abrirlo como tercera excepcion con su `D-XXX` **en la
+  convencion**, que es donde lo lee quien ejecuta.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
