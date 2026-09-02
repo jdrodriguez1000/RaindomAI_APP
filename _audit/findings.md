@@ -38,8 +38,11 @@
 | [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Implementado |
 | [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Implementado |
 | [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Implementado |
-| [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Aceptado — pendiente |
-| [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Aceptado — pendiente |
+| [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Implementado |
+| [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Implementado |
+| [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Abierto |
+| [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Abierto |
+| [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Abierto |
 
 ---
 
@@ -1650,9 +1653,9 @@ $ git show 51354ef:_persistence/techdebt.md | grep -n 'L-013'
 | Auditoria | R-010 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-035` |
-| Cerrado en | |
+| Cerrado en | `R-011` (`2a2d3b6`) |
 
 - **Que se observo:** dos de las tres ordenes del bloque «Verificacion» de `T-032` devuelven sobre
   `51354ef` algo distinto de lo registrado. La primera registra tres lineas (`387`, `417`, `451`);
@@ -1716,6 +1719,29 @@ $ git show HEAD:_persistence/progress.md | sed -n '64p' | grep -o 'ancla con not
 ancla con nota fechada
 ~~~
 
+- **Que verifico la auditoria (`R-011`, sobre `2a2d3b6`):** la nota existe en la ficha de `T-032`,
+  y sus ordenes ancladas a `51354ef` se reproducen.
+
+~~~
+$ git show 2a2d3b6:_persistence/tasks.md | awk '/^### T-032 /,/^### T-033 /' | grep -c 'Nota del 2026-09-02 (`T-035`, hallazgo `F-027`)'
+1
+
+$ git show 51354ef:_persistence/progress.md | grep -n "dejando nota fechada\|con nota fechada" | cut -d: -f1
+64
+385
+415
+449
+472
+
+$ git show 51354ef:_persistence/progress.md | grep -c "ae06147"
+7
+
+$ git show 51354ef:_persistence/tasks.md | grep -n "^| \[T-028\]" | grep -c "Cancelada"
+1
+~~~
+
+  **`Implementado`.**
+
 ---
 
 ### F-028 - La lista de la seccion 1 del informe omite dos ediciones de `decisions.md`
@@ -1724,9 +1750,9 @@ ancla con nota fechada
 | Auditoria | R-010 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-036` |
-| Cerrado en | |
+| Cerrado en | `R-011` (`2a2d3b6`) |
 
 - **Que se observo:** la vineta de `_persistence/decisions.md` en la seccion 1 de `_audit/S-010.md`
   dice «nacen `D-050`, `D-051` y `D-052`» y nada mas. El diff muestra ademas dos notas fechadas
@@ -1753,3 +1779,129 @@ $ git show 51354ef -- _persistence/decisions.md | grep -n "^+.*Nota del 2026-09-
 $ git show HEAD:_audit/S-010.md | sed -n '58,64p' | grep -c "T-033"
 0
 ~~~
+
+- **Que verifico la auditoria (`R-011`, sobre `2a2d3b6`):** la nota fechada existe en
+  `_audit/S-010.md`, bajo la vineta de `decisions.md` y sin reescribir el texto original (`D-019`),
+  y su orden anclada a `51354ef` se reproduce.
+
+~~~
+$ git show 2a2d3b6:_audit/S-010.md | grep -c 'Nota del 2026-09-02 (`T-036`, hallazgo `F-028`)'
+1
+
+$ git show 51354ef -- _persistence/decisions.md | grep -c "^+📌 \*\*Nota del 2026-09-02 (\`T-033\`"
+2
+~~~
+
+  **`Implementado`.**
+
+---
+
+### F-029 - `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara
+| Campo | Valor |
+|---|---|
+| Auditoria | R-011 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la convencion de `_persistence/tasks.md` declara cuatro valores de `Estado`
+  (`Implementada` / `No implementada` / `Cancelada` / `Suspendida`). Las dos fichas nuevas de
+  `S-011` usan un quinto, en la ficha y en el indice:
+
+~~~
+$ git show 2a2d3b6:_persistence/tasks.md | grep -nE '^\| Estado \| ' | grep -vE 'Implementada|No implementada|Cancelada|Suspendida'
+1598:| Estado | Pendiente |
+1651:| Estado | Pendiente |
+
+$ git show 2a2d3b6:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Pendiente |"
+2
+~~~
+
+- **Por que importa:** el propio archivo dice que anadir un valor nuevo «es una decision, no una
+  improvisacion» y exige su `D-XXX` en la misma pasada en que se escribe la primera tarea que lo
+  usa. Hoy hay dos tareas cuyo estado no significa nada declarado: un barrido que filtre por los
+  cuatro valores validos las deja fuera —la seccion 2 del informe tuvo que anadir `Pendiente` a mano
+  a su `grep`—, y el trabajo abierto de la etapa deja de poder contarse con un solo criterio.
+- **Que lo corregiria:** o normalizar las dos fichas a `No implementada`, o declarar `Pendiente` en
+  la tabla de convenciones con su `D-XXX`, explicando en que se distingue de `No implementada`.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-030 - `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita
+| Campo | Valor |
+|---|---|
+| Auditoria | R-011 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** las dos excepciones que permiten escribir `tasks.md` fuera del cierre exigen
+  «un `D-XXX` o un `F-NNN` que las respalde, citado en la propia tarea». La ficha de `T-038` no cita
+  ninguno de los dos; `T-037`, escrita en la misma pasada, si:
+
+~~~
+$ git show 2a2d3b6:_persistence/tasks.md | awk '/^### T-038 /,0' | grep -oE '`(D|F)-[0-9]+`' | sort -u
+(sin salida)
+
+$ git show 2a2d3b6:_persistence/tasks.md | awk '/^### T-037 /,/^### T-038 /' | grep -oE '`D-[0-9]+`' | sort -u
+`D-054`
+~~~
+
+- **Por que importa:** la convencion lo dice con todas las letras — sin esa cita, una edicion a mano
+  se vuelve indistinguible de saltarse la regla, y entonces la regla deja de existir. `Baja` porque
+  el contenido de la tarea es correcto y su origen se adivina; lo que falta es el enganche que la
+  hace auditable.
+- **Que lo corregiria:** citar en `T-038` el registro que la respalda —`D-054` si nacio de la misma
+  consulta, o un `D-XXX` nuevo—, o dejar escrito por que no entra por ninguna de las dos
+  excepciones.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-031 - El recuento «quince lecciones Sin evaluar» no se reproduce sobre su propio commit, y esta en cuatro sitios
+| Campo | Valor |
+|---|---|
+| Auditoria | R-011 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el bloque de verificacion de `D-056` registra `15` y su prosa afirma «hoy sus
+  quince lecciones estan las quince `Sin evaluar`». Sobre el commit que las publica son `17`: la
+  propia sesion anadio `L-016` y `L-017` despues de correr el barrido. La cifra vieja aparece en
+  cuatro sitios, dos de ellos vivos:
+
+~~~
+$ git show 2a2d3b6:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
+17
+
+$ git show 2a2d3b6:_persistence/decisions.md | grep -n "quince lecciones\|las quince"
+2725:  de cerrar**, y hoy sus quince lecciones estan las quince `Sin evaluar`. La etapa no puede cerrar
+2738:las quince lecciones tienen la columna:**
+
+$ git show 2a2d3b6:_persistence/progress.md | grep -n "quince lecciones"
+101:memoria; `000_preproject` gana esa casilla estando cerca de cerrar, con sus quince lecciones hoy
+554:  quince lecciones `Sin evaluar`.
+
+$ git show 2a2d3b6:_audit/S-011.md | grep -n "quince"
+88:  hecha», esta ultima con sus quince lecciones de la etapa hoy `Sin evaluar`.
+~~~
+
+- **Por que importa:** es el sexto commit consecutivo con el mismo defecto (`F-005`, `F-008`,
+  `F-011`, `F-022`, `F-025`, `F-027`), y esta vez el numero equivocado esta ademas en la celda viva
+  «Avance de la etapa» de `progress.md`, que es lo primero que lee el arranque siguiente. La cifra
+  no es decorativa: es el volumen de trabajo que bloquea la condicion de salida de `000_preproject`
+  que la propia `D-056` acaba de crear. El informe declara en su seccion 6 el caso de `D-056`; los
+  otros tres sitios no.
+- **Que lo corregiria:** nota fechada al lado —sin reescribir (`D-019`)— en `D-056` y en la celda
+  viva de `progress.md`, con el barrido anclado a `2a2d3b6` y la lectura rehecha sobre `17`. Y, para
+  que no haya un septimo, un mecanismo en el cierre que impida publicar un bloque de verificacion
+  sin ancla: `L-013` y `L-015` ya describen el defecto, lo que falta es quien lo aplique.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
