@@ -152,8 +152,10 @@ su razon escrita.
 
 ## 6. Condicion de salida
 
-La etapa termina cuando **las seis son ciertas**. Son el espejo de los cinco entregables de la
-seccion 8, mas la unica exigencia que la etapa puede hacerle a la auditoria:
+La etapa termina cuando **las ocho son ciertas**. Las cinco primeras son el espejo de los cinco
+entregables de la seccion 8; la sexta es la unica exigencia que la etapa puede hacerle a la
+auditoria; y las dos ultimas son las dos direcciones de las lecciones globales — la septima las
+trae al abrir el proyecto, la octava devuelve al archivo lo que este proyecto aprendio:
 
 - [ ] **La estructura minima existe:** las carpetas de la seccion 5, cada una declarada en
       `project.md`, y el control de carpetas del cierre sin diferencias sin justificar.
@@ -168,11 +170,18 @@ seccion 8, mas la unica exigencia que la etapa puede hacerle a la auditoria:
       registrada y sus hallazgos con estado.
 - [ ] **No queda ningun `F-NNN` sin evaluar:** todos estan `Implementado`, `Aceptado — pendiente` con
       su `T-XXX`, o `No se implementa` con su `D-XXX`.
+- [ ] **La consulta de arranque a las lecciones globales esta hecha y registrada:** los bloques de
+      decisiones/arquitectura y de corte del trabajo, leidos **antes** de definir alcance, con lo
+      que produjeron anotado en `decisions.md` citando el codigo de cada leccion — y con los bloques
+      no recorridos declarados **NO MIRADOS**, no limpios.
+- [ ] **La cosecha esta hecha:** ninguna leccion de esta etapa queda `Sin evaluar` en la columna
+      `Portabilidad` de `lessons.md`, y lo que quedo `Global candidata` esta ya en el archivo de
+      lecciones globales, con su `D-XXX` y con la version nueva del archivo declarada.
 
-⚠️ **La ultima no exige que los hallazgos esten cerrados**, y no es un descuido: cerrar un hallazgo es
+⚠️ **La sexta no exige que los hallazgos esten cerrados**, y no es un descuido: cerrar un hallazgo es
 de la auditoria siguiente. Lo que la etapa si puede exigir es que ninguno se quede sin evaluar.
 
-🔑 **Ninguna de las seis habla del producto**, y ahi esta el criterio entero de la etapa: se sale de
+🔑 **Ninguna de las ocho habla del producto**, y ahi esta el criterio entero de la etapa: se sale de
 `000_preproject` cuando el andamio se sostiene, no cuando se sabe que se va a construir. Eso es lo
 primero que hace la etapa siguiente.
 

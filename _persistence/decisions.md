@@ -61,6 +61,10 @@
 | [D-050](#d-050---f-021-se-trata-como-resuelto-por-desaparicion-y-t-028-pasa-a-cancelada) | `F-021` se trata como resuelto por desaparicion, y `T-028` pasa a `Cancelada` | 2026-09-02 | Vigente |
 | [D-051](#d-051---_workflow-gana-un-archivo-por-etapa-y-ese-archivo-es-el-cuarto-enganche) | `_workflow/` gana un archivo por etapa, y ese archivo es el cuarto enganche | 2026-09-02 | Vigente |
 | [D-052](#d-052---el-reparto-de-005_discovery-no-se-adopta-todavia-se-adopta-al-abrir-la-etapa) | El reparto de `005_discovery` no se adopta todavia: se adopta al abrir la etapa | 2026-09-02 | Vigente |
+| [D-053](#d-053---global_lessonsmd-nace-en-triples_lessons-dentro-de-este-repositorio-de-forma-transitoria) | `global_lessons.md` nace en `TripleS_Lessons/` dentro de este repositorio, de forma transitoria | 2026-09-02 | Vigente |
+| [D-054](#d-054---se-consultan-los-bloques-d-y-e-de-global_lessonsmd-antes-de-abrir-005_discovery) | Se consultan los bloques D y E de `global_lessons.md` antes de abrir `005_discovery` | 2026-09-02 | Vigente |
+| [D-055](#d-055---el-puntero-a-las-lecciones-globales-la-regla-en-claudemd-el-donde-en-projectmd-el-control-en-la-etapa) | El puntero a las lecciones globales: la regla en `CLAUDE.md`, el donde en `project.md`, el control en la etapa | 2026-09-02 | Vigente |
+| [D-056](#d-056---la-cosecha-gana-disparador-una-casilla-por-etapa-y-la-columna-portabilidad-que-la-hace-comprobable) | La cosecha gana disparador: una casilla por etapa, y la columna `Portabilidad` que la hace comprobable | 2026-09-02 | Vigente |
 
 ---
 
@@ -2435,3 +2439,333 @@ $ grep -n "^### A-004" _persistence/assumptions.md
 $ sed -n '/^### A-004/,/^### A-005/p' _persistence/assumptions.md | grep -n "^| Estado |"
 5:| Estado | Abierto |
 ```
+
+---
+
+### D-053 - `global_lessons.md` nace en `TripleS_Lessons/` dentro de este repositorio, de forma transitoria
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto en `temporal/` dos archivos de un proyecto anterior:
+  `lessons-global.md` (98 lecciones transversales, v2, destiladas de `Edu_TripleS` y
+  `AIzar_Auditor`) y `work-with-lessons-global.md` (una propuesta de integracion redactada por una
+  instancia anterior de este mismo proyecto, que nunca llego al registro). El objetivo que el
+  usuario enuncio no es auditar con ellas: es **poder usar lo aprendido en un proyecto al abrir el
+  siguiente**.
+- **Decision:** el archivo se construye como `TripleS_Lessons/global_lessons.md`, **dentro de este
+  repositorio y de forma transitoria**, con las 98 lecciones importadas y una capa de navegacion
+  nueva. El original definitivo vivira en un repositorio propio, y **donde se crea ese repositorio
+  esta pendiente de acordar con el usuario**, que lo dejo explicitamente como paso siguiente.
+- **Por que aqui y no en `_methodology/`:** `_methodology/` es una de las seis carpetas que tienen
+  que poder copiarse tal cual a otro proyecto. Meter ahi el archivo lo convertiria en **una copia
+  por proyecto**, que es exactamente la forma de distribucion que hace divergir el material
+  compartido: hoy ya hay dos origenes distintos (`Edu_TripleS` dio la v1, `AIzar_Auditor` la v2) y
+  cuatro proyectos en disco. Una carpeta aparte deja claro que esto es un **invitado en transito**,
+  no material de este proyecto.
+- **Que se hizo con el contenido, y esta es la frontera:** la **capa de navegacion es nueva**
+  —cabecera, «Como se busca aqui», y los indices §1 por momento de trabajo, §2 por sintoma y §3 por
+  bloque—; **las 98 lecciones y las tres secciones finales se importaron literales**, sin tocar una
+  coma. Nada del contenido heredado se reescribio.
+- **Por que no se adapto el contenido:** adaptar es una pasada aparte, con sus propias decisiones
+  (el Bloque H describe un montaje de dos terminales que no es el nuestro; la seccion «Uso en
+  auditoria» dice «los nueve» bloques cuando son diez y usa codigos `H-NN` de otro proyecto). Hacerlo
+  en la misma pasada que la importacion mezclaria «lo que vino» con «lo que cambiamos», y entonces
+  no habria forma de contrastar el archivo contra su origen.
+- **Alternativas descartadas:** (1) meterlo en `_methodology/` ahora —es lo que proponia
+  `work-with-lessons-global.md`, y produce N copias divergentes, que es `LG-98` del propio archivo—;
+  (2) crear ya el repositorio aparte —el usuario pidio expresamente detenerse antes de eso—;
+  (3) dejarlo en `temporal/` —`project.md` declara esa carpeta fuera del repositorio y prohibida a
+  los protocolos, asi que ahi el archivo no existe para el proyecto.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es
+  crear una carpeta y un archivo nuevos en un repositorio con historia; mover la carpeta o borrarla
+  no destruye nada, porque el original sigue en `temporal/` y el destino final esta por decidir.
+- **Que queda pendiente:** acordar donde vive el repositorio propio, crearlo con su `git` y
+  enlazarlo a GitHub; y **despues** la pasada de adaptacion del contenido.
+
+**Verificacion — el archivo existe, las 98 lecciones estan completas y sin duplicados, y el cuerpo
+importado es identico al de origen:**
+
+```
+$ grep -oE "^\| \*\*LG-[0-9]+" TripleS_Lessons/global_lessons.md | grep -oE "LG-[0-9]+" > /tmp/got.txt
+$ wc -l < /tmp/got.txt ; sort -u /tmp/got.txt | wc -l
+98
+98
+
+$ for i in $(seq -w 1 98); do echo "LG-$i"; done > /tmp/want.txt
+$ diff <(sort /tmp/want.txt) <(sort /tmp/got.txt) ; echo "exit=$?"
+exit=0
+
+$ diff <(sed -n '43,297p' temporal/lessons-global.md) \
+       <(sed -n '/^## Los seis principios raíz$/,$p' TripleS_Lessons/global_lessons.md) ; echo "exit=$?"
+exit=0
+```
+
+⚠️ **La tercera orden no se podra reproducir desde el repositorio**, y se escribe sabiendolo:
+`temporal/` esta excluida por `.gitignore`, asi que el archivo de origen no queda versionado. Es la
+razon por la que las dos primeras ordenes —que si son reproducibles sobre el arbol— van al lado.
+
+📌 **Nota del 2026-09-02: la condicion que esta decision dejo abierta ya se cumplio.** El
+repositorio propio existe, es privado, y `global_lessons.md` esta subido en el. En consecuencia
+`TripleS_Lessons/` **se borra de este repositorio** y su fila sale de «Carpetas propias» de
+`project.md`. El texto de arriba no se reescribe (`D-019`): describe lo que era cierto cuando se
+tomo la decision.
+
+- **Donde vive ahora:** `C:\Users\USUARIO\Documents\Company_TripleS\TripleS_Lessons`, enlazado a
+  `https://github.com/jdrodriguez1000/TripleS_Lessons.git`.
+- **Visibilidad:** el repositorio remoto se creo **publico**. Antes de subir nada se paso a
+  **privado** por decision del usuario, porque el archivo lleva nombres de proyectos internos como
+  marca de procedencia (`Edu_TripleS`, `AIzar_Auditor`, `RandomAI`) y describe fallos concretos de
+  esos proyectos. La procedencia se conserva: es lo que permite volver al caso real de cada leccion.
+- **La carpeta nunca llego a estar versionada aqui:** se creo y se borro dentro de la misma sesion,
+  sin pasar por ningun commit. Por eso su fila de `project.md` se borra en vez de anotarse.
+
+**Verificacion — el archivo esta en el remoto con las 98 lecciones, la copia borrada era identica a
+la subida, y el repositorio es privado:**
+
+```
+$ git -C <ruta del repo nuevo> ls-tree -r --name-only origin/main
+global_lessons.md
+$ git -C <ruta del repo nuevo> show origin/main:global_lessons.md | grep -c "^| \*\*LG-"
+98
+
+$ diff <(git -C <ruta del repo nuevo> show origin/main:global_lessons.md) TripleS_Lessons/global_lessons.md ; echo "exit=$?"
+exit=0
+
+$ gh repo view jdrodriguez1000/TripleS_Lessons --json visibility,isEmpty,defaultBranchRef,pushedAt
+{"defaultBranchRef":{"name":"main"},"isEmpty":false,"pushedAt":"2026-09-02T13:48:18Z","visibility":"PRIVATE"}
+```
+
+⚠️ **Las tres primeras ordenes se corrieron antes de borrar la carpeta y no se pueden reproducir
+desde este repositorio**, y se escriben sabiendolo: el `diff` compara contra un archivo que esta
+decision manda borrar, y el repositorio nuevo no es este. La cuarta si es reproducible.
+
+🚨 **La ruta absoluta y el host del remoto se escriben con hueco a proposito.** `project.md` es el
+unico sitio donde van los datos propios, y esta decision vive en `_persistence/`; ademas el
+repositorio nuevo no es una carpeta de este proyecto, asi que no le toca fila en «Carpetas propias».
+Los datos concretos estan en el cuerpo de esta nota, que es prosa del registro, no un control.
+
+---
+
+### D-054 - Se consultan los bloques D y E de `global_lessons.md` antes de abrir `005_discovery`
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `global_lessons.md` vive en un repositorio propio y externo (`D-053`). De sus tres
+  usos —arranque, guia y vara de auditoria— los dos primeros **no exigen traer el archivo al
+  proyecto**: se consulta en su ruta y lo que aterriza aqui es la decision que cambio. El tercero si
+  lo exigira, porque `report_auditor` arranca en frio y solo lee este repositorio.
+- **Decision:** se consultan **los bloques D (`LG-38`–`LG-45`) y E (`LG-46`–`LG-54`)**, 17 lecciones,
+  antes de abrir `005_discovery`. **No se baja ninguna copia** al proyecto.
+- **Por que ahora y no despues:** `LG-39` dice que las decisiones de arquitectura se toman con la
+  menor cantidad de informacion que se va a tener en todo el proyecto, y `005_discovery` es donde se
+  define alcance y objetivo. Leidas despues, estas lecciones confirman lo ya decidido en vez de
+  informarlo — que es `LG-40`: si el documento no cambia nada, no lo estabas usando, lo estabas
+  obedeciendo.
+- **La vara queda anclada**, para que esta lectura se pueda repetir contra lo mismo:
+  `TripleS_Lessons` v2, commit `fa03813`.
+
+**Lo que la lectura produjo — seis lecciones muerden, dos ya estaban cubiertas:**
+
+| Leccion | Que señala aqui | Donde queda |
+|---|---|---|
+| `LG-38` | **no existe la lista de lo irreversible** del proyecto, y `CLAUDE.md` ya lo sabe: parchea su ausencia obligando a declarar la clasificacion en cada respuesta | **`T-037`** |
+| `LG-39` | el brief §23 aplaza **dos puertas de una via**: tecnologia/runtime (#1) y tipo de base de datos (#2). `LG-39` las pone en la lista de «decide ahora» | `005_discovery` |
+| `LG-48` | el brief §20 es una **lista de alcance de 14 viñetas en orden de flujo**, no un MVP. Sin MVP definido antes, los cortes salen feature por feature y no en diagonal | `005_discovery` |
+| `LG-54` | **evaluacion, observabilidad y seguridad no tienen dueño ni sitio.** No se construyen hoy: se les asigna. El dia 1 es ahora | `005_discovery` |
+| `LG-47` + `LG-52` | el **walking skeleton** de este producto es traer un sorteo real de la fuente, guardarlo y mostrarlo — que es exactamente `A-003`. Y `LG-52` añade que un supuesto es algo que hay que **averiguar**, no construir: `A-003` no depende de `A-004` | **`T-003`**, ya existente |
+| `LG-45` | las tres formulas que el brief §23 aplaza (#6 intervalo promedio, #7 proxima aparicion, #8 «estadisticamente esperado») son **numeros derivados**, y un numero derivado se lee como un hecho de la naturaleza. El «indicador estadistico» del §9 es el caso literal | `005_discovery` |
+
+**Lo que salio limpio, y se dice para no declararlo por omision:** `LG-42` (decision con su porque,
+fechada y reversable) esta cubierto por `decisions.md`, que hace mas de lo que la leccion pide; y
+`LG-51` (criterio de cierre escrito antes) esta cubierto por la convencion de `tasks.md`.
+
+**Lo que no se evaluo y por que:** `LG-41`, `LG-43`, `LG-46`, `LG-49`, `LG-50` y `LG-53` aplican
+cuando exista codigo, despliegue o un plan cortado en trozos. Nada de eso existe. **No se declaran
+limpias: se declaran NO MIRADAS** (`LG-85`).
+
+- **Que NO decide esta entrada:** las cinco filas que caen en `005_discovery` son de producto y de
+  alcance, y las decide el usuario al abrir la etapa. Aqui quedan **registradas para que no se
+  pierdan**, no adoptadas.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es leer
+  un archivo externo y registrar lo que produjo; no consume nada ni cierra ninguna puerta.
+
+**Verificacion — la vara consultada existe, esta anclada, y los dos bloques suman las 17 lecciones
+que esta entrada dice haber recorrido:**
+
+```
+$ git -C <ruta de TripleS_Lessons> log -1 --format="%h"
+fa03813
+
+$ git -C <ruta de TripleS_Lessons> show fa03813:global_lessons.md | grep -n "^> \*\*Versión"
+26:> **Versión: 2 · 2026-08-28** · 98 lecciones · 10 bloques
+
+$ git -C <ruta de TripleS_Lessons> show fa03813:global_lessons.md \
+  | awk '/^## Bloque [DE] /{b=1} /^## Bloque F/{b=0} /^\| \*\*LG-/{if(b)n++} END{print n}'
+17
+```
+
+⚠️ **Las tres ordenes se corren contra un repositorio que no es este**, y por eso llevan la ruta
+como hueco: el dato propio vive en `project.md`, y ese repositorio no es una carpeta de este
+proyecto. Quien las repita necesita el repositorio externo delante; el ancla `fa03813` es lo que
+garantiza que lea la misma vara y no una posterior (`LG-95`).
+
+---
+
+### D-055 - El puntero a las lecciones globales: la regla en `CLAUDE.md`, el donde en `project.md`, el control en la etapa
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-053` dejo las lecciones globales en un repositorio externo y `D-054` las consulto
+  por primera vez. Pero nada en este repositorio mandaba consultarlas: funciono porque el usuario y
+  `manager` estaban en la conversacion. En el proyecto siguiente no habria conversacion, y el
+  mecanismo no se dispararia. Es `L-014` exacta: **el cuarto enganche —algo que mande leerla— es el
+  que se olvida**, y es el unico que no tiene ningun control que detecte su ausencia.
+- **Decision:** el puntero se construye en **tres piezas**, y ninguna sirve sin las otras dos:
+
+| Pieza | Donde | Que lleva |
+|---|---|---|
+| **La regla** | `CLAUDE.md`, seccion «Las lecciones globales» | que existen, los tres usos, cual exige copia y cual no, que aterriza en el proyecto, y que no se lee entero |
+| **El donde** | `project.md`, tabla «Rutas» | las tres filas con el repositorio, el archivo y el remoto |
+| **El control** | `_phases/000_preproject.md` §6 | una casilla en la condicion de salida: la consulta de arranque hecha y **registrada** |
+
+- **Por que partido en tres y no en uno:** `CLAUDE.md` y `_phases/` **tienen que poder copiarse tal
+  cual a otro proyecto**, y el Paso 1b lo comprueba en cada cierre. Si la regla llevara dentro la
+  ruta o el remoto, la copia llegaria al proyecto siguiente apuntando al disco de esta maquina. Por
+  eso la regla se escribe sin un solo dato propio y el dato vive donde vive todo lo propio.
+- **Por que hacen falta la regla y el control, y no basta uno:** son enganches distintos. La regla es
+  **de uso** —dispara la lectura en el momento en que sirve—; la casilla es **de control** —detecta
+  que no se hizo—. `L-014` señala justo que los enganches de control no sustituyen al de uso: una
+  casilla sin regla avisa tarde, y una regla sin casilla se salta en silencio.
+- **Que NO se construyo, y es deliberado:** el disparador de la **cosecha** —el camino de vuelta,
+  que sube lo aprendido al original al cerrar una etapa—. La regla de `CLAUDE.md` lo enuncia, pero
+  **no tiene todavia su casilla** en ninguna condicion de salida. Queda como el mismo hueco que esta
+  decision acaba de tapar en la otra direccion, y se dice aqui para que no se descubra tarde.
+- **Alternativas descartadas:** (1) escribir la ruta dentro de `CLAUDE.md` —rompe el Paso 1b y viaja
+  rota—; (2) solo la casilla de la condicion de salida —avisa cuando ya se decidio el alcance, que
+  es cuando la lectura ya no informa nada (`LG-40`)—; (3) solo la regla —se salta sin que nada lo
+  note, que es el defecto original—; (4) un archivo nuevo en `_methodology/` que explique todo esto
+  —cuesta los cuatro enganches otra vez, para decir lo que cabe en una seccion.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son
+  tres bloques de texto en archivos versionados; quitarlos es un `git revert`.
+
+**Verificacion — las tres piezas existen, y lo copiable sigue sin datos propios:**
+
+```
+$ grep -c "^## Las lecciones globales$" CLAUDE.md
+1
+$ grep -c "consulta de arranque a las lecciones globales" _phases/000_preproject.md
+1
+$ grep -c "^| Lecciones globales" project.md
+3
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+```
+
+⚠️ **Las tres primeras ordenes van acotadas cada una a su archivo a proposito**, y ninguna a
+`_persistence/`: si se corrieran sobre el arbol entero, esta misma entrada —que nombra las tres
+piezas— se contaria a si misma y los numeros dirian otra cosa en cuanto el cierre la commitee. Es
+`L-010`, y es el defecto que `F-027` acaba de señalar por quinta vez.
+
+📌 **La cuarta orden es el Paso 1b de `protocol-close` corrido sobre el arbol de trabajo**, con los
+tres valores que `project.md` declara para el —nombre del proyecto, carpeta raiz de las rutas
+absolutas y host del remoto—, mas la grafia `RaidomAI` de la carpeta en disco. Cero lineas es lo
+correcto: ninguna de las dos ediciones en lo copiable metio un dato de este proyecto.
+
+---
+
+### D-056 - La cosecha gana disparador: una casilla por etapa, y la columna `Portabilidad` que la hace comprobable
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-055` construyo el camino de ida —algo que manda leer las lecciones globales— y
+  dejo escrito que el de vuelta seguia sin disparador: la **cosecha**, que sube al archivo global lo
+  que este proyecto aprendio. La regla de `CLAUDE.md` la enunciaba, pero ninguna condicion de salida
+  la exigia, que es la definicion exacta de `L-008` — una regla sin mecanismo que la aplique.
+- **Decision:** dos piezas, y la segunda no es un extra:
+
+| Pieza | Donde | Que hace |
+|---|---|---|
+| **La casilla** | condicion de salida de **cada etapa declarada** | dispara la cosecha al cerrar la etapa, y bloquea el cierre si no se hizo |
+| **La columna `Portabilidad`** | indice de `_persistence/lessons.md` | registra el resultado por leccion, y es **lo que hace la casilla comprobable** |
+
+- **Por que la columna no es opcional:** sin ella la casilla dice «cada `L-XXX` paso por los cuatro
+  filtros» y **no hay forma de comprobarlo**. Seria una casilla que se marca por memoria, que es un
+  veredicto disfrazado de control (`PI-5`: lo que no se puede comprobar no esta hecho, esta
+  afirmado). Con la columna, la comprobacion es un barrido: si queda un `Sin evaluar` de esa etapa,
+  la casilla es falsa.
+- **Por que la columna va en el indice y no en la ficha:** un estado escrito en dos sitios acaba
+  diciendo dos cosas y nadie sabe cual manda —es `L-003` aplicada a un campo—. Y la cosecha es un
+  barrido de una columna, no una relectura de quince fichas: el indice es el sitio donde eso cuesta
+  un vistazo.
+- **Por que los cuatro filtros no se copian aqui:** viven en el archivo global, en su seccion de
+  promocion. Copiarlos a `lessons.md` crearia una segunda copia que envejeceria por su cuenta,
+  exactamente el defecto que `D-053` evito al no meter el archivo entero en `_methodology/`.
+- **La duplicacion entre etapas es deliberada:** la misma casilla queda en los dos archivos de
+  `_phases/`. Lo que se duplica es **un puntero, no la regla** —la regla vive en `CLAUDE.md`—, y es
+  el mismo patron que el repositorio ya usa con `project.md`. Una casilla por etapa es lo que hace
+  que la cosecha ocurra **en cada cierre de etapa** y no una sola vez en la vida del proyecto.
+- **Lo que esto cuesta, dicho antes:** `000_preproject` gana una condicion de salida **estando cerca
+  de cerrar**, y hoy sus quince lecciones estan las quince `Sin evaluar`. La etapa no puede cerrar
+  hasta que se cosechen. Es deliberado: la alternativa es cerrarla sin cosechar, y entonces lo
+  aprendido en la primera etapa del primer proyecto no llega a ningun sitio — que es justo lo que
+  este mecanismo existe para impedir.
+- **Alternativas descartadas:** (1) una sola casilla, al cerrar el proyecto —la cosecha se haria una
+  vez, sobre un `lessons.md` enorme y frio, que es cuando peor se distingue la forma del fallo de la
+  anecdota—; (2) la casilla sin la columna —no comprobable—; (3) la columna sin la casilla —nadie la
+  rellenaria nunca, que es el punto de partida de esta decision—; (4) un campo dentro de cada ficha
+  ademas del indice —dos sitios para el mismo estado.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son dos
+  casillas y una columna en archivos versionados.
+
+**Verificacion — las casillas existen en las dos etapas, los recuentos en prosa cuadran con ellas, y
+las quince lecciones tienen la columna:**
+
+```
+$ grep -c "La cosecha esta hecha" _phases/000_preproject.md _phases/005_discovery.md
+_phases/000_preproject.md:1
+_phases/005_discovery.md:1
+
+$ for f in _phases/000_preproject.md _phases/005_discovery.md; do
+    echo -n "$f: "; sed -n '/^## 6\. Condicion de salida/,/^## 7\./p' $f | grep -c "^- \[ \]"
+  done
+_phases/000_preproject.md: 8
+_phases/005_discovery.md: 7
+
+$ grep -nE "las (seis|siete|ocho) son ciertas|Ninguna de las (seis|siete|ocho)" _phases/000_preproject.md _phases/005_discovery.md
+_phases/000_preproject.md:155:La etapa termina cuando **las ocho son ciertas**. Las cinco primeras son el espejo de los cinco
+_phases/000_preproject.md:184:🔑 **Ninguna de las ocho habla del producto**, y ahi esta el criterio entero de la etapa: se sale de
+_phases/005_discovery.md:264:La etapa termina cuando **las siete son ciertas**:
+_phases/005_discovery.md:286:⚠️ **Ninguna de las siete exige que exista la etapa siguiente.** Cual sea se declara dentro de esta
+
+$ sed -n '/^## Indice/,/^---/p' _persistence/lessons.md | grep -c "| Sin evaluar |$"
+15
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+```
+
+⚠️ **La tercera orden se escribe con su numero de linea sabiendo que caducara.** Los cuatro
+recuentos se comprobaron aqui **contra el numero de casillas de la orden anterior**, que es lo que
+importa: `8` casillas y «las ocho», `7` casillas y «las siete». Si una edicion posterior mueve las
+lineas, lo que hay que rehacer es la comparacion, no buscar estos numeros.
+
+📌 **Ninguna orden se corre sobre `_persistence/decisions.md`, y es a proposito:** esta misma entrada
+nombra las casillas y la columna, y un barrido sin acotar se contaria a si mismo (`L-010`, el defecto
+que `F-027` señalo por quinta vez).

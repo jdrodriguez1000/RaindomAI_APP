@@ -7,23 +7,25 @@
 
 ## Indice
 
-| Codigo | Leccion | Fecha | Etapa |
-|---|---|---|---|
-| [L-001](#l-001---un-archivo-que-describe-el-estado-de-hoy-envejece-mintiendo) | Un archivo que describe el estado de hoy envejece mintiendo | 2026-08-31 | 000_preproject |
-| [L-002](#l-002---un-metodo-traido-de-otro-proyecto-llega-con-sus-codigos-y-esos-no-viajan) | Un metodo traido de otro proyecto llega con sus codigos, y esos no viajan | 2026-08-31 | 000_preproject |
-| [L-003](#l-003---el-mismo-control-en-dos-sitios-tiene-que-ser-literalmente-el-mismo-comando) | El mismo control en dos sitios tiene que ser literalmente el mismo comando | 2026-08-31 | 000_preproject |
-| [L-004](#l-004---un-encabezado-que-cuenta-se-desincroniza-de-lo-que-cuenta) | Un encabezado que cuenta se desincroniza de lo que cuenta | 2026-08-31 | 000_preproject |
-| [L-005](#l-005---renombrar-un-agente-no-es-renombrar-su-archivo) | Renombrar un agente no es renombrar su archivo | 2026-08-31 | 000_preproject |
-| [L-006](#l-006---un-bloque-de-verificacion-declara-su-ambito-dentro-del-enunciado) | Un bloque de verificacion declara su ambito dentro del enunciado | 2026-09-01 | 000_preproject |
-| [L-007](#l-007---una-excepcion-se-escribe-donde-esta-la-regla-no-donde-se-decidio) | Una excepcion se escribe donde esta la regla, no donde se decidio | 2026-09-01 | 000_preproject |
-| [L-008](#l-008---una-leccion-escrita-solo-como-leccion-no-cambia-la-entrada-siguiente) | Una leccion escrita solo como leccion no cambia la entrada siguiente | 2026-09-01 | 000_preproject |
-| [L-009](#l-009---un-hallazgo-acota-su-ejemplo-no-el-defecto) | Un hallazgo acota su ejemplo, no el defecto | 2026-09-02 | 000_preproject |
-| [L-010](#l-010---un-criterio-de-cierre-cuyo-ambito-incluye-el-registro-no-puede-cumplirse-nunca) | Un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca | 2026-09-02 | 000_preproject |
-| [L-011](#l-011---un-mecanismo-escrito-como-aviso-se-salta-escrito-como-hueco-de-la-plantilla-no) | Un mecanismo escrito como aviso se salta; escrito como hueco de la plantilla, no | 2026-09-02 | 000_preproject |
-| [L-012](#l-012---un-barrido-que-busca-texto-de-prosa-se-corre-insensible-a-mayusculas-o-no-barre) | Un barrido que busca texto de prosa se corre insensible a mayusculas, o no barre | 2026-09-02 | 000_preproject |
-| [L-013](#l-013---un-bloque-de-verificacion-sin-ancla-caduca-el-codigo-de-salida-no-prueba-una-ausencia) | Un bloque de verificacion sin ancla caduca; el codigo de salida no prueba una ausencia | 2026-09-02 | 000_preproject |
-| [L-014](#l-014---una-carpeta-agnostica-nueva-necesita-cuatro-enganches-y-el-cuarto-es-el-que-se-olvida) | Una carpeta agnostica nueva necesita cuatro enganches, y el cuarto es el que se olvida | 2026-09-02 | 000_preproject |
-| [L-015](#l-015---una-correccion-escrita-en-una-seccion-que-el-cierre-sobrescribe-no-es-una-correccion) | Una correccion escrita en una seccion que el cierre sobrescribe no es una correccion | 2026-09-02 | 000_preproject |
+| Codigo | Leccion | Fecha | Etapa | Portabilidad |
+|---|---|---|---|---|
+| [L-001](#l-001---un-archivo-que-describe-el-estado-de-hoy-envejece-mintiendo) | Un archivo que describe el estado de hoy envejece mintiendo | 2026-08-31 | 000_preproject | Sin evaluar |
+| [L-002](#l-002---un-metodo-traido-de-otro-proyecto-llega-con-sus-codigos-y-esos-no-viajan) | Un metodo traido de otro proyecto llega con sus codigos, y esos no viajan | 2026-08-31 | 000_preproject | Sin evaluar |
+| [L-003](#l-003---el-mismo-control-en-dos-sitios-tiene-que-ser-literalmente-el-mismo-comando) | El mismo control en dos sitios tiene que ser literalmente el mismo comando | 2026-08-31 | 000_preproject | Sin evaluar |
+| [L-004](#l-004---un-encabezado-que-cuenta-se-desincroniza-de-lo-que-cuenta) | Un encabezado que cuenta se desincroniza de lo que cuenta | 2026-08-31 | 000_preproject | Sin evaluar |
+| [L-005](#l-005---renombrar-un-agente-no-es-renombrar-su-archivo) | Renombrar un agente no es renombrar su archivo | 2026-08-31 | 000_preproject | Sin evaluar |
+| [L-006](#l-006---un-bloque-de-verificacion-declara-su-ambito-dentro-del-enunciado) | Un bloque de verificacion declara su ambito dentro del enunciado | 2026-09-01 | 000_preproject | Sin evaluar |
+| [L-007](#l-007---una-excepcion-se-escribe-donde-esta-la-regla-no-donde-se-decidio) | Una excepcion se escribe donde esta la regla, no donde se decidio | 2026-09-01 | 000_preproject | Sin evaluar |
+| [L-008](#l-008---una-leccion-escrita-solo-como-leccion-no-cambia-la-entrada-siguiente) | Una leccion escrita solo como leccion no cambia la entrada siguiente | 2026-09-01 | 000_preproject | Sin evaluar |
+| [L-009](#l-009---un-hallazgo-acota-su-ejemplo-no-el-defecto) | Un hallazgo acota su ejemplo, no el defecto | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-010](#l-010---un-criterio-de-cierre-cuyo-ambito-incluye-el-registro-no-puede-cumplirse-nunca) | Un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-011](#l-011---un-mecanismo-escrito-como-aviso-se-salta-escrito-como-hueco-de-la-plantilla-no) | Un mecanismo escrito como aviso se salta; escrito como hueco de la plantilla, no | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-012](#l-012---un-barrido-que-busca-texto-de-prosa-se-corre-insensible-a-mayusculas-o-no-barre) | Un barrido que busca texto de prosa se corre insensible a mayusculas, o no barre | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-013](#l-013---un-bloque-de-verificacion-sin-ancla-caduca-el-codigo-de-salida-no-prueba-una-ausencia) | Un bloque de verificacion sin ancla caduca; el codigo de salida no prueba una ausencia | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-014](#l-014---una-carpeta-agnostica-nueva-necesita-cuatro-enganches-y-el-cuarto-es-el-que-se-olvida) | Una carpeta agnostica nueva necesita cuatro enganches, y el cuarto es el que se olvida | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-015](#l-015---una-correccion-escrita-en-una-seccion-que-el-cierre-sobrescribe-no-es-una-correccion) | Una correccion escrita en una seccion que el cierre sobrescribe no es una correccion | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-016](#l-016---una-consulta-que-cambia-lo-que-haces-no-deja-rastro-y-sin-rastro-no-ocurrio) | Una consulta que cambia lo que haces no deja rastro, y sin rastro no ocurrio | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-017](#l-017---una-condicion-de-salida-no-es-una-tarea-pendiente-y-confundirlas-desactiva-el-disparador) | Una condicion de salida no es una tarea pendiente, y confundirlas desactiva el disparador | 2026-09-02 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -42,6 +44,28 @@ accion concreta a futuro; si no se puede escribir, lo que hay todavia no es una 
 ⚠️ **El titulo enuncia la leccion, no el incidente.** Se lee como regla, no como cronica.
 
 🚨 **El indice se escribe a mano, sin generador.** Cada fila enlaza por ancla a su leccion.
+
+**Y una columna que solo vive en el indice: `Portabilidad`.** Dice si esa leccion sube al archivo de
+lecciones globales, y es lo que hace que la cosecha se pueda comprobar.
+
+| Valor | Significa |
+|---|---|
+| `Sin evaluar` | todavia no ha pasado por los cuatro filtros. Es el valor de partida de toda leccion nueva |
+| `Global candidata` | pasa los cuatro filtros y esta pendiente de subir |
+| `Promovida a LG-NN` | ya esta en el archivo global, con su codigo |
+| `Ya cubierta por LG-NN` | el archivo global ya lo dice. **No se sube**, y se anota cual lo cubre |
+| `Solo proyecto` | no sobrevive al cambio de lenguaje, libreria o dominio |
+
+🔑 **Vive en el indice y en ningun sitio mas.** No se repite dentro de la ficha: un estado escrito en
+dos sitios acaba diciendo dos cosas, y entonces no se sabe cual manda. Ademas la cosecha es un
+barrido —se lee una columna, no quince fichas—, y para eso el indice es el sitio.
+
+⚠️ **`Sin evaluar` no significa «no sube»: significa que nadie lo ha mirado.** Los dos se parecen al
+leerlos deprisa, y confundirlos deja la cosecha hecha sobre lecciones que nunca se evaluaron.
+
+🚨 **Los cuatro filtros no estan aqui: viven en el archivo global**, en su seccion de promocion, y se
+leen alli en el momento de cosechar. Copiarlos a este archivo crearia una segunda copia que
+envejeceria por su cuenta.
 
 ---
 
@@ -500,3 +524,63 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   sin ancla caduca—, pero con un agravante propio: aqui no caduco por el paso del tiempo sino por
   **el propio commit que lo publicaba**.
 - **Donde queda aplicada:** `D-050` y `T-032`.
+
+---
+
+### L-016 - Una consulta que cambia lo que haces no deja rastro, y sin rastro no ocurrio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | usuario |
+
+- **Contexto:** se consultaron los bloques D y E del archivo de lecciones globales (`D-054`), y la
+  consulta funciono: dos lecciones señalaron que `A-003` era un supuesto que se **averigua** y que no
+  dependia de `A-004`, y otras dos dictaron **con que** verificarlo —sin navegador, porque el
+  instrumento tiene que poder ver el fallo que se descarta—.
+- **Que ocurrio:** `manager` paso directamente a ejecutar esa verificacion, y el usuario pregunto
+  *«¿pero que tiene que ver eso con las lecciones aprendidas?»*. La pregunta era correcta: en
+  pantalla solo se veia a alguien corriendo `curl` contra una web. Las lecciones habian elegido la
+  tarea y dictado el metodo, y nada de eso era visible.
+- **Leccion:** este mecanismo tiene un modo de fallo que los demas no tienen: **cuando funciona, no
+  se ve**. No produce un documento ni un artefacto — produce que hagas **otra cosa**, y una cosa
+  distinta se parece mucho a una cosa cualquiera. Un archivo que solo se nota cuando falla es un
+  archivo del que nadie podra decidir nunca si vale la pena.
+- **Como aplicarla:** toda consulta deja su rastro **en el momento**, no al final: la decision o la
+  tarea que cambio, en `decisions.md` o en `tasks.md`, **citando el codigo de la leccion**. Y al
+  narrarla, decir cual eligio la tarea y cual dicto el metodo. Si de una consulta no sale ningun
+  codigo citado en ningun sitio, la consulta no ocurrio para nadie que no estuviera delante — y eso
+  incluye a quien vuelva dentro de tres meses.
+- **Donde queda aplicada:** `CLAUDE.md`, seccion «Las lecciones globales», que hace obligatorio ese
+  rastro y avisa de este modo de fallo; y la casilla de arranque de `_phases/000_preproject.md` §6,
+  que exige la consulta **y su registro**, no solo la consulta.
+
+---
+
+### L-017 - Una condicion de salida no es una tarea pendiente, y confundirlas desactiva el disparador
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | usuario |
+
+- **Contexto:** se añadio a la condicion de salida de cada etapa la casilla de la cosecha (`D-056`),
+  que dispara la promocion de lecciones al archivo global **al cerrar la etapa**.
+- **Que ocurrio:** en el mismo reporte, `manager` escribio que `000_preproject` «ya no puede cerrar»
+  y ofrecio «la primera cosecha» como una de las tres opciones de trabajo inmediato. El usuario lo
+  corto: *«¿por que me estas pidiendo cosechar si aun no vamos a cerrar la fase?»*.
+- **Leccion:** una condicion de salida y una tarea se parecen —las dos son trabajo escrito que hay
+  que hacer— pero **responden a preguntas distintas**: la tarea pregunta *«¿que hago ahora?»* y la
+  condicion pregunta *«¿puedo cerrar ya?»*. Pasar una condicion a la lista de trabajo la adelanta a
+  un momento que no es el suyo, y **destruye justo lo que la hacia util**: si la cosecha se hace
+  cuando apetece, la casilla deja de ser el disparador y vuelve a ser una nota — que es el problema
+  que `D-056` acababa de resolver.
+- **Por que el error es facil:** quien acaba de construir un mecanismo tiene ganas de verlo correr, y
+  ejecutarlo se siente como terminar el trabajo. Pero un disparador se prueba **cuando se dispara**;
+  correrlo a mano no demuestra que funcione, demuestra que se puede hacer sin el.
+- **Como aplicarla:** al añadir una condicion de salida, **no se propone su cumplimiento como
+  siguiente tarea**. Se dice en que momento se satisfara y se deja ahi. Y al enunciarla, evitar la
+  forma «esto ya no puede cerrar»: una condicion de salida nunca bloquea el trabajo en curso, solo el
+  cierre — decirlo al reves convierte una regla nueva en una alarma falsa.
+- **Donde queda aplicada:** la cosecha se retiro de la lista de trabajo inmediato en la misma sesion,
+  y `D-056` deja escrito que su momento es el cierre de etapa.

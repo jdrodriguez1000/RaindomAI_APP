@@ -34,15 +34,28 @@ la proxima vez que alguien la vea.
 | Auditorias | `_audit/R-XXX.md` |
 | Tablero de auditorias | `_audit/index.md` |
 | Estado de los hallazgos | `_audit/findings.md` |
+| Lecciones globales — repositorio | `C:\Users\USUARIO\Documents\Company_TripleS\TripleS_Lessons` |
+| Lecciones globales — archivo | `global_lessons.md`, en la raiz de ese repositorio |
+| Lecciones globales — remoto | `https://github.com/jdrodriguez1000/TripleS_Lessons.git` (privado) |
 
 🔑 **Forma canonica: relativa y con `/`.** Las rutas relativas de esta tabla se escriben **tal
 como se pegan en un comando**, con separador `/` y desde la raiz de este repositorio. Es la unica
 forma valida, y por una razon concreta: funciona igual en Bash y en PowerShell. Quien copie un valor
 de aqui a un bloque `bash` obtiene una orden que corre; no una que hay que traducir antes.
 
-⚠️ **La absoluta de arriba es la excepcion declarada**, no una segunda forma a elegir: existe
-porque nombra la ubicacion del repositorio en esta maquina, no porque sirva para navegar dentro de
-el. **Para citar un archivo del proyecto se usa la relativa.**
+⚠️ **Las dos rutas absolutas de arriba son excepciones declaradas**, no una segunda forma a elegir:
+existen porque nombran **una ubicacion en esta maquina** —la de este repositorio y la del
+repositorio de lecciones—, no porque sirvan para navegar dentro de ellos. **Para citar un archivo
+del proyecto se usa la relativa.**
+
+📌 **Las tres filas de «Lecciones globales» son la ubicacion que `CLAUDE.md` no puede llevar
+dentro.** La regla —que existen, para que sirven y cuando se consultan— vive en `CLAUDE.md`, que es
+copiable y por eso no nombra ni una ruta. **El donde vive aqui**, que es el unico archivo del
+proyecto que guarda datos propios. Si el repositorio de lecciones se mueve, se cambia en un sitio.
+
+⚠️ **Ese repositorio no es una carpeta de este proyecto**, y por eso **no** le toca fila en
+«Carpetas propias» ni la mira el control de carpetas del cierre. Es un recurso externo que se
+consulta, como lo seria una documentacion en linea.
 
 ## Reparto de autoridad
 

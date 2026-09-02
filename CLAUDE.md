@@ -262,6 +262,56 @@ el**, porque los estados validos y los campos obligatorios estan ahi y no aqui.
 lo que el equipo decida hacer con el vive en `decisions.md`. Que el brief describa algo no
 significa que este decidido.
 
+## Las lecciones globales
+
+Existe un archivo de **lecciones globales**: lo aprendido en proyectos anteriores, reducido a lo que
+aplica en cualquier proyecto. **Vive fuera de este repositorio**, en uno propio, y `project.md` dice
+donde. Sus lecciones se citan por codigo.
+
+🔑 **Vive fuera por una razon, y no es organizativa.** Si cada proyecto guardara su copia, cada
+proyecto la editaria por su cuenta y a los seis meses habria tantas versiones como proyectos —
+ninguna con todo lo aprendido. Un original y muchas lecturas; nunca muchos originales.
+
+### Los tres usos, y solo uno exige traerlo
+
+| Uso | Cuando | ¿Se copia al proyecto? |
+|---|---|---|
+| **Arranque** | al abrir el proyecto, **antes de definir alcance** | **no** |
+| **Guia** | antes de decidir algo, durante el trabajo | **no** |
+| **Vara de auditoria** | `report_auditor` contrasta contra el | **si, obligatorio** |
+
+🔑 **La frontera la fija quien lee.** Lo que consulta una persona puede vivir fuera: abre el archivo
+en su ruta y sigue. Lo que tiene que citar una auditoria **tiene que estar dentro del commit**,
+porque el auditor arranca en frio y solo ve este repositorio — y porque una auditoria vale por poder
+reproducirse. Mientras el tercer uso no este adoptado, **no se copia nada**.
+
+### Que aterriza en el proyecto, si no es el archivo
+
+**La decision que cambio**, en `decisions.md`, citando el codigo de la leccion que la produjo. Ese es
+el unico rastro que deja una consulta, y por eso es obligatorio: sin el, la consulta no ocurrio para
+nadie que no estuviera delante.
+
+⚠️ **Cuando este mecanismo funciona, no se ve.** No produce un documento: produce que hagas otra
+cosa. Si la consulta no se registra con su codigo, el trabajo parece haber salido de la nada y nadie
+sabra nunca si el archivo sirvio o no — que es justo lo que hay que poder decidir.
+
+### La regla que las gobierna a las tres
+
+🚨 **No se lee entero. Nunca.** Quien lo vuelca al contexto lo esta desactivando: leidas de corrido,
+no queda ninguna. Se entra por su indice —por momento de trabajo, por sintoma o por bloque—, se leen
+unas pocas, y se sale.
+
+🚨 **Lo que no se recorre se declara NO MIRADO, no limpio.** Vale para una auditoria y vale para una
+consulta: un bloque que nadie abrio no es un bloque sin hallazgos.
+
+⚠️ **Nada se escribe en el original desde aqui.** El camino de vuelta es la **cosecha**: al cerrar
+una etapa, las lecciones de `lessons.md` que superen su filtro suben al original, con su `D-XXX`. Va
+en un solo sentido, y nunca durante una auditoria — una vara que cambia mientras mide deja de
+comparar.
+
+⛔ **No lo usan `session-starter` ni `session-closer`.** Los dos arrancan en frio y su trabajo es la
+evidencia del repositorio, no el criterio.
+
 ## Inicio de sesion
 
 🚨 **Al comenzar cada sesion de trabajo, antes de responder cualquier otra cosa, delega en el

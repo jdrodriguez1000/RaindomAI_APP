@@ -43,6 +43,10 @@
 | [T-032](#t-032---dejar-constancia-de-que-f-021-se-resolvio-por-desaparicion-no-por-correccion-f-024) | Dejar constancia de que `F-021` se resolvio por desaparicion, no por correccion (`F-024`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-033](#t-033---anotar-los-bloques-de-verificacion-de-d-043-y-d-044-que-no-se-reproducen-f-025) | Anotar los bloques de verificacion de `D-043` y `D-044` que no se reproducen (`F-025`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-034](#t-034---corregir-la-cita-cruzada-l-013-de-dt-002-f-026) | Corregir la cita cruzada `L-013` de `DT-002` (`F-026`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-035](#t-035---anclar-el-bloque-de-verificacion-de-t-032-que-no-se-reproduce-sobre-su-commit-f-027) | Anclar el bloque de verificacion de `T-032`, que no se reproduce sobre su commit (`F-027`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-036](#t-036---completar-en-s-010-la-viñeta-de-decisionsmd-que-omite-dos-ediciones-f-028) | Completar en `S-010` la viñeta de `decisions.md`, que omite dos ediciones (`F-028`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-037](#t-037---escribir-el-inventario-de-acciones-irreversibles-del-proyecto-lg-38) | Escribir el inventario de acciones irreversibles del proyecto (`LG-38`) | Pendiente | Alta | No bloqueante | `000_preproject` |
+| [T-038](#t-038---igualar-el-barrido-de-fuga-de-protocol-audit-con-el-de-protocol-close) | Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close` | Pendiente | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -1359,6 +1363,63 @@ bitacora de `S-008` y habla de `T-023`, la `417` es la bitacora de `S-009` —hi
 al lado en la `435`— y la `451` es una linea citada dentro de esa misma nota. Las secciones 1 y 2,
 que son las vivas, ya no lo afirman.
 
+📌 **Nota del 2026-09-02 (`T-035`, hallazgo `F-027`): el bloque de arriba se corrio sobre el arbol
+de trabajo y el commit que lo publica lo invalido — es el mecanismo que `L-013` y `L-015` describen.
+No se reescribe (`D-019`); se ancla aqui a `51354ef`, el commit que contiene esta ficha, y se rehace
+la lectura sobre lo que ese commit devuelve.**
+
+```
+$ git show 51354ef:_persistence/progress.md | grep -n "dejando nota fechada\|con nota fechada" | cut -d: -f1
+64
+385
+415
+449
+472
+
+$ for f in _persistence/progress.md _audit/findings.md _persistence/tasks.md; do
+    echo -n "$f:"; git show 51354ef:$f | grep -c 'Nota del 2026-09-02 (`T-032`, hallazgo `F-024`)'
+  done
+_persistence/progress.md:1
+_audit/findings.md:1
+_persistence/tasks.md:2
+
+$ git show 51354ef:_persistence/tasks.md | grep -n "^| \[T-028\]" | grep -c "Cancelada"
+1
+```
+
+**Lectura rehecha — son cinco lineas, no tres, y una de ellas esta viva:** la `64` es la celda
+«Avance de la etapa» de la seccion 1, que **si** contiene la cadena; habla de las notas que `T-033`
+ancla en `D-043` y `D-044`, que existen, asi que es una afirmacion viva y **cierta**. La `472` es la
+bitacora de `S-010` y dice lo mismo. Las `385` y `415` son las bitacoras de `S-008` y `S-009`
+—historicas, la segunda con su nota al lado en la `435`—, y la `449` es una linea citada dentro de
+esa nota. La frase original «las secciones 1 y 2, que son las vivas, ya no lo afirman» queda
+**desmentida** en cuanto a la seccion 1.
+
+**El `2` de `_persistence/tasks.md` en la segunda orden es el propio bloque contandose a si mismo:**
+la cadena aparece en la nota de `T-028` y otra vez dentro de este bloque de verificacion, que la
+escribe para buscarla. Es `L-010` —un criterio cuyo ambito incluye el registro no puede cumplirse—
+en su version numerica.
+
+**El fondo de `T-032` se sostiene, y esto lo comprueba:**
+
+```
+$ git show 51354ef:_persistence/progress.md | grep -c "ae06147"
+7
+$ git show 51354ef:_persistence/progress.md | grep -n "ae06147" | cut -d: -f1
+383
+415
+443
+444
+446
+448
+449
+```
+
+Las menciones vivas son la `383` (bitacora de `S-008`, correcta: `ae06147` es el `HEAD` contra el
+que se verificaron los hallazgos de `R-007`) y la `415` (bitacora de `S-009`, historica y con su
+nota fechada al lado). Las cinco restantes —`443` a `449`— estan **dentro** del bloque de evidencia
+de la nota de `T-032`. Ninguna afirmacion viva del archivo declara una nota inexistente.
+
 ---
 
 ### T-033 - Anotar los bloques de verificacion de `D-043` y `D-044` que no se reproducen (`F-025`)
@@ -1443,3 +1504,183 @@ $ git show 99c3aa3:_persistence/techdebt.md | grep -n 'registrado `L-01[34]` de'
 $ grep -n 'registrado `L-01[34]` de' _persistence/techdebt.md
 149:  registrado `L-014` de `lessons.md`.
 ```
+
+---
+
+### T-035 - Anclar el bloque de verificacion de `T-032`, que no se reproduce sobre su commit (`F-027`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-011 |
+
+- **Que:** el bloque de verificacion de `T-032` se corrio sobre el arbol de trabajo y el commit que
+  lo publica (`51354ef`) lo invalido: la primera orden registra tres lineas y devuelve cinco, y la
+  tercera registra `1` para `_persistence/tasks.md` y devuelve `2`. Ademas el parrafo que interpreta
+  la salida afirma que «las secciones 1 y 2, que son las vivas, ya no lo afirman», y la linea `64`
+  —la celda «Avance de la etapa», que esta viva— si contiene la cadena. Se añade **nota fechada al
+  lado**, sin reescribir el texto original (`D-019`), con las ordenes ancladas a `51354ef` y la
+  lectura rehecha sobre lo que ese commit devuelve.
+- **Por que:** es el quinto commit consecutivo con el mismo defecto (`F-005`, `F-008`, `F-011`,
+  `F-022`, `F-025`), y esta vez ocurre en el commit que estrena `L-015`, la leccion que describe
+  exactamente este mecanismo. Un bloque que no se reproduce obliga al auditor a rehacer el barrido,
+  y entonces la evidencia que vale es la suya y no la del registro.
+- **Que NO cambia:** el fondo de `T-032` se sostiene y no se toca. Las dos menciones vivas de
+  `ae06147` en `progress.md` sobre `51354ef` son correctas, y ninguna afirmacion viva del archivo
+  declara una nota inexistente. Lo que fallo es la evidencia, no la correccion.
+- **Criterio de cierre:** la ficha de `T-032` lleva nota fechada del 2026-09-02 citando `F-027`, con
+  al menos una orden anclada a `51354ef`, y la lectura rehecha reconoce las cinco lineas.
+
+**Verificacion — la nota existe y sus ordenes ancladas se reproducen:**
+
+```
+$ awk '/^### T-032 /,/^### T-033 /' _persistence/tasks.md | grep -c 'Nota del 2026-09-02 (`T-035`, hallazgo `F-027`)'
+1
+
+$ git show 51354ef:_persistence/progress.md | grep -n "dejando nota fechada\|con nota fechada" | cut -d: -f1
+64
+385
+415
+449
+472
+
+$ git show 51354ef:_persistence/progress.md | grep -c "ae06147"
+7
+```
+
+⚠️ **La primera orden va acotada a la ficha de `T-032` a proposito.** Sin ese `awk`, el `grep`
+contaria tambien la cadena que este mismo bloque escribe para buscarla y devolveria `2` — que es
+`L-010`, y el mismo defecto que `F-027` señala. Las otras dos van ancladas a `51354ef` y no caducan.
+
+---
+
+### T-036 - Completar en `S-010` la viñeta de `decisions.md`, que omite dos ediciones (`F-028`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-011 |
+
+- **Que:** la viñeta de `_persistence/decisions.md` en la seccion 1 de `_audit/S-010.md` dice «nacen
+  `D-050`, `D-051` y `D-052`» y omite las **dos notas fechadas** que el mismo commit inserta dentro
+  de `D-043` y `D-044`, que son el trabajo entero de `T-033`. Se añade nota fechada debajo de la
+  viñeta, sin reescribir el informe ya commiteado (`D-019`), con la orden anclada a `51354ef`.
+- **Por que:** la seccion 1 es la lista canonica de que cambio en el commit, y `T-025` (`F-019`)
+  endurecio ese punto de `protocol-close`. Describir el archivo como «nacen tres decisiones» oculta
+  que dentro de el se editaron dos entradas anteriores — que es justo el tipo de edicion sobre texto
+  ya auditado que mas interesa ver.
+- **Que NO cambia:** el texto original de la viñeta, ni ninguna otra seccion de `S-010`. El informe
+  esta commiteado y auditado; se completa al lado, no se corrige encima.
+- **Criterio de cierre:** la seccion 1 de `_audit/S-010.md` menciona las notas de `T-033` en `D-043`
+  y `D-044`, con orden anclada a `51354ef` que se reproduce.
+
+**Verificacion — la nota existe en el informe y su orden anclada se reproduce:**
+
+```
+$ grep -c 'Nota del 2026-09-02 (`T-036`, hallazgo `F-028`)' _audit/S-010.md
+1
+
+$ git show 51354ef -- _persistence/decisions.md | grep -c "^+📌 \*\*Nota del 2026-09-02 (\`T-033\`"
+2
+```
+
+---
+
+### T-037 - Escribir el inventario de acciones irreversibles del proyecto (`LG-38`)
+| Campo | Valor |
+|---|---|
+| Estado | Pendiente |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-011 |
+
+- **Que:** escribir en `_persistence/` el inventario de **acciones irreversibles** del proyecto: que
+  cosas, una vez hechas, no se deshacen. Sale de `LG-38` (`D-054`), y su forma la decide el usuario
+  —archivo propio o seccion de `constraints.md`—, porque es estructura de `_persistence/`.
+- **Por que:** `CLAUDE.md` ya conoce este hueco y lo lleva parcheando: manda que, **mientras no
+  exista ese inventario**, cada clasificacion de reversible/irreversible se declare como criterio en
+  la propia respuesta. Ese parche funciona mientras alguien se acuerde de aplicarlo, que es `L-008`
+  —una regla sin mecanismo que la aplique—. `LG-38` lo dice al reves y mejor: **la lista se escribe
+  antes de necesitarla**, porque el dia que haga falta ya es tarde para redactarla con calma.
+- **Que hay que resolver dentro, y no es generico:** lo irreversible de este producto no es el
+  codigo. Son, al menos, el historial de `git` y lo ya publicado (`LG-38` los nombra), el gasto en la
+  plataforma de despliegue (`C-002`), los datos que el usuario final registre —sus juegos son dato
+  personal y `LG-74` avisa de que sobreviven al proyecto— y cualquier peticion a la fuente oficial
+  que salga de nuestra maquina. Lo que **si** es reversible conviene escribirlo tambien: si la lista
+  solo enumera peligros, se lee como una lista de prohibiciones y deja de consultarse.
+- **Que NO es esta tarea:** no es decidir permisos ni frenos. `LG-76` separa las dos cosas —permiso
+  antes para lo irreversible, revision despues para lo reversible— y esa decision viene despues de
+  tener la lista, no antes.
+- **Criterio de cierre:** existe en `_persistence/` un inventario de acciones irreversibles con su
+  fila en el indice de su archivo, y `CLAUDE.md` deja de ser el unico sitio que sostiene el
+  criterio — su parrafo del parche cita el inventario en vez de suponer que no existe.
+
+**Verificacion — hoy no existe, y este es el barrido con el que se afirma, anclado a `cbb92a9`
+(el `HEAD` con el que abrio la sesion, anterior a esta misma ficha):**
+
+```
+$ git grep -niE "irreversibl" cbb92a9 -- _persistence | grep -v ":_persistence/decisions.md:"
+cbb92a9:_persistence/lessons.md:61:  irreversibles». Ninguna llevaba un dato propio, y todas eran no agnosticas.
+
+$ git grep -niE "irreversibl" cbb92a9 -- _persistence | grep -vc ":_persistence/decisions.md:"
+1
+```
+
+La unica linea que aparece fuera de `decisions.md` es una cita **dentro de `L-001`**, que habla de
+otra cosa: es uno de los ejemplos de «foto del presente» que aquella leccion recogio. No hay
+inventario.
+
+⚠️ **El barrido va anclado y excluye `decisions.md` a proposito.** Sin el ancla, esta misma ficha y
+`D-054` —que escriben «irreversibles» once veces entre las dos— lo devolverian a `11` en cuanto el
+cierre las commitee, y el bloque diria lo contrario que su enunciado. Es `L-010`, y es el defecto
+que `F-027` acaba de señalar por quinta vez.
+
+---
+
+### T-038 - Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close`
+| Campo | Valor |
+|---|---|
+| Estado | Pendiente |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-011 |
+
+- **Que:** el barrido de fuga de datos propios existe en dos protocolos con **ambitos distintos**.
+  El Paso 1b de `protocol-close` cubre seis carpetas; el Paso 4c de `protocol-audit` cubre cuatro:
+  le faltan `_templates` y `_workflow`. Hay que dejarlos identicos.
+- **Por que:** es `L-003` literal —el mismo control en dos sitios tiene que ser el mismo comando—.
+  Hoy el hueco esta tapado **por iniciativa del auditor**, no por su protocolo: `R-010` corrio el
+  barrido con el ambito ampliado porque el agente lo decidio, no porque su skill se lo mandara. Un
+  control que depende de que alguien se acuerde es `L-008`, y el dia que no se acuerde el barrido
+  dira «limpio» sobre dos carpetas que no miro — que es un instrumento ciego dando silencio.
+- **Que hay que decidir antes de tocarlo, y no lo decide `manager`:** `protocol-audit` es la skill
+  del agente que **audita a `manager`**. Cambiarla es cambiar la vara con la que se nos mide, asi que
+  la edicion la autoriza el usuario. Se registra aqui para que el hueco no se pierda mientras tanto.
+- **Criterio de cierre:** los dos barridos citan la **misma lista de carpetas**, y esa lista es la
+  misma que la de lo copiable que declara `CLAUDE.md`.
+
+**Verificacion — hoy difieren, y esta es la diferencia:**
+
+```
+$ grep -n "^git grep -nE" .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-audit/SKILL.md | grep -oE "^[^:]+:[0-9]+|-- .*$"
+.claude/skills/protocol-close/SKILL.md:105
+-- .claude CLAUDE.md _phases _methodology _templates _workflow
+.claude/skills/protocol-audit/SKILL.md:140
+-- .claude CLAUDE.md _phases _methodology
+```
+
+Faltan `_templates` y `_workflow` en el de `protocol-audit`.
+
+⚠️ **El patron se ancla a `^git grep -nE` a proposito.** Sin el `^`, la orden recoge tambien una
+mencion en prosa de `protocol-close` (linea 462) que no es un control, y el bloque deja de
+reproducirse — que es `L-006`: un bloque de verificacion declara su ambito dentro del enunciado.

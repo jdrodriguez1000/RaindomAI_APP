@@ -215,6 +215,55 @@ que el anexo describe excluir los que salieron **en cualquiera de los dos**. Son
 🚨 **Es el supuesto mas caro de los tres.** Si resulta falso, no cae una funcionalidad: cae el ciclo
 entero de la aplicacion, porque las secciones 5 a 19 del brief dependen todas del historico.
 
+📌 **Nota del 2026-09-02 (`S-011`): se empezo a verificar y quedo a medias. El supuesto sigue
+`Abierto`.** La consulta de los bloques D y E del archivo de lecciones globales (`D-054`) señalo
+este supuesto como el walking skeleton del producto (`LG-47`) y como trabajo disponible pese al
+bloqueo de `A-004` (`LG-52`). Se corrio la primera comprobacion y se interrumpio antes de concluir.
+
+**Con que se probo, y por que asi:** con `curl`, sin navegador y sin ejecutar JavaScript, que es lo
+mas parecido a una funcion serverless en la plataforma de despliegue (`C-002`). Abrir la pagina en un
+navegador **no** verifica este supuesto: confirma que un humano con Chrome ve datos (`LG-01`, y
+`LG-04` sobre el instrumento que tiene que poder ver el fallo que se descarta).
+
+```
+$ curl -sS -o /dev/null -w "http=%{http_code} tipo=%{content_type} bytes=%{size_download} tiempo=%{time_total}s\n" -L --max-time 25 "https://baloto.com/"
+http=200 tipo=text/html; charset=utf-8 bytes=130243 tiempo=0.821238s
+
+$ curl -sS -L --max-time 30 "https://baloto.com/resultados" -o baloto_res.html -w "http=%{http_code} bytes=%{size_download}\n"
+http=200 bytes=101502
+
+$ grep -oE "[0-9]{1,2} de [a-zA-Z]+ de [0-9]{4}" baloto_res.html | sort -u | head -5
+22 de Agosto de 2026
+24 de Agosto de 2026
+26 de Agosto de 2026
+29 de Agosto de 2026
+31 de Agosto de 2026
+
+$ grep -oE 'class="[^"]*(ball|balota|number)[^"]*"' baloto_res.html | sort | uniq -c
+     10 class="balota-red-results"
+     43 class="baloto-number rounded"
+      2 class="red-ball gotham-medium"
+     16 class="superbalota-number rounded"
+     10 class="yellow-ball gotham-medium"
+```
+
+**Lo que esto SI indica:** el sitio responde `200` a `curl` sin cabeceras de navegador, no se
+detectaron marcadores de framework de renderizado en cliente en el HTML de la portada, y
+`/resultados` trae **fechas y clases de balotas en el HTML crudo** — es decir, los datos no se pintan
+solo con JavaScript.
+
+⛔ **Lo que esto NO prueba, y por eso el supuesto sigue `Abierto`:** (1) que exista **historico
+completo** y no solo los ultimos sorteos —es la tercera forma de refutacion de la ficha, y es la que
+mas importa—; (2) que se puedan extraer los **siete campos por sorteo** que el brief §3 exige,
+incluidos los premios de los dos juegos; (3) que funcione **desde la plataforma de despliegue**, que
+es otra IP, otro limite de tiempo y otro entorno; (4) si las condiciones de uso del sitio permiten la
+extraccion automatizada — una cuarta forma de refutacion que esta ficha no recogia y que conviene
+mirar antes de construir encima.
+
+⚠️ **Las cuatro ordenes se corrieron sobre un sitio externo y vivo**, asi que no son reproducibles en
+el sentido en que lo es un `git show`: la pagina puede cambiar. Se registran con su fecha por eso —
+valen como «esto devolvia el 2026-09-02», no como un hecho permanente.
+
 ---
 
 ### A-004 - Existe acceso al patrocinador y a personas que puedan hablar del proceso real

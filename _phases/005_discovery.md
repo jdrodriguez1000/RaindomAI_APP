@@ -261,7 +261,7 @@ defecto por sus dos caras.
 
 ## 6. Condicion de salida
 
-La etapa termina cuando **las seis son ciertas**:
+La etapa termina cuando **las siete son ciertas**:
 
 - [ ] **Hay al menos una necesidad `N-XXX` enunciada sin nombrar una pantalla.**
 - [ ] **Hay un actor originador identificado y alcanzable**, con actor concreto —no una categoria.
@@ -269,6 +269,9 @@ La etapa termina cuando **las seis son ciertas**:
 - [ ] **Los interesados estan identificados**, con lo que aporta y lo que puede bloquear cada uno.
 - [ ] **Hay una hipotesis con su condicion de falsacion escrita.**
 - [ ] **El alcance y el objetivo del proyecto estan definidos y registrados** con su `D-XXX`.
+- [ ] **La cosecha esta hecha:** ninguna leccion de esta etapa queda `Sin evaluar` en la columna
+      `Portabilidad` de `lessons.md`, y lo que quedo `Global candidata` esta ya en el archivo de
+      lecciones globales, con su `D-XXX` y con la version nueva del archivo declarada.
 
 Si alguna falla, la etapa sigue abierta.
 
@@ -280,7 +283,7 @@ rechazaria por impresion.
 que, con su `D-XXX`, y se cierra. Un proyecto detenido con su razon escrita vale mas que uno que
 siguio sin ella.
 
-⚠️ **Ninguna de las seis exige que exista la etapa siguiente.** Cual sea se declara dentro de esta
+⚠️ **Ninguna de las siete exige que exista la etapa siguiente.** Cual sea se declara dentro de esta
 etapa (§1), y mientras no tenga su `D-XXX` y su archivo en `_phases/`, la respuesta correcta a «¿que
 viene despues?» es *«sin decidir»*.
 

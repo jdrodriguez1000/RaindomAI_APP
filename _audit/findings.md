@@ -38,8 +38,8 @@
 | [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Implementado |
 | [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Implementado |
 | [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Implementado |
-| [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Abierto |
-| [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Abierto |
+| [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Aceptado — pendiente |
+| [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -1650,8 +1650,8 @@ $ git show 51354ef:_persistence/techdebt.md | grep -n 'L-013'
 | Auditoria | R-010 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-035` |
 | Cerrado en | |
 
 - **Que se observo:** dos de las tres ordenes del bloque «Verificacion» de `T-032` devuelven sobre
@@ -1700,7 +1700,21 @@ ancla con nota fechada
   original (`D-019`), con las dos ordenes ancladas a `51354ef`, su salida real y la lectura rehecha
   sobre esas cinco lineas. Hacia adelante, `L-013` y `L-015` ya nombran el problema: lo que falta es
   un mecanismo que impida publicar un bloque sin ancla, no una tercera leccion que lo describa.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-011`), registrado en `T-035`. Verificado contra
+  `HEAD` (`cbb92a9`) antes de evaluarlo: las dos ordenes siguen sin reproducirse y la linea `64`,
+  que esta viva, si contiene la cadena.
+
+~~~
+$ git show HEAD:_persistence/progress.md | grep -n "dejando nota fechada\|con nota fechada" | cut -d: -f1
+64
+385
+415
+449
+472
+
+$ git show HEAD:_persistence/progress.md | sed -n '64p' | grep -o 'ancla con nota fechada'
+ancla con nota fechada
+~~~
 
 ---
 
@@ -1710,8 +1724,8 @@ ancla con nota fechada
 | Auditoria | R-010 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-036` |
 | Cerrado en | |
 
 - **Que se observo:** la vineta de `_persistence/decisions.md` en la seccion 1 de `_audit/S-010.md`
@@ -1731,4 +1745,11 @@ $ git show 51354ef -- _persistence/decisions.md | grep -n "^+.*Nota del 2026-09-
   otro sitio del registro —la ficha de `T-033`— y no contradice nada.
 - **Que lo corregiria:** ampliar esa vineta, o dejar nota fechada si se prefiere no reescribir un
   informe ya commiteado, para que mencione las dos notas de `T-033` en `D-043` y `D-044`.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-011`), registrado en `T-036`. Verificado contra
+  `HEAD` (`cbb92a9`) antes de evaluarlo: la viñeta de `decisions.md` de `_audit/S-010.md` sigue sin
+  mencionar `T-033`.
+
+~~~
+$ git show HEAD:_audit/S-010.md | sed -n '58,64p' | grep -c "T-033"
+0
+~~~
