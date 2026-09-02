@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Artefacto | `_discovery/015_stakeholders.md` |
+| Artefacto | `005_discovery/015_stakeholders.md` |
 | Etapa que lo produce | `005_discovery` |
 | Estado | `BORRADOR` |
 | Abierto | `<AAAA-MM-DD>` |
@@ -110,9 +110,9 @@ El rastro de las personas que se consideraron y donde aterrizaron. Existe porque
 - [ ] La cabecera dice `CERRADO` y tiene fecha de cierre.
 
 ```bash
-grep -n "<" _discovery/015_stakeholders.md                 # debe no devolver nada
-grep -n "Guia de llenado" _discovery/015_stakeholders.md   # debe no devolver nada
-grep -n "TODAVIA NO" _discovery/015_stakeholders.md        # cada linea necesita su A-XXX
+grep -n "<" 005_discovery/015_stakeholders.md                 # debe no devolver nada
+grep -n "Guia de llenado" 005_discovery/015_stakeholders.md   # debe no devolver nada
+grep -n "TODAVIA NO" 005_discovery/015_stakeholders.md        # cada linea necesita su A-XXX
 ```
 
 🚨 **La salida cruda de las tres ordenes va al registro**, no la conclusion.

@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Artefacto | `_discovery/010_actors.md` |
+| Artefacto | `005_discovery/010_actors.md` |
 | Etapa que lo produce | `005_discovery` |
 | Estado | `BORRADOR` |
 | Abierto | `<AAAA-MM-DD>` |
@@ -127,9 +127,9 @@ actor.
 - [ ] La cabecera dice `CERRADO` y tiene fecha de cierre.
 
 ```bash
-grep -n "<" _discovery/010_actors.md                 # debe no devolver nada
-grep -n "Guia de llenado" _discovery/010_actors.md   # debe no devolver nada
-grep -ni "invitado" _discovery/010_actors.md         # SOLO la advertencia de §4, ni una linea mas
+grep -n "<" 005_discovery/010_actors.md                 # debe no devolver nada
+grep -n "Guia de llenado" 005_discovery/010_actors.md   # debe no devolver nada
+grep -ni "invitado" 005_discovery/010_actors.md         # SOLO la advertencia de §4, ni una linea mas
 ```
 
 📌 El tercero **no** devuelve vacio a proposito: la advertencia de §4 nombra la palabra. Lo que se

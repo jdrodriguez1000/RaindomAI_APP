@@ -21,6 +21,8 @@
 | [L-010](#l-010---un-criterio-de-cierre-cuyo-ambito-incluye-el-registro-no-puede-cumplirse-nunca) | Un criterio de cierre cuyo ambito incluye el registro no puede cumplirse nunca | 2026-09-02 | 000_preproject |
 | [L-011](#l-011---un-mecanismo-escrito-como-aviso-se-salta-escrito-como-hueco-de-la-plantilla-no) | Un mecanismo escrito como aviso se salta; escrito como hueco de la plantilla, no | 2026-09-02 | 000_preproject |
 | [L-012](#l-012---un-barrido-que-busca-texto-de-prosa-se-corre-insensible-a-mayusculas-o-no-barre) | Un barrido que busca texto de prosa se corre insensible a mayusculas, o no barre | 2026-09-02 | 000_preproject |
+| [L-013](#l-013---un-bloque-de-verificacion-sin-ancla-caduca-el-codigo-de-salida-no-prueba-una-ausencia) | Un bloque de verificacion sin ancla caduca; el codigo de salida no prueba una ausencia | 2026-09-02 | 000_preproject |
+| [L-014](#l-014---una-carpeta-agnostica-nueva-necesita-cuatro-enganches-y-el-cuarto-es-el-que-se-olvida) | Una carpeta agnostica nueva necesita cuatro enganches, y el cuarto es el que se olvida | 2026-09-02 | 000_preproject |
 
 ---
 
@@ -382,3 +384,82 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   la tilde comparte primer byte con la eñe, asi que un patron de vocales acentuadas devuelve lineas
   que solo llevan eñes. Para comprobar acentos hay que usar `python`, no `grep`.
 - **Donde queda aplicada:** `T-024`, en el tercer bloque de verificacion de `T-021`.
+
+---
+
+### L-013 - Un bloque de verificacion sin ancla caduca; el codigo de salida no prueba una ausencia
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `F-022` desmintio de una sola pasada los bloques de verificacion de `D-036`, `D-038`
+  y `D-040`. Los tres afirmaban un resultado que no sale al correr su orden literal, y en los tres el
+  **fondo era correcto**: lo que fallaba era la orden escrita, no lo que se quiso demostrar.
+- **Que ocurrio, y son tres fallos distintos con la misma consecuencia:**
+  1. **Patron demasiado ancho.** `grep -n "_discovery" project.md` se escribio para probar que la
+     carpeta no tenia fila propia, pero `_discovery` sin barra tambien casa con `005_discovery`, que
+     el archivo ya usaba diez veces.
+  2. **Barrido sin anclar.** `grep -rnoE "\bI-[0-9]{3}\b" ...` daba cero **antes** de escribir la
+     decision y deja de darlo en cuanto la decision se escribe: la propia entrada introduce las
+     coincidencias que decia no haber. Al dia siguiente el bloque se lee como una falsedad.
+  3. **Codigo de salida usado como prueba de ausencia.** `git status --porcelain ; echo "exit=$?"`
+     sale con `0` tanto si hay cambios como si no. El codigo de salida de `git status` no dice nada
+     sobre si hubo salida.
+- **Leccion:** un bloque de verificacion tiene que seguir siendo cierto **manana**, corrido por
+  alguien que no vivio la sesion. Tres reglas, una por fallo: **el patron se acota a lo que se quiere
+  demostrar** (si se prueba una fila, se busca la fila, no la cadena suelta); **lo que la propia
+  entrada va a cambiar se ancla al commit** con `git grep <sha>` o `git show <sha>:archivo`, nunca al
+  arbol de trabajo; y **una ausencia se prueba con el recuento** (`| wc -l` → `0`) o con la salida
+  vacia pegada, jamas con `exit=`, salvo en las ordenes cuyo codigo de salida si significa «no hubo
+  coincidencias», como `grep`.
+- **Por que importa mas de lo que parece:** un bloque que no se reproduce **cuesta mas que no
+  tenerlo**. Obliga a rehacer el barrido y ademas a averiguar si la diferencia es un error de
+  transcripcion o una afirmacion falsa — y el auditor acaba haciendo el trabajo entero como si nunca
+  se hubiera escrito. La familia `F-005`, `F-008`, `F-011` y `F-022` es la mas reincidente del
+  registro.
+- **Y una consecuencia que no es obvia:** cuando el fallo se descubre despues, **la salida vieja no
+  se reescribe**. Va una nota fechada al lado con la orden que si funciona. Reescribirla convertiria
+  «falta evidencia» en «hay evidencia falsa», esta vez sin nadie que lo note.
+- **Donde queda aplicada:** `T-029`, en las notas fechadas de `D-036`, `D-038` y `D-040`; y en los
+  bloques de `D-043`, `D-044`, `D-045` y `T-027` a `T-031`, todos anclados con `git show HEAD:` o
+  `git grep <sha>` donde el arbol iba a cambiar.
+
+---
+
+### L-014 - Una carpeta agnostica nueva necesita cuatro enganches, y el cuarto es el que se olvida
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al nacer `_workflow/` hubo que engancharla en tres sitios: la fila de «Carpetas
+  propias» de `project.md`, la lista de lo copiable tal cual de `CLAUDE.md`, y el ambito del Paso 1b
+  de `protocol-close`. Los tres estaban identificados de antemano porque `_templates/` habia pasado
+  por lo mismo dos sesiones antes —`T-026`, y antes `D-026` con `_phases/`—.
+- **Que ocurrio:** los tres se hicieron, y aun asi la carpeta quedo **inalcanzable**. Nada en
+  `_phases/` ni en ningun protocolo manda leerla, asi que en la practica nadie la abriria. Los tres
+  enganches conocidos son de **control** —que la carpeta este declarada y que no filtre datos
+  propios—; ninguno es de **uso**.
+- **Leccion:** una carpeta agnostica nueva necesita **cuatro** enganches, no tres:
+
+| # | Enganche | Responde a |
+|---|---|---|
+| 1 | fila en «Carpetas propias» de `project.md` | ¿esta declarada? |
+| 2 | lista de lo copiable tal cual de `CLAUDE.md` | ¿se sabe que es agnostica? |
+| 3 | ambito del Paso 1b de `protocol-close` | ¿se comprueba que lo sigue siendo? |
+| 4 | **algo que mande leerla en el momento en que sirve** | ¿la va a abrir alguien? |
+
+- **Por que el cuarto es distinto de los otros tres:** los tres primeros **tienen control que los
+  detecta**. Una carpeta sin fila la señala el Paso 2c; una fuga la señala el Paso 1b. El cuarto **no
+  tiene ningun control**: una carpeta que nadie abre no dispara nada, no rompe ningun barrido, y el
+  repositorio queda perfectamente coherente con material muerto dentro. Es `L-008` en su forma mas
+  cara — una regla escrita sin mecanismo que la aplique—, y aqui aplicada a un archivo entero.
+- **Como aplicarla:** al crear una carpeta agnostica, la pregunta que cierra el trabajo no es «¿esta
+  declarada y limpia?» sino **«¿quien la abre, cuando, y que se lo dice?»**. Si la respuesta es «se
+  entiende que hay que leerla», no hay respuesta.
+- **Donde queda aplicada:** se detecto en `S-009` y **se dejo abierta a proposito**, no resuelta: el
+  enganche que falta toca un archivo de `_phases/`, y esa es una decision del usuario, no de
+  `manager`. Queda señalada en el reporte de la sesion.

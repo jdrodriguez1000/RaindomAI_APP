@@ -14,6 +14,7 @@
 | [A-002](#a-002---el-brief-recibido-es-el-encargo-completo) | El brief recibido es el encargo completo | 2026-08-31 | Abierto |
 | [A-003](#a-003---el-historico-de-la-fuente-oficial-es-obtenible-de-forma-automatizable) | El historico de la fuente oficial es obtenible de forma automatizable | 2026-08-31 | Abierto |
 | [A-004](#a-004---existe-acceso-al-patrocinador-y-a-personas-que-puedan-hablar-del-proceso-real) | Existe acceso al patrocinador y a personas que puedan hablar del proceso real | 2026-09-02 | Abierto |
+| [A-005](#a-005---la-parte-de-ai_levelsmd-escrita-sin-experiencia-propia-es-correcta) | La parte de `ai_levels.md` escrita sin experiencia propia es correcta | 2026-09-02 | Abierto |
 
 ---
 
@@ -247,3 +248,43 @@ escalarlo al usuario y decidir si la etapa puede empezar.
 ⚠️ **No lo confunde con `A-002`.** Aquel supone que el brief **esta completo**; este supone que hay
 **alguien a quien preguntar** cuando no lo este. Un brief completo no sustituye el acceso: el
 descubrimiento existe para contrastar lo escrito contra lo que pasa de verdad.
+
+---
+
+### A-005 - La parte de `ai_levels.md` escrita sin experiencia propia es correcta
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueño | `manager` |
+
+- **Supuesto:** lo que `_workflow/ai_levels.md` afirma sobre **harness, observabilidad,
+  evaluaciones, rubricas y metricas** —secciones 3, 4, 5 y 6— es correcto y sera util cuando haga
+  falta aplicarlo.
+- **Por que se supone, y no se afirma:** de todo lo que hay en `_workflow/`, esa mitad es la unica
+  que **no se pudo contrastar contra nada**. El reparto de `team.md` se escribio con un ejemplo
+  vivido delante —el propio sistema de trabajo de este metodo, que es nivel 4 sin harness— y por eso
+  cada afirmacion tiene donde comprobarse. Del harness hacia arriba no hay ninguna experiencia: se
+  adapto de un documento aportado por el usuario, se le añadio la rubrica de seleccion que le
+  faltaba, y **nadie ha construido todavia un sistema con el que contrastarlo**.
+- **Por que se registra ahora:** porque **ya se va a construir encima**. Ese archivo existe para
+  guiar decisiones futuras, y la primera que guie heredara lo que aqui se dio por bueno. Registrarlo
+  despues seria registrarlo cuando ya no se puede separar de sus consecuencias.
+- **Lo que este supuesto NO cubre:** la mitad de `team.md`, ni las secciones 1, 2, 7, 8, 9 y 10 de
+  `ai_levels.md`. La rubrica de §6 **si** entra: es aportacion propia y nunca se ha usado para
+  elegir nada.
+- **Como se refuta:** que al declarar el primer nivel real la rubrica de §6 **no discrimine** —dos
+  niveles distintos empatan, o el resultado contradice el juicio de quien lo aplica y no se puede
+  argumentar contra los ejes—; o que al instrumentar el primer harness resulte que las metricas de
+  §5.4 no son las que hacen falta, o que falta una pieza que el archivo no nombra.
+- **Disparador:** **la primera vez que se declare un nivel de sistema de IA con su `D-XXX`**, que por
+  `ai_levels.md` §8 sera en la linea base del producto. Ahi se aplica la rubrica de verdad, y ahi se
+  ve si sirve.
+
+⚠️ **No es un supuesto sobre si el archivo debia escribirse.** Se decidio escribirlo hoy, y la razon
+esta registrada: un documento de referencia no existe para aplicarse hoy, sino para que cuando
+llegue el momento no se improvise — el mismo criterio con el que existe `_methodology/`, que
+describe el ciclo entero sin que ninguna de sus etapas posteriores este declarada. Lo que este
+supuesto anota es otra cosa: **que el contenido acierte**, que es justo lo que no se puede saber sin
+haberlo usado.

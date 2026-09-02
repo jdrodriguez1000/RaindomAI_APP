@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Artefacto | `_discovery/005_needs.md` |
+| Artefacto | `005_discovery/005_needs.md` |
 | Etapa que lo produce | `005_discovery` |
 | Estado | `BORRADOR` |
 | Abierto | `<AAAA-MM-DD>` |
@@ -102,9 +102,9 @@ abarca los cinco artefactos—. Esto es solo lo que le toca a este archivo.
 Las tres ultimas se comprueban desde fuera, sin leer el archivo entero:
 
 ```bash
-grep -n "<" _discovery/005_needs.md                 # debe no devolver nada
-grep -n "Guia de llenado" _discovery/005_needs.md   # debe no devolver nada
-grep -n "^| Estado |" _discovery/005_needs.md       # debe decir CERRADO
+grep -n "<" 005_discovery/005_needs.md                 # debe no devolver nada
+grep -n "Guia de llenado" 005_discovery/005_needs.md   # debe no devolver nada
+grep -n "^| Estado |" 005_discovery/005_needs.md       # debe decir CERRADO
 ```
 
 🚨 **La salida cruda de esas tres ordenes va al registro**, no la conclusion. «Se comprobo» es un

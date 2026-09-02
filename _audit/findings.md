@@ -31,10 +31,10 @@
 | [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Implementado |
 | [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Implementado |
 | [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Implementado |
-| [F-020](#f-020---la-entrada-de-f-017-en-findingsmd-conserva-la-linea-que-dice-que-sigue-pendiente-de-evaluar) | La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar | R-008 | Baja | Abierto |
-| [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Abierto |
-| [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Abierto |
-| [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Abierto |
+| [F-020](#f-020---la-entrada-de-f-017-en-findingsmd-conserva-la-linea-que-dice-que-sigue-pendiente-de-evaluar) | La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar | R-008 | Baja | Aceptado — pendiente |
+| [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Aceptado — pendiente |
+| [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Aceptado — pendiente |
+| [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -1000,7 +1000,6 @@ $ git show 122b770:_audit/S-007.md | sed -n '/^## 6/,$p' | grep -c '^~~~'
   las ordenes si se ejecutaron en `S-007` (esta misma auditoria las reprodujo) y lo que falto fue
   registrarlas. Es el patron de `T-014`. El texto original de `T-020` no se toca (`D-019`).
   **`Aceptado — pendiente`**, que `Implementado` lo escribe la auditoria siguiente.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
 
 - **Verificado por `R-008`** sobre `f096fff`: la ficha de `T-020` lleva ahora sus dos bloques
   con salida cruda anclada a `122b770` y nota fechada que declara que se anadieron despues.
@@ -1118,8 +1117,8 @@ $ git show d906a5d:_audit/S-006.md | grep -n "su fila en"
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-027` |
 | Cerrado en | |
 
 - **Que se observo:** la entrada de `F-017` tiene **dos** vinetas «Que se hizo» que se contradicen.
@@ -1137,7 +1136,13 @@ $ git show f096fff:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | gr
   proposito es que un hallazgo no diga lo que nos convenga.
 - **Que lo corregiria:** borrar la vineta residual «Que se hizo: pendiente de la evaluacion de
   `manager`» de la entrada de `F-017`, dejando solo la fechada.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-009`). Verificado contra `HEAD` (`7025a05`) antes
+  de evaluarlo: la entrada de `F-017` seguia con las dos vinetas «Que se hizo», la fechada en la
+  linea 36 y la residual en la 43. Se abre `T-027`, que borra la residual y deja solo la fechada; ni
+  el texto de esa vineta, ni la fila del indice, ni el campo `Estado` se tocan, porque ya decian lo
+  correcto. Lo autoriza `D-027`: la entrada de un hallazgo es registro vivo, y el texto concreto que
+  senala un hallazgo aceptado lo corrige `manager`. **`Aceptado — pendiente`**, que `Implementado` lo
+  escribe la auditoria siguiente.
 
 ---
 
@@ -1147,8 +1152,8 @@ $ git show f096fff:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | gr
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-028` |
 | Cerrado en | |
 
 - **Que se observo:** el campo «Avance de la etapa» abre con «`R-007` (sobre `ae06147`)». `ae06147`
@@ -1172,7 +1177,13 @@ $ git show f096fff:_audit/index.md | grep "S-007"
 - **Que lo corregiria:** sustituir `ae06147` por `122b770` en esa primera mencion. El segundo
   `ae06147` de la misma celda —«verifico los tres contra `HEAD` (`ae06147`)»— es correcto y no se
   toca.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-009`). Verificado contra `HEAD` (`7025a05`) antes
+  de evaluarlo: la celda seguia diciendo «`R-007` (sobre `ae06147`)», y `_audit/index.md` confirma
+  que el commit auditado por `R-007` es `122b770`. Se abre `T-028`, que corrige esa primera mencion y
+  deja nota fechada; el segundo `ae06147` de la misma celda —el `HEAD` contra el que se verificaron
+  los hallazgos— es correcto y no se toca, igual que la bitacora y la seccion 2. Lo autoriza `D-027`,
+  que reparte a `manager` las secciones de `progress.md` que el cierre sobrescribe.
+  **`Aceptado — pendiente`**.
 
 ---
 
@@ -1182,8 +1193,8 @@ $ git show f096fff:_audit/index.md | grep "S-007"
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-029` |
 | Cerrado en | |
 
 - **Que se observo:** `D-036`, `D-038` y `D-040` afirman cada uno una salida concreta, y ninguna sale
@@ -1245,7 +1256,13 @@ La misma comprobacion escrita en `T-025` como `| wc -l` con resultado `0` si es 
   demostrar; en `D-038`, anclar el barrido a `122b770` con `git grep`; en `D-040`, usar el `| wc -l`
   que ya emplea `T-025`. `CLAUDE.md` prohibe reescribir una salida antigua para que exhiba lo que no
   dio: la forma correcta es la nota fechada al lado, no el borrado.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-009`). Verificados contra `HEAD` (`7025a05`) los
+  tres casos, uno por uno: `grep -n "_discovery" project.md` devuelve diez lineas y `exit=0`, no
+  `exit=1`; el barrido de `I-[0-9]{3}` sin anclar devuelve veinticuatro coincidencias sobre el arbol
+  de hoy, no cero; y `git status --porcelain -- _audit/S-007.md` sale con `exit=0`. Los tres se
+  sostienen. Se abre `T-029`, que **no reescribe ninguna salida** —`CLAUDE.md` lo prohibe
+  expresamente— y anade a cada bloque una nota fechada con la orden que si demuestra lo que la
+  decision queria demostrar, y su salida cruda. **`Aceptado — pendiente`**.
 
 ---
 
@@ -1255,8 +1272,8 @@ La misma comprobacion escrita en `T-025` como `| wc -l` con resultado `0` si es 
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-030` |
 | Cerrado en | |
 
 - **Que se observo:** el informe lo somete a auditoria en su seccion 6 y la ficha lo declara sin
@@ -1287,4 +1304,10 @@ exit=1
   la desviacion como caso puntual, con su clasificacion de reversibilidad declarada, y citarla en la
   ficha; o, si el patron se considera legitimo, abrirlo como tercera excepcion con su `D-XXX` **en la
   convencion**, que es donde lo lee quien ejecuta.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-009`). Verificado contra `HEAD` (`7025a05`) antes
+  de evaluarlo: `grep -n "T-026" _persistence/decisions.md` sigue devolviendo `exit=1`, es decir que
+  ninguna decision cubre la desviacion. Se abre `T-030`, que la registra en `D-044` como **caso
+  puntual** y la cita en la ficha de `T-026`. De las dos salidas que el hallazgo ofrece se toma la
+  primera: **no se abre una tercera excepcion** en la convencion de `tasks.md`, porque las dos que
+  existen cubren lo que el `session-closer` no puede deducir del `git diff` y esta si se deducia. El
+  texto original de `T-026` no se toca. **`Aceptado — pendiente`**.

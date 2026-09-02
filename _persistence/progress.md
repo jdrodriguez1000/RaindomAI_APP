@@ -32,6 +32,7 @@
 | [S-006](#s-006---se-aceptan-f-011-a-f-014-y-f-010-se-desatasca-con-d-027-nace-_methodology) | Se aceptan `F-011` a `F-014` y `F-010` se desatasca con `D-027`; nace `_methodology/` | 2026-09-02 | `000_preproject` |
 | [S-007](#s-007---se-aceptan-f-015-y-f-016-nace-_phases005_discoverymd) | Se aceptan `F-015` y `F-016`; nace `_phases/005_discovery.md` | 2026-09-02 | `000_preproject` |
 | [S-008](#s-008---se-aceptan-f-017-a-f-019-nacen-las-plantillas-de-_templates005_discovery) | Se aceptan `F-017` a `F-019`; nacen las plantillas de `_templates/005_discovery/` | 2026-09-02 | `000_preproject` |
+| [S-009](#s-009---se-aceptan-f-020-a-f-023-los-artefactos-se-mudan-a-005_discovery-nace-_workflow) | Se aceptan `F-020` a `F-023`; los artefactos se mudan a `005_discovery/`; nace `_workflow/` | 2026-09-02 | `000_preproject` |
 
 ---
 
@@ -57,39 +58,46 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-02 (S-008) |
+| Ultima actualizacion | 2026-09-02 (S-009) |
 | Salud | En marcha |
-| Avance de la etapa | `R-007` (sobre `ae06147`) abrio `F-017`, `F-018` y `F-019`. `manager` verifico los tres contra `HEAD` (`ae06147`) y los acepto. `T-023` añade a la ficha de `T-020` los dos bloques de verificacion que su propio criterio de cierre nombraba y que faltaban, anclados a `122b770` con nota fechada. `T-024` acota la frase de `T-021` que afirmaba un barrido «sobre todo el repositorio» y añade el tercer bloque con ese barrido de verdad, insensible a mayusculas (`L-012`). `T-025` no reescribe `_audit/S-007.md` (`D-040`): endurece la estructura del informe de `protocol-close` para que la seccion 1 exija la salida generada, no una lista redactada (`L-011`). Ademas se escriben las cuatro plantillas de `_templates/005_discovery/` (`T-022`, cerrando lo que `S-007` dejo pendiente): se adaptan de las que aporto el usuario, no se copian (`D-041`); se decide donde viven los artefactos rellenos (`_discovery/`, `D-036`); se decide no escribir plantilla de restricciones y supuestos, porque ya tienen sitio en `_persistence/` (`D-037`, que ademas añade los campos `Dueño` y `Riesgo abierto` a `assumptions.md`); entra el codigo `I-XXX` para interesado (`D-038`); `T-022` se reetiqueta a `000_preproject` porque escribir plantillas es andamiaje, no descubrimiento (`D-039`); y `T-026` extiende el Paso 1b de `protocol-close` a `_templates/` (escrita a mano por `manager` fuera de las dos excepciones de la convencion, declarado asi en la propia ficha). Las entradas de esta sesion se fechan 2026-09-02 por continuidad con el registro (`D-042`). |
+| Avance de la etapa | `R-008` (sobre `f096fff`) abrio `F-020`, `F-021`, `F-022` y `F-023`. `manager` verifico los cuatro contra `HEAD` (`7025a05`) antes de aceptarlos, y los acepto los cuatro. `T-027` borra en `_audit/findings.md` la viñeta residual de `F-017` que contradecia a la fechada. `T-028` corrige en esta misma celda el commit atribuido a `R-007` —era `122b770`, no `ae06147`— dejando nota fechada. `T-029` no reescribe los tres bloques de verificacion de `decisions.md` que `F-022` desmintio (`D-036`, `D-038`, `D-040`): añade a cada uno una nota fechada con la orden que si se reproduce, sin tocar el texto original (`L-013`). `T-030` registra en `D-044` la desviacion de `T-026` que `F-023` señalo —ficha escrita a mano sin `D-XXX` ni `F-NNN` citado—, asumida como caso puntual y no como tercera excepcion de la convencion de `tasks.md`. Por orden del usuario nace `D-045`, que revoca `D-036`: los artefactos rellenos del descubrimiento pasan de `_discovery/` a `005_discovery/`; `T-031` mueve los diecisiete sitios donde estaba escrita la ruta vieja. Nace ademas `_workflow/` (`D-046`), con `team.md` y `ai_levels.md`, agnostica y con sus tres enganches de control (`project.md`, `CLAUDE.md`, Paso 1b de `protocol-close`, `D-047`); la secuencia de fases del documento fuente del usuario no entra en el repositorio (`D-048`); y se fija la frontera entre `team.md` y `ai_levels.md` (`D-049`). Las entradas de esta sesion se fechan 2026-09-02 por continuidad con el registro (`D-043`). |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo los tres hallazgos abiertos por `R-007` sobre `S-007` (`F-017`, `F-018`, `F-019`),
-verificando cada uno contra `HEAD` (`ae06147`) antes de aceptarlo, y los acepto los tres.
+`manager` evaluo los cuatro hallazgos abiertos por `R-008` sobre `S-008` (`F-020` a `F-023`),
+verificando cada uno contra `HEAD` (`7025a05`) antes de aceptarlo, y los acepto los cuatro.
 
-`T-023` añade a la ficha de `T-020` los dos bloques de verificacion que su propio criterio de
-cierre nombraba y que no estaban escritos —el listado de `_phases/` contra `project.md`, y el
-control de fuga de datos del Paso 1b—, anclados a `122b770` con nota fechada que declara que se
-añaden despues (el mismo patron que `T-014` aplico a `A-001`). `T-024` acota la frase de `T-021`
-que afirmaba un barrido «sobre todo el repositorio» sin cubrirlo, y añade el tercer bloque con ese
-barrido real, con patron insensible a mayusculas: asi aparecio una coincidencia en
-`session-closer.md:90` que el patron original no alcanzaba, aunque el fondo del hallazgo seguia
-siendo correcto (`L-012`). `T-025` no toca `_audit/S-007.md` (`D-040`): la correccion de `F-019` va
-al mecanismo, endureciendo la estructura del informe de `protocol-close` para que la seccion 1
-exija la salida generada en vez de una lista redactada de memoria (`L-011`).
+`T-027` borra la viñeta residual de la entrada `F-017` en `_audit/findings.md`, que contradecia a
+la fechada dejando la entrada con dos «Que se hizo» distintos. `T-028` corrige en `progress.md` el
+commit que la propia bitacora de `S-008` atribuia a `R-007` —`ae06147`, que es el commit que
+contiene el informe, no el que audito— y lo deja en `122b770`, con nota fechada; el segundo
+`ae06147` de la misma celda, el `HEAD` contra el que se verificaron los hallazgos, no se toca.
+`T-029` no reescribe los tres bloques de verificacion de `decisions.md` que `F-022` desmintio
+(`D-036`, `D-038` y `D-040`, cada uno con un fallo distinto: patron demasiado ancho, barrido sin
+anclar, codigo de salida usado como prueba de ausencia): añade a cada uno una nota fechada con la
+orden que si se reproduce y su salida cruda, sin tocar el texto original (`L-013`). `T-030`
+registra en `D-044` la desviacion que `F-023` señalo —`T-026` se escribio a mano fuera de las dos
+excepciones que la convencion de `tasks.md` exige—, asumiendola como **caso puntual** y dejando la
+convencion sin una tercera excepcion.
 
-Se escriben ademas las cuatro plantillas de `_templates/005_discovery/` (`T-022`, cerrando lo que
-`S-007` dejo pendiente), adaptadas —no copiadas— de las que aporto el usuario (`D-041`). De paso se
-zanjan tres asuntos que quedaban abiertos: donde viven los artefactos rellenos del descubrimiento
-—`_discovery/`, sin crear todavia (`D-036`)—; que la quinta plantilla (restricciones y supuestos)
-no se escribe porque ya tiene sitio en `_persistence/`, que gana los campos `Dueño` y
-`Riesgo abierto` para cubrir lo que esa plantilla aportaba (`D-037`); y el codigo de interesado,
-`I-XXX` (`D-038`). `T-022` se reetiqueta de `005_discovery` a `000_preproject`, porque escribir
-plantillas es andamiaje y no responde ninguna pregunta sobre la necesidad del cliente (`D-039`).
-`T-026` extiende el Paso 1b de `protocol-close` a `_templates/`, que nace con la misma condicion de
-agnosticidad que `.claude/`, `_phases/` y `_methodology/`.
+Por orden del usuario, `D-045` revoca `D-036`: los artefactos rellenos del descubrimiento pasan de
+`_discovery/` a `005_discovery/`, el nombre de la etapa que los produce. `T-031` mueve los
+diecisiete sitios donde estaba escrita la ruta vieja —las cuatro plantillas de
+`_templates/005_discovery/` y las dos filas de la tabla «Codigos» de `project.md`—; no se crea
+ninguna carpeta, porque sigue sin haber artefacto relleno que la sostenga.
+
+Nace ademas `_workflow/` (`D-046`), carpeta agnostica con `team.md` —el reparto del trabajo entre
+Humano, Software e IA— y `ai_levels.md` —los siete niveles de sistema de IA y su rubrica de
+seleccion—, adaptados de un documento del usuario. Aplica a todas las etapas declaradas salvo
+`000_preproject` (`D-047`), engancha en las tres columnas de control —`project.md`, `CLAUDE.md`,
+Paso 1b de `protocol-close`—, la secuencia de fases propia del documento fuente no entra en el
+repositorio (`D-048`), y se fija la frontera de contenido entre los dos archivos: `team.md` nombra
+los niveles, `ai_levels.md` los desarrolla (`D-049`). Queda abierto un cuarto enganche que ningun
+control detecta —que algo mande leer `_workflow/` en el momento en que sirve— y se deja señalado a
+proposito, sin resolver (`L-014`).
 
 ---
 
@@ -99,7 +107,9 @@ agnosticidad que `.claude/`, `_phases/` y `_methodology/`.
 alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa
 `005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un patrocinador
 alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de etapa dice
-que sin ese acceso no puede empezar.
+que sin ese acceso no puede empezar. Aparte, decidir si `L-014` —la carpeta `_workflow/` sin ningun
+enganche de uso— se resuelve con una fila en `_phases/` o de otra forma; es decision del usuario, no
+del cierre.
 
 ---
 
@@ -386,6 +396,37 @@ barre entera antes de darla por hecha.
 - **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `A-004` sigue
   `Abierto`. `F-017`, `F-018` y `F-019` quedan `Aceptado — pendiente` hasta que la auditoria
   siguiente verifique la correccion sobre este commit y los cierre.
+
+---
+
+### S-009 - Se aceptan `F-020` a `F-023`; los artefactos se mudan a `005_discovery/`; nace `_workflow/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | `000_preproject` |
+| Tareas | T-027, T-028, T-029, T-030, T-031 |
+
+- **Que se hizo:** `manager` evaluo los cuatro hallazgos abiertos por `R-008` sobre `S-008`
+  (`F-020` a `F-023`), verifico cada uno contra `HEAD` (`7025a05`) y los acepto los cuatro.
+  `T-027` borra en `_audit/findings.md` la viñeta residual de `F-017` que contradecia a la
+  fechada. `T-028` corrige en `progress.md` el commit atribuido a `R-007` —`122b770`, no
+  `ae06147`— con nota fechada. `T-029` no reescribe los tres bloques de verificacion de
+  `decisions.md` desmentidos por `F-022` (`D-036`, `D-038`, `D-040`): añade una nota fechada con la
+  orden que si se reproduce en cada uno, sin tocar el texto original (`L-013`). `T-030` registra en
+  `D-044` la desviacion de `T-026` que `F-023` señalo, como caso puntual, sin abrir una tercera
+  excepcion en la convencion de `tasks.md`. Por orden del usuario nace `D-045`, que revoca `D-036`:
+  los artefactos rellenos del descubrimiento pasan de `_discovery/` a `005_discovery/`; `T-031`
+  mueve los diecisiete sitios donde estaba escrita la ruta vieja. Nace `_workflow/` (`D-046`), con
+  `team.md` y `ai_levels.md`, agnostica y enganchada en `project.md`, `CLAUDE.md` y el Paso 1b de
+  `protocol-close` (`D-047`); la secuencia de fases del documento fuente del usuario no entra en el
+  repositorio (`D-048`); se fija la frontera entre los dos archivos nuevos (`D-049`). Se registra
+  `A-005`: la parte de `ai_levels.md` sin experiencia propia detras (harness, observabilidad,
+  evaluaciones, rubricas, metricas) es un supuesto abierto, no un hecho comprobado.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `A-004` y `A-005`
+  siguen `Abierto`. `F-020` a `F-023` quedan `Aceptado — pendiente` hasta que la auditoria
+  siguiente verifique la correccion sobre este commit y los cierre. `L-014` señala un cuarto
+  enganche sin resolver para `_workflow/` —que algo mande leerla en el momento en que sirve—, dejado
+  a proposito porque toca una decision del usuario sobre `_phases/`.
 
 ---
 

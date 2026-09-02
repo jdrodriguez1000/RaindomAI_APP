@@ -11,6 +11,7 @@
 | Codigo | Deuda tecnica | Estado | Confirmacion | Importancia | Urgencia |
 |---|---|---|---|---|---|
 | [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | Implementada | Confirmada | Baja | No bloqueante |
+| [DT-002](#dt-002---_workflow-nace-sin-ningun-enganche-de-uso-l-014) | `_workflow/` nace sin ningun enganche de uso (`L-014`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 
 ---
 
@@ -128,3 +129,36 @@ que el valor descansaba en el traspaso de la sesion, no en el diff, y no existe 
 ampare la excepcion. `manager` **tampoco puede confirmarla**: quien confirma esta escrito dentro del
 valor, y es el usuario. El campo `Origen: usuario` se deja como esta — dice de quien nacio la deuda,
 no que la confirmacion se haya producido.
+
+---
+
+### DT-002 - `_workflow/` nace sin ningun enganche de uso (`L-014`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | manager |
+| Fecha | 2026-09-02 |
+
+- **Deuda:** `_workflow/` nacio en esta sesion (`D-046`) con sus tres enganches de **control** —fila
+  en «Carpetas propias» de `project.md`, entrada en la lista de lo copiable tal cual de `CLAUDE.md`,
+  ambito del Paso 1b de `protocol-close`—, pero **ningun** enganche de **uso**: nada en `_phases/`
+  ni en ningun protocolo manda leer `team.md` o `ai_levels.md` en el momento en que aplican. Lo deja
+  registrado `L-013` de `lessons.md`.
+- **Por que se tomo:** los tres enganches de control eran los que ya se sabia que hacian falta,
+  porque `_templates/` habia pasado por lo mismo. El cuarto —que alguien tenga que abrir la
+  carpeta— exige decidir **en que punto de que etapa** se consulta, y esa es una decision de
+  `_phases/` que le toca al usuario, no algo que el cierre de sesion pueda resolver.
+- **Costo de no pagarla:** ninguno de los tres controles existentes detecta esta deuda —una carpeta
+  agnostica, declarada y sin fugas, pero que nadie abre nunca, deja el repositorio «coherente» con
+  material muerto dentro—. Sin el cuarto enganche, `_workflow/` corre el riesgo de quedar como
+  documentacion que nadie consulta cuando llegue el momento de repartir trabajo o elegir un nivel de
+  sistema de IA.
+- **Como se paga:** decidir en que archivo de `_phases/` (o en que otro punto del metodo) se cita
+  `_workflow/team.md` y `_workflow/ai_levels.md`, y con que `D-XXX`.
+
+📌 **Propuesta del cierre `S-009`**, a partir de `L-014`. `manager` no la escribe como deuda
+confirmada porque resolverla implica una decision de diseño —donde exactamente se engancha— que le
+corresponde al usuario.

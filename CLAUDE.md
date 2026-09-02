@@ -208,10 +208,10 @@ Los datos propios de este proyecto —nombre, rutas, remoto, carpetas, codigos�
 **`project.md`**, y solo ahi: ningun protocolo, agente ni este archivo los lleva escritos dentro.
 Si cambian, se cambian en un sitio.
 
-🚨 **Este archivo, `.claude/`, `_phases/`, `_methodology/` y `_templates/` tienen que poder copiarse
-a otro proyecto tal cual.**
+🚨 **Este archivo, `.claude/`, `_phases/`, `_methodology/`, `_templates/` y `_workflow/` tienen que
+poder copiarse a otro proyecto tal cual.**
 Por eso no llevan ni un nombre, ni una ruta, ni un host de este proyecto — y el Paso 1b de
-`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los cinco. Si algun dia
+`protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los seis. Si algun dia
 devuelve una linea, es que un dato propio se colo ahi.
 
 🔑 **`_methodology/` esta en esa lista por lo mismo, y con mas motivo:** es el metodo de
@@ -228,6 +228,17 @@ genericos (`T-XXX`, `D-XXX`, `F-NNN`), nunca instanciados.
 huecos, no los datos: donde va el nombre del proyecto hay un hueco. ⚠️ **Y por eso es la mas facil
 de estropear sin que nadie lo note:** una plantilla que alguien rellena en su sitio, en vez de
 copiarla antes, deja de ser plantilla — y solo el barrido del Paso 1b lo ve.
+
+🔑 **`_workflow/` esta en esa lista porque reparte trabajo, no porque lo describa.** `team.md` dice
+que actividad es de un humano, de un proceso determinista o de la IA, y con cuanta autonomia;
+`ai_levels.md` dice cuanto sistema de IA pide un trabajo y como se elige. Nada de eso cambia al
+cambiar de producto: lo que cambia es **el reparto concreto de cada etapa**, y ese vive en
+`decisions.md` con su `D-XXX`, nunca dentro de estos dos archivos.
+
+⚠️ **Aplica a todas las etapas declaradas salvo `000_preproject`**, y no por omision: la etapa
+preparatoria no reparte trabajo sobre un producto, lo construye el sistema de trabajo que hace el
+reparto posible. Ese mismo sistema —un humano que dirige, unos protocolos deterministas y unos
+agentes especializados— es el ejemplo trabajado que `team.md` usa para explicarse.
 
 ⚠️ **Una diferencia con `_phases/`, y conviene decirla porque parece una contradiccion.** Un archivo
 de etapa escribe los codigos **genericos** (`T-XXX`, `D-XXX`); una plantilla escribe el **primero**

@@ -2,7 +2,7 @@
 
 | Campo | Valor |
 |---|---|
-| Artefacto | `_discovery/020_hypothesis.md` |
+| Artefacto | `005_discovery/020_hypothesis.md` |
 | Etapa que lo produce | `005_discovery` |
 | Estado | `SELLADA` |
 | Sellada el | `<AAAA-MM-DD>` |
@@ -13,7 +13,7 @@
 > Un Gate posterior comprobara dos cosas en el historial de `git`, y las dos son sobre este archivo:
 >
 > 1. Que existia **antes** de la primera sesion del prototipo.
-> 2. Que **no cambio durante la etapa** → `git log --oneline -- _discovery/020_hypothesis.md` debe
+> 2. Que **no cambio durante la etapa** → `git log --oneline -- 005_discovery/020_hypothesis.md` debe
 >    devolver **un solo commit**.
 >
 > **Por eso este archivo se escribe entero antes del primer `git add`.** Se piensa, se discute y se
@@ -120,9 +120,9 @@ Todo esto se revisa **antes** de `git add`, porque despues ya no se puede tocar.
 - [ ] La cabecera dice `SELLADA` y tiene fecha.
 
 ```bash
-grep -n "<" _discovery/020_hypothesis.md                 # debe no devolver nada
-grep -n "Guia de llenado" _discovery/020_hypothesis.md   # debe no devolver nada
-git log --oneline -- _discovery/020_hypothesis.md        # debe devolver UNA sola linea
+grep -n "<" 005_discovery/020_hypothesis.md                 # debe no devolver nada
+grep -n "Guia de llenado" 005_discovery/020_hypothesis.md   # debe no devolver nada
+git log --oneline -- 005_discovery/020_hypothesis.md        # debe devolver UNA sola linea
 ```
 
 📌 El tercero es el que mira `report_auditor`. Correlo tu antes que el.

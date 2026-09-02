@@ -35,6 +35,11 @@
 | [T-024](#t-024---registrar-el-barrido-de-variantes-de-t-021-con-su-patron-y-su-ambito-f-018) | Registrar el barrido de variantes de `T-021` con su patron y su ambito (`F-018`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-025](#t-025---endurecer-en-protocol-close-la-lista-de-la-seccion-1-del-informe-f-019) | Endurecer en `protocol-close` la lista de la seccion 1 del informe (`F-019`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-026](#t-026---extender-el-paso-1b-de-protocol-close-a-_templates) | Extender el Paso 1b de `protocol-close` a `_templates/` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-027](#t-027---borrar-la-viñeta-residual-de-f-017-en-findingsmd-f-020) | Borrar la viñeta residual de `F-017` en `findings.md` (`F-020`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-028](#t-028---corregir-en-progressmd-el-commit-que-se-atribuye-a-r-007-f-021) | Corregir en `progress.md` el commit que se atribuye a `R-007` (`F-021`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-029](#t-029---anotar-los-tres-bloques-de-verificacion-de-decisionsmd-que-no-se-reproducen-f-022) | Anotar los tres bloques de verificacion de `decisions.md` que no se reproducen (`F-022`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-030](#t-030---registrar-en-decisionsmd-la-desviacion-de-t-026-f-023) | Registrar en `decisions.md` la desviacion de `T-026` (`F-023`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-031](#t-031---mover-a-005_discovery-la-ruta-de-los-artefactos-del-descubrimiento-d-045) | Mover a `005_discovery/` la ruta de los artefactos del descubrimiento (`D-045`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -1034,4 +1039,253 @@ CLAUDE.md:227:🔑 **`_templates/` esta en esa lista porque una plantilla existe
 
 $ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|C:\\Users|USUARIO|jdrodriguez" .claude CLAUDE.md _phases _methodology _templates ; echo "exit=$?"
 exit=1
+```
+
+
+📌 **Nota del 2026-09-02 (`T-030`, hallazgo `F-023`): la desviacion que esta ficha declara queda
+registrada en `D-044`.** `R-008` señalo, con razon, que declararla aqui era lo correcto pero
+insuficiente: el porque de lo que se elige va a `decisions.md`, y quien busque si existe una tercera
+excepcion mira la convencion de este archivo, no una ficha. `D-044` la asume como **caso puntual** y
+deja la convencion como esta —siguen siendo dos excepciones—. El texto de arriba no se reescribe.
+
+---
+
+### T-027 - Borrar la viñeta residual de `F-017` en `findings.md` (`F-020`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-009 |
+
+- **Que:** la entrada `### F-017` de `_audit/findings.md` tenia **dos** viñetas «Que se hizo» que se
+  contradecian: la fechada, que dice que se acepto el 2026-09-02, y una residual que decia que seguia
+  «pendiente de la evaluacion de `manager`». Se borra la residual y queda solo la fechada.
+- **Por que:** el registro de hallazgos decia dos cosas incompatibles sobre el mismo hallazgo, y
+  quien leyera la entrada de arriba abajo se quedaba con la ultima linea — la que afirma que nadie lo
+  evaluo. `F-018` y `F-019`, corregidos en la misma pasada, si sustituyeron la linea vieja; `F-017`
+  la dejo y añadio la nueva encima.
+- **Que NO cambia:** ni el texto de la viñeta fechada, ni la fila del indice, ni el campo `Estado`,
+  que ya decian lo correcto. **Solo se borra la linea sobrante.**
+- **Que lo autoriza:** `D-027` — `_audit/findings.md` es del auditor, pero la correccion de un texto
+  concreto señalado por un hallazgo aceptado le toca a `manager`, y la entrada de un hallazgo es
+  registro vivo, no documento entregado.
+- **Criterio de cierre:** la entrada de `F-017` tiene exactamente una viñeta «Que se hizo».
+
+**Verificacion — antes y despues, sobre el mismo trozo del archivo:**
+
+```
+$ git show HEAD:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | grep -n "Que se hizo"
+36:- **Que se hizo:** **aceptado** el 2026-09-02 (`S-008`). Verificado contra `HEAD` (`ae06147`) antes
+43:- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+$ sed -n '/^### F-017/,/^### F-018/p' _audit/findings.md | grep -c "Que se hizo"
+1
+```
+
+---
+
+### T-028 - Corregir en `progress.md` el commit que se atribuye a `R-007` (`F-021`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-009 |
+
+- **Que:** el campo «Avance de la etapa» de `_persistence/progress.md` abria con «`R-007` (sobre
+  `ae06147`)». `ae06147` es el commit que **contiene** `R-007`, no el que `R-007` audito, que es
+  `122b770`. Se corrige esa primera mencion y se deja nota fechada al final de la celda.
+- **Por que:** `progress.md` es lo primero que lee `session-starter` al arrancar y lo primero que se
+  cita al reconstruir que paso. Un hash mal atribuido manda a quien lo siga a mirar un commit que no
+  contiene nada de lo que se le dice que va a encontrar. La entrada de `S-007`, en el mismo archivo,
+  ya escribia bien la formula: «`R-006` (sobre `d906a5d`)».
+- **Que NO cambia:** el **segundo** `ae06147` de la misma celda —«verifico los tres contra `HEAD`
+  (`ae06147`)»— es correcto y no se toca. Tampoco se toca la bitacora ni la seccion 2.
+- **Que lo autoriza:** `D-027`, que reparte explicitamente «las secciones de `progress.md` que el
+  cierre sobrescribe en cada pasada» a `manager` cuando un hallazgo aceptado señala un texto concreto.
+  La seccion 1 es una de ellas.
+- **Criterio de cierre:** la celda atribuye a `R-007` el commit `122b770`, y la nota fechada explica
+  que se corrigio y que se dejo igual.
+
+**Verificacion — el hash antes y despues, y la nota:**
+
+```
+$ git show HEAD:_persistence/progress.md | grep -o "R-007\` (sobre \`[0-9a-f]*\`)"
+R-007` (sobre `ae06147`)
+
+$ grep -o "R-007\` (sobre \`[0-9a-f]*\`)" _persistence/progress.md
+R-007` (sobre `122b770`)
+
+$ git show HEAD:_audit/index.md | grep "S-007"
+| `S-007.md` | S-007 | 2026-09-02 | `122b770` | `R-007.md` | Con hallazgos (3) | F-017, F-018, F-019 |
+```
+
+---
+
+### T-029 - Anotar los tres bloques de verificacion de `decisions.md` que no se reproducen (`F-022`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-009 |
+
+- **Que:** `D-036`, `D-038` y `D-040` registran cada uno una salida que no sale al correr su orden
+  literal. Los tres reciben una **nota fechada** al lado del bloque, que dice que la orden esta mal
+  escrita, por que no puede dar lo que dice, y **cual es la orden que si demuestra lo que la decision
+  queria demostrar**, con su salida cruda.
+- **Los tres casos, y en que fallaba cada uno:**
+  - **`D-036`** — `grep -n "_discovery" project.md` con resultado `exit=1`. El patron no lleva barra y
+    tambien casa con `005_discovery`, que `project.md` ya usaba: devolvia diez lineas y `exit=0`. La
+    orden correcta acota a la fila de «Carpetas propias».
+  - **`D-038`** — `grep -rnoE "\bI-[0-9]{3}\b" ...` con `exit=1`, escrito sin anclar: sobre el arbol
+    ya devuelve las siete coincidencias que la propia sesion acababa de escribir. Anclado a `122b770`
+    con `git grep` si da `exit=1`.
+  - **`D-040`** — `git status --porcelain` con `exit=1`. `git status` sale con `0` cuando no tiene
+    nada que reportar; lo que se queria mostrar era la **ausencia de salida**, y para eso vale el
+    `| wc -l` que `T-025` ya usaba.
+- **Por que se anota y no se reescribe:** `CLAUDE.md` es explicito — una salida antigua **no se
+  retoca** para que exhiba lo que en su dia no dio, porque eso convierte «falta evidencia» en «hay
+  evidencia falsa». El texto original se queda entero; la nota va al lado, fechada, y dice
+  literalmente que se añade despues.
+- **En los tres el fondo era correcto y la forma no**, y esa es justo la combinacion que erosiona la
+  confianza en el mecanismo: un bloque cuya salida no se reproduce cuesta mas que no tenerlo, porque
+  obliga a rehacer el barrido **y** a averiguar si la diferencia es un error de transcripcion o una
+  afirmacion falsa.
+- **Criterio de cierre:** las tres decisiones llevan su nota fechada con la orden que si se
+  reproduce, y ninguna salida original quedo modificada.
+
+**Verificacion — primero los tres bloques desmentidos sobre `HEAD` antes de aceptar el hallazgo:**
+
+```
+$ git show 7025a05:project.md | grep -c "_discovery"
+10
+
+$ git grep -noE "I-[0-9]{3}" 7025a05 -- _persistence/ _audit/ project.md | wc -l
+24
+
+$ git status --porcelain -- _audit/S-007.md ; echo "exit=$?"
+exit=0
+```
+
+Diez lineas donde el bloque de `D-036` decia cero, veinticuatro donde el de `D-038` decia cero, y
+`exit=0` donde el de `D-040` decia `exit=1`. **Los tres hallazgos se sostienen.**
+
+**Verificacion — las tres notas existen, y ninguna linea original desaparecio:**
+
+```
+$ grep -c "Nota del 2026-09-02 (\`T-029\`, hallazgo \`F-022\`)" _persistence/decisions.md
+3
+
+$ git diff -- _persistence/decisions.md | grep "^-[^-]"
+-| [D-036](#d-036---los-artefactos-rellenos-del-descubrimiento-viven-en-_discovery) | Los artefactos rellenos del descubrimiento viven en `_discovery/` | 2026-09-02 | Vigente |
+-| Estado | Vigente |
+```
+
+Las dos unicas lineas que este archivo pierde son la fila del indice y el campo `Estado` de `D-036`,
+y no las borra esta tarea sino `T-031`, que la revoca por `D-045`. **De los tres bloques de
+verificacion no se quito ni una linea:** todo lo de `T-029` es añadido.
+
+---
+
+### T-030 - Registrar en `decisions.md` la desviacion de `T-026` (`F-023`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-009 |
+
+- **Que:** nace `D-044`, que asume como **caso puntual** que `T-026` se escribiera a mano fuera de las
+  dos excepciones de la convencion de este archivo, y la ficha de `T-026` recibe una nota fechada que
+  la cita. La convencion **no** se toca: no se abre una tercera excepcion.
+- **Por que:** `F-023` señala bien el hueco. Declarar el incumplimiento dentro de la propia ficha que
+  lo comete es correcto pero insuficiente: `decisions.md` es donde `CLAUDE.md` manda el porque de lo
+  que se elige, y quien vaya a buscar si existe una tercera excepcion mira la convencion, no la ficha.
+  Es el mismo hueco que `F-007` abrio con `D-020`.
+- **Por que caso puntual y no tercera excepcion:** las dos excepciones existentes cubren lo que el
+  `session-closer` **no puede** deducir del `git diff`. `T-026` si se deduce: el diff toca `CLAUDE.md`
+  y `SKILL.md`. Una excepcion que la cubriera no acotaria nada. El razonamiento entero esta en
+  `D-044`.
+- **Que NO cambia:** el texto original de `T-026`, que se queda como estaba —incluida su declaracion
+  de que la regla se salto—, porque un incumplimiento declarado se audita y uno deshecho no.
+- **Criterio de cierre:** existe `D-044`, la ficha de `T-026` la cita, y la convencion de este archivo
+  sigue diciendo «dos excepciones».
+
+**Verificacion — la decision existe, la ficha la cita, y la convencion no se movio:**
+
+```
+$ grep -n "^### D-044" _persistence/decisions.md
+1914:### D-044 - La ficha `T-026` escrita a mano se asume como caso puntual, no como tercera excepcion
+
+$ sed -n '/^### T-026/,/^### T-027/p' _persistence/tasks.md | grep -c "D-044"
+2
+
+$ git diff -- _persistence/tasks.md | grep -c "^-[^-]"
+0
+
+$ sed -n '/^## Convenciones/,/^## Tareas/p' _persistence/tasks.md | grep -c "Son dos excepciones, no una puerta"
+1
+```
+
+---
+
+### T-031 - Mover a `005_discovery/` la ruta de los artefactos del descubrimiento (`D-045`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-009 |
+
+- **Que:** la ruta donde viviran los artefactos rellenos del descubrimiento pasa de `_discovery/` a
+  **`005_discovery/`**, por orden del usuario (`D-045`, que revoca `D-036`). Se actualizan los
+  diecisiete sitios donde estaba escrita: las cuatro plantillas de `_templates/005_discovery/` —su
+  cabecera `Artefacto` y los bloques de comprobacion que llevan la ruta dentro del comando— y las dos
+  filas de la tabla «Codigos» de `project.md`.
+- **Por que:** la carpeta pasa a llamarse como la etapa que la produce. `_phases/005_discovery.md`
+  describe la etapa, `_templates/005_discovery/` guarda sus plantillas y `005_discovery/` guardara sus
+  artefactos. El nombre viejo no decia de que etapa venia.
+- **Que NO cambia:** **no se crea ninguna carpeta.** Sigue sin haber artefacto relleno que la
+  sostenga, `git` no versiona carpetas vacias, y `project.md` sigue sin fila en «Carpetas propias»
+  hasta que exista — el mismo criterio de `D-035` y `D-036`. Tampoco cambia `_phases/005_discovery.md`,
+  que por diseño no lleva la ruta escrita.
+- **Sobre la agnosticidad:** `005_discovery/` es nombre generico de metodo, en ingles, como `_phases/`
+  o `_templates/`; escribirlo dentro de `_templates/` no dispara el barrido del Paso 1b.
+- **Criterio de cierre:** no queda ni una ruta `_discovery/` en `_templates/` ni en `project.md`, y el
+  barrido de fuga de datos del Paso 1b sigue devolviendo cero.
+
+**Verificacion — la ruta vieja ya no aparece, la nueva si, y el control de agnosticidad sigue limpio:**
+
+```
+$ grep -rn -- "_discovery/" _templates project.md | grep -v "005_discovery/" ; echo "exit=$?"
+exit=1
+
+$ grep -rc "005_discovery/" _templates/005_discovery/*.md project.md
+_templates/005_discovery/005_needs.md:4
+_templates/005_discovery/010_actors.md:4
+_templates/005_discovery/015_stakeholders.md:4
+_templates/005_discovery/020_hypothesis.md:5
+project.md:2
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|C:\\Users|USUARIO|jdrodriguez" .claude CLAUDE.md _phases _methodology _templates ; echo "exit=$?"
+exit=1
+
+$ grep -rnEi "raindom|raidom|Proyectos_TripleS|github\.com|jdrodriguez" .claude CLAUDE.md _phases _methodology _templates ; echo "exit=$?"
+exit=1
+
+$ ls -d 005_discovery 2>&1 ; echo "exit=$?"
+ls: cannot access '005_discovery': No such file or directory
+exit=2
 ```

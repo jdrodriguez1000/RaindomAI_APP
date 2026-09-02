@@ -102,7 +102,7 @@ como `SIN COMPROBAR — sin commits todavia`.
 Con la evidencia delante, corre este control y **pega su salida cruda en el informe**:
 
 ```bash
-git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases _methodology _templates
+git grep -nE "<nombre del proyecto>|<carpeta raiz de las rutas absolutas>|<host del remoto>" -- .claude CLAUDE.md _phases _methodology _templates _workflow
 ```
 
 Los tres valores salen de `project.md`. Si alguno no esta declarado ahi, este control **no se puede
@@ -113,9 +113,9 @@ proyecto se ha colado en un archivo que deberia ser reutilizable tal cual, y **s
 hallazgo propio en el informe**: no se arregla en silencio ni se omite.
 
 🚨 **El ambito es parte del control, no un detalle de implementacion.** Se acota a `.claude/`,
-`CLAUDE.md`, `_phases/`, `_methodology/` y `_templates/`, y a nada mas, porque son los **unicos
-sitios donde «cero» es la respuesta correcta**: los cinco tienen que poder copiarse a otro proyecto
-tal cual. El mismo patron sobre el arbol entero da siempre positivos **legitimos**:
+`CLAUDE.md`, `_phases/`, `_methodology/`, `_templates/` y `_workflow/`, y a nada mas, porque son los
+**unicos sitios donde «cero» es la respuesta correcta**: los seis tienen que poder copiarse a otro
+proyecto tal cual. El mismo patron sobre el arbol entero da siempre positivos **legitimos**:
 
 | Donde | Por que es correcto que aparezca |
 |---|---|

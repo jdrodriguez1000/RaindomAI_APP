@@ -44,13 +44,20 @@
 | [D-033](#d-033---el-archivo-de-etapa-de-descubrimiento-se-adapta-de-la-guia-del-usuario-no-se-copia) | El archivo de etapa de descubrimiento se adapta de la guia del usuario, no se copia | 2026-09-02 | Vigente |
 | [D-034](#d-034---n-xxx-es-el-codigo-de-necesidad-los-supuestos-y-restricciones-siguen-siendo-a-xxx-y-c-xxx) | `N-XXX` es el codigo de necesidad; los supuestos y restricciones siguen siendo `A-XXX` y `C-XXX` | 2026-09-02 | Vigente |
 | [D-035](#d-035---las-plantillas-de-los-artefactos-de-descubrimiento-viven-en-_templates005_discovery) | Las plantillas de los artefactos de descubrimiento viven en `_templates/005_discovery/` | 2026-09-02 | Vigente |
-| [D-036](#d-036---los-artefactos-rellenos-del-descubrimiento-viven-en-_discovery) | Los artefactos rellenos del descubrimiento viven en `_discovery/` | 2026-09-02 | Vigente |
+| [D-036](#d-036---los-artefactos-rellenos-del-descubrimiento-viven-en-_discovery) | Los artefactos rellenos del descubrimiento viven en `_discovery/` | 2026-09-02 | Revocada por D-045 |
 | [D-037](#d-037---el-descubrimiento-no-lleva-plantilla-de-restricciones-y-supuestos-se-registran-en-_persistence) | El descubrimiento no lleva plantilla de restricciones y supuestos: se registran en `_persistence/` | 2026-09-02 | Vigente |
 | [D-038](#d-038---i-xxx-es-el-codigo-de-interesado) | `I-XXX` es el codigo de interesado | 2026-09-02 | Vigente |
 | [D-039](#d-039---t-022-se-reetiqueta-a-000_preproject-escribir-plantillas-es-andamiaje) | `T-022` se reetiqueta a `000_preproject`: escribir plantillas es andamiaje | 2026-09-02 | Vigente |
 | [D-040](#d-040---_audits-007md-no-se-reescribe-para-corregir-f-019-la-correccion-va-al-mecanismo) | `_audit/S-007.md` no se reescribe para corregir `F-019`: la correccion va al mecanismo | 2026-09-02 | Vigente |
 | [D-041](#d-041---las-cuatro-plantillas-se-adaptan-de-las-del-usuario-no-se-copian) | Las cuatro plantillas se adaptan de las del usuario, no se copian | 2026-09-02 | Vigente |
 | [D-042](#d-042---las-entradas-de-esta-sesion-se-fechan-2026-09-02-por-continuidad-con-el-registro) | Las entradas de esta sesion se fechan 2026-09-02, por continuidad con el registro | 2026-09-02 | Vigente |
+| [D-043](#d-043---las-entradas-de-s-009-se-fechan-2026-09-02-por-continuidad-con-el-registro) | Las entradas de `S-009` se fechan 2026-09-02, por continuidad con el registro | 2026-09-02 | Vigente |
+| [D-044](#d-044---la-ficha-t-026-escrita-a-mano-se-asume-como-caso-puntual-no-como-tercera-excepcion) | La ficha `T-026` escrita a mano se asume como caso puntual, no como tercera excepcion | 2026-09-02 | Vigente |
+| [D-045](#d-045---los-artefactos-rellenos-del-descubrimiento-viven-en-005_discovery) | Los artefactos rellenos del descubrimiento viven en `005_discovery/` | 2026-09-02 | Vigente |
+| [D-046](#d-046---nace-_workflow-carpeta-agnostica-con-teammd-y-ai_levelsmd) | Nace `_workflow/`, carpeta agnostica con `team.md` y `ai_levels.md` | 2026-09-02 | Vigente |
+| [D-047](#d-047---_workflow-aplica-a-todas-las-etapas-declaradas-salvo-000_preproject) | `_workflow/` aplica a todas las etapas declaradas salvo `000_preproject` | 2026-09-02 | Vigente |
+| [D-048](#d-048---la-secuencia-de-fases-del-documento-fuente-no-entra-en-el-repositorio) | La secuencia de fases del documento fuente no entra en el repositorio | 2026-09-02 | Vigente |
+| [D-049](#d-049---la-frontera-entre-teammd-y-ai_levelsmd-uno-nombra-los-niveles-el-otro-los-desarrolla) | La frontera entre `team.md` y `ai_levels.md`: uno nombra los niveles, el otro los desarrolla | 2026-09-02 | Vigente |
 
 ---
 
@@ -1500,8 +1507,13 @@ exit=1
 | Campo | Valor |
 |---|---|
 | Fecha | 2026-09-02 |
-| Estado | Vigente |
+| Estado | Revocada por D-045 |
 | Origen | usuario |
+
+📌 **Nota del 2026-09-02: revocada por `D-045`.** El usuario cambio el nombre de la carpeta a
+`005_discovery/`. Lo que sigue es el texto original, que no se reescribe: el porque de haber
+elegido carpeta de primer nivel —y no `_persistence/`— sigue siendo el mismo y es lo que `D-045`
+hereda; lo unico que cambia es el nombre.
 
 - **Contexto:** `D-035` decidio donde viven **las plantillas** —`_templates/005_discovery/`— y dejo
   expresamente sin decidir donde viven **los artefactos rellenos**, los que llevaran los `N-XXX`
@@ -1543,6 +1555,19 @@ ls: cannot access '_discovery': No such file or directory
 exit=2
 
 $ grep -n "_discovery" project.md ; echo "exit=$?"
+exit=1
+```
+
+📌 **Nota del 2026-09-02 (`T-029`, hallazgo `F-022`): la segunda orden de este bloque esta mal
+escrita y su salida no se reproduce.** El patron `_discovery` sin barra tambien casa con la cadena
+`005_discovery`, que `project.md` ya usaba, asi que devolvia lineas y `exit=0`, no `exit=1`. **El
+texto original no se reescribe** (`CLAUDE.md`: una salida antigua no se retoca para que exhiba lo
+que no dio). Lo que la decision queria demostrar —que la carpeta de los artefactos rellenos no
+tiene fila en «Carpetas propias»— si es cierto, y esta es la orden que si lo demuestra, anclada al
+commit de aquella sesion:
+
+```
+$ git show f096fff:project.md | grep -n '^| `_discovery/`' ; echo "exit=$?"
 exit=1
 ```
 
@@ -1639,6 +1664,17 @@ $ grep -rnoE "\bI-[0-9]{3}\b" _persistence/ _audit/ project.md ; echo "exit=$?"
 exit=1
 ```
 
+📌 **Nota del 2026-09-02 (`T-029`, hallazgo `F-022`): esta orden se escribio sin anclar, y sobre el
+arbol de trabajo ya no da `exit=1`.** Al correrla sobre el commit que la contiene devuelve siete
+coincidencias —todas `I-001` a `I-003` que la propia sesion acababa de escribir—, no cero. **El
+texto original no se reescribe.** El fondo si era correcto: antes de la decision no habia ningun
+`I-NNN` con el que colisionar, y esta es la orden anclada que lo demuestra:
+
+```
+$ git grep -nE "\bI-[0-9]{3}\b" 122b770 -- _persistence/ _audit/ project.md ; echo "exit=$?"
+exit=1
+```
+
 ---
 
 ### D-039 - `T-022` se reetiqueta a `000_preproject`: escribir plantillas es andamiaje
@@ -1722,6 +1758,17 @@ $ git show 122b770:_audit/S-007.md | sed -n '/^## 1\./,/^## 2\./p' | grep -c '^-
 
 $ git status --porcelain -- _audit/S-007.md ; echo "exit=$?"
 exit=1
+```
+
+📌 **Nota del 2026-09-02 (`T-029`, hallazgo `F-022`): la tercera orden de este bloque devuelve
+`exit=0`, no `exit=1`.** `git status` sale con `0` cuando no tiene nada que reportar; lo que se
+queria mostrar era la **ausencia de salida**, y para eso el codigo de salida no sirve. **El texto
+original no se reescribe.** El fondo si era correcto —`_audit/S-007.md` sigue intacto— y esta es la
+forma que si lo dice, la misma que `T-025` ya usaba:
+
+```
+$ git status --porcelain -- _audit/S-007.md | wc -l
+0
 ```
 
 ---
@@ -1824,3 +1871,346 @@ ae06147 2026-09-01
 $ grep -c "^| Fecha | 2026-09-02 |" _persistence/decisions.md
 16
 ```
+
+---
+
+### D-043 - Las entradas de `S-009` se fechan 2026-09-02, por continuidad con el registro
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** es el mismo caso que `D-042` resolvio para `S-008`, y se repite sin cambios: el reloj
+  del entorno marca `2026-09-01` y los commits llevan esa fecha, pero el registro viene fechado
+  `2026-09-02` desde `D-032`. Escribir hoy `2026-09-01` pondria a `S-009` **antes** que `S-007` y
+  `S-008`.
+- **Decision:** las entradas de `S-009` se fechan **`2026-09-02`**, la misma que `S-007`, `S-008`,
+  `R-007` y `R-008`.
+- **Por que se escribe otra decision y no basta con `D-042`:** `D-042` decide sobre las entradas de
+  `S-008`, y su titulo lo dice. Reaprovecharla para una sesion que no nombra obligaria a leerla como
+  si dijera algo mas amplio de lo que dice. ⚠️ **Si el caso vuelve a repetirse, lo que toca no es una
+  cuarta decision identica sino una regla general** —«el registro se fecha por continuidad mientras
+  el reloj del entorno no alcance al registro»—, y esa si valdria una `D-XXX` con vocacion de
+  quedarse.
+- **Alternativas descartadas:** usar `2026-09-01`, la del reloj (deja `S-009` fechada antes que las
+  dos sesiones que la preceden); usar `2026-09-03` (un dia sin respaldo en ningun reloj ni commit);
+  fechar en silencio sin registrar nada (`CLAUDE.md`: cero decisiones silenciosas).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  convencion de escritura dentro del repositorio, y rehacerla solo cuesta reescribir fechas.
+
+**Verificacion — el reloj y el ultimo commit siguen en `2026-09-01`, y el registro ya venia en
+`2026-09-02`:**
+
+```
+$ date +%F
+2026-09-01
+
+$ git log -1 --format="%h %ad" --date=short
+7025a05 2026-09-01
+
+$ git show HEAD:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+16
+```
+
+---
+
+### D-044 - La ficha `T-026` escrita a mano se asume como caso puntual, no como tercera excepcion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-023` tiene razon. La convencion de `tasks.md` admite dos excepciones para escribir
+  una ficha a mano, y las dos exigen **un `D-XXX` o un `F-NNN` citado en la propia tarea**. `T-026`
+  no cita ninguno: no nace de un hallazgo —`R-007` no la abrio— y su cambio si se deduce del
+  `git diff`, que toca `CLAUDE.md` y `SKILL.md`. La ficha lo declara en prosa, pero la desviacion
+  nunca llego a `decisions.md`, que es donde `CLAUDE.md` manda el porque de lo que se elige.
+- **Decision:** se asume la desviacion como **caso puntual**. Esta decision es el `D-XXX` que a
+  `T-026` le faltaba, y se cita en su ficha. **No se abre una tercera excepcion** en la convencion de
+  `tasks.md`, que queda igual que estaba.
+- **Por que caso puntual y no tercera excepcion:** las dos excepciones existentes cubren cosas que el
+  `session-closer` **no puede** deducir —un hallazgo evaluado hoy, una orden del usuario que no deja
+  rastro en el diff—. `T-026` no es ninguna de las dos: el cierre la habria escrito igual de bien.
+  Una tercera excepcion que diga «tambien cuando a `manager` le venga de paso» no acota nada; es la
+  puerta que la propia convencion avisa de no abrir. Lo correcto habria sido esperar al cierre.
+- **Por que no se borra la ficha para que la reescriba el cierre:** ya lo razona la propia `T-026`, y
+  el razonamiento se mantiene: borrarla no cambiaria nada del repositorio salvo quien la tecleo, y
+  borraria el rastro de que la regla se salto. Un incumplimiento declarado se audita; uno deshecho,
+  no.
+- **Lo incomodo, y se escribe:** esta decision se escribe **despues** del hecho, y eso no la
+  convierte en una autorizacion previa. Lo que hace es dejar el caso donde se busca en vez de
+  enterrado en la ficha que lo comete. ⚠️ **Si el patron reaparece, ya no es caso puntual:** el
+  segundo es un hallazgo, no otra `D-XXX` como esta.
+- **Alternativas descartadas:** abrir la tercera excepcion en la convencion (no acota nada, ver
+  arriba); no registrar nada y dejarlo en la prosa de la ficha (es exactamente lo que `F-023`
+  señala, y el mismo hueco que `F-007` abrio con `D-020`); borrar la ficha y dejar que la reescriba
+  el cierre (borra el rastro del incumplimiento).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — no se
+  borra ni se publica nada; se registra un porque, y un registro se corrige con otra entrada.
+
+**Verificacion — la desviacion existe y no estaba registrada antes de esta entrada:**
+
+```
+$ git show HEAD:_persistence/decisions.md | grep -n "T-026" ; echo "exit=$?"
+exit=1
+
+$ git show HEAD:_persistence/tasks.md | grep -c "NO encaja en ninguna de las dos excepciones"
+1
+```
+
+---
+
+### D-045 - Los artefactos rellenos del descubrimiento viven en `005_discovery/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-036` decidio que los artefactos rellenos del descubrimiento vivieran en
+  `_discovery/`, y esa ruta quedo escrita dentro de las cuatro plantillas de
+  `_templates/005_discovery/` y en dos filas de la tabla «Codigos» de `project.md`. El usuario
+  ordeno que los entregables de la etapa vayan a `005_discovery/`.
+- **Decision:** los artefactos rellenos viven en **`005_discovery/`**, carpeta propia de primer
+  nivel. `D-036` queda **revocada por esta**. Lo unico que cambia es el nombre: el resto de `D-036`
+  —carpeta aparte y no dentro de `_persistence/`, la carpeta no se crea hasta que exista un artefacto
+  que la sostenga, la ruta va escrita dentro de las plantillas y no en `_phases/005_discovery.md`— se
+  mantiene igual, y esta decision lo hereda entero.
+- **Por que el nombre nuevo es mejor:** la carpeta pasa a llamarse **como la etapa que la produce**.
+  `_phases/005_discovery.md` describe la etapa, `_templates/005_discovery/` guarda sus plantillas y
+  `005_discovery/` guarda sus artefactos: los tres nombres coinciden, y cuando existan mas etapas la
+  correspondencia se lee sola. `_discovery/` no decia de que etapa venia.
+- **Que NO cambia:** no se crea ninguna carpeta hoy —sigue sin haber artefacto relleno que la
+  sostenga, y `git` no versiona carpetas vacias—, y `project.md` sigue sin fila en «Carpetas propias»
+  hasta que exista. Es el mismo criterio de `D-035` y `D-036`.
+- **Sobre la agnosticidad:** `005_discovery/` es un nombre generico de metodo, en ingles, igual que
+  `_phases/` o `_templates/`. Escribirlo dentro de `_templates/` no dispara el barrido del Paso 1b,
+  que busca datos propios de este proyecto.
+- **Alternativas descartadas:** mantener `_discovery/` (no dice de que etapa viene, y el usuario
+  zanjo lo contrario); `discovery/` sin prefijo (pierde el numero, que es lo que ordena las etapas
+  entre si).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — la
+  carpeta todavia no existe y no hay ni un archivo dentro, asi que el cambio no rompe ninguna
+  referencia fuera de las cuatro plantillas y las dos filas de `project.md`, que se actualizan en
+  `T-031`.
+
+**Verificacion — donde estaba escrita la ruta vieja antes de cambiarla, sobre el commit auditado:**
+
+```
+$ git grep -n -- "_discovery/" HEAD -- _templates project.md
+HEAD:_templates/005_discovery/005_needs.md:5:| Artefacto | `_discovery/005_needs.md` |
+HEAD:_templates/005_discovery/005_needs.md:105:grep -n "<" _discovery/005_needs.md                 # debe no devolver nada
+HEAD:_templates/005_discovery/005_needs.md:106:grep -n "Guia de llenado" _discovery/005_needs.md   # debe no devolver nada
+HEAD:_templates/005_discovery/005_needs.md:107:grep -n "^| Estado |" _discovery/005_needs.md       # debe decir CERRADO
+HEAD:_templates/005_discovery/010_actors.md:5:| Artefacto | `_discovery/010_actors.md` |
+HEAD:_templates/005_discovery/010_actors.md:130:grep -n "<" _discovery/010_actors.md                 # debe no devolver nada
+HEAD:_templates/005_discovery/010_actors.md:131:grep -n "Guia de llenado" _discovery/010_actors.md   # debe no devolver nada
+HEAD:_templates/005_discovery/010_actors.md:132:grep -ni "invitado" _discovery/010_actors.md         # SOLO la advertencia de §4, ni una linea mas
+HEAD:_templates/005_discovery/015_stakeholders.md:5:| Artefacto | `_discovery/015_stakeholders.md` |
+HEAD:_templates/005_discovery/015_stakeholders.md:113:grep -n "<" _discovery/015_stakeholders.md                 # debe no devolver nada
+HEAD:_templates/005_discovery/015_stakeholders.md:114:grep -n "Guia de llenado" _discovery/015_stakeholders.md   # debe no devolver nada
+HEAD:_templates/005_discovery/015_stakeholders.md:115:grep -n "TODAVIA NO" _discovery/015_stakeholders.md        # cada linea necesita su A-XXX
+HEAD:_templates/005_discovery/020_hypothesis.md:5:| Artefacto | `_discovery/020_hypothesis.md` |
+HEAD:_templates/005_discovery/020_hypothesis.md:16:> 2. Que **no cambio durante la etapa** → `git log --oneline -- _discovery/020_hypothesis.md` debe
+HEAD:_templates/005_discovery/020_hypothesis.md:123:grep -n "<" _discovery/020_hypothesis.md                 # debe no devolver nada
+HEAD:_templates/005_discovery/020_hypothesis.md:124:grep -n "Guia de llenado" _discovery/020_hypothesis.md   # debe no devolver nada
+HEAD:_templates/005_discovery/020_hypothesis.md:125:git log --oneline -- _discovery/020_hypothesis.md        # debe devolver UNA sola linea
+HEAD:project.md:166:| `N-XXX` | `_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-036`) | necesidad |
+HEAD:project.md:167:| `I-XXX` | `_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`) | interesado |
+```
+
+---
+
+### D-046 - Nace `_workflow/`, carpeta agnostica con `team.md` y `ai_levels.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto en su area de trabajo un documento con notas en desorden sobre
+  cuando trabajar con humanos, cuando con software y cuando con IA, mas los niveles de sistema de IA
+  que puede tener un proyecto. Pidio convertirlo en material del repositorio, agnostico y alineado
+  con el metodo.
+- **Decision:** nace **`_workflow/`**, carpeta propia de primer nivel, con **dos** archivos:
+  `team.md` —el reparto del trabajo entre Humano, Software e IA— y `ai_levels.md` —los niveles de
+  sistema de IA y la rubrica para elegir uno—. La carpeta entra en los tres sitios que la hacen
+  existir de verdad: la fila de «Carpetas propias» de `project.md`, la lista de lo copiable tal cual
+  de `CLAUDE.md`, y el **ambito del Paso 1b** de `protocol-close`, que pasa de cinco rutas a seis.
+- **Por que carpeta propia y no dentro de `_methodology/`:** son dos cosas distintas.
+  `_methodology/` es el metodo de desarrollo recibido —que etapas existen y que pregunta responde
+  cada una—, y sus fuentes en `sources/` **no se editan**. `_workflow/` es doctrina de proceso
+  escrita por nosotros, adaptada, que se aplica **dentro** de cualquier etapa. Meterla en
+  `_methodology/` la haria pasar por metodo canonico recibido, que no lo es.
+- **Por que tampoco dentro de `_phases/`:** un archivo de etapa dice **que** trabajo se autoriza y
+  cual se prohibe. `_workflow/` dice **quien** hace el trabajo ya definido. Si el reparto se escribe
+  dentro de cada etapa hay que repetirlo en todas, y a la tercera dejan de decir lo mismo.
+- **Los tres sitios entran en la misma pasada, y eso es deliberado:** una carpeta sin fila la
+  señalaria el control del Paso 2c; una carpeta agnostica fuera del ambito del Paso 1b dejaria el
+  control de fuga de datos mirando a otro lado — que es exactamente lo que `T-026` corrigio para
+  `_templates/`.
+- **Alternativas descartadas:** un unico archivo con todo (mezcla dos naturalezas —quien hace el
+  trabajo y cuanto sistema pide— y el nombre `team.md` describiria mal la segunda mitad); dejarlo en
+  `_methodology/` (lo haria pasar por fuente canonica no editable); no crear carpeta y meter el
+  reparto en cada archivo de etapa (se repite en todas y se desincroniza).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son dos
+  archivos nuevos y tres lineas en archivos existentes; se deshace con `git revert` y no hay nada
+  publicado ni borrado.
+
+**Verificacion — la carpeta existe con sus dos archivos, esta declarada, y pasa los dos controles
+que le aplican:**
+
+```
+$ ls _workflow/
+ai_levels.md
+team.md
+
+$ diff <(git ls-files --cached --others --exclude-standard | grep "/" | cut -d/ -f1 | sort -u | sed 's|$|/|') \
+       <(sed -n '/^## Carpetas propias/,/^## Codigos/p' project.md | grep -oE '^\| `[^`]+/`' | tr -d '|` ' | sort)
+8a9
+> temporal/
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|C:\\Users|USUARIO|jdrodriguez" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -rn "<" _workflow/ ; echo "exit=$?"
+exit=1
+```
+
+La unica diferencia del segundo control es `temporal/`, que **tiene su motivo escrito** en
+`project.md`: existe en disco y nunca aparece en el arbol porque `.gitignore` la excluye.
+`_workflow/` ya no aparece: carpeta y fila entraron juntas.
+
+---
+
+### D-047 - `_workflow/` aplica a todas las etapas declaradas salvo `000_preproject`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario fijo el alcance al pedir el trabajo: el reparto debe aplicar a todas las
+  fases del proyecto **excepto** `000_preproject`.
+- **Decision:** los dos archivos de `_workflow/` aplican a **todas las etapas declaradas en
+  `project.md` salvo `000_preproject`**, y cada uno lo declara en su seccion «Alcance».
+- **Por que la excepcion es correcta y no un hueco:** `000_preproject` no reparte trabajo sobre un
+  producto — **construye el sistema de trabajo que hace posible el reparto**. Aplicarse a si misma no
+  aporta nada y confunde el andamio con la obra. Es el mismo argumento con el que `_methodology/`
+  deja esa etapa fuera del ciclo: *«no responde ninguna pregunta sobre el producto»*.
+- **Y hay un segundo motivo, que ademas resuelve un problema de redaccion:** lo que `000_preproject`
+  monto —un humano que dirige, unos protocolos deterministas y unos agentes especializados— **ya es**
+  un reparto Humano/Software/IA en funcionamiento. Asi que la etapa excluida entra en `team.md` §11
+  como **ejemplo trabajado**, y el archivo se explica con algo que existe en vez de con un caso
+  inventado.
+- **Lo que esto NO significa:** que en `000_preproject` se pueda repartir trabajo sin criterio. Ahi
+  siguen mandando `CLAUDE.md` y `_phases/000_preproject.md`, que ya dicen quien hace que y que no se
+  delega.
+- **Alternativas descartadas:** aplicarlo tambien a `000_preproject` (obligaria a repartir trabajo
+  sobre un producto que todavia no existe, y dejaria el archivo sin su mejor ejemplo); no fijar
+  alcance y dejarlo implicito (un archivo sin alcance escrito se aplica donde a cada uno le parece).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  frase en la seccion «Alcance» de dos archivos.
+
+**Verificacion — los dos archivos declaran la excepcion, y cada uno una sola vez:**
+
+```
+$ grep -c "000_preproject" _workflow/team.md _workflow/ai_levels.md
+_workflow/team.md:1
+_workflow/ai_levels.md:1
+```
+
+---
+
+### D-048 - La secuencia de fases del documento fuente no entra en el repositorio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** el documento que aporto el usuario trae **su propia lista de fases**, y la repite dos
+  veces: `DISCOVER → AUDIT → MODEL → DECIDE → DEFINE → BUILD → EVALUATE → DEPLOY → MEASURE → LEARN`.
+  No es la del metodo que seguimos, que va de descubrimiento a prototipo, Gate 1, linea base,
+  esqueleto, crecimiento, MVP, Gate 2 y evolucion.
+- **Decision:** esa secuencia **no entra**. Ni en `team.md`, ni en `ai_levels.md`, ni en ningun otro
+  archivo del repositorio. Los dos archivos hablan de «cada etapa» y remiten a `project.md` para
+  saber cuales estan declaradas.
+- **Por que:** dos juegos de fases conviviendo es el error que `_methodology/` avisa expresamente en
+  su «Alcance» — *describe el metodo; no declara las etapas de ningun proyecto*. Y este proyecto
+  tiene declaradas dos, `000_preproject` y `005_discovery`, con `T-002` todavia abierta para el
+  resto. Meter una tercera lista dejaria tres respuestas distintas a «¿que etapas tiene esto?».
+- **Lo que si se conserva del documento fuente:** el principio de que el reparto se decide **en cada
+  fase** segun el trabajo que haya. Eso es cierto con cualquier lista de fases, y es lo que hace el
+  material reutilizable.
+- **Alternativas descartadas:** incluir la secuencia como referencia informativa (una lista de fases
+  escrita en un archivo del repositorio se acaba leyendo como declaracion, por mucho que la nota diga
+  lo contrario); mapear las dos secuencias en una tabla de equivalencias (inventa correspondencias
+  que nadie ha decidido, y las inventa antes de que existan las etapas posteriores).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  omision deliberada; añadirla despues cuesta escribirla.
+
+**Verificacion — ninguno de los diez nombres de esa secuencia aparece en `_workflow/`:**
+
+```
+$ grep -rnE "\b(DISCOVER|AUDIT|MODEL|DECIDE|DEFINE|BUILD|EVALUATE|DEPLOY|MEASURE|LEARN)\b" _workflow/ ; echo "exit=$?"
+exit=1
+```
+
+📌 El patron va **con delimitadores de palabra**, y no es un adorno: sin ellos, `MODEL` casa con
+`MODELO` y el control devuelve tres lineas de los diagramas de `ai_levels.md` que no tienen nada que
+ver con la secuencia. Es `L-013` aplicada en el mismo dia que se escribio.
+
+---
+
+### D-049 - La frontera entre `team.md` y `ai_levels.md`: uno nombra los niveles, el otro los desarrolla
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** los niveles de sistema de IA tienen que aparecer en los dos archivos. En `team.md`
+  porque, una vez que el reparto asigna trabajo a la IA, la pregunta inmediata es cuanto sistema pide
+  ese trabajo. En `ai_levels.md` porque es su tema. Sin una frontera escrita, la misma doctrina acaba
+  contada dos veces, y a la tercera edicion los dos archivos dicen cosas distintas (`L-001`).
+- **Decision:** **`team.md` nombra; `ai_levels.md` desarrolla.**
+
+| En `team.md` (§7) | En `ai_levels.md` |
+|---|---|
+| los siete niveles en una tabla, una linea cada uno | una seccion por nivel, con su diagrama y cuando se elige |
+| la regla del menor nivel suficiente | orquestador y especialistas, comportamiento probabilistico, harness, observabilidad, evaluaciones, rubricas, metricas y experimentos |
+| el aviso de que nombrar no es declarar | la **rubrica de seleccion** y el momento del metodo en que se declara el nivel |
+
+- **Por que esa linea y no otra:** `team.md` necesita los niveles para **cerrar su propio
+  razonamiento** —reparto, autonomia, cuanto sistema—, y para eso basta con nombrarlos. Todo lo que
+  va mas alla de nombrarlos es diseño de sistema, y ahi `team.md` ya no aporta nada.
+- **Lo que se añadio y no estaba en el documento fuente:** la **rubrica de seleccion** de
+  `ai_levels.md` §6. El documento enumera los factores —riesgo, autonomia, complejidad, variabilidad,
+  impacto de un error— y **nunca dice como se combinan**. Sin eso, el archivo es una lista de niveles
+  y no una forma de elegir uno. Es el mismo criterio de `D-041`: se adapta, no se copia — y lo que se
+  añade es justamente lo que a la fuente le faltaba.
+- **Alternativas descartadas:** un solo archivo con todo (el nombre `team.md` describe bien el
+  reparto y mal los niveles de ingenieria, y el archivo pasaria de doscientas lineas a mas de
+  cuatrocientas mezclando dos naturalezas); que `team.md` no mencionara los niveles en absoluto
+  (dejaria su razonamiento a medias, sin decir que hacer despues de asignar trabajo a la IA).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  reparto de contenido entre dos archivos nuevos, sin ninguna referencia externa que lo ate.
+
+**Verificacion — el desarrollo esta en un archivo y no en el otro:**
+
+```
+$ grep -c "^### Nivel" _workflow/ai_levels.md
+7
+
+$ grep -c "^### Nivel" _workflow/team.md
+0
+
+$ grep -c "^| \*\*[0-6]\*\* |" _workflow/team.md
+7
+```
+
+Siete secciones de desarrollo en `ai_levels.md`, ninguna en `team.md`, y en `team.md` los siete
+niveles como siete filas de una tabla. La frontera se sostiene.

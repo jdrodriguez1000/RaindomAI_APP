@@ -132,6 +132,7 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `_methodology/` | **Con que criterio** se construye: el metodo de desarrollo —`000_method.md`, el documento canonico— y en `sources/` las fuentes de las que se consolido, que no se editan. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por etapa que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
+| `_workflow/` | **Quien hace cada cosa y con cuanto sistema**: `team.md`, el reparto del trabajo entre Humano, Software e IA, y `ai_levels.md`, los niveles de sistema de IA y la rubrica para elegir uno. Aplica a todas las etapas declaradas salvo `000_preproject`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
 
 🚨 **Esta tabla se contrasta contra el arbol en cada cierre de sesion** (Paso 2c de `protocol-close`):
@@ -163,8 +164,8 @@ envejece sin que nadie la revise y acaba tapando justo lo que el control existe 
 | `DT-XXX` | `_persistence/techdebt.md` | deuda tecnica |
 | `F-NNN` | `_audit/findings.md` | hallazgo de auditoria |
 | `R-XXX` | `_audit/R-XXX.md` | auditoria de una sesion |
-| `N-XXX` | `_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-036`) | necesidad |
-| `I-XXX` | `_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`) | interesado |
+| `N-XXX` | `005_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-045`) | necesidad |
+| `I-XXX` | `005_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`, ruta por `D-045`) | interesado |
 
 🚨 **Ningun codigo se reutiliza, en ningun archivo.** Un id retirado queda retirado; la entrada que
 lo llevaba conserva su texto para que se entienda que se creia y por que dejo de valer.
