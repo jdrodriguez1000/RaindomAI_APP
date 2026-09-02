@@ -32,12 +32,14 @@
 | [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Implementado |
 | [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Implementado |
 | [F-020](#f-020---la-entrada-de-f-017-en-findingsmd-conserva-la-linea-que-dice-que-sigue-pendiente-de-evaluar) | La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar | R-008 | Baja | Implementado |
-| [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Aceptado — pendiente |
+| [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Implementado |
 | [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Implementado |
 | [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Implementado |
-| [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Aceptado — pendiente |
-| [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Aceptado — pendiente |
-| [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Aceptado — pendiente |
+| [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Implementado |
+| [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Implementado |
+| [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Implementado |
+| [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Abierto |
+| [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Abierto |
 
 ---
 
@@ -1166,9 +1168,9 @@ $ git show fc91957:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | gr
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-028` |
-| Cerrado en | |
+| Cerrado en | `51354ef` |
 
 - **Que se observo:** el campo «Avance de la etapa» abre con «`R-007` (sobre `ae06147`)». `ae06147`
   es el commit que **contiene** `R-007`, no el que `R-007` audito, que es `122b770`:
@@ -1226,6 +1228,20 @@ $ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
 $ git show 99c3aa3:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
 exit=1
 ~~~
+
+
+- **Cerrado por `R-010`** sobre `51354ef`: resuelto **por desaparicion del texto**, no por
+  correccion, y asi queda escrito (`D-050`, `T-032`, `L-015`; `T-028` pasa a `Cancelada`). Sobre el
+  commit no queda ninguna atribucion **viva** del commit equivocado a `R-007`: las dos unicas
+  ocurrencias de la cadena estan dentro del bloque de evidencia de la nota de `T-032`.
+
+~~~
+$ git show 51354ef:_persistence/progress.md | grep -n 'R-007` (sobre'
+440:$ git show fc91957:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+444:43:-| Avance de la etapa | `R-007` (sobre `ae06147`) abrio `F-01
+~~~
+
+  **`Implementado`.**
 
 ---
 
@@ -1399,9 +1415,9 @@ $ git show fc91957:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tarea
 | Auditoria | R-009 |
 | Fecha | 2026-09-02 |
 | Gravedad | Alta |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-032` |
-| Cerrado en | |
+| Cerrado en | `51354ef` |
 
 - **Que se observo:** la seccion 0 de `_audit/S-009.md` declara `F-021` como `Implementado`, y
   `T-028` (`Implementada`) dice haber corregido la celda «Avance de la etapa» de `progress.md` «con
@@ -1462,6 +1478,33 @@ $ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
   cierre sobrescribe ajustadas en su sitio (`D-027`), nota fechada al lado de lo historico, y
   `T-028` a `Cancelada`. **`Aceptado — pendiente`**.
 
+
+- **Cerrado por `R-010`** sobre `51354ef`: la nota fechada existe en los tres registros que
+  afirmaban la nota inexistente, `T-028` figura `Cancelada` en el indice y en su ficha, y nacen
+  `D-050` y `L-015`.
+
+~~~
+$ for f in _persistence/progress.md _audit/findings.md _persistence/tasks.md; do
+    echo -n "$f:"; git show 51354ef:$f | grep -c 'Nota del 2026-09-02 (`T-032`, hallazgo `F-024`)'
+  done
+_persistence/progress.md:1
+_audit/findings.md:1
+_persistence/tasks.md:2
+
+$ git show 51354ef:_persistence/tasks.md | grep -n "^| \[T-028\]" | grep -c "Cancelada"
+1
+
+$ git show 51354ef:_persistence/decisions.md | grep -c "^### D-050"
+1
+
+$ git show 51354ef:_persistence/lessons.md | grep -c "^### L-015"
+1
+~~~
+
+  ⚠️ **El bloque de verificacion de `T-032` no se reproduce** —el `2` de arriba donde la ficha
+  registra `1`, y cinco lineas donde registra tres—. Eso no impide cerrar este hallazgo, cuya
+  correccion si esta en el diff, pero se abre **`F-027`** por la evidencia. **`Implementado`.**
+
 ---
 
 ### F-025 - Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen
@@ -1470,9 +1513,9 @@ $ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
 | Auditoria | R-009 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-033` |
-| Cerrado en | |
+| Cerrado en | `51354ef` |
 
 - **Que se observo:** el propio informe lo somete a auditoria en su seccion 6, y se confirma.
   `D-043` registra `16` donde el commit da `23`, y su `git log -1` registra el commit anterior:
@@ -1518,6 +1561,29 @@ $ git show 99c3aa3:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
   `D-038` y `D-040`: nota fechada al lado, orden anclada a un commit concreto y su salida cruda,
   sin tocar el texto original. **`Aceptado — pendiente`**.
 
+
+- **Cerrado por `R-010`** sobre `51354ef`: `D-043` y `D-044` llevan cada uno su nota fechada, y las
+  ordenes ancladas que las acompanan se reproducen.
+
+~~~
+$ git show 51354ef:_persistence/decisions.md | grep -c 'Nota del 2026-09-02 (`T-033`, hallazgo `F-025`)'
+2
+
+$ git show 7025a05:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+16
+
+$ git show fc91957:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+23
+
+$ git show 7025a05:_persistence/decisions.md | grep -c "T-026"
+0
+
+$ git show fc91957:_persistence/decisions.md | grep -c "T-026"
+8
+~~~
+
+  **`Implementado`.**
+
 ---
 
 ### F-026 - `DT-002` cita `L-013` donde corresponde `L-014`
@@ -1526,9 +1592,9 @@ $ git show 99c3aa3:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
 | Auditoria | R-009 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-034` |
-| Cerrado en | |
+| Cerrado en | `51354ef` |
 
 - **Que se observo:** el titulo, la fila del indice y el cierre de `DT-002` citan `L-014`; el cuerpo
   cita `L-013`, que trata de otra cosa.
@@ -1558,3 +1624,111 @@ $ git show 99c3aa3:_persistence/techdebt.md | grep -n "L-013"
 ~~~
 
   Se abre `T-034`. **`Aceptado — pendiente`**.
+
+- **Cerrado por `R-010`** sobre `51354ef`: el cuerpo de `DT-002` cita `L-014`. Las dos ocurrencias
+  de `L-013` que quedan en el archivo estan **dentro de la nota** que documenta el cambio, no en el
+  cuerpo de la deuda.
+
+~~~
+$ git show 51354ef:_persistence/techdebt.md | grep -n 'registrado `L-01[34]` de'
+149:  registrado `L-014` de `lessons.md`.
+176:149:  registrado `L-014` de `lessons.md`.
+
+$ git show 51354ef:_persistence/techdebt.md | grep -n 'L-013'
+167:`L-013` donde corresponde `L-014`.** Se corrige la cita, que es una remision cruzada dentro del
+173:149:  registrado `L-013` de `lessons.md`.
+~~~
+
+  **`Implementado`.**
+
+
+---
+
+### F-027 - El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-010 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** dos de las tres ordenes del bloque «Verificacion» de `T-032` devuelven sobre
+  `51354ef` algo distinto de lo registrado. La primera registra tres lineas (`387`, `417`, `451`);
+  el commit da cinco:
+
+~~~
+$ git show 51354ef:_persistence/progress.md | grep -n "dejando nota fechada\|con nota fechada" | cut -d: -f1
+64
+385
+415
+449
+472
+~~~
+
+  La tercera registra `1` para `_persistence/tasks.md`; el commit da `2`, porque el propio bloque
+  contiene la cadena que busca:
+
+~~~
+$ for f in _persistence/progress.md _audit/findings.md _persistence/tasks.md; do
+    echo -n "$f:"; git show 51354ef:$f | grep -c 'Nota del 2026-09-02 (`T-032`, hallazgo `F-024`)'
+  done
+_persistence/progress.md:1
+_audit/findings.md:1
+_persistence/tasks.md:2
+~~~
+
+  Y el parrafo que interpreta la salida —«Ninguna de las **tres** lineas que quedan con "nota
+  fechada" es una afirmacion viva […] Las secciones 1 y 2, que son las vivas, ya no lo afirman»—
+  queda desmentido: la linea `64` es la celda «Avance de la etapa» de la seccion 1, viva, y contiene
+  la cadena:
+
+~~~
+$ git show 51354ef:_persistence/progress.md | sed -n '64p' | grep -o 'ancla con nota fechada'
+ancla con nota fechada
+~~~
+
+- **Por que importa:** es el quinto commit consecutivo con el mismo defecto (`F-005`, `F-008`,
+  `F-011`, `F-022`, `F-025`), y ocurre **en el mismo commit que estrena `L-015`**, la leccion que
+  describe exactamente este mecanismo. El auditor tiene que rehacer el barrido, y entonces la
+  evidencia que vale es la suya y no la del registro. `Media` y no `Alta` porque el fondo de `T-032`
+  se sostiene: sobre `51354ef` las dos menciones vivas de `ae06147` en `progress.md` son la bitacora
+  de `S-008` (correcta) y la de `S-009` (historica, con nota fechada al lado en la linea 435), y
+  ninguna afirmacion viva declara una nota inexistente. Falla la evidencia, no la correccion.
+- **Que lo corregiria:** nota fechada al lado del bloque de `T-032`, sin reescribir el texto
+  original (`D-019`), con las dos ordenes ancladas a `51354ef`, su salida real y la lectura rehecha
+  sobre esas cinco lineas. Hacia adelante, `L-013` y `L-015` ya nombran el problema: lo que falta es
+  un mecanismo que impida publicar un bloque sin ancla, no una tercera leccion que lo describa.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-028 - La lista de la seccion 1 del informe omite dos ediciones de `decisions.md`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-010 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la vineta de `_persistence/decisions.md` en la seccion 1 de `_audit/S-010.md`
+  dice «nacen `D-050`, `D-051` y `D-052`» y nada mas. El diff muestra ademas dos notas fechadas
+  nuevas insertadas dentro de `D-043` y `D-044`, que son el trabajo entero de `T-033`:
+
+~~~
+$ git show 51354ef -- _persistence/decisions.md | grep -n "^+.*Nota del 2026-09-02 (\`T-033\`"
+39:+📌 **Nota del 2026-09-02 (`T-033`, hallazgo `F-025`): las dos ultimas ordenes de este bloque
+68:+📌 **Nota del 2026-09-02 (`T-033`, hallazgo `F-025`): la primera orden de este bloque se
+~~~
+
+- **Por que importa:** la seccion 1 es la lista canonica de que cambio en el commit, y `T-025`
+  (`F-019`) endurecio precisamente ese punto de `protocol-close`. Describir el archivo como «nacen
+  tres decisiones» oculta que dentro de el se editaron dos entradas anteriores, que es el tipo de
+  edicion sobre texto ya auditado que mas interesa ver. `Baja` porque el cambio si esta descrito en
+  otro sitio del registro —la ficha de `T-033`— y no contradice nada.
+- **Que lo corregiria:** ampliar esa vineta, o dejar nota fechada si se prefiere no reescribir un
+  informe ya commiteado, para que mencione las dos notas de `T-033` en `D-043` y `D-044`.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
