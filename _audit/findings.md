@@ -31,10 +31,13 @@
 | [F-017](#f-017---t-020-queda-implementada-sin-ningun-bloque-de-verificacion-y-el-informe-remite-a-una-seccion-que-tampoco-lo-tiene) | `T-020` queda `Implementada` sin ningun bloque de verificacion, y el informe remite a una seccion que tampoco lo tiene | R-007 | Media | Implementado |
 | [F-018](#f-018---t-021-afirma-un-barrido-sobre-todo-el-repositorio-del-que-no-registra-ni-el-patron-ni-el-ambito-ni-la-salida) | `T-021` afirma un barrido «sobre todo el repositorio» del que no registra ni el patron ni el ambito ni la salida | R-007 | Baja | Implementado |
 | [F-019](#f-019---la-lista-de-archivos-de-la-seccion-1-del-informe-no-cuadra-con-el-comando-que-dice-haberla-producido) | La lista de archivos de la seccion 1 del informe no cuadra con el comando que dice haberla producido | R-007 | Baja | Implementado |
-| [F-020](#f-020---la-entrada-de-f-017-en-findingsmd-conserva-la-linea-que-dice-que-sigue-pendiente-de-evaluar) | La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar | R-008 | Baja | Aceptado — pendiente |
+| [F-020](#f-020---la-entrada-de-f-017-en-findingsmd-conserva-la-linea-que-dice-que-sigue-pendiente-de-evaluar) | La entrada de `F-017` en `findings.md` conserva la linea que dice que sigue pendiente de evaluar | R-008 | Baja | Implementado |
 | [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Aceptado — pendiente |
-| [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Aceptado — pendiente |
-| [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Aceptado — pendiente |
+| [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Implementado |
+| [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Implementado |
+| [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Abierto |
+| [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Abierto |
+| [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Abierto |
 
 ---
 
@@ -1117,9 +1120,9 @@ $ git show d906a5d:_audit/S-006.md | grep -n "su fila en"
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-027` |
-| Cerrado en | |
+| Cerrado en | `fc91957` |
 
 - **Que se observo:** la entrada de `F-017` tiene **dos** vinetas «Que se hizo» que se contradicen.
   `F-018` y `F-019` sustituyeron la linea vieja; `F-017` la dejo y anadio la nueva encima:
@@ -1143,6 +1146,17 @@ $ git show f096fff:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | gr
   correcto. Lo autoriza `D-027`: la entrada de un hallazgo es registro vivo, y el texto concreto que
   senala un hallazgo aceptado lo corrige `manager`. **`Aceptado — pendiente`**, que `Implementado` lo
   escribe la auditoria siguiente.
+
+
+- **Verificado por `R-009`** sobre `fc91957`: corregido. La entrada de `F-017` tiene exactamente una
+  vineta «Que se hizo», la fechada.
+
+~~~
+$ git show fc91957:_audit/findings.md | sed -n '/^### F-017/,/^### F-018/p' | grep -c "Que se hizo"
+1
+~~~
+
+  **`Implementado`.**
 
 ---
 
@@ -1185,6 +1199,22 @@ $ git show f096fff:_audit/index.md | grep "S-007"
   que reparte a `manager` las secciones de `progress.md` que el cierre sobrescribe.
   **`Aceptado — pendiente`**.
 
+
+- **Verificado por `R-009`** sobre `fc91957`: **no corregido; sigue `Aceptado — pendiente`.** La
+  cadena señalada desaparecio del archivo, pero **no por correccion**: la celda «Avance de la etapa»
+  se sobrescribio entera con el contenido de `S-009`, como hace cada cierre. El diff no toca esa
+  cadena en ningun sitio, y la nota fechada que `T-028` declara haber dejado no existe.
+
+~~~
+$ git show fc91957:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
+
+$ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
+0
+~~~
+
+  Se abre `F-024` por la afirmacion sin respaldo.
+
 ---
 
 ### F-022 - Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce
@@ -1193,9 +1223,9 @@ $ git show f096fff:_audit/index.md | grep "S-007"
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-029` |
-| Cerrado en | |
+| Cerrado en | `fc91957` |
 
 - **Que se observo:** `D-036`, `D-038` y `D-040` afirman cada uno una salida concreta, y ninguna sale
   al correr la orden literal.
@@ -1264,6 +1294,27 @@ La misma comprobacion escrita en `T-025` como `| wc -l` con resultado `0` si es 
   expresamente— y anade a cada bloque una nota fechada con la orden que si demuestra lo que la
   decision queria demostrar, y su salida cruda. **`Aceptado — pendiente`**.
 
+
+- **Verificado por `R-009`** sobre `fc91957`: corregido. Las tres notas fechadas existen y las tres
+  ordenes nuevas se reproducen tal cual sobre el commit.
+
+~~~
+$ git show fc91957:_persistence/decisions.md | grep -c 'Nota del 2026-09-02 (`T-029`, hallazgo `F-022`)'
+3
+
+$ git show f096fff:project.md | grep -n '^| `_discovery/`' ; echo "exit=$?"
+exit=1
+
+$ git grep -nE "\bI-[0-9]{3}\b" 122b770 -- _persistence/ _audit/ project.md ; echo "exit=$?"
+exit=1
+
+$ git status --porcelain -- _audit/S-007.md | wc -l
+0
+~~~
+
+  Ninguna salida original fue reescrita: las dos unicas lineas que `decisions.md` pierde en el commit
+  son la fila de indice y el campo `Estado` de `D-036`, que revoca `D-045`. **`Implementado`.**
+
 ---
 
 ### F-023 - `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md`
@@ -1272,9 +1323,9 @@ La misma comprobacion escrita en `T-025` como `| wc -l` con resultado `0` si es 
 | Auditoria | R-008 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-030` |
-| Cerrado en | |
+| Cerrado en | `fc91957` |
 
 - **Que se observo:** el informe lo somete a auditoria en su seccion 6 y la ficha lo declara sin
   disimulo. La convencion de `tasks.md` dice, literal:
@@ -1311,3 +1362,146 @@ exit=1
   primera: **no se abre una tercera excepcion** en la convencion de `tasks.md`, porque las dos que
   existen cubren lo que el `session-closer` no puede deducir del `git diff` y esta si se deducia. El
   texto original de `T-026` no se toca. **`Aceptado — pendiente`**.
+
+- **Verificado por `R-009`** sobre `fc91957`: corregido. `D-044` existe, `T-026` la cita, y la
+  convencion de `tasks.md` no gano una tercera excepcion.
+
+~~~
+$ git show fc91957:_persistence/decisions.md | grep -n "^### D-044"
+1918:### D-044 - La ficha `T-026` escrita a mano se asume como caso puntual, no como tercera excepcion
+
+$ git show fc91957:_persistence/tasks.md | sed -n '/^### T-026/,/^### T-027/p' | grep -c "D-044"
+2
+
+$ git show fc91957:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tareas/p' | grep -c "Son dos excepciones, no una puerta"
+1
+~~~
+
+  **`Implementado`.**
+
+---
+
+### F-024 - `F-021` se declara `Implementado` y la correccion no esta en el diff
+| Campo | Valor |
+|---|---|
+| Auditoria | R-009 |
+| Fecha | 2026-09-02 |
+| Gravedad | Alta |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 0 de `_audit/S-009.md` declara `F-021` como `Implementado`, y
+  `T-028` (`Implementada`) dice haber corregido la celda «Avance de la etapa» de `progress.md` «con
+  nota fechada». El diff del commit no muestra ninguna correccion: la cadena señalada desaparecio
+  porque la celda se **sobrescribio entera** con el contenido de `S-009`, como hace cada cierre.
+
+~~~
+$ git show fc91957:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
+
+$ git show f096fff:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)'
+R-007` (sobre `ae06147`)
+
+$ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
+0
+~~~
+
+  El bloque de verificacion de `T-028` registra `R-007` (sobre `122b770`)` para
+  `grep -o ... _persistence/progress.md`, salida del arbol intermedio; sobre el commit que la
+  contiene esa misma orden devuelve `exit=1`. Y su criterio de cierre —«la celda atribuye a `R-007`
+  el commit `122b770`, y la nota fechada explica que se corrigio»— no se cumple sobre `fc91957`.
+  Tres registros distintos afirman esa nota inexistente: la celda de `progress.md` («`T-028` corrige
+  en esta misma celda … dejando nota fechada»), la seccion 2 del mismo archivo, y la vineta «Que se
+  hizo» de `F-021` en este archivo.
+- **Por que importa:** la nota fechada es el mecanismo con el que este proyecto distingue «se
+  corrigio» de «se reescribio la historia» (`D-019`, `CLAUDE.md`); quien la busque no la encuentra.
+  `T-028` queda `Implementada` con un criterio de cierre que su propio commit incumple —el patron de
+  `F-016`— y con un bloque de verificacion no reproducible. `Alta` porque el registro afirma un
+  hecho documentado que no ocurrio, que es exactamente lo que la auditoria existe para impedir. Por
+  la regla del protocolo, `F-021` sigue abierto.
+- **Que lo corregiria:** dejar constancia de que `F-021` se resolvio **por desaparicion** del texto
+  al sobrescribirse la celda, no por correccion; o, si se quiere la correccion de verdad, escribirla
+  donde el texto sobrevive —la bitacora de `S-008`, que sigue en el archivo—. En ambos casos,
+  ajustar la redaccion de la celda de `progress.md`, de la seccion 2 y de la vineta de `F-021`, y
+  revisar el estado y el bloque de verificacion de `T-028`.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-025 - Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen
+| Campo | Valor |
+|---|---|
+| Auditoria | R-009 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el propio informe lo somete a auditoria en su seccion 6, y se confirma.
+  `D-043` registra `16` donde el commit da `23`, y su `git log -1` registra el commit anterior:
+
+~~~
+$ git show fc91957:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+23
+
+$ git log -1 --format="%h %ad" --date=short fc91957
+fc91957 2026-09-01
+~~~
+
+  `D-044` registra `exit=1` para su primera orden —«ninguna decision menciona `T-026`»— y sobre el
+  commit devuelve ocho coincidencias; la segunda si se reproduce:
+
+~~~
+$ git show fc91957:_persistence/decisions.md | grep -c "T-026"
+8
+
+$ git show fc91957:_persistence/tasks.md | grep -c "NO encaja en ninguna de las dos excepciones"
+1
+~~~
+
+- **Por que importa:** es el cuarto commit consecutivo con el mismo defecto (`F-005`, `F-008`,
+  `F-011`, `F-022`), y esta vez ocurre en el mismo commit que estrena `L-013`, la leccion que lo
+  nombra. Una verificacion que no se reproduce sobre su propio commit obliga a rehacer el barrido
+  entero para saber si el fondo era cierto; aqui lo era en los dos casos, pero eso solo se sabe
+  despues de rehacerlo, y entonces la evidencia que vale es la del auditor y no la del registro.
+  `Media` y no `Alta` porque el fondo de las dos decisiones se sostiene.
+- **Que lo corregiria:** el mismo patron que `T-029` acaba de aplicar a `D-036`, `D-038` y `D-040`:
+  nota fechada al lado, sin reescribir el texto original, con la orden anclada a `fc91957` —o a
+  `7025a05` para lo que se afirmaba del estado previo— y su salida cruda. Y, hacia adelante, que
+  `L-013` deje de ser solo una leccion escrita: como leccion ya fallo en el commit que la estreno.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-026 - `DT-002` cita `L-013` donde corresponde `L-014`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-009 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el titulo, la fila del indice y el cierre de `DT-002` citan `L-014`; el cuerpo
+  cita `L-013`, que trata de otra cosa.
+
+~~~
+$ git show fc91957:_persistence/techdebt.md | grep -n "L-013\|L-014"
+14:| [DT-002](#dt-002---_workflow-nace-sin-ningun-enganche-de-uso-l-014) | `_workflow/` nace sin ningun enganche de uso (`L-014`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
+135:### DT-002 - `_workflow/` nace sin ningun enganche de uso (`L-014`)
+149:  registrado `L-013` de `lessons.md`.
+162:📌 **Propuesta del cierre `S-009`**, a partir de `L-014`. `manager` no la escribe como deuda
+
+$ git show fc91957:_persistence/lessons.md | grep -n "^### L-013\|^### L-014"
+390:### L-013 - Un bloque de verificacion sin ancla caduca; el codigo de salida no prueba una ausencia
+431:### L-014 - Una carpeta agnostica nueva necesita cuatro enganches, y el cuarto es el que se olvida
+~~~
+
+- **Por que importa:** quien siga la cita del cuerpo llega a la leccion equivocada, no a la que
+  sostiene la deuda. `Baja` porque las otras tres menciones son correctas y el error se ve al abrir
+  la leccion.
+- **Que lo corregiria:** sustituir `L-013` por `L-014` en la linea 149 de `_persistence/techdebt.md`.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
