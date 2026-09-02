@@ -112,6 +112,14 @@ puede hacer es registrar la falta de acceso como `A-XXX` o `C-XXX` y escalarla a
 
 ## 4. Procedimiento
 
+🚨 **Antes del Paso 1 se reparte el trabajo.** Los siete pasos que siguen dicen **que** hay
+que hacer; quien hace cada uno —humano, software, IA, o una combinacion— lo dice
+**`_workflow/005_discovery.md`**, que se lee ahora y no despues. Ese reparto se adopta con su
+`D-XXX` en el registro: leer la tabla no reparte nada.
+
+⚠️ **Y se escribe al decidirlo, no al cerrar la etapa.** Reconstruido despues, lo que queda
+registrado es el reparto que salio, no el que se eligio.
+
 ### Paso 1 — Separar la necesidad de la solucion
 
 Lo primero que dice el cliente es casi siempre una solucion, no una necesidad.

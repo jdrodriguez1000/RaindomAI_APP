@@ -35,9 +35,9 @@
 | [F-021](#f-021---progressmd-atribuye-a-r-007-un-commit-auditado-que-no-es-el-suyo) | `progress.md` atribuye a `R-007` un commit auditado que no es el suyo | R-008 | Baja | Aceptado — pendiente |
 | [F-022](#f-022---tres-bloques-de-verificacion-de-decisionsmd-registran-una-salida-que-no-se-reproduce) | Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce | R-008 | Media | Implementado |
 | [F-023](#f-023---t-026-se-escribio-a-mano-sin-el-d-xxx-ni-el-f-nnn-que-la-convencion-exige-y-la-desviacion-no-llego-a-decisionsmd) | `T-026` se escribio a mano sin el `D-XXX` ni el `F-NNN` que la convencion exige, y la desviacion no llego a `decisions.md` | R-008 | Baja | Implementado |
-| [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Abierto |
-| [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Abierto |
-| [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Abierto |
+| [F-024](#f-024---f-021-se-declara-implementado-y-la-correccion-no-esta-en-el-diff) | `F-021` se declara `Implementado` y la correccion no esta en el diff | R-009 | Alta | Aceptado — pendiente |
+| [F-025](#f-025---los-bloques-de-verificacion-de-d-043-y-d-044-usan-head-sin-anclar-y-no-se-reproducen) | Los bloques de verificacion de `D-043` y `D-044` usan `HEAD` sin anclar y no se reproducen | R-009 | Media | Aceptado — pendiente |
+| [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -1215,6 +1215,18 @@ $ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
 
   Se abre `F-024` por la afirmacion sin respaldo.
 
+- **Nota del 2026-09-02 (`T-032`, hallazgo `F-024`):** la viñeta «Que se hizo» de mas arriba
+  afirma una nota fechada que **no llego a existir**. `T-028` si edito la celda, pero el cierre
+  la sobrescribio entera en el mismo commit. **El texto original no se reescribe** (`D-019`).
+  `D-050` fija el tratamiento: `F-021` queda resuelto **por desaparicion del texto**, no por
+  correccion, y `T-028` pasa a `Cancelada` con `T-032` como relevo. La cadena no sobrevive en
+  ninguna parte del archivo, asi que no queda nada que corregir en su sitio:
+
+~~~
+$ git show 99c3aa3:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
+~~~
+
 ---
 
 ### F-022 - Tres bloques de verificacion de `decisions.md` registran una salida que no se reproduce
@@ -1387,8 +1399,8 @@ $ git show fc91957:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tarea
 | Auditoria | R-009 |
 | Fecha | 2026-09-02 |
 | Gravedad | Alta |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-032` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 0 de `_audit/S-009.md` declara `F-021` como `Implementado`, y
@@ -1425,7 +1437,30 @@ $ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
   donde el texto sobrevive —la bitacora de `S-008`, que sigue en el archivo—. En ambos casos,
   ajustar la redaccion de la celda de `progress.md`, de la seccion 2 y de la vineta de `F-021`, y
   revisar el estado y el bloque de verificacion de `T-028`.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-010`). Verificado contra `HEAD` (`99c3aa3`)
+  antes de evaluarlo: la cadena que `F-021` señalaba no existe en ninguna parte de `progress.md`,
+  luego la segunda salida que este hallazgo proponia —corregirla donde el texto siga vivo— no
+  tiene objeto.
+
+~~~
+$ git show 99c3aa3:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
+~~~
+
+  ⚠️ **Una precision sobre la evidencia del propio hallazgo:** su segunda orden —`grep -c "^[+-].*ae06147"`
+  sobre el diff de `fc91957`, registrada en `0`— **no se reproduce: devuelve `6`.**
+
+~~~
+$ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
+6
+~~~
+
+  El fondo se sostiene igual, y con mas claridad: dos de esas seis lineas son el par `-`/`+` de la
+  celda «Avance de la etapa» completa —sale entera y entra otra—, que es exactamente la
+  sobrescritura que el hallazgo describe. Se abre `T-032`, y `D-050` fija el tratamiento: `F-021`
+  resuelto **por desaparicion** y no por correccion, las dos secciones de `progress.md` que el
+  cierre sobrescribe ajustadas en su sitio (`D-027`), nota fechada al lado de lo historico, y
+  `T-028` a `Cancelada`. **`Aceptado — pendiente`**.
 
 ---
 
@@ -1435,8 +1470,8 @@ $ git show fc91957 -- _persistence/progress.md | grep -c "^[+-].*ae06147"
 | Auditoria | R-009 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-033` |
 | Cerrado en | |
 
 - **Que se observo:** el propio informe lo somete a auditoria en su seccion 6, y se confirma.
@@ -1471,7 +1506,17 @@ $ git show fc91957:_persistence/tasks.md | grep -c "NO encaja en ninguna de las 
   nota fechada al lado, sin reescribir el texto original, con la orden anclada a `fc91957` —o a
   `7025a05` para lo que se afirmaba del estado previo— y su salida cruda. Y, hacia adelante, que
   `L-013` deje de ser solo una leccion escrita: como leccion ya fallo en el commit que la estreno.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-010`). Verificado contra `HEAD` (`99c3aa3`)
+  antes de evaluarlo: el recuento que `D-043` registra en `16` sigue dando `23`.
+
+~~~
+$ git show 99c3aa3:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+23
+~~~
+
+  Se abre `T-033`, que aplica a `D-043` y `D-044` el mismo patron que `T-029` aplico a `D-036`,
+  `D-038` y `D-040`: nota fechada al lado, orden anclada a un commit concreto y su salida cruda,
+  sin tocar el texto original. **`Aceptado — pendiente`**.
 
 ---
 
@@ -1481,8 +1526,8 @@ $ git show fc91957:_persistence/tasks.md | grep -c "NO encaja en ninguna de las 
 | Auditoria | R-009 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-034` |
 | Cerrado en | |
 
 - **Que se observo:** el titulo, la fila del indice y el cierre de `DT-002` citan `L-014`; el cuerpo
@@ -1504,4 +1549,12 @@ $ git show fc91957:_persistence/lessons.md | grep -n "^### L-013\|^### L-014"
   sostiene la deuda. `Baja` porque las otras tres menciones son correctas y el error se ve al abrir
   la leccion.
 - **Que lo corregiria:** sustituir `L-013` por `L-014` en la linea 149 de `_persistence/techdebt.md`.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-010`). Verificado contra `HEAD` (`99c3aa3`)
+  antes de evaluarlo: la cita equivocada sigue viva en el cuerpo de `DT-002`.
+
+~~~
+$ git show 99c3aa3:_persistence/techdebt.md | grep -n "L-013"
+149:  registrado `L-013` de `lessons.md`.
+~~~
+
+  Se abre `T-034`. **`Aceptado — pendiente`**.

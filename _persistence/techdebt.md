@@ -146,7 +146,7 @@ no que la confirmacion se haya producido.
   en «Carpetas propias» de `project.md`, entrada en la lista de lo copiable tal cual de `CLAUDE.md`,
   ambito del Paso 1b de `protocol-close`—, pero **ningun** enganche de **uso**: nada en `_phases/`
   ni en ningun protocolo manda leer `team.md` o `ai_levels.md` en el momento en que aplican. Lo deja
-  registrado `L-013` de `lessons.md`.
+  registrado `L-014` de `lessons.md`.
 - **Por que se tomo:** los tres enganches de control eran los que ya se sabia que hacian falta,
   porque `_templates/` habia pasado por lo mismo. El cuarto —que alguien tenga que abrir la
   carpeta— exige decidir **en que punto de que etapa** se consulta, y esa es una decision de
@@ -162,3 +162,16 @@ no que la confirmacion se haya producido.
 📌 **Propuesta del cierre `S-009`**, a partir de `L-014`. `manager` no la escribe como deuda
 confirmada porque resolverla implica una decision de diseño —donde exactamente se engancha— que le
 corresponde al usuario.
+
+📌 **Nota del 2026-09-02 (`T-034`, hallazgo `F-026`): el cuerpo de esta entrada citaba
+`L-013` donde corresponde `L-014`.** Se corrige la cita, que es una remision cruzada dentro del
+mismo registro y llevaba a la leccion equivocada. No cambia nada del fondo de la deuda: las
+otras tres menciones —titulo, fila del indice y este cierre— ya citaban bien.
+
+```
+$ git show 99c3aa3:_persistence/techdebt.md | grep -n 'registrado `L-01[34]` de'
+149:  registrado `L-013` de `lessons.md`.
+
+$ grep -n 'registrado `L-01[34]` de' _persistence/techdebt.md
+149:  registrado `L-014` de `lessons.md`.
+```

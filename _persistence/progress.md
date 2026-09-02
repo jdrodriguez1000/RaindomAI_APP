@@ -33,6 +33,7 @@
 | [S-007](#s-007---se-aceptan-f-015-y-f-016-nace-_phases005_discoverymd) | Se aceptan `F-015` y `F-016`; nace `_phases/005_discovery.md` | 2026-09-02 | `000_preproject` |
 | [S-008](#s-008---se-aceptan-f-017-a-f-019-nacen-las-plantillas-de-_templates005_discovery) | Se aceptan `F-017` a `F-019`; nacen las plantillas de `_templates/005_discovery/` | 2026-09-02 | `000_preproject` |
 | [S-009](#s-009---se-aceptan-f-020-a-f-023-los-artefactos-se-mudan-a-005_discovery-nace-_workflow) | Se aceptan `F-020` a `F-023`; los artefactos se mudan a `005_discovery/`; nace `_workflow/` | 2026-09-02 | `000_preproject` |
+| [S-010](#s-010---se-aceptan-f-024-a-f-026-nace-_workflow005_discoverymd) | Se aceptan `F-024` a `F-026`; nace `_workflow/005_discovery.md` | 2026-09-02 | `000_preproject` |
 
 ---
 
@@ -58,46 +59,45 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-02 (S-009) |
+| Ultima actualizacion | 2026-09-02 (S-010) |
 | Salud | En marcha |
-| Avance de la etapa | `R-008` (sobre `f096fff`) abrio `F-020`, `F-021`, `F-022` y `F-023`. `manager` verifico los cuatro contra `HEAD` (`7025a05`) antes de aceptarlos, y los acepto los cuatro. `T-027` borra en `_audit/findings.md` la viñeta residual de `F-017` que contradecia a la fechada. `T-028` corrige en esta misma celda el commit atribuido a `R-007` —era `122b770`, no `ae06147`— dejando nota fechada. `T-029` no reescribe los tres bloques de verificacion de `decisions.md` que `F-022` desmintio (`D-036`, `D-038`, `D-040`): añade a cada uno una nota fechada con la orden que si se reproduce, sin tocar el texto original (`L-013`). `T-030` registra en `D-044` la desviacion de `T-026` que `F-023` señalo —ficha escrita a mano sin `D-XXX` ni `F-NNN` citado—, asumida como caso puntual y no como tercera excepcion de la convencion de `tasks.md`. Por orden del usuario nace `D-045`, que revoca `D-036`: los artefactos rellenos del descubrimiento pasan de `_discovery/` a `005_discovery/`; `T-031` mueve los diecisiete sitios donde estaba escrita la ruta vieja. Nace ademas `_workflow/` (`D-046`), con `team.md` y `ai_levels.md`, agnostica y con sus tres enganches de control (`project.md`, `CLAUDE.md`, Paso 1b de `protocol-close`, `D-047`); la secuencia de fases del documento fuente del usuario no entra en el repositorio (`D-048`); y se fija la frontera entre `team.md` y `ai_levels.md` (`D-049`). Las entradas de esta sesion se fechan 2026-09-02 por continuidad con el registro (`D-043`). |
+| Avance de la etapa | `R-009` (sobre `99c3aa3`) abrio `F-024`, `F-025` y `F-026`. `manager` verifico los tres contra `HEAD` (`99c3aa3`) antes de aceptarlos, y los acepto los tres. `D-050` resuelve `F-024`: la correccion que `T-028` hizo en la celda «Avance de la etapa» no sobrevivio al cierre que la sobrescribe entera, asi que se trata como resuelto por desaparicion — `T-028` pasa a `Cancelada` y `T-032` deja nota fechada en los tres registros que afirmaban la nota inexistente (`L-015`). `T-033` ancla con nota fechada los bloques de verificacion de `D-043` y `D-044`, que `F-025` señalo sin reproducirse sobre su propio commit. `T-034` corrige en `techdebt.md` la cita cruzada `L-013` → `L-014` que `F-026` señalo. Por pedido del usuario, `_workflow/` gana un archivo por etapa declarada (`D-051`): nace `_workflow/005_discovery.md`, que aplica `team.md` y `ai_levels.md` a los siete pasos del procedimiento de la etapa y queda citado desde `_phases/005_discovery.md` — el cuarto enganche que `DT-002` reclamaba, aunque la deuda sigue `Propuesta (pendiente del usuario)`. `D-052` deja escrito que el reparto de `005_discovery` no se adopta todavia: se adopta con su `D-XXX` al abrir la etapa, no antes. |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo los cuatro hallazgos abiertos por `R-008` sobre `S-008` (`F-020` a `F-023`),
-verificando cada uno contra `HEAD` (`7025a05`) antes de aceptarlo, y los acepto los cuatro.
+`manager` evaluo los tres hallazgos abiertos por `R-009` sobre `S-009` (`F-024`, `F-025`, `F-026`),
+verificando cada uno contra `HEAD` (`99c3aa3`) antes de aceptarlo, y los acepto los tres.
 
-`T-027` borra la viñeta residual de la entrada `F-017` en `_audit/findings.md`, que contradecia a
-la fechada dejando la entrada con dos «Que se hizo» distintos. `T-028` corrige en `progress.md` el
-commit que la propia bitacora de `S-008` atribuia a `R-007` —`ae06147`, que es el commit que
-contiene el informe, no el que audito— y lo deja en `122b770`, con nota fechada; el segundo
-`ae06147` de la misma celda, el `HEAD` contra el que se verificaron los hallazgos, no se toca.
-`T-029` no reescribe los tres bloques de verificacion de `decisions.md` que `F-022` desmintio
-(`D-036`, `D-038` y `D-040`, cada uno con un fallo distinto: patron demasiado ancho, barrido sin
-anclar, codigo de salida usado como prueba de ausencia): añade a cada uno una nota fechada con la
-orden que si se reproduce y su salida cruda, sin tocar el texto original (`L-013`). `T-030`
-registra en `D-044` la desviacion que `F-023` señalo —`T-026` se escribio a mano fuera de las dos
-excepciones que la convencion de `tasks.md` exige—, asumiendola como **caso puntual** y dejando la
-convencion sin una tercera excepcion.
+`F-024` tenia razon: `T-028` habia editado la celda «Avance de la etapa» de `progress.md` para
+corregir el commit atribuido a `R-007`, pero el cierre sobrescribe esa celda entera en cada pasada
+y la correccion desaparecio con el texto que corregia. `D-050` fija el tratamiento: `F-021` queda
+resuelto **por desaparicion del texto**, no por correccion; `T-028` pasa de `Implementada` a
+`Cancelada`, sin objeto de reintentarla; y `T-032` deja nota fechada en los tres registros que
+afirmaban la nota inexistente —la propia viñeta de `F-021`, la bitacora de `S-009` y la ficha de
+`T-028`—, sin reescribir ningun texto historico (`D-019`). La leccion queda en `L-015`: una
+correccion escrita en una seccion que el cierre sobrescribe no es una correccion, es un borrador.
 
-Por orden del usuario, `D-045` revoca `D-036`: los artefactos rellenos del descubrimiento pasan de
-`_discovery/` a `005_discovery/`, el nombre de la etapa que los produce. `T-031` mueve los
-diecisiete sitios donde estaba escrita la ruta vieja —las cuatro plantillas de
-`_templates/005_discovery/` y las dos filas de la tabla «Codigos» de `project.md`—; no se crea
-ninguna carpeta, porque sigue sin haber artefacto relleno que la sostenga.
+`T-033` atiende `F-025`: los bloques de verificacion de `D-043` y `D-044` se escribieron con
+`git show HEAD:` sin anclar y no se reproducen sobre el commit que los contiene (`D-043` registraba
+`16` donde `fc91957` da `23`; `D-044` registraba `exit=1` donde da ocho coincidencias). Se les añade
+a cada uno una nota fechada con la orden anclada a un commit concreto y su salida cruda, sin tocar
+el texto original — el mismo patron que `T-029` aplico a `D-036`, `D-038` y `D-040`.
 
-Nace ademas `_workflow/` (`D-046`), carpeta agnostica con `team.md` —el reparto del trabajo entre
-Humano, Software e IA— y `ai_levels.md` —los siete niveles de sistema de IA y su rubrica de
-seleccion—, adaptados de un documento del usuario. Aplica a todas las etapas declaradas salvo
-`000_preproject` (`D-047`), engancha en las tres columnas de control —`project.md`, `CLAUDE.md`,
-Paso 1b de `protocol-close`—, la secuencia de fases propia del documento fuente no entra en el
-repositorio (`D-048`), y se fija la frontera de contenido entre los dos archivos: `team.md` nombra
-los niveles, `ai_levels.md` los desarrolla (`D-049`). Queda abierto un cuarto enganche que ningun
-control detecta —que algo mande leer `_workflow/` en el momento en que sirve— y se deja señalado a
-proposito, sin resolver (`L-014`).
+`T-034` atiende `F-026`: el cuerpo de `DT-002` citaba `L-013` donde corresponde `L-014`. Se corrige
+la cita, remision cruzada dentro del mismo registro.
+
+Por pedido del usuario, `_workflow/` gana **un archivo por etapa declarada** (`D-051`): nace
+`_workflow/005_discovery.md`, que aplica `team.md` y `ai_levels.md` a los siete pasos del
+procedimiento de la etapa —una fila por paso—, y `_phases/005_discovery.md` queda editado para
+mandar leerlo antes del Paso 1 de su procedimiento. Es el cuarto enganche que `L-014` y `DT-002`
+señalaban como faltante, aunque la deuda **no se marca `Implementada`**: quien confirma que quedo
+pagada es el usuario, no `manager`. `project.md` y `CLAUDE.md` se actualizan para describir el
+archivo nuevo. `D-052` deja escrito, ademas, que el reparto que ese archivo permite **no se adopta
+todavia**: se adopta con su propio `D-XXX` al abrir la etapa `005_discovery`, no antes, porque
+adoptarlo hoy repartiria trabajo sobre entradas —el acceso de `A-004`— que aun no estan confirmadas.
 
 ---
 
@@ -107,9 +107,11 @@ proposito, sin resolver (`L-014`).
 alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa
 `005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un patrocinador
 alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de etapa dice
-que sin ese acceso no puede empezar. Aparte, decidir si `L-014` —la carpeta `_workflow/` sin ningun
-enganche de uso— se resuelve con una fila en `_phases/` o de otra forma; es decision del usuario, no
-del cierre.
+que sin ese acceso no puede empezar. Al abrir `005_discovery`, registrar el `D-XXX` de adopcion del
+reparto de `_workflow/005_discovery.md` que `D-052` deja pendiente —incluida la discrepancia de su
+§6 con la tabla de lectura de `ai_levels.md` §6, y los `A-XXX` que el reparto de por ciertos sin
+confirmar—. Aparte, es decision del usuario si `DT-002` se confirma ya como pagada ahora que el
+cuarto enganche existe.
 
 ---
 
@@ -427,6 +429,62 @@ barre entera antes de darla por hecha.
   siguiente verifique la correccion sobre este commit y los cierre. `L-014` señala un cuarto
   enganche sin resolver para `_workflow/` —que algo mande leerla en el momento en que sirve—, dejado
   a proposito porque toca una decision del usuario sobre `_phases/`.
+
+📌 **Nota del 2026-09-02 (`T-032`, hallazgo `F-024`): la nota fechada que esta bitacora da por
+hecha no existe.** `T-028` si edito la celda, pero el cierre la sobrescribio entera en el mismo
+commit y la correccion desaparecio con el texto que corregia. **El texto original no se
+reescribe** (`D-019`). `F-021` queda resuelto por desaparicion, no por correccion, y `T-028`
+pasa a `Cancelada` (`D-050`):
+
+```
+$ git show fc91957:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
+
+$ git show fc91957 -- _persistence/progress.md | grep -n "^[+-].*ae06147" | cut -c1-60
+43:-| Avance de la etapa | `R-007` (sobre `ae06147`) abrio `F-01
+44:+| Avance de la etapa | `R-008` (sobre `f096fff`) abrio `F-02
+52:-verificando cada uno contra `HEAD` (`ae06147`) antes de acept
+80:+commit que la propia bitacora de `S-008` atribuia a `R-007` —
+82:+`ae06147` de la misma celda, el `HEAD` contra el que se verif
+135:+  `ae06147`— con nota fechada. `T-029` no reescribe los tres
+```
+
+El par `-`/`+` de las lineas 43 y 44 es la prueba: la celda entera sale y entra otra, no hay
+correccion de la cadena. ⚠️ **La segunda orden de `F-024` —`grep -c`, que el hallazgo registra
+en `0`— no se reproduce: devuelve `6`.** El fondo del hallazgo se sostiene igual; lo que no se
+sostiene es esa cifra, y se deja escrito aqui en vez de repetirla.
+
+---
+
+### S-010 - Se aceptan `F-024` a `F-026`; nace `_workflow/005_discovery.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | `000_preproject` |
+| Tareas | T-032, T-033, T-034 |
+
+- **Que se hizo:** `manager` evaluo los tres hallazgos abiertos por `R-009` sobre `S-009` (`F-024`,
+  `F-025`, `F-026`), verifico cada uno contra `HEAD` (`99c3aa3`) y los acepto los tres. `D-050`
+  resuelve `F-024`: la correccion de `T-028` en la celda «Avance de la etapa» no sobrevivio a que el
+  cierre la sobrescriba entera; se trata como resuelto **por desaparicion**, `T-028` pasa a
+  `Cancelada`, y `T-032` deja nota fechada en los tres registros que afirmaban la nota inexistente,
+  sin reescribir texto historico (`D-019`). Se registra `L-015`: una correccion escrita en una
+  seccion que el cierre sobrescribe no es una correccion. `T-033` ancla con nota fechada los
+  bloques de verificacion de `D-043` y `D-044`, que `F-025` señalo sin reproducirse sobre su propio
+  commit. `T-034` corrige en `techdebt.md` la cita cruzada `L-013` → `L-014` que `F-026` señalo.
+
+  Por pedido del usuario, `_workflow/` gana un archivo por etapa declarada (`D-051`): nace
+  `_workflow/005_discovery.md`, que aplica `team.md` y `ai_levels.md` a los siete pasos del
+  procedimiento de la etapa, y `_phases/005_discovery.md` queda editado para citarlo antes del
+  Paso 1 — el cuarto enganche que `L-014` y `DT-002` señalaban sin resolver. `DT-002` no se marca
+  `Implementada`: la confirmacion es del usuario. `D-052` deja escrito que el reparto de esa tabla
+  no se adopta todavia: se adopta con su `D-XXX` al abrir `005_discovery`, no antes.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `A-004` y `A-005`
+  siguen `Abierto`. `F-024` a `F-026` quedan `Aceptado — pendiente` hasta que la auditoria siguiente
+  verifique la correccion sobre este commit y los cierre. `DT-002` sigue `No implementada` /
+  `Propuesta (pendiente del usuario)`, aunque el cuarto enganche que reclamaba ya existe. El `D-XXX`
+  de adopcion del reparto de `_workflow/005_discovery.md` queda pendiente para cuando se abra
+  `005_discovery` (`D-052`).
 
 ---
 

@@ -36,10 +36,13 @@
 | [T-025](#t-025---endurecer-en-protocol-close-la-lista-de-la-seccion-1-del-informe-f-019) | Endurecer en `protocol-close` la lista de la seccion 1 del informe (`F-019`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-026](#t-026---extender-el-paso-1b-de-protocol-close-a-_templates) | Extender el Paso 1b de `protocol-close` a `_templates/` | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-027](#t-027---borrar-la-viñeta-residual-de-f-017-en-findingsmd-f-020) | Borrar la viñeta residual de `F-017` en `findings.md` (`F-020`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-028](#t-028---corregir-en-progressmd-el-commit-que-se-atribuye-a-r-007-f-021) | Corregir en `progress.md` el commit que se atribuye a `R-007` (`F-021`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-028](#t-028---corregir-en-progressmd-el-commit-que-se-atribuye-a-r-007-f-021) | Corregir en `progress.md` el commit que se atribuye a `R-007` (`F-021`) | Cancelada | Baja | No bloqueante | `000_preproject` |
 | [T-029](#t-029---anotar-los-tres-bloques-de-verificacion-de-decisionsmd-que-no-se-reproducen-f-022) | Anotar los tres bloques de verificacion de `decisions.md` que no se reproducen (`F-022`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-030](#t-030---registrar-en-decisionsmd-la-desviacion-de-t-026-f-023) | Registrar en `decisions.md` la desviacion de `T-026` (`F-023`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-031](#t-031---mover-a-005_discovery-la-ruta-de-los-artefactos-del-descubrimiento-d-045) | Mover a `005_discovery/` la ruta de los artefactos del descubrimiento (`D-045`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-032](#t-032---dejar-constancia-de-que-f-021-se-resolvio-por-desaparicion-no-por-correccion-f-024) | Dejar constancia de que `F-021` se resolvio por desaparicion, no por correccion (`F-024`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-033](#t-033---anotar-los-bloques-de-verificacion-de-d-043-y-d-044-que-no-se-reproducen-f-025) | Anotar los bloques de verificacion de `D-043` y `D-044` que no se reproducen (`F-025`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-034](#t-034---corregir-la-cita-cruzada-l-013-de-dt-002-f-026) | Corregir la cita cruzada `L-013` de `DT-002` (`F-026`) | Implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -1090,7 +1093,7 @@ $ sed -n '/^### F-017/,/^### F-018/p' _audit/findings.md | grep -c "Que se hizo"
 ### T-028 - Corregir en `progress.md` el commit que se atribuye a `R-007` (`F-021`)
 | Campo | Valor |
 |---|---|
-| Estado | Implementada |
+| Estado | Cancelada |
 | Importancia | Baja |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -1123,6 +1126,19 @@ R-007` (sobre `122b770`)
 
 $ git show HEAD:_audit/index.md | grep "S-007"
 | `S-007.md` | S-007 | 2026-09-02 | `122b770` | `R-007.md` | Con hallazgos (3) | F-017, F-018, F-019 |
+```
+
+📌 **Nota del 2026-09-02 (`T-032`, hallazgo `F-024`): esta tarea pasa de `Implementada` a
+`Cancelada`, y su bloque de verificacion de arriba no se reproduce.** La edicion se hizo, pero
+cayo en la celda «Avance de la etapa», que el cierre **sobrescribe entera** en cada pasada: en el
+commit `fc91957` no queda ni el hash corregido ni la nota fechada que esta ficha declara. El
+criterio de cierre, por tanto, no se cumple sobre su propio commit —el patron de `F-016`—. **El
+texto original no se reescribe** (`D-019`). No procede reintentarla: su objeto ya no existe. La
+releva `T-032`, y lo fija `D-050`.
+
+```
+$ git show fc91957:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
 ```
 
 ---
@@ -1288,4 +1304,142 @@ exit=1
 $ ls -d 005_discovery 2>&1 ; echo "exit=$?"
 ls: cannot access '005_discovery': No such file or directory
 exit=2
+```
+
+---
+
+### T-032 - Dejar constancia de que `F-021` se resolvio por desaparicion, no por correccion (`F-024`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-010 |
+
+- **Que:** tres registros afirman una nota fechada que no existe —la celda «Avance de la etapa» de
+  `progress.md`, la seccion 2 del mismo archivo y la viñeta «Que se hizo» de `F-021` en
+  `_audit/findings.md`—, y un cuarto la repite en la bitacora de `S-009`. Se ajustan los dos
+  primeros en su sitio (`D-027` reparte a `manager` las secciones que el cierre sobrescribe); a los
+  dos historicos —la viñeta de `F-021` y la bitacora— se les añade **nota fechada al lado**, sin
+  reescribir el texto original. Ademas `T-028` pasa a `Cancelada` con su propia nota. Lo fija
+  `D-050`.
+- **Por que:** la nota fechada es el mecanismo con el que este proyecto distingue «se corrigio» de
+  «se reescribio la historia». Un registro que afirma una nota inexistente es peor que uno que no
+  dice nada: quien la busque no la encuentra, y no tiene forma de saber si falta la nota o falta la
+  correccion.
+- **Que NO cambia:** la mencion de `ae06147` en la bitacora de `S-008` (linea 381) es **correcta**
+  —es el `HEAD` contra el que se verificaron los hallazgos de `R-007`— y no se toca. Tampoco se
+  reescribe ninguna viñeta antigua: `D-019` lo prohibe.
+- **Criterio de cierre:** ninguna de las cinco menciones vivas de `ae06147` en `progress.md` afirma
+  una nota fechada que no exista; `T-028` figura `Cancelada` en el indice y en su ficha; y `F-021`
+  lleva su nota del 2026-09-02 explicando la desaparicion.
+
+**Verificacion — las secciones que el cierre sobrescribe ya no afirman la nota, las historicas
+llevan la suya, y `T-028` figura `Cancelada`:**
+
+```
+$ grep -n "dejando nota fechada\|con nota fechada" _persistence/progress.md | cut -d: -f1
+387
+417
+451
+
+$ grep -c 'Nota del 2026-09-02 (`T-032`, hallazgo `F-024`)' _persistence/progress.md _audit/findings.md _persistence/tasks.md
+_persistence/progress.md:1
+_audit/findings.md:1
+_persistence/tasks.md:1
+
+$ grep -n "^| \[T-028\]" _persistence/tasks.md | grep -c "Cancelada"
+1
+```
+
+Ninguna de las tres lineas que quedan con «nota fechada» es una afirmacion viva: la `387` es la
+bitacora de `S-008` y habla de `T-023`, la `417` es la bitacora de `S-009` —historica, con su nota
+al lado en la `435`— y la `451` es una linea citada dentro de esa misma nota. Las secciones 1 y 2,
+que son las vivas, ya no lo afirman.
+
+---
+
+### T-033 - Anotar los bloques de verificacion de `D-043` y `D-044` que no se reproducen (`F-025`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-010 |
+
+- **Que:** los bloques de verificacion de `D-043` y `D-044` se escribieron con `git show HEAD:` sin
+  anclar, y sobre el commit que los contiene no se reproducen: `D-043` registra `16` donde `fc91957`
+  da `23`, y su `git log -1` registra `7025a05`, el commit anterior; `D-044` registra `exit=1` donde
+  `fc91957` da ocho coincidencias. Se les añade a cada uno una **nota fechada** con la orden anclada
+  y su salida cruda, sin tocar el texto original.
+- **Por que:** es el cuarto commit consecutivo con el mismo defecto (`F-005`, `F-008`, `F-011`,
+  `F-022`), y esta vez ocurrio **en el mismo commit** que estreno `L-013`, la leccion que lo nombra.
+  Una decision cuya verificacion no se reproduce obliga al auditor a rehacer el barrido entero, y
+  entonces la evidencia que vale es la suya y no la del registro.
+- **Que NO cambia:** el fondo de las dos decisiones, que el propio `R-009` confirmo cierto. No se
+  reescribe ninguna salida original (`D-019`).
+- **Criterio de cierre:** `D-043` y `D-044` llevan cada uno su nota fechada con una orden anclada a
+  un commit concreto, y esa orden se reproduce.
+
+**Verificacion — las dos notas existen y sus ordenes van ancladas a un commit concreto:**
+
+```
+$ grep -c 'Nota del 2026-09-02 (`T-033`, hallazgo `F-025`)' _persistence/decisions.md
+2
+
+$ grep -n 'git show fc91957:_persistence/decisions.md | grep -c' _persistence/decisions.md
+1931:$ git show fc91957:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+1997:$ git show fc91957:_persistence/decisions.md | grep -c "T-026"
+```
+
+Y las ordenes ancladas dan lo que las notas registran —`16` sobre el commit anterior y `23` sobre
+el que contiene la decision, `0` y `8` para `T-026`—:
+
+```
+$ git show 7025a05:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+16
+
+$ git show fc91957:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+23
+
+$ git show 7025a05:_persistence/decisions.md | grep -c "T-026"
+0
+
+$ git show fc91957:_persistence/decisions.md | grep -c "T-026"
+8
+```
+
+---
+
+### T-034 - Corregir la cita cruzada `L-013` de `DT-002` (`F-026`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-010 |
+
+- **Que:** el cuerpo de `DT-002` cita `L-013` donde corresponde `L-014`. El titulo, la fila del
+  indice y el cierre de la entrada citan bien; solo el cuerpo remite a la leccion equivocada. Se
+  sustituye, y se deja nota fechada.
+- **Por que:** es una remision cruzada dentro del mismo registro. Quien siga la cita llega a la
+  leccion de los bloques de verificacion sin ancla en vez de a la de los cuatro enganches, que es la
+  que sostiene la deuda.
+- **Criterio de cierre:** `DT-002` no cita `L-013` en ninguna linea, y la nota fechada explica el
+  cambio.
+
+**Verificacion — la cita antes y despues, acotada a la linea que la lleva:**
+
+```
+$ git show 99c3aa3:_persistence/techdebt.md | grep -n 'registrado `L-01[34]` de'
+149:  registrado `L-013` de `lessons.md`.
+
+$ grep -n 'registrado `L-01[34]` de' _persistence/techdebt.md
+149:  registrado `L-014` de `lessons.md`.
 ```

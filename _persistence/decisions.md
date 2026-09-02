@@ -58,6 +58,9 @@
 | [D-047](#d-047---_workflow-aplica-a-todas-las-etapas-declaradas-salvo-000_preproject) | `_workflow/` aplica a todas las etapas declaradas salvo `000_preproject` | 2026-09-02 | Vigente |
 | [D-048](#d-048---la-secuencia-de-fases-del-documento-fuente-no-entra-en-el-repositorio) | La secuencia de fases del documento fuente no entra en el repositorio | 2026-09-02 | Vigente |
 | [D-049](#d-049---la-frontera-entre-teammd-y-ai_levelsmd-uno-nombra-los-niveles-el-otro-los-desarrolla) | La frontera entre `team.md` y `ai_levels.md`: uno nombra los niveles, el otro los desarrolla | 2026-09-02 | Vigente |
+| [D-050](#d-050---f-021-se-trata-como-resuelto-por-desaparicion-y-t-028-pasa-a-cancelada) | `F-021` se trata como resuelto por desaparicion, y `T-028` pasa a `Cancelada` | 2026-09-02 | Vigente |
+| [D-051](#d-051---_workflow-gana-un-archivo-por-etapa-y-ese-archivo-es-el-cuarto-enganche) | `_workflow/` gana un archivo por etapa, y ese archivo es el cuarto enganche | 2026-09-02 | Vigente |
+| [D-052](#d-052---el-reparto-de-005_discovery-no-se-adopta-todavia-se-adopta-al-abrir-la-etapa) | El reparto de `005_discovery` no se adopta todavia: se adopta al abrir la etapa | 2026-09-02 | Vigente |
 
 ---
 
@@ -1913,6 +1916,28 @@ $ git show HEAD:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
 16
 ```
 
+📌 **Nota del 2026-09-02 (`T-033`, hallazgo `F-025`): las dos ultimas ordenes de este bloque
+se escribieron sin anclar, y sobre el commit que las contiene no se reproducen.** `HEAD`, mientras
+se escribia la decision, era todavia `7025a05` —el commit **anterior**—, asi que el bloque describe
+el estado de partida y no el del commit que lo publica. **El texto original no se reescribe**
+(`CLAUDE.md`: una salida antigua no se retoca para que exhiba lo que no dio). El fondo era cierto,
+y estas son las mismas ordenes ancladas a los dos commits, que lo demuestran:
+
+```
+$ git log -1 --format="%h %ad" --date=short 7025a05
+7025a05 2026-09-01
+
+$ git show 7025a05:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+16
+
+$ git show fc91957:_persistence/decisions.md | grep -c "^| Fecha | 2026-09-02 |"
+23
+```
+
+Los `16` del bloque original son los de `7025a05`; sobre `fc91957`, el commit que contiene esta
+decision, son `23` —las siete entradas que la propia sesion añadio—. El reloj seguia en
+`2026-09-01` en los dos.
+
 ---
 
 ### D-044 - La ficha `T-026` escrita a mano se asume como caso puntual, no como tercera excepcion
@@ -1959,6 +1984,23 @@ exit=1
 $ git show HEAD:_persistence/tasks.md | grep -c "NO encaja en ninguna de las dos excepciones"
 1
 ```
+
+📌 **Nota del 2026-09-02 (`T-033`, hallazgo `F-025`): la primera orden de este bloque se
+escribio sin anclar y sobre el commit que la contiene no se reproduce.** `HEAD`, mientras se
+escribia, era `7025a05`; sobre `fc91957` la misma orden devuelve ocho coincidencias, porque esta
+decision y la ficha de `T-026` ya la citan. **El texto original no se reescribe.** Lo que la
+decision queria demostrar —que la desviacion no estaba registrada **antes** de esta entrada— si es
+cierto, y esta es la orden anclada que lo demuestra:
+
+```
+$ git show 7025a05:_persistence/decisions.md | grep -c "T-026"
+0
+
+$ git show fc91957:_persistence/decisions.md | grep -c "T-026"
+8
+```
+
+La segunda orden del bloque original si se reproduce sobre `fc91957`, y da `1`.
 
 ---
 
@@ -2214,3 +2256,182 @@ $ grep -c "^| \*\*[0-6]\*\* |" _workflow/team.md
 
 Siete secciones de desarrollo en `ai_levels.md`, ninguna en `team.md`, y en `team.md` los siete
 niveles como siete filas de una tabla. La frontera se sostiene.
+
+---
+
+### D-050 - `F-021` se trata como resuelto por desaparicion, y `T-028` pasa a `Cancelada`
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-024` tiene razon. `T-028` corrigio la celda «Avance de la etapa» de
+  `progress.md`, pero esa celda la **sobrescribe entera el cierre** en cada pasada: cuando
+  `session-closer` escribio el estado de `S-009`, la correccion desaparecio junto con el texto que
+  corregia. En el commit `fc91957` no queda ni el hash mal atribuido ni la nota fechada que tres
+  registros distintos afirman haber dejado. La cadena tampoco sobrevive en ninguna otra parte del
+  archivo, asi que la segunda salida que `F-024` proponia —corregirla donde el texto siga vivo— no
+  tiene objeto.
+- **Decision:** se registra que `F-021` quedo **resuelto por desaparicion del texto**, no por
+  correccion; se ajusta la redaccion de los tres sitios que afirman una nota fechada inexistente; y
+  `T-028` pasa de `Implementada` a **`Cancelada`**, con nota fechada que explica por que. Su relevo
+  es `T-032`, que es la tarea que si deja rastro auditable.
+- **Por que `Cancelada` y no `Implementada`:** `PI-5` no admite una tercera casilla. El criterio de
+  cierre de `T-028` —«la celda atribuye a `R-007` el commit `122b770`»— **no se cumple sobre el
+  commit que la contiene**, y una tarea `Implementada` cuyo criterio su propio commit incumple es
+  exactamente el patron que `F-016` abrio. `Cancelada` dice la verdad completa: se ejecuto, su
+  efecto no sobrevivio, y **no procede reintentarla** porque su objeto ya no existe.
+- **Por que no se reescriben las viñetas antiguas:** `D-019` y `CLAUDE.md` prohiben retocar una
+  salida o una afirmacion pasada para que exhiba lo que no dio. Lo que se hace es lo mismo que
+  `T-029` hizo con `D-036`, `D-038` y `D-040`: **nota fechada al lado**, con la orden anclada y su
+  salida cruda. La excepcion son las secciones 1 y 2 de `progress.md`, que `D-027` reparte a
+  `manager` y que el cierre sobrescribe de todos modos: ahi la afirmacion falsa se corrige en su
+  sitio.
+- **La leccion que esto deja, y va a `lessons.md`:** una correccion escrita **dentro de una seccion
+  que el cierre sobrescribe** no es una correccion, es un borrador. El sitio durable es la ficha, el
+  hallazgo o la bitacora.
+- **Alternativas descartadas:** dejar `T-028` en `Implementada` y anotar el fallo (mantiene en el
+  indice un `Implementada` que el commit desmiente, que es el defecto que `F-016` ya señalo);
+  devolverla a `No implementada` (leeria como pendiente, y no hay nada pendiente: el texto que
+  corregia ya no existe); reescribir las tres afirmaciones sin dejar constancia de que fueron falsas
+  (convierte «falta evidencia» en «hay evidencia falsa», que es peor y ya nadie lo notaria);
+  corregir el hash en la bitacora de `S-008` (no tiene objeto — ahi el `ae06147` que aparece es el
+  correcto, el `HEAD` contra el que se verificaron los hallazgos).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  cambio de estado y unas lineas de redaccion dentro del registro, todo en control de versiones, y
+  se deshace con otra entrada.
+
+**Verificacion — la cadena no sobrevive en ningun sitio del archivo, y por eso no hay nada que
+corregir en su sitio:**
+
+```
+$ git show 99c3aa3:_persistence/progress.md | grep -o 'R-007` (sobre `[0-9a-f]*`)' ; echo "exit=$?"
+exit=1
+
+$ git show 99c3aa3:_persistence/progress.md | grep -c 'ae06147'
+5
+
+$ git show 99c3aa3:_persistence/progress.md | grep -n 'ae06147' | cut -c1-100
+63:| Avance de la etapa | `R-008` (sobre `f096fff`) abrio `F-020`, `F-021`, `F-022` y `F-023`. `mana
+75:commit que la propia bitacora de `S-008` atribuia a `R-007` —`ae06147`, que es el commit que
+77:`ae06147` de la misma celda, el `HEAD` contra el que se verificaron los hallazgos, no se toca.
+381:  `F-018`, `F-019`), verifico cada uno contra `HEAD` (`ae06147`) y los acepto los tres. `T-023`
+413:  `ae06147`— con nota fechada. `T-029` no reescribe los tres bloques de verificacion de
+```
+
+Cinco menciones vivas de `ae06147`, y no todas son el mismo caso:
+
+| Linea | Que dice | Que se hace |
+|---|---|---|
+| 63 | la celda de la seccion 1, que afirma la nota fechada | se ajusta en su sitio (`D-027`) |
+| 75 y 77 | la seccion 2, que afirma lo mismo | se ajusta en su sitio (`D-027`) |
+| 381 | la bitacora de `S-008`: el `HEAD` contra el que se verificaron los hallazgos | **correcta, no se toca** |
+| 413 | la bitacora de `S-009`, que afirma la nota fechada | **historica: nota fechada al lado, sin reescribirla** |
+
+---
+
+### D-051 - `_workflow/` gana un archivo por etapa, y ese archivo es el cuarto enganche
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-046` creo `_workflow/` con dos archivos de doctrina —`team.md`, que dice quien
+  hace que, y `ai_levels.md`, que dice cuanto sistema pide el trabajo—. Los dos son generales por
+  diseño: ninguno baja a las actividades concretas de una etapa. `L-014` y `DT-002` señalaron el
+  hueco por el otro lado: la carpeta nacio sin **enganche de uso**, nada mandaba abrirla.
+- **Decision:** `_workflow/` gana **un archivo por etapa declarada**, con el mismo nombre que la
+  etapa, que aplica `team.md` y `ai_levels.md` a las actividades de su procedimiento — una fila por
+  paso, ni una mas. El primero es `_workflow/005_discovery.md`. Y **`_phases/<etapa>.md` lo manda
+  leer antes del Paso 1 de su procedimiento**, que es el momento de entrada que `team.md` §8 ya
+  fijaba.
+- **Por que un archivo por etapa y no una seccion dentro de `team.md`:** `team.md` es doctrina
+  agnostica de metodo y no conoce los pasos de ninguna etapa; meterle siete filas de una etapa
+  concreta lo ataria a ella y romperia la frontera que `D-049` acaba de fijar. Un archivo por etapa
+  se copia, se borra o se reescribe con su etapa, sin tocar la doctrina.
+- **Por que esto paga la deuda `DT-002`:** el cuarto enganche de `L-014` es «algo que mande leerla
+  en el momento en que sirve». Ahora existe y **tiene control**: la verificacion de §8 del archivo
+  nuevo incluye `grep -n "_workflow/005_discovery" _phases/005_discovery.md`, asi que el archivo no
+  se da por terminado hasta que la etapa lo cita. La cadena completa es `_phases/` → archivo de
+  etapa de `_workflow/` → `team.md` y `ai_levels.md`. ⚠️ **`DT-002` no se marca `Implementada`
+  aqui:** su estado es `Propuesta (pendiente del usuario)` y el que confirma una deuda es el usuario.
+- **Que arrastra, y se hace en la misma pasada:** la fila de `_workflow/` en «Carpetas propias» de
+  `project.md` y el parrafo de `CLAUDE.md` describian una carpeta de exactamente dos archivos. Los
+  dos se amplian; el de `CLAUDE.md` gana ademas la distincion que el archivo nuevo obliga a decir
+  —**lo que un participante puede hacer** vive en `_workflow/`, **lo que el proyecto adopta** vive en
+  `decisions.md`—.
+- **Alternativas descartadas:** dejar el reparto de cada etapa solo en `decisions.md` (obligaria a
+  rehacer el analisis entero en cada proyecto, que es justo lo que un metodo agnostico existe para
+  evitar); meterlo dentro del archivo de `_phases/` (mezcla «que hay que hacer» con «quien lo hace»,
+  las dos cosas que `team.md` separa expresamente, y engorda un archivo que ya es largo); enganchar
+  `team.md` y `ai_levels.md` directamente desde `_phases/` sin archivo intermedio (manda leer
+  doctrina general en el momento de ejecutar, que es cuando menos se lee, y deja el trabajo de
+  aplicarla sin hacer y sin registrar).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  archivo nuevo y dos parrafos ampliados, todo en control de versiones y sin nada publicado fuera.
+
+**Verificacion — el archivo existe con sus siete filas, la etapa lo cita, y sigue siendo agnostico:**
+
+```
+$ grep -c "^| \*\*[1-7] · " _workflow/005_discovery.md
+7
+
+$ grep -n "_workflow/005_discovery" _phases/005_discovery.md
+117:**`_workflow/005_discovery.md`**, que se lee ahora y no despues. Ese reparto se adopta con su
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com|jdrodriguez|USUARIO" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -rniE "triple ?s|raindom|raidom|_brief" _workflow ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-052 - El reparto de `005_discovery` no se adopta todavia: se adopta al abrir la etapa
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `_workflow/005_discovery.md` queda escrito, y `team.md` §8 manda que el reparto de
+  una etapa se registre con su `D-XXX`. Es tentador escribir ese `D-XXX` ahora, con el archivo
+  recien hecho y el razonamiento fresco.
+- **Decision:** **no se escribe.** El proyecto sigue en `000_preproject`; `005_discovery` no esta
+  abierta y `team.md` §8 fija el momento de entrada con precision: **al abrir la etapa, despues de
+  leer su archivo de `_phases/` y antes del primer paso de su procedimiento.** El `D-XXX` de
+  adopcion se escribe entonces, y no antes.
+- **Por que importa la diferencia:** un reparto adoptado hoy diria que hace este proyecto con unas
+  actividades que todavia no ha empezado, y quedaria escrito **antes** de conocer las dos entradas
+  que `_phases/005_discovery.md` §3.3 exige —una necesidad expresada y acceso a quien pueda hablar
+  del proceso real—. Ese acceso es hoy `A-004`, sin confirmar. Un reparto que da por hecho un acceso
+  que no existe reparte trabajo que quiza no se pueda hacer.
+- **Que queda pendiente para ese momento, y se escribe aqui para que no se pierda:** al abrir la
+  etapa hay que registrar (1) el reparto adoptado con lo descartado, (2) la **discrepancia de §6**
+  del archivo nuevo con la tabla de lectura de `ai_levels.md` §6 —variabilidad en `3` no lleva a
+  nivel 5 aqui, y el propio `ai_levels.md` pide que la discrepancia se registre—, y (3) los `A-XXX`
+  que el reparto de por ciertos sin confirmar.
+- **Alternativas descartadas:** adoptarlo ahora (rompe el momento de entrada de `team.md` §8 y
+  reparte sobre entradas que no existen); no dejar nada escrito y confiar en acordarse al abrir la
+  etapa (es exactamente lo que `CLAUDE.md` llama registrar al final: lo acumulado se pierde).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es
+  aplazar una escritura en el registro; adelantarla o retrasarla no consume nada.
+
+**Verificacion — la etapa declarada sigue siendo la preparatoria, y el acceso sigue sin confirmar:**
+
+```
+$ grep -n "^| Etapa actual" _persistence/progress.md
+60:| Etapa actual | `000_preproject` |
+
+$ grep -n "^### A-004" _persistence/assumptions.md
+220:### A-004 - Existe acceso al patrocinador y a personas que puedan hablar del proceso real
+
+$ sed -n '/^### A-004/,/^### A-005/p' _persistence/assumptions.md | grep -n "^| Estado |"
+5:| Estado | Abierto |
+```

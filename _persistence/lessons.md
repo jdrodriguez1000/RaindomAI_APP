@@ -23,6 +23,7 @@
 | [L-012](#l-012---un-barrido-que-busca-texto-de-prosa-se-corre-insensible-a-mayusculas-o-no-barre) | Un barrido que busca texto de prosa se corre insensible a mayusculas, o no barre | 2026-09-02 | 000_preproject |
 | [L-013](#l-013---un-bloque-de-verificacion-sin-ancla-caduca-el-codigo-de-salida-no-prueba-una-ausencia) | Un bloque de verificacion sin ancla caduca; el codigo de salida no prueba una ausencia | 2026-09-02 | 000_preproject |
 | [L-014](#l-014---una-carpeta-agnostica-nueva-necesita-cuatro-enganches-y-el-cuarto-es-el-que-se-olvida) | Una carpeta agnostica nueva necesita cuatro enganches, y el cuarto es el que se olvida | 2026-09-02 | 000_preproject |
+| [L-015](#l-015---una-correccion-escrita-en-una-seccion-que-el-cierre-sobrescribe-no-es-una-correccion) | Una correccion escrita en una seccion que el cierre sobrescribe no es una correccion | 2026-09-02 | 000_preproject |
 
 ---
 
@@ -463,3 +464,39 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
 - **Donde queda aplicada:** se detecto en `S-009` y **se dejo abierta a proposito**, no resuelta: el
   enganche que falta toca un archivo de `_phases/`, y esa es una decision del usuario, no de
   `manager`. Queda señalada en el reporte de la sesion.
+
+---
+
+### L-015 - Una correccion escrita en una seccion que el cierre sobrescribe no es una correccion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `F-021` señalaba un hash mal atribuido en la celda «Avance de la etapa» de
+  `progress.md`. `T-028` lo corrigio ahi mismo, en su sitio, y dejo nota fechada al lado — el
+  procedimiento correcto para cualquier otro archivo del registro.
+- **Que ocurrio:** la correccion no llego al commit. Las secciones 1 y 2 de `progress.md` las
+  **sobrescribe entera el cierre** en cada pasada: cuando `session-closer` escribio el estado de
+  `S-009`, la celda corregida fue reemplazada por la nueva, y con ella desaparecieron el hash
+  corregido y la nota. Tres registros distintos quedaron afirmando una nota fechada que nunca
+  existio, y la auditoria siguiente lo levanto como `F-024`, con gravedad `Alta`.
+- **Leccion:** antes de corregir un texto, hay que preguntar **quien escribe ese texto**. Un archivo
+  del registro tiene dos clases de contenido, y solo una admite correccion en su sitio:
+
+| Clase | Ejemplos | Corregir ahi… |
+|---|---|---|
+| **Durable** | una ficha `T-XXX`, una `D-XXX`, un `F-NNN`, una entrada de bitacora | **funciona**: nadie la reescribe |
+| **Volatil** | las secciones de `progress.md` que el cierre sobrescribe en cada pasada | **no funciona**: la proxima pasada se la lleva |
+
+- **Como aplicarla:** cuando un hallazgo señala un texto que vive en una seccion volatil, la
+  correccion se escribe **donde el texto sobrevive** —la bitacora, la ficha, la entrada del
+  hallazgo—, y en la seccion volatil se ajusta la redaccion sabiendo que es efimera. Si el texto no
+  sobrevive en ningun sitio, entonces el hallazgo se resuelve **por desaparicion**, y eso es lo que
+  hay que escribir; afirmar una correccion que el diff no muestra es peor que no corregir nada.
+- **Por que no lo detecto ningun control:** el bloque de verificacion de `T-028` se corrio **sobre el
+  arbol de trabajo**, antes del cierre, y en ese momento era cierto. Es `L-013` otra vez —un bloque
+  sin ancla caduca—, pero con un agravante propio: aqui no caduco por el paso del tiempo sino por
+  **el propio commit que lo publicaba**.
+- **Donde queda aplicada:** `D-050` y `T-032`.

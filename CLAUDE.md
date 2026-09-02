@@ -231,9 +231,13 @@ copiarla antes, deja de ser plantilla — y solo el barrido del Paso 1b lo ve.
 
 🔑 **`_workflow/` esta en esa lista porque reparte trabajo, no porque lo describa.** `team.md` dice
 que actividad es de un humano, de un proceso determinista o de la IA, y con cuanta autonomia;
-`ai_levels.md` dice cuanto sistema de IA pide un trabajo y como se elige. Nada de eso cambia al
-cambiar de producto: lo que cambia es **el reparto concreto de cada etapa**, y ese vive en
-`decisions.md` con su `D-XXX`, nunca dentro de estos dos archivos.
+`ai_levels.md` dice cuanto sistema de IA pide un trabajo y como se elige; y **un archivo por etapa**
+aplica los dos a las actividades de esa etapa, una fila por paso de su procedimiento. Nada de eso
+cambia al cambiar de producto, porque los pasos tampoco cambian.
+
+⚠️ **Lo que si cambia es que reparto adopta un proyecto, y eso no vive ahi.** El archivo de etapa
+dice lo que **puede** hacer cada participante; lo que **se adopta** —con lo que se descarto— va a
+`decisions.md` con su `D-XXX`, nunca dentro de `_workflow/`. Leer la tabla no reparte nada.
 
 ⚠️ **Aplica a todas las etapas declaradas salvo `000_preproject`**, y no por omision: la etapa
 preparatoria no reparte trabajo sobre un producto, lo construye el sistema de trabajo que hace el
