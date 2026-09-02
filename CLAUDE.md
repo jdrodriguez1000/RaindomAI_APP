@@ -61,6 +61,20 @@ Terminado** es que ese algo este en verde:
 🚨 **No hay una tercera casilla.** «Sin excepcion» significa exactamente eso: ninguna tarea
 se da por terminada sin una de las dos. Lo que no se puede comprobar no esta hecho, esta afirmado.
 
+⚠️ **Hay una sola excepcion posible, y no se decide aqui: la declara un archivo de etapa.** Una
+etapa cuyo producto es **deliberadamente descartable** —un prototipo que se tira— no puede
+respaldarse con un test: un test protege lo que se va a conservar, y ponerselo lo vuelve caro de
+tirar, que es justo lo que hace fracasar a esa clase de etapa. En ese caso el archivo de la etapa
+**declara que instrumento lo respalda en lugar del test**, con su `D-XXX`, su alcance y su limite.
+
+🔑 **Lo que la excepcion cambia es el instrumento, nunca la exigencia.** Sigue haciendo falta algo
+que compruebe; lo que cambia es que ese algo puede no ser un test. Una etapa que no declare **nada**
+no ha usado la excepcion: se ha saltado `PI-5`.
+
+⛔ **Y no se hereda.** Vale para la etapa que la declaro y para el artefacto concreto que nombra —no
+para «el codigo de esa etapa» ni para lo que corra prisa. Si no esta escrita en un archivo de etapa,
+no existe.
+
 ⛔ **Y un test escrito para pasar no cuenta.** Un test que no puede fallar es documentacion
 disfrazada de evidencia — mas cara que no tenerlo, porque ademas da confianza.
 

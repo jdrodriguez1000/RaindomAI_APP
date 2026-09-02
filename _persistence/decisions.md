@@ -65,6 +65,12 @@
 | [D-054](#d-054---se-consultan-los-bloques-d-y-e-de-global_lessonsmd-antes-de-abrir-005_discovery) | Se consultan los bloques D y E de `global_lessons.md` antes de abrir `005_discovery` | 2026-09-02 | Vigente |
 | [D-055](#d-055---el-puntero-a-las-lecciones-globales-la-regla-en-claudemd-el-donde-en-projectmd-el-control-en-la-etapa) | El puntero a las lecciones globales: la regla en `CLAUDE.md`, el donde en `project.md`, el control en la etapa | 2026-09-02 | Vigente |
 | [D-056](#d-056---la-cosecha-gana-disparador-una-casilla-por-etapa-y-la-columna-portabilidad-que-la-hace-comprobable) | La cosecha gana disparador: una casilla por etapa, y la columna `Portabilidad` que la hace comprobable | 2026-09-02 | Vigente |
+| [D-057](#d-057---no-nace-un-quinto-estado-de-tarea-pendiente-se-normaliza-a-no-implementada) | No nace un quinto estado de tarea: `Pendiente` se normaliza a `No implementada` | 2026-09-02 | Vigente |
+| [D-058](#d-058---t-038-se-regulariza-declarando-que-nacio-fuera-de-las-dos-excepciones) | `T-038` se regulariza declarando que nacio fuera de las dos excepciones | 2026-09-02 | Vigente |
+| [D-059](#d-059---el-prototipo-descartable-es-la-unica-excepcion-a-pi-5-y-se-declara-en-el-archivo-de-etapa) | El prototipo descartable es la unica excepcion a `PI-5`, y se declara en el archivo de etapa | 2026-09-02 | Vigente |
+| [D-060](#d-060---el-archivo-de-etapa-del-prototipo-se-escribe-por-adelantado-sin-declarar-la-etapa) | El archivo de etapa del prototipo se escribe por adelantado, sin declarar la etapa | 2026-09-02 | Vigente |
+| [D-061](#d-061---una-carpeta-de-entregables-se-llama-como-su-etapa-y-se-declara-por-adelantado) | Una carpeta de entregables se llama como su etapa, y se declara por adelantado | 2026-09-02 | Vigente |
+| [D-062](#d-062---el-numero-de-participantes-lo-fija-el-proyecto-porque-la-guia-de-metodo-no-lo-fija) | El numero de participantes lo fija el proyecto, porque la guia de metodo no lo fija | 2026-09-02 | Vigente |
 
 ---
 
@@ -2769,3 +2775,361 @@ lineas, lo que hay que rehacer es la comparacion, no buscar estos numeros.
 📌 **Ninguna orden se corre sobre `_persistence/decisions.md`, y es a proposito:** esta misma entrada
 nombra las casillas y la columna, y un barrido sin acotar se contaria a si mismo (`L-010`, el defecto
 que `F-027` señalo por quinta vez).
+
+📌 **Nota del 2026-09-02 (`T-041`, hallazgo `F-031`).** El bloque de arriba **se deja tal cual se
+ejecuto** (`D-019`). Lo que no se sostiene son su cuarta orden y la prosa que la acompaña: la cifra
+`15` se obtuvo sobre el arbol de trabajo **antes** de que la propia sesion añadiera `L-016` y
+`L-017`, asi que sobre el commit que publica esta entrada el recuento es `17` — y no `15`. La frase
+«hoy sus quince lecciones estan las quince `Sin evaluar`» debe leerse **«sus diecisiete lecciones
+estan las diecisiete `Sin evaluar`»**, y el titulo del bloque, «las diecisiete lecciones tienen la
+columna». Nada de lo que la decision decide cambia: el volumen que bloquea la condicion de salida de
+`000_preproject` es mayor del que se escribio, no menor.
+
+**Verificacion — el recuento anclado al commit que contiene la entrada, y a `HEAD`:**
+
+```
+$ git show 2a2d3b6:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
+17
+
+$ git show f1f3fea:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
+17
+```
+
+---
+
+### D-057 - No nace un quinto estado de tarea: `Pendiente` se normaliza a `No implementada`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-029` (`R-011`) encontro que `T-037` y `T-038` nacieron con el
+  estado `Pendiente`, valor que la tabla de convenciones de `tasks.md` no declara. El hallazgo se
+  acepta: el archivo declara cuatro valores de `Estado` y esas dos fichas usan un quinto, en la
+  ficha y en el indice. Cualquier barrido que filtre por los cuatro validos las deja fuera.
+- **Decision:** **no se declara un quinto estado.** Las dos fichas y sus filas del indice pasan a
+  `No implementada`, que es el valor que ya usan `T-001`, `T-002` y `T-003` para exactamente lo
+  mismo: una tarea escrita y todavia sin hacer.
+- **Por que:** `Pendiente` y `No implementada` no distinguen nada. Un estado existe para separar
+  dos situaciones que hay que tratar distinto, y aqui no hay dos: `T-037` y `T-038` estan en el
+  mismo sitio que `T-001`. Anadir el valor obligaria ademas a explicar en que se diferencia de
+  `No implementada`, y no hay respuesta — que es la senal de que el valor sobra (`PI-2`).
+- **Alternativas descartadas:** (1) declarar `Pendiente` en la tabla con su `D-XXX` —duplica un
+  estado existente y obliga a todo barrido futuro a filtrar por cinco valores donde cuatro
+  bastan—; (2) dejarlo y anotarlo —el archivo seguiria declarando cuatro valores y usando cinco,
+  que es el defecto entero del hallazgo.
+- **Por que esto no es reescribir historia:** el `Estado` de una tarea es un **campo vivo**, no un
+  bloque de verificacion. `D-019` rige sobre lo que registra una ejecucion pasada; un estado
+  registra la situacion de hoy y se actualiza por definicion. La constancia de que nacieron con
+  otro valor queda en `F-029`, en esta decision y en la bitacora de `S-011`, que no se tocan.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son
+  cuatro celdas de texto en un archivo versionado.
+
+**Verificacion — antes de tocar, los dos valores fuera de la convencion sobre `HEAD` (`f1f3fea`):**
+
+```
+$ git grep -nE '^\| Estado \| ' f1f3fea -- _persistence/tasks.md | grep -vE 'Implementada|No implementada|Cancelada|Suspendida'
+f1f3fea:_persistence/tasks.md:1598:| Estado | Pendiente |
+f1f3fea:_persistence/tasks.md:1651:| Estado | Pendiente |
+
+$ git show f1f3fea:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Pendiente |"
+2
+```
+
+---
+
+### D-058 - `T-038` se regulariza declarando que nacio fuera de las dos excepciones
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-030` (`R-011`) encontro que `T-038` se escribio a mano en `tasks.md` sin citar
+  el `D-XXX` ni el `F-NNN` que las dos excepciones de la convencion exigen. El hallazgo se acepta.
+- **Que paso de verdad, y conviene escribirlo sin adornarlo:** `T-038` **no entra por ninguna de
+  las dos excepciones**. No nace de aceptar un hallazgo (`D-020`) ni de una decision ya registrada
+  que el cierre no pueda deducir del diff (`D-025`): nace de que `manager`, leyendo `R-010`, se dio
+  cuenta de que el barrido de fuga de `protocol-audit` cubre menos carpetas que el de
+  `protocol-close`. Es una observacion propia, y la convencion no la contempla.
+- **Decision:** **esta entrada es el respaldo que faltaba.** `T-038` la cita, y con eso queda
+  auditable. No se amplia la convencion con una tercera excepcion.
+- **Por que no una tercera excepcion:** el camino normal para una observacion propia ya existe y es
+  el cierre — `session-closer` escribe `tasks.md`, y una observacion de `manager` llega ahi por la
+  conversacion de la jornada. Abrir una excepcion «cuando a `manager` se le ocurre algo» convierte
+  las dos excepciones en una puerta, que es literalmente lo que la convencion advierte.
+- **Que hacer la proxima vez:** una observacion propia que no se quiera perder se registra **como
+  decision primero** —esta misma forma— y la tarea la cita; o se deja para el cierre. Lo que no se
+  puede es escribir la tarea suelta.
+- **Alternativas descartadas:** (1) borrar `T-038` y esperar al cierre —perderia el hueco, que es
+  real y sigue abierto—; (2) citar `D-054` como si hubiera nacido de la consulta a las lecciones
+  globales —seria falso: nacio de leer `R-010`—; (3) declarar una tercera excepcion.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio — es texto en un archivo
+  versionado.
+
+**Verificacion — sobre `HEAD` (`f1f3fea`), `T-038` no cita ninguno de los dos y `T-037` si:**
+
+```
+$ git show f1f3fea:_persistence/tasks.md | awk '/^### T-038 /,0' | grep -oE '`(D|F)-[0-9]+`' | sort -u
+(sin salida)
+
+$ git show f1f3fea:_persistence/tasks.md | awk '/^### T-037 /,/^### T-038 /' | grep -oE '`D-[0-9]+`' | sort -u
+`D-054`
+```
+
+
+---
+
+### D-059 - El prototipo descartable es la unica excepcion a `PI-5`, y se declara en el archivo de etapa
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** al adaptar el archivo de etapa del prototipo aparecio un choque frontal entre dos
+  reglas vigentes. `CLAUDE.md` (`PI-5`) fija que una tarea que produce **codigo ejecutable** esta
+  Terminada cuando **un test automatizado pasa en verde**, y anade que «no hay una tercera casilla».
+  La guia de metodo, en cambio, define el prototipo como **descartable** y el archivo fuente prohibia
+  los tests con un argumento correcto: un test protege lo que se va a conservar.
+- **Decision:** se declara **una excepcion explicita y acotada**. El prototipo —el artefacto
+  descartable del camino feliz— tiene como Definicion de Terminado **la evidencia registrada de las
+  sesiones** (un archivo por sesion, con estado, bloqueos y comentarios) en vez de un test en verde.
+  La excepcion queda escrita **en el propio archivo de etapa**, con su alcance y su limite.
+- **Por que declararla en vez de resolverla en un sentido o en otro:** exigir tests encarece
+  justamente la etapa que existe para ser barata, y ademas hace mas dificil tirar el artefacto —lo
+  que un test protege, alguien lo quiere conservar—. Prohibirlos sin decir nada dejaria a `PI-5`
+  contradicho en silencio, y la primera auditoria que leyera los dos archivos lo encontraria, con
+  razon. **Una excepcion escrita se puede discutir; una excepcion tacita solo se puede descubrir.**
+- **Por que no vacia `PI-5`:** el principio exige que nada se de por hecho sin algo que lo
+  compruebe, y aqui lo hay — el comportamiento de usuarios reales frente a una tarea, registrado
+  mientras ocurre. **Cambia el instrumento, no la exigencia:** un prototipo sin sesiones registradas
+  no esta Terminado.
+- **Su limite, que es la mitad de la decision:** la excepcion alcanza **al artefacto descartable y a
+  nada mas**. No se extiende «al codigo de esa etapa» ni «a lo que sea rapido», y deja de aplicar en
+  el instante en que el artefacto deja de ser descartable.
+- **Alternativas descartadas:** (1) exigir tests de humo minimos —respeta `PI-5` sin excepciones,
+  pero contradice al metodo y encarece la etapa—; (2) escribir el archivo prohibiendo tests sin
+  mencionar `PI-5` —deja viva la contradiccion y sin registrar—; (3) reescribir `PI-5` en
+  `CLAUDE.md` para admitir un tercer caso —tocaria una regla que gobierna todas las etapas para
+  resolver el caso de una sola.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es
+  texto en archivos versionados, y la etapa que regula ni siquiera esta adoptada todavia.
+
+**Verificacion — la excepcion esta escrita en el archivo de etapa, con su alcance y su limite:**
+
+```
+$ grep -c "La excepcion a .PI-5.\|La excepcion cubre el prototipo y nada mas" _phases/010_prototype.md
+2
+```
+
+⚠️ **La orden se escribio primero con `-n` y publico las lineas `92` y `111`; ediciones posteriores
+de la misma sesion las movieron a `98` y `117`.** Se cambia a `-c` antes de commitear: lo que la
+decision afirma es que **las dos frases existen**, y para eso el numero de linea no aporta nada y
+caduca solo. Es `L-013` aplicada antes de que se convirtiera en hallazgo.
+
+📌 **Nota del 2026-09-02 (`T-044`).** Esta decision se registro **incumpliendo `L-007`**, y conviene
+que quede escrito: la excepcion se escribio solo en el archivo de etapa, mientras `CLAUDE.md` seguia
+diciendo «No hay una tercera casilla» en absoluto. Es el mismo defecto que `F-007` abrio en su dia
+—una regla y su excepcion en sitios distintos—, cometido por quien ya tenia la leccion escrita. El
+usuario lo pidio revisar y se corrigio en la misma sesion: **`PI-5` lleva ahora el puntero**, escrito
+en generico —una etapa cuyo producto es deliberadamente descartable— sin nombrar ninguna etapa, para
+que `CLAUDE.md` siga siendo copiable.
+
+```
+$ grep -n "Hay una sola excepcion posible" CLAUDE.md
+64:⚠️ **Hay una sola excepcion posible, y no se decide aqui: la declara un archivo de etapa.** Una
+```
+
+---
+
+### D-060 - El archivo de etapa del prototipo se escribe por adelantado, sin declarar la etapa
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto un archivo de etapa de prototipo procedente de otro proyecto, para
+  adaptarlo a esta metodologia. Pero `_phases/005_discovery.md` §1 dice que **declarar las etapas
+  posteriores es trabajo del descubrimiento**, y su §6 que mientras una etapa no tenga su `D-XXX` y
+  su archivo, la respuesta a «¿que viene despues?» es *«sin decidir»*. El descubrimiento no ha
+  empezado: depende de `A-004`.
+- **Decision:** **se escribe el archivo y no se declara la etapa.** `_phases/010_prototype.md` existe
+  como preparacion; `project.md` **no** gana ninguna fila de etapa nueva, y la adopcion —si llega—
+  la decide el descubrimiento con su propio `D-XXX`. El archivo lo dice de si mismo en su cabecera,
+  para que nadie lo lea como calendario.
+- **Por que no declararla hoy:** decidir la secuencia de etapas antes de entender la necesidad es
+  exactamente lo que el descubrimiento existe para evitar. El metodo describe un ciclo; **que un
+  proyecto lo adopte entero es una decision suya**, y tomarla hoy seria darla por hecha.
+- **Por que tampoco dejarlo sin registro:** un archivo de etapa que aparece en `_phases/` sin nadie
+  que explique por que esta ahi se lee dentro de un mes como una etapa adoptada. La cabecera del
+  archivo y esta entrada son las dos mitades del mismo aviso.
+- **Lo que esto deja pendiente, dicho antes de que sorprenda:** el archivo referencia plantillas en
+  `_templates/` y un archivo de reparto en `_workflow/` **que hoy no existen**. No es un descuido:
+  son condicion para abrir la etapa, no trabajo de dentro de ella, y el propio archivo lo declara.
+- **Alternativas descartadas:** (1) declarar la etapa hoy en `project.md` —coherente entre archivo y
+  registro, pero decide la secuencia antes de entender la necesidad—; (2) escribir el archivo sin
+  ningun registro —barato hoy, ilegible en un mes—; (3) dejarlo en la carpeta de trabajo del usuario
+  hasta que el descubrimiento lo pida —conserva la regla, pero el trabajo de adaptacion se pierde o
+  se rehace.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio — es un archivo nuevo en
+  una carpeta ya declarada, sin efecto sobre ningun registro vivo.
+
+**Verificacion — el archivo existe, avisa de su propia condicion, y `project.md` no declara la etapa:**
+
+```
+$ ls _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+
+$ grep -n "Que este archivo exista no significa que la etapa este adoptada" _phases/010_prototype.md
+28:🚨 **Que este archivo exista no significa que la etapa este adoptada.** Adoptar una etapa exige su
+
+$ grep -c "010_prototype" project.md
+0
+
+$ grep "| Etapas declaradas |" project.md
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+```
+
+⚠️ **Sin `-n` a proposito:** lo que prueba esta orden es **el contenido de la fila** —que siguen
+siendo dos etapas—, y el numero de linea se movio dentro de la misma sesion al añadir `D-061` sus
+filas a `project.md`.
+
+📌 **Nota del 2026-09-02 (`T-044`).** `D-061`, del mismo dia, **si añade filas a `project.md`** —una
+carpeta de entregables en «Carpetas propias» y su ruta—, y eso puede leerse como si contradijera lo
+de arriba. No lo hace: **declarar donde iran los entregables no es declarar la etapa.** La tabla
+«Etapas» sigue con dos, y esta decision sigue vigente sin cambios. La primera orden del bloque
+—`grep -c "010_prototype" project.md`, que devolvia `0`— **ya no se reproduce por eso**, y no se
+reescribe (`D-019`): lo que la sustituye es la de `| Etapas declaradas |`, que es la que de verdad
+prueba lo que esta entrada afirma.
+
+⚠️ **La cuarta orden se escribio primero como un recuento sobre la seccion «Etapas» y devolvia `8`,
+no `1`:** el patron contaba tambien las menciones en prosa. Se sustituye antes de publicarla por las
+dos de arriba, que si prueban lo que la decision afirma —que `project.md` no nombra la etapa nueva en
+ningun sitio, y que la fila de etapas declaradas sigue teniendo dos—. Es el Paso 2d del cierre
+haciendo su trabajo sobre esta misma entrada.
+
+
+---
+
+### D-061 - Una carpeta de entregables se llama como su etapa, y se declara por adelantado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el archivo de etapa del prototipo (`T-043`) decia que los entregables van a «la
+  carpeta de artefactos de la etapa» y que **cual es la dice `project.md`** — pero `project.md` no
+  lo decia de ninguna etapa. `005_discovery` lleva desde su creacion con la misma frase y sin
+  carpeta detras. El usuario zanjo donde van los del prototipo.
+- **Decision:** dos piezas, y la segunda es la que la hace convencion en vez de un caso suelto:
+
+| Pieza | Que fija |
+|---|---|
+| **El nombre** | una carpeta de entregables se llama **igual que su etapa**, en la raiz del repositorio |
+| **El contenido** | los artefactos de registro en su raiz, y el codigo —cuando la etapa produzca codigo— en una **subcarpeta** suya |
+
+Para el prototipo eso es `010_prototype/`, declarada ya en «Carpetas propias» y en «Rutas».
+
+- **Por que el mismo nombre y no un prefijo aparte:** una etapa ya vive en cuatro sitios —su archivo
+  en `_phases/`, su subcarpeta en `_templates/`, su archivo en `_workflow/` y ahora su carpeta de
+  entregables—. Con el mismo nombre en los cuatro, **el nombre de la etapa es la unica coordenada
+  que hay que recordar**; con un prefijo distinto habria que recordar la traduccion, y una
+  traduccion que solo esta en la cabeza de alguien se pierde en la primera sesion que no la tenga
+  delante. La propuesta inicial fue `015_prototype`, y el usuario la corrigio a `010_prototype`
+  precisamente por eso.
+- **Por que se declara antes de que exista:** fijar donde van los entregables **antes del primero**
+  cuesta cero; hacerlo despues obliga a mover archivos ya citados desde otros sitios. Y `git` no
+  versiona carpetas vacias, asi que la fila estara sin carpeta hasta que la etapa arranque — con su
+  razon escrita en `project.md`, que es lo que el control de carpetas del cierre exige a cualquier
+  diferencia que sobreviva.
+- **Su limite, dicho porque esta regla se puede estirar:** vale para una carpeta **cuya etapa esta
+  escrita y cuyo contenido esta enumerado**. No autoriza declarar carpetas «por si acaso»: una fila
+  para algo que aun no se sabe que sera convierte el control en ruido, y un control con ruido deja
+  de mirarse.
+- **Lo que esta decision NO hace:** no adopta la etapa. `010_prototype` sigue sin fila en la tabla
+  «Etapas», y `D-060` sigue vigente. **Se declara donde iran los entregables, no que se vayan a
+  producir** — igual que tener el archivo de etapa no significa haber entrado en ella.
+- **Alternativas descartadas:** (1) `015_prototype`, la propuesta inicial —introduce un desfase
+  entre el nombre de la etapa y el de su carpeta, sin ganar nada—; (2) una carpeta contenedora con
+  una subcarpeta por etapa —un nivel mas de profundidad para la misma informacion—; (3) declararla
+  solo cuando nazca el primer artefacto —evita la fila sin carpeta, pero deja la decision para el
+  momento en que ya estorba.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es una
+  fila de tabla y una carpeta que hoy ni siquiera tiene contenido.
+
+**Verificacion — las dos filas nuevas, y el control de carpetas señalando exactamente las dos
+diferencias que tienen razon escrita:**
+
+```
+$ grep -n "010_prototype" project.md
+37:| Entregables de `010_prototype` | `010_prototype/` (el codigo descartable, en una subcarpeta suya) |
+150:| `010_prototype/` | **Los entregables de la etapa `010_prototype`**: los cinco artefactos de registro en su raiz, y el codigo descartable del prototipo en una subcarpeta suya. Se archiva o se borra al cerrar su Gate — **no se muda a ninguna carpeta de producto** |
+170:- **`010_prototype/`** esta **declarada por adelantado y todavia no existe en el arbol**, porque su
+
+$ diff <(git ls-tree -d --name-only HEAD | sed 's|$|/|' | sort) <(sed -n '/^## Carpetas propias/,/^## /p' project.md | grep -oE '^| `[^`]+/`' | tr -d '|` ' | sort)
+1a2
+> 010_prototype/
+8a10
+> temporal/
+```
+
+📌 **Las dos lineas `>` son filas declaradas sin carpeta en el arbol, y las dos tienen su razon
+escrita en `project.md`** — que es exactamente lo que el Paso 2c pide de una diferencia que
+sobrevive. La orden se corre contra `HEAD` a proposito: el control compara el **arbol versionado**,
+y una carpeta vacia no llega a el.
+
+
+---
+
+### D-062 - El numero de participantes lo fija el proyecto, porque la guia de metodo no lo fija
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** al revisar `_phases/010_prototype.md` para el agnosticismo (`T-044`), su Paso 3 pedia
+  «un minimo que **la guia de metodo** o el proyecto fijen». Se comprobo contra `_methodology/000_method.md`
+  y **la guia no fija ninguna cantidad**: exige «usuarios representativos» y nada mas. El archivo
+  fuente del que se adapto si traia una cifra —minimo 3, recomendado 5—, marcada alli como adicion
+  propia con la nota de que las fuentes no la respaldan.
+- **Decision:** el archivo de etapa **no inventa la cifra ni finge que la guia la trae**. Declara que
+  la guia no la fija, y que **el numero lo fija el proyecto con su `D-XXX` antes de la primera
+  sesion**, escribiendo por que ese y no otro.
+- **Por que no copiar el «minimo 3, recomendado 5» del fuente:** venia marcado en origen como una
+  adicion sin respaldo. Copiarla a un archivo de etapa la convertiria en **regla del metodo por el
+  solo hecho de aparecer ahi**, sin que nadie pueda ya distinguirla de lo que si esta respaldado. Es
+  el mismo defecto que `L-002`: lo que viaja de otro proyecto llega con cosas que alli tenian su
+  contexto y aqui lo pierden.
+- **Por que tampoco dejarlo como estaba:** «un minimo que la guia de metodo fije» manda a buscar una
+  cifra que no existe. Quien la busque no la encontrara y la decidira sobre la marcha — **que es
+  exactamente lo que el Paso 3 prohibe**, y encima creyendo que cumple.
+- **Lo que el archivo añade ademas, y no es adorno:** que un numero sin su `D-XXX` es peor que no
+  tenerlo. Parece una regla del metodo, nadie lo discute, y cuando la ronda se alarga se recorta sin
+  que conste que se recorto.
+- **Alternativas descartadas:** (1) copiar la cifra del fuente —la asciende a regla sin respaldo—;
+  (2) fijar aqui un minimo para este proyecto —no hay con que decidirlo hasta saber cuantos usuarios
+  del actor originador son alcanzables, que es dato del descubrimiento—; (3) dejar la redaccion
+  ambigua —manda a buscar lo que no hay.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio — es la redaccion de un
+  paso en un archivo de etapa que no esta adoptada.
+
+**Verificacion — la guia no fija cantidad, y el archivo de etapa ya lo dice:**
+
+```
+$ grep -cEi "minimo 3|minimo tres|recomendado 5|cuantos usuarios|numero de usuarios" _methodology/000_method.md
+0
+
+$ grep -nEi "usuarios representativos" _methodology/000_method.md
+413:9. Usar usuarios representativos.
+544:> Usuarios representativos del Actor evaluado **completan de forma autónoma** el
+
+$ grep -c "La guia de metodo no fija cuantos" _phases/010_prototype.md
+1
+```

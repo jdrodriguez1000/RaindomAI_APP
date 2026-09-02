@@ -34,6 +34,7 @@ la proxima vez que alguien la vea.
 | Auditorias | `_audit/R-XXX.md` |
 | Tablero de auditorias | `_audit/index.md` |
 | Estado de los hallazgos | `_audit/findings.md` |
+| Entregables de `010_prototype` | `010_prototype/` (el codigo descartable, en una subcarpeta suya) |
 | Lecciones globales — repositorio | `C:\Users\USUARIO\Documents\Company_TripleS\TripleS_Lessons` |
 | Lecciones globales — archivo | `global_lessons.md`, en la raiz de ese repositorio |
 | Lecciones globales — remoto | `https://github.com/jdrodriguez1000/TripleS_Lessons.git` (privado) |
@@ -146,18 +147,35 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por etapa que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_workflow/` | **Quien hace cada cosa y con cuanto sistema**: `team.md`, el reparto del trabajo entre Humano, Software e IA; `ai_levels.md`, los niveles de sistema de IA y la rubrica para elegir uno; y **un archivo por etapa** que aplica los dos a sus actividades, con el mismo nombre que la etapa. Aplica a todas las etapas declaradas salvo `000_preproject`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
+| `010_prototype/` | **Los entregables de la etapa `010_prototype`**: los cinco artefactos de registro en su raiz, y el codigo descartable del prototipo en una subcarpeta suya. Se archiva o se borra al cerrar su Gate — **no se muda a ninguna carpeta de producto** |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
 
 🚨 **Esta tabla se contrasta contra el arbol en cada cierre de sesion** (Paso 2c de `protocol-close`):
 las carpetas de primer nivel que existen, frente a las filas de aqui, **en las dos direcciones**. Una
 carpeta sin declarar y una fila sin carpeta son el mismo defecto por sus dos caras.
 
-⚠️ **Una fila va a salir señalada por ese control, y aqui esta escrita su razon:**
+🔑 **La convencion de las carpetas de entregables: se llaman como su etapa.** Una etapa que produzca
+artefactos tiene **una carpeta de primer nivel con el mismo nombre que la etapa** —el mismo que
+lleva su archivo en `_phases/` y su subcarpeta en `_templates/`—, y dentro van sus entregables. No
+hay un prefijo distinto ni una carpeta contenedora: **el nombre de la etapa es la unica coordenada
+que hay que recordar**, y sirve para los cuatro sitios. Cada carpeta nace cuando su etapa arranca,
+no todas de golpe.
+
+⚠️ **Dos filas van a salir señaladas por ese control, y aqui estan escritas sus razones:**
 
 - **`temporal/`** existe en disco pero **nunca aparecera en el arbol versionado**, porque
   `.gitignore` la excluye. Es deliberado: es el area de trabajo del usuario, su contenido cambia o
   desaparece sin aviso, y los protocolos tienen prohibido leerla o tocarla. Sin esa exclusion, el
   `git add -A` del Paso 7 de `protocol-close` la commitearia entera.
+- **`010_prototype/`** esta **declarada por adelantado y todavia no existe en el arbol**, porque su
+  etapa no ha arrancado y `git` no versiona carpetas vacias. Es deliberado: la fila fija **donde
+  iran** los entregables antes de que haya el primero, que es cuando esa decision cuesta cero. Lo
+  fija `D-061`. La diferencia desaparece sola el dia que se escriba el primer artefacto — y si ese
+  dia no desaparece, **el control estara señalando algo real**.
+
+⛔ **Lo que esta segunda razon no autoriza es declarar carpetas «por si acaso».** Vale para una
+carpeta cuya etapa esta escrita y cuyo contenido esta enumerado; una fila para algo que aun no se
+sabe que sera convierte este control en ruido, y un control con ruido deja de mirarse.
 
 🔑 **Una diferencia con motivo escrito no es un fallo; una sin el, si.** Por eso las dos razones de
 arriba viven aqui y no en una lista de excepciones dentro del control: una lista de excepciones

@@ -40,9 +40,9 @@
 | [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Implementado |
 | [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Implementado |
 | [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Implementado |
-| [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Abierto |
-| [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Abierto |
-| [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Abierto |
+| [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Aceptado — pendiente |
+| [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Aceptado — pendiente |
+| [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Aceptado — pendiente |
 
 ---
 
@@ -1826,7 +1826,20 @@ $ git show 2a2d3b6:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep 
   a su `grep`—, y el trabajo abierto de la etapa deja de poder contarse con un solo criterio.
 - **Que lo corregiria:** o normalizar las dos fichas a `No implementada`, o declarar `Pendiente` en
   la tabla de convenciones con su `D-XXX`, explicando en que se distingue de `No implementada`.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-012`), registrado en `T-039`. Verificado contra
+  `HEAD` (`f1f3fea`) antes de evaluarlo: los dos valores siguen fuera de la convencion. De las dos
+  salidas que el hallazgo ofrecia se toma la primera —normalizar a `No implementada`—, con su
+  `D-057`: `Pendiente` y `No implementada` no distinguen nada, y un quinto valor obligaria a todo
+  barrido futuro a filtrar por cinco donde cuatro bastan.
+
+~~~
+$ git grep -nE '^\| Estado \| ' f1f3fea -- _persistence/tasks.md | grep -vE 'Implementada|No implementada|Cancelada|Suspendida'
+f1f3fea:_persistence/tasks.md:1598:| Estado | Pendiente |
+f1f3fea:_persistence/tasks.md:1651:| Estado | Pendiente |
+
+$ git show f1f3fea:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Pendiente |"
+2
+~~~
 
 ---
 
@@ -1859,7 +1872,15 @@ $ git show 2a2d3b6:_persistence/tasks.md | awk '/^### T-037 /,/^### T-038 /' | g
 - **Que lo corregiria:** citar en `T-038` el registro que la respalda —`D-054` si nacio de la misma
   consulta, o un `D-XXX` nuevo—, o dejar escrito por que no entra por ninguna de las dos
   excepciones.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-012`), registrado en `T-040`. Verificado contra
+  `HEAD` (`f1f3fea`) antes de evaluarlo: `T-038` sigue sin citar ninguno de los dos prefijos. La
+  correccion no le inventa una excepcion: `D-058` declara que la tarea **nacio fuera de las dos**
+  —de una observacion propia al leer `R-010`— y hace de respaldo, y `T-038` lo cita en nota fechada.
+
+~~~
+$ git show f1f3fea:_persistence/tasks.md | awk '/^### T-038 /,0' | grep -oE '`(D|F)-[0-9]+`' | sort -u
+(sin salida)
+~~~
 
 ---
 
@@ -1904,4 +1925,13 @@ $ git show 2a2d3b6:_audit/S-011.md | grep -n "quince"
   viva de `progress.md`, con el barrido anclado a `2a2d3b6` y la lectura rehecha sobre `17`. Y, para
   que no haya un septimo, un mecanismo en el cierre que impida publicar un bloque de verificacion
   sin ancla: `L-013` y `L-015` ya describen el defecto, lo que falta es quien lo aplique.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado** el 2026-09-02 (`S-012`), en dos tareas. `T-041` pone la nota
+  fechada en los cuatro sitios que el hallazgo enumera, con el recuento anclado a `2a2d3b6`. `T-042`
+  atiende la segunda mitad de la recomendacion —la que evita el septimo caso—: `protocol-close` gana
+  un **Paso 2d** que localiza los bloques publicados sin ancla y obliga a reejecutarlos antes de
+  cerrar. Verificado contra `HEAD` (`f1f3fea`) antes de evaluarlo: el recuento sigue siendo `17`.
+
+~~~
+$ git show f1f3fea:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
+17
+~~~

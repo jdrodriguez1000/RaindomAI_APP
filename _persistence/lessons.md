@@ -26,6 +26,7 @@
 | [L-015](#l-015---una-correccion-escrita-en-una-seccion-que-el-cierre-sobrescribe-no-es-una-correccion) | Una correccion escrita en una seccion que el cierre sobrescribe no es una correccion | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-016](#l-016---una-consulta-que-cambia-lo-que-haces-no-deja-rastro-y-sin-rastro-no-ocurrio) | Una consulta que cambia lo que haces no deja rastro, y sin rastro no ocurrio | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-017](#l-017---una-condicion-de-salida-no-es-una-tarea-pendiente-y-confundirlas-desactiva-el-disparador) | Una condicion de salida no es una tarea pendiente, y confundirlas desactiva el disparador | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-018](#l-018---un-archivo-traido-de-otro-proyecto-destapa-contradicciones-que-alli-no-existian) | Un archivo traido de otro proyecto destapa contradicciones que alli no existian | 2026-09-02 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -275,6 +276,17 @@ el repositorio entero y **luego** se clasifica cada coincidencia en viva o histo
 - ⚠️ **La señal que hay que mirar:** una leccion con dos hallazgos del mismo patron detras ya
   fallo como leccion. La tercera repeticion no aporta informacion nueva; solo confirma que se estaba
   registrando en vez de corrigiendo.
+
+---
+
+📌 **Nota del 2026-09-02 (`S-012`) — esta leccion se cumplio a si misma.** `D-059` abrio una
+excepcion a `PI-5` y la escribio **solo** en el archivo de etapa; `CLAUDE.md` siguio diciendo «No hay
+una tercera casilla» en absoluto. Es `L-007` incumplida **por quien la tenia escrita y la habia
+leido esa misma jornada** — y no se detecto sola: la encontro el usuario al pedir «revisa que otros
+archivos se deben actualizar». Es la prueba mas directa de lo que esta leccion dice: **una leccion
+escrita no cambia la pasada siguiente si nada la dispara.** Lo que faltaba no era conocerla, sino un
+paso que preguntara «¿esta `D-XXX` abre una excepcion a una regla ya escrita?» en el momento de
+registrarla.
 
 ---
 
@@ -584,3 +596,36 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   cierre — decirlo al reves convierte una regla nueva en una alarma falsa.
 - **Donde queda aplicada:** la cosecha se retiro de la lista de trabajo inmediato en la misma sesion,
   y `D-056` deja escrito que su momento es el cierre de etapa.
+
+
+---
+
+### L-018 - Un archivo traido de otro proyecto destapa contradicciones que alli no existian
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** el usuario aporto un archivo de etapa de prototipo procedente de otro proyecto, para
+  adaptarlo a esta metodologia (`T-043`).
+- **Que ocurrio:** el trabajo previsto era de traduccion —rutas, codigos, nombres de actores—, y
+  todo eso salio mecanico. Lo que no era mecanico aparecio al comparar el contenido con `CLAUDE.md`:
+  la etapa produce codigo ejecutable y prohibe los tests, mientras `PI-5` exige un test en verde y
+  declara que «no hay una tercera casilla». **En el proyecto de origen esa contradiccion no existia**,
+  porque alli no regia `PI-5`.
+- **Leccion:** adaptar un archivo ajeno no es traducirlo. Sus reglas venian equilibradas con **otro
+  conjunto de reglas**, y al aterrizarlo se cruzan con las nuestras: lo que alla era coherente aqui
+  puede chocar de frente con un principio vigente. **La parte cara de la adaptacion no son las
+  rutas: son los choques que solo se ven leyendo el archivo destino al lado del importado.**
+- **Por que se escapa con facilidad:** un archivo importado se lee como material terminado. Se
+  revisa lo que se ve distinto —nombres, rutas, codigos— y se da por bueno lo que se ve familiar,
+  que es justamente donde vive el choque: dos reglas correctas por separado.
+- **Como aplicarla:** al importar un artefacto de otro proyecto, **la pasada obligatoria no es sobre
+  el artefacto sino sobre las reglas propias que toca**. Se lista que principios del proyecto entran
+  en juego y se comprueba uno por uno; y cuando aparezca un choque, **se declara con su `D-XXX`**
+  —dentro del archivo adaptado— en vez de resolverlo en silencio hacia un lado. Una contradiccion
+  escrita se puede discutir; una tacita solo se puede descubrir, y la descubre una auditoria.
+- **Donde queda aplicada:** `D-059` declara la excepcion a `PI-5` dentro de
+  `_phases/010_prototype.md`, con su alcance y su limite; `D-060` deja escrito que el archivo se
+  adelanto sin declarar la etapa.

@@ -35,6 +35,7 @@
 | [S-009](#s-009---se-aceptan-f-020-a-f-023-los-artefactos-se-mudan-a-005_discovery-nace-_workflow) | Se aceptan `F-020` a `F-023`; los artefactos se mudan a `005_discovery/`; nace `_workflow/` | 2026-09-02 | `000_preproject` |
 | [S-010](#s-010---se-aceptan-f-024-a-f-026-nace-_workflow005_discoverymd) | Se aceptan `F-024` a `F-026`; nace `_workflow/005_discovery.md` | 2026-09-02 | `000_preproject` |
 | [S-011](#s-011---se-aceptan-f-027-y-f-028-nace-el-puntero-a-las-lecciones-globales-y-la-cosecha) | Se aceptan `F-027` y `F-028`; nace el puntero a las lecciones globales y la cosecha | 2026-09-02 | `000_preproject` |
+| [S-012](#s-012---se-aceptan-f-029-a-f-031-nace-_phases010_prototypemd-y-el-paso-2d-del-cierre) | Se aceptan `F-029` a `F-031`; nace `_phases/010_prototype.md` y el Paso 2d del cierre | 2026-09-02 | `000_preproject` |
 
 ---
 
@@ -60,67 +61,61 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-02 (S-011) |
+| Ultima actualizacion | 2026-09-02 (S-012) |
 | Salud | En marcha |
-| Avance de la etapa | `R-010` (sobre `51354ef`) abrio `F-027` y `F-028`. `manager` verifico los dos contra `HEAD` (`cbb92a9`) antes de aceptarlos, y los acepto los dos: `T-035` ancla con nota fechada el bloque de verificacion de `T-032`, que no se reproducia sobre `51354ef` y cuya lectura en prosa quedaba desmentida por la celda «Avance de la etapa» viva; `T-036` completa en `_audit/S-010.md` la viñeta de `decisions.md`, que omitia las dos notas fechadas que `T-033` inserto dentro de `D-043` y `D-044`. Ademas, el usuario aporto en `temporal/` el material de lecciones transversales de proyectos anteriores: `D-053` lo lleva a un repositorio propio y externo (`TripleS_Lessons`, privado en GitHub), fuera de este repositorio; `D-054` consulta por primera vez los bloques D y E (17 lecciones) antes de abrir `005_discovery`, y produce `T-037` (inventario de acciones irreversibles) mas cinco señalamientos que quedan registrados para cuando se abra esa etapa; `D-055` construye el puntero en tres piezas —regla en `CLAUDE.md`, ruta en `project.md`, control en `_phases/000_preproject.md`—; `D-056` añade el disparador de la cosecha (una casilla por etapa declarada) y la columna `Portabilidad` en el indice de `lessons.md` que la hace comprobable. Nacen `L-016` (una consulta que cambia lo que haces no deja rastro visible, y sin rastro no ocurrio) y `L-017` (una condicion de salida no es una tarea pendiente). Por iniciativa propia se empezo a verificar `A-003` con `curl` contra la fuente oficial y quedo a medias: el supuesto sigue `Abierto`, con lo que la prueba si indica y lo que no prueba, registrado en su ficha. |
-| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial esta sesion) |
+| Avance de la etapa | `R-011` (sobre `2a2d3b6`) abrio `F-029`, `F-030` y `F-031`. `manager` verifico los tres contra `HEAD` (`f1f3fea`) antes de aceptarlos, y los acepto todos: `T-039` normaliza a `No implementada` el estado `Pendiente` (fuera de convencion) de `T-037` y `T-038` (`D-057`, no nace un quinto estado); `T-040` da a `T-038` el respaldo que le faltaba, declarando con `D-058` que nacio fuera de las dos excepciones de la convencion; `T-041` anota con nota fechada, en los cuatro sitios que el hallazgo enumera, que el recuento «quince lecciones `Sin evaluar`» son en realidad diecisiete; `T-042` cierra el patron de fondo anadiendo el **Paso 2d** a `protocol-close` — un control que localiza los bloques de verificacion publicados sin ancla a un commit y obliga a reejecutarlos antes de cerrar, el septimo hallazgo del mismo defecto (`F-005`, `F-008`, `F-011`, `F-022`, `F-025`, `F-027`, `F-031`). Por separado, el usuario aporto un archivo de etapa de prototipo de otro proyecto: `T-043` lo adapta a esta metodologia y nace `_phases/010_prototype.md` (agnostico, sin datos propios), con `D-059` (excepcion declarada a `PI-5` para el artefacto descartable) y `D-060` (el archivo se escribe por adelantado, sin declarar la etapa en `project.md`); `T-044` cierra los enganches de agnosticismo, fija la carpeta de entregables `010_prototype/` (`D-061`) y corrige que `D-059` habia incumplido `L-007` al no dejar el puntero de la excepcion en `CLAUDE.md` — corregido en la misma sesion, y registrado como `L-018`. `D-062` deja escrito que la guia de metodo no fija cuantos usuarios minimos exige el prototipo: lo fija el proyecto con su `D-XXX`. |
+| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo los dos hallazgos abiertos por `R-010` sobre `S-010` (`F-027`, `F-028`),
-verificando cada uno contra `HEAD` (`cbb92a9`) antes de aceptarlo, y los acepto los dos.
+`manager` evaluo los tres hallazgos abiertos por `R-011` sobre `S-011` (`F-029`, `F-030`, `F-031`),
+verificando cada uno contra `HEAD` (`f1f3fea`) antes de aceptarlo, y los acepto todos.
 
-`T-035` atiende `F-027`: el bloque de verificacion de `T-032` se corrio sobre el arbol de trabajo y
-el commit que lo publica (`51354ef`) lo invalido —la primera orden registraba tres lineas y devuelve
-cinco; la tercera registraba `1` para `tasks.md` y devuelve `2`—, y su lectura en prosa afirmaba que
-«las secciones 1 y 2, que son las vivas, ya no lo afirman» cuando la celda «Avance de la etapa»
-(linea `64`, viva) si contiene la cadena. Se añade nota fechada al lado, sin reescribir el texto
-original (`D-019`), con las ordenes ancladas a `51354ef` y la lectura rehecha: el fondo de `T-032`
-se sostiene, fallo la evidencia, no la correccion.
+`T-039` atiende `F-029`: `T-037` y `T-038` habian nacido con `Estado: Pendiente`, un quinto valor
+que la convencion de `tasks.md` no declara. `D-057` decide no crear ese quinto estado y normaliza
+las dos fichas —y sus filas del indice— a `No implementada`, el mismo valor que usan `T-001` a
+`T-003` para exactamente lo mismo: una tarea escrita y sin hacer.
 
-`T-036` atiende `F-028`: la seccion 1 de `_audit/S-010.md` decia «nacen `D-050`, `D-051` y `D-052`»
-y omitia las dos notas fechadas que ese mismo commit inserta dentro de `D-043` y `D-044`, que son el
-trabajo entero de `T-033`. Se completa con nota fechada debajo de la viñeta, sin reescribir el
-informe ya commiteado.
+`T-040` atiende `F-030`: `T-038` se habia escrito a mano sin citar el `D-XXX` o el `F-NNN` que las
+dos excepciones de la convencion exigen. `D-058` declara, sin inventarle una excepcion nueva, que
+`T-038` nacio de una observacion propia de `manager` al leer `R-010` — fuera de las dos excepciones
+existentes— y hace de respaldo; `T-038` pasa a citarlo.
 
-El usuario aporto en `temporal/` dos archivos de un proyecto anterior: 98 lecciones transversales y
-una propuesta de integracion que nunca llego al registro. `D-053` construye el archivo como
-`global_lessons.md` en un repositorio propio, transitoriamente dentro de este repositorio y despues
-movido a `TripleS_Lessons/` (privado en GitHub) una vez creado; las 98 lecciones se importan
-literales, la capa de navegacion es nueva, y el contenido no se adapta todavia. `D-054` hace la
-primera consulta de arranque, sobre los bloques D y E (17 lecciones, ancladas a `fa03813`): produce
-`T-037` (escribir el inventario de acciones irreversibles que `CLAUDE.md` ya echa en falta) y cinco
-señalamientos de producto/alcance que quedan registrados para `005_discovery`, sin adoptarlos hoy.
-`D-055` construye el puntero de uso en tres piezas no redundantes —la regla sin datos propios en
-`CLAUDE.md`, la ruta en `project.md`, el control en la condicion de salida de `_phases/000_preproject.md`—,
-porque `L-014` señalaba que el enganche de uso es el que se olvida. `D-056` cierra el camino de
-vuelta: una casilla de «cosecha» en la condicion de salida de cada etapa declarada, mas la columna
-`Portabilidad` en el indice de `lessons.md` que la hace comprobable en vez de un veredicto de
-memoria; `000_preproject` gana esa casilla estando cerca de cerrar, con sus quince lecciones hoy
-`Sin evaluar`.
+`T-041` atiende `F-031`: el recuento «quince lecciones `Sin evaluar`» de `S-011` se tomo antes de
+que la propia sesion añadiera `L-016` y `L-017`; sobre el commit que lo publica (`2a2d3b6`) y sobre
+`HEAD` (`f1f3fea`) son diecisiete. Se anota con nota fechada, sin reescribir (`D-019`), en los cuatro
+sitios que el hallazgo enumera: `D-056`, las dos menciones de este archivo (seccion viva y bitacora
+de `S-011`) y `_audit/S-011.md`.
 
-Nace `L-016`: una consulta a las lecciones globales que cambia lo que se hace no deja ningun rastro
-visible en pantalla —el usuario tuvo que preguntar «¿que tiene que ver eso con las lecciones
-aprendidas?» al ver a `manager` correr `curl` sin mas contexto—, y sin el codigo citado en
-`decisions.md` o `tasks.md` la consulta no ocurrio para nadie que no estuviera delante. Nace tambien
-`L-017`: una condicion de salida responde «¿puedo cerrar ya?», no «¿que hago ahora?», y ofrecerla
-como tarea inmediata —como paso con la cosecha de `000_preproject` antes de que el usuario lo
-cortara— destruye lo que la hacia util como disparador.
+`T-042` atiende la segunda mitad de `F-031`, la que evita un octavo caso: `protocol-close` gana el
+**Paso 2d**, un control que localiza los bloques de verificacion que la jornada publica sin ancla a
+un commit y obliga a reejecutarlos antes de cerrar. Es la septima repeticion consecutiva del mismo
+defecto (`F-005`, `F-008`, `F-011`, `F-022`, `F-025`, `F-027`, `F-031`); `L-013` y `L-015` ya lo
+describian, faltaba el mecanismo — que es `L-008` literal.
 
-Por iniciativa propia, y guiado por `LG-47`/`LG-52` de la consulta de arranque, se empezo a verificar
-`A-003` con `curl` (sin navegador, sin ejecutar JavaScript) contra `baloto.com`: el sitio responde
-`200` sin cabeceras de navegador y `/resultados` trae fechas y clases de balotas en el HTML crudo, lo
-que indica que los datos no se pintan solo con JavaScript. La verificacion **quedo a medias**: no se
-probo que exista historico completo (no solo los ultimos sorteos), que se puedan extraer los siete
-campos que exige el brief §3, que funcione desde la plataforma de despliegue, ni si las condiciones
-de uso del sitio permiten la extraccion automatizada. `A-003` sigue `Abierto`.
+Por separado, el usuario aporto en `temporal/` un archivo de etapa de prototipo de otro proyecto,
+para adaptarlo a esta metodologia. `T-043` nace `_phases/010_prototype.md`: rutas propias
+sustituidas por referencias a `project.md`, codigos ajenos por los genericos del registro, los
+actores del fuente por `manager`/`report_auditor`/usuario, y la condicion de salida gana la casilla
+de cosecha (`D-056`). Adaptarlo destapo un choque que no existia en el proyecto de origen: la etapa
+produce codigo ejecutable y prohibe los tests, contra `PI-5` («no hay una tercera casilla»). `D-059`
+declara una excepcion explicita y acotada —el prototipo descartable cambia el instrumento de
+verificacion, nunca la exigencia—, y `D-060` deja escrito que el archivo se adelanta **sin declarar
+la etapa** en `project.md`: eso es trabajo del descubrimiento, que no ha empezado (`A-004`). Nace
+`L-018`: adaptar un archivo ajeno no es traducirlo, porque sus reglas venian equilibradas con otro
+conjunto de reglas y al aterrizar pueden chocar con las nuestras.
 
-Se registra ademas `T-038`: el barrido de fuga de datos propios del Paso 1b de `protocol-close`
-cubre seis carpetas y el del Paso 4c de `protocol-audit` cubre solo cuatro —hoy tapado por
-iniciativa del propio auditor en `R-010`, no por su skill—, y editar `protocol-audit` es una decision
-del usuario porque es la vara con la que se audita a `manager`.
+`T-044` cierra los enganches que quedaban sueltos, a peticion del usuario. Se corrigieron dos fugas
+de estado de este proyecto en el archivo nuevo (afirmaba en presente algo que solo era cierto hoy);
+se declaro la carpeta de entregables `010_prototype/` (`D-061`: una carpeta de entregables se llama
+como su etapa, y se declara por adelantado); y se encontro que `D-059` habia incumplido `L-007` —la
+excepcion a `PI-5` quedo escrita solo en el archivo de etapa, sin puntero en `CLAUDE.md`— por quien
+tenia la leccion escrita y la habia leido esa misma jornada. Se corrigio en la misma sesion, con el
+puntero en generico. `D-062`, aparte, deja escrito que la guia de metodo no fija cuantos usuarios
+minimos exige el prototipo: ese numero lo fija el proyecto, con su propio `D-XXX`, antes de la
+primera sesion.
 
 ---
 
@@ -130,12 +125,13 @@ del usuario porque es la vara con la que se audita a `manager`.
 alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa
 `005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un patrocinador
 alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de etapa dice
-que sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) esta disponible
-sin depender de `A-004`, igual que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin
-probar. Al abrir `005_discovery`, registrar el `D-XXX` de adopcion del reparto de
-`_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar las cinco señales que `D-054`
-dejo registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`). Aparte, es decision del usuario si
-`DT-002` se confirma ya como pagada, y si se autoriza `T-038` sobre `protocol-audit`.
+que sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) y `T-038`
+(igualar el barrido de fuga de `protocol-audit`) siguen disponibles sin depender de `A-004`, igual
+que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en `S-011`. Al abrir
+`005_discovery`, registrar el `D-XXX` de adopcion del reparto de `_workflow/005_discovery.md` que
+`D-052` deja pendiente, y evaluar las cinco señales que `D-054` dejo registradas sin adoptar
+(`LG-39`, `LG-45`, `LG-48`, `LG-54`). Aparte, es decision del usuario si `DT-002` se confirma ya
+como pagada, y si se autoriza `T-038` sobre `protocol-audit`.
 
 ---
 
@@ -552,6 +548,51 @@ sostiene es esa cifra, y se deja escrito aqui en vez de repetirla.
   `manager` y se señala aqui, no se reescribe. Las cinco señales de `D-054` sobre `005_discovery`
   quedan registradas sin adoptar. `000_preproject` gana la condicion de salida de la cosecha con sus
   quince lecciones `Sin evaluar`.
+
+📌 **Nota del 2026-09-02 (`T-041`, hallazgo `F-031`).** La bitacora se deja tal cual (`D-019`).
+«Quince lecciones `Sin evaluar`» son **diecisiete** sobre el commit de esa sesion: el recuento es el
+mismo defecto que la nota de la seccion 2 acota, con el mismo bloque anclado a `2a2d3b6`.
+
+---
+
+### S-012 - Se aceptan `F-029` a `F-031`; nace `_phases/010_prototype.md` y el Paso 2d del cierre
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | `000_preproject` |
+| Tareas | T-039, T-040, T-041, T-042, T-043, T-044 |
+
+- **Que se hizo:** `manager` evaluo los tres hallazgos abiertos por `R-011` sobre `S-011` (`F-029`,
+  `F-030`, `F-031`), verifico cada uno contra `HEAD` (`f1f3fea`) y los acepto todos. `T-039`
+  normaliza a `No implementada` el estado `Pendiente` (fuera de convencion) de `T-037` y `T-038`,
+  sin crear un quinto estado (`D-057`). `T-040` da a `T-038` el respaldo que le faltaba: `D-058`
+  declara que nacio de una observacion propia de `manager` al leer `R-010`, fuera de las dos
+  excepciones de la convencion, y `T-038` lo cita. `T-041` anota con nota fechada, en los cuatro
+  sitios que el hallazgo enumera, que el recuento «quince lecciones `Sin evaluar`» de `S-011` son
+  diecisiete. `T-042` cierra la segunda mitad de `F-031`: `protocol-close` gana el **Paso 2d**, que
+  localiza los bloques de verificacion publicados sin ancla a un commit y obliga a reejecutarlos
+  antes de cerrar — septima repeticion del mismo defecto (`F-005`, `F-008`, `F-011`, `F-022`,
+  `F-025`, `F-027`, `F-031`), con `L-013`/`L-015` ya escritas y sin mecanismo hasta ahora.
+
+  Por separado, el usuario aporto un archivo de etapa de prototipo de otro proyecto en `temporal/`.
+  `T-043` lo adapta a esta metodologia y nace `_phases/010_prototype.md`: agnostico, sin datos
+  propios ni codigos instanciados, con la casilla de cosecha que `D-056` exige. Adaptarlo destapo un
+  choque que no existia en el proyecto de origen —la etapa produce codigo y prohibe tests, contra
+  `PI-5`—, resuelto con `D-059` (excepcion explicita y acotada al artefacto descartable) y `D-060`
+  (el archivo se adelanta sin declarar la etapa en `project.md`, que es trabajo del descubrimiento).
+  Nace `L-018`: adaptar un archivo ajeno no es traducirlo, porque sus reglas venian equilibradas con
+  otro conjunto de reglas. `T-044` cierra los enganches sueltos a peticion del usuario: dos fugas de
+  estado del proyecto en el archivo nuevo, la carpeta de entregables `010_prototype/` (`D-061`), y
+  un incumplimiento de `L-007` en `D-059` —la excepcion a `PI-5` habia quedado sin puntero en
+  `CLAUDE.md`—, corregido en la misma sesion. `D-062` deja escrito que el numero minimo de usuarios
+  del prototipo lo fija el proyecto, porque la guia de metodo no lo fija.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `T-037` y `T-038`
+  siguen `No implementada` (ya con estado valido). `F-029`, `F-030` y `F-031` quedan
+  `Aceptado — pendiente` hasta que la auditoria siguiente verifique la correccion sobre este commit
+  y los cierre. `_phases/010_prototype.md` existe pero **no adopta la etapa**: `project.md` sigue
+  declarando solo `000_preproject` y `005_discovery`, y el archivo referencia plantillas en
+  `_templates/010_prototype/` y un archivo de reparto en `_workflow/010_prototype.md` que hoy no
+  existen — condicion para abrir la etapa, no trabajo pendiente de dentro de ella.
 
 ---
 

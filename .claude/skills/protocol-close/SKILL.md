@@ -239,6 +239,62 @@ que no puede es ser el unico filtro para lo que si es mecanizable.
 
 ---
 
+## Paso 2d — Ningun bloque de verificacion sin ancla (antes del `git add`)
+
+Los Pasos 2b y 2c comprueban estructura. Este comprueba **lo que la jornada afirmo haber
+verificado**: todo bloque de verificacion escrito hoy tiene que describir **el commit que lo va a
+contener**, no el arbol de trabajo en el instante en que se corrio.
+
+**Cual es el defecto exacto.** Una orden corrida sobre el arbol —`grep -c ... archivo.md`— da un
+numero cierto **en ese momento**. Si despues, en la misma jornada, alguien añade una linea mas al
+archivo, el numero publicado ya no se reproduce sobre el commit. Quien audite correra la orden y
+obtendra otra cosa; y entonces el resultado que vale es el suyo, no el nuestro.
+
+**Que se hace, en dos ordenes.** Primero, localizar los bloques que la jornada añadio y no estan
+anclados:
+
+```bash
+git diff --cached -U0 -- _persistence _audit \
+  | grep -E '^\+\$ ' \
+  | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'
+```
+
+Cada linea que salga es una orden publicada hoy **sin ancla a un commit**. Y despues, sobre cada
+una: se vuelve a correr, y su salida tiene que ser la que el bloque publica.
+
+**Las tres salidas posibles:**
+
+| Lo que ves | Que significa | Que haces |
+|---|---|---|
+| ninguna linea | todo lo escrito hoy va anclado | sigue |
+| una linea, y al reejecutarla da lo mismo que el bloque publica | la orden es reproducible aunque no lleve ancla | sigue, pero **anclala**: `git show <hash>:` cuesta un `git grep` |
+| una linea, y al reejecutarla da **otra cosa** | 🚨 el bloque afirma algo que su commit no sostiene | no se cierra asi. O se corrige el numero, o el bloque va con su **nota fechada** al lado (`D-019`) |
+
+⛔ **Lo que no vale es reescribir el bloque para que cuadre.** Sustituir la salida vieja por la
+nueva convierte «falta evidencia» en «hay evidencia falsa», y esta vez sin nadie que lo note. La
+salida correcta es la nota fechada: quedan visibles las dos cosas, lo que se probo entonces y lo que
+se probo despues.
+
+📌 **Por que existe este paso.** Es el defecto mas repetido de este repositorio —`F-005`, `F-008`,
+`F-011`, `F-022`, `F-025`, `F-027` y `F-031`, siete hallazgos de la misma forma— y no se repite por
+descuido: se repite porque **cuando ocurre nadie lo ve**. La orden se corre pronto, el archivo
+crece despues, y entre las dos cosas no hay ningun momento en que algo chille. `L-013` y `L-015` ya
+describen el defecto; lo que faltaba era quien lo aplicara, que es `L-008` literal — una regla sin
+mecanismo no es una regla, es una intencion.
+
+⚠️ **El patron `^\+\$ ` acota a proposito, y por eso no basta con el.** Recoge las lineas de orden
+—las que empiezan por `$ ` dentro de un bloque— que el diff añade. No ve una orden escrita en prosa
+ni una que la jornada dejo sin el prefijo `$ `, y no distingue un ancla legitima de un hash citado
+por casualidad. Es un cedazo, no una prueba: **la relectura de lo escrito sigue siendo obligatoria**.
+
+⚠️ **Un falso positivo conocido, visto la primera vez que se corrio el paso:** `git grep -nE
+'<patron>' <hash> -- <ruta>` **si esta anclado**, pero el hash va detras del patron y la segunda
+orden no lo reconoce. Sale en la lista, y al reejecutarla da lo mismo — fila segunda de la tabla,
+no hay nada que corregir. Se deja asi a proposito: **un cedazo que deja pasar de mas no avisa de
+nada, y uno que se afina hasta no dar falsos positivos acaba dejando pasar el caso que importa.**
+
+---
+
 ## Como se escriben estos archivos
 
 Los siete archivos de `_persistence/` tienen la misma forma: **indice arriba, convenciones despues,

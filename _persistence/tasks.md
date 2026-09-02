@@ -45,8 +45,14 @@
 | [T-034](#t-034---corregir-la-cita-cruzada-l-013-de-dt-002-f-026) | Corregir la cita cruzada `L-013` de `DT-002` (`F-026`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-035](#t-035---anclar-el-bloque-de-verificacion-de-t-032-que-no-se-reproduce-sobre-su-commit-f-027) | Anclar el bloque de verificacion de `T-032`, que no se reproduce sobre su commit (`F-027`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-036](#t-036---completar-en-s-010-la-viñeta-de-decisionsmd-que-omite-dos-ediciones-f-028) | Completar en `S-010` la viñeta de `decisions.md`, que omite dos ediciones (`F-028`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-037](#t-037---escribir-el-inventario-de-acciones-irreversibles-del-proyecto-lg-38) | Escribir el inventario de acciones irreversibles del proyecto (`LG-38`) | Pendiente | Alta | No bloqueante | `000_preproject` |
-| [T-038](#t-038---igualar-el-barrido-de-fuga-de-protocol-audit-con-el-de-protocol-close) | Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close` | Pendiente | Media | No bloqueante | `000_preproject` |
+| [T-037](#t-037---escribir-el-inventario-de-acciones-irreversibles-del-proyecto-lg-38) | Escribir el inventario de acciones irreversibles del proyecto (`LG-38`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-038](#t-038---igualar-el-barrido-de-fuga-de-protocol-audit-con-el-de-protocol-close) | Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close` | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-039](#t-039---normalizar-a-no-implementada-el-estado-pendiente-de-t-037-y-t-038-f-029) | Normalizar a `No implementada` el estado `Pendiente` de `T-037` y `T-038` (`F-029`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-040](#t-040---dar-a-t-038-el-registro-que-la-respalda-f-030) | Dar a `T-038` el registro que la respalda (`F-030`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-041](#t-041---anotar-el-recuento-de-quince-lecciones-que-no-se-reproduce-en-sus-cuatro-sitios-f-031) | Anotar el recuento de «quince lecciones» que no se reproduce, en sus cuatro sitios (`F-031`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-042](#t-042---impedir-en-el-cierre-que-se-publique-un-bloque-de-verificacion-sin-ancla-f-031) | Impedir en el cierre que se publique un bloque de verificacion sin ancla (`F-031`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-043](#t-043---adaptar-el-archivo-de-etapa-del-prototipo-a-esta-metodologia) | Adaptar el archivo de etapa del prototipo a esta metodologia | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-044](#t-044---cerrar-los-enganches-de-la-etapa-del-prototipo-agnosticismo-carpeta-y-puntero-de-pi-5) | Cerrar los enganches de la etapa del prototipo: agnosticismo, carpeta y puntero de `PI-5` | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -1595,7 +1601,7 @@ $ git show 51354ef -- _persistence/decisions.md | grep -c "^+📌 \*\*Nota del 2
 ### T-037 - Escribir el inventario de acciones irreversibles del proyecto (`LG-38`)
 | Campo | Valor |
 |---|---|
-| Estado | Pendiente |
+| Estado | No implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -1648,7 +1654,7 @@ que `F-027` acaba de señalar por quinta vez.
 ### T-038 - Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close`
 | Campo | Valor |
 |---|---|
-| Estado | Pendiente |
+| Estado | No implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -1669,6 +1675,12 @@ que `F-027` acaba de señalar por quinta vez.
 - **Criterio de cierre:** los dos barridos citan la **misma lista de carpetas**, y esa lista es la
   misma que la de lo copiable que declara `CLAUDE.md`.
 
+📌 **Nota del 2026-09-02 (`T-040`, hallazgo `F-030`).** Esta tarea se escribio a mano **sin citar el
+`D-XXX` ni el `F-NNN` que la convencion exige**, y no entra por ninguna de las dos excepciones: nace
+de una observacion propia de `manager` al leer `R-010`. El respaldo que faltaba es **`D-058`**, que
+lo declara asi en vez de inventarle una excepcion. El estado paso ademas de `Pendiente` a
+`No implementada` por `T-039` (`D-057`).
+
 **Verificacion — hoy difieren, y esta es la diferencia:**
 
 ```
@@ -1684,3 +1696,272 @@ Faltan `_templates` y `_workflow` en el de `protocol-audit`.
 ⚠️ **El patron se ancla a `^git grep -nE` a proposito.** Sin el `^`, la orden recoge tambien una
 mencion en prosa de `protocol-close` (linea 462) que no es un control, y el bloque deja de
 reproducirse — que es `L-006`: un bloque de verificacion declara su ambito dentro del enunciado.
+
+---
+
+### T-039 - Normalizar a `No implementada` el estado `Pendiente` de `T-037` y `T-038` (`F-029`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-012 |
+
+- **Que:** `T-037` y `T-038` nacieron con `Estado: Pendiente`, valor que la convencion de este
+  archivo no declara. Se normalizan a `No implementada` en la ficha y en el indice, sin crear un
+  quinto estado. La eleccion entre las dos salidas posibles queda en `D-057`.
+- **Por que:** el archivo declaraba cuatro valores y usaba cinco. Cualquier barrido que filtre por
+  los cuatro validos dejaba fuera las dos unicas tareas abiertas de la etapa.
+- **Criterio de cierre:** ningun `| Estado |` de este archivo cae fuera de los cuatro valores
+  declarados, y el indice no contiene ninguna fila `| Pendiente |`.
+
+**Verificacion — sobre el arbol de trabajo, despues de la correccion:**
+
+```
+$ grep -nE '^\| Estado \| ' _persistence/tasks.md | grep -vE 'Implementada|No implementada|Cancelada|Suspendida' ; echo "rc=$?"
+rc=1
+
+$ sed -n '/^## Indice/,/^---/p' _persistence/tasks.md | grep -c "| Pendiente |"
+0
+```
+
+⚠️ **El barrido de la primera orden acierta por inclusion de cadena, no por igualdad:** el patron
+`Implementada` casa tambien dentro de `No implementada`. Es correcto aqui porque los dos son valores
+validos, pero un valor invalido que contuviera una de las cuatro cadenas se le escaparia.
+
+---
+
+### T-040 - Dar a `T-038` el registro que la respalda (`F-030`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-012 |
+
+- **Que:** `T-038` se escribio a mano sin citar el `D-XXX` o el `F-NNN` que las dos excepciones de
+  la convencion exigen. Se registra `D-058`, que declara **que la tarea nacio fuera de las dos
+  excepciones** y hace de respaldo, y `T-038` pasa a citarlo.
+- **Por que:** sin la cita, una edicion a mano es indistinguible de saltarse la regla. Y la salida
+  honesta no era inventarle una excepcion: era escribir que no entraba por ninguna.
+- **Criterio de cierre:** la ficha de `T-038` cita `D-058`.
+
+**Verificacion — sobre el arbol de trabajo, despues de la correccion:**
+
+```
+$ awk '/^### T-038 /,/^### T-039 /' _persistence/tasks.md | grep -oE '`(D|F)-[0-9]+`' | sort -u
+`D-057`
+`D-058`
+`F-029`
+`F-030`
+```
+
+📌 **Los cuatro codigos los añade la nota fechada; antes de ella el mismo patron devolvia vacio**
+—asi lo registra el bloque de `D-058` anclado a `f1f3fea`—. `D-058` es el respaldo; `F-030` es el
+hallazgo que lo pidio; `D-057` y `F-029` entran porque la nota menciona ademas el cambio de estado
+que hizo `T-039`. El patron recoge `D-` y `F-` a proposito: son los dos prefijos que la convencion
+admite como respaldo.
+
+---
+
+### T-041 - Anotar el recuento de «quince lecciones» que no se reproduce, en sus cuatro sitios (`F-031`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-012 |
+
+- **Que:** el recuento `15` de lecciones `Sin evaluar` se tomo antes de que `S-011` añadiera `L-016`
+  y `L-017`; sobre el commit que lo publica son `17`. Se anota con nota fechada —sin reescribir
+  (`D-019`)— en los cuatro sitios que el hallazgo enumera: `D-056`, las dos menciones de
+  `progress.md` (seccion viva y bitacora) y `_audit/S-011.md`.
+- **Por que:** es la sexta repeticion consecutiva del mismo defecto, y esta vez la cifra equivocada
+  estaba en la celda viva que lee el arranque de la sesion siguiente. La cifra no es decorativa: es
+  el volumen que bloquea la condicion de salida de `000_preproject`.
+- **Criterio de cierre:** los cuatro sitios llevan su nota fechada, y el recuento correcto se
+  registra anclado a un commit.
+
+**Verificacion — el recuento anclado, y las cuatro notas puestas:**
+
+```
+$ git show 2a2d3b6:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
+17
+
+$ git show f1f3fea:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
+17
+
+$ grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)' _persistence/decisions.md _persistence/progress.md _audit/S-011.md
+_persistence/decisions.md:1
+_persistence/progress.md:2
+_audit/S-011.md:1
+```
+
+---
+
+### T-042 - Impedir en el cierre que se publique un bloque de verificacion sin ancla (`F-031`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-012 |
+
+- **Que:** `protocol-close` gana un control explicito que obliga a **reproducir sobre el commit** —o
+  a anclar con `git show <hash>:`— todo bloque de verificacion que la jornada haya escrito, antes de
+  cerrar. Es la segunda mitad de lo que `F-031` recomienda.
+- **Por que:** `F-005`, `F-008`, `F-011`, `F-022`, `F-025`, `F-027` y `F-031` son **siete** hallazgos
+  del mismo defecto: un bloque corrido sobre el arbol de trabajo y publicado como si describiera el
+  commit. `L-013` y `L-015` ya lo describen; lo que faltaba era quien lo aplicara — que es `L-008`
+  literal, una regla sin mecanismo.
+- **Criterio de cierre:** el Paso correspondiente de `protocol-close` nombra el control, y `L-008`
+  deja de aplicarle a este defecto.
+
+**Verificacion — el paso existe, y se corrio sobre el trabajo de esta misma sesion:**
+
+```
+$ grep -n "^## Paso 2d" .claude/skills/protocol-close/SKILL.md
+242:## Paso 2d — Ningun bloque de verificacion sin ancla (antes del `git add`)
+
+$ git diff -U0 -- _persistence _audit \
+    | grep -E '^\+\$ ' \
+    | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'
++$ git grep -nE '^\| Estado \| ' f1f3fea -- _persistence/tasks.md | grep -vE 'Implementada|No implementada|Cancelada|Suspendida'
++$ grep -nE '^\| Estado \| ' _persistence/tasks.md | grep -vE 'Implementada|No implementada|Cancelada|Suspendida' ; echo "rc=$?"
++$ sed -n '/^## Indice/,/^---/p' _persistence/tasks.md | grep -c "| Pendiente |"
++$ awk '/^### T-038 /,/^### T-039 /' _persistence/tasks.md | grep -oE '`(D|F)-[0-9]+`' | sort -u
++$ grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)' _persistence/decisions.md _persistence/progress.md _audit/S-011.md
+```
+
+📌 **Las cinco lineas se reejecutaron una a una y las cinco dan lo que su bloque publica** — fila
+segunda de la tabla del paso, nada que corregir. La primera es ademas el falso positivo que el
+propio paso documenta: lleva ancla (`f1f3fea`), pero detras del patron.
+
+⚠️ **El paso se corrio con `git diff`, no con `git diff --cached`**, porque en el momento de
+correrlo nada estaba en el `index`: el cierre lo corre despues del `git add`, que es donde el
+protocolo lo situa. La salida es la misma cuando lo añadido y lo escrito coinciden, que es el caso
+de hoy.
+
+
+---
+
+### T-043 - Adaptar el archivo de etapa del prototipo a esta metodologia
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-012 |
+
+- **Que:** el usuario aporto un archivo de etapa de prototipo procedente de otro proyecto, en su
+  carpeta de trabajo. Se adapta a esta metodologia y nace `_phases/010_prototype.md`, alineado con
+  la guia de metodo y construido con la estructura de `_phases/005_discovery.md`.
+- **Que hubo que cambiar, y no fue cosmetico:**
+
+| Del fuente | A esta metodologia |
+|---|---|
+| rutas de otro proyecto en el cuerpo | referencias a `project.md`; ninguna ruta propia dentro |
+| codigos ajenos de restricciones y supuestos | los genericos del registro, `C-XXX` y `A-XXX` |
+| «terminal ejecutora» / «terminal auditora» | `manager`, `report_auditor` y el usuario, que son los actores reales |
+| citas a secciones numeradas de la guia | referencias a la guia sin numero, que caducan menos |
+| cinco casillas de salida | siete, con la de supuestos actualizados y **la de cosecha** que `D-056` exige a toda etapa declarada |
+| el Gate lo emite quien audita | **dos firmas**: revision independiente que no decide, y quien patrocina que no sustituye la verificacion |
+
+- **Por que:** tener el archivo antes de llegar a la etapa evita escribirlo con prisa cuando haga
+  falta, que es cuando peor sale. Su condicion —preparacion, no calendario— la fija `D-060`.
+- **La contradiccion que aparecio al adaptarlo**, y que no estaba en el fuente: la etapa produce
+  codigo ejecutable y prohibe los tests, contra `PI-5`. Se resuelve con `D-059`, declarada dentro
+  del propio archivo.
+- **Criterio de cierre:** el archivo existe en `_phases/`, no lleva ningun dato propio del proyecto
+  ni ningun codigo instanciado, y tiene las ocho secciones de un archivo de etapa.
+
+**Verificacion — los cuatro controles sobre el archivo nuevo:**
+
+```
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -nE '(N|T|D|A|C)-[0-9]{3}|F-[0-9]{3}|L-[0-9]+|S-[0-9]+|R-[0-9]+' _phases/010_prototype.md ; echo "exit=$?"
+exit=1
+
+$ grep -c "^## " _phases/010_prototype.md
+8
+
+$ sed -n '/^## 6. Condicion de salida/,/^### /p' _phases/010_prototype.md | grep -c "^- \[ \]"
+7
+```
+
+📌 **El primer control es el Paso 1b del cierre, corrido sobre las seis carpetas copiables**, no
+solo sobre el archivo nuevo: lo que interesa no es que el archivo este limpio, sino que **el
+conjunto copiable siga estandolo** despues de anadirle una pieza. El segundo si esta acotado al
+archivo nuevo, y busca codigos con numero —los que delatarian una instancia de este proyecto— sin
+tocar las formas genericas `N-XXX` / `T-XXX`, que son las correctas.
+
+---
+
+### T-044 - Cerrar los enganches de la etapa del prototipo: agnosticismo, carpeta y puntero de `PI-5`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-012 |
+
+- **Que:** el usuario pidio revisar que `_phases/010_prototype.md` fuera agnostico del todo, fijo la
+  carpeta de entregables, y pidio revisar que mas habia que actualizar. Cuatro cambios:
+
+| Donde | Que se hizo |
+|---|---|
+| `_phases/010_prototype.md` | **dos fugas de estado de este proyecto** reescritas en condicional: la cabecera afirmaba que el archivo «se escribio por adelantado», y §5 decia «**Hoy** esas plantillas no existen». Las dos serian falsas en otro proyecto |
+| `_phases/010_prototype.md` | paralelismo con la etapa anterior: `_templates/010_prototype/` y `_workflow/010_prototype.md` escritos con nombre, no en vago |
+| `CLAUDE.md` | **`PI-5` gana el puntero de la excepcion** — ver abajo, es `L-007` |
+| `project.md` | la carpeta `010_prototype/` en «Carpetas propias» y en «Rutas», con la convencion de nombres (`D-061`) |
+
+- **`L-007`, incumplida por quien la tenia escrita:** `D-059` abrio una excepcion a `PI-5` y la
+  escribio **solo** en el archivo de etapa. `CLAUDE.md` seguia diciendo «No hay una tercera casilla»
+  en absoluto — el mismo defecto que `F-007` en su dia. Se corrigio en la misma sesion, y el puntero
+  se escribio **en generico** («una etapa cuyo producto es deliberadamente descartable»), sin nombrar
+  ninguna etapa, para que `CLAUDE.md` siga siendo copiable.
+- **Por que:** un archivo de `_phases/` que afirme el estado de un proyecto deja de servir para el
+  siguiente, que es la unica razon de que sea agnostico. Y una carpeta de entregables sin declarar
+  convierte «lo dice `project.md`» en una referencia a nada.
+- **Criterio de cierre:** el archivo no contiene ningun dato ni estado propio del proyecto; `PI-5`
+  cita su excepcion; `project.md` declara la carpeta y el control de carpetas del cierre solo señala
+  diferencias con razon escrita.
+
+**Verificacion — los cuatro controles:**
+
+```
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -nEi 'hoy|todavia no existen|no ha empezado|aun no' _phases/010_prototype.md ; echo "exit=$?"
+exit=1
+
+$ grep -n "Hay una sola excepcion posible" CLAUDE.md
+64:⚠️ **Hay una sola excepcion posible, y no se decide aqui: la declara un archivo de etapa.** Una
+
+$ grep -c "_templates/010_prototype/\|_workflow/010_prototype.md" _phases/010_prototype.md
+3
+```
+
+📌 **Son `3` y no `2` porque `_workflow/010_prototype.md` se nombra dos veces** —en §4, donde se
+manda leerlo antes del Paso 1, y en §5, donde se declara condicion de entrada—. El numero se
+publico primero como `2` y el Paso 2d del cierre lo corrigio antes de commitear.
+
+⚠️ **El segundo control busca marcas de estado, no las agota.** Un archivo puede afirmar el presente
+de un proyecto sin usar ninguna de esas palabras; el barrido atrapa las formas que ya fallaron aqui,
+y la relectura sigue siendo lo que decide. La frase «en este proyecto» sobrevive a proposito: ahi
+significa *el proyecto que lea este archivo*, y es la misma forma que usa la etapa anterior.

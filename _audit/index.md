@@ -20,6 +20,7 @@
 | `S-009.md` | S-009 | 2026-09-02 | `fc91957` | `R-009.md` | Con hallazgos (3) | F-024, F-025, F-026 |
 | `S-010.md` | S-010 | 2026-09-02 | `51354ef` | `R-010.md` | Con hallazgos (2) | F-027, F-028 |
 | `S-011.md` | S-011 | 2026-09-02 | `2a2d3b6` | `R-011.md` | Con hallazgos (3) | F-029, F-030, F-031 |
+| `S-012.md` | S-012 | 2026-09-02 | Pendiente | Pendiente | Pendiente | - |
 
 ---
 
