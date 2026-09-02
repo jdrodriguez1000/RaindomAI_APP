@@ -40,9 +40,11 @@
 | [F-026](#f-026---dt-002-cita-l-013-donde-corresponde-l-014) | `DT-002` cita `L-013` donde corresponde `L-014` | R-009 | Baja | Implementado |
 | [F-027](#f-027---el-bloque-de-verificacion-de-t-032-no-se-reproduce-sobre-su-propio-commit-y-su-lectura-en-prosa-queda-desmentida) | El bloque de verificacion de `T-032` no se reproduce sobre su propio commit, y su lectura en prosa queda desmentida | R-010 | Media | Implementado |
 | [F-028](#f-028---la-lista-de-la-seccion-1-del-informe-omite-dos-ediciones-de-decisionsmd) | La lista de la seccion 1 del informe omite dos ediciones de `decisions.md` | R-010 | Baja | Implementado |
-| [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Aceptado — pendiente |
-| [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Aceptado — pendiente |
-| [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Aceptado — pendiente |
+| [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Implementado |
+| [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Implementado |
+| [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Implementado |
+| [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Abierto |
+| [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Abierto |
 
 ---
 
@@ -1802,9 +1804,9 @@ $ git show 51354ef -- _persistence/decisions.md | grep -c "^+📌 \*\*Nota del 2
 | Auditoria | R-011 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-039` |
+| Cerrado en | `7f55389` (R-012) |
 
 - **Que se observo:** la convencion de `_persistence/tasks.md` declara cuatro valores de `Estado`
   (`Implementada` / `No implementada` / `Cancelada` / `Suspendida`). Las dos fichas nuevas de
@@ -1841,6 +1843,20 @@ $ git show f1f3fea:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep 
 2
 ~~~
 
+- **Que verifico la auditoria (`R-012`, sobre `7f55389`):** ningun campo `Estado` de
+  `_persistence/tasks.md` cae fuera de los cuatro valores declarados, y el indice no tiene ninguna
+  fila `Pendiente`. `D-057` registra por que no nace un quinto estado.
+
+~~~
+$ git show 7f55389:_persistence/tasks.md | grep -E '^\| Estado \| ' | grep -vE 'Implementada|No implementada|Cancelada|Suspendida' ; echo "rc=$?"
+rc=1
+
+$ git show 7f55389:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Pendiente |"
+0
+~~~
+
+  **`Implementado`.**
+
 ---
 
 ### F-030 - `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita
@@ -1849,9 +1865,9 @@ $ git show f1f3fea:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep 
 | Auditoria | R-011 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-040` |
+| Cerrado en | `7f55389` (R-012) |
 
 - **Que se observo:** las dos excepciones que permiten escribir `tasks.md` fuera del cierre exigen
   «un `D-XXX` o un `F-NNN` que las respalde, citado en la propia tarea». La ficha de `T-038` no cita
@@ -1882,6 +1898,19 @@ $ git show f1f3fea:_persistence/tasks.md | awk '/^### T-038 /,0' | grep -oE '`(D
 (sin salida)
 ~~~
 
+- **Que verifico la auditoria (`R-012`, sobre `7f55389`):** `T-038` cita ahora `D-058`, el respaldo
+  que `D-058` declara. Sobre `f1f3fea` el mismo patron devolvia vacio.
+
+~~~
+$ git show 7f55389:_persistence/tasks.md | awk '/^### T-038 /,/^### T-039 /' | grep -oE '`(D|F)-[0-9]+`' | sort -u
+`D-057`
+`D-058`
+`F-029`
+`F-030`
+~~~
+
+  **`Implementado`.**
+
 ---
 
 ### F-031 - El recuento «quince lecciones Sin evaluar» no se reproduce sobre su propio commit, y esta en cuatro sitios
@@ -1890,9 +1919,9 @@ $ git show f1f3fea:_persistence/tasks.md | awk '/^### T-038 /,0' | grep -oE '`(D
 | Auditoria | R-011 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-041`, `T-042` |
+| Cerrado en | `7f55389` (R-012) |
 
 - **Que se observo:** el bloque de verificacion de `D-056` registra `15` y su prosa afirma «hoy sus
   quince lecciones estan las quince `Sin evaluar`». Sobre el commit que las publica son `17`: la
@@ -1935,3 +1964,114 @@ $ git show 2a2d3b6:_audit/S-011.md | grep -n "quince"
 $ git show f1f3fea:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c "| Sin evaluar |$"
 17
 ~~~
+
+- **Que verifico la auditoria (`R-012`, sobre `7f55389`):** las menciones vivas de «quince» llevan su
+  nota fechada con el recuento anclado a `2a2d3b6`, la celda «Avance de la etapa» dejo de contener la
+  cifra al reescribirse la seccion, y la segunda mitad del hallazgo —el mecanismo— existe: Paso 2d de
+  `protocol-close`.
+
+~~~
+$ git show 7f55389:_persistence/progress.md | sed -n '66p' | grep -c quince
+0
+
+$ git show 7f55389:.claude/skills/protocol-close/SKILL.md | grep -n "^## Paso 2d"
+242:## Paso 2d — Ningun bloque de verificacion sin ancla (antes del `git add`)
+~~~
+
+  **`Implementado`.** ⚠️ El **bloque de evidencia** de `T-041` no se reproduce sobre este commit
+  —publica `_persistence/progress.md:2` donde hay `1`—; eso no reabre este hallazgo: va como
+  hallazgo nuevo con evidencia nueva, `F-032`.
+---
+
+### F-032 - El bloque de T-041 publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres
+| Campo | Valor |
+|---|---|
+| Auditoria | R-012 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `T-041` publica `_persistence/progress.md:2` como prueba de que las cuatro
+  notas fechadas quedaron puestas. Sobre el commit que la contiene son `1`, y el total es `3`, no
+  `4`: la nota de la **seccion viva** de `progress.md` se escribio y desaparecio al sobrescribir el
+  cierre esa seccion — `L-015` literal.
+
+Lo que `T-041` publica en su bloque:
+
+~~~
+$ grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)' _persistence/decisions.md _persistence/progress.md _audit/S-011.md
+_persistence/decisions.md:1
+_persistence/progress.md:2
+_audit/S-011.md:1
+~~~
+
+Lo que la misma orden devuelve sobre el commit que la contiene:
+
+~~~
+$ git show 7f55389:_persistence/progress.md | grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)'
+1
+
+$ git show 7f55389:_persistence/progress.md | grep -n 'Nota del 2026-09-02'
+453:📌 **Nota del 2026-09-02 (`T-032`, hallazgo `F-024`): la nota fechada que esta bitacora da por
+552:📌 **Nota del 2026-09-02 (`T-041`, hallazgo `F-031`).** La bitacora se deja tal cual (`D-019`).
+~~~
+
+  La misma afirmacion esta en otros dos sitios: `progress.md` §2 —«en los cuatro sitios que el
+  hallazgo enumera: `D-056`, las dos menciones de este archivo (seccion viva y bitacora de `S-011`) y
+  `_audit/S-011.md`»— y `_audit/S-012.md` §0. El criterio de cierre de la propia ficha dice «los
+  cuatro sitios llevan su nota fechada», y sobre el commit no se cumple.
+
+- **Por que importa:** es la **octava** repeticion del mismo defecto (`F-005`, `F-008`, `F-011`,
+  `F-022`, `F-025`, `F-027`, `F-031`) y ocurre en la sesion que creo el Paso 2d para impedirlo, sobre
+  la tarea que corregia el septimo caso. El Paso 2d lo habria atrapado: su primera orden devuelve
+  esta linea y al reejecutarla da `1` donde el bloque publica `2`. El paso se corrio —asi lo dice
+  `T-042`—, pero su evidencia pega **cinco** lineas cuando la misma orden sobre el commit devuelve
+  `26`.
+- **Gravedad `Media`:** el efecto de fondo de `F-031` si esta corregido —ninguna cifra «quince» queda
+  viva sin su nota— y ninguna decision cambia; lo que falla es que el registro afirma un estado que
+  su commit no sostiene, que es justo el defecto que `F-031` señalaba.
+- **Que lo corregiria:** nota fechada al lado del bloque de `T-041` —sin reescribirlo (`D-019`)— con
+  el recuento real anclado a `7f55389` y la razon de que la cuarta nota se perdiera; y, si se quiere
+  cerrar el patron, que el Paso 2d exija pegar **la lista completa** de su primera orden, no una
+  seleccion de ella.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-033 - La nota de cierre de D-060 afirma que project.md no nombra la etapa nueva, y el mismo commit lo desmiente
+| Campo | Valor |
+|---|---|
+| Auditoria | R-012 |
+| Fecha | 2026-09-02 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota final de `D-060` justifica las dos ordenes que sustituyen a la caida
+  diciendo que «si prueban lo que la decision afirma —que `project.md` **no nombra la etapa nueva en
+  ningun sitio**, y que la fila de etapas declaradas sigue teniendo dos—». Lo segundo es cierto; lo
+  primero es falso sobre el mismo commit, y la nota inmediatamente anterior de la misma entrada ya lo
+  reconoce.
+
+~~~
+$ git show 7f55389:project.md | grep -c "010_prototype"
+3
+
+$ git show 7f55389:project.md | grep -n "010_prototype"
+37:| Entregables de `010_prototype` | `010_prototype/` (el codigo descartable, en una subcarpeta suya) |
+150:| `010_prototype/` | **Los entregables de la etapa `010_prototype`**: los cinco artefactos de registro en su raiz, y el codigo descartable del prototipo en una subcarpeta suya. Se archiva o se borra al cerrar su Gate — **no se muda a ninguna carpeta de producto** |
+170:- **`010_prototype/`** esta **declarada por adelantado y todavia no existe en el arbol**, porque su
+~~~
+
+- **Por que importa:** la decision es correcta y no cambia; lo que falla es la frase que la respalda.
+  Quien lea `D-060` dentro de un mes leera que `project.md` no menciona `010_prototype`, encontrara
+  tres menciones y no sabra si la decision sigue vigente o si alguien la incumplio. Mismo perfil que
+  `F-027`: la orden se sostiene, la lectura en prosa no.
+- **Gravedad `Baja`:** afecta a una frase de justificacion dentro de una entrada cuya decision, cuyo
+  alcance y cuya orden probatoria son correctos.
+- **Que lo corregiria:** nota fechada al lado —sin reescribir (`D-019`)— acotando la frase a lo que
+  la orden prueba: que la tabla «Etapas» sigue con dos, no que el archivo no nombre la carpeta.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
