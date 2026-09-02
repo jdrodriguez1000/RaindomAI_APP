@@ -43,8 +43,8 @@
 | [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Implementado |
 | [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Implementado |
 | [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Implementado |
-| [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Abierto |
-| [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Abierto |
+| [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Aceptado — pendiente |
+| [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -1989,8 +1989,8 @@ $ git show 7f55389:.claude/skills/protocol-close/SKILL.md | grep -n "^## Paso 2d
 | Auditoria | R-012 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-045`, `T-046` |
 | Cerrado en | |
 
 - **Que se observo:** `T-041` publica `_persistence/progress.md:2` como prueba de que las cuatro
@@ -2036,7 +2036,14 @@ $ git show 7f55389:_persistence/progress.md | grep -n 'Nota del 2026-09-02'
   el recuento real anclado a `7f55389` y la razon de que la cuarta nota se perdiera; y, si se quiere
   cerrar el patron, que el Paso 2d exija pegar **la lista completa** de su primera orden, no una
   seleccion de ella.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado**, verificado contra `HEAD` (`265bfeb`) antes de tratarlo: el bloque
+  de `T-041` sigue publicando `_persistence/progress.md:2` donde la orden devuelve `1`. Se corrige en
+  dos piezas: `T-045` pone la nota fechada con el recuento real anclado a `7f55389` y a `265bfeb`
+  —sin reescribir el bloque (`D-019`)—, y `T-046` acepta tambien la segunda mitad de la
+  recomendacion: el Paso 2d de `protocol-close` pasa a exigir **la lista completa** de su primera
+  orden, no una seleccion (`D-063`, `L-019`). Al verificarlo aparecio ademas que esa orden **no
+  devuelve el mismo numero en todos los entornos** —`26` en la auditoria, `28` aqui, sobre el mismo
+  commit—, lo que refuerza la correccion en vez de contradecirla.
 
 ---
 
@@ -2046,8 +2053,8 @@ $ git show 7f55389:_persistence/progress.md | grep -n 'Nota del 2026-09-02'
 | Auditoria | R-012 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-047` |
 | Cerrado en | |
 
 - **Que se observo:** la nota final de `D-060` justifica las dos ordenes que sustituyen a la caida
@@ -2074,4 +2081,7 @@ $ git show 7f55389:project.md | grep -n "010_prototype"
   alcance y cuya orden probatoria son correctos.
 - **Que lo corregiria:** nota fechada al lado —sin reescribir (`D-019`)— acotando la frase a lo que
   la orden prueba: que la tabla «Etapas» sigue con dos, no que el archivo no nombre la carpeta.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado**, verificado contra `HEAD` (`265bfeb`): `project.md` sigue nombrando
+  `010_prototype` en tres sitios. `T-047` acota la frase con nota fechada al lado, sin reescribirla
+  (`D-019`): lo que la orden prueba es que la tabla «Etapas» sigue teniendo dos, no que el archivo no
+  nombre la carpeta. La decision `D-060` no cambia.

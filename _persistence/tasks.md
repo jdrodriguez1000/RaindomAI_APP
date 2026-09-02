@@ -53,6 +53,10 @@
 | [T-042](#t-042---impedir-en-el-cierre-que-se-publique-un-bloque-de-verificacion-sin-ancla-f-031) | Impedir en el cierre que se publique un bloque de verificacion sin ancla (`F-031`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-043](#t-043---adaptar-el-archivo-de-etapa-del-prototipo-a-esta-metodologia) | Adaptar el archivo de etapa del prototipo a esta metodologia | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-044](#t-044---cerrar-los-enganches-de-la-etapa-del-prototipo-agnosticismo-carpeta-y-puntero-de-pi-5) | Cerrar los enganches de la etapa del prototipo: agnosticismo, carpeta y puntero de `PI-5` | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-045](#t-045---anotar-el-recuento-del-bloque-de-t-041-que-su-commit-no-sostiene-f-032) | Anotar el recuento del bloque de `T-041`, que su commit no sostiene (`F-032`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-046](#t-046---exigir-en-el-paso-2d-la-lista-completa-de-ordenes-sin-ancla-f-032) | Exigir en el Paso 2d la lista completa de ordenes sin ancla (`F-032`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-047](#t-047---acotar-la-frase-de-cierre-de-d-060-a-lo-que-su-orden-prueba-f-033) | Acotar la frase de cierre de `D-060` a lo que su orden prueba (`F-033`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-048](#t-048---escribir-las-plantillas-de-_templates010_prototype) | Escribir las plantillas de `_templates/010_prototype/` | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -1803,6 +1807,28 @@ _persistence/progress.md:2
 _audit/S-011.md:1
 ```
 
+📌 **Nota del 2026-09-02 (`T-045`, hallazgo `F-032`).** El bloque de arriba **no se
+reescribe** (`D-019`), pero su tercera orden **no reproduce lo que publica**: donde dice
+`_persistence/progress.md:2`, tanto el commit que la contiene (`7f55389`) como `HEAD` (`265bfeb`)
+devuelven `1`. El total de notas fechadas es **`3`, no `4`**. La cuarta se escribio en la seccion
+viva de `progress.md` y **desaparecio cuando el cierre sobrescribio esa seccion** — que es `L-015`
+literal, escrita en este mismo repositorio. Donde esta ficha, `_persistence/progress.md` §2 y
+`_audit/S-011.md` dicen «los cuatro sitios», hay que leer **tres**.
+
+```
+$ for f in _persistence/decisions.md _persistence/progress.md _audit/S-011.md; do echo -n "$f: "; git show 7f55389:$f | grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)'; done
+_persistence/decisions.md: 1
+_persistence/progress.md: 1
+_audit/S-011.md: 1
+
+$ git show 265bfeb:_persistence/progress.md | grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)'
+1
+```
+
+⚠️ **El efecto de fondo de `F-031` si quedo corregido** —ninguna cifra «quince» sobrevive sin
+su nota—; lo que no se sostenia era el recuento de esta ficha. Por eso `F-032` es hallazgo nuevo con
+evidencia nueva, y no una reapertura.
+
 ---
 
 ### T-042 - Impedir en el cierre que se publique un bloque de verificacion sin ancla (`F-031`)
@@ -1965,3 +1991,181 @@ publico primero como `2` y el Paso 2d del cierre lo corrigio antes de commitear.
 de un proyecto sin usar ninguna de esas palabras; el barrido atrapa las formas que ya fallaron aqui,
 y la relectura sigue siendo lo que decide. La frase «en este proyecto» sobrevive a proposito: ahi
 significa *el proyecto que lea este archivo*, y es la misma forma que usa la etapa anterior.
+
+---
+
+### T-045 - Anotar el recuento del bloque de `T-041`, que su commit no sostiene (`F-032`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-013 |
+
+- **Que:** el bloque de verificacion de `T-041` publica `_persistence/progress.md:2` y afirma cuatro
+  notas fechadas; sobre su propio commit son `1` y `3`. Se anota con nota fechada al lado —sin
+  reescribir el bloque (`D-019`)— con el recuento real anclado a `7f55389` y a `265bfeb`, y con la
+  explicacion de por que falta la cuarta.
+- **Por que:** es la **octava** repeticion del mismo defecto, y ocurrio en la sesion que creo el
+  control para impedirlo, sobre la tarea que corregia el septimo caso. Dejarlo sin anotar seria
+  publicar un estado que el commit no sostiene — justo lo que `F-031` señalaba.
+- **Lo que NO se hizo, y se dice para que no parezca olvido:** no se tocaron las frases de
+  `_persistence/progress.md` §2 ni de `_audit/S-011.md` que tambien dicen «los cuatro sitios». La
+  primera vive en una seccion que el cierre reescribe —es `L-015`, y corregirla ahi no seria
+  corregirla— y la segunda es un informe de sesion cerrado, que no se reescribe (`D-040`). La nota
+  de esta ficha las acota nombrandolas.
+- **Criterio de cierre:** el bloque de `T-041` lleva su nota fechada, con el recuento anclado a un
+  commit y con el numero real de notas.
+
+**Verificacion — el recuento real, anclado a los dos commits:**
+
+```
+$ for f in _persistence/decisions.md _persistence/progress.md _audit/S-011.md; do echo -n "$f: "; git show 7f55389:$f | grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)'; done
+_persistence/decisions.md: 1
+_persistence/progress.md: 1
+_audit/S-011.md: 1
+
+$ git show 265bfeb:_persistence/progress.md | grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)'
+1
+```
+
+---
+
+### T-046 - Exigir en el Paso 2d la lista completa de ordenes sin ancla (`F-032`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-013 |
+
+- **Que:** el Paso 2d de `protocol-close` gana un parrafo que obliga a **publicar la lista completa**
+  que devuelve su primera orden, con su recuento, y el resultado de reejecutar cada linea. Lo fija
+  `D-063`.
+- **Por que:** el Paso 2d se corrio en `S-012` —asi lo dice `T-042`— y aun asi `F-032` paso. La
+  evidencia publicada pegaba **cinco** lineas; la misma orden sobre el commit devuelve varias
+  decenas, y la que fallaba estaba entre las que no se pegaron. **Un control que se documenta sobre
+  una parte de su propia salida no es el control**: es una muestra, y elegida por quien se examina.
+- **Lo que esto no arregla:** el paso sigue siendo un cedazo. No ve una orden escrita en prosa ni
+  una sin el prefijo `$ `, y su propio archivo ya lo declara. Lo que cambia es que **la parte
+  mecanizable deja de depender de que quien la corre elija bien que pegar**.
+- **Criterio de cierre:** el Paso 2d exige por escrito la lista completa y el recuento, y nombra el
+  caso que lo motivo.
+
+**Verificacion — el texto nuevo existe, y el recuento real de la orden sobre el commit auditado:**
+
+```
+$ grep -n "la lista COMPLETA" .claude/skills/protocol-close/SKILL.md
+273:🚨 **Y la evidencia de este paso publica la lista COMPLETA de su primera orden, nunca una
+
+$ git show 7f55389 -U0 -- _persistence _audit | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+28
+```
+
+⚠️ **La auditoria `R-012` publica `26` para esa misma orden sobre el mismo commit, y aqui sale
+`28`.** No se corrige ninguno de los dos numeros: se deja constancia de que **la orden no es estable
+entre entornos** —dos de las lineas son `git grep ... <hash> -- <ruta>`, el falso positivo que el
+propio Paso 2d ya documenta, y su recuento depende de como se expanda el patron en cada shell—. Es
+una razon mas para publicar la lista y no solo la cifra: **una lista se puede comparar linea a
+linea; un numero solo se puede creer.**
+
+---
+
+### T-047 - Acotar la frase de cierre de `D-060` a lo que su orden prueba (`F-033`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-013 |
+
+- **Que:** la ultima nota de `D-060` justifica sus dos ordenes diciendo que `project.md` «no nombra
+  la etapa nueva en ningun sitio». Es falso sobre el mismo commit: hay tres menciones, todas de la
+  carpeta de entregables que declara `D-061`. Se acota con nota fechada al lado, sin reescribir
+  (`D-019`).
+- **Por que:** la decision es correcta y no cambia; lo que falla es la frase que la respalda. Quien
+  lea `D-060` dentro de un mes encontrara tres menciones y no sabra si la decision sigue vigente o
+  si alguien la incumplio. Mismo perfil que `F-027`: la orden se sostiene, la lectura en prosa no.
+- **Criterio de cierre:** `D-060` lleva su nota fechada, y lo que afirma es lo que su orden prueba
+  —que la tabla «Etapas» sigue teniendo dos—, no que el archivo no nombre la carpeta.
+
+**Verificacion — las tres menciones, y la fila que si prueba lo que la decision afirma:**
+
+```
+$ git show 265bfeb:project.md | grep -n "010_prototype"
+37:| Entregables de `010_prototype` | `010_prototype/` (el codigo descartable, en una subcarpeta suya) |
+150:| `010_prototype/` | **Los entregables de la etapa `010_prototype`**: los cinco artefactos de registro en su raiz, y el codigo descartable del prototipo en una subcarpeta suya. Se archiva o se borra al cerrar su Gate — **no se muda a ninguna carpeta de producto** |
+170:- **`010_prototype/`** esta **declarada por adelantado y todavia no existe en el arbol**, porque su
+
+$ git show 265bfeb:project.md | grep "| Etapas declaradas |"
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+```
+
+---
+
+### T-048 - Escribir las plantillas de `_templates/010_prototype/`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-013 |
+
+- **Que:** el usuario aporto cinco archivos en su carpeta de trabajo, procedentes de otro proyecto,
+  como material para las plantillas de la etapa del prototipo. Se adaptan y nacen las cinco
+  plantillas de `_templates/010_prototype/`, una por artefacto de `_phases/010_prototype.md` §5.
+- **Por que ahora:** las plantillas y el archivo de reparto de `_workflow/` son **condicion de
+  entrada** de la etapa, no trabajo de dentro de ella. Sin ellas la etapa no puede abrirse aunque
+  sus cinco entradas esten completas — se construiria sin forma acordada para registrar lo que se
+  observe. `R-012` lo anoto como recomendacion sin hallazgo: nada en `tasks.md` lo agendaba.
+- **Que hubo que cambiar, y no fue cosmetico:** ver `D-064`. Lo mas caro no fueron las rutas: fue
+  que el material traia una cifra de participantes que la guia de metodo no respalda, y referencias
+  a una etapa de Gate que este proyecto no ha declarado.
+- **Lo que esto NO hace:** no adopta la etapa `010_prototype`, que sigue sin fila en la tabla
+  «Etapas» de `project.md` (`D-060` vigente). Y **no cierra la condicion de entrada**: falta
+  `_workflow/010_prototype.md`, que no se escribio hoy.
+- **Criterio de cierre:** las cinco plantillas existen, no llevan ningun dato propio de este
+  proyecto ni ningun codigo instanciado, y no queda residuo del proyecto de origen.
+
+**Verificacion — los cinco controles sobre la carpeta nueva:**
+
+```
+$ ls _templates/010_prototype/
+005_happy_path.md
+010_participants.md
+015_session_NNN.md
+020_observations.md
+025_business_validation.md
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -rnE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _templates/010_prototype/ ; echo "exit=$?"
+_templates/010_prototype/005_happy_path.md:107:🔑 **Esa es tambien la forma en que esta etapa cumple `PI-5`.** El archivo de etapa declara la unica
+exit=0
+
+$ grep -rniE "(^|[^0-9])_prototype/|_memory/|015_gate1|terminal (ejecutora|auditora)|sponsor|020_baseline|minimo 3|recomendado 5|SUP-|RES-" _templates/010_prototype/ ; echo "exit=$?"
+exit=1
+
+$ LC_ALL=C.UTF-8 grep -rnP "[\x{00e1}\x{00e9}\x{00ed}\x{00f3}\x{00fa}\x{00c1}\x{00c9}\x{00cd}\x{00d3}\x{00da}]" _templates/010_prototype/ ; echo "exit=$?"
+exit=1
+```
+
+📌 **El tercero devuelve una linea y no cero, y es correcta:** `PI-5` es el nombre de un
+principio de ingenieria, no un codigo instanciado de este proyecto. El patron busca codigos con
+numero —los que delatarian una instancia— y `PI-5` cae dentro por la forma, no por el fondo. Se
+publica la linea en vez de afinar el patron para que desaparezca: **un control que se ajusta hasta
+no devolver nada deja de ser un control.**
+
+📌 **El cuarto es el barrido de residuos del proyecto de origen**, y su patron esta escrito
+para no confundirse con las rutas propias: `_prototype/` solo cuenta cuando **no** va precedido de un
+digito, porque `010_prototype/` lo contiene como subcadena. El quinto busca vocales acentuadas, que
+la convencion de este repositorio no usa y que el material de origen si traia.

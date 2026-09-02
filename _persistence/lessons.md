@@ -27,6 +27,7 @@
 | [L-016](#l-016---una-consulta-que-cambia-lo-que-haces-no-deja-rastro-y-sin-rastro-no-ocurrio) | Una consulta que cambia lo que haces no deja rastro, y sin rastro no ocurrio | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-017](#l-017---una-condicion-de-salida-no-es-una-tarea-pendiente-y-confundirlas-desactiva-el-disparador) | Una condicion de salida no es una tarea pendiente, y confundirlas desactiva el disparador | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-018](#l-018---un-archivo-traido-de-otro-proyecto-destapa-contradicciones-que-alli-no-existian) | Un archivo traido de otro proyecto destapa contradicciones que alli no existian | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-019](#l-019---un-control-documentado-sobre-una-parte-de-su-propia-salida-no-es-el-control) | Un control documentado sobre una parte de su propia salida no es el control | 2026-09-02 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -629,3 +630,35 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
 - **Donde queda aplicada:** `D-059` declara la excepcion a `PI-5` dentro de
   `_phases/010_prototype.md`, con su alcance y su limite; `D-060` deja escrito que el archivo se
   adelanto sin declarar la etapa.
+
+---
+
+### L-019 - Un control documentado sobre una parte de su propia salida no es el control
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `S-012` nacio el Paso 2d de `protocol-close` precisamente para atrapar el defecto
+  mas repetido del repositorio —un bloque de verificacion que su commit no sostiene—, y lo corrio en
+  su propio cierre.
+- **Que ocurrio:** el paso se corrio de verdad, y aun asi el defecto volvio a pasar. Su primera
+  orden devuelve varias decenas de lineas; la evidencia publicada pego **cinco**. La linea que
+  fallaba estaba entre las que no se pegaron, y la auditoria siguiente la encontro (`F-032`,
+  **octava** repeticion del mismo patron).
+- **Leccion:** **correr un control y documentar una parte de su salida no es haberlo corrido.** Un
+  control que se documenta con una muestra de si mismo produce exactamente el efecto contrario al
+  que busca: deja el registro diciendo que se verifico, y ademas da confianza. Es la version de
+  control de lo que `CLAUDE.md` dice de los tests —uno escrito para pasar es documentacion
+  disfrazada de evidencia—.
+- **Por que se escapa con facilidad:** la muestra se elige de buena fe, y se elige por lo que se ve
+  representativo. Lo que falla nunca parece representativo: **si lo pareciera, ya se habria visto**.
+  El sesgo no esta en la mala intencion, esta en que quien elige la muestra es el mismo que se
+  examina.
+- **Como aplicarla:** cuando un paso de un protocolo produzca una lista, **la evidencia es la lista
+  entera con su recuento**, no una seleccion. Y si la lista es larga, esa es una razon para pegarla,
+  no para recortarla. Cuando ademas el recuento no sea estable entre entornos —como aqui, donde la
+  misma orden sobre el mismo commit devuelve `26` y `28` segun quien la corra—, la lista es lo unico
+  comparable: **una lista se compara linea a linea; un numero solo se puede creer.**
+- **Donde queda aplicada:** `D-063` y el parrafo nuevo del Paso 2d de `protocol-close` (`T-046`).

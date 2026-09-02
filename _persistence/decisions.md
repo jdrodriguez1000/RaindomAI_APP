@@ -71,6 +71,8 @@
 | [D-060](#d-060---el-archivo-de-etapa-del-prototipo-se-escribe-por-adelantado-sin-declarar-la-etapa) | El archivo de etapa del prototipo se escribe por adelantado, sin declarar la etapa | 2026-09-02 | Vigente |
 | [D-061](#d-061---una-carpeta-de-entregables-se-llama-como-su-etapa-y-se-declara-por-adelantado) | Una carpeta de entregables se llama como su etapa, y se declara por adelantado | 2026-09-02 | Vigente |
 | [D-062](#d-062---el-numero-de-participantes-lo-fija-el-proyecto-porque-la-guia-de-metodo-no-lo-fija) | El numero de participantes lo fija el proyecto, porque la guia de metodo no lo fija | 2026-09-02 | Vigente |
+| [D-063](#d-063---el-paso-2d-publica-la-lista-completa-de-su-primera-orden-no-una-seleccion) | El Paso 2d publica la lista completa de su primera orden, no una seleccion | 2026-09-02 | Vigente |
+| [D-064](#d-064---las-cinco-plantillas-del-prototipo-se-adaptan-de-las-del-usuario-no-se-copian) | Las cinco plantillas del prototipo se adaptan de las del usuario, no se copian | 2026-09-02 | Vigente |
 
 ---
 
@@ -3013,6 +3015,21 @@ dos de arriba, que si prueban lo que la decision afirma —que `project.md` no n
 ningun sitio, y que la fila de etapas declaradas sigue teniendo dos—. Es el Paso 2d del cierre
 haciendo su trabajo sobre esta misma entrada.
 
+📌 **Nota del 2026-09-02 (`T-047`, hallazgo `F-033`).** La frase con que cierra la nota
+anterior —«que `project.md` **no nombra la etapa nueva en ningun sitio**»— **es falsa sobre el mismo
+commit**, y la nota inmediatamente anterior de esta misma entrada ya lo reconocia. Lo que las dos
+ordenes prueban es solo lo segundo: **que la tabla «Etapas» sigue teniendo dos**. `project.md` si
+nombra `010_prototype` en tres sitios —los tres de la carpeta de entregables que declara `D-061`—, y
+**ninguno de los tres declara la etapa**, que es lo que esta decision afirma. La decision no cambia;
+se acota la frase que la respalda, sin reescribirla (`D-019`).
+
+```
+$ git show 265bfeb:project.md | grep -c "010_prototype"
+3
+
+$ git show 265bfeb:project.md | grep "| Etapas declaradas |"
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+```
 
 ---
 
@@ -3133,3 +3150,135 @@ $ grep -nEi "usuarios representativos" _methodology/000_method.md
 $ grep -c "La guia de metodo no fija cuantos" _phases/010_prototype.md
 1
 ```
+
+---
+
+### D-063 - El Paso 2d publica la lista completa de su primera orden, no una seleccion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `S-012` creo el Paso 2d de `protocol-close` para impedir que se publicara un bloque
+  de verificacion sin ancla, y lo corrio en su propio cierre. Aun asi, `R-012` abrio `F-032` sobre
+  una orden de esa misma sesion: la evidencia del paso pegaba **cinco** lineas, cuando la orden
+  sobre el commit devuelve varias decenas, y la que fallaba estaba entre las que no se pegaron.
+- **Decision:** el Paso 2d **exige publicar la lista completa** que devuelve su primera orden, con
+  su recuento, y el resultado de reejecutar cada linea. Se escribe dentro del propio paso.
+- **Por que ahi y no como aviso:** `L-008` —una regla sin mecanismo es una intencion— y `L-011` —un
+  mecanismo escrito como aviso se salta; escrito como hueco de la plantilla, no—. El paso ya existia;
+  lo que faltaba era decir **que cuenta como haberlo corrido**.
+- **Lo que esto no arregla, dicho para que no se lea como resuelto:** el paso sigue siendo un cedazo
+  —no ve ordenes escritas en prosa ni sin el prefijo `$ `— y su propio archivo ya lo declaraba. Lo
+  que cambia es que la parte mecanizable deja de depender de que quien la corre elija bien que
+  pegar. **La relectura sigue siendo obligatoria.**
+- **Y una limitacion que aparecio al verificarlo:** la orden **no devuelve el mismo numero en todos
+  los entornos**. `R-012` publica `26` sobre `7f55389`; la misma orden aqui devuelve `28`. Es una
+  razon mas para la decision: una lista se compara linea a linea, un numero solo se puede creer.
+- **Alternativas descartadas:** (1) dejarlo como estaba y confiar en la relectura —es lo que ya
+  fallo ocho veces—; (2) afinar el patron hasta eliminar los falsos positivos —el propio paso
+  explica por que no: un cedazo afinado acaba dejando pasar el caso que importa—; (3) exigir que
+  toda orden vaya anclada desde el principio —seria mejor, pero obliga a conocer el hash antes de
+  que el commit exista, que es imposible en la primera pasada.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  parrafo en una skill, sin efecto sobre ningun registro ya escrito.
+
+**Verificacion — el parrafo existe en el paso que endurece:**
+
+```
+$ grep -n "la lista COMPLETA" .claude/skills/protocol-close/SKILL.md
+273:🚨 **Y la evidencia de este paso publica la lista COMPLETA de su primera orden, nunca una
+
+$ grep -n "^## Paso 2d" .claude/skills/protocol-close/SKILL.md
+242:## Paso 2d — Ningun bloque de verificacion sin ancla (antes del `git add`)
+```
+
+---
+
+### D-064 - Las cinco plantillas del prototipo se adaptan de las del usuario, no se copian
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario aporto cinco archivos en su carpeta de trabajo, procedentes de otro
+  proyecto, como material para las plantillas de la etapa del prototipo (`T-048`). Es el mismo caso
+  que `D-041` con las del descubrimiento y `D-033` con el archivo de etapa.
+- **Decision:** **se adaptan, no se copian.** Nacen las cinco plantillas de
+  `_templates/010_prototype/`, una por artefacto de `_phases/010_prototype.md` §5, con la forma de
+  las de `_templates/005_discovery/`.
+- **Que hubo que cambiar, y las tres ultimas filas no son cosmeticas:**
+
+| Del material de origen | A esta metodologia |
+|---|---|
+| rutas de otro proyecto (`_prototype/`, `_memory/`, `phases/`, `methodology/`) | las de este metodo: `010_prototype/`, `_persistence/`, `_phases/`, `_methodology/` |
+| «terminal ejecutora» / «terminal auditora» / «sponsor» | `manager`, `report_auditor`, el usuario y el patrocinador, que son los actores reales |
+| codigos ajenos de supuestos y restricciones | los genericos del registro, `A-XXX` y `C-XXX` |
+| vocales acentuadas | sin tildes, como el resto del repositorio |
+| **«el metodo pide minimo 3, recomendado 5»** | **la guia de metodo no fija ninguna cantidad**: lo fija el proyecto con su `D-XXX` (`D-062`) |
+| **referencias a un archivo de etapa de Gate y a sus comprobaciones numeradas** | «la revision independiente del Gate», y el aviso de que **la etapa del Gate no esta declarada** |
+| **codigos de participante y de observacion escritos ya instanciados** | huecos, con el aviso de que un codigo de producto se declara antes en `project.md` |
+
+- **Por que la quinta fila es la mas importante:** el material traia una cifra de participantes que
+  **en su origen estaba marcada como adicion sin respaldo**. Copiarla a una plantilla la habria
+  convertido en regla del metodo por el solo hecho de aparecer ahi, y nadie podria ya distinguirla
+  de lo que si esta respaldado. Es `L-002` otra vez: lo que viaja de otro proyecto llega con cosas
+  que alli tenian su contexto y aqui lo pierden.
+- **Por que la sexta:** las plantillas apuntaban a un archivo de etapa de Gate que **este proyecto
+  no tiene**, con numeros de comprobacion incluidos. Una plantilla que cita un archivo inexistente
+  manda a buscar lo que no hay — el mismo defecto que `D-062` corrigio en el archivo de etapa.
+- **Por que la septima:** `_phases/010_prototype.md` §7 exige que un codigo de producto se declare en
+  la tabla «Codigos» de `project.md` **antes de escribir el primero**. La plantilla no puede
+  adelantarlo: deja el hueco y el aviso.
+- **Lo que esto NO hace:** no adopta la etapa —`D-060` sigue vigente— y **no completa la condicion
+  de entrada**: falta `_workflow/010_prototype.md`, que hoy no existe.
+- **Alternativas descartadas:** (1) copiar los cinco archivos tal cual —trae rutas, actores y una
+  cifra que aqui no se sostienen—; (2) escribirlas desde cero ignorando el material —se pierde
+  trabajo bueno: la estructura, los errores que cada plantilla existe para evitar y los ejemplos—;
+  (3) dejarlas para cuando la etapa arranque —es cuando peor salen, y `_phases/010_prototype.md` §5
+  las declara condicion de entrada, no trabajo de dentro.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio — son cinco archivos
+  nuevos en una carpeta ya declarada, sin efecto sobre ningun registro vivo.
+
+⚠️ **El material se leyo de la carpeta de trabajo del usuario porque el usuario lo pidio.** Esa
+carpeta esta fuera del repositorio y **los protocolos tienen prohibido tocarla**; lo que se hizo aqui
+lo hizo `manager` por peticion expresa, y lo que entra al repositorio es el resultado adaptado, nunca
+el original.
+
+**Verificacion — las cinco plantillas existen y no traen residuo del origen:**
+
+```
+$ ls _templates/010_prototype/
+005_happy_path.md
+010_participants.md
+015_session_NNN.md
+020_observations.md
+025_business_validation.md
+
+$ grep -rniE "(^|[^0-9])_prototype/|_memory/|015_gate1|terminal (ejecutora|auditora)|sponsor|020_baseline|minimo 3|recomendado 5|SUP-|RES-" _templates/010_prototype/ ; echo "exit=$?"
+exit=1
+
+$ grep -rlc "Guia de llenado" _templates/010_prototype/
+_templates/010_prototype/005_happy_path.md
+_templates/010_prototype/010_participants.md
+_templates/010_prototype/015_session_NNN.md
+_templates/010_prototype/020_observations.md
+_templates/010_prototype/025_business_validation.md
+
+$ grep -c "sin decidir" _templates/010_prototype/*.md
+_templates/010_prototype/005_happy_path.md:1
+_templates/010_prototype/010_participants.md:1
+_templates/010_prototype/015_session_NNN.md:1
+_templates/010_prototype/020_observations.md:3
+_templates/010_prototype/025_business_validation.md:1
+```
+
+📌 **La cuarta orden comprueba la fila sexta de la tabla:** las cinco plantillas cierran
+diciendo que, mientras la etapa del Gate no tenga su `D-XXX` y su archivo en `_phases/`, la respuesta
+correcta a «que viene despues» es *«sin decidir»*. Es la misma formula con que cierran las plantillas
+del descubrimiento. **`020_observations.md` devuelve `3` y no `1`** porque ademas usa la formula
+dos veces en el cuerpo: las categorias que no pesan en el Gate van a «una etapa posterior» que
+tampoco esta declarada. Se publica la salida entera y se explica la diferencia, en vez de acotar el
+patron para que devolviera cinco unos (`L-019`).

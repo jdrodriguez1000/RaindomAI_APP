@@ -270,6 +270,18 @@ una: se vuelve a correr, y su salida tiene que ser la que el bloque publica.
 | una linea, y al reejecutarla da lo mismo que el bloque publica | la orden es reproducible aunque no lleve ancla | sigue, pero **anclala**: `git show <hash>:` cuesta un `git grep` |
 | una linea, y al reejecutarla da **otra cosa** | 🚨 el bloque afirma algo que su commit no sostiene | no se cierra asi. O se corrige el numero, o el bloque va con su **nota fechada** al lado (`D-019`) |
 
+🚨 **Y la evidencia de este paso publica la lista COMPLETA de su primera orden, nunca una
+seleccion de ella.** Se pega la orden con **su recuento** y **todas** las lineas que devolvio, con el
+resultado de reejecutar cada una. Pegar unas cuantas es lo que dejo pasar el octavo caso del defecto:
+el paso se corrio, se documentaron cinco lineas de varias decenas, y la que fallaba estaba entre las
+que no se pegaron. **Un control que se documenta sobre una parte de su propia salida no es el
+control** — es una muestra, y elegida por quien se examina.
+
+⚠️ **El recuento no es estable entre entornos, y por eso no basta con la cifra.** La misma orden
+sobre el mismo commit puede devolver numeros distintos segun como expanda el patron cada shell; los
+falsos positivos conocidos son parte de esa diferencia. Una lista se compara linea a linea; un numero
+solo se puede creer.
+
 ⛔ **Lo que no vale es reescribir el bloque para que cuadre.** Sustituir la salida vieja por la
 nueva convierte «falta evidencia» en «hay evidencia falsa», y esta vez sin nadie que lo note. La
 salida correcta es la nota fechada: quedan visibles las dos cosas, lo que se probo entonces y lo que
