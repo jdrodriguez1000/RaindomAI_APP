@@ -43,8 +43,9 @@
 | [F-029](#f-029---t-037-y-t-038-llevan-el-estado-pendiente-que-la-convencion-de-tasksmd-no-declara) | `T-037` y `T-038` llevan el estado `Pendiente`, que la convencion de `tasks.md` no declara | R-011 | Media | Implementado |
 | [F-030](#f-030---t-038-se-escribio-a-mano-sin-citar-el-d-xxx-o-f-nnn-que-la-habilita) | `T-038` se escribio a mano sin citar el `D-XXX` o `F-NNN` que la habilita | R-011 | Baja | Implementado |
 | [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Implementado |
-| [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Aceptado — pendiente |
-| [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Aceptado — pendiente |
+| [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Implementado |
+| [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Implementado |
+| [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Abierto |
 
 ---
 
@@ -1989,9 +1990,9 @@ $ git show 7f55389:.claude/skills/protocol-close/SKILL.md | grep -n "^## Paso 2d
 | Auditoria | R-012 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-045`, `T-046` |
-| Cerrado en | |
+| Cerrado en | `R-013` (`8eb8666`) |
 
 - **Que se observo:** `T-041` publica `_persistence/progress.md:2` como prueba de que las cuatro
   notas fechadas quedaron puestas. Sobre el commit que la contiene son `1`, y el total es `3`, no
@@ -2044,6 +2045,22 @@ $ git show 7f55389:_persistence/progress.md | grep -n 'Nota del 2026-09-02'
   orden, no una seleccion (`D-063`, `L-019`). Al verificarlo aparecio ademas que esa orden **no
   devuelve el mismo numero en todos los entornos** —`26` en la auditoria, `28` aqui, sobre el mismo
   commit—, lo que refuerza la correccion en vez de contradecirla.
+- **Verificado y cerrado por `R-013` sobre `8eb8666`:** las dos mitades estan en el diff. La nota
+  fechada de `T-045` esta al lado del bloque de `T-041`, sin reescribirlo (`D-019`), y su bloque
+  anclado reproduce; el parrafo de la lista completa esta en el Paso 2d.
+
+~~~
+$ for f in _persistence/decisions.md _persistence/progress.md _audit/S-011.md; do echo -n "$f: "; git show 7f55389:$f | grep -c 'Nota del 2026-09-02 (`T-041`, hallazgo `F-031`)'; done
+_persistence/decisions.md: 1
+_persistence/progress.md: 1
+_audit/S-011.md: 1
+
+$ git show 8eb8666:.claude/skills/protocol-close/SKILL.md | grep -n "la lista COMPLETA"
+273:🚨 **Y la evidencia de este paso publica la lista COMPLETA de su primera orden, nunca una
+
+$ git show 8eb8666:_persistence/tasks.md | grep -c 'Nota del 2026-09-02 (`T-045`, hallazgo `F-032`)'
+1
+~~~
 
 ---
 
@@ -2053,9 +2070,9 @@ $ git show 7f55389:_persistence/progress.md | grep -n 'Nota del 2026-09-02'
 | Auditoria | R-012 |
 | Fecha | 2026-09-02 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-047` |
-| Cerrado en | |
+| Cerrado en | `R-013` (`8eb8666`) |
 
 - **Que se observo:** la nota final de `D-060` justifica las dos ordenes que sustituyen a la caida
   diciendo que «si prueban lo que la decision afirma —que `project.md` **no nombra la etapa nueva en
@@ -2085,3 +2102,66 @@ $ git show 7f55389:project.md | grep -n "010_prototype"
   `010_prototype` en tres sitios. `T-047` acota la frase con nota fechada al lado, sin reescribirla
   (`D-019`): lo que la orden prueba es que la tabla «Etapas» sigue teniendo dos, no que el archivo no
   nombre la carpeta. La decision `D-060` no cambia.
+- **Verificado y cerrado por `R-013` sobre `8eb8666`:** la nota fechada de `T-047` esta al lado de la
+  nota de cierre de `D-060`, acota la frase a lo que la orden prueba y no reescribe nada.
+
+~~~
+$ git show 8eb8666:_persistence/decisions.md | grep -c 'Nota del 2026-09-02 (`T-047`, hallazgo `F-033`)'
+1
+
+$ git show 265bfeb:project.md | grep -c "010_prototype"
+3
+
+$ git show 265bfeb:project.md | grep "| Etapas declaradas |"
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+~~~
+
+---
+
+### F-034 - El informe remite a una lista completa del Paso 2d que no existe en el commit
+| Campo | Valor |
+|---|---|
+| Auditoria | R-013 |
+| Fecha | 2026-09-02 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 6 de `_audit/S-013.md` afirma que el Paso 2d se aplico a si mismo y
+  remite a la verificacion de `T-046` para la evidencia —«las nueve ordenes sin ancla se reejecutaron
+  y sus salidas coinciden con lo publicado»—. En esa verificacion **no hay ninguna lista**: hay dos
+  ordenes, y la unica que recuenta ordenes sin ancla lo hace sobre `7f55389`, el commit anterior, y
+  publica solo la cifra `28`.
+
+~~~
+$ git show 8eb8666:_audit/S-013.md | sed -n '133,137p'
+- **Que la lista completa que exige `D-063` de verdad se haya publicado en esta misma sesion.** El
+  Paso 2d se aplico a si mismo dentro del cierre de `S-013` (ver Paso 2d de este cierre, en la
+  seccion de verificacion de `T-046`): las nueve ordenes sin ancla se reejecutaron y sus salidas
+  coinciden con lo publicado. Es la primera vez que el parrafo nuevo se pone a prueba con datos
+  reales; conviene que una lectura externa confirme que ninguna linea quedo fuera.
+
+$ git show 8eb8666:_persistence/tasks.md | sed -n '/^### T-046/,/^---/p' | grep -E '^\$ '
+$ grep -n "la lista COMPLETA" .claude/skills/protocol-close/SKILL.md
+$ git show 7f55389 -U0 -- _persistence _audit | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+
+$ git grep -c "nueve ordenes" 8eb8666 -- _persistence _audit
+8eb8666:_audit/S-013.md:1
+~~~
+
+- **Por que importa:** `D-063` y `L-019` nacen en esa misma sesion diciendo que un control
+  documentado sobre una parte de su propia salida no es el control, y que la evidencia es la lista
+  entera con su recuento. El informe afirma haber cumplido esa regla y remite a una evidencia que no
+  esta publicada: es «se comprobo», que `CLAUDE.md` prohibe. La cifra tampoco cuadra —`nueve` frente
+  a diez ordenes distintas y trece apariciones en el entorno de la auditoria—, y el informe no dice
+  sobre que rango ni con que criterio se conto.
+- **Gravedad `Media`:** el fondo se sostiene —`R-013` reejecuto las diez ordenes del commit y todas
+  reproducen—, pero el registro afirma exhibir una evidencia que no exhibe, y precisamente la del
+  control creado ese dia para impedir este defecto.
+- **Que lo corregiria:** nota fechada al lado (`D-019`) con la lista completa que el Paso 2d devolvio
+  en el cierre de `S-013`, anclada a `8eb8666`, con su rango y el resultado de reejecutar cada linea;
+  o, si esa salida solo vivio en pantalla, que la nota lo diga en vez de remitir a `T-046`. Para el
+  patron de fondo: `D-063` dice **que** publicar pero no **donde**, y una evidencia sin sitio
+  asignado desaparece con la sesion.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
