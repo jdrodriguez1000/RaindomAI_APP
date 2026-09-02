@@ -57,6 +57,9 @@
 | [T-046](#t-046---exigir-en-el-paso-2d-la-lista-completa-de-ordenes-sin-ancla-f-032) | Exigir en el Paso 2d la lista completa de ordenes sin ancla (`F-032`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-047](#t-047---acotar-la-frase-de-cierre-de-d-060-a-lo-que-su-orden-prueba-f-033) | Acotar la frase de cierre de `D-060` a lo que su orden prueba (`F-033`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-048](#t-048---escribir-las-plantillas-de-_templates010_prototype) | Escribir las plantillas de `_templates/010_prototype/` | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-049](#t-049---publicar-la-lista-completa-del-paso-2d-que-s-013-afirmo-y-no-publico-f-034) | Publicar la lista completa del Paso 2d que `S-013` afirmo y no publico (`F-034`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-050](#t-050---dar-sitio-fijo-a-la-evidencia-del-paso-2d-en-el-informe-de-sesion-f-034) | Dar sitio fijo a la evidencia del Paso 2d en el informe de sesion (`F-034`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-051](#t-051---escribir-el-reparto-de-trabajo-de-la-etapa-del-prototipo) | Escribir el reparto de trabajo de la etapa del prototipo | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -2169,3 +2172,131 @@ no devolver nada deja de ser un control.**
 para no confundirse con las rutas propias: `_prototype/` solo cuenta cuando **no** va precedido de un
 digito, porque `010_prototype/` lo contiene como subcadena. El quinto busca vocales acentuadas, que
 la convencion de este repositorio no usa y que el material de origen si traia.
+
+---
+
+### T-049 - Publicar la lista completa del Paso 2d que `S-013` afirmo y no publico (`F-034`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-014 |
+
+- **Que:** nota fechada al lado de la seccion 6 de `_audit/S-013.md` —sin reescribir el parrafo
+  original (`D-019`)— que diga que la lista completa **no** se publico en ningun archivo del commit,
+  y que publique ahora esa lista entera con su recuento, anclada al rango equivalente a `8eb8666`.
+- **Por que:** `F-034`. El informe afirmo haber cumplido `D-063` y remitio a la verificacion de
+  `T-046`, donde hay dos ordenes y ninguna es la primera del Paso 2d. Es «se comprobo» sin la prueba
+  —lo que `CLAUDE.md` prohibe—, y encima sobre el control que nacio ese dia para impedirlo.
+- **Criterio de cierre:** la nota existe al lado del parrafo original, el original no cambio, y la
+  lista publicada reproduce sobre el rango anclado.
+
+**Verificacion — la lista reproduce sobre el rango anclado, y el original no se toco:**
+
+```
+$ git diff 265bfeb 8eb8666 -U0 -- _persistence _audit | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+13
+
+$ git diff 265bfeb 8eb8666 -U0 -- _persistence _audit | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+10
+
+$ git diff --numstat -- _audit/S-013.md
+35      0       _audit/S-013.md
+```
+
+📌 **El `35 0` es la prueba de que no se reescribio nada:** treinta y cinco lineas insertadas, cero
+borradas. La lista entera esta en la nota, no aqui, porque su sitio es el archivo que hizo la
+afirmacion.
+
+📌 **`nueve` no se reproduce con ningun criterio:** ni las apariciones (`13`) ni las ordenes
+distintas (`10`). `R-013` publico los mismos dos numeros en su entorno, asi que la diferencia no es
+del entorno esta vez — la cifra del informe no salio de esta orden.
+
+---
+
+### T-050 - Dar sitio fijo a la evidencia del Paso 2d en el informe de sesion (`F-034`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-014 |
+
+- **Que:** dos inserciones en `.claude/skills/protocol-close/SKILL.md`. En el Paso 2d, el parrafo que
+  dice **donde** aterriza la lista completa; en la estructura del informe, la seccion 7 nueva con sus
+  huecos.
+- **Por que:** la mitad de fondo de `F-034`. `D-063` dice que publicar y no donde, y una evidencia
+  sin sitio asignado desaparece con la sesion sin que nada chille. Queda decidido en `D-065`.
+- **Criterio de cierre:** las dos inserciones existen, el diff de la skill es solo insercion, y
+  ningun informe ya escrito cambia.
+
+**Verificacion — las dos inserciones, y el diff sin borrados:**
+
+```
+$ grep -n "seccion 7 del informe" .claude/skills/protocol-close/SKILL.md
+280:🚨 **Y esa lista tiene un sitio fijo: la seccion 7 del informe de `_audit/S-XXX.md`, y no la
+
+$ grep -n "^## 7. Evidencia del Paso 2d" .claude/skills/protocol-close/SKILL.md
+694:## 7. Evidencia del Paso 2d
+
+$ git diff --numstat -- .claude/skills/protocol-close/SKILL.md
+15      0       .claude/skills/protocol-close/SKILL.md
+```
+
+📌 **`protocol-audit` no se toca, y es deliberado.** Su Control e reejecuta las ordenes sin ancla por
+su cuenta; que ahora el cierre publique tambien su propia lista no cambia lo que el auditor tiene que
+hacer, y hacerlo depender de la seccion 7 convertiria la verificacion independiente en una lectura de
+lo que el auditado eligio pegar.
+
+---
+
+### T-051 - Escribir el reparto de trabajo de la etapa del prototipo
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-014 |
+
+- **Que:** escribir `_workflow/010_prototype.md`, derivado de `_workflow/team.md` y
+  `_workflow/ai_levels.md`, con una fila por cada uno de los nueve pasos de
+  `_phases/010_prototype.md` §4 y alineado con las cinco plantillas de `_templates/010_prototype/`.
+- **Por que:** es **condicion de entrada** de la etapa, junto con las plantillas
+  (`_phases/010_prototype.md` §5): sin el, la etapa no se abre aunque las cinco entradas esten
+  completas. `R-013` lo dejo como recomendacion sin hallazgo tras escribirse las plantillas en
+  `S-013`; el usuario lo pidio hoy. Lo decidido queda en `D-066`.
+- **Criterio de cierre:** el archivo existe, tiene una fila por paso, la etapa lo cita, no lleva
+  ningun dato propio del proyecto ni ningun codigo instanciado.
+
+**Verificacion — los cuatro controles sobre el archivo nuevo:**
+
+```
+$ grep -c "^| \*\*[1-9] · " _workflow/010_prototype.md
+9
+
+$ grep -n "_workflow/010_prototype" _phases/010_prototype.md
+144:**`_workflow/010_prototype.md`**, que se lee ahora y no despues. Ese reparto se adopta con su `D-XXX` en el
+314:🚨 **Las plantillas y el reparto de `_workflow/010_prototype.md` son condicion de entrada, no
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md ; echo "exit=$?"
+exit=1
+```
+
+📌 **El cuarto devuelve cero y el archivo hermano devuelve una linea.** La diferencia esta declarada
+en `D-066` con su orden: `_workflow/005_discovery.md` cita `L-014`, un codigo instanciado, y no se
+toca por esta tarea (`PI-3`). Se deja escrito para que no se lea como que los dos archivos pasan el
+mismo control.
+
+📌 **Lo que esta tarea NO hace:** no adopta la etapa ni reparte nada. `_workflow/team.md` §8 dice que
+leer la tabla no reparte; el reparto es el `D-XXX` que se escriba **al abrir la etapa**, con lo que
+se adopta y lo que se descarta de estas tablas.

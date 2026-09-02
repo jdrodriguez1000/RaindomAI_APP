@@ -277,6 +277,13 @@ el paso se corrio, se documentaron cinco lineas de varias decenas, y la que fall
 que no se pegaron. **Un control que se documenta sobre una parte de su propia salida no es el
 control** — es una muestra, y elegida por quien se examina.
 
+🚨 **Y esa lista tiene un sitio fijo: la seccion 7 del informe de `_audit/S-XXX.md`, y no la
+pantalla.** Publicada solo en el reporte de cierre, la evidencia del control desaparece con la
+sesion: al dia siguiente el informe afirma haber corrido el paso y no queda nada que mirar. `D-063`
+decia **que** publicar; esto dice **donde**, que es lo que faltaba para que la regla se pudiera
+comprobar. Si la lista sale vacia, la seccion 7 lo dice con su orden y su salida — «ninguna linea» es
+tambien un resultado, y se publica igual.
+
 ⚠️ **El recuento no es estable entre entornos, y por eso no basta con la cifra.** La misma orden
 sobre el mismo commit puede devolver numeros distintos segun como expanda el patron cada shell; los
 falsos positivos conocidos son parte de esa diferencia. Una lista se compara linea a linea; un numero
@@ -683,6 +690,14 @@ es que la proxima omision, cuando importe, llegue con la misma cara de completa.
 ## 6. Que pedimos auditar
 <nuestros propios puntos debiles: lo que quedo flojo, la decision de la que menos seguros
 estamos, el supuesto en el que nos apoyamos sin confirmar>
+
+## 7. Evidencia del Paso 2d
+<la lista COMPLETA que devolvio la primera orden del Paso 2d, con la orden literal, su recuento y
+todas sus lineas — nunca una seleccion>
+<y debajo, el resultado de reejecutar cada una: la que reproduce y la que no>
+<si una orden no es reproducible por naturaleza (describe el area de staging), se dice, y se da su
+equivalencia anclada al commit>
+<si la lista salio vacia, se publica igual: la orden y su salida vacia>
 ```
 
 ### Los tres veredictos de la seccion 0, y nada mas

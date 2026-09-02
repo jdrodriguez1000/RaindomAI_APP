@@ -37,6 +37,7 @@
 | [S-011](#s-011---se-aceptan-f-027-y-f-028-nace-el-puntero-a-las-lecciones-globales-y-la-cosecha) | Se aceptan `F-027` y `F-028`; nace el puntero a las lecciones globales y la cosecha | 2026-09-02 | `000_preproject` |
 | [S-012](#s-012---se-aceptan-f-029-a-f-031-nace-_phases010_prototypemd-y-el-paso-2d-del-cierre) | Se aceptan `F-029` a `F-031`; nace `_phases/010_prototype.md` y el Paso 2d del cierre | 2026-09-02 | `000_preproject` |
 | [S-013](#s-013---se-aceptan-f-032-y-f-033-nacen-las-plantillas-de-_templates010_prototype) | Se aceptan `F-032` y `F-033`; nacen las plantillas de `_templates/010_prototype/` | 2026-09-02 | `000_preproject` |
+| [S-014](#s-014---se-acepta-f-034-nace-d-065l-020-la-seccion-7-del-informe-y-_workflow010_prototypemd) | Se acepta `F-034`; nace `D-065`/`L-020`, la seccion 7 del informe y `_workflow/010_prototype.md` | 2026-09-03 | `000_preproject` |
 
 ---
 
@@ -62,50 +63,40 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-02 (S-013) |
+| Ultima actualizacion | 2026-09-03 (S-014) |
 | Salud | En marcha |
-| Avance de la etapa | `R-012` (sobre `7f55389`) abrio `F-032` y `F-033`. `manager` verifico los dos contra `HEAD` (`265bfeb`) antes de aceptarlos, y los acepto ambos: `T-045` anota con nota fechada, sin reescribir (`D-019`), que el bloque de `T-041` publicaba `_persistence/progress.md:2` donde la orden devuelve `1`, y que el total real de notas fechadas es `3`, no `4`; `T-046` cierra el patron de fondo anadiendo al Paso 2d de `protocol-close` la exigencia de publicar la **lista completa** de su primera orden, con recuento, en vez de una seleccion (`D-063`, `L-019`) — es la octava repeticion del mismo defecto (`F-005`, `F-008`, `F-011`, `F-022`, `F-025`, `F-027`, `F-031`, `F-032`); `T-047` acota con nota fechada la frase de cierre de `D-060`, que afirmaba que `project.md` «no nombra la etapa nueva en ningun sitio» cuando la nombra en tres, sin que eso cambie la decision. Por separado, el usuario aporto en `temporal/` cinco archivos de otro proyecto como material para las plantillas del prototipo: `T-048` los adapta y nacen las cinco plantillas de `_templates/010_prototype/`, con `D-064` documentando los siete cambios de fondo (rutas, actores, codigos, tildes, cifra de participantes sin respaldo, referencias a un Gate no declarado, codigos de producto sin declarar). |
+| Avance de la etapa | `R-013` (sobre `8eb8666`) abrio `F-034`. `manager` lo verifico contra `HEAD` (`4e9d639`) y lo acepto: el informe de `S-013` afirmaba haber publicado la lista completa del Paso 2d y remitia a la verificacion de `T-046`, que no la contiene — la salida solo vivio en pantalla. `T-049` deja nota fechada al lado de la seccion 6 de `_audit/S-013.md` (`D-019`, sin reescribir), publicando ahora la lista entera anclada al rango `265bfeb..8eb8666` (`13` apariciones, `10` ordenes distintas, no `nueve`). `T-050` corrige la causa de fondo con `D-065`: la evidencia del Paso 2d gana sitio fijo, la seccion 7 nueva del informe `_audit/S-XXX.md`. Nace `L-020`. Por pedido del usuario nace `_workflow/010_prototype.md` (`T-051`, `D-066`): reparto de los nueve pasos del procedimiento de la etapa, derivado de `team.md`/`ai_levels.md` — la IA construye el prototipo (Paso 4, autonomia reversible/impacto relevante), queda fuera de las sesiones con usuario y con negocio (Pasos 5 y 9), y clasifica sin pesar las observaciones (Paso 8). No adopta la etapa: `project.md` sigue declarando solo `000_preproject` y `005_discovery`. |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo los dos hallazgos abiertos por `R-012` sobre `S-012` (`F-032`, `F-033`),
-verificando cada uno contra `HEAD` (`265bfeb`) antes de aceptarlo, y los acepto ambos.
+`manager` evaluo el hallazgo abierto por `R-013` sobre `S-013` (`F-034`), lo verifico contra `HEAD`
+(`4e9d639`) y lo acepto: la seccion 6 de `_audit/S-013.md` afirmaba que la lista completa del Paso 2d
+se habia publicado en la verificacion de `T-046`, y esa verificacion contiene dos ordenes, ninguna
+la primera orden del Paso 2d — la lista solo vivio en pantalla y desaparecio con la sesion.
 
-`T-045` atiende `F-032`: el bloque de verificacion de `T-041` publicaba `_persistence/progress.md:2`
-como prueba de cuatro notas fechadas, y afirma en prosa «los cuatro sitios». Sobre el commit que lo
-contiene (`7f55389`) y sobre `HEAD` (`265bfeb`) la orden devuelve `1`, y el total real de notas
-fechadas es `3`, no `4` — la cuarta se escribio en la seccion viva de `progress.md` y desaparecio
-cuando el cierre sobrescribio esa seccion, que es `L-015` literal. Se anota con nota fechada, sin
-reescribir el bloque original (`D-019`).
+`T-049` corrige lo concreto: nota fechada al lado de la seccion 6 de `_audit/S-013.md`, sin
+reescribir el parrafo original (`D-019`), que declara la ausencia y publica ahora la lista entera
+anclada al rango equivalente al commit (`265bfeb..8eb8666`) con sus dos recuentos — `13` apariciones,
+`10` ordenes distintas, no `nueve` como afirmaba el original.
 
-`T-046` atiende la segunda mitad de `F-032`, la que evita un noveno caso: el Paso 2d de
-`protocol-close` gana el parrafo que exige publicar la **lista completa** de su primera orden, con
-su recuento, y el resultado de reejecutar cada linea — nunca una seleccion (`D-063`). Es la octava
-repeticion del mismo defecto (`F-005`, `F-008`, `F-011`, `F-022`, `F-025`, `F-027`, `F-031`,
-`F-032`), ocurrida en la sesion que creo el Paso 2d para impedirlo, sobre la tarea que corregia el
-septimo caso. Nace `L-019`: correr un control y documentar una parte de su salida no es haberlo
-corrido. Al verificarlo aparecio ademas que la orden del Paso 2d **no devuelve el mismo numero en
-todos los entornos** (`26` en `R-012`, `28` aqui sobre el mismo commit), lo que refuerza la
-decision de comparar listas y no cifras.
+`T-050` corrige la causa de fondo con `D-065`: `D-063` decia **que** publicar y no **donde**, y una
+evidencia sin sitio asignado no genera ningun momento en que se eche en falta. La evidencia del Paso
+2d gana sitio fijo — la seccion 7 nueva del informe `_audit/S-XXX.md` —, con dos inserciones en
+`protocol-close`: el parrafo del propio Paso 2d que nombra el destino, y la seccion 7 en la
+estructura del informe. Nace `L-020`: una regla que dice que registrar pero no donde no se
+incumple, se evapora.
 
-`T-047` atiende `F-033`: la ultima nota de `D-060` afirmaba que `project.md` «no nombra la etapa
-nueva en ningun sitio», y sobre `HEAD` (`265bfeb`) la nombra en tres, todas de la carpeta de
-entregables que declara `D-061`. La decision no cambia; se acota la frase con nota fechada, sin
-reescribir (`D-019`), a lo que la orden realmente prueba: que la tabla «Etapas» sigue teniendo dos.
-
-Por separado, el usuario aporto en `temporal/` cinco archivos de otro proyecto como material para
-las plantillas de la etapa del prototipo. `T-048` los adapta y nacen las cinco plantillas de
-`_templates/010_prototype/`, una por artefacto de `_phases/010_prototype.md` §5, con la forma de
-las de `_templates/005_discovery/`. `D-064` documenta los siete cambios de fondo: rutas del metodo
-en vez de las del origen, los actores reales (`manager`/`report_auditor`/usuario/patrocinador),
-codigos genericos del registro, sin tildes, y tres correcciones de contenido — se retira una cifra
-de participantes que en su origen ya estaba marcada como sin respaldo (`D-062` la fija por proyecto),
-se retiran las referencias a un archivo de etapa de Gate que este proyecto no tiene, y se deja hueco
-para el codigo de producto que `project.md` aun no declara. No adopta la etapa (`D-060` vigente) ni
-completa su condicion de entrada: falta `_workflow/010_prototype.md`.
+Por pedido del usuario nace `_workflow/010_prototype.md` (`T-051`, `D-066`), condicion de entrada de
+la etapa junto con las plantillas (`_phases/010_prototype.md` §5). Reparte los nueve pasos del
+procedimiento derivando `team.md`/`ai_levels.md`: la IA construye el prototipo en el Paso 4 —primera
+vez que la IA escribe codigo en el metodo—, con autonomia de reversible y de impacto relevante
+(revision humana entera, no por muestreo); queda fuera de las sesiones de usuario y de negocio
+(Pasos 5 y 9); la inmovilidad del prototipo la vigila el historial (Paso 6); y la IA propone
+categoria por observacion sin pesar contra el Gate (Paso 8). No adopta la etapa: `project.md` sigue
+declarando solo `000_preproject` y `005_discovery` (`D-060` vigente).
 
 ---
 
@@ -118,7 +109,7 @@ alcanzable y personas que puedan hablar del proceso real, porque el propio archi
 que sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) y `T-038`
 (igualar el barrido de fuga de `protocol-audit`) siguen disponibles sin depender de `A-004`, igual
 que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en `S-011`. Para abrir
-`010_prototype`, falta escribir `_workflow/010_prototype.md` y adoptar formalmente la etapa en
+`010_prototype` ya estan las plantillas y el reparto; falta adoptar formalmente la etapa en
 `project.md` (`D-060`). Al abrir `005_discovery`, registrar el `D-XXX` de adopcion del reparto de
 `_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar las cinco señales que `D-054` dejo
 registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`). Aparte, es decision del usuario si
@@ -624,6 +615,40 @@ mismo defecto que la nota de la seccion 2 acota, con el mismo bloque anclado a `
   siguiente verifique la correccion sobre este commit y los cierre. Las cinco plantillas de
   `_templates/010_prototype/` no adoptan la etapa (`D-060` vigente) ni completan su condicion de
   entrada: falta `_workflow/010_prototype.md`, que no se escribio hoy.
+
+---
+
+### S-014 - Se acepta `F-034`; nace `D-065`/`L-020`, la seccion 7 del informe y `_workflow/010_prototype.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | `000_preproject` |
+| Tareas | T-049, T-050, T-051 |
+
+- **Que se hizo:** `manager` evaluo el hallazgo abierto por `R-013` sobre `S-013` (`F-034`), lo
+  verifico contra `HEAD` (`4e9d639`) y lo acepto: la seccion 6 de `_audit/S-013.md` afirmaba haber
+  publicado la lista completa del Paso 2d remitiendo a la verificacion de `T-046`, que contiene dos
+  ordenes y ninguna es la primera del Paso 2d — la salida solo vivio en pantalla. `T-049` deja nota
+  fechada al lado de la seccion 6 de `_audit/S-013.md`, sin reescribir el original (`D-019`),
+  publicando la lista entera anclada al rango `265bfeb..8eb8666` (`13` apariciones, `10` ordenes
+  distintas, no `nueve`). `T-050` ataca la causa de fondo: `D-065` decide que la evidencia del Paso
+  2d tiene sitio fijo — la seccion 7 nueva del informe `_audit/S-XXX.md` —, porque `D-063` decia
+  **que** publicar y no **donde**, y una evidencia sin destino no genera ningun momento en que se
+  eche en falta. Dos inserciones en `protocol-close`, ambas de solo-insercion. Nace `L-020`: una
+  regla que dice que registrar pero no donde no se incumple, se evapora.
+
+  Por pedido del usuario nace `_workflow/010_prototype.md` (`T-051`, `D-066`), condicion de entrada
+  de la etapa junto con las plantillas de `_templates/010_prototype/` (`_phases/010_prototype.md`
+  §5). Reparte los nueve pasos del procedimiento derivando `_workflow/team.md` y
+  `_workflow/ai_levels.md`: la IA construye el prototipo (Paso 4, primera vez que escribe codigo en
+  el metodo, autonomia reversible/impacto relevante, revision humana entera); queda fuera de las
+  sesiones de usuario y de negocio (Pasos 5 y 9); la inmovilidad del prototipo la vigila el
+  historial (Paso 6); y la IA clasifica sin pesar las observaciones (Paso 8). No adopta la etapa
+  (`D-060` vigente) ni reparte nada por si solo (`_workflow/team.md` §8).
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `T-037` y `T-038`
+  siguen `No implementada`. `F-034` queda `Aceptado — pendiente` hasta que la auditoria siguiente
+  verifique la correccion sobre este commit y lo cierre. `010_prototype` ya tiene plantillas y
+  reparto, pero sigue sin adoptarse en `project.md`.
 
 ---
 

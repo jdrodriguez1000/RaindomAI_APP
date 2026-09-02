@@ -28,6 +28,7 @@
 | [L-017](#l-017---una-condicion-de-salida-no-es-una-tarea-pendiente-y-confundirlas-desactiva-el-disparador) | Una condicion de salida no es una tarea pendiente, y confundirlas desactiva el disparador | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-018](#l-018---un-archivo-traido-de-otro-proyecto-destapa-contradicciones-que-alli-no-existian) | Un archivo traido de otro proyecto destapa contradicciones que alli no existian | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-019](#l-019---un-control-documentado-sobre-una-parte-de-su-propia-salida-no-es-el-control) | Un control documentado sobre una parte de su propia salida no es el control | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-020](#l-020---una-regla-que-dice-que-registrar-pero-no-donde-no-se-incumple-se-evapora) | Una regla que dice QUE registrar pero no DONDE no se incumple: se evapora | 2026-09-03 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -662,3 +663,35 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   misma orden sobre el mismo commit devuelve `26` y `28` segun quien la corra—, la lista es lo unico
   comparable: **una lista se compara linea a linea; un numero solo se puede creer.**
 - **Donde queda aplicada:** `D-063` y el parrafo nuevo del Paso 2d de `protocol-close` (`T-046`).
+
+---
+
+### L-020 - Una regla que dice QUE registrar pero no DONDE no se incumple: se evapora
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `D-063` y `L-019` nacieron en `S-013` para cerrar el octavo caso del defecto mas
+  repetido del repositorio: exigen que el Paso 2d publique **la lista completa** de su primera orden,
+  con su recuento. El mismo cierre que las escribio corrio el paso.
+- **Que ocurrio:** el paso se corrio y su salida se miro — y aun asi no quedo en ningun archivo. El
+  informe afirmo haberla publicado y remitio a la verificacion de una tarea donde no habia ninguna
+  lista (`F-034`, novena repeticion de la familia). La regla nueva se incumplio **en su primera
+  aplicacion, y por quien la habia escrito el dia anterior**.
+- **Leccion:** una regla de registro tiene **dos mitades**, y solo se cumple la que tiene sitio.
+  `D-063` decia **que** publicar y no **donde**; una evidencia sin destino asignado no genera ningun
+  momento en que se eche en falta — se produce, se mira, y desaparece con la sesion. No se incumple
+  de forma visible: **se evapora**, que es peor, porque nada chilla.
+- **Por que se escapa con facilidad:** al escribir la regla, el «donde» parece obvio —«pues donde
+  toque»—. Al aplicarla, cada sitio candidato tiene un argumento razonable en contra, y el que gana
+  es la pantalla. Es el mismo hueco que describe `L-008` —una regla sin mecanismo es una intencion—,
+  pero un escalon mas adentro: aqui **habia** mecanismo, y lo que faltaba era destino.
+- **Como aplicarla:** toda regla que obligue a registrar algo nombra **el archivo y la seccion**
+  donde aterriza, en la misma pasada en que se escribe. Si al escribirla no se sabe donde va, esa es
+  la senal de que falta la mitad, no de que se decidira sobre la marcha. Y el destino se declara
+  aunque el resultado sea vacio: «ninguna linea» tambien es un resultado, y una seccion vacia se ve;
+  una seccion que no existe, no.
+- **Donde queda aplicada:** `D-065` — la seccion 7 del informe de sesion, creada como destino fijo de
+  la evidencia del Paso 2d, y el parrafo del propio paso que la nombra (`T-050`).

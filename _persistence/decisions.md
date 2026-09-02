@@ -73,6 +73,8 @@
 | [D-062](#d-062---el-numero-de-participantes-lo-fija-el-proyecto-porque-la-guia-de-metodo-no-lo-fija) | El numero de participantes lo fija el proyecto, porque la guia de metodo no lo fija | 2026-09-02 | Vigente |
 | [D-063](#d-063---el-paso-2d-publica-la-lista-completa-de-su-primera-orden-no-una-seleccion) | El Paso 2d publica la lista completa de su primera orden, no una seleccion | 2026-09-02 | Vigente |
 | [D-064](#d-064---las-cinco-plantillas-del-prototipo-se-adaptan-de-las-del-usuario-no-se-copian) | Las cinco plantillas del prototipo se adaptan de las del usuario, no se copian | 2026-09-02 | Vigente |
+| [D-065](#d-065---la-evidencia-del-paso-2d-tiene-sitio-fijo-la-seccion-7-del-informe-de-sesion) | La evidencia del Paso 2d tiene sitio fijo: la seccion 7 del informe de sesion | 2026-09-03 | Vigente |
+| [D-066](#d-066---el-reparto-del-prototipo-la-ia-construye-no-facilita-y-clasifica-sin-pesar) | El reparto del prototipo: la IA construye, no facilita, y clasifica sin pesar | 2026-09-03 | Vigente |
 
 ---
 
@@ -3282,3 +3284,146 @@ del descubrimiento. **`020_observations.md` devuelve `3` y no `1`** porque adema
 dos veces en el cuerpo: las categorias que no pesan en el Gate van a «una etapa posterior» que
 tampoco esta declarada. Se publica la salida entera y se explica la diferencia, en vez de acotar el
 patron para que devolviera cinco unos (`L-019`).
+
+---
+
+### D-065 - La evidencia del Paso 2d tiene sitio fijo: la seccion 7 del informe de sesion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `D-063` fijo el dia anterior **que** el Paso 2d publica la lista completa de su
+  primera orden. `R-013` abrio `F-034` sobre esa misma sesion: el informe de `S-013` afirmo haberlo
+  cumplido y remitio a la verificacion de `T-046`, donde no hay ninguna lista. La salida solo vivio
+  en pantalla, y con la sesion desaparecio.
+- **La causa, y no es descuido:** `D-063` dice **que** publicar y no **donde**. Una evidencia sin
+  sitio asignado no tiene ningun momento en que se eche en falta: el cierre la produce, la mira, y
+  nada obliga a que aterrice en un archivo. Es el mismo hueco que `L-008` describe —una regla sin
+  mecanismo es una intencion—, aplicado a una regla que ya tenia mecanismo pero no destino.
+- **Decision:** la lista completa del Paso 2d se publica en **la seccion 7 del informe
+  `_audit/S-XXX.md`**, que nace con esta decision. Dos cambios en `protocol-close`: el Paso 2d dice
+  donde va, y la estructura del informe gana la seccion con sus huecos. Una lista vacia se publica
+  igual —«ninguna linea» tambien es un resultado.
+- **Por que en el informe y no en `tasks.md`:** la evidencia del Paso 2d no pertenece a ninguna
+  tarea. Es evidencia del **cierre**, se produce una vez por sesion y describe el commit entero;
+  colgarla de la tarea que toco es lo que hizo `S-013`, y por eso quedo colgada de una que no la
+  contenia. El informe es tambien lo que lee la auditoria, que es quien la va a contrastar.
+- **Alternativas descartadas:** (1) dejar el `donde` implicito y confiar en que el cierre lo pegue
+  donde toque —es exactamente lo que fallo—; (2) un archivo propio por sesion en `_audit/` —un
+  artefacto mas que mantener para algo que ya tiene contenedor natural, contra `PI-2`—; (3) exigirlo
+  en `_persistence/tasks.md` bajo la tarea del cierre —no hay tal tarea, y ademas mezcla evidencia de
+  sesion con evidencia de tarea.
+- **Lo que esto no arregla:** la seccion 7 obliga a que la lista aterrice, no a que este completa.
+  Que lo este lo sigue comprobando la auditoria reejecutando la orden por su cuenta (Control e de
+  `protocol-audit`), que es la unica lectura que no depende de lo que el cierre eligio pegar.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son
+  quince lineas insertadas en una skill, sin borrar ni reescribir nada y sin efecto sobre ningun
+  informe ya escrito.
+
+**Verificacion — los dos cambios existen, y el diff es solo insercion:**
+
+```
+$ grep -n "seccion 7 del informe" .claude/skills/protocol-close/SKILL.md
+280:🚨 **Y esa lista tiene un sitio fijo: la seccion 7 del informe de `_audit/S-XXX.md`, y no la
+
+$ grep -n "^## 7. Evidencia del Paso 2d" .claude/skills/protocol-close/SKILL.md
+694:## 7. Evidencia del Paso 2d
+
+$ git diff --numstat -- .claude/skills/protocol-close/SKILL.md
+15      0       .claude/skills/protocol-close/SKILL.md
+```
+
+---
+
+### D-066 - El reparto del prototipo: la IA construye, no facilita, y clasifica sin pesar
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `_phases/010_prototype.md` §5 declara `_workflow/010_prototype.md` **condicion de
+  entrada** de la etapa, junto con las plantillas: sin el, la etapa no puede abrirse aunque sus cinco
+  entradas esten completas. `S-013` escribio las plantillas y dejo el reparto pendiente; `R-013` lo
+  senalo como recomendacion sin hallazgo. El usuario lo pidio hoy.
+- **Decision:** nace `_workflow/010_prototype.md`, derivado de `_workflow/team.md` y
+  `_workflow/ai_levels.md`, con una fila por cada uno de los nueve pasos del procedimiento. Las
+  cinco asignaciones que lo definen:
+  1. **Paso 4 — la IA construye el prototipo**, y es la primera vez en el metodo que la IA escribe
+     codigo. Con autonomia de **reversible y de impacto relevante**: el humano lo revisa entero
+     antes de la primera sesion, no por muestreo.
+  2. **Pasos 5 y 9 — la IA queda fuera de las sesiones**, las de usuario y la de negocio. Puede
+     preparar el guion antes; durante, nada.
+  3. **Paso 6 — la inmovilidad del prototipo la vigila el historial, no una promesa.**
+  4. **Paso 8 — la IA propone la categoria de cada observacion; el peso contra el Gate lo decide un
+     humano.**
+  5. **Nivel de sistema de IA para el trabajo de la etapa: 2**, no 0–1, porque la IA escribe
+     archivos y eso es una herramienta que escribe.
+- **Por que la autonomia del Paso 4 no es la baja:** el prototipo se puede rehacer, pero **la ronda
+  no se puede repetir** — un usuario que ya vio el artefacto dejo de ser un usuario que lo ve por
+  primera vez, y esa es justo la condicion que la etapa mide. Un error de construccion no cuesta el
+  prototipo: cuesta los participantes.
+- **Alternativas descartadas:**
+  1. **Que el prototipo lo construya un humano.** Descartada: es generacion sobre lenguaje con un
+     artefacto barato al otro lado, la capacidad que `_workflow/team.md` §1 asigna a la IA, y poner
+     a un humano ahi es el antipatron «humano de software» de su §12.
+  2. **Autonomia baja en el Paso 4 —ejecutar y reportar, revision por muestreo—.** Descartada por lo
+     de arriba: el muestreo detecta el fallo despues de haberlo mostrado a alguien.
+  3. **La IA como facilitadora con guion en el Paso 5.** Descartada: los principios de no sesgo
+     describen a una persona leyendo a otra —un titubeo, una mano que vuelve atras—, y nada de eso
+     es texto.
+  4. **Sesiones simuladas con usuario de IA para completar el numero fijado.** Descartada de raiz, y
+     escrita como prohibicion explicita: produce evidencia inventada con forma de evidencia
+     validada, y el Gate decidiria una inversion sobre ella.
+  5. **Que la IA senale que observaciones son las importantes.** Descartada: solo tres de las nueve
+     categorias pesan en el Gate, y preguntarle cuales le parecen importantes devuelve exactamente
+     la opinion que la evaluacion por comportamiento existe para sacar de en medio.
+  6. **Aplazar este archivo hasta que la etapa se abra.** Descartada: es condicion de entrada, y una
+     condicion de entrada escrita el dia que se entra no condiciona nada.
+- **La discrepancia con la rubrica, declarada y no disimulada:** la tabla de lectura de
+  `_workflow/ai_levels.md` §6 manda al nivel 5 en cuanto cualquier eje esta en 3, y «variabilidad de
+  la entrada» lo esta. Se discute contra los ejes, como el propio archivo permite: impacto en 2 y
+  autonomia en 1 —los dos que protege su regla 2—, la variabilidad alta cae en las **notas de
+  sesion**, que las escribe un humano que estuvo delante, y el volumen en 1 esta acotado por el
+  limite de duracion de la etapa. **Si algun dia la IA produce el registro de las sesiones en vez de
+  transcribir notas humanas, el eje que se mueve es «impacto de un error» y la lectura ya no es
+  esta.**
+- **Lo que esto NO hace:** no adopta la etapa `010_prototype` —sigue sin fila en la tabla «Etapas»
+  de `project.md`, con `D-060` vigente— y no reparte nada por si solo. `_workflow/team.md` §8 es
+  explicito: leer la tabla no reparte; repartir es el `D-XXX` que se escriba **al abrir la etapa**,
+  con lo que se adopta y lo que se descarta.
+- **Una diferencia con el archivo hermano, dicha para que no se lea como descuido:** este archivo
+  **no cita ningun codigo instanciado**; `_workflow/005_discovery.md` cita uno (`L-014`). El nuevo
+  cumple la regla de codigos genericos que los dos declaran en su cabecera; el anterior no se toca
+  por esta decision — `PI-3`, y renombrar o borrar una cita en un archivo ya auditado es trabajo con
+  su propio riesgo.
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — es un
+  archivo nuevo en una carpeta ya declarada, no borra ni publica nada, y ninguna etapa esta abierta
+  todavia para que rija sobre trabajo en curso.
+
+**Verificacion — el archivo existe, tiene una fila por paso, la etapa lo cita, y es agnostico:**
+
+```
+$ grep -c "^| \*\*[1-9] · " _workflow/010_prototype.md
+9
+
+$ grep -n "_workflow/010_prototype" _phases/010_prototype.md
+144:**`_workflow/010_prototype.md`**, que se lee ahora y no despues. Ese reparto se adopta con su `D-XXX` en el
+314:🚨 **Las plantillas y el reparto de `_workflow/010_prototype.md` son condicion de entrada, no
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md ; echo "exit=$?"
+exit=1
+
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/005_discovery.md ; echo "exit=$?"
+188:manda leer es material muerto que ningun control detecta — el cuarto enganche de `L-014`.
+exit=0
+```
+
+📌 **La quinta orden se publica aunque sea del archivo hermano y no del nuevo.** Es la evidencia de
+la diferencia que declara la vineta de arriba: sin ella, «el nuevo cumple y el viejo no» seria un
+veredicto sin su comando.

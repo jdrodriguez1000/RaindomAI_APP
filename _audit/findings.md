@@ -45,7 +45,7 @@
 | [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Implementado |
 | [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Implementado |
 | [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Implementado |
-| [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Abierto |
+| [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Aceptado — pendiente |
 
 ---
 
@@ -2124,8 +2124,8 @@ $ git show 265bfeb:project.md | grep "| Etapas declaradas |"
 | Auditoria | R-013 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-049`, `T-050`, `D-065` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 6 de `_audit/S-013.md` afirma que el Paso 2d se aplico a si mismo y
@@ -2164,4 +2164,22 @@ $ git grep -c "nueve ordenes" 8eb8666 -- _persistence _audit
   o, si esa salida solo vivio en pantalla, que la nota lo diga en vez de remitir a `T-046`. Para el
   patron de fondo: `D-063` dice **que** publicar pero no **donde**, y una evidencia sin sitio
   asignado desaparece con la sesion.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** **aceptado.** `manager` lo verifico contra `HEAD` (`4e9d639`) y se sostiene: la
+  verificacion de `T-046` contiene dos ordenes y ninguna es la primera del Paso 2d aplicada a ese
+  cierre; la lista no esta en ningun archivo del commit. Se corrige en dos mitades. La concreta,
+  `T-049`: nota fechada al lado de la seccion 6 de `_audit/S-013.md` (`D-019`, sin reescribir el
+  original) que declara que la lista no se publico y la publica ahora entera, anclada al rango
+  `265bfeb..8eb8666`, con sus dos recuentos —`13` apariciones, `10` ordenes distintas, no `nueve`—.
+  La de fondo, `T-050` y `D-065`: la evidencia del Paso 2d gana sitio fijo —la seccion 7 del informe
+  `_audit/S-XXX.md`—, porque `D-063` decia que publicar y no donde.
+
+~~~
+$ sed -n '/^### T-046/,/^---/p' _persistence/tasks.md | grep -cE '^\$ '
+2
+
+$ grep -c "Nota del 2026-09-03 (\`T-049\`, hallazgo \`F-034\`)" _audit/S-013.md
+1
+
+$ grep -n "^## 7. Evidencia del Paso 2d" .claude/skills/protocol-close/SKILL.md
+694:## 7. Evidencia del Paso 2d
+~~~
