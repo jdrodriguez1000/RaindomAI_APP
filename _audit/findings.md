@@ -45,7 +45,9 @@
 | [F-031](#f-031---el-recuento-quince-lecciones-sin-evaluar-no-se-reproduce-sobre-su-propio-commit-y-esta-en-cuatro-sitios) | El recuento «quince lecciones `Sin evaluar`» no se reproduce sobre su propio commit, y esta en cuatro sitios | R-011 | Media | Implementado |
 | [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Implementado |
 | [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Implementado |
-| [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Aceptado — pendiente |
+| [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Implementado |
+| [F-035](#f-035---la-seccion-7-de-s-014-atribuye-tres-de-sus-once-ordenes-a-bloques-donde-no-estan) | La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan | R-014 | Media | Abierto |
+| [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Abierto |
 
 ---
 
@@ -2124,9 +2126,9 @@ $ git show 265bfeb:project.md | grep "| Etapas declaradas |"
 | Auditoria | R-013 |
 | Fecha | 2026-09-02 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-049`, `T-050`, `D-065` |
-| Cerrado en | |
+| Cerrado en | `ca56b93` |
 
 - **Que se observo:** la seccion 6 de `_audit/S-013.md` afirma que el Paso 2d se aplico a si mismo y
   remite a la verificacion de `T-046` para la evidencia —«las nueve ordenes sin ancla se reejecutaron
@@ -2183,3 +2185,100 @@ $ grep -c "Nota del 2026-09-03 (\`T-049\`, hallazgo \`F-034\`)" _audit/S-013.md
 $ grep -n "^## 7. Evidencia del Paso 2d" .claude/skills/protocol-close/SKILL.md
 694:## 7. Evidencia del Paso 2d
 ~~~
+
+- **Verificado por `R-014` sobre `ca56b93`:** las dos mitades estan en el diff. La nota fechada en
+  `_audit/S-013.md` es solo insercion (`35 0`, bloque unico `@@ -135,6 +135,41 @@`, cero lineas
+  borradas) y publica la lista entera; reejecutada en el entorno de la auditoria devuelve las mismas
+  trece lineas y los recuentos `13`/`10`. `protocol-close` gana el destino en el Paso 2d (linea 280)
+  y la seccion 7 de la estructura del informe (linea 694), y `S-014` la usa: su seccion 7 existe y su
+  lista reproduce linea a linea. Los errores de **procedencia** de esa seccion son defecto nuevo
+  (`F-035`), no esta falta.
+
+~~~
+$ git show ca56b93 -- _audit/S-013.md | grep -cE '^-[^-]'
+0
+
+$ git diff 265bfeb 8eb8666 -U0 -- _persistence _audit | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+13
+
+$ git show ca56b93:.claude/skills/protocol-close/SKILL.md | grep -n "^## 7. Evidencia del Paso 2d"
+694:## 7. Evidencia del Paso 2d
+~~~
+
+---
+
+### F-035 - La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan
+| Campo | Valor |
+|---|---|
+| Auditoria | R-014 |
+| Fecha | 2026-09-03 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la lista y los recuentos de la seccion 7 de `_audit/S-014.md` reproducen
+  exactos (19 apariciones, 11 ordenes distintas). Lo que no se sostiene es la anotacion de
+  procedencia: las tres primeras lineas salen de `_audit/findings.md` (bloque de `F-034`), y la
+  seccion las atribuye a `_persistence/tasks.md`/`T-050`, a `_audit/S-013.md`/`T-049` y a
+  «`T-050` y `T-051`». La tercera atribucion es falsa: el bloque de `T-051` no contiene esa orden.
+  El parrafo de cierre —«los bloques de verificacion de `D-065`, `D-066`, `T-049`, `T-050` y
+  `T-051`»— y la explicacion de las repeticiones omiten `_audit/findings.md`, que aporta tres de las
+  diecinueve apariciones.
+
+~~~
+$ git diff ca56b93^ ca56b93 -U0 -- _persistence _audit ":(exclude)_audit/S-014.md" | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | head -3
+b/_audit/findings.md :: +$ sed -n '/^### T-046/,/^---/p' _persistence/tasks.md | grep -cE '^\$ '
+b/_audit/findings.md :: +$ grep -c "Nota del 2026-09-03 (\`T-049\`, hallazgo \`F-034\`)" _audit/S-013.md
+b/_audit/findings.md :: +$ grep -n "^## 7. Evidencia del Paso 2d" .claude/skills/protocol-close/SKILL.md
+
+$ git show ca56b93:_persistence/tasks.md | sed -n '/^### T-051/,/^---$/p' | grep -E '^\$ '
+$ grep -c "^| \*\*[1-9] · " _workflow/010_prototype.md
+$ grep -n "_workflow/010_prototype" _phases/010_prototype.md
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md ; echo "exit=$?"
+~~~
+
+- **Por que importa:** la seccion 7 nace en este commit para cerrar `F-034`, cuyo defecto era «el
+  informe remite a un sitio donde la evidencia no esta». La lista ya no falta, pero el puntero de
+  tres de sus lineas vuelve a apuntar a donde no estan. Quien siga la anotacion para contrastar una
+  orden contra su bloque no la encuentra.
+- **Que lo corregiria:** nota fechada al lado de la seccion 7 de `_audit/S-014.md` (`D-019`, sin
+  reescribir) con la procedencia real; y, para el fondo, que la seccion 7 de `protocol-close` pida
+  derivar la procedencia del diff con `awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}'` en vez de
+  escribirla a mano.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-036 - Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-014 |
+| Fecha | 2026-09-03 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-066` y `T-051` declaran que `_workflow/005_discovery.md` incumple la regla
+  de codigos genericos que su propia cabecera enuncia —cita `L-014`, instanciado—, publican el
+  comando que lo prueba, y deciden no tocarlo por `PI-3`. No queda ni `T-XXX` ni `DT-XXX`:
+  `techdebt.md` sigue con `DT-001` y `DT-002`, y `DT-002` trata de otra cosa (que `_workflow/` nacio
+  sin enganche de uso).
+
+~~~
+$ git show ca56b93:_workflow/005_discovery.md | grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+"
+188:manda leer es material muerto que ningun control detecta — el cuarto enganche de `L-014`.
+
+$ git show ca56b93:_persistence/techdebt.md | sed -n '/^## Indice/,/^---/p' | grep -c '^| \[DT'
+2
+~~~
+
+- **Por que importa:** `_workflow/` esta en la lista de carpetas que tienen que poder copiarse tal
+  cual a otro proyecto, y `CLAUDE.md` exige para el caso simetrico que lo que incumple y se deja «se
+  registre como deuda tecnica con su motivo». Aparcado solo dentro del cuerpo de una decision, no
+  aparece en ningun indice de trabajo pendiente y nada lo trae de vuelta.
+- **Que lo corregiria:** un `DT-XXX` que nombre la cita, su archivo y por que se aplaza; o una
+  `T-XXX` que reescriba la frase en forma generica.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
