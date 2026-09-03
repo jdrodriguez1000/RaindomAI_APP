@@ -75,6 +75,10 @@
 | [D-064](#d-064---las-cinco-plantillas-del-prototipo-se-adaptan-de-las-del-usuario-no-se-copian) | Las cinco plantillas del prototipo se adaptan de las del usuario, no se copian | 2026-09-02 | Vigente |
 | [D-065](#d-065---la-evidencia-del-paso-2d-tiene-sitio-fijo-la-seccion-7-del-informe-de-sesion) | La evidencia del Paso 2d tiene sitio fijo: la seccion 7 del informe de sesion | 2026-09-03 | Vigente |
 | [D-066](#d-066---el-reparto-del-prototipo-la-ia-construye-no-facilita-y-clasifica-sin-pesar) | El reparto del prototipo: la IA construye, no facilita, y clasifica sin pesar | 2026-09-03 | Vigente |
+| [D-067](#d-067---el-gate-1-no-es-una-etapa-se-monta-como-agente-y-skill) | El Gate 1 no es una etapa: se monta como agente y skill | 2026-09-02 | Vigente |
+| [D-068](#d-068---el-gate-1-son-dos-firmas-gate1_auditor-dictamina-y-el-patrocinador-decide) | El Gate 1 son dos firmas: `gate1_auditor` dictamina y el patrocinador decide | 2026-09-02 | Vigente |
+| [D-069](#d-069---no-auditable-es-un-tercer-resultado-del-gate-1-que-la-guia-de-metodo-no-tiene) | `NO AUDITABLE` es un tercer resultado del Gate 1, que la guia de metodo no tiene | 2026-09-02 | Vigente |
+| [D-070](#d-070---los-dictamenes-del-gate-1-son-correlativos-y-ninguno-se-sobrescribe) | Los dictamenes del Gate 1 son correlativos, y ninguno se sobrescribe | 2026-09-02 | Vigente |
 
 ---
 
@@ -3427,3 +3431,257 @@ exit=0
 📌 **La quinta orden se publica aunque sea del archivo hermano y no del nuevo.** Es la evidencia de
 la diferencia que declara la vineta de arriba: sin ella, «el nuevo cumple y el viejo no» seria un
 veredicto sin su comando.
+
+---
+
+### D-067 - El Gate 1 no es una etapa: se monta como agente y skill
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario trajo a `temporal/015_gate1.md` un borrador del Gate 1 y pidio analizarlo
+  para construir `_phases/015_gate1.md`. Al contrastarlo con `_methodology/000_method.md` §28–§32 y
+  con los tres archivos de `_phases/` aparecio una pregunta previa: **si el Gate es una etapa.**
+- **La distincion que decide:** una etapa es un **tramo de trabajo** —dura sesiones, autoriza
+  producir unas cosas y prohibe otras, acumula artefactos—, y por eso su archivo tiene las secciones
+  «que autoriza», «que prohibe» y «condicion de salida». Un Gate es un **acto de juicio**: lee
+  evidencia ya escrita, la contrasta contra criterios y devuelve un dictamen. No produce producto y
+  no dura. Sus secciones §1 y §2 habrian sido la carta de un agente, no la de una etapa.
+- **Decision:** el Gate 1 **no se declara como etapa** y no tiene archivo en `_phases/`. Se monta con
+  la forma que este repositorio ya usa para los actos: **un agente y su skill** —`gate1_auditor` y
+  `protocol-gate1`—, como los tres pares que ya existen. Su plantilla vive en `_templates/015_gate1/`
+  y su dictamen en `_audit/015_gate1/`.
+- **Por que esa forma y no otra:** los tres protocolos del repositorio —arranque, cierre, auditoria—
+  son exactamente esto: un procedimiento determinista, un agente que arranca en frio, un artefacto de
+  salida y un sitio fijo donde escribirlo. El Gate encaja sin forzar nada.
+- **Lo que ademas se evita:** como etapa arrastraba cinco artefactos —fila en `project.md`, `D-XXX`
+  de adopcion, `_workflow/015_gate1.md`, `_templates/015_gate1/` y carpeta de entregables— para un
+  acto que dura una sesion. Como protocolo arrastra dos. Ademas desaparece el parrafo de «existe pero
+  no esta adoptada» que `010_prototype.md` tuvo que escribir, porque **un protocolo no se adopta: se
+  invoca**.
+- **Y coincide con la guia de metodo:** §5 dibuja los Gates como rombos **entre** etapas, y la tabla
+  de §4 —«cada etapa responde una pregunta»— lista PROTOTIPO, MVP y EVOL. Los Gates no estan ahi. La
+  guia nunca los llamo etapas.
+- **Nomenclatura:** la carpeta es `015_gate1`, no `015_gate_1`. El patron vigente es `NNN_palabra`
+  —`000_preproject`, `005_discovery`, `010_prototype`— y no separa el digito final. El prefijo `015_`
+  marca **donde cae en el ciclo**, no que sea una etapa.
+- **Alternativas descartadas:** (1) declararlo etapa con archivo en `_phases/` —era la peticion
+  literal, y arrastra cinco artefactos de ceremonia para un acto de un dia, contra `PI-2`—;
+  (2) dejarlo solo en `_methodology/` como parte de la guia —describiria el Gate sin que nadie pueda
+  ejecutarlo, y §28–§32 ya lo describe—; (3) escribir el archivo en `_phases/` pero aclarando dentro
+  que no es una etapa —rompe la definicion que `project.md` da de esa carpeta, «un archivo por etapa
+  declarada», y deja la carpeta significando dos cosas.
+- **Lo que esto no resuelve:** un protocolo se invoca cuando alguien quiere, mientras que una etapa
+  se cierra con condiciones. El Gate hereda el limite conocido de `report_auditor` —lo lanza el
+  propio evaluado—, y el antidoto es el mismo: se anclo en `_phases/010_prototype.md` §6 como ultimo
+  paso obligatorio de la etapa, no como algo que se hace cuando toca.
+- **Gate 2:** no se adelanta. Se montara cuando exista, con lo que entonces se sepa que comparte de
+  verdad con el primero, en vez de adivinarlo hoy (`PI-2`).
+- **Clasificacion:** **reversible a criterio**, y lo declaro como criterio y no como tabla — son
+  archivos nuevos y tres inserciones en `project.md`; nada se borro y nada se renombro. Si mañana se
+  decidiera que si es etapa, el contenido se muda sin perdida.
+
+**Verificacion — el par existe, y `_phases/` sigue con tres archivos:**
+
+```
+$ ls -1 .claude/agents/ .claude/skills/
+.claude/agents/:
+gate1_auditor.md
+report_auditor.md
+session-closer.md
+session-starter.md
+
+.claude/skills/:
+protocol-audit
+protocol-close
+protocol-gate1
+protocol-start
+
+$ ls -1 _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+
+$ ls -1 _templates/015_gate1/
+005_verdict.md
+```
+
+**Verificacion — lo nuevo no filtra datos propios (patron del Paso 1b, sobre los seis directorios):**
+
+```
+$ grep -rnE "RaindomAI|RaidomAI_App|C:\\Users\\USUARIO|github\.com" .claude CLAUDE.md _phases _methodology _templates _workflow
+exit=1
+```
+
+📌 **Se uso `grep -r` y no `git grep` a proposito:** `git grep` solo mira archivos versionados, y los
+de esta decision todavia no lo estaban cuando se corrio — el `git grep` que se probo antes devolvio
+cero por no verlos, no por estar limpios. El barrido del Paso 1b los cubrira ya versionados.
+
+---
+
+### D-068 - El Gate 1 son dos firmas: `gate1_auditor` dictamina y el patrocinador decide
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el borrador de `temporal/015_gate1.md` daba a la revision independiente un unico
+  archivo encabezado `VEREDICTO GATE 1: APROBADO | NO APROBADO | NO AUDITABLE`. «Aprobado» es una
+  **decision de inversion**, no un dictamen tecnico — y con esa forma la revision decide, que es lo
+  que `CLAUDE.md` prohibe a un auditor y lo que `000_method.md` §32 separa en dos firmas.
+- **Donde se veia el colapso:** el borrador metia los **siete** criterios de §29 en la tabla que
+  audita la revision, incluido el 6 —«hay confianza suficiente para la inversion del MVP»—. Ese
+  criterio **no tiene ningun artefacto contra el que verificarse**: es literalmente la firma del
+  patrocinador. Los otros seis si se leen contra archivos.
+- **Decision:** el Gate 1 produce **dos cosas separadas, y ninguna sustituye a la otra**:
+
+| Firma | Quien | Que produce | Donde queda |
+|---|---|---|---|
+| **Dictamen tecnico** | `gate1_auditor` | `CRITERIOS SATISFECHOS` · `CRITERIOS NO SATISFECHOS` · `NO AUDITABLE` | `_audit/015_gate1/005_verdict_NNN.md` |
+| **Decision de inversion** | el usuario, como patrocinador | construir el MVP · replantear · detener | `_persistence/decisions.md`, con su `D-XXX` |
+
+- **Consecuencias concretas:** el agente audita **seis** criterios, no siete; el 6 aparece en su
+  tabla marcado `— corresponde al patrocinador`, para que se vea que no se paso por alto y no como un
+  hueco; y las palabras `APROBADO` y `NO APROBADO` **no aparecen como valor** en ningun artefacto del
+  Gate.
+- **El patrocinador puede decidir contra el dictamen, y es legitimo.** Lo que no puede es cambiarlo:
+  un `NO CUMPLE` es un hecho verificable contra los archivos. Si se decide construir igual, la
+  `D-XXX` dice por que — y eso vale mucho mas que un dictamen ablandado, porque dentro de seis meses
+  se puede leer que se sabia y que se decidio a pesar de ello.
+- **Por que el dictamen y la decision viven en sitios distintos:** el dictamen es producto de una
+  revision independiente y va donde va todo lo que produce una —`_audit/`—; la decision es del
+  negocio y va donde han ido todas las decisiones del proyecto. Juntarlos en un archivo es lo que
+  hacia el borrador, y es lo que permitia que una firma se leyera como la otra.
+- **Alternativas descartadas:** (1) un solo archivo con las dos firmas dentro —lo del borrador; la
+  proximidad fisica es justo lo que colapsa los papeles—; (2) que el agente emita `APROBADO` y el
+  patrocinador solo lo ratifique —convierte la segunda firma en un tramite y traslada la decision de
+  inversion a quien no la asume—; (3) que el agente evalue tambien el criterio 6 declarandolo
+  `NO COMPROBABLE` siempre —tecnicamente cierto, pero enseña a leer `NO COMPROBABLE` como ruido de
+  formulario justo en la tabla donde ese valor tiene que pesar.
+- **Clasificacion:** **reversible a criterio** — es la forma de dos artefactos que todavia no se han
+  producido ni una vez; no hay ningun Gate corrido al que afecte.
+
+**Verificacion — el criterio 6 esta marcado como del patrocinador, y `APROBADO` solo aparece prohibido:**
+
+```
+$ grep -n "corresponde al patrocinador" .claude/skills/protocol-gate1/SKILL.md _templates/015_gate1/005_verdict.md
+.claude/skills/protocol-gate1/SKILL.md:232:te prohibe. En el dictamen aparece con `— corresponde al patrocinador`, para que se vea que no se
+.claude/skills/protocol-gate1/SKILL.md:410:| 6 | — | corresponde al patrocinador |
+.claude/skills/protocol-gate1/SKILL.md:437:- **El criterio 6 no es tuyo.** Se marca `— corresponde al patrocinador`, no se evalua.
+_templates/015_gate1/005_verdict.md:136:| 6 | Hay confianza suficiente para la inversion del MVP | **—** | **corresponde al patrocinador** |
+
+$ grep -nE "NO APROBADO|APROBADO" _templates/015_gate1/005_verdict.md
+29:> ⛔ **Las palabras `APROBADO` y `NO APROBADO` no aparecen en este archivo.** Nombran la decision, y
+```
+
+📌 **La unica aparicion en la plantilla es la linea que las prohibe.** Ninguna como valor.
+
+---
+
+### D-069 - `NO AUDITABLE` es un tercer resultado del Gate 1, que la guia de metodo no tiene
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `_methodology/000_method.md` §31 solo contempla dos resultados para el Gate 1:
+  **Aprobado** y **No aprobado**. El borrador del usuario añadia un tercero, `NO AUDITABLE`, con su
+  argumento.
+- **La distincion, y es real:** «no aprobado» dice que la evidencia existe, es legitima **y dice que
+  no**. `NO AUDITABLE` dice que **no se puede saber lo que dice**. El prototipo pudo haber ido
+  perfecto — pero si la hipotesis se escribio despues de las sesiones, describe lo que salio, y no
+  hay nada contra que medirla. Colapsarlos obliga a elegir entre dar un verde que no se sostiene o un
+  rojo que acusa a un trabajo que quiza estuvo bien.
+- **Decision:** se adopta `NO AUDITABLE` como tercer resultado, y **se declara aqui como adicion**:
+  la guia de metodo no lo tiene, y `protocol-gate1` lo dice en vez de presentarlo como si lo leyera
+  de §31. Se determina en la **Comprobacion 0**, que corre **antes** que ningun criterio y se
+  resuelve **con fechas del historial de `git`**, no preguntando: que la hipotesis, la tarea, el
+  perfil y el numero existieran antes de la primera sesion; que lo sellado no cambiara; que el
+  prototipo no cambiara entre sesiones; y que cada sesion se escribiera el dia que ocurrio.
+- **Que lo hace valioso, y no es la etiqueta:** es la unica comprobacion del metodo **imposible de
+  aprobar a posteriori**. Todo lo demas se puede redactar mejor; el orden en que se escribieron esas
+  cuatro cosas, no. Las fechas del historial no se pueden convencer.
+- **Consecuencias:** `NO AUDITABLE` **corta el protocolo** —no se rellena la tabla de criterios— y
+  **no llega al patrocinador**: no hay decision de inversion que tomar sobre una evidencia que no se
+  puede leer. Lo que se produce es la lista de que evidencia hay que rehacer, y **no se rehace el
+  prototipo: se rehace solo la evidencia que fallo**.
+- **Adicion hermana, del mismo origen y por la misma razon:** cada criterio se resuelve con **tres**
+  valores —`CUMPLE`, `NO CUMPLE`, `NO COMPROBABLE`— y no con dos. `NO COMPROBABLE` **no se redondea a
+  `CUMPLE`**: un revisor que calla lo que no supo mirar miente por omision, y da exactamente el mismo
+  verde que uno que comprobo. La guia tampoco tiene esta gradacion.
+- **Alternativas descartadas:** (1) quedarse con los dos resultados de §31 y tratar la evidencia
+  inauditable como `No aprobado` —acusa de fracaso a un prototipo que quiza funciono, y ademas oculta
+  el fallo real, que es de procedimiento—; (2) tratarla como `Aprobado` con salvedades —es el peor de
+  los tres: autoriza la inversion mas cara del proyecto sobre evidencia que nadie pudo leer—;
+  (3) proponer el cambio a `_methodology/000_method.md` y esperar —la guia es documento canonico
+  consolidado, y tocarla exige su propia vuelta; se registra la adicion y se decide despues si sube.
+- **Lo que esto no arregla:** `NO AUDITABLE` detecta que la evidencia no se puede leer, no impide que
+  se produzca asi. Lo que lo previene es el orden de los pasos 2 y 3 antes del 4 en
+  `_phases/010_prototype.md`, que ya estaba escrito.
+- **Clasificacion:** **reversible a criterio** — es una adicion declarada en un protocolo que aun no
+  se ha ejecutado; no reescribe la guia de metodo ni ningun dictamen anterior, porque no hay ninguno.
+
+**Verificacion — la guia tiene dos resultados, y el protocolo declara el tercero:**
+
+```
+$ sed -n '/^## 31. Resultados posibles/,/^↳/p' _methodology/000_method.md
+## 31. Resultados posibles
+
+| Resultado | Consecuencia |
+|---|---|
+| **Aprobado** | → Product Baseline → WSLT |
+| **No aprobado** | → aprender, replantear la hipótesis, o detener |
+
+Detener aquí es un **resultado válido y barato**. Es el propósito de la etapa.
+
+↳ *005 §3 · 015 §14, §15*
+
+$ grep -c "NO AUDITABLE" .claude/skills/protocol-gate1/SKILL.md _templates/015_gate1/005_verdict.md
+.claude/skills/protocol-gate1/SKILL.md:10
+_templates/015_gate1/005_verdict.md:8
+```
+
+---
+
+### D-070 - Los dictamenes del Gate 1 son correlativos, y ninguno se sobrescribe
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-069` admite que un Gate acabe en `NO AUDITABLE`, y en ese caso la evidencia se
+  rehace y el Gate **se vuelve a correr**. Eso significa que un mismo Gate 1 puede producir varios
+  dictamenes.
+- **El riesgo que aparece con eso:** un Gate que se puede repetir se puede repetir hasta que salga.
+  Si cada pasada sobrescribe la anterior, el registro final muestra un solo dictamen limpio y nadie
+  sabra nunca cuantos intentos hicieron falta ni por que fallaron.
+- **Decision:** los dictamenes se numeran `005_verdict_001.md`, `005_verdict_002.md`, … en
+  `_audit/015_gate1/`. **El numero no se reutiliza, ninguno se borra y ninguno se sobrescribe.**
+  Antes de escribir el suyo, `gate1_auditor` **lee los anteriores**: si el mismo fallo de
+  Comprobacion 0 ya salio, eso es un hallazgo de **importancia alta** por si mismo, porque el
+  problema ya no es la evidencia — es que la etapa se esta corriendo al reves.
+- **Por que la regla necesita el archivo:** «`NO AUDITABLE` no puede repetirse dos veces por la misma
+  causa» es incomprobable si el dictamen anterior no existe. La regla y la conservacion son la misma
+  decision vista por sus dos caras — es el hueco que `L-008` describe: una regla sin mecanismo es una
+  intencion.
+- **Alternativas descartadas:** (1) un solo archivo que se reescribe en cada pasada —hace invisible
+  la repeticion, que es justo lo que hay que ver—; (2) conservar los anteriores solo en el historial
+  de `git` y sobrescribir el archivo —tecnicamente recuperable, pero exige saber que hay que mirar el
+  historial, y una comprobacion que depende de que alguien sospeche no se corre nunca—; (3) un indice
+  de pasadas aparte —un artefacto mas para algo que el nombre correlativo ya ordena, contra `PI-2`.
+- **Clasificacion:** **reversible a criterio** — fija el nombre de archivos que aun no existen.
+
+**Verificacion — la regla y su mecanismo estan escritos en los dos artefactos:**
+
+```
+$ grep -n "no puede repetirse dos veces" .claude/skills/protocol-gate1/SKILL.md
+348:🚨 **`NO AUDITABLE` no puede repetirse dos veces por la misma causa.** Antes de escribir el tuyo,
+
+$ grep -n "ya salio en un dictamen anterior" _templates/015_gate1/005_verdict.md
+213:**¿Este mismo fallo ya salio en un dictamen anterior?** `<NO / SI — 005_verdict_<NNN>.md>`
+```

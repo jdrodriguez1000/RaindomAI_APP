@@ -352,6 +352,31 @@ revisa a si mismo comprueba que es **coherente**, no que sea **cierto**.
 decisiones, no este archivo.** Y mientras esa asignacion no este registrada con su `D-XXX`, el Gate
 no se puede declarar — ni siquiera para aprobarlo.
 
+### 🚨 Lanzar el Gate es el ultimo paso de esta etapa, y no es opcional
+
+En cuanto las siete condiciones de salida son ciertas y **la evidencia esta commiteada y subida**,
+`manager` lanza la revision independiente del Gate. **Ese es el cierre real de la etapa**, no la
+septima casilla.
+
+⚠️ **Va escrito aqui porque si no, no lo señala nadie.** Un Gate lo convoca el propio evaluado — el
+mismo limite que tiene la auditoria de cada sesion, y con la misma consecuencia: si no se lanza, no
+hay revision y **nadie lo nota**. Lo que se nota es lo contrario, y tarde: alguien empieza a
+construir el MVP porque el prototipo «salio bien», sin que exista un solo documento que lo diga.
+
+📌 **Se lanza sobre evidencia subida, y por el mismo motivo que la auditoria corre despues del
+commit:** la revision arranca en frio y **solo ve lo commiteado**. Lo que siga sin subir le es
+invisible, y su dictamen describiria una etapa incompleta sin saberlo.
+
+🔑 **Y no se le cuenta como fue.** Quien conduzco las sesiones no le explica el contexto, no le
+adelanta el resultado y no le señala donde mirar. Un revisor al que se le explica el contexto deja
+de revisar y pasa a confirmar — y entonces produce un visto bueno que no vale nada, justo antes de
+la inversion mas cara del proyecto.
+
+🚨 **La etapa no termina con el dictamen: termina con la decision.** El dictamen dice si los
+criterios se satisfacen; **quien patrocina decide** si se construye, se replantea o se detiene, y esa
+decision se registra con su `D-XXX`. Mientras falte la segunda firma, el Gate sigue abierto por bien
+que salgan los criterios.
+
 🔑 **Un resultado `NO APROBADO` es un resultado valido, y barato.** Se registra igual que uno
 aprobado, con su `D-XXX`: detener o replantear aqui cuesta lo que costo el prototipo, y es
 exactamente para eso que la etapa existe. Lo que no se registra se repite.

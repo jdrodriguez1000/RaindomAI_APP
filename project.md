@@ -65,6 +65,18 @@ consulta, como lo seria una documentacion en linea.
 | **usuario** | decide alcance, prioridades y lo irreversible | — |
 | **`manager`** (esta sesion) | dirige, coordina, construye, y registra el porque en el momento | **no audita su propio trabajo** |
 | **`report_auditor`** (agente) | audita un commit ya cerrado, verifica y recomienda | **no construye, no corrige, no decide** |
+| **`gate1_auditor`** (agente) | emite el **dictamen tecnico** del Gate 1 sobre la evidencia del prototipo | **no construye, no corrige, y no decide si se construye el MVP** |
+
+🚨 **Un Gate necesita dos firmas, y ninguna sustituye a la otra.** `gate1_auditor` dice si la
+evidencia satisface los criterios, uno por uno, y ahi termina su papel; **quien decide si se
+construye el MVP, se replantea o se detiene es el usuario, como patrocinador**, y esa decision queda
+en `_persistence/decisions.md` con su `D-XXX`. Auditar y decidir son papeles incompatibles: quien
+decide asume la consecuencia de la inversion, y quien la asume ya no puede señalar el error de esa
+decision en la pasada siguiente.
+
+⚠️ **El patrocinador puede decidir contra el dictamen; lo que no puede es cambiarlo.** Un criterio
+`NO CUMPLE` es un hecho verificable contra los archivos. Si se decide construir igual, la `D-XXX`
+dice por que — y eso vale mucho mas que un dictamen ablandado.
 
 🚨 **Quien construye no puede ser su propio testigo, y por eso el auditor es un agente aparte.**
 Arranca en frio: no vio la conversacion de la jornada, y solo puede leer archivos y `git`. Esa
@@ -117,6 +129,26 @@ etapas.** Ese archivo es la **guia de metodo**: dice que etapas existen en el me
 responde cada una. Lo que este proyecto ha adoptado es lo que diga la tabla de arriba, y hoy son dos.
 Adoptar cualquier otra exige su `D-XXX` y su archivo en `_phases/`. **Una guia no es un acta.**
 
+### Un Gate no es una etapa
+
+🚨 **Los Gates del metodo no se declaran en la tabla de arriba, y no tienen archivo en `_phases/`.**
+Una etapa es un **tramo de trabajo**: dura sesiones, autoriza producir unas cosas y prohibe otras, y
+acumula artefactos. Un Gate es un **acto de juicio**: lee evidencia ya escrita, la contrasta contra
+unos criterios y devuelve un dictamen. No produce producto y no dura.
+
+Por eso un Gate se monta con la misma forma que los demas actos del repositorio —**un agente y su
+skill**—, y no con un archivo de etapa. Lo fija `D-067`.
+
+| Gate | Agente | Skill | Donde deja su dictamen |
+|---|---|---|---|
+| **Gate 1** — ¿vale la pena construir el MVP? | `gate1_auditor` | `protocol-gate1` | `_audit/015_gate1/` |
+
+⚠️ **El prefijo `015_` marca donde cae en el ciclo, no que sea una etapa.** Se eligio para que se
+lea junto a `010_prototype`, que es la etapa cuya evidencia juzga.
+
+📌 **El Gate 2 no existe todavia**, y no se adelanta: se montara cuando haga falta, con lo que
+entonces se sepa que comparte de verdad con el primero.
+
 ⚠️ **Aqui va el vocabulario, no el avance: que etapas existen, no en cual estamos.** En cual
 estamos vive en `_persistence/progress.md`, que es lo que cambia. Declararlo tambien aqui crearia
 dos sitios que hay que acordarse de actualizar a la vez, y el dia que uno se olvide habria que
@@ -142,10 +174,10 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `.claude/` | **Con que** se construye: los agentes y las skills que ejecutan los protocolos. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_brief/` | El encargo del cliente, tal como llego. **Entrada al proyecto, no registro de el** |
 | `_persistence/` | **Como va** el trabajo: siete archivos, indice arriba y detalle debajo |
-| `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos |
+| `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos. En `015_gate1/`, ademas, los dictamenes del Gate 1 — que **no** son auditorias de sesion y no entran en el tablero ni en `findings.md` |
 | `_methodology/` | **Con que criterio** se construye: el metodo de desarrollo —`000_method.md`, el documento canonico— y en `sources/` las fuentes de las que se consolido, que no se editan. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
-| `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por etapa que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
+| `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por **etapa o gate** que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa —o, para un gate, en `_audit/`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_workflow/` | **Quien hace cada cosa y con cuanto sistema**: `team.md`, el reparto del trabajo entre Humano, Software e IA; `ai_levels.md`, los niveles de sistema de IA y la rubrica para elegir uno; y **un archivo por etapa** que aplica los dos a sus actividades, con el mismo nombre que la etapa. Aplica a todas las etapas declaradas salvo `000_preproject`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `010_prototype/` | **Los entregables de la etapa `010_prototype`**: los cinco artefactos de registro en su raiz, y el codigo descartable del prototipo en una subcarpeta suya. Se archiva o se borra al cerrar su Gate — **no se muda a ninguna carpeta de producto** |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |

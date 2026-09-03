@@ -60,6 +60,7 @@
 | [T-049](#t-049---publicar-la-lista-completa-del-paso-2d-que-s-013-afirmo-y-no-publico-f-034) | Publicar la lista completa del Paso 2d que `S-013` afirmo y no publico (`F-034`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-050](#t-050---dar-sitio-fijo-a-la-evidencia-del-paso-2d-en-el-informe-de-sesion-f-034) | Dar sitio fijo a la evidencia del Paso 2d en el informe de sesion (`F-034`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-051](#t-051---escribir-el-reparto-de-trabajo-de-la-etapa-del-prototipo) | Escribir el reparto de trabajo de la etapa del prototipo | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-052](#t-052---montar-el-gate-1-agente-gate1_auditor-y-skill-protocol-gate1) | Montar el Gate 1 (agente `gate1_auditor` y skill `protocol-gate1`) | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -2300,3 +2301,55 @@ mismo control.
 📌 **Lo que esta tarea NO hace:** no adopta la etapa ni reparte nada. `_workflow/team.md` §8 dice que
 leer la tabla no reparte; el reparto es el `D-XXX` que se escriba **al abrir la etapa**, con lo que
 se adopta y lo que se descarta de estas tablas.
+
+---
+
+### T-052 - Montar el Gate 1 (agente `gate1_auditor` y skill `protocol-gate1`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-015 |
+
+- **Que:** el usuario trajo un borrador (`temporal/015_gate1.md`) para el Gate 1 y pidio construir
+  su archivo de etapa. Al contrastarlo con `_methodology/000_method.md` §28-§32 se decidio que el
+  Gate 1 no es una etapa (`D-067`) y se monto como agente y skill: nace
+  `.claude/agents/gate1_auditor.md`, `.claude/skills/protocol-gate1/SKILL.md` y
+  `_templates/015_gate1/005_verdict.md`. El dictamen tecnico y la decision de inversion quedan
+  separados (`D-068`); se adopta `NO AUDITABLE` como tercer resultado y `NO COMPROBABLE` como
+  tercer valor de criterio, no contemplados por la guia de metodo (`D-069`); los dictamenes son
+  correlativos y no se sobrescriben (`D-070`). `project.md` y `_phases/010_prototype.md` quedan
+  actualizados: el primero declara el Gate y su reparto de autoridad; el segundo ancla el lanzamiento
+  del Gate como ultimo paso obligatorio de la etapa del prototipo. Nace `L-021`, sobre el barrido de
+  fuga con `git grep` corrido antes de versionar los archivos nuevos.
+- **Por que:** condicion para poder cerrar la etapa `010_prototype` con una revision independiente,
+  y para que el limite conocido del auditor lanzado por el auditado —`report_auditor`, `A-001`— no se
+  repita sin antidoto en el Gate.
+- **Criterio de cierre:** el par agente/skill existe, `_phases/010_prototype.md` lo cita como ultimo
+  paso obligatorio, y ninguno de los archivos nuevos filtra datos propios del proyecto.
+
+**Verificacion — el par existe y la fuga es cero (reejecutado en el cierre, `grep -r` por L-021):**
+
+```
+$ ls -1 .claude/agents/ .claude/skills/
+.claude/agents/:
+gate1_auditor.md
+report_auditor.md
+session-closer.md
+session-starter.md
+
+.claude/skills/:
+protocol-audit
+protocol-close
+protocol-gate1
+protocol-start
+
+$ grep -rnE "RaindomAI|RaidomAI_App|C:\\Users\\USUARIO|github\.com" .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+exit=1
+```
+
+📌 **Los detalles de diseno del Gate —las dos firmas, el tercer resultado, la correlatividad de los
+dictamenes— quedan en `D-067` a `D-070`, no repetidos aqui.**

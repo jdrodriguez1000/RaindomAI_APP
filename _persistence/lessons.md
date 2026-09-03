@@ -29,6 +29,7 @@
 | [L-018](#l-018---un-archivo-traido-de-otro-proyecto-destapa-contradicciones-que-alli-no-existian) | Un archivo traido de otro proyecto destapa contradicciones que alli no existian | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-019](#l-019---un-control-documentado-sobre-una-parte-de-su-propia-salida-no-es-el-control) | Un control documentado sobre una parte de su propia salida no es el control | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-020](#l-020---una-regla-que-dice-que-registrar-pero-no-donde-no-se-incumple-se-evapora) | Una regla que dice QUE registrar pero no DONDE no se incumple: se evapora | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-021](#l-021---un-barrido-con-git-grep-sobre-archivos-sin-versionar-devuelve-cero-por-no-verlos) | Un barrido con `git grep` sobre archivos sin versionar devuelve cero por no verlos | 2026-09-02 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -695,3 +696,38 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   una seccion que no existe, no.
 - **Donde queda aplicada:** `D-065` — la seccion 7 del informe de sesion, creada como destino fijo de
   la evidencia del Paso 2d, y el parrafo del propio paso que la nombra (`T-050`).
+
+---
+
+### L-021 - Un barrido con `git grep` sobre archivos sin versionar devuelve cero por no verlos
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** la sesion creo tres archivos nuevos en carpetas agnosticas —`.claude/agents/`,
+  `.claude/skills/` y `_templates/`—, que son exactamente el ambito donde el control de fuga del
+  Paso 1b exige **cero lineas**. Antes de registrar la decision se corrio ese control con el patron
+  documentado, para poder afirmar que lo nuevo no filtraba datos propios del proyecto.
+- **Que ocurrio:** el control se corrio con `git grep`, tal como esta escrito en `protocol-close`, y
+  devolvio `exit=1` — cero coincidencias. **Pero los tres archivos todavia no estaban versionados**, y
+  `git grep` solo recorre el indice: el cero no decia «no hay fuga», decia «no he mirado ahi». El
+  barrido se repitio con `grep -r`, que si los alcanza, y esta vez el cero fue real.
+- **Leccion:** un barrido tiene **dos partes que se confunden con facilidad**: el patron y el ambito
+  efectivo. El patron era correcto; el ambito real era mas pequeño que el declarado, y **la salida es
+  identica en los dos casos**. Un cero no distingue entre «no hay» y «no se ha mirado» — y lo hace en
+  silencio, que es lo que lo vuelve peligroso.
+- **Por que se escapa con facilidad:** el control esta escrito con `git grep` y ahi es correcto, porque
+  el cierre lo corre **despues** del `git add`, cuando todo esta en el indice. El fallo aparece al
+  reutilizar el mismo comando **fuera de ese momento**, para comprobar trabajo recien escrito. La
+  orden es la misma, la salida es la misma, y solo cambia algo que no se ve.
+- **Es la familia de `L-013`, un escalon mas adentro.** Alli el problema era que un codigo de salida
+  no prueba una ausencia; aqui el codigo de salida es correcto y lo que engaña es **el conjunto sobre
+  el que se calculo**. Un ambito no declarado se lee como el ambito que uno esperaba.
+- **Como aplicarla:** un barrido que se corra **antes** del `git add` usa `grep -r`, no `git grep`; y
+  si se usa `git grep` fuera del cierre, se corre primero `git status --porcelain` para saber que
+  queda fuera. En cualquier caso, **el bloque de verificacion dice con cual de los dos se obtuvo el
+  cero**: sin eso, quien lo lea despues no puede distinguir un cero real de uno vacio.
+- **Donde queda aplicada:** el bloque de verificacion de `D-067`, que publica el barrido con `grep -r`
+  y añade la nota que explica por que no se uso `git grep` y que el `git grep` previo no valia.

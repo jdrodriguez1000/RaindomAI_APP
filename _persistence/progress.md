@@ -38,6 +38,7 @@
 | [S-012](#s-012---se-aceptan-f-029-a-f-031-nace-_phases010_prototypemd-y-el-paso-2d-del-cierre) | Se aceptan `F-029` a `F-031`; nace `_phases/010_prototype.md` y el Paso 2d del cierre | 2026-09-02 | `000_preproject` |
 | [S-013](#s-013---se-aceptan-f-032-y-f-033-nacen-las-plantillas-de-_templates010_prototype) | Se aceptan `F-032` y `F-033`; nacen las plantillas de `_templates/010_prototype/` | 2026-09-02 | `000_preproject` |
 | [S-014](#s-014---se-acepta-f-034-nace-d-065l-020-la-seccion-7-del-informe-y-_workflow010_prototypemd) | Se acepta `F-034`; nace `D-065`/`L-020`, la seccion 7 del informe y `_workflow/010_prototype.md` | 2026-09-03 | `000_preproject` |
+| [S-015](#s-015---nace-el-gate-1-agente-y-skill-no-etapa-d-067-a-d-070) | Nace el Gate 1 (agente y skill, no etapa; `D-067` a `D-070`) | 2026-09-02 | `000_preproject` |
 
 ---
 
@@ -63,57 +64,73 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-03 (S-014) |
+| Ultima actualizacion | 2026-09-02 (S-015) |
 | Salud | En marcha |
-| Avance de la etapa | `R-013` (sobre `8eb8666`) abrio `F-034`. `manager` lo verifico contra `HEAD` (`4e9d639`) y lo acepto: el informe de `S-013` afirmaba haber publicado la lista completa del Paso 2d y remitia a la verificacion de `T-046`, que no la contiene — la salida solo vivio en pantalla. `T-049` deja nota fechada al lado de la seccion 6 de `_audit/S-013.md` (`D-019`, sin reescribir), publicando ahora la lista entera anclada al rango `265bfeb..8eb8666` (`13` apariciones, `10` ordenes distintas, no `nueve`). `T-050` corrige la causa de fondo con `D-065`: la evidencia del Paso 2d gana sitio fijo, la seccion 7 nueva del informe `_audit/S-XXX.md`. Nace `L-020`. Por pedido del usuario nace `_workflow/010_prototype.md` (`T-051`, `D-066`): reparto de los nueve pasos del procedimiento de la etapa, derivado de `team.md`/`ai_levels.md` — la IA construye el prototipo (Paso 4, autonomia reversible/impacto relevante), queda fuera de las sesiones con usuario y con negocio (Pasos 5 y 9), y clasifica sin pesar las observaciones (Paso 8). No adopta la etapa: `project.md` sigue declarando solo `000_preproject` y `005_discovery`. |
-| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
+| Avance de la etapa | El usuario trajo un borrador del Gate 1 (`temporal/015_gate1.md`) y se decidio, contrastando contra `_methodology/000_method.md` §28-§32, que un Gate no es una etapa (`D-067`): se monta como agente y skill, igual que `report_auditor`/`protocol-audit`. Nacen `.claude/agents/gate1_auditor.md`, `.claude/skills/protocol-gate1/SKILL.md` y `_templates/015_gate1/005_verdict.md` (`T-052`). El dictamen tecnico (`gate1_auditor`) y la decision de inversion (el usuario, como patrocinador) quedan separados en dos artefactos distintos (`D-068`); se adopta `NO AUDITABLE` como tercer resultado del Gate, determinado por fechas del historial de `git` antes de leer ningun criterio, y `NO COMPROBABLE` como tercer valor por criterio — ninguno de los dos esta en la guia de metodo (`D-069`); los dictamenes son correlativos (`005_verdict_NNN.md`) y ninguno se sobrescribe, para que un `NO AUDITABLE` repetido por la misma causa sea visible (`D-070`). `project.md` declara el Gate y su reparto de autoridad; `_phases/010_prototype.md` ancla lanzar el Gate como ultimo paso obligatorio de la etapa, no como algo que se hace cuando toca. Nace `L-021`: un barrido con `git grep` sobre archivos aun no versionados devuelve cero por no verlos, no por estar limpios — el control de fuga se repitio con `grep -r` antes de registrar la decision. Quedan sin evaluar dos hallazgos de `R-014` sobre `S-014`: `F-035` (Media) y `F-036` (Baja), ambos `Abierto` en `_audit/findings.md`. |
+| Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`); `F-035` y `F-036` de `R-014` siguen sin evaluar por `manager` |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo el hallazgo abierto por `R-013` sobre `S-013` (`F-034`), lo verifico contra `HEAD`
-(`4e9d639`) y lo acepto: la seccion 6 de `_audit/S-013.md` afirmaba que la lista completa del Paso 2d
-se habia publicado en la verificacion de `T-046`, y esa verificacion contiene dos ordenes, ninguna
-la primera orden del Paso 2d — la lista solo vivio en pantalla y desaparecio con la sesion.
+El usuario trajo `temporal/015_gate1.md`, un borrador del Gate 1, y pidio construir su archivo de
+etapa. Contrastandolo con `_methodology/000_method.md` §28-§32 y con los tres archivos existentes en
+`_phases/`, se decidio que un Gate **no es una etapa**: es un acto de juicio, no un tramo de trabajo
+(`D-067`). Se monta con la misma forma que los demas actos del repositorio — un agente y su skill —,
+igual que `report_auditor`/`protocol-audit`. Nace el par `gate1_auditor`/`protocol-gate1` y la
+plantilla `_templates/015_gate1/005_verdict.md` (`T-052`).
 
-`T-049` corrige lo concreto: nota fechada al lado de la seccion 6 de `_audit/S-013.md`, sin
-reescribir el parrafo original (`D-019`), que declara la ausencia y publica ahora la lista entera
-anclada al rango equivalente al commit (`265bfeb..8eb8666`) con sus dos recuentos — `13` apariciones,
-`10` ordenes distintas, no `nueve` como afirmaba el original.
+El borrador colapsaba dos firmas en un solo archivo: `D-068` las separa. `gate1_auditor` produce el
+**dictamen tecnico** —`CRITERIOS SATISFECHOS` / `CRITERIOS NO SATISFECHOS` / `NO AUDITABLE`— sobre
+seis de los siete criterios de §29; el criterio 6 («hay confianza suficiente para la inversion»)
+queda marcado `— corresponde al patrocinador`, y las palabras `APROBADO`/`NO APROBADO` no aparecen
+como valor en ningun artefacto del Gate. La **decision de inversion** —construir el MVP, replantear
+o detener— es del usuario, y queda en `decisions.md` con su `D-XXX`.
 
-`T-050` corrige la causa de fondo con `D-065`: `D-063` decia **que** publicar y no **donde**, y una
-evidencia sin sitio asignado no genera ningun momento en que se eche en falta. La evidencia del Paso
-2d gana sitio fijo — la seccion 7 nueva del informe `_audit/S-XXX.md` —, con dos inserciones en
-`protocol-close`: el parrafo del propio Paso 2d que nombra el destino, y la seccion 7 en la
-estructura del informe. Nace `L-020`: una regla que dice que registrar pero no donde no se
-incumple, se evapora.
+`D-069` adopta `NO AUDITABLE` como tercer resultado, no contemplado por la guia de metodo: se
+determina en una Comprobacion 0 que corre **antes** que ningun criterio, resuelta con fechas del
+historial de `git` — que la hipotesis, la tarea, el perfil y el numero existieran antes de la primera
+sesion, que lo sellado no cambiara, que el prototipo no cambiara entre sesiones y que cada sesion se
+escribiera el dia que ocurrio. Es la unica comprobacion del metodo imposible de aprobar a
+posteriori. Cada criterio se resuelve ademas con tres valores —`CUMPLE`/`NO CUMPLE`/`NO
+COMPROBABLE`—, no dos.
 
-Por pedido del usuario nace `_workflow/010_prototype.md` (`T-051`, `D-066`), condicion de entrada de
-la etapa junto con las plantillas (`_phases/010_prototype.md` §5). Reparte los nueve pasos del
-procedimiento derivando `team.md`/`ai_levels.md`: la IA construye el prototipo en el Paso 4 —primera
-vez que la IA escribe codigo en el metodo—, con autonomia de reversible y de impacto relevante
-(revision humana entera, no por muestreo); queda fuera de las sesiones de usuario y de negocio
-(Pasos 5 y 9); la inmovilidad del prototipo la vigila el historial (Paso 6); y la IA propone
-categoria por observacion sin pesar contra el Gate (Paso 8). No adopta la etapa: `project.md` sigue
-declarando solo `000_preproject` y `005_discovery` (`D-060` vigente).
+`D-070` fija que los dictamenes son correlativos (`005_verdict_001.md`, `005_verdict_002.md`, …) y
+que ninguno se sobrescribe ni se borra: antes de escribir el suyo, `gate1_auditor` lee los
+anteriores, y un mismo fallo de Comprobacion 0 repetido es un hallazgo de importancia alta por si
+mismo.
+
+`project.md` declara el Gate y su reparto de autoridad; `_phases/010_prototype.md` ancla lanzar el
+Gate como **ultimo paso obligatorio** de la etapa, sobre evidencia ya subida y sin contarle el
+contexto — el mismo limite y el mismo antidoto que tiene `report_auditor`.
+
+Nace `L-021`: un barrido de fuga con `git grep` corrido antes de que los archivos nuevos estuvieran
+versionados devuelve cero por no verlos, no por estar limpios; se repitio con `grep -r` para el cero
+real, documentado en el bloque de verificacion de `D-067`.
+
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype` sigue
+  sin adoptarse en `project.md` (`D-060`). `R-014` sobre `S-014` abrio `F-035` (Media) y `F-036`
+  (Baja); ninguno de los dos fue evaluado por `manager` en esta sesion — siguen `Abierto` en
+  `_audit/findings.md`.
 
 ---
 
 ## 3. Siguiente paso
 
-`manager` debe lanzar `report_auditor` sobre el commit de este cierre. En paralelo, definir el
-alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa
-`005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un patrocinador
-alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de etapa dice
-que sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) y `T-038`
-(igualar el barrido de fuga de `protocol-audit`) siguen disponibles sin depender de `A-004`, igual
-que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en `S-011`. Para abrir
-`010_prototype` ya estan las plantillas y el reparto; falta adoptar formalmente la etapa en
-`project.md` (`D-060`). Al abrir `005_discovery`, registrar el `D-XXX` de adopcion del reparto de
-`_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar las cinco señales que `D-054` dejo
-registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`). Aparte, es decision del usuario si
-`DT-002` se confirma ya como pagada, y si se autoriza `T-038` sobre `protocol-audit`.
+`manager` debe evaluar `F-035` y `F-036` de `R-014` (sobre `S-014`) y registrar el resultado con su
+`T-XXX` o su `D-XXX`, citando el hallazgo. Ademas, `manager` debe lanzar `report_auditor` sobre el
+commit de este cierre. En paralelo, definir el alcance y el objetivo del proyecto a partir de
+`_brief/client_brief.md` (`T-001`, etapa `005_discovery`) — y antes de arrancarla, resolver `A-004`:
+confirmar que existe un patrocinador alcanzable y personas que puedan hablar del proceso real, porque
+el propio archivo de etapa dice que sin ese acceso no puede empezar. `T-037` (inventario de acciones
+irreversibles) y `T-038` (igualar el barrido de fuga de `protocol-audit`) siguen disponibles sin
+depender de `A-004`, igual que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin
+probar en `S-011`. Para abrir `010_prototype` ya estan las plantillas y el reparto; falta adoptar
+formalmente la etapa en `project.md` (`D-060`). Al abrir `005_discovery`, registrar el `D-XXX` de
+adopcion del reparto de `_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar las cinco
+señales que `D-054` dejo registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`). Aparte, es
+decision del usuario si `DT-002` se confirma ya como pagada, y si se autoriza `T-038` sobre
+`protocol-audit`.
 
 ---
 
@@ -649,6 +666,45 @@ mismo defecto que la nota de la seccion 2 acota, con el mismo bloque anclado a `
   siguen `No implementada`. `F-034` queda `Aceptado — pendiente` hasta que la auditoria siguiente
   verifique la correccion sobre este commit y lo cierre. `010_prototype` ya tiene plantillas y
   reparto, pero sigue sin adoptarse en `project.md`.
+
+---
+
+### S-015 - Nace el Gate 1 (agente y skill, no etapa; `D-067` a `D-070`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-02 |
+| Etapa | `000_preproject` |
+| Tareas | T-052 |
+
+- **Que se hizo:** el usuario trajo `temporal/015_gate1.md`, un borrador del Gate 1, y pidio
+  construir su archivo de etapa. Contrastandolo con `_methodology/000_method.md` §28-§32 se decidio
+  que un Gate no es una etapa —es un acto de juicio, no un tramo de trabajo— y se monto como agente
+  y skill: nace `.claude/agents/gate1_auditor.md`, `.claude/skills/protocol-gate1/SKILL.md` y
+  `_templates/015_gate1/005_verdict.md` (`T-052`, `D-067`).
+
+  `D-068` separa el dictamen tecnico de `gate1_auditor` —sobre seis de los siete criterios de §29—
+  de la decision de inversion del usuario como patrocinador; el criterio 6 se marca `— corresponde
+  al patrocinador` y `APROBADO`/`NO APROBADO` no aparecen como valor en ningun artefacto del Gate.
+
+  `D-069` adopta `NO AUDITABLE` como tercer resultado, ausente en la guia de metodo: se determina en
+  una Comprobacion 0 previa a cualquier criterio, resuelta con fechas del historial de `git` — la
+  unica comprobacion del metodo imposible de aprobar a posteriori. Cada criterio se resuelve con tres
+  valores, `CUMPLE`/`NO CUMPLE`/`NO COMPROBABLE`, tambien ausente en la guia.
+
+  `D-070` fija que los dictamenes son correlativos (`005_verdict_NNN.md`) y que ninguno se
+  sobrescribe: `gate1_auditor` lee los anteriores antes de escribir el suyo, y un mismo fallo de
+  Comprobacion 0 repetido es hallazgo de importancia alta por si mismo.
+
+  `project.md` declara el Gate y su reparto de autoridad; `_phases/010_prototype.md` ancla lanzar el
+  Gate como ultimo paso obligatorio de la etapa, sobre evidencia subida y sin contarle el contexto.
+
+  Nace `L-021`: un barrido de fuga con `git grep` corrido antes de versionar los archivos nuevos
+  devuelve cero por no verlos, no por estar limpios; se repitio con `grep -r` para el cero real.
+
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype` sigue
+  sin adoptarse en `project.md` (`D-060`). `R-014` sobre `S-014` abrio `F-035` (Media) y `F-036`
+  (Baja); ninguno de los dos fue evaluado en esta sesion — siguen `Abierto` en `_audit/findings.md`,
+  y esa evaluacion es tarea de `manager` en la sesion siguiente.
 
 ---
 
