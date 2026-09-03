@@ -1,6 +1,6 @@
 ---
 name: protocol-gate1
-description: Protocolo del Gate 1 del metodo. Contrasta la evidencia que dejo la etapa del prototipo contra los criterios de la guia de metodo, comprueba primero que esa evidencia sea auditable por fechas del historial, y deja un dictamen tecnico en _audit/015_gate1/, con su commit y su push. Emite dictamen, NO decision: si se construye el MVP, se replantea o se detiene lo decide el patrocinador. Es de solo lectura sobre el proyecto: no construye, no corrige y no decide. Uso exclusivo del agente gate1_auditor, que se lanza cuando la etapa del prototipo ha cerrado.
+description: Protocolo del Gate 1 del metodo. Contrasta la evidencia que dejo la etapa del prototipo contra los criterios de la guia de metodo, comprueba primero que esa evidencia sea auditable por el orden del historial, y deja un dictamen tecnico en _audit/015_gate1/, con su commit y su push. Emite dictamen, NO decision: si se construye el MVP, se replantea o se detiene lo decide el patrocinador. Es de solo lectura sobre el proyecto: no construye, no corrige y no decide. Uso exclusivo del agente gate1_auditor, que se lanza cuando la etapa del prototipo ha cerrado.
 ---
 
 # Protocolo del Gate 1
@@ -45,6 +45,11 @@ momento en que editas la evidencia, dejas de poder juzgarla.
 Empieza leyendo **`project.md`**: carpetas declaradas, rutas, codigos. Todo lo que en este protocolo
 aparece entre `<angulos>` se resuelve ahi. Si un valor no esta declarado, **no lo inventes**: la
 comprobacion que dependia de el sale como `NO COMPROBABLE`, con el motivo escrito.
+
+⚠️ **Esa salida es para los criterios del Paso 4, no para la Comprobacion 0.** La Comprobacion 0
+solo admite `PASA` o `NO AUDITABLE`, asi que un valor que le falte a **ella** sale como
+`NO AUDITABLE` — ver el Paso 2. Mezclar los dos vocabularios daria un dictamen que no se puede
+leer: `NO COMPROBABLE` habla de un criterio; `NO AUDITABLE` habla de la evidencia entera.
 
 Dos referencias se usan en todo el protocolo:
 
@@ -113,20 +118,66 @@ Lo que hace auditable a la etapa del prototipo es que cuatro cosas existieran **
 sesion: la hipotesis, la tarea, el perfil y el numero de participantes. Y eso **no se pregunta: se
 mira en el historial.**
 
+### 🚨 «Antes» se resuelve por el ORDEN del grafo, no por la fecha
+
+⛔ **No uses `%ad` para decidir que fue antes.** La fecha de autor es un campo del commit y se
+sobrescribe con una variable de entorno: un `GIT_AUTHOR_DATE` basta para fechar ayer algo escrito
+hoy, y la comprobacion daria `PASA`. Lo que **si** resiste dentro de un historial ya publicado es el
+**orden topologico**: cada commit apunta a su padre, y ese enlace no se cambia sin reescribir todo lo
+que viene detras — cosa que un `push` ya hecho delata.
+
+📌 **`%ad` se sigue leyendo, pero como dato informativo**, para la lectura humana del dictamen y
+para la unica comprobacion que necesariamente es de fecha (la septima). Nunca como criterio de
+«antes».
+
+**a) Resuelve los commits de alta y el ancla del prototipo:**
+
 ```bash
-git log --diff-filter=A --format="%ad %h %s" --date=short -- <DISC>/020_hypothesis.md
-git log --diff-filter=A --format="%ad %h %s" --date=short -- <PROTO>/005_happy_path.md
-git log --diff-filter=A --format="%ad %h %s" --date=short -- <PROTO>/010_participants.md
-git log --diff-filter=A --format="%ad %h %s" --date=short -- <PROTO>/015_session_001.md
-git log --diff-filter=A --format="%ad %h %s" --date=short -- <PROTO>/<subcarpeta del prototipo>
+PROTO_DIR=$(git ls-tree -d --name-only HEAD <PROTO>/)
+echo "subcarpeta(s) del prototipo: $PROTO_DIR"
+
+HYP=$(git log --diff-filter=A --format=%H -- <DISC>/020_hypothesis.md | tail -1)
+TASK=$(git log --diff-filter=A --format=%H -- <PROTO>/005_happy_path.md | tail -1)
+PART=$(git log --diff-filter=A --format=%H -- <PROTO>/010_participants.md | tail -1)
+SES1=$(git log --diff-filter=A --format=%H -- <PROTO>/015_session_001.md | tail -1)
+PROTO1=$(git log --format=%H -- $PROTO_DIR | tail -1)
+for v in HYP TASK PART SES1 PROTO1; do eval "echo \"$v=\$$v\""; done
 ```
+
+🚨 **Si `PROTO_DIR` sale vacio, la subcarpeta del prototipo no esta versionada.** El dictamen es
+`NO AUDITABLE` y se dice asi: no hay como comprobar ni cuando se construyo el prototipo ni si cambio
+entre sesiones. **No es `NO COMPROBABLE`**: ese valor es de los criterios del Paso 4, y la
+Comprobacion 0 solo admite `PASA` o `NO AUDITABLE`. Si sale mas de un directorio, se dicen todos y se
+ancla en el primero que aparezca en el historial.
+
+⚠️ **Si cualquiera de los cinco sale vacio, tambien es `NO AUDITABLE`**, y por lo mismo: la
+comprobacion no tiene contra que correr. Se nombra cual falto.
+
+**b) Resuelve el «antes» por ancestria, no por fecha:**
+
+```bash
+git merge-base --is-ancestor $HYP  $SES1   ; echo "hipotesis antes de la sesion 1: exit=$?"
+git merge-base --is-ancestor $TASK $PROTO1 ; echo "tarea antes del prototipo:      exit=$?"
+git merge-base --is-ancestor $PART $SES1   ; echo "perfil antes de la sesion 1:    exit=$?"
+```
+
+`exit=0` es «antes». `exit=1` es «no antes» — y no hay tercera lectura.
+
+**c) Lo sellado, y el prototipo entre sesiones:**
 
 ```bash
 git log --oneline -- <DISC>/020_hypothesis.md
 git log --oneline -- <PROTO>/005_happy_path.md
 git log -p -- <PROTO>/010_participants.md
-git log --format="%ad %h" --date=short -- <PROTO>/<subcarpeta del prototipo>
+
+SESN=$(git log --diff-filter=A --format=%H -- <PROTO>/015_session_*.md | head -1)
+git log --oneline $SES1..$SESN -- $PROTO_DIR
 ```
+
+La ultima orden lista los commits del prototipo que caen **entre** la primera sesion y la ultima,
+por orden del grafo. **Si devuelve una sola linea, el prototipo cambio a mitad de ronda.**
+
+**d) La comprobacion que si es de fecha, y se dice que lo es:**
 
 ```bash
 for f in <PROTO>/015_session_*.md; do
@@ -138,15 +189,15 @@ done
 
 Las siete lecturas, y que dice cada una:
 
-| Que se comprueba | Se cumple cuando |
-|---|---|
-| La hipotesis existia antes de la sesion 1 | su commit de alta es **anterior** al de `015_session_001.md` |
-| La tarea existia antes de construir el prototipo | el alta de `005_happy_path.md` es **anterior** al primer commit de la carpeta del prototipo |
-| El perfil y el numero se fijaron antes de la sesion 1 | el alta de `010_participants.md` es **anterior** al de `015_session_001.md` |
-| La hipotesis no cambio durante la etapa | `git log --oneline` sobre ella devuelve **un solo commit** |
-| Las secciones selladas de participantes no cambiaron | `git log -p` no muestra ninguna modificacion en §1–§3 |
-| El prototipo no cambio entre sesiones | ningun commit de la carpeta del prototipo cae **entre** la primera sesion y la ultima |
-| Cada sesion se escribio el dia que ocurrio | la fecha del commit de alta coincide con la fecha declarada dentro del archivo |
+| Que se comprueba | Se cumple cuando | Con que |
+|---|---|---|
+| La hipotesis existia antes de la sesion 1 | `--is-ancestor $HYP $SES1` devuelve `exit=0` | **orden** |
+| La tarea existia antes de construir el prototipo | `--is-ancestor $TASK $PROTO1` devuelve `exit=0` | **orden** |
+| El perfil y el numero se fijaron antes de la sesion 1 | `--is-ancestor $PART $SES1` devuelve `exit=0` | **orden** |
+| La hipotesis no cambio durante la etapa | `git log --oneline` sobre ella devuelve **un solo commit** | orden |
+| Las secciones selladas de participantes no cambiaron | `git log -p` no muestra ninguna modificacion en §1–§3 | contenido |
+| El prototipo no cambio entre sesiones | `git log $SES1..$SESN -- $PROTO_DIR` sale **vacio** | orden |
+| Cada sesion se escribio el dia que ocurrio | la fecha del commit de alta coincide con la declarada dentro del archivo | **fecha** |
 
 ### 🚨 Si alguna falla, el dictamen es `NO AUDITABLE`. No es «criterios no satisfechos».
 
@@ -164,9 +215,15 @@ describe lo que salio, y no hay nada contra que medirla.
 lo lleves al patrocinador**: no hay decision de inversion que tomar sobre una evidencia que no se
 puede leer. Salta al Paso 7 y escribe el dictamen con lo que fallo y que hay que rehacer.
 
-🔑 **Esta comprobacion es la unica del metodo imposible de aprobar a posteriori.** Las fechas del
-historial no se pueden convencer. Todo lo demas se puede redactar mejor; el orden en que se
-escribieron esas cuatro cosas, no.
+🔑 **Esta comprobacion es la unica del metodo que no se aprueba redactando mejor.** Todo lo demas se
+puede reescribir hasta que suene bien; **el orden del grafo de commits, no**: cambiarlo obliga a
+reescribir todo lo que viene detras, y sobre un historial ya publicado eso se ve.
+
+⚠️ **Y hasta ahi llega la garantia, escrita para que nadie la estire.** El orden resiste; las
+**fechas** no —`%ad` y `%cd` se sobrescriben con una variable de entorno—, y un historial que
+todavia no se ha subido se puede rehacer entero. Lo que esta comprobacion demuestra es que **en el
+historial publicado, esas cuatro cosas entraron antes**; no que nadie pudiera haber montado ese
+historial a posteriori.
 
 ---
 
@@ -400,7 +457,7 @@ reporte recortado se recorta dos veces.
 <una sola, falsable>
 
 ### Comprobacion 0 — auditabilidad
-<PASA | FALLA — que lectura fallo, con las fechas crudas>
+<PASA | FALLA — que lectura fallo, con los hashes y exit codes crudos>
 
 ### Criterios
 | # | Resultado | Evidencia |

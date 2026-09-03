@@ -284,6 +284,20 @@ decia **que** publicar; esto dice **donde**, que es lo que faltaba para que la r
 comprobar. Si la lista sale vacia, la seccion 7 lo dice con su orden y su salida — «ninguna linea» es
 tambien un resultado, y se publica igual.
 
+🚨 **Y si anotas de que archivo sale cada orden, esa procedencia se deriva del diff — no se
+escribe a mano mirando los bloques.** A mano es exactamente donde se equivoca: la orden se busca
+en el bloque que uno recuerda haber escrito, y la memoria atribuye antes de comprobar. La orden que
+la produce, y que se pega con su salida cruda:
+
+```bash
+git diff -U0 -- _persistence _audit | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'
+```
+
+📌 **La procedencia es del archivo, no de la entrada.** El diff sabe en que archivo entro cada
+linea; **no** sabe si dentro de ese archivo cayo en `T-050` o en `D-065`. Si el informe nombra la
+entrada, esa mitad si se mira a mano — y entonces se comprueba, una por una, contra el bloque que
+se cita.
+
 ⚠️ **El recuento no es estable entre entornos, y por eso no basta con la cifra.** La misma orden
 sobre el mismo commit puede devolver numeros distintos segun como expanda el patron cada shell; los
 falsos positivos conocidos son parte de esa diferencia. Una lista se compara linea a linea; un numero
@@ -698,6 +712,8 @@ todas sus lineas — nunca una seleccion>
 <si una orden no es reproducible por naturaleza (describe el area de staging), se dice, y se da su
 equivalencia anclada al commit>
 <si la lista salio vacia, se publica igual: la orden y su salida vacia>
+<y si se anota de que archivo sale cada orden, esa procedencia se DERIVA del diff, nunca se
+escribe a mano: se pega la orden que la produce y su salida cruda>
 ```
 
 ### Los tres veredictos de la seccion 0, y nada mas

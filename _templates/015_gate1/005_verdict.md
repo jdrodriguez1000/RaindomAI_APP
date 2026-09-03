@@ -69,7 +69,7 @@ archivos: es **cuando nacieron**, en el historial.
 
 | # | Que se comprueba | Resultado | Evidencia cruda |
 |---|---|---|---|
-| 1 | La hipotesis existia antes de la sesion 1 | `<PASA / FALLA>` | `<fechas y hashes>` |
+| 1 | La hipotesis existia antes de la sesion 1 | `<PASA / FALLA>` | `<hashes y exit codes>` |
 | 2 | La tarea existia antes de construir el prototipo | `<PASA / FALLA>` | `<…>` |
 | 3 | El perfil y el numero se fijaron antes de la sesion 1 | `<PASA / FALLA>` | `<…>` |
 | 4 | La hipotesis no cambio durante la etapa | `<PASA / FALLA>` | `<…>` |
@@ -88,8 +88,12 @@ $ <orden literal>
 seccion 6.** No se rellenan los criterios, no se lleva al patrocinador y no se pide ninguna decision:
 no hay decision de inversion que tomar sobre una evidencia que no se puede leer.
 
-🔑 **Es la unica comprobacion del metodo imposible de aprobar a posteriori.** Las fechas del
-historial no se pueden convencer.
+🔑 **Es la unica comprobacion del metodo que no se aprueba redactando mejor.** Las tres lecturas
+de «antes» se resuelven por el **orden del grafo** —`git merge-base --is-ancestor`—, no por la
+fecha del commit: `%ad` se sobrescribe con una variable de entorno y el orden de los padres no.
+
+⚠️ **Y hasta ahi llega la garantia.** Demuestra que en el historial publicado esas cuatro cosas
+entraron antes; no que nadie pudiera haber montado ese historial a posteriori.
 
 ---
 

@@ -185,7 +185,8 @@ grep -n "_workflow/005_discovery" _phases/005_discovery.md
 ```
 
 🔑 **La segunda orden es el criterio de cierre de este archivo, no un adorno.** Un reparto que nadie
-manda leer es material muerto que ningun control detecta — el cuarto enganche de `L-014`.
+manda leer es material muerto que ningun control detecta — es el enganche de uso, y sin el este
+archivo nace sin lector.
 
 ---
 

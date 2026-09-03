@@ -46,10 +46,10 @@
 | [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Implementado |
 | [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Implementado |
 | [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Implementado |
-| [F-035](#f-035---la-seccion-7-de-s-014-atribuye-tres-de-sus-once-ordenes-a-bloques-donde-no-estan) | La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan | R-014 | Media | Abierto |
-| [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Abierto |
-| [F-037](#f-037---la-comprobacion-0-del-gate-1-compara-fechas-de-autor-que-si-se-pueden-falsificar-y-tres-archivos-afirman-lo-contrario) | La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario | R-015 | Media | Abierto |
-| [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Abierto |
+| [F-035](#f-035---la-seccion-7-de-s-014-atribuye-tres-de-sus-once-ordenes-a-bloques-donde-no-estan) | La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan | R-014 | Media | Aceptado — pendiente |
+| [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Aceptado — pendiente |
+| [F-037](#f-037---la-comprobacion-0-del-gate-1-compara-fechas-de-autor-que-si-se-pueden-falsificar-y-tres-archivos-afirman-lo-contrario) | La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario | R-015 | Media | Aceptado — pendiente |
+| [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -2215,8 +2215,8 @@ $ git show ca56b93:.claude/skills/protocol-close/SKILL.md | grep -n "^## 7. Evid
 | Auditoria | R-014 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-053 |
 | Cerrado en | |
 
 - **Que se observo:** la lista y los recuentos de la seccion 7 de `_audit/S-014.md` reproducen
@@ -2249,7 +2249,7 @@ $ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md ; echo "
   reescribir) con la procedencia real; y, para el fondo, que la seccion 7 de `protocol-close` pida
   derivar la procedencia del diff con `awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}'` en vez de
   escribirla a mano.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-016`). Verificado contra `HEAD` (`54f55d9`) que el defecto seguia vivo: las tres primeras ordenes salen de `_audit/findings.md` y el bloque de `T-051` no contiene la tercera. El bloque original **no se toca**: lleva al lado una nota fechada (`D-019`) con la procedencia real derivada del diff, y la seccion 7 de `protocol-close` pasa a exigir que se derive asi. Registrado en `T-053`.
 
 ---
 
@@ -2259,8 +2259,8 @@ $ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md ; echo "
 | Auditoria | R-014 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-054 |
 | Cerrado en | |
 
 - **Que se observo:** `D-066` y `T-051` declaran que `_workflow/005_discovery.md` incumple la regla
@@ -2283,7 +2283,7 @@ $ git show ca56b93:_persistence/techdebt.md | sed -n '/^## Indice/,/^---/p' | gr
   aparece en ningun indice de trabajo pendiente y nada lo trae de vuelta.
 - **Que lo corregiria:** un `DT-XXX` que nombre la cita, su archivo y por que se aplaza; o una
   `T-XXX` que reescriba la frase en forma generica.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-016`). La cita instanciada seguia viva en `HEAD` (`54f55d9`) y `techdebt.md` seguia con dos entradas. Se corrige en vez de aplazarse: el arreglo es una frase, no toca ninguna referencia entrante, y aplazarlo con su `DT-XXX` costaba mas registro que hacerlo. Registrado en `T-054`.
 
 ---
 
@@ -2293,8 +2293,8 @@ $ git show ca56b93:_persistence/techdebt.md | sed -n '/^## Indice/,/^---/p' | gr
 | Auditoria | R-015 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-055 |
 | Cerrado en | |
 
 - **Que se observo:** el Paso 2 de `.claude/skills/protocol-gate1/SKILL.md` resuelve la
@@ -2327,7 +2327,7 @@ db6c138 sesion 1
 - **Que lo corregiria:** resolver la Comprobacion 0 por orden topologico (`git merge-base
   --is-ancestor`, o el orden de `git log --format='%H'`), dejando `%ad` como dato informativo; y
   ajustar la frase de `D-069`, del skill y de `progress.md` a lo que el mecanismo garantiza.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-016`). El hallazgo es correcto y era el mas grave de los cuatro: la Comprobacion 0 habria dado `PASA` sobre evidencia fabricada. Se adopta el orden del grafo (`D-071`), `%ad` queda como dato informativo, y la afirmacion absoluta se ajusta en el skill y en la plantilla; en `D-069` va como nota fechada, sin reescribir. Registrado en `T-055`.
 
 ---
 
@@ -2337,8 +2337,8 @@ db6c138 sesion 1
 | Auditoria | R-015 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | T-056 |
 | Cerrado en | |
 
 - **Que se observo:** el skill usa `<subcarpeta del prototipo>` como valor a resolver en
@@ -2359,4 +2359,4 @@ ea48ae8:project.md:182:| `010_prototype/` | ... y el codigo descartable del prot
   son `PASA` o `NO AUDITABLE`.
 - **Que lo corregiria:** declarar el nombre de la subcarpeta en `project.md` al abrir
   `010_prototype/`, o que el Paso 2 diga como se localiza y que resultado emite si no existe.
-- **Que se hizo:** pendiente de la evaluacion de `manager`.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-016`). Se toma la segunda de las dos correcciones propuestas —la del protocolo— porque es la que no depende de que la etapa haya arrancado: el Paso 2 localiza la subcarpeta con `git ls-tree -d` y declara `NO AUDITABLE` si no la encuentra, y el Paso 0 queda acotado para no contradecirlo. Registrado en `T-056`.

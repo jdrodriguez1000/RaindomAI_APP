@@ -79,6 +79,8 @@
 | [D-068](#d-068---el-gate-1-son-dos-firmas-gate1_auditor-dictamina-y-el-patrocinador-decide) | El Gate 1 son dos firmas: `gate1_auditor` dictamina y el patrocinador decide | 2026-09-02 | Vigente |
 | [D-069](#d-069---no-auditable-es-un-tercer-resultado-del-gate-1-que-la-guia-de-metodo-no-tiene) | `NO AUDITABLE` es un tercer resultado del Gate 1, que la guia de metodo no tiene | 2026-09-02 | Vigente |
 | [D-070](#d-070---los-dictamenes-del-gate-1-son-correlativos-y-ninguno-se-sobrescribe) | Los dictamenes del Gate 1 son correlativos, y ninguno se sobrescribe | 2026-09-02 | Vigente |
+| [D-071](#d-071---la-comprobacion-0-del-gate-1-resuelve-el-antes-por-orden-del-grafo-no-por-fecha) | La Comprobacion 0 del Gate 1 resuelve el «antes» por orden del grafo, no por fecha | 2026-09-03 | Vigente |
+| [D-072](#d-072---el-archivo-de-etapa-de-la-baseline-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa de la baseline se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-03 | Vigente |
 
 ---
 
@@ -3605,6 +3607,24 @@ $ grep -nE "NO APROBADO|APROBADO" _templates/015_gate1/005_verdict.md
 - **Que lo hace valioso, y no es la etiqueta:** es la unica comprobacion del metodo **imposible de
   aprobar a posteriori**. Todo lo demas se puede redactar mejor; el orden en que se escribieron esas
   cuatro cosas, no. Las fechas del historial no se pueden convencer.
+
+  > 📌 **Nota del 2026-09-03 (`T-055`, hallazgo `F-037`).** La viñeta de arriba **no se reescribe**,
+  > y esta nota dice en que se paso de largo. «Las fechas del historial no se pueden convencer» es
+  > **falso tal como estaba implementado**: la Comprobacion 0 resolvia el «antes» con `%ad`, la fecha
+  > de autor, que se sobrescribe con una variable de entorno. Comprobado en un repositorio
+  > desechable, fuera de este proyecto:
+  >
+  > ```
+  > $ GIT_AUTHOR_DATE="2026-01-10T10:00:00" GIT_COMMITTER_DATE="2026-01-10T10:00:00" git commit -q -m "sesion 1"
+  > $ GIT_AUTHOR_DATE="2026-01-01T10:00:00" GIT_COMMITTER_DATE="2026-01-01T10:00:00" git commit -q -m "hipotesis (escrita DESPUES, fechada ANTES)"
+  > $ git log --diff-filter=A --format="%ad %h %s" --date=short -- 020_hypothesis.md
+  > 2026-01-01 19cbaec hipotesis (escrita DESPUES, fechada ANTES)
+  > ```
+  >
+  > Lo que si resiste es el **orden del grafo**, que el mismo `git log` ya mostraba y que el
+  > protocolo no mandaba mirar. `D-071` lo adopta: las tres lecturas de «antes» pasan a
+  > `git merge-base --is-ancestor`, y `%ad` queda como dato informativo. **La decision de tener un
+  > tercer resultado `NO AUDITABLE` sigue vigente**; lo que cambia es con que se determina.
 - **Consecuencias:** `NO AUDITABLE` **corta el protocolo** —no se rellena la tabla de criterios— y
   **no llega al patrocinador**: no hay decision de inversion que tomar sobre una evidencia que no se
   puede leer. Lo que se produce es la lista de que evidencia hay que rehacer, y **no se rehace el
@@ -3684,4 +3704,109 @@ $ grep -n "no puede repetirse dos veces" .claude/skills/protocol-gate1/SKILL.md
 
 $ grep -n "ya salio en un dictamen anterior" _templates/015_gate1/005_verdict.md
 213:**¿Este mismo fallo ya salio en un dictamen anterior?** `<NO / SI — 005_verdict_<NNN>.md>`
+```
+
+---
+
+### D-071 - La Comprobacion 0 del Gate 1 resuelve el «antes» por orden del grafo, no por fecha
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `D-069` adopto `NO AUDITABLE` como tercer resultado del Gate 1 y lo apoyo entero en
+  una propiedad: que las fechas del historial «no se pueden convencer». `F-037` (`R-015`) demostro
+  que esa propiedad no existe tal como estaba implementada — la Comprobacion 0 comparaba `%ad`, la
+  fecha de autor, que se sobrescribe con `GIT_AUTHOR_DATE`.
+- **Decision:** las tres lecturas de «antes» de la Comprobacion 0 —hipotesis antes de la sesion 1,
+  tarea antes del prototipo, perfil y numero antes de la sesion 1— pasan a resolverse con
+  **`git merge-base --is-ancestor`**, que responde por el orden del grafo. `%ad` se conserva como
+  **dato informativo** y para la unica lectura que necesariamente es de fecha (que cada sesion se
+  escribiera el dia que ocurrio). La comprobacion «el prototipo no cambio entre sesiones» pasa a
+  `git log $SES1..$SESN -- $PROTO_DIR`, que es tambien orden y no fecha.
+- **Y la afirmacion se ajusta a lo que el mecanismo garantiza**, en los tres sitios que la hacian:
+  el skill, la plantilla del dictamen y `D-069` (con nota fechada, sin reescribir). Lo que se
+  demuestra es que **en el historial publicado esas cuatro cosas entraron antes**; no que nadie
+  pudiera haber montado ese historial a posteriori.
+- **Alternativas descartadas:** (1) usar `%cd` (fecha de commit) en vez de `%ad` — se sobrescribe
+  igual, con `GIT_COMMITTER_DATE`: cambia el nombre del campo, no el agujero; (2) firmar los commits
+  con GPG y verificar la firma — resuelve quien, no cuando, y ademas impone al proyecto una
+  infraestructura de claves para una comprobacion que el orden del grafo ya cubre; (3) dejarlo como
+  estaba y anotar el limite — el limite no era un matiz: la comprobacion daba `PASA` sobre evidencia
+  fabricada, que es exactamente el caso para el que existe.
+- **Clasificacion:** **reversible a criterio** — se edita un protocolo que todavia no se ha
+  ejecutado ni una vez (`_audit/015_gate1/` no existe), no se reescribe ningun dictamen porque no
+  hay ninguno, y `D-069` conserva su texto con la nota al lado.
+
+**Verificacion — la Comprobacion 0 ya no decide por fecha, y el limite queda escrito:**
+
+```
+$ grep -c "merge-base --is-ancestor" .claude/skills/protocol-gate1/SKILL.md
+3
+
+$ grep -n "No uses \`%ad\` para decidir que fue antes" .claude/skills/protocol-gate1/SKILL.md
+123:⛔ **No uses `%ad` para decidir que fue antes.** La fecha de autor es un campo del commit y se
+
+$ grep -rc "imposible de aprobar a posteriori" .claude/skills/protocol-gate1/SKILL.md _templates/015_gate1/005_verdict.md
+.claude/skills/protocol-gate1/SKILL.md:0
+_templates/015_gate1/005_verdict.md:0
+```
+
+---
+
+### D-072 - El archivo de etapa de la baseline se escribe por adelantado, y la etapa NO queda adoptada
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario trajo un borrador propio de la etapa de la baseline
+  (`temporal/020_baseline.md`) y pidio construir con el `_phases/020_baseline.md`, tomando ademas
+  como guia los dos archivos de etapa que ya existen y `_methodology/000_method.md`. `project.md`
+  declara hoy dos etapas —`000_preproject` y `005_discovery`—, y declarar las posteriores es trabajo
+  de `005_discovery` (`T-002`), que no ha arrancado.
+- **Decision:** se escribe `_phases/020_baseline.md` **y no se toca la tabla «Etapas» de
+  `project.md`**. El archivo describe **que se hace si se entra**, no que se vaya a entrar — la misma
+  situacion que `D-060` dejo registrada para `_phases/010_prototype.md`, y por la misma razon: un
+  archivo de etapa sin decision al lado se lee, a los pocos meses, como una etapa adoptada que nadie
+  decidio.
+- **Que se corrigio del borrador al portarlo, y por que:** el borrador venia de otro esquema de
+  trabajo y traia datos que aqui no valen. Usaba `F-xxx` para Feature y `S-xxx` para Scenario —los
+  dos prefijos ya tomados en este registro por el hallazgo y por la sesion, y por eso el metodo usa
+  `FT-` y `SC-` (`D-030`, `_methodology/000_method.md` §46)—; `RES-xxx` y `SUP-xxx` donde aqui van
+  `C-XXX` y `A-XXX` (`D-034`); rutas propias de aquel proyecto (`_baseline\`, `_memory/`,
+  `<Proyecto>_AUDIT/gates/`, `_prototype/`, `templates/`, `tech-debt.md`) donde aqui se referencia
+  `project.md`; y hablaba de «terminal ejecutora» donde aqui el lector es `manager`.
+- **Lo que el borrador aportaba y se conserva:** la pregunta que corta la etapa —«¿cuanto es
+  suficiente?», respondida como «lo que hace falta para el WSLT y la primera slice»—, la lista del
+  «no» con razon y destino, las tres preguntas (evaluacion, observabilidad, seguridad) declaradas
+  con artefacto y no con intencion, y el criterio de salida de las Features huerfanas.
+- **Alternativas descartadas:** (1) adoptar la etapa a la vez que se escribe su archivo — declarar
+  etapas es trabajo de `005_discovery`, y adoptarlas desde aqui las daria por decididas sin haber
+  entendido todavia que se va a construir; (2) copiar el borrador tal cual a `_phases/` — rompe el
+  agnosticismo que el Paso 1b del cierre comprueba sobre esa carpeta, y mete dos prefijos que
+  colisionan con el registro; (3) esperar a que `005_discovery` declare las etapas — el archivo no
+  cuesta nada ahora y el borrador existe hoy; escrito mas tarde se reconstruye peor.
+- **Clasificacion:** **reversible a criterio** — se añade un archivo nuevo a una carpeta agnostica,
+  no se adopta ninguna etapa, no se toca `project.md` y nada depende todavia de el.
+
+**Verificacion — el archivo existe, y la tabla de etapas sigue diciendo dos:**
+
+```
+$ ls -1 _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+020_baseline.md
+
+$ grep -n "Etapas declaradas" project.md
+105:| Etapas declaradas | `000_preproject`, `005_discovery` |
+
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}" _phases/020_baseline.md ; echo "exit=$?"
+exit=1
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" _phases/020_baseline.md ; echo "exit=$?"
+exit=1
 ```

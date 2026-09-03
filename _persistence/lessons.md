@@ -30,6 +30,8 @@
 | [L-019](#l-019---un-control-documentado-sobre-una-parte-de-su-propia-salida-no-es-el-control) | Un control documentado sobre una parte de su propia salida no es el control | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-020](#l-020---una-regla-que-dice-que-registrar-pero-no-donde-no-se-incumple-se-evapora) | Una regla que dice QUE registrar pero no DONDE no se incumple: se evapora | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-021](#l-021---un-barrido-con-git-grep-sobre-archivos-sin-versionar-devuelve-cero-por-no-verlos) | Un barrido con `git grep` sobre archivos sin versionar devuelve cero por no verlos | 2026-09-02 | 000_preproject | Sin evaluar |
+| [L-022](#l-022---una-garantia-se-comprueba-contra-el-mecanismo-no-contra-lo-que-el-mecanismo-sugiere) | Una garantia se comprueba contra el mecanismo, no contra lo que el mecanismo sugiere | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-023](#l-023---un-dato-derivable-escrito-a-mano-se-equivoca-justo-donde-nadie-lo-vuelve-a-mirar) | Un dato derivable escrito a mano se equivoca justo donde nadie lo vuelve a mirar | 2026-09-03 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -731,3 +733,64 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   cero**: sin eso, quien lo lea despues no puede distinguir un cero real de uno vacio.
 - **Donde queda aplicada:** el bloque de verificacion de `D-067`, que publica el barrido con `grep -r`
   y añade la nota que explica por que no se uso `git grep` y que el `git grep` previo no valia.
+
+---
+
+### L-022 - Una garantia se comprueba contra el mecanismo, no contra lo que el mecanismo sugiere
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** la Comprobacion 0 del Gate 1 se monto para detectar evidencia escrita a posteriori, y
+  se apoyo entera en una frase: «las fechas del historial no se pueden convencer». Sobre esa frase se
+  construyo un resultado nuevo del Gate, se escribio en tres archivos y se repitio en la bitacora.
+- **Que ocurrio:** la comprobacion comparaba `%ad`, la fecha de autor, que se sobrescribe con una
+  variable de entorno. Una auditoria lo demostro en un repositorio desechable con dos commits: una
+  hipotesis escrita **despues** de la sesion y fechada **antes** pasaba la comprobacion. El dato que
+  si resistia —el orden del grafo— salia en la misma pantalla, y el protocolo no mandaba mirarlo.
+- **Leccion:** cuando un control se apoya en una propiedad —«esto no se puede falsificar», «esto es
+  unico», «esto no cambia»—, la propiedad hay que **comprobarla contra el mecanismo**, no contra lo
+  que el mecanismo evoca. Una fecha **parece** un hecho del pasado; es un campo editable. La
+  diferencia entre las dos lecturas no aparece nunca al leer el codigo: aparece al intentar romperlo.
+- **Por que se escapa con facilidad:** la frase absoluta es lo que hace convincente al control, y por
+  eso se escribe pronto y se copia a los demas archivos antes de que nadie la ponga a prueba. Cuanto
+  mas rotunda, menos se comprueba — y cuando falla, ya esta en tres sitios.
+- **Como aplicarla:** ningun control se cierra con una propiedad afirmada. Se escribe **el intento de
+  romperlo** —la orden concreta que lo burlaria— y se pega su salida. Si el intento tiene exito, el
+  control no vale; si falla, la frase ya no es una creencia. Y la frase que quede escrita dice
+  **hasta donde llega** la garantia, no que sea absoluta.
+- **Donde queda aplicada:** `D-071`, que sustituye la comparacion de fechas por orden del grafo y
+  escribe el limite honesto de lo que ese orden demuestra, en el protocolo, en la plantilla del
+  dictamen y como nota fechada en `D-069`.
+
+---
+
+### L-023 - Un dato derivable escrito a mano se equivoca justo donde nadie lo vuelve a mirar
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** un paso del cierre exige publicar la lista completa de ordenes sin ancla que la
+  sesion escribio. La lista se publico entera y sus recuentos reproducian; al lado de cada linea se
+  anoto **de que archivo salia**, y esa anotacion se escribio a mano mirando los bloques.
+- **Que ocurrio:** tres de las once atribuciones eran falsas. Las ordenes existian, los numeros
+  cuadraban, y el puntero llevaba a un sitio donde la orden no estaba — el mismo defecto que el paso
+  se habia creado para cerrar, una vuelta antes.
+- **Leccion:** cuando un dato **se puede derivar** de una fuente que ya se tiene delante, escribirlo
+  a mano no es un atajo: es introducir una copia que nadie va a contrastar. El recuento se comprueba
+  solo —se reejecuta la orden y el numero cuadra o no—; la **atribucion** no se comprueba sola, y por
+  eso es exactamente donde se cuela el error.
+- **Por que se escapa con facilidad:** anotar la procedencia se siente como transcribir, no como
+  afirmar. Se busca la orden en el bloque que uno recuerda haber escrito, y la memoria atribuye antes
+  de comprobar. Ademas la anotacion es correcta en la mayoria de las lineas, y una lista casi entera
+  correcta no despierta a nadie.
+- **Como aplicarla:** si el dato se puede derivar, **se deriva y se pega la orden que lo produjo**. Y
+  si una parte no es derivable —el archivo si lo sabe el diff, la entrada concreta dentro del archivo
+  no—, se dice cual es esa parte y se comprueba una por una contra lo que se cita, en vez de mezclar
+  las dos mitades en una anotacion que parece toda del mismo tipo.
+- **Donde queda aplicada:** `T-053`, que deja la procedencia real derivada del diff como nota fechada
+  al lado del bloque original, y hace que el paso del cierre pida derivarla asi en adelante.

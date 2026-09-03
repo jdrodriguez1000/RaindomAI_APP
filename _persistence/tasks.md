@@ -61,6 +61,12 @@
 | [T-050](#t-050---dar-sitio-fijo-a-la-evidencia-del-paso-2d-en-el-informe-de-sesion-f-034) | Dar sitio fijo a la evidencia del Paso 2d en el informe de sesion (`F-034`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-051](#t-051---escribir-el-reparto-de-trabajo-de-la-etapa-del-prototipo) | Escribir el reparto de trabajo de la etapa del prototipo | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-052](#t-052---montar-el-gate-1-agente-gate1_auditor-y-skill-protocol-gate1) | Montar el Gate 1 (agente `gate1_auditor` y skill `protocol-gate1`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-053](#t-053---corregir-la-procedencia-de-la-seccion-7-de-s-014-y-derivarla-del-diff-f-035) | Corregir la procedencia de la seccion 7 de `S-014` y derivarla del diff (`F-035`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-054](#t-054---reescribir-en-forma-generica-la-cita-instanciada-de-_workflow005_discoverymd-f-036) | Reescribir en forma generica la cita instanciada de `_workflow/005_discovery.md` (`F-036`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-055](#t-055---resolver-la-comprobacion-0-del-gate-1-por-orden-del-grafo-no-por-fecha-f-037) | Resolver la Comprobacion 0 del Gate 1 por orden del grafo, no por fecha (`F-037`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-056](#t-056---dar-a-la-comprobacion-0-forma-de-localizar-la-subcarpeta-del-prototipo-y-salida-si-no-existe-f-038) | Dar a la Comprobacion 0 forma de localizar la subcarpeta del prototipo y salida si no existe (`F-038`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-057](#t-057---escribir-el-reparto-y-las-plantillas-de-la-etapa-de-la-baseline) | Escribir el reparto y las plantillas de la etapa de la baseline | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-058](#t-058---escribir-el-archivo-de-etapa-de-la-baseline-_phases020_baselinemd) | Escribir el archivo de etapa de la baseline (`_phases/020_baseline.md`) | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -2353,3 +2359,247 @@ exit=1
 
 📌 **Los detalles de diseno del Gate —las dos firmas, el tercer resultado, la correlatividad de los
 dictamenes— quedan en `D-067` a `D-070`, no repetidos aqui.**
+
+---
+
+### T-053 - Corregir la procedencia de la seccion 7 de `S-014` y derivarla del diff (`F-035`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-016 |
+
+- **Que:** nota fechada al final de la seccion 7 de `_audit/S-014.md` (`D-019`, sin reescribir el
+  bloque original) con la procedencia real de las diecinueve apariciones, derivada del diff. Y el
+  fondo: la seccion 7 del Paso 2d de `protocol-close` pasa a exigir que esa procedencia **se derive
+  del diff con su orden y su salida cruda**, no que se escriba a mano mirando los bloques.
+- **Por que:** la seccion 7 nacio para cerrar `F-034`, cuyo defecto era «el informe remite a un
+  sitio donde la evidencia no esta». La lista ya no faltaba, pero el puntero de tres de sus lineas
+  volvia a apuntar a donde no estaban.
+- **Criterio de cierre:** la nota existe en `_audit/S-014.md`, y `protocol-close` publica la orden
+  que deriva la procedencia.
+
+**Verificacion — la procedencia real, y el enganche en el protocolo:**
+
+```
+$ git diff ca56b93^ ca56b93 -U0 -- _persistence _audit ":(exclude)_audit/S-014.md" | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sed 's|^b/||' | awk -F' :: ' '{print $1}' | sort | uniq -c
+      3 _audit/findings.md
+      8 _persistence/decisions.md
+      8 _persistence/tasks.md
+
+$ grep -c "esa procedencia se deriva del diff" .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c "Nota del 2026-09-03 (\`T-053\`, hallazgo \`F-035\`)" _audit/S-014.md
+1
+```
+
+---
+
+### T-054 - Reescribir en forma generica la cita instanciada de `_workflow/005_discovery.md` (`F-036`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-016 |
+
+- **Que:** la unica cita instanciada del archivo —una leccion `L-XXX` nombrada por su codigo— se
+  reescribe diciendo lo que la leccion dice, sin el codigo. `_workflow/` vuelve a pasar limpio el
+  barrido de codigos instanciados.
+- **Por que:** `D-066` declaro el incumplimiento y decidio no tocarlo por `PI-3`, sin dejar `T-XXX`
+  ni `DT-XXX`. Aparcado dentro del cuerpo de una decision, no aparecia en ningun indice de trabajo
+  pendiente y nada lo traia de vuelta. Se corrige en vez de aplazarse porque el arreglo es una frase
+  y no toca ninguna referencia entrante: **aplazarlo costaba mas registro que hacerlo**.
+- **Criterio de cierre:** el barrido de codigos instanciados sobre `_workflow/005_discovery.md`
+  devuelve `exit=1`.
+
+**Verificacion — cero codigos instanciados en el archivo:**
+
+```
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/005_discovery.md ; echo "exit=$?"
+exit=1
+
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md _workflow/team.md _workflow/ai_levels.md ; echo "exit=$?"
+_workflow/team.md:107:validacion» necesita una firma humana que ninguna herramienta puede dar, y `PI-1` —razona antes de
+_workflow/team.md:126:contra las carpetas declaradas. Ninguno opina; todos son reproducibles. Es lo que `PI-5` exige
+_workflow/team.md:281:donde ya vive todo lo que se elige. Un prefijo mas es coste permanente, y `PI-2` pide lo minimo que
+_workflow/team.md:289:`PI-5` no admite una tercera casilla: lo que produce documentacion esta Terminado cuando existe su
+_workflow/ai_levels.md:206:🔑 **Esto conecta directamente con `PI-5`.** «Un test escrito para pasar no cuenta» tiene aqui una
+_workflow/ai_levels.md:342:4. **El bloque de verificacion** que exige `PI-5`, porque esto es documentacion: la orden ejecutada y
+exit=0
+```
+
+🚨 **Las seis lineas del segundo barrido son falsos positivos conocidos, y se publican en vez de
+filtrarse.** El patron alterna `I` como inicial, y `PI-1`, `PI-2` y `PI-5` la contienen: son los
+principios de ingenieria de `CLAUDE.md`, que es un archivo agnostico, no codigos del registro de este
+proyecto. **Ninguna es un incumplimiento.** Se dejan a la vista porque un `exit=0` explicado vale mas
+que un patron retocado hasta que devuelva cero — el patron retocado tapa el siguiente positivo de
+verdad, y nadie lo nota.
+
+---
+
+### T-055 - Resolver la Comprobacion 0 del Gate 1 por orden del grafo, no por fecha (`F-037`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-016 |
+
+- **Que:** el Paso 2 de `protocol-gate1` pasa a resolver las tres lecturas de «antes» con
+  `git merge-base --is-ancestor`, y la de «el prototipo no cambio entre sesiones» con un rango
+  `$SES1..$SESN`. `%ad` queda declarado como dato informativo. La afirmacion «las fechas del
+  historial no se pueden convencer» se sustituye por lo que el mecanismo garantiza de verdad, en el
+  skill y en `_templates/015_gate1/005_verdict.md`; en `D-069` va como **nota fechada al lado**, sin
+  reescribir la viñeta original. Lo adopta `D-071`.
+- **Por que:** `D-069` apoyaba el tercer resultado `NO AUDITABLE` entero en una propiedad que no
+  existia: `%ad` se sobrescribe con `GIT_AUTHOR_DATE`, y la Comprobacion 0 habria dado `PASA` sobre
+  una hipotesis escrita despues de las sesiones — el caso exacto para el que existe.
+- **Criterio de cierre:** ninguna de las lecturas de «antes» decide por `%ad`, y la frase absoluta
+  no queda viva en ninguno de los tres sitios.
+- **Lo que esta tarea NO toca:** las dos apariciones de la frase en `_persistence/progress.md`
+  (lineas 94 y 690-691). Son entradas de la bitacora de sesiones anteriores, escritas por el
+  `session-closer`, y registran lo que se creia entonces. Reescribirlas convertiria «faltaba
+  evidencia» en «hay evidencia falsa». La correccion vigente vive en `D-071` y en la nota de
+  `D-069`; el cierre de esta sesion escribira el estado nuevo en su propia entrada.
+
+**Verificacion — el «antes» ya no se decide por fecha:**
+
+```
+$ grep -c "merge-base --is-ancestor" .claude/skills/protocol-gate1/SKILL.md
+3
+
+$ grep -rc "imposible de aprobar a posteriori" .claude/skills/protocol-gate1/SKILL.md _templates/015_gate1/005_verdict.md
+.claude/skills/protocol-gate1/SKILL.md:0
+_templates/015_gate1/005_verdict.md:0
+```
+
+---
+
+### T-056 - Dar a la Comprobacion 0 forma de localizar la subcarpeta del prototipo y salida si no existe (`F-038`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-016 |
+
+- **Que:** el Paso 2 de `protocol-gate1` localiza la subcarpeta del prototipo con
+  `git ls-tree -d --name-only HEAD <PROTO>/` en vez de esperar un valor que `project.md` no declara,
+  y dice que emite si no la encuentra: **`NO AUDITABLE`**, no `NO COMPROBABLE`. El Paso 0 queda
+  acotado en el mismo sentido, para que su regla general no contradiga a la Comprobacion 0.
+- **Por que:** dos de las siete lecturas dependian de ese valor, y la salida que el Paso 0 daba para
+  un valor no declarado —`NO COMPROBABLE`— no es un resultado que la Comprobacion 0 admita.
+- **Criterio de cierre:** el skill no usa ningun marcador sin resolver para la subcarpeta, y los dos
+  vocabularios quedan separados por escrito.
+
+**Verificacion — el marcador desaparecio y la salida esta escrita:**
+
+```
+$ grep -c "subcarpeta del prototipo>" .claude/skills/protocol-gate1/SKILL.md
+0
+
+$ grep -n "ls-tree -d --name-only" .claude/skills/protocol-gate1/SKILL.md
+136:PROTO_DIR=$(git ls-tree -d --name-only HEAD <PROTO>/)
+
+$ grep -c "Esa salida es para los criterios del Paso 4, no para la Comprobacion 0" .claude/skills/protocol-gate1/SKILL.md
+1
+```
+
+---
+
+### T-057 - Escribir el reparto y las plantillas de la etapa de la baseline
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-016 |
+
+- **Que:** `_workflow/020_baseline.md` —el reparto Humano/Software/IA de los pasos de la etapa— y la
+  subcarpeta `_templates/020_baseline/` con una plantilla por artefacto.
+- **Por que:** `_phases/020_baseline.md` (`D-072`) declara los dos como **condicion de entrada** de
+  la etapa, igual que `_phases/010_prototype.md` §5 hace con los suyos. Escribir la tarea ahora es lo
+  que impide que la condicion se descubra el dia que haya que registrar el primer artefacto y no haya
+  donde — que es justo el modo en que esa condicion se salta, porque no la señala nadie.
+- **Criterio de cierre:** los dos existen, `_phases/020_baseline.md` los cita, y ninguno filtra datos
+  propios del proyecto ni codigos instanciados.
+- **Cuando:** antes de abrir la etapa, no antes de adoptarla. Adoptar las etapas posteriores es
+  trabajo de `005_discovery` (`T-002`), y mientras esa decision no exista esta tarea no tiene urgencia.
+
+---
+
+### T-058 - Escribir el archivo de etapa de la baseline (`_phases/020_baseline.md`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-016 |
+
+- **Que:** nace `_phases/020_baseline.md`, con la misma forma que los dos archivos de etapa que ya
+  existian: ocho secciones, lo que autoriza, lo que prohibe, sus entradas, diez pasos de
+  procedimiento, sus artefactos, su condicion de salida, lo que registra `manager` y lo que le
+  entrega a la etapa siguiente. Se construyo sobre el borrador que trajo el usuario, contrastado
+  contra `_methodology/000_method.md` §33-§39 y §46-§50 y contra `_phases/005_discovery.md` y
+  `_phases/010_prototype.md`. Lo registra `D-072`, que enumera que se corrigio del borrador al
+  portarlo y que se conservo de el.
+- **Por que:** el borrador venia de otro esquema de trabajo y traia dentro rutas, prefijos y un
+  lector que aqui no existen. Portarlo tal cual habria roto el agnosticismo que el Paso 1b del cierre
+  comprueba sobre `_phases/`, y habria metido dos prefijos —los de feature y escenario— que colisionan
+  con el hallazgo de auditoria y con la sesion de trabajo.
+- **La decision de metodo que la etapa aporta, y no estaba en el borrador:** un Paso 3 que **declara
+  en `project.md` los codigos de producto que la etapa estrena, antes de escribir el primero**. Sin
+  el, la etapa entera habria escrito identificadores nuevos contra la regla que `project.md` ya tiene
+  —un codigo que aparece en un archivo antes que en la tabla es un desfase—, y esta es la etapa que
+  mas codigos estrena del metodo.
+- **Criterio de cierre:** el archivo existe, no lleva ningun codigo instanciado ni ningun dato propio
+  del proyecto, y la tabla «Etapas» de `project.md` **sigue diciendo dos**: escribir el archivo no
+  adopta la etapa.
+
+**Verificacion — existe, es agnostico, y no adopta nada:**
+
+```
+$ ls -1 _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+020_baseline.md
+
+$ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}" _phases/020_baseline.md ; echo "exit=$?"
+exit=1
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" _phases/020_baseline.md ; echo "exit=$?"
+exit=1
+
+$ grep -n "Etapas declaradas" project.md
+105:| Etapas declaradas | `000_preproject`, `005_discovery` |
+```
+
+📌 **El primer patron pide tres digitos a proposito, y conviene decirlo.** Los codigos del registro
+se escriben siempre con tres (`T-053`, `D-072`); con `[0-9]+` el mismo barrido devolveria las
+menciones de los principios de ingenieria de `CLAUDE.md` —`PI-1`, `PI-5`—, que contienen la inicial
+`I` y **no son codigos de este proyecto**. El archivo cita `PI-5` una vez, y esa cita es correcta:
+`CLAUDE.md` es agnostico.
+
+```
+$ grep -on "PI-5" _phases/020_baseline.md
+102:PI-5
+```
+
+📌 **El reparto de `_workflow/` y las plantillas de `_templates/` para esta etapa NO se escriben
+aqui**: el propio archivo los declara condicion de entrada, y su tarea es `T-057`.
