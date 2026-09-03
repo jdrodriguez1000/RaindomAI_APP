@@ -13,6 +13,7 @@
 | [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | Implementada | Confirmada | Baja | No bloqueante |
 | [DT-002](#dt-002---_workflow-nace-sin-ningun-enganche-de-uso-l-014) | `_workflow/` nace sin ningun enganche de uso (`L-014`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 | [DT-003](#dt-003---cinco-lineas-del-registro-publican-ordenes-con-un-caracter-de-control-x08-y-no-se-reejecutan-l-024) | Cinco lineas del registro publican ordenes con un caracter de control `\x08` y no se reejecutan (`L-024`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
+| [DT-004](#dt-004---siete-lineas-nuevas-de-s-019-repiten-el-defecto-de-dt-003-en-decisionsmd-y-tasksmd) | Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md` | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 
 ---
 
@@ -224,3 +225,97 @@ entradas antiguas del registro, y el eje que decide —cuanto se toca lo ya audi
 existente se deshace con un commit y no destruye nada de lo ya escrito. Mientras no exista el
 inventario de acciones irreversibles del proyecto (`T-037`), esta clasificacion se declara como
 criterio y no como lectura de una tabla.
+
+---
+
+### DT-004 - Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md`
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | manager (deteccion: cierre de sesion) |
+| Fecha | 2026-09-03 |
+
+- **Deuda:** el cierre de `S-019` encontro, al revisar `decisions.md` y `tasks.md` contra la
+  evidencia, **siete lineas nuevas** de esta misma sesion —no las cinco que ya cubre `DT-003`— con el
+  mismo caracter de retroceso `0x08` donde el texto pretendia escribir `\b` o backticks vacios. Cinco
+  estan en `_persistence/decisions.md` (dentro y alrededor de `D-077`) y dos en
+  `_persistence/tasks.md` (dentro de `T-068`). El defecto es identico al que `L-024`/`DT-003` ya
+  documentaron, y ocurre **en el mismo commit que escribe `D-077`**, la decision que sustituye un
+  patron escrito a mano precisamente para dejar de tener este tipo de punto ciego.
+- **Como se detecto:** revisando los cuatro archivos del porque contra la evidencia (Paso 6 del
+  cierre), con el mismo patron que usa `DT-003`:
+
+```
+$ python -c "
+import io
+for f,ns in [('_persistence/decisions.md',[3914,4111,4141,4144,4147]),('_persistence/tasks.md',[3046,3064])]:
+    lines=io.open(f,encoding='utf-8').readlines()
+    for n in ns:
+        l=lines[n-1]
+        print(f,n,repr(l))
+"
+_persistence/decisions.md 3914 '> $ grep -rnoE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}\x08" _templates/020_baseline/ | wc -l\n'
+_persistence/decisions.md 4111 '  mas corto para que un prefijo de una letra no tape a uno de dos, el `\x08` inicial se sustituye por\n'
+_persistence/decisions.md 4141 '$ grep -rnoE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}\x08" _templates/020_baseline/ | wc -l\n'
+_persistence/decisions.md 4144 '$ grep -rnoE "\x08(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\x08" _templates/020_baseline/ | wc -l\n'
+_persistence/decisions.md 4147 '$ grep -rnoE "\x08(FT|SC|VS|TC|ADR)-[0-9]{3}\x08" _templates/020_baseline/ | wc -l\n'
+_persistence/tasks.md 3046 '  a mas corto, con `(^|[^A-Za-z])` en vez de `\x08` y `[0-9]{2,3}` en vez de `[0-9]{3}`. Nota fechada\n'
+_persistence/tasks.md 3064 "$ PAT=$( ... ) && grep -rnoE \"(^|[^A-Za-z])(${PAT})-[0-9]{2,3}\x08\" _templates/020_baseline/ | wc -l\n"
+```
+
+- **Por que importa mas de lo habitual:** cuatro de los cinco casos de `decisions.md` (4141, 4144,
+  4147, y el propio 3914) caen **dentro de bloques de verificacion de `D-077`** — la decision que se
+  presenta como la correccion definitiva del punto ciego de patrones escritos a mano. Publicados tal
+  cual, esos comandos **no reproducen**: quien los copie le pasa al interprete un caracter de control
+  en vez de nada, y el patron que declaran probar deja de coincidir con el que esta escrito en el
+  archivo (`(^|[^A-Za-z])(${PAT})-[0-9]{2,3}` sin el `0x08` final).
+- **Verificado, no solo inferido: las tres lineas de `decisions.md` 4141, 4144 y 4147, copiadas y
+  reejecutadas tal cual estan escritas, devuelven `0`, no las cifras que el texto de `D-077` afirma
+  (`25`, `2`, `23`).**
+
+```
+$ sed -n '4144p' _persistence/decisions.md | sed 's/^\$ //' | cat -A | head -1
+grep -rnoE "^H(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}^H" _templates/020_baseline/ | wc -l$
+
+$ sed -n '4141p' _persistence/decisions.md | sed 's/^\$ //' | bash
+0
+$ sed -n '4144p' _persistence/decisions.md | sed 's/^\$ //' | bash
+0
+$ sed -n '4147p' _persistence/decisions.md | sed 's/^\$ //' | bash
+0
+```
+
+  El `^H` de `cat -A` es el propio `0x08`. La linea 4141 depende ademas de una variable `$PAT` que
+  solo existe dentro del bloque original (la orden 4141 sola, sin la 4139-4140 que la preceden,
+  tampoco reproduce por eso — dos defectos distintos en la misma linea). Restituyendo el `\b` que el
+  caracter de control reemplazo, **si** reproducen las cifras publicadas:
+
+```
+$ grep -rnoE "\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b" _templates/020_baseline/ | wc -l
+2
+$ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | wc -l
+23
+```
+
+  Confirma que el caracter corrompido no es un adorno tipografico: es la diferencia entre `2`/`23` y
+  `0`/`0`. Sin restituirlo, quien reejecute el bloque de `D-077` concluye que el patron antiguo no
+  encontraba nada, cuando encontraba exactamente lo que el texto dice.
+- **No se corrige en este cierre:** el cierre de sesion **no escribe** `decisions.md`, y las
+  entradas de `tasks.md` afectadas ya estaban redactadas por `manager` bajo la excepcion que permite
+  citar un `F-NNN` de auditoria — no le corresponde al cierre reescribirlas sin evaluacion previa.
+  Se deja para que `manager` decida, en la proxima sesion, si aplica el mismo remedio que `DT-003`
+  —nota fechada sin tocar la linea original— o si, al no estar todavia commiteadas, corrige la linea
+  directamente antes de cerrar (el argumento de `D-019` sobre «no reescribir» protege lo ya
+  commiteado y auditado; esto no lo estaba todavia cuando se detecto).
+- **Costo de no pagarla:** siete bloques de verificacion adicionales quedan no reproducibles,
+  ademas de los cinco que ya arrastraba `DT-003` — y en el caso de `decisions.md` 4141/4144/4147,
+  quedan **tres de las tres** ordenes de verificacion de `D-077` afectadas.
+- **Como se paga:** igual que `DT-003` — nota fechada junto a cada linea, sin reescribir la original,
+  o correccion directa si `manager` decide que al no estar commiteadas no aplica la prohibicion de
+  reescritura retroactiva.
+
+📌 **Se registra como `Propuesta (pendiente del usuario)`**, igual que `DT-003`: decidir cuanto se
+toca un texto que otra sesion escribio es un eje que le corresponde al usuario, no al cierre.

@@ -27,6 +27,7 @@
 | `S-016.md` | S-016 | 2026-09-03 | `bd8a9ff` | `R-016.md` | Con hallazgos (1) | F-039 |
 | `S-017.md` | S-017 | 2026-09-03 | `1988d2f` | `R-017.md` | Con hallazgos (5) | F-040, F-041, F-042, F-043, F-044 |
 | `S-018.md` | S-018 | 2026-09-03 | `9a52cfa` | `R-018.md` | Con hallazgos (3) | F-045, F-046, F-047 |
+| `S-019.md` | S-019 | 2026-09-03 | Pendiente | Pendiente | Pendiente | - |
 
 ---
 

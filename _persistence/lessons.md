@@ -35,6 +35,7 @@
 | [L-024](#l-024---una-orden-publicada-se-reejecuta-antes-de-publicarla-copiarla-la-puede-corromper-en-silencio) | Una orden publicada se reejecuta antes de publicarla: copiarla la puede corromper en silencio | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-025](#l-025---un-patron-con-limite-de-palabra-es-ciego-a-los-prefijos-mas-largos-que-empiezan-igual) | Un patron con limite de palabra es ciego a los prefijos mas largos que empiezan igual | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-026](#l-026---un-enganche-de-uso-escrito-en-generico-no-engancha-tiene-que-nombrar-el-archivo) | Un enganche de uso escrito en generico no engancha: tiene que nombrar el archivo | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-027](#l-027---cuando-existe-la-orden-que-produce-una-lista-escribirla-a-mano-es-el-error-no-el-atajo) | Cuando existe la orden que produce una lista, escribirla a mano es el error, no el atajo | 2026-09-03 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1006,3 +1007,59 @@ $ git show 6b42d0f:_phases/010_prototype.md | grep -c "_workflow/010_prototype"
   terminado: si devuelve vacio, lo que falta no es el archivo nuevo, es la cita en el que lo invoca.
 - **Donde queda aplicada:** `_phases/020_baseline.md` §4 y §5 nombran ahora
   `_workflow/020_baseline.md` entero (`T-057`), y el enganche devuelve dos lineas.
+
+---
+
+### L-027 - Cuando existe la orden que produce una lista, escribirla a mano es el error, no el atajo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `R-018` abre tres hallazgos sobre el mismo commit —`F-045`, `F-046` y `F-047`— y los
+  tres tienen la misma forma. En los tres, **la orden que daba la respuesta correcta ya estaba
+  escrita en el protocolo o era trivial de escribir**, y en los tres se resolvio a ojo:
+
+  | Hallazgo | Lo que se hizo a mano | La orden que existia |
+  |---|---|---|
+  | `F-045` | numerar las 26 lineas de la seccion 7 y marcar cuales se repetian | `cat -n` y `sort \| uniq -d` |
+  | `F-046` | decir en que entrada de `lessons.md` cayo la nota nueva | `git diff -U0 <c>^ <c> -- <archivo>` mapeado a los `### ` |
+  | `F-047` | escribir la alternancia de prefijos del barrido | derivarla de la tabla «Codigos» de `project.md` |
+
+- **Que ocurrio:** ninguno de los tres fallos se manifesto como error. El primero se manifesto como
+  una numeracion corrida **una posicion**, que dejo una orden sin salida publicada mientras el
+  informe declaraba que todas reprodujeron. El segundo, como un codigo vecino —`L-020` por `L-019`—,
+  que es peor que la omision: quien va a comprobarlo abre la entrada equivocada, no encuentra nada, y
+  concluye que el informe exagera. El tercero, como un cero limpio.
+- **Leccion:** **una lista derivable escrita a mano no se equivoca por descuido: se equivoca por el
+  sitio exacto donde la mano y la orden difieren, que es siempre un desplazamiento pequeno y
+  plausible.** Un numero corrido, un codigo vecino, un prefijo que falta. Ninguno de los tres se ve
+  releyendo, porque los tres son **exactamente lo que uno esperaba leer**. Por eso la regla no puede
+  ser «revisar mejor»: reviso quien lo escribio, y lo dio por bueno tres veces en el mismo commit.
+- **Por que se escapa con facilidad:** escribir la lista a mano se siente **mas rapido y mas
+  legible**, y casi siempre lo es. La orden equivalente es fea, larga y hay que pensarla; la lista
+  escrita sale sola y encima queda bien formateada. El coste no aparece al escribirla — aparece
+  cuando alguien la contrasta, que puede ser nunca. Y hay un agravante propio de este repositorio:
+  `S-018` es el commit que **endurecio la regla de derivar del diff** (`T-065`, `F-044`) y en el
+  mismo commit la incumplio (`F-046`). Escribir la regla no la aplica.
+- **Como aplicarla:** **antes de teclear una enumeracion dentro de un bloque de evidencia, se
+  pregunta si hay una orden que la produzca. Si la hay, se corre y se pega su salida — y la orden va
+  pegada con ella.** Si no la hay, se dice que se escribio a mano y contra que se contrasto. Y donde
+  la mano es inevitable —rotular cada salida con su posicion—, los rotulos salen de `cat -n`, no de
+  contar.
+- **Donde queda aplicada:** el Paso 2d de `protocol-close` incorpora la numeracion con `cat -n` y las
+  repetidas con `uniq -d` (`T-066`); el Paso 6b incorpora las dos ordenes que derivan las entradas
+  editadas de cada archivo de registro (`T-067`); y `D-077` sustituye la alternancia escrita a mano
+  del control de codigos instanciados por una derivada de las tablas (`T-068`).
+
+```
+$ grep -c 'cat -n' .claude/skills/protocol-close/SKILL.md
+2
+
+$ grep -c 'que entrada contiene cada punto tocado' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'D-077' _persistence/decisions.md
+3
+```

@@ -16,6 +16,7 @@
 | [A-004](#a-004---existe-acceso-al-patrocinador-y-a-personas-que-puedan-hablar-del-proceso-real) | Existe acceso al patrocinador y a personas que puedan hablar del proceso real | 2026-09-02 | Abierto |
 | [A-005](#a-005---la-parte-de-ai_levelsmd-escrita-sin-experiencia-propia-es-correcta) | La parte de `ai_levels.md` escrita sin experiencia propia es correcta | 2026-09-02 | Abierto |
 | [A-006](#a-006---los-codigos-de-feature-y-escenario-que-el-proyecto-declaro-son-los-que-acabara-usando) | Los codigos de feature y escenario que el proyecto declaro son los que acabara usando | 2026-09-03 | Abierto |
+| [A-007](#a-007---habra-un-humano-disponible-para-ejecutar-cada-despliegue-de-la-etapa-del-esqueleto) | Habra un humano disponible para ejecutar cada despliegue de la etapa del esqueleto | 2026-09-03 | Abierto |
 
 ---
 
@@ -372,3 +373,46 @@ haberlo usado.
   se registra con su `D-XXX`** citando `D-075` — no se borra en silencio.
 - **Disparador:** **la decision que declare las etapas posteriores a `005_discovery`** (`T-002`), y
   en su defecto el Paso 3 de la etapa de la baseline el dia que se abra. Lo que llegue primero.
+
+---
+
+### A-007 - Habra un humano disponible para ejecutar cada despliegue de la etapa del esqueleto
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueño | `manager` |
+
+- **Supuesto:** `D-080` puntua el eje «Impacto de un error» de la etapa del esqueleto en **2**, y de
+  ahi sale la lectura **nivel 2** de `_workflow/ai_levels.md` §6. Ese 2 se sostiene **solo** porque
+  `_workflow/025_wslt.md` §3 le quita a la IA el despliegue y el empuje de historial. Y quitarselos
+  da por cierto lo que este supuesto guarda: **que cuando llegue el momento habra una persona
+  disponible para ejecutarlos y firmarlos**.
+- **Por que se supone, y no se afirma:** hoy no hay etapa declarada, no hay entorno, no hay codigo y
+  no hay nadie asignado. El reparto reparte trabajo entre participantes que todavia no han hecho
+  nada. Que exista quien ejecute el Paso 4 no esta confirmado por nada: **esta asumido por la propia
+  forma del reparto**.
+- **Por que se registra ahora, y no cuando se abra la etapa:** porque `D-080` **ya se apoya en el**.
+  Una puntuacion de rubrica que descansa en un supuesto no escrito se lee, a los pocos meses, como
+  una propiedad de la etapa — y entonces nadie sabe que hay algo que comprobar. Es el mismo caso que
+  `A-006`: lo que se guarda no es el dato, es **la diferencia entre lo elegido y lo asumido**.
+- **Que pasa si resulta falso, y por que importa mas de lo que parece:** no pasa que la etapa se
+  retrase. Pasa que alguien delega el despliegue **«solo esta vez»**, y en ese momento el eje se va
+  al **3** sin que nadie lo escriba. `_workflow/ai_levels.md` §6 dice que cualquier eje en 3 pide
+  **nivel 5** con harness obligatorio, y que «impacto de un error en 3 no se compensa con nada».
+  🚨 **El fallo silencioso es exactamente ese: la puntuacion sigue diciendo 2 y ya no es cierta**, y
+  ningun control del repositorio lo mira.
+- **Lo que este supuesto NO cubre:** que el humano disponible sea competente para diagnosticar lo
+  que rompa el despliegue —eso es otra cosa y no se registra aqui—, ni el segundo supuesto que
+  `_workflow/025_wslt.md` §7 nombra: que habra quien revise **cada** tramo de codigo del Paso 3. Ese
+  segundo entra al registro el dia que la etapa se adopte, con el `D-XXX` del reparto.
+- **Como se refuta:** que al abrir la etapa no haya nadie asignado al Paso 4; o que se registre una
+  decision que delegue el despliegue, sea a un agente o a un proceso automatico. En cualquiera de
+  los dos casos **`D-080` hay que rehacerlo diciendo que eje se movio**, y no se corrige en silencio.
+- **Disparador:** **el `D-XXX` que adopte el reparto al abrir la etapa del esqueleto** — que es el
+  momento en que se dice con nombre quien ejecuta cada paso. Y antes que ese, cualquier decision que
+  automatice un despliegue en este proyecto, aunque sea fuera de esa etapa.
+
+⚠️ **No se confunde con `C-002`.** Aquella fija **donde** se despliega, y es una restriccion
+confirmada. Este supone **quien** lo ejecuta, y no lo esta.

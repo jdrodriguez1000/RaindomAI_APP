@@ -74,6 +74,12 @@
 | [T-063](#t-063---dar-deuda-registrada-a-las-cinco-lineas-con-x08-y-corregir-el-reparto-de-l-024-f-042) | Dar deuda registrada a las cinco lineas con `\x08` y corregir el reparto de `L-024` (`F-042`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-064](#t-064---corregir-en-l-024-el-recuento-de-lineas-presentado-como-apariciones-f-043) | Corregir en `L-024` el recuento de lineas presentado como apariciones (`F-043`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-065](#t-065---exigir-en-la-seccion-1-del-informe-las-entradas-existentes-que-el-commit-edita-f-044) | Exigir en la seccion 1 del informe las entradas existentes que el commit edita (`F-044`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-066](#t-066---publicar-el-recuento-real-de-la-seccion-7-de-s-018-y-numerar-la-lista-con-la-orden-f-045) | Publicar el recuento real de la seccion 7 de `S-018` y numerar la lista con la orden (`F-045`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-067](#t-067---corregir-la-atribucion-l-020l-019-en-s-018-y-derivar-del-diff-las-entradas-editadas-f-046) | Corregir la atribucion `L-020`/`L-019` en `S-018` y derivar del diff las entradas editadas (`F-046`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-068](#t-068---derivar-de-las-tablas-el-patron-del-control-de-codigos-instanciados-f-047) | Derivar de las tablas el patron del control de codigos instanciados (`F-047`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-069](#t-069---escribir-el-archivo-de-etapa-del-esqueleto-que-camina-_phases025_wsltmd) | Escribir el archivo de etapa del esqueleto que camina (`_phases/025_wslt.md`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-070](#t-070---escribir-la-plantilla-del-acta-del-esqueleto-_templates025_wslt005_skeleton_recordmd) | Escribir la plantilla del acta del esqueleto (`_templates/025_wslt/005_skeleton_record.md`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-071](#t-071---escribir-el-reparto-de-la-etapa-del-esqueleto-_workflow025_wsltmd-d-080) | Escribir el reparto de la etapa del esqueleto (`_workflow/025_wslt.md`, `D-080`) | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -2947,4 +2953,236 @@ $ grep -c 'entradas YA EXISTENTES que el commit edita' .claude/skills/protocol-c
 
 $ grep -c 'no es todo lo que cambia' .claude/skills/protocol-close/SKILL.md
 1
+```
+
+---
+
+### T-066 - Publicar el recuento real de la seccion 7 de `S-018` y numerar la lista con la orden (`F-045`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-019 |
+
+- **Que:** dos cosas. (1) Nota fechada en la seccion 7 de `_audit/S-018.md` con las cifras que
+  devuelve la orden anclada al commit —26 lineas, 23 ordenes distintas, tres repetidas nombradas— y
+  con la salida de la orden de la posicion 15, que el informe dejo sin publicar. (2) Endurecer el
+  Paso 2d de `protocol-close`: la lista se numera con `cat -n` y las repetidas salen de
+  `sort | uniq -d`, nunca marcadas a ojo.
+- **Por que:** el Paso 2d existe para que el recuento sea contrastable, y es la pieza que `F-039` y
+  `T-059` acababan de reparar. Una cifra falsa en ese sitio no es un detalle: es el unico numero que
+  un lector puede comparar sin rehacer el barrido. Y una orden marcada como duplicada de otra que no
+  lo es desaparece de la verificacion sin dejar hueco.
+- **El informe no se reescribe** (`D-019`): la cifra vieja se queda con su nota al lado. Reescribirla
+  convertiria «falta evidencia» en «hay evidencia falsa».
+- **Criterio de cierre:** la nota existe en la seccion 7, publica las tres cifras con su orden, y el
+  Paso 2d prescribe `cat -n` y `uniq -d`.
+
+```
+$ grep -c 'Nota del 2026-09-03 (`T-066`, hallazgo `F-045`)' _audit/S-018.md
+1
+
+$ grep -c 'cat -n' .claude/skills/protocol-close/SKILL.md
+2
+
+$ grep -c 'nunca a ojo' .claude/skills/protocol-close/SKILL.md
+1
+```
+
+---
+
+### T-067 - Corregir la atribucion `L-020`/`L-019` en `S-018` y derivar del diff las entradas editadas (`F-046`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-019 |
+
+- **Que:** dos cosas. (1) Nota fechada en la seccion 1 de `_audit/S-018.md`, viñeta de
+  `_persistence/lessons.md`, diciendo que la nota de reincidencia cae en `L-019` y no en `L-020`, con
+  las dos ordenes que lo derivan del diff. (2) Añadir esas dos ordenes al Paso 6b de
+  `protocol-close`, que hasta ahora decia «derivalo del diff» sin decir con que.
+- **Por que:** `S-018` es el commit que escribio esa regla (`T-065`, `F-044`) y el que la incumplio.
+  Eso no es un defecto de la regla —el auditor lo dice y tiene razon— sino la prueba de que una
+  regla que no trae su orden se aplica de memoria. Una atribucion equivocada es peor que la omision:
+  quien la comprueba abre `L-020`, no encuentra nada, y concluye que el informe exagera.
+- **Alcance mayor que el del hallazgo, y se dice:** `F-046` solo pedia corregir la atribucion. Se
+  añade ademas el aviso sobre el borde de la primera orden —un hunk que añade entradas al final de
+  otra sale rotulado con la anterior—, porque publicarla sin ese aviso reproduce el mismo defecto
+  con otra cara.
+- **Criterio de cierre:** la nota existe en la seccion 1, y el Paso 6b lleva las dos ordenes.
+
+```
+$ grep -c 'Nota del 2026-09-03 (`T-067`, hallazgo `F-046`)' _audit/S-018.md
+1
+
+$ grep -c 'que entrada contiene cada punto tocado' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'que entradas NACEN' .claude/skills/protocol-close/SKILL.md
+1
+```
+
+---
+
+### T-068 - Derivar de las tablas el patron del control de codigos instanciados (`F-047`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-019 |
+
+- **Que:** `D-077` — el patron del control deja de escribirse a mano y se deriva de la tabla
+  «Codigos» de `project.md` unida a la de §46 de `_methodology/000_method.md`, ordenada de mas largo
+  a mas corto, con `(^|[^A-Za-z])` en vez de `` y `[0-9]{2,3}` en vez de `[0-9]{3}`. Nota fechada
+  en el bloque de `D-073` diciendo que «el patron ampliado» tampoco cubria `H-`.
+- **Por que:** es el tercer punto ciego de la misma serie —`F-041` abrio el segundo—, y el hallazgo
+  ofrecia dos salidas: añadir `H` a mano, o declarar que `H-` queda fuera. Las dos dejan intacta la
+  causa. `H-nn` ademas tiene dos digitos, asi que el cuantificador tambien fallaba: el punto ciego
+  era doble.
+- **Se rechaza la salida barata que el propio hallazgo ofrecia**, y queda escrito en `D-077` con sus
+  tres alternativas descartadas.
+- **Criterio de cierre:** existe `D-077`, la nota fechada esta en `D-073`, y el patron derivado ve
+  las veinticinco lineas que las dos alternancias antiguas solo veian en dos pasadas.
+
+```
+$ grep -c 'Nota del 2026-09-03 (`T-068`, hallazgo `F-047`)' _persistence/decisions.md
+1
+
+$ grep -cE '^### D-077' _persistence/decisions.md
+1
+
+$ PAT=$( { sed -n '/^## Codigos/,/^---/p' project.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; sed -n '/^## 46\. Identificadores/,/^```/p' _methodology/000_method.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; } | tr -d '|` ' | sed 's/-.*//' | sort -u | awk '{print length, $0}' | sort -rn | cut -d' ' -f2 | paste -sd'|' - ) && grep -rnoE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}" _templates/020_baseline/ | wc -l
+25
+```
+
+
+---
+
+### T-069 - Escribir el archivo de etapa del esqueleto que camina (`_phases/025_wslt.md`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-019 |
+
+- **Que:** nace `_phases/025_wslt.md`, la quinta etapa del metodo declarada en `_phases/` -el
+  esqueleto que camina-, portada desde un borrador propio del usuario (`temporal/025_wslt.md`, de
+  otro proyecto) y adaptada al agnosticismo y a los codigos de este repositorio (`D-078`). Ocho
+  secciones: que autoriza, que prohibe, entradas, procedimiento en seis pasos, artefactos que
+  produce (cinco, con el acta nueva de `T-070`), condicion de salida, que registra `manager`, y que
+  entrega a la siguiente etapa.
+- **Por que:** el mismo patron que `_phases/010_prototype.md` y `_phases/020_baseline.md`: el
+  archivo describe que se hace **si** se entra a la etapa, no que se vaya a entrar. Adoptar la etapa
+  sigue siendo trabajo de `005_discovery` (`T-002`).
+- **No adopta la etapa** (`D-078`): `project.md` sigue declarando `000_preproject` y
+  `005_discovery`, y nada mas.
+- **Criterio de cierre:** el archivo existe, es agnostico, no lleva codigos instanciados del
+  registro ni del producto, y la tabla «Etapas declaradas» de `project.md` sigue sin tocar.
+
+```
+$ ls -1 _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+020_baseline.md
+025_wslt.md
+
+$ grep -n "Etapas declaradas" project.md
+105:| Etapas declaradas | `000_preproject`, `005_discovery` |
+
+$ grep -rnE "RaindomAI|Proyectos_TripleS|github.com" _phases/025_wslt.md ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### T-070 - Escribir la plantilla del acta del esqueleto (`_templates/025_wslt/005_skeleton_record.md`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-019 |
+
+- **Que:** nace la plantilla del quinto artefacto de la etapa -el **acta del esqueleto**-, que el
+  usuario zanjo que hacia falta (`D-079`) porque un test en verde no demuestra ni que se le vio
+  rojo, ni contra que se comprobo desde fuera, ni que rompio el despliegue. Ocho secciones: la
+  regla que gobierna el archivo, el camino recorrido, las capas sin simular, el entorno
+  reproducible, el despliegue, las tres preguntas minimas, la comprobacion desde fuera y el
+  veredicto sobre la arquitectura.
+- **Por que:** `_phases/025_wslt.md` exige la plantilla como condicion de entrada de la etapa, igual
+  que `020_baseline` exige las suyas. Sin ella la etapa no tendria plantilla que exigir.
+- **Criterio de cierre:** la plantilla existe en la subcarpeta `025_wslt/` de `_templates/`, y
+  `_phases/025_wslt.md` la cita como condicion de entrada.
+
+```
+$ ls -1 _templates/025_wslt/
+005_skeleton_record.md
+
+$ grep -c "Acta del esqueleto" _phases/025_wslt.md
+1
+
+$ grep -c "son condicion de entrada, no trabajo de" _phases/025_wslt.md
+1
+```
+
+---
+
+### T-071 - Escribir el reparto de la etapa del esqueleto (`_workflow/025_wslt.md`, `D-080`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-019 |
+
+- **Que:** nace `_workflow/025_wslt.md`, el reparto Humano/Software/IA de los seis pasos del
+  procedimiento de la etapa, con la rubrica de `_workflow/ai_levels.md` §6 puntuada. El despliegue
+  (Paso 4) y el empuje de historial quedan fuera de lo que la IA puede ejecutar, porque
+  `_workflow/team.md` §5.1 clasifica esa clase de accion como irreversible; el eje «Impacto de un
+  error» puntua **2** de forma condicional a ese reparto, y no 3 (`D-080`). El Paso 3 -codigo del
+  esqueleto- si lo escribe la IA, con revision humana de cada tramo.
+- **Por que:** es la misma obligacion que `_workflow/020_baseline.md` y `_workflow/010_prototype.md`
+  cumplieron para sus etapas: `_phases/025_wslt.md` §3 exige el reparto como condicion de entrada, y
+  esta etapa introduce algo nuevo -acciones con efecto fuera del repositorio- que las anteriores no
+  tenian.
+- **No adopta el reparto** (misma nota que `D-080`): leer estas tablas no reparte nada; repartir es
+  el `D-XXX` que se escriba al abrir la etapa, y la etapa no esta declarada.
+- **Deja abierto `A-007`:** que habra un humano disponible para ejecutar cada despliegue es un
+  supuesto, no un hecho confirmado - registrado aparte porque `D-080` ya se apoya en el.
+- **Criterio de cierre:** el archivo puntua la rubrica, deja el despliegue fuera de la IA, declara
+  la condicion del eje, y su numero de filas coincide con el numero de pasos del procedimiento.
+
+```
+$ grep -c "Variabilidad de la entrada" _workflow/025_wslt.md
+1
+
+$ grep -c "ejecuten el despliegue" _workflow/025_wslt.md
+1
+
+$ grep -c "El 2 del primer eje es condicional" _workflow/025_wslt.md
+1
+
+$ grep -cE "^\| \*\*[1-6] · " _workflow/025_wslt.md
+6
+
+$ grep -c "^### Paso " _phases/025_wslt.md
+6
 ```

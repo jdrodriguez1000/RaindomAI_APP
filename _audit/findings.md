@@ -56,9 +56,9 @@
 | [F-042](#f-042---las-cinco-apariciones-de-x08-quedan-sin-t-xxx-ni-dt-xxx-y-la-decision-se-delega-en-un-actor-que-no-decide) | Las cinco apariciones de `\x08` quedan sin `T-XXX` ni `DT-XXX`, y la decision se delega en un actor que no decide | R-017 | Media | Implementado |
 | [F-043](#f-043---l-024-dice-seis-apariciones-donde-son-seis-lineas-y-veinte-apariciones-en-la-misma-entrada) | `L-024` dice «seis apariciones» donde son seis lineas y veinte apariciones, en la misma entrada | R-017 | Baja | Implementado |
 | [F-044](#f-044---la-seccion-1-del-informe-omite-las-dos-notas-de-reincidencia-anadidas-a-l-004-y-l-019) | La seccion 1 del informe omite las dos notas de reincidencia añadidas a `L-004` y `L-019` | R-017 | Baja | Implementado |
-| [F-045](#f-045---la-seccion-7-declara-28-ordenes-donde-son-26-afirma-que-no-hay-repetidas-cuando-hay-tres-y-deja-una-sin-salida-publicada) | La seccion 7 declara 28 ordenes donde son 26, afirma que no hay repetidas cuando hay tres, y deja una sin salida publicada | R-018 | Media | Abierto |
-| [F-046](#f-046---la-seccion-1-atribuye-a-l-020-la-nota-de-reincidencia-que-el-commit-pone-en-l-019) | La seccion 1 atribuye a `L-020` la nota de reincidencia que el commit pone en `L-019` | R-018 | Media | Abierto |
-| [F-047](#f-047---el-patron-ampliado-que-t-062-adopta-de-aqui-en-adelante-sigue-ciego-al-prefijo-h-) | El patron ampliado que `T-062` adopta «de aqui en adelante» sigue ciego al prefijo `H-` | R-018 | Baja | Abierto |
+| [F-045](#f-045---la-seccion-7-declara-28-ordenes-donde-son-26-afirma-que-no-hay-repetidas-cuando-hay-tres-y-deja-una-sin-salida-publicada) | La seccion 7 declara 28 ordenes donde son 26, afirma que no hay repetidas cuando hay tres, y deja una sin salida publicada | R-018 | Media | Aceptado — pendiente |
+| [F-046](#f-046---la-seccion-1-atribuye-a-l-020-la-nota-de-reincidencia-que-el-commit-pone-en-l-019) | La seccion 1 atribuye a `L-020` la nota de reincidencia que el commit pone en `L-019` | R-018 | Media | Aceptado — pendiente |
+| [F-047](#f-047---el-patron-ampliado-que-t-062-adopta-de-aqui-en-adelante-sigue-ciego-al-prefijo-h-) | El patron ampliado que `T-062` adopta «de aqui en adelante» sigue ciego al prefijo `H-` | R-018 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -2692,8 +2692,8 @@ exit=1
 | Auditoria | R-018 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-066` |
 | Cerrado en | |
 
 - **Que se observo:** el informe dice «**Recuento: 28 lineas devueltas** (28 ordenes distintas
@@ -2731,6 +2731,14 @@ $ git show 9a52cfa:_audit/S-018.md | grep -nE '^--(1[3-9])--'
 - **Que lo corregiria:** publicar el recuento que devuelve la orden anclada al commit —lineas y
   ordenes distintas por separado, con las repetidas nombradas— y dar salida propia a la orden de la
   posicion 15.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-019`). El hallazgo se verifico contra
+  `HEAD` antes de aceptarlo: la orden anclada devuelve 26 lineas, 23 ordenes distintas y tres
+  repetidas —las posiciones 16, 17 y 18—, y la posicion 15 es una orden propia que quedo sin salida.
+  El informe **no se reescribe** (`D-019`): lleva su nota fechada en la seccion 7 con las tres cifras
+  y con la salida que faltaba. Y se ataca la causa, no solo el sintoma: el Paso 2d de
+  `protocol-close` pasa a numerar la lista con `cat -n` y a sacar las repetidas de `sort | uniq -d`,
+  porque marcarlas a ojo es lo que corrio la numeracion una posicion. Registrado en `T-066`, con
+  `L-027`.
 
 ---
 
@@ -2740,8 +2748,8 @@ $ git show 9a52cfa:_audit/S-018.md | grep -nE '^--(1[3-9])--'
 | Auditoria | R-018 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-067` |
 | Cerrado en | |
 
 - **Que se observo:** el informe dice «nota de reincidencia añadida a `L-020` (la entrada de
@@ -2778,6 +2786,13 @@ $ git show 9a52cfa:_persistence/lessons.md | sed -n '709,712p'
   exagera.
 - **Que lo corregiria:** derivar la lista de entradas editadas del diff, como la propia regla nueva
   del skill indica (`git diff <commit>^ <commit> -- <archivo>`), en vez de escribirla a mano.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-019`). Verificado contra `HEAD`: el
+  mapeo de hunks a entradas devuelve `L-019`, y ningun `L-020`. Nota fechada en la seccion 1 del
+  informe, que **no se reescribe** (`D-019`), con las dos ordenes que derivan la atribucion del diff.
+  Y esas dos ordenes entran en el Paso 6b de `protocol-close`, que hasta ahora decia «derivalo del
+  diff» sin decir con que — una regla sin su orden se aplica de memoria, que es exactamente lo que
+  paso en el commit que escribio la regla. Se añade ademas el aviso sobre el borde conocido de la
+  primera orden, que el hallazgo no pedia. Registrado en `T-067`, con `L-027`.
 
 ---
 
@@ -2787,8 +2802,8 @@ $ git show 9a52cfa:_persistence/lessons.md | sed -n '709,712p'
 | Auditoria | R-018 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-068` |
 | Cerrado en | |
 
 - **Que se observo:** la nota fechada de `D-073` cierra con «De aqui en adelante este control se
@@ -2811,3 +2826,10 @@ A C D DT F FT H I L N R S SC T
   nota al lado.
 - **Que lo corregiria:** derivar la alternancia de la tabla «Codigos» de `project.md`, o dejar
   escrito en la nota que `H-` queda deliberadamente fuera y por que.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-019`). Verificado contra `HEAD`: la
+  union de las dos alternancias deja fuera `H-`, y el cuantificador `[0-9]{3}` no habria casado
+  `H-nn`. **Se rechazan las dos correcciones que el propio hallazgo ofrecia** —añadir `H` a mano, o
+  declarar la exclusion— porque las dos dejan intacta la causa: es el tercer punto ciego de la misma
+  serie. El patron pasa a derivarse de la tabla «Codigos» de `project.md` unida a la de §46 del
+  metodo, con `(^|[^A-Za-z])` y `[0-9]{2,3}` (`D-077`). Nota fechada en el bloque de `D-073`.
+  Registrado en `T-068`, con `L-027`.

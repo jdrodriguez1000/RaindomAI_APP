@@ -85,6 +85,10 @@
 | [D-074](#d-074---la-seccion-5-del-archivo-de-etapa-de-la-baseline-dice-nueve-artefactos-no-ocho) | La seccion 5 del archivo de etapa de la baseline dice nueve artefactos, no ocho | 2026-09-03 | Vigente |
 | [D-075](#d-075---se-declaran-ft--y-sc--en-la-tabla-codigos-porque-las-plantillas-ya-los-citan) | Se declaran `FT-` y `SC-` en la tabla «Codigos», porque las plantillas ya los citan | 2026-09-03 | Vigente |
 | [D-076](#d-076---el-reparto-de-la-baseline-puntua-la-variabilidad-de-la-entrada-en-2-y-por-eso-no-declara-discrepancia) | El reparto de la baseline puntua la variabilidad de la entrada en 2, y por eso no declara discrepancia | 2026-09-03 | Vigente |
+| [D-077](#d-077---el-patron-del-control-de-codigos-instanciados-se-deriva-de-las-tablas-no-se-escribe-a-mano) | El patron del control de codigos instanciados se deriva de las tablas, no se escribe a mano | 2026-09-03 | Vigente |
+| [D-078](#d-078---el-archivo-de-etapa-del-esqueleto-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa del esqueleto se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-03 | Vigente |
+| [D-079](#d-079---la-etapa-del-esqueleto-produce-un-acta-propia-y-por-eso-tiene-plantilla) | La etapa del esqueleto produce un acta propia, y por eso tiene plantilla | 2026-09-03 | Vigente |
+| [D-080](#d-080---el-despliegue-no-se-delega-en-la-ia-y-por-eso-el-eje-de-impacto-puntua-2-y-no-3) | El despliegue no se delega en la IA, y por eso el eje de impacto puntua 2 y no 3 | 2026-09-03 | Vigente |
 
 ---
 
@@ -3893,6 +3897,29 @@ _templates/020_baseline/045_traceability.md:199:N-001
 > instanciados mas alla de `N-001`—; lo que no prueba es lo que su titulo sugiere, que es la carpeta
 > entera. Los codigos de **producto** que aparecen son `FT-` y `SC-`, y su falta de declaracion es
 > `F-040`, resuelto en `D-075`. De aqui en adelante este control se corre con el patron ampliado.
+>
+> 📌 **Nota del 2026-09-03 (`T-068`, hallazgo `F-047`).** «El patron ampliado» de la linea
+> anterior **tampoco estaba completo**, y es el mismo defecto una vuelta mas tarde: la union de las
+> dos alternancias escritas a mano —`N T D A C I F L S R DT` y `FT SC VS TC ADR`— deja fuera `H-`,
+> el hito, que `project.md` si declara; y el cuantificador `[0-9]{3}` no habria casado su forma
+> `H-nn`, de dos digitos. Punto ciego doble. **La correccion no es una alternancia mas larga escrita
+> a mano —es dejar de escribirla a mano** (`D-077`): se deriva de la tabla «Codigos» de `project.md`
+> unida a la de §46 de `_methodology/000_method.md`, ordenada de mas largo a mas corto, y con el
+> cuantificador abierto a dos digitos.
+>
+> ```
+> $ PAT=$( { sed -n '/^## Codigos/,/^---/p' project.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; sed -n '/^## 46\. Identificadores/,/^```/p' _methodology/000_method.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; } | tr -d '|` ' | sed 's/-.*//' | sort -u | awk '{print length, $0}' | sort -rn | cut -d' ' -f2 | paste -sd'|' - ) && echo "PAT=$PAT"
+> PAT=ADR|VS|TC|SC|FT|DT|T|S|R|N|L|I|H|F|D|C|A
+>
+> $ grep -rnoE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}" _templates/020_baseline/ | wc -l
+> 25
+> ```
+>
+> Veinticinco lineas donde el patron de este bloque devolvia dos y el ampliado cinco. **Las
+> veinticinco no son un defecto nuevo**: son los mismos `FT-`/`SC-` de la nota anterior mas todas sus
+> apariciones «primeras», que las plantillas escriben a proposito. Lo que cambia es que ahora el
+> barrido las **ve**, y la frase que lo acompaña puede decir que familia barrio sin mentir. `H-` no
+> aparece en ninguna: no habia nada escondido ahi, pero eso no se sabia hasta correrlo.
 
 ---
 
@@ -4063,3 +4090,276 @@ _workflow/010_prototype.md
 $ grep -c "no hay discrepancia que declarar" _workflow/020_baseline.md
 1
 ```
+
+---
+
+### D-077 - El patron del control de codigos instanciados se deriva de las tablas, no se escribe a mano
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** el control que comprueba que una plantilla no lleva codigos instanciados del registro
+  se ha corrido tres veces con tres alternancias distintas, las tres escritas a mano: primero
+  `N T D A C I F L S R DT`, despues esa misma mas `FT SC VS TC ADR` (`T-062`, `F-041`), y las dos
+  dejaron fuera `H-`, el hito — que `project.md` declara desde el primer commit. `F-047` abre el
+  tercer punto ciego de la misma serie.
+- **Decision:** el patron **deja de escribirse** y pasa a **derivarse** de las dos tablas donde los
+  prefijos ya estan declarados: la tabla «Codigos» de `project.md` —los del registro— unida a la de
+  §46 de `_methodology/000_method.md` —los del producto—. La alternancia se ordena de mas largo a
+  mas corto para que un prefijo de una letra no tape a uno de dos, el `` inicial se sustituye por
+  `(^|[^A-Za-z])`, y el cuantificador se abre a `[0-9]{2,3}` porque `H-nn` tiene dos digitos.
+- **Por que asi y no una lista mas larga:** una lista escrita a mano es correcta el dia que se
+  escribe y caduca sin avisar el dia que entra un codigo nuevo — que es exactamente lo que paso dos
+  veces seguidas. Derivarla no la hace mas corta ni mas rapida: la hace **imposible de desincronizar
+  de la tabla que la declara**, que es la unica propiedad que las dos versiones anteriores no tenian.
+  Y si un dia la tabla gana una fila, el control la cubre sin que nadie se acuerde de el.
+- **Alternativas descartadas:** (1) añadir `H` a la alternancia escrita a mano — arregla este caso y
+  deja intacta la causa; el cuarto prefijo nuevo volveria a escaparse, y esta vez con dos notas
+  fechadas al lado diciendo que el problema estaba resuelto; (2) dejar escrito que `H-` queda fuera
+  a proposito — es la salida barata que el hallazgo tambien ofrece, pero convierte un punto ciego en
+  una exclusion declarada sin ninguna razon que la sostenga: no hay motivo para no barrer los hitos;
+  (3) derivar solo de `project.md` — perderia `VS-`, `TC-` y `ADR-`, que la version anterior si
+  cubria: el control se estrecharia justo al arreglarlo.
+- **Clasificacion:** **reversible a criterio** — es la forma de escribir un `grep` en los bloques de
+  verificacion de aqui en adelante; volver atras es reescribir una linea. No borra, no publica, no
+  migra y no gasta. Mientras no exista el inventario de acciones irreversibles del proyecto
+  (`T-037`), la clasificacion se declara como criterio y no como lectura de una tabla.
+
+⚠️ **Rige hacia adelante.** Los bloques ya publicados con las alternancias antiguas **no se
+reescriben** (`D-019`): llevan su nota fechada diciendo hasta donde llegaban, y esa nota es el
+registro de que el control cambio. Un bloque antiguo reescrito con el patron nuevo publicaria una
+salida que nadie corrio ese dia.
+
+**Verificacion — el patron derivado cubre las dos tablas, y ve lo que los dos anteriores no veian:**
+
+```
+$ PAT=$( { sed -n '/^## Codigos/,/^---/p' project.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; sed -n '/^## 46\. Identificadores/,/^```/p' _methodology/000_method.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; } | tr -d '|` ' | sed 's/-.*//' | sort -u | awk '{print length, $0}' | sort -rn | cut -d' ' -f2 | paste -sd'|' - ) && echo "PAT=$PAT"
+PAT=ADR|VS|TC|SC|FT|DT|T|S|R|N|L|I|H|F|D|C|A
+
+$ grep -rnoE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}" _templates/020_baseline/ | wc -l
+25
+
+$ grep -rnoE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}" _templates/020_baseline/ | wc -l
+2
+
+$ grep -rnoE "(FT|SC|VS|TC|ADR)-[0-9]{3}" _templates/020_baseline/ | wc -l
+23
+```
+
+📌 **Dos mas veintitres son las veinticinco, y esa suma exacta es el dato.** El patron
+derivado no encuentra **nada** que las dos alternancias antiguas no encontraran **por separado**: lo
+que encuentra es lo que ninguna de las dos veia **a la vez**. El punto ciego nunca estuvo en lo que
+cada patron buscaba, sino en que hacian falta dos pasadas y la frase que las resumia solo citaba
+una — en `S-018` la segunda ademas iba filtrada por `grep -vE "(FT|SC)-00[12]"`, y publico cinco de
+esas veintitres. Ninguna de las veinticinco es un codigo instanciado indebidamente; lo que cambia es
+que ahora **una sola orden** cubre la tabla entera y la frase que la acompaña puede decir que familia
+se barrio en vez de «no hay codigos instanciados» (`L-025`).
+
+---
+
+### D-078 - El archivo de etapa del esqueleto se escribe por adelantado, y la etapa NO queda adoptada
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario trajo un borrador propio de la etapa del esqueleto que camina
+  (`temporal/025_wslt.md`, de otro proyecto) y pidio construir con el `_phases/025_wslt.md`,
+  agnostico, alineado con `_methodology/000_method.md` y con los cuatro archivos de etapa que ya
+  existen. `project.md` declara hoy dos etapas —`000_preproject` y `005_discovery`—, y declarar las
+  posteriores es trabajo de `005_discovery` (`T-002`), que no ha arrancado.
+- **Decision:** se escribe `_phases/025_wslt.md` **y no se toca la tabla «Etapas» de `project.md`**.
+  Misma situacion y misma razon que `D-060` (prototipo) y `D-072` (baseline): el archivo describe
+  **que se hace si se entra**, no que se vaya a entrar.
+- **Que se corrigio del borrador al portarlo, y por que:** el borrador venia de otro esquema de
+  trabajo y traia datos que aqui no valen. Usaba `F-xxx` para Feature y `S-001` para Scenario —los
+  dos prefijos ya tomados en este registro por el hallazgo y por la sesion (`D-030`,
+  `_methodology/000_method.md` §46)— y `SUP-xxx` donde aqui van los `A-XXX` (`D-034`); rutas propias
+  de aquel proyecto (`_baseline`, `_memory/`, `src`, `tests`, `deploy`, `tech-debt.md`, y un archivo
+  de decision arquitectonica con su codigo instanciado) donde aqui se referencia `project.md`;
+  hablaba de «terminal ejecutora» donde aqui el lector es `manager`; y nombraba tecnologias
+  concretas —base de datos, frontend, backend, una herramienta de linea de comandos— donde un
+  archivo agnostico dice «capa», «almacenamiento» y «peticion real». Ademas se le quitaron los
+  acentos de las vocales, que es la forma que tienen los otros cuatro archivos de `_phases/`.
+- **Lo que el borrador aportaba y se conserva:** la prohibicion que define la etapa —**no se simula
+  ninguna capa**, con el argumento de que un esqueleto con una capa simulada da el mismo verde que
+  uno completo—; la exigencia de ver el test en **rojo** antes que en verde; la doble comprobacion
+  desde dentro y desde fuera, con la de fuera mandando; el despliegue como la parte que mas descubre
+  y mas se aplaza; y el resultado alternativo valido —que la arquitectura no se sostenga— como exito
+  de la etapa y no como fracaso.
+- **Lo que se anadio y no estaba en el borrador:** las cuatro notas de cabecera comunes a los
+  archivos de etapa; la seccion que declara que **esta etapa NO declara ninguna excepcion a `PI-5`**,
+  por simetria con `020_baseline` y porque aqui nace el primer codigo que se conserva; el aviso sobre
+  la asimetria entre las cuatro entradas de §3 y las **dos** que la §8 de `020_baseline` promete; y
+  el acta del esqueleto (`D-079`).
+- **Alternativas descartadas:** (1) adoptar la etapa a la vez que se escribe su archivo — declarar
+  etapas es trabajo de `005_discovery`, y adoptarlas desde aqui las daria por decididas sin haber
+  entendido todavia que se va a construir; (2) copiar el borrador tal cual — rompe el agnosticismo
+  que el Paso 1b del cierre comprueba sobre esa carpeta, y mete dos prefijos que colisionan con el
+  registro; (3) esperar a que `005_discovery` declare las etapas — el archivo no cuesta nada ahora y
+  el borrador existe hoy; escrito mas tarde se reconstruye peor.
+- **Clasificacion:** **reversible a criterio** — se anade un archivo nuevo a una carpeta agnostica,
+  no se adopta ninguna etapa, no se toca `project.md` y nada depende todavia de el. Mientras no
+  exista el inventario de acciones irreversibles del proyecto (`T-037`), la clasificacion se declara
+  como criterio y no como lectura de una tabla.
+
+⚠️ **Lo que este archivo deja pendiente, y se dice para que no se olvide:** su §4 y su §5 exigen
+como condicion de entrada `_workflow/025_wslt.md` y la subcarpeta de esta etapa en `_templates/`.
+**Ninguno de los dos existe todavia**, igual que no existian los de `020_baseline` el dia que se
+escribio su archivo de etapa. Que el archivo los exija no los crea.
+
+**Verificacion — el archivo existe, es agnostico, no lleva codigos instanciados, y la tabla de
+etapas sigue diciendo dos:**
+
+```
+$ ls -1 _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+020_baseline.md
+025_wslt.md
+
+$ grep -n "Etapas declaradas" project.md
+105:| Etapas declaradas | `000_preproject`, `005_discovery` |
+
+$ PAT=$( { sed -n '/^## Codigos/,/^---/p' project.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; sed -n '/^## 46\. Identificadores/,/^```/p' _methodology/000_method.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; } | tr -d '|` ' | sed 's/-.*//' | sort -u | awk '{print length, $0}' | sort -rn | cut -d' ' -f2 | paste -sd'|' - ) && grep -noE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}\b" _phases/025_wslt.md ; echo "exit=$?"
+exit=1
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" _phases/025_wslt.md ; echo "exit=$?"
+exit=1
+```
+
+📌 **El control de codigos se corre ya con el patron derivado de `D-077`, no con la
+alternancia escrita a mano.** Es la primera vez que se usa.
+
+---
+
+### D-079 - La etapa del esqueleto produce un acta propia, y por eso tiene plantilla
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** al escribir `_phases/025_wslt.md` habia que decidir su §5. El borrador del usuario
+  listaba solo codigo, test, despliegue y las actualizaciones a los artefactos de la etapa anterior.
+  Pero `020_baseline` exige como condicion de entrada **las plantillas de su etapa**, y una etapa que
+  no produce ningun documento no tendria plantilla que exigir — asi que la pregunta era si esta
+  etapa produce algo escrito o no.
+- **Decision:** el usuario zanja que **si**: nace un quinto artefacto, el **acta del esqueleto**, con
+  su plantilla en la subcarpeta de esta etapa dentro de `_templates/`. Contiene que camino se
+  recorrio, que capas atraveso, la evidencia de rojo a verde, la comprobacion desde fuera y que
+  rompio el despliegue. La condicion de entrada de la etapa queda entonces en **reparto + plantilla**,
+  igual que en `020_baseline`.
+- **Por que asi y no solo codigo:** `PI-5` pide que toda tarea lleve algo que la respalde, y para
+  codigo ese algo es un test en verde. Pero **el test en verde no demuestra la mitad de lo que esta
+  etapa hace**: no demuestra que se le viera rojo, ni contra que entorno se comprobo desde fuera, ni
+  que capa rompio al desplegar. Un test verde y un test que siempre estuvo verde son el mismo archivo
+  en el `git diff`. Sin el acta, la parte mas cara de la etapa —el despliegue y las junturas— no
+  deja ningun rastro auditable.
+- **Alternativas descartadas:** (1) solo codigo, sin plantilla propia — la opcion del borrador; deja
+  la etapa sin condicion de entrada de plantilla y, sobre todo, deja «se le vio rojo» como una
+  afirmacion sin sitio donde escribirse, que es exactamente el patron que `CLAUDE.md` prohibe
+  («comando y salida cruda, siempre»); (2) repartir esa evidencia entre `lessons.md` y `techdebt.md`
+  — son registros de la jornada, no artefactos del producto: quien vaya a leer que demostro el
+  esqueleto tendria que reconstruirlo de varias bitacoras.
+- **Clasificacion:** **reversible a criterio** — es una fila de una tabla en un archivo de metodo, en
+  una etapa sin adoptar y sin ningun acta escrita todavia. Mientras no exista el inventario de
+  acciones irreversibles del proyecto (`T-037`), la clasificacion se declara como criterio y no como
+  lectura de una tabla.
+
+**Verificacion — la §5 declara cinco artefactos y su tabla tiene cinco filas; el acta esta entre
+ellos y la plantilla es condicion de entrada:**
+
+```
+$ grep -c "Cinco artefactos" _phases/025_wslt.md
+1
+
+$ sed -n '/^## 5. Artefactos que produce/,/^Y en el repositorio/p' _phases/025_wslt.md | grep -c "^| \*\*"
+5
+
+$ grep -c "Acta del esqueleto" _phases/025_wslt.md
+1
+
+$ grep -c "son condicion de entrada, no trabajo de" _phases/025_wslt.md
+1
+```
+
+---
+
+### D-080 - El despliegue no se delega en la IA, y por eso el eje de impacto puntua 2 y no 3
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** al escribir `_workflow/025_wslt.md` habia que puntuar la rubrica de
+  `_workflow/ai_levels.md` §6 para el trabajo de la etapa del esqueleto. Y esa etapa tiene algo que
+  ninguna anterior tenia: **ejecuta acciones con efecto fuera del repositorio** —desplegar y empujar
+  historial—. `_workflow/team.md` §5.1 las clasifica en su fila **irreversible**, donde la IA «solo
+  propone» y un humano «decide y firma antes de actuar».
+- **Decision:** el Paso 4 del procedimiento —el despliegue— queda **fuera de lo que la IA puede
+  ejecutar**, en §3 del archivo de reparto, y con el tambien el empuje de historial. En consecuencia,
+  el eje «Impacto de un error» se puntua **2** y no 3, y la lectura de la rubrica es **nivel 2**.
+- **Por que asi y por que hay que decir que es condicional:** si la IA ejecutara el despliegue, ese
+  eje seria un **3** —la accion es irreversible— y `_workflow/ai_levels.md` §6 es taxativo: cualquier
+  eje en 3 pide **nivel 5**, con harness obligatorio, y «impacto de un error en 3 no se compensa con
+  nada». **El 2 no es una propiedad de la etapa: es una consecuencia del reparto.** Escribirlo sin
+  esa condicion dejaria una puntuacion que parece estable y que se vuelve falsa el dia que alguien
+  delegue el despliegue «solo esta vez», sin que ningun control lo note.
+- **Clasificacion del despliegue: irreversible a criterio.** El entorno de destino no es un archivo:
+  puede tener credenciales, cuotas que se consumen, nombres que se reservan y un registro de que
+  alguien accedio. Un despliegue fallido se puede repetir; lo que ya toco el entorno, no se puede no
+  haber tocado. **Que la primera vez el entorno este vacio no cambia la clasificacion**, porque el
+  mismo procedimiento se repite cuando ya haya algo, y una asignacion que solo vale con el entorno
+  vacio es una que hay que acordarse de cambiar.
+- **Y la del Paso 3 es distinta, en la misma etapa: reversible a criterio.** El codigo del esqueleto
+  esta en control de versiones, sin datos de nadie, sin usuarios y sin nada construido encima:
+  deshacerlo es un commit. Por eso ahi la IA si escribe, con revision humana de **cada** tramo
+  —`_workflow/team.md` §5.1, fila reversible y de impacto relevante—. **Dos actividades de la misma
+  etapa con dos clasificaciones opuestas**, y por eso se declaran las dos por separado.
+- **Alternativas descartadas:** (1) dejar que la IA ejecute el despliegue con revision humana
+  posterior — es la fila que `team.md` §5.1 reserva a lo reversible, y aqui la revision llegaria
+  despues de que la accion ya haya ocurrido, que es justo lo que la fila irreversible existe para
+  impedir; (2) puntuar el eje en 3 y adoptar nivel 5 — seria honesto pero desproporcionado: pide un
+  harness entero para una etapa de unas pocas sesiones, y ademas describiria un reparto que no es el
+  que se adopta; (3) no puntuar la rubrica en esta etapa alegando que ya se puntuo en la baseline —
+  son dos preguntas distintas, y `ai_levels.md` §8 solo pone en la baseline la del **producto**.
+- **Mientras no exista el inventario de acciones irreversibles del proyecto (`T-037`), las dos
+  clasificaciones se declaran como criterio y no como lectura de una tabla.**
+
+⚠️ **Esto no adopta el reparto.** `_workflow/025_wslt.md` dice expresamente que leer sus tablas no
+reparte nada: repartir es el `D-XXX` que se escribe **al abrir la etapa**, y la etapa no esta ni
+declarada. Lo que esta decision fija es **que dice el archivo**, no que un proyecto lo haya tomado.
+
+**Verificacion — el archivo puntua, deja el despliegue fuera de la IA, y declara la condicion del
+eje:**
+
+```
+$ grep -c "Variabilidad de la entrada" _workflow/025_wslt.md
+1
+
+$ grep -c "ejecuten el despliegue" _workflow/025_wslt.md
+1
+
+$ grep -c "El 2 del primer eje es condicional" _workflow/025_wslt.md
+1
+
+$ grep -c "no hay discrepancia\|No hay discrepancia" _workflow/025_wslt.md
+1
+
+$ grep -cE "^\| \*\*[1-6] · " _workflow/025_wslt.md
+6
+
+$ grep -c "^### Paso " _phases/025_wslt.md
+6
+```
+
+📌 **Las dos ultimas cifras tienen que coincidir, y por eso van juntas.** §1 del archivo de
+reparto dice que hay una fila por paso del procedimiento: si el archivo de etapa gana o pierde un
+paso y el reparto no cambia, quedan dos archivos diciendo cosas distintas y el que envejece miente
+sin que nadie lo note.

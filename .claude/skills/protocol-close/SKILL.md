@@ -320,6 +320,28 @@ linea; **no** sabe si dentro de ese archivo cayo en `T-050` o en `D-065`. Si el 
 entrada, esa mitad si se mira a mano — y entonces se comprueba, una por una, contra el bloque que
 se cita.
 
+🚨 **La lista se numera con la orden, y las repetidas salen de `uniq -d` — nunca a ojo.**
+Marcar «ésta es la misma que la 15» mirando la lista es donde se corrió la numeracion en `S-018`
+(`F-045`): una posicion de diferencia basto para que una orden propia quedara **sin salida
+publicada** mientras el informe declaraba que todas reprodujeron. Las tres ordenes que evitan eso,
+y que se pegan con su salida:
+
+```bash
+B='git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md"'
+# la lista, numerada por la propia orden
+eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | cat -n
+# el recuento de LINEAS y, aparte, el de ordenes distintas
+eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+# cuales se repiten
+eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort | uniq -d
+```
+
+🔑 **Y el bloque de reejecucion usa esos numeros, no unos propios.** Cada salida se rotula
+con la posicion que le dio `cat -n`; una posicion sin salida es un hueco visible, que es
+exactamente lo que no fue visible en `S-018`. Si una posicion repite a otra, se dice **de cual** y
+la orden repetida tiene que estar en la salida de `uniq -d`.
+
 ⚠️ **El recuento no es estable entre entornos, y por eso no basta con la cifra.** La misma orden
 sobre el mismo commit puede devolver numeros distintos segun como expanda el patron cada shell; los
 falsos positivos conocidos son parte de esa diferencia. Una lista se compara linea a linea; un numero
@@ -701,6 +723,24 @@ el informe sin abrir el diff no sabra que existe.
 🔑 **De donde sale, para no reconstruirla de memoria:** `git diff <commit>^ <commit> -- <archivo>`.
 Las cabeceras `@@` marcan cuantos puntos distintos del archivo se tocaron; si son mas que las
 entradas que nacen, hay ediciones sobre entradas existentes que nombrar.
+
+🚨 **Y saber cuantos puntos se tocaron no dice cuales son: eso tambien se deriva.** Contar
+hunks y despues buscar la entrada a ojo es como `S-018` atribuyo a `L-020` una nota que el commit
+puso en `L-019` (`F-046`) — en el mismo commit que escribio esta seccion. Las dos ordenes que dan
+la respuesta, y que se corren por cada archivo de registro que el commit toque:
+
+```bash
+# que entrada contiene cada punto tocado
+git diff -U0 <commit>^ <commit> -- <archivo>   | awk '/^@@/{split($3,a,","); print a[1]+0}'   | while read n; do git show <commit>:<archivo>       | awk -v n="$n" 'NR<=n && /^### [A-Z]+-[0-9]+/{e=$2} END{print n": "e}'; done
+# que entradas NACEN
+git diff -U0 <commit>^ <commit> -- <archivo> | grep -E '^\+### '
+```
+
+⚠️ **La primera orden atribuye por posicion, y tiene un borde conocido:** un hunk que
+**añade** entradas al final de otra sale rotulado con la entrada anterior, no con las que nacen.
+Por eso van las dos: la segunda nombra las que nacen, y lo que la primera liste **y la segunda no**
+son las entradas existentes que el commit edita. Ese es el conjunto que la seccion 1 tiene que
+nombrar.
 
 ### Estructura del informe
 
