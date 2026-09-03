@@ -284,7 +284,7 @@ Una feature sin necesidad detras es alcance que entro sin que nadie lo decidiera
 
 ## 5. Artefactos que produce
 
-Ocho artefactos de registro, mas el esqueleto del repositorio. **Ninguno es codigo de producto.**
+Nueve artefactos de registro, mas el esqueleto del repositorio. **Ninguno es codigo de producto.**
 
 | Artefacto | Que contiene | Donde se escribe |
 |---|---|---|

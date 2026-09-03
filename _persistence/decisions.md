@@ -81,6 +81,8 @@
 | [D-070](#d-070---los-dictamenes-del-gate-1-son-correlativos-y-ninguno-se-sobrescribe) | Los dictamenes del Gate 1 son correlativos, y ninguno se sobrescribe | 2026-09-02 | Vigente |
 | [D-071](#d-071---la-comprobacion-0-del-gate-1-resuelve-el-antes-por-orden-del-grafo-no-por-fecha) | La Comprobacion 0 del Gate 1 resuelve el «antes» por orden del grafo, no por fecha | 2026-09-03 | Vigente |
 | [D-072](#d-072---el-archivo-de-etapa-de-la-baseline-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa de la baseline se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-03 | Vigente |
+| [D-073](#d-073---las-plantillas-de-la-baseline-se-numeran-por-orden-de-procedimiento-no-por-el-orden-de-la-tabla-de-artefactos) | Las plantillas de la baseline se numeran por orden de procedimiento, no por el orden de la tabla de artefactos | 2026-09-03 | Vigente |
+| [D-074](#d-074---la-seccion-5-del-archivo-de-etapa-de-la-baseline-dice-nueve-artefactos-no-ocho) | La seccion 5 del archivo de etapa de la baseline dice nueve artefactos, no ocho | 2026-09-03 | Vigente |
 
 ---
 
@@ -3808,5 +3810,105 @@ $ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}" _phases/020_baseline.md ; echo "e
 exit=1
 
 $ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" _phases/020_baseline.md ; echo "exit=$?"
+exit=1
+```
+
+
+---
+
+### D-073 - Las plantillas de la baseline se numeran por orden de procedimiento, no por el orden de la tabla de artefactos
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** el usuario pidio construir las plantillas de los entregables de la etapa de la
+  baseline en `_templates/020_baseline/`, agnosticas y alineadas con `_phases/020_baseline.md` y
+  `_methodology/000_method.md`, tomando como guia las de `_templates/005_discovery/` y
+  `_templates/010_prototype/`. La tabla de artefactos de `_phases/020_baseline.md` §5 los lista en
+  un orden —producto, alcance, features, escenarios, especificacion, arquitectura, tres preguntas,
+  trazabilidad, decisiones arquitectonicas— que **no** coincide con el orden en que el §4 los manda
+  escribir: el alcance es el Paso 2 y el documento de producto el Paso 4.
+- **Decision:** las nueve plantillas se numeran por **orden de procedimiento**, y cada una declara
+  en su cabecera de que Paso sale. Queda: `005_scope` (Paso 2), `010_product` (Paso 4),
+  `015_features` y `020_scenarios` (Paso 5), `025_specification` (Paso 6), `030_architecture`
+  (Paso 7), `035_adr_NNN` (Paso 8), `040_three_questions` (Paso 9), `045_traceability` (Paso 10).
+- **Por que:** es el criterio que ya siguen las plantillas de `_templates/010_prototype/`, cuyos
+  numeros van con los Pasos 2, 3, 7, 8 y 9 de su etapa. Y hay una razon de fondo: el documento de
+  producto **copia** las dos listas del alcance, y la trazabilidad **deriva** de features y
+  escenarios. Numerarlas al reves invita a escribirlas al reves, y escrito al reves el alcance se
+  inventa dos veces y la trazabilidad deja de ser un control para volverse una copia.
+- **Alternativas descartadas:** (1) seguir el orden de la tabla §5 — coincidiria con el archivo de
+  etapa, pero pone primero un artefacto que depende de otro y contradice el precedente del
+  prototipo; (2) numerarlas y ademas reordenar la tabla §5 para que cuadren — toca un archivo ya
+  auditado por un motivo cosmetico, y `PI-3` lo desaconseja; (3) no numerarlas y usar solo nombres
+  — las otras dos carpetas de plantillas si numeran, y romper la convencion en la tercera obliga a
+  explicarlo cada vez.
+- **Clasificacion:** **reversible a criterio** — son archivos nuevos en una carpeta agnostica, sin
+  etapa adoptada, sin artefacto escrito todavia contra ellos y sin nada que dependa de sus nombres.
+
+**Verificacion — las nueve existen, y ni fuga de datos propios ni codigos instanciados del registro
+mas alla del primero que la regla de `_templates/` permite:**
+
+```
+$ ls -1 _templates/020_baseline/
+005_scope.md
+010_product.md
+015_features.md
+020_scenarios.md
+025_specification.md
+030_architecture.md
+035_adr_NNN.md
+040_three_questions.md
+045_traceability.md
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|github.com" _templates/020_baseline/ ; echo "exit=$?"
+exit=1
+
+$ grep -rnoE "\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b" _templates/020_baseline/
+_templates/020_baseline/015_features.md:189:N-001
+_templates/020_baseline/045_traceability.md:199:N-001
+```
+
+
+---
+
+### D-074 - La seccion 5 del archivo de etapa de la baseline dice nueve artefactos, no ocho
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** al escribir las plantillas de `_templates/020_baseline/` (`D-073`) hizo falta saber
+  cuantos artefactos produce la etapa. `_phases/020_baseline.md` §5 abria con «Ocho artefactos de
+  registro, mas el esqueleto del repositorio» y su tabla listaba **nueve** filas. Las dos lecturas
+  posibles eran distintas: o el texto se quedo atras, o el conteo excluia a proposito las decisiones
+  arquitectonicas por vivir en subcarpeta.
+- **Decision:** el usuario zanja que **son nueve**. El texto pasa a «Nueve artefactos de registro»;
+  la tabla no se toca.
+- **Por que asi y no al reves:** la tabla es el contenido y el numero en prosa es su duplicado, que
+  es justo la forma de desincronizarse que `L-004` ya tenia registrada. Corregir el duplicado y
+  dejar el original es la direccion barata; la contraria habria obligado a decidir que fila sobra.
+- **Alternativas descartadas:** (1) dejar el texto y anotar la discrepancia — deja al lector
+  siguiente eligiendo entre dos cifras, que es el estado que la correccion existe para terminar;
+  (2) quitar la fila de decisiones arquitectonicas de la tabla para que cuadre en ocho — el propio
+  §5 la nombra con su subcarpeta y §4 tiene un Paso entero para ella; (3) sustituir el numero por
+  «los artefactos» sin cifra — evita el defecto pero pierde el recuento que hace comprobable la
+  condicion de salida.
+- **Clasificacion:** **reversible a criterio** — es una palabra en un archivo de metodo, sin etapa
+  adoptada y sin ningun artefacto escrito todavia contra el.
+
+**Verificacion — el texto y la tabla dicen ahora el mismo numero:**
+
+```
+$ sed -n '287p' _phases/020_baseline.md
+Nueve artefactos de registro, mas el esqueleto del repositorio. **Ninguno es codigo de producto.**
+
+$ sed -n '/^## 5. Artefactos que produce/,/^Y \*\*el esqueleto/p' _phases/020_baseline.md | grep -c "^| \*\*"
+9
+
+$ grep -nEi "\bocho\b" _phases/020_baseline.md ; echo "exit=$?"
 exit=1
 ```

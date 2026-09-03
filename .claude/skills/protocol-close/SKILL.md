@@ -277,6 +277,28 @@ el paso se corrio, se documentaron cinco lineas de varias decenas, y la que fall
 que no se pegaron. **Un control que se documenta sobre una parte de su propia salida no es el
 control** — es una muestra, y elegida por quien se examina.
 
+🚨 **El recuento que se publica es el de lineas que devolvio la orden, no el de ordenes
+distintas.** Una misma orden citada en dos archivos sale dos veces, y las dos lineas van pegadas:
+deduplicar es seleccionar, y seleccionar es justo lo que el parrafo anterior prohibe. Si ademas
+interesa cuantas ordenes distintas hay, ese numero se da **aparte y con ese nombre**, nunca como
+recuento de la salida. Dos cifras con dos nombres se contrastan; una cifra con el nombre de la otra
+no reproduce, y quien la reejecute no puede saber si se equivoco el informe o cambio el repositorio.
+
+🚨 **Y la orden se publica en la forma que reproduce contra el commit, que no es la que se corrio.**
+El paso corre sobre el area de staging, cuando el informe todavia no existe; una vez commiteado, esa
+misma orden encuentra tambien las ordenes citadas **dentro del propio informe** y devuelve mucho mas.
+Por eso lo que se pega lleva el informe excluido y el commit por delante:
+
+```bash
+git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md" \
+  | grep -E '^\+\$ ' \
+  | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'
+```
+
+📌 **Y si el hash no se conoce aun al escribir la seccion, se pega la orden corrida y se dice al
+lado cual es su equivalencia anclada** — la de arriba, con el hash que el cierre deje. Lo que no
+vale es publicar una orden que, tal como esta escrita, devuelve otra cosa que la que hay debajo.
+
 🚨 **Y esa lista tiene un sitio fijo: la seccion 7 del informe de `_audit/S-XXX.md`, y no la
 pantalla.** Publicada solo en el reporte de cierre, la evidencia del control desaparece con la
 sesion: al dia siguiente el informe afirma haber corrido el paso y no queda nada que mirar. `D-063`
@@ -707,7 +729,10 @@ estamos, el supuesto en el que nos apoyamos sin confirmar>
 
 ## 7. Evidencia del Paso 2d
 <la lista COMPLETA que devolvio la primera orden del Paso 2d, con la orden literal, su recuento y
-todas sus lineas — nunca una seleccion>
+todas sus lineas — nunca una seleccion, y sin deduplicar>
+<el recuento es el de LINEAS devueltas; si se da el de ordenes distintas, va aparte y con ese nombre>
+<la orden se escribe en su forma anclada al commit y con el propio informe excluido
+(`":(exclude)_audit/S-XXX.md"`), o se dice al lado cual es esa equivalencia>
 <y debajo, el resultado de reejecutar cada una: la que reproduce y la que no>
 <si una orden no es reproducible por naturaleza (describe el area de staging), se dice, y se da su
 equivalencia anclada al commit>

@@ -32,6 +32,7 @@
 | [L-021](#l-021---un-barrido-con-git-grep-sobre-archivos-sin-versionar-devuelve-cero-por-no-verlos) | Un barrido con `git grep` sobre archivos sin versionar devuelve cero por no verlos | 2026-09-02 | 000_preproject | Sin evaluar |
 | [L-022](#l-022---una-garantia-se-comprueba-contra-el-mecanismo-no-contra-lo-que-el-mecanismo-sugiere) | Una garantia se comprueba contra el mecanismo, no contra lo que el mecanismo sugiere | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-023](#l-023---un-dato-derivable-escrito-a-mano-se-equivoca-justo-donde-nadie-lo-vuelve-a-mirar) | Un dato derivable escrito a mano se equivoca justo donde nadie lo vuelve a mirar | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-024](#l-024---una-orden-publicada-se-reejecuta-antes-de-publicarla-copiarla-la-puede-corromper-en-silencio) | Una orden publicada se reejecuta antes de publicarla: copiarla la puede corromper en silencio | 2026-09-03 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -161,6 +162,20 @@ envejeceria por su cuenta.
 - **Como aplicarla:** no poner recuentos en titulos ni en prosa cuando lo contado esta en una tabla
   al lado. Si hay que referirse a filas concretas, **numerar la tabla** y citar por numero de fila,
   que es lo que se hizo aqui.
+
+> 📌 **Reincidencia del 2026-09-03 (sesion `S-017`).** El defecto volvio, esta vez en
+> `_phases/020_baseline.md` §5: el texto decia «Ocho artefactos de registro» sobre una tabla de
+> **nueve** filas. Se corrigio a «Nueve» por decision del usuario (`D-074`).
+>
+> ```
+> $ sed -n '/^## 5. Artefactos que produce/,/^Y \*\*el esqueleto/p' _phases/020_baseline.md | grep -c "^| \*\*"
+> 9
+> ```
+>
+> 🔑 **Lo que enseña la reincidencia no es el error, es su alcance.** La leccion se escribio mirando
+> un protocolo y se aplico a los protocolos; nadie la llevo a `_phases/`, que se escribio despues.
+> Una leccion se aplica donde se mira, y donde no se mira sigue intacta — que es exactamente lo que
+> dice `L-008`.
 
 ---
 
@@ -667,6 +682,28 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   comparable: **una lista se compara linea a linea; un numero solo se puede creer.**
 - **Donde queda aplicada:** `D-063` y el parrafo nuevo del Paso 2d de `protocol-close` (`T-046`).
 
+> 📌 **Reincidencia del 2026-09-03 (`F-039`, `T-059`).** El defecto volvio en la seccion 7 de
+> `_audit/S-016.md`, pero **por otra puerta**: no se recorto la lista, se **deduplico**. La orden
+> devuelve 21 lineas —seis ordenes citadas a la vez en `decisions.md` y en `tasks.md`— y el bloque
+> publico las 15 distintas llamandolas «Quince lineas».
+>
+> ```
+> $ git diff -U0 bd8a9ff^ bd8a9ff -- _persistence _audit ":(exclude)_audit/S-016.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+> 21
+>
+> $ git show bd8a9ff:_audit/S-016.md | awk '/^\$ git diff -U0 -- _persistence _audit \| grep -E/{f=1;next} f&&/^```$/{exit} f' | grep -c '^+\$ '
+> 15
+> ```
+>
+> 🔑 **Lo que amplia la leccion: deduplicar tambien es seleccionar**, y no se siente asi. Recortar se
+> sabe recorte; quitar repeticiones se siente limpieza — y el resultado es el mismo bloque que dice
+> ser una salida cruda sin serlo. La regla del Paso 2d pasa a nombrar las dos cifras por separado:
+> el recuento publicado es el de **lineas**, y el de ordenes distintas va aparte y con ese nombre.
+>
+> ⚠️ **Y aparecio un segundo filo que la leccion no cubria:** la orden se publico en la forma en que
+> se **corrio** —sobre el area de staging, antes de que el informe existiera— y no en la que
+> **reproduce** contra el commit. Corregido en el mismo sitio (`T-059`).
+
 ---
 
 ### L-020 - Una regla que dice QUE registrar pero no DONDE no se incumple: se evapora
@@ -794,3 +831,59 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   las dos mitades en una anotacion que parece toda del mismo tipo.
 - **Donde queda aplicada:** `T-053`, que deja la procedencia real derivada del diff como nota fechada
   al lado del bloque original, y hace que el paso del cierre pida derivarla asi en adelante.
+
+---
+
+### L-024 - Una orden publicada se reejecuta antes de publicarla: copiarla la puede corromper en silencio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al escribir el bloque de verificacion de `D-073` y `D-074` se publicaron ordenes con
+  `\\b` (limite de palabra de una expresion regular). El texto se escribio a traves de una capa que
+  interpreta escapes, y `\\b` llego al archivo como el **caracter de retroceso** `0x08`, invisible al
+  leer.
+- **Que ocurrio:** el bloque publicado se ve correcto en pantalla y **no se puede reejecutar**: quien
+  copie esa linea le pasa al interprete un caracter de control en vez de un limite de palabra, y
+  obtiene otro resultado. El barrido que lo destapo encontro **seis** apariciones en el registro
+  —una de esta sesion, ya reparada, y **cinco anteriores**, que no se tocan.
+
+```
+$ python -c "import io,re; pat=re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1f]'); [print(f,i,repr(m.group())) for f in ['_persistence/decisions.md','_persistence/tasks.md'] for i,l in enumerate(io.open(f,encoding='utf-8'),1) for m in pat.finditer(l)]"
+_persistence/decisions.md 917 '\\x08'
+_persistence/decisions.md 917 '\\x08'
+_persistence/decisions.md 1304 '\\x08'
+_persistence/decisions.md 1304 '\\x08'
+_persistence/tasks.md 1212 '\\x08'
+_persistence/tasks.md 1212 '\\x08'
+_persistence/tasks.md 1931 '\\x08'   (x10)
+_persistence/tasks.md 1987 '\\x08'
+_persistence/tasks.md 1987 '\\x08'
+```
+
+📌 **La salida de arriba esta abreviada en la linea 1931**, que devuelve diez apariciones y se anota
+como `(x10)`; el total del barrido fue **veinte apariciones en seis lineas**. Se dice aqui para que
+el recuento no se lea como una lista completa — que es justo el defecto de `L-019`.
+
+📌 **Y la orden se reejecuta ya reparada la linea de esta sesion**, por eso no aparece
+`_persistence/decisions.md:3869`: devuelve **dieciocho apariciones en cinco lineas**, las cinco
+anteriores. Antes de reparar la de hoy eran veinte en seis.
+
+- **Leccion:** **un bloque de verificacion se prueba como texto, no solo como resultado.** Todo el
+  cuidado del registro esta puesto en que el resultado sea cierto; nadie comprueba que la **orden**
+  sobreviviera al viaje hasta el archivo. Y una orden corrompida es peor que un resultado erroneo:
+  el resultado erroneo se detecta al reejecutar, la orden corrompida hace que la reejecucion falle
+  o devuelva otra cosa, y entonces lo que se pone en duda es el repositorio.
+- **Por que se escapa con facilidad:** el caracter es **invisible**. El bloque se relee, se ve bien,
+  y se da por bueno. Solo aparece con un barrido que busque caracteres de control, y nadie lo corre
+  porque nadie sospecha que exista el problema.
+- **Como aplicarla:** cuando una orden publicada lleve `\\b`, `\\d`, `\\t`, `\\n` o cualquier escape de
+  expresion regular, **se copia del archivo y se reejecuta desde ahi** antes de dar el bloque por
+  bueno. Si la reejecucion no reproduce, la orden se corrompio al escribirla.
+- **Lo que queda pendiente, y por que no se hizo hoy:** las **cinco apariciones anteriores** no se
+  reescriben. Reescribir un bloque antiguo para que exhiba una orden que en su dia no se ejecuto asi
+  convierte «falta evidencia» en «hay evidencia falsa», y esta vez sin nadie que lo note. Se dejan
+  como estan, se declaran aqui, y **lo decide una auditoria**, no `manager`.
+- **Donde queda aplicada:** los bloques de `D-073` y `D-074` de esta sesion, reparados y reejecutados.

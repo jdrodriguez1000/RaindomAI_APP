@@ -40,6 +40,7 @@
 | [S-014](#s-014---se-acepta-f-034-nace-d-065l-020-la-seccion-7-del-informe-y-_workflow010_prototypemd) | Se acepta `F-034`; nace `D-065`/`L-020`, la seccion 7 del informe y `_workflow/010_prototype.md` | 2026-09-03 | `000_preproject` |
 | [S-015](#s-015---nace-el-gate-1-agente-y-skill-no-etapa-d-067-a-d-070) | Nace el Gate 1 (agente y skill, no etapa; `D-067` a `D-070`) | 2026-09-02 | `000_preproject` |
 | [S-016](#s-016---se-aceptan-f-035-a-f-038-la-comprobacion-0-pasa-a-orden-del-grafo-d-071-y-nace-_phases020_baselinemd-d-072) | Se aceptan `F-035` a `F-038`; la Comprobacion 0 pasa a orden del grafo (`D-071`) y nace `_phases/020_baseline.md` (`D-072`) | 2026-09-03 | `000_preproject` |
+| [S-017](#s-017---se-acepta-f-039-t-059-nacen-las-plantillas-de-_templates020_baseline-d-073-d-074-y-l-024) | Se acepta `F-039` (`T-059`); nacen las plantillas de `_templates/020_baseline/` (`D-073`, `D-074`) y `L-024` | 2026-09-03 | `000_preproject` |
 
 ---
 
@@ -65,81 +66,73 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-03 (S-016) |
+| Ultima actualizacion | 2026-09-03 (S-017) |
 | Salud | En marcha |
-| Avance de la etapa | `manager` evaluo los cuatro hallazgos que quedaron sin evaluar de `R-014` (`F-035`, `F-036`) y los dos de `R-015` (`F-037`, `F-038`), verificando cada uno contra `HEAD` (`54f55d9`) antes de aceptarlo. Los cuatro se aceptan. `F-035` (`T-053`): la seccion 7 de `_audit/S-014.md` publicaba una lista completa pero atribuia mal a que archivo pertenecia cada orden; se deja una nota fechada (`D-019`) con la procedencia real derivada del diff, sin reescribir el bloque original, y la seccion 7 de `protocol-close` pasa a exigir que esa procedencia se derive del diff. `F-036` (`T-054`): la cita instanciada de una leccion en `_workflow/005_discovery.md` se reescribe en forma generica. `F-037` (`T-055`, el mas grave de los cuatro): la Comprobacion 0 del Gate 1 resolvia el «antes» comparando `%ad` (fecha de autor), que se sobrescribe con `GIT_AUTHOR_DATE` — la comprobacion habria dado `PASA` sobre una hipotesis escrita despues de las sesiones y fechada antes, demostrado en un repositorio desechable fuera de este proyecto. Se adopta resolver el «antes» por **orden del grafo** (`git merge-base --is-ancestor`), dejando `%ad` como dato informativo (`D-071`); la afirmacion absoluta «las fechas no se pueden convencer» se corrige en el skill, en la plantilla del dictamen y como nota fechada en `D-069`, sin reescribirlo. `F-038` (`T-056`): la Comprobacion 0 pasa a localizar la subcarpeta del prototipo con `git ls-tree -d` en vez de esperar un valor no declarado, y emite `NO AUDITABLE` si no la encuentra. Nacen `L-022` (una garantia se comprueba contra el mecanismo, no contra lo que sugiere) y `L-023` (un dato derivable escrito a mano se equivoca justo donde nadie lo vuelve a mirar). Aparte, el usuario trajo un borrador propio de la etapa de la baseline y pidio construir `_phases/020_baseline.md` con el, contrastandolo con los dos archivos de etapa existentes y con `_methodology/000_method.md`; nace el archivo (`T-058`), con la tabla «Etapas» de `project.md` sin tocar — el archivo describe que se hace si se entra, no que se vaya a entrar (`D-072`). Queda abierta `T-057` (reparto de `_workflow/020_baseline.md` y plantillas de `_templates/020_baseline/`), condicion de entrada de esa etapa segun su propio archivo. |
+| Avance de la etapa | `manager` evaluo `F-039` (el unico hallazgo de `R-016`, sobre `S-016`), verificado contra `HEAD` (`b990e05`) antes de aceptarlo (`T-059`): la seccion 7 de `_audit/S-016.md` publicaba un bloque etiquetado «Quince lineas» que en realidad era la salida de su orden **deduplicada a mano** (la orden devuelve veintiuna), y esa misma orden no reproducia contra el commit por correr sobre el area de staging. Se corrige el Paso 2d de `protocol-close` y la plantilla de la seccion 7 para exigir el recuento de lineas devueltas (con el de ordenes distintas aparte y con ese nombre), la lista sin deduplicar, y la orden en su forma anclada al commit con el propio informe excluido; `_audit/S-016.md` recibe su nota fechada sin reescribir el bloque original (`D-073` es otro tema — ver abajo). Nace `L-024`: un bloque de verificacion se prueba tambien como **texto**, no solo como resultado — un barrido aparte encontro que `\b` se corrompio a caracter de retroceso (`0x08`) al escribirse en seis lineas del registro (una de esta misma sesion, ya reparada; cinco anteriores, que quedan declaradas y sin tocar, a la espera de que lo decida una auditoria). Aparte, el usuario pidio construir las plantillas de los entregables de `020_baseline` en `_templates/020_baseline/`; nacen las nueve (`D-073`), numeradas por **orden de procedimiento** y no por el orden de la tabla de artefactos de `_phases/020_baseline.md` §5 — con esa misma tabla se destapo que su texto decia «Ocho artefactos» sobre nueve filas, y el usuario zanja que son nueve (`D-074`). |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo, contra `HEAD` (`54f55d9`), los cuatro hallazgos que quedaron abiertos de las dos
-ultimas auditorias: `F-035` y `F-036` de `R-014` (sobre `S-014`), y `F-037` y `F-038` de `R-015`
-(sobre `S-015`). Los cuatro se aceptaron.
+`manager` evaluo, contra `HEAD` (`b990e05`), el unico hallazgo que dejo `R-016` (sobre `S-016`):
+`F-039`, «el primer bloque de la seccion 7 de `S-016` publica quince de las veintiuna lineas que
+devuelve su orden». Se acepta (`T-059`).
 
-`F-035` (`T-053`): la seccion 7 de `_audit/S-014.md` publicaba su lista completa de ordenes sin
-ancla, pero atribuia mal a que archivo pertenecian tres de las once. El bloque original no se
-reescribe: se le añade una nota fechada (`D-019`) con la procedencia real, derivada del diff con
-`awk`; y la seccion 7 de `protocol-close` pasa a exigir que esa procedencia se derive asi, no que se
-escriba a mano.
+`F-039` (`T-059`): la seccion 7 de `_audit/S-016.md` encabezaba su primer bloque con «Quince
+lineas», pero la orden que lo produce devuelve **veintiuna** — seis ordenes estan citadas a la vez en
+`decisions.md` y en `tasks.md`, y el bloque publicado era esa salida **deduplicada a mano**.
+Deduplicar es seleccionar, y el propio Paso 2d prohibe publicar una seleccion de su salida. Ademas la
+orden, tal como estaba escrita, no reproducia contra el commit: se corrio sobre el area de staging,
+antes de que el informe formara parte del diff. El bloque original **no se reescribe**: recibe una
+nota fechada con las dos cifras y la forma anclada de la orden (con el propio informe excluido). El
+Paso 2d de `protocol-close` y la plantilla de la seccion 7 pasan a exigir el recuento de **lineas
+devueltas** (el de ordenes distintas, si se da, va aparte y con ese nombre) y la orden en la forma
+que reproduce contra el commit.
 
-`F-036` (`T-054`): `_workflow/005_discovery.md` citaba una leccion por su codigo instanciado
-(`L-XXX`), contra la regla de agnosticismo de esa carpeta. Se reescribe en forma generica.
+Nace `L-024`: al escribir el bloque de verificacion de `D-073`/`D-074` se detecto que `\b` se habia
+escrito y llegado al archivo como el caracter de retroceso `0x08` — invisible al leer, y que rompe la
+reejecucion de la orden. Un barrido con un patron de caracteres de control encontro **veinte
+apariciones en seis lineas** del registro; la de esta sesion se repara y se reejecuta, las **cinco
+anteriores quedan declaradas sin tocar** — reescribirlas convertiria «falta evidencia» en «hay
+evidencia falsa» — a la espera de que lo decida una auditoria, no `manager`.
 
-`F-037` (`T-055`, el mas grave de los cuatro): la Comprobacion 0 del Gate 1 resolvia el «antes»
-comparando `%ad`, la fecha de autor de un commit — que se sobrescribe con `GIT_AUTHOR_DATE`. Probado
-en un repositorio desechable, fuera de este proyecto: una hipotesis escrita **despues** de la sesion
-1 pero fechada **antes** pasaba la comprobacion como `PASA`. `D-071` adopta resolver las tres
-lecturas de «antes» por **orden del grafo** (`git merge-base --is-ancestor`), dejando `%ad` como
-dato informativo y para la unica lectura que si es de fecha. La afirmacion absoluta —«las fechas no
-se pueden convencer»— se corrige en el skill y en la plantilla del dictamen, y queda como nota
-fechada al lado de `D-069`, sin reescribirlo.
-
-`F-038` (`T-056`): dos de las siete lecturas de la Comprobacion 0 dependian de
-`<subcarpeta del prototipo>`, un valor que `project.md` no declara. El Paso 2 de `protocol-gate1`
-pasa a localizarla con `git ls-tree -d --name-only HEAD`, y a emitir `NO AUDITABLE` —no
-`NO COMPROBABLE`— si no la encuentra.
-
-Nacen `L-022` (una garantia se comprueba contra el mecanismo, no contra lo que sugiere) y `L-023`
-(un dato derivable escrito a mano se equivoca justo donde nadie lo vuelve a mirar).
-
-Aparte, el usuario trajo un borrador propio de la etapa de la baseline (`temporal/020_baseline.md`)
-y pidio construir con el `_phases/020_baseline.md`, tomando como guia los dos archivos de etapa que
-ya existian y `_methodology/000_method.md` §33-§39 y §46-§50. Nace el archivo (`T-058`), con la misma
-forma que `005_discovery.md` y `010_prototype.md`: ocho secciones, procedimiento de diez pasos,
-artefactos, condicion de salida. Se corrigieron del borrador los prefijos y rutas de otro esquema de
-trabajo (`F-`/`S-` para feature/scenario, que aqui colisionan con hallazgo y sesion; `RES-`/`SUP-`
-donde aqui van `C-XXX`/`A-XXX`; rutas propias de otro proyecto) y se conservo su contenido de fondo.
-La tabla «Etapas» de `project.md` **sigue diciendo dos** — el archivo describe que se hace si se
-entra a la etapa, no que se vaya a entrar (`D-072`), la misma logica que `D-060` ya dejo para
-`010_prototype.md`. Queda abierta `T-057`: el propio archivo declara como condicion de entrada un
-`_workflow/020_baseline.md` y una `_templates/020_baseline/` que todavia no existen.
+Aparte, el usuario pidio construir las plantillas de los nueve entregables de `_phases/020_baseline.md`
+en `_templates/020_baseline/`, agnosticas y con la misma forma que `_templates/005_discovery/` y
+`_templates/010_prototype/`. Nacen las nueve (`D-073`): `005_scope`, `010_product`, `015_features`,
+`020_scenarios`, `025_specification`, `030_architecture`, `035_adr_NNN`, `040_three_questions`,
+`045_traceability`, numeradas por **orden de procedimiento** (el Paso del que sale cada una, no el
+orden en que las lista la tabla del §5, porque el documento de producto copia del alcance y la
+trazabilidad deriva de features/escenarios). Al escribirlas, la tabla del §5 mostro **nueve** filas
+contra un texto que decia «Ocho artefactos de registro»; el usuario zanja que son nueve, y se
+corrige el texto, no la tabla (`D-074`).
 
 - **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype` sigue
-  sin adoptarse en `project.md` (`D-060`). `T-057` (reparto y plantillas de la baseline) sigue
-  `No implementada`, condicion de entrada de esa etapa. Los cuatro hallazgos de esta sesion quedan
-  `Aceptado — pendiente` en `_audit/findings.md` hasta que una auditoria posterior verifique la
-  correccion sobre este commit.
+  sin adoptarse en `project.md` (`D-060`). `T-057` sigue `No implementada`: las plantillas ya
+  existen, pero falta `_workflow/020_baseline.md` (el reparto), que el criterio de cierre de la
+  tarea tambien exige. Las cinco apariciones antiguas de `L-024` siguen sin resolver, a la espera de
+  una auditoria. `F-039` queda `Aceptado — pendiente` en `_audit/findings.md` hasta que una auditoria
+  posterior verifique la correccion sobre este commit.
 
 ---
 
 ## 3. Siguiente paso
 
-`manager` debe lanzar `report_auditor` sobre el commit de este cierre. En paralelo, definir el
-alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa
-`005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un patrocinador
-alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de etapa dice que
-sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) y `T-038` (igualar
-el barrido de fuga de `protocol-audit`) siguen disponibles sin depender de `A-004`, igual que
-continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en `S-011`. Para abrir
-`010_prototype` ya estan las plantillas y el reparto; falta adoptar formalmente la etapa en
-`project.md` (`D-060`). Para abrir `020_baseline` falta ademas `T-057` (su reparto y sus plantillas),
-condicion de entrada que el propio archivo de etapa declara. Al abrir `005_discovery`, registrar el
-`D-XXX` de adopcion del reparto de `_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar
-las cinco señales que `D-054` dejo registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`).
-Aparte, es decision del usuario si `DT-002` se confirma ya como pagada, y si se autoriza `T-038`
-sobre `protocol-audit`.
+`manager` debe lanzar `report_auditor` sobre el commit de este cierre. En paralelo, escribir
+`_workflow/020_baseline.md` (el reparto Humano/Software/IA de los diez pasos de la etapa) para cerrar
+`T-057`, que es lo unico que falta para que `020_baseline` tenga su condicion de entrada satisfecha.
+Ademas, definir el alcance y el objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`,
+etapa `005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un
+patrocinador alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de
+etapa dice que sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) y
+`T-038` (igualar el barrido de fuga de `protocol-audit`) siguen disponibles sin depender de `A-004`,
+igual que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en `S-011`. Para
+abrir `010_prototype` ya estan las plantillas y el reparto; falta adoptar formalmente la etapa en
+`project.md` (`D-060`). Al abrir `005_discovery`, registrar el `D-XXX` de adopcion del reparto de
+`_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar las cinco señales que `D-054` dejo
+registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`). Aparte, es decision del usuario si
+`DT-002` se confirma ya como pagada, si se autoriza `T-038` sobre `protocol-audit`, y que hacer con
+las cinco apariciones antiguas de `\x08` que `L-024` deja declaradas.
 
 ---
 
@@ -745,6 +738,35 @@ mismo defecto que la nota de la seccion 2 acota, con el mismo bloque anclado a `
   sin adoptarse en `project.md` (`D-060`). `T-057` queda `No implementada`. Los cuatro hallazgos de
   esta sesion quedan `Aceptado — pendiente` hasta que una auditoria posterior verifique la correccion
   sobre este commit.
+
+---
+
+### S-017 - Se acepta `F-039` (`T-059`); nacen las plantillas de `_templates/020_baseline/` (`D-073`, `D-074`) y `L-024`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | `000_preproject` |
+| Tareas | T-059 |
+
+- **Que se hizo:** `manager` evaluo, contra `HEAD` (`b990e05`), el unico hallazgo de `R-016`
+  (`F-039`, sobre `S-016`) y lo acepto (`T-059`). El primer bloque de la seccion 7 de
+  `_audit/S-016.md` publicaba «Quince lineas» que en realidad eran su salida **deduplicada a mano**
+  (la orden devuelve veintiuna), y esa orden ademas no reproducia contra el commit por correr sobre
+  el area de staging. El bloque original no se reescribe: recibe una nota fechada con las dos
+  cifras y la forma anclada de la orden. El Paso 2d de `protocol-close` y la plantilla de la
+  seccion 7 pasan a exigir el recuento de lineas devueltas (el de ordenes distintas, aparte y con
+  ese nombre), la lista sin deduplicar, y la orden anclada al commit con el propio informe excluido.
+  Nace `L-024`: un barrido de caracteres de control encontro que `\b` se habia corrompido a `0x08`
+  en seis lineas del registro; la de esta sesion se repara, las cinco anteriores quedan declaradas
+  sin tocar, a la espera de que lo decida una auditoria. Aparte, el usuario pidio construir las
+  nueve plantillas de `_templates/020_baseline/`; nacen numeradas por orden de procedimiento
+  (`D-073`), y al escribirlas se destapo que `_phases/020_baseline.md` §5 decia «Ocho artefactos»
+  sobre nueve filas — el usuario zanja que son nueve (`D-074`).
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype` sigue
+  sin adoptarse en `project.md` (`D-060`). `T-057` sigue `No implementada`: las plantillas ya
+  existen, pero falta `_workflow/020_baseline.md`. Las cinco apariciones antiguas de `\x08` que
+  `L-024` deja declaradas siguen sin resolver. `F-039` queda `Aceptado — pendiente` hasta que una
+  auditoria posterior verifique la correccion sobre este commit.
 
 ---
 

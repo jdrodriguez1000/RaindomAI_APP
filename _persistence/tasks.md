@@ -67,6 +67,7 @@
 | [T-056](#t-056---dar-a-la-comprobacion-0-forma-de-localizar-la-subcarpeta-del-prototipo-y-salida-si-no-existe-f-038) | Dar a la Comprobacion 0 forma de localizar la subcarpeta del prototipo y salida si no existe (`F-038`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-057](#t-057---escribir-el-reparto-y-las-plantillas-de-la-etapa-de-la-baseline) | Escribir el reparto y las plantillas de la etapa de la baseline | No implementada | Media | No bloqueante | `000_preproject` |
 | [T-058](#t-058---escribir-el-archivo-de-etapa-de-la-baseline-_phases020_baselinemd) | Escribir el archivo de etapa de la baseline (`_phases/020_baseline.md`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-059](#t-059---publicar-en-el-paso-2d-el-recuento-de-lineas-y-la-orden-que-reproduce-contra-el-commit-f-039) | Publicar en el Paso 2d el recuento de lineas y la orden que reproduce contra el commit (`F-039`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -2538,6 +2539,12 @@ $ grep -c "Esa salida es para los criterios del Paso 4, no para la Comprobacion 
   propios del proyecto ni codigos instanciados.
 - **Cuando:** antes de abrir la etapa, no antes de adoptarla. Adoptar las etapas posteriores es
   trabajo de `005_discovery` (`T-002`), y mientras esa decision no exista esta tarea no tiene urgencia.
+- **En que punto quedo (S-017):** las nueve plantillas de `_templates/020_baseline/` ya existen
+  (`D-073`, `D-074`), numeradas por orden de procedimiento y agnosticas — sin datos propios del
+  proyecto y sin codigos instanciados del registro mas alla del primero que la convencion de
+  `_templates/` permite (`N-001`, ya usado por las otras dos carpetas de plantillas). Sigue faltando
+  `_workflow/020_baseline.md`, el reparto Humano/Software/IA de los pasos de la etapa: la tarea
+  **no** se marca `Implementada`, porque el criterio de cierre pide los dos.
 
 ---
 
@@ -2603,3 +2610,52 @@ $ grep -on "PI-5" _phases/020_baseline.md
 
 📌 **El reparto de `_workflow/` y las plantillas de `_templates/` para esta etapa NO se escriben
 aqui**: el propio archivo los declara condicion de entrada, y su tarea es `T-057`.
+
+---
+
+### T-059 - Publicar en el Paso 2d el recuento de lineas y la orden que reproduce contra el commit (`F-039`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-017 |
+
+- **Que:** el Paso 2d de `protocol-close` y la plantilla de la seccion 7 del informe pasan a exigir
+  tres cosas que antes no decian: que el recuento publicado sea el de **lineas devueltas** y no el de
+  ordenes distintas; que la lista vaya **sin deduplicar**; y que la orden se escriba en la forma que
+  reproduce contra el commit —anclada al hash y con el propio informe excluido—, o que se diga al
+  lado cual es esa equivalencia. Y `_audit/S-016.md` recibe su **nota fechada**, sin reescribir el
+  bloque publicado.
+- **Por que:** el primer bloque de la seccion 7 de `S-016` publicaba quince lineas y las llamaba
+  «Quince lineas», cuando la orden devuelve veintiuna: seis ordenes estan citadas a la vez en
+  `decisions.md` y en `tasks.md`, y el bloque estaba deduplicado a mano. Deduplicar es seleccionar, y
+  el propio Paso 2d prohibe publicar una seleccion de su salida. Ademas la orden, tal como estaba
+  escrita, no reproduce contra el commit: se corrio sobre el area de staging, antes de que el informe
+  formara parte del diff.
+- **Criterio de cierre:** el skill nombra las dos cifras por separado y pide la forma anclada; la
+  nota fechada esta en `_audit/S-016.md` y sus dos ordenes reproducen.
+
+**Verificacion — las dos cifras, la nota y el skill:**
+
+```
+$ git diff -U0 bd8a9ff^ bd8a9ff -- _persistence _audit ":(exclude)_audit/S-016.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+21
+
+$ git diff -U0 bd8a9ff^ bd8a9ff -- _persistence _audit ":(exclude)_audit/S-016.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort | uniq | wc -l
+15
+
+$ grep -c "Nota del 2026-09-03 (\`T-059\`, hallazgo \`F-039\`)" _audit/S-016.md
+1
+
+$ grep -c "El recuento que se publica es el de lineas que devolvio la orden" .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c "sin deduplicar" .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c "la orden se publica en la forma que reproduce contra el commit" .claude/skills/protocol-close/SKILL.md
+1
+```

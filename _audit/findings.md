@@ -50,7 +50,7 @@
 | [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Implementado |
 | [F-037](#f-037---la-comprobacion-0-del-gate-1-compara-fechas-de-autor-que-si-se-pueden-falsificar-y-tres-archivos-afirman-lo-contrario) | La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario | R-015 | Media | Aceptado — pendiente |
 | [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Implementado |
-| [F-039](#f-039---el-primer-bloque-de-la-seccion-7-de-s-016-publica-quince-de-las-veintiuna-lineas-que-devuelve-su-orden) | El primer bloque de la seccion 7 de `S-016` publica quince de las veintiuna lineas que devuelve su orden | R-016 | Media | Abierto |
+| [F-039](#f-039---el-primer-bloque-de-la-seccion-7-de-s-016-publica-quince-de-las-veintiuna-lineas-que-devuelve-su-orden) | El primer bloque de la seccion 7 de `S-016` publica quince de las veintiuna lineas que devuelve su orden | R-016 | Media | Aceptado — pendiente |
 
 ---
 
@@ -2375,8 +2375,8 @@ ea48ae8:project.md:182:| `010_prototype/` | ... y el codigo descartable del prot
 | Auditoria | R-016 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-059` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 7 de `_audit/S-016.md` encabeza su primer bloque con
@@ -2404,3 +2404,8 @@ $ git show bd8a9ff:_audit/S-016.md | awk '/^\$ git diff -U0 -- _persistence _aud
   (`":(exclude)_audit/S-XXX.md"`) o con su equivalencia anclada al commit, como ya hace la nota de
   `_audit/S-014.md` — tal como esta escrita hoy tampoco reproduce contra el commit, porque incluye su
   propio archivo (39 lineas).
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-017`). Se toman las dos correcciones
+  propuestas: el Paso 2d y la plantilla de la seccion 7 pasan a exigir el recuento de **lineas**
+  —con el de ordenes distintas aparte y con ese nombre, y la lista sin deduplicar— y la orden escrita
+  en su forma anclada al commit con el propio informe excluido. `_audit/S-016.md` recibe su nota
+  fechada, sin reescribir el bloque publicado. Registrado en `T-059`.
