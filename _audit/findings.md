@@ -56,9 +56,12 @@
 | [F-042](#f-042---las-cinco-apariciones-de-x08-quedan-sin-t-xxx-ni-dt-xxx-y-la-decision-se-delega-en-un-actor-que-no-decide) | Las cinco apariciones de `\x08` quedan sin `T-XXX` ni `DT-XXX`, y la decision se delega en un actor que no decide | R-017 | Media | Implementado |
 | [F-043](#f-043---l-024-dice-seis-apariciones-donde-son-seis-lineas-y-veinte-apariciones-en-la-misma-entrada) | `L-024` dice «seis apariciones» donde son seis lineas y veinte apariciones, en la misma entrada | R-017 | Baja | Implementado |
 | [F-044](#f-044---la-seccion-1-del-informe-omite-las-dos-notas-de-reincidencia-anadidas-a-l-004-y-l-019) | La seccion 1 del informe omite las dos notas de reincidencia añadidas a `L-004` y `L-019` | R-017 | Baja | Implementado |
-| [F-045](#f-045---la-seccion-7-declara-28-ordenes-donde-son-26-afirma-que-no-hay-repetidas-cuando-hay-tres-y-deja-una-sin-salida-publicada) | La seccion 7 declara 28 ordenes donde son 26, afirma que no hay repetidas cuando hay tres, y deja una sin salida publicada | R-018 | Media | Aceptado — pendiente |
-| [F-046](#f-046---la-seccion-1-atribuye-a-l-020-la-nota-de-reincidencia-que-el-commit-pone-en-l-019) | La seccion 1 atribuye a `L-020` la nota de reincidencia que el commit pone en `L-019` | R-018 | Media | Aceptado — pendiente |
-| [F-047](#f-047---el-patron-ampliado-que-t-062-adopta-de-aqui-en-adelante-sigue-ciego-al-prefijo-h-) | El patron ampliado que `T-062` adopta «de aqui en adelante» sigue ciego al prefijo `H-` | R-018 | Baja | Aceptado — pendiente |
+| [F-045](#f-045---la-seccion-7-declara-28-ordenes-donde-son-26-afirma-que-no-hay-repetidas-cuando-hay-tres-y-deja-una-sin-salida-publicada) | La seccion 7 declara 28 ordenes donde son 26, afirma que no hay repetidas cuando hay tres, y deja una sin salida publicada | R-018 | Media | Implementado |
+| [F-046](#f-046---la-seccion-1-atribuye-a-l-020-la-nota-de-reincidencia-que-el-commit-pone-en-l-019) | La seccion 1 atribuye a `L-020` la nota de reincidencia que el commit pone en `L-019` | R-018 | Media | Implementado |
+| [F-047](#f-047---el-patron-ampliado-que-t-062-adopta-de-aqui-en-adelante-sigue-ciego-al-prefijo-h-) | El patron ampliado que `T-062` adopta «de aqui en adelante» sigue ciego al prefijo `H-` | R-018 | Baja | Implementado |
+| [F-048](#f-048---la-seccion-7-de-s-019-publica-42-de-las-48-lineas-que-devuelve-su-propia-orden-y-las-seis-omitidas-quedan-sin-salida) | La seccion 7 de `S-019` publica 42 de las 48 lineas que devuelve su propia orden, y las seis omitidas quedan sin salida | R-019 | Media | Abierto |
+| [F-049](#f-049---dt-004-declara-siete-lineas-nuevas-con-0x08-donde-hay-diez-y-dos-de-las-no-contadas-alteran-la-salida-cruda-publicada-en-la-correccion-de-f-045) | `DT-004` declara siete lineas nuevas con `0x08` donde hay diez, y dos de las no contadas alteran la salida cruda publicada en la correccion de `F-045` | R-019 | Media | Abierto |
+| [F-050](#f-050---el-informe-y-progressmd-llaman-las-tres-etapas-nuevas-de-025_wslt-a-los-tres-artefactos-de-una-sola-etapa) | El informe y `progress.md` llaman «las tres etapas nuevas de `025_wslt`» a los tres artefactos de una sola etapa | R-019 | Baja | Abierto |
 
 ---
 
@@ -2692,9 +2695,9 @@ exit=1
 | Auditoria | R-018 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-066` |
-| Cerrado en | |
+| Cerrado en | `1b30e16` (`R-019`) |
 
 - **Que se observo:** el informe dice «**Recuento: 28 lineas devueltas** (28 ordenes distintas
   citadas; no hay repeticion de una misma orden en dos archivos esta sesion, asi que las dos cifras
@@ -2740,6 +2743,7 @@ $ git show 9a52cfa:_audit/S-018.md | grep -nE '^--(1[3-9])--'
   porque marcarlas a ojo es lo que corrio la numeracion una posicion. Registrado en `T-066`, con
   `L-027`.
 
+- **Verificacion de `R-019` (2026-09-03, commit `1b30e16`):** **cerrado**. La nota fechada esta en la seccion 7 de `_audit/S-018.md` con las tres cifras corregidas, y las tres reproducen sobre `9a52cfa` (`wc -l` = 26, `sort -u | wc -l` = 23, `sort | uniq -d | wc -l` = 3); la salida de la posicion 15, que faltaba, tambien esta publicada. ⚠️ Dos lineas de la salida cruda transcrita en esa nota llevan el caracter de control `0x08` donde el original lleva el limite de palabra: eso se abre aparte como `F-049` y no reabre este.
 ---
 
 ### F-046 - La seccion 1 atribuye a `L-020` la nota de reincidencia que el commit pone en `L-019`
@@ -2748,9 +2752,9 @@ $ git show 9a52cfa:_audit/S-018.md | grep -nE '^--(1[3-9])--'
 | Auditoria | R-018 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-067` |
-| Cerrado en | |
+| Cerrado en | `1b30e16` (`R-019`) |
 
 - **Que se observo:** el informe dice «nota de reincidencia añadida a `L-020` (la entrada de
   `D-069`/reincidencia numero dos, `F-041`)». El commit no toca `L-020`: la nota cae dentro de
@@ -2794,6 +2798,7 @@ $ git show 9a52cfa:_persistence/lessons.md | sed -n '709,712p'
   paso en el commit que escribio la regla. Se añade ademas el aviso sobre el borde conocido de la
   primera orden, que el hallazgo no pedia. Registrado en `T-067`, con `L-027`.
 
+- **Verificacion de `R-019` (2026-09-03, commit `1b30e16`):** **cerrado**. La nota fechada de la seccion 1 de `_audit/S-018.md` corrige la atribucion a `L-019`, y su orden reejecutada devuelve `709: L-019` sin ningun `L-020`. El Paso 6b de `protocol-close` incorpora las dos ordenes que derivan del diff las entradas editadas (`grep -c 'que entradas NACEN'` devuelve 1).
 ---
 
 ### F-047 - El patron ampliado que `T-062` adopta «de aqui en adelante» sigue ciego al prefijo `H-`
@@ -2802,9 +2807,9 @@ $ git show 9a52cfa:_persistence/lessons.md | sed -n '709,712p'
 | Auditoria | R-018 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-068` |
-| Cerrado en | |
+| Cerrado en | `1b30e16` (`R-019`) |
 
 - **Que se observo:** la nota fechada de `D-073` cierra con «De aqui en adelante este control se
   corre con el patron ampliado». Entre las dos listas publicadas queda fuera un prefijo que
@@ -2833,3 +2838,135 @@ A C D DT F FT H I L N R S SC T
   serie. El patron pasa a derivarse de la tabla «Codigos» de `project.md` unida a la de §46 del
   metodo, con `(^|[^A-Za-z])` y `[0-9]{2,3}` (`D-077`). Nota fechada en el bloque de `D-073`.
   Registrado en `T-068`, con `L-027`.
+- **Verificacion de `R-019` (2026-09-03, commit `1b30e16`):** **cerrado**. `D-077` nace y la nota fechada esta en el bloque de `D-073`. El patron derivado, reejecutado, devuelve `PAT=ADR|VS|TC|SC|FT|DT|T|S|R|N|L|I|H|F|D|C|A` —con `H` dentro— y el cuantificador pasa a `[0-9]{2,3}`. Que los bloques publicados de `D-077` esten corrompidos con `0x08` es un defecto distinto: `DT-004` y `F-049`.
+
+---
+
+### F-048 - La seccion 7 de `S-019` publica 42 de las 48 lineas que devuelve su propia orden, y las seis omitidas quedan sin salida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-019 |
+| Fecha | 2026-09-03 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 7 anuncia «Lista COMPLETA, numerada por la propia orden (`cat -n`),
+  sin deduplicar» y cierra con «**Recuento: 42 lineas devueltas** (31 ordenes distintas; hay 11
+  repetidas)». La orden anclada que el propio informe publica devuelve 48 lineas y 37 ordenes
+  distintas.
+
+~~~
+$ git diff -U0 1b30e16^ 1b30e16 -- _persistence _audit ":(exclude)_audit/S-019.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+48
+$ (la misma, con | sort -u | wc -l)
+37
+$ (la misma, con | sort | uniq -d | wc -l)
+11
+$ (la misma, con | cat -n | sed -n '43,48p')
+    43	+$ sed -n '4144p' _persistence/decisions.md | sed 's/^\$ //' | cat -A | head -1
+    44	+$ sed -n '4141p' _persistence/decisions.md | sed 's/^\$ //' | bash
+    45	+$ sed -n '4144p' _persistence/decisions.md | sed 's/^\$ //' | bash
+    46	+$ sed -n '4147p' _persistence/decisions.md | sed 's/^\$ //' | bash
+    47	+$ grep -rnoE "\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b" _templates/020_baseline/ | wc -l
+    48	+$ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | wc -l
+~~~
+
+  Las seis omitidas son ordenes propias de la entrada `DT-004`, no lineas de continuacion del
+  `python -c` multilinea que la nota del informe si justifica; y el bloque de reejecucion se declara
+  «(1-41; la 42 se trata arriba)», con lo que quedan sin salida publicada.
+- **Por que importa:** es el mismo defecto que `F-045` —recuento falso en la seccion 7 y ordenes sin
+  salida— en el commit que corrige `F-045` y que endurece el Paso 2d para numerar con la orden. El
+  remedio adoptado cubre la numeracion, pero no impide truncar la lista al pegarla.
+- **Que lo corregiria:** pegar la salida completa y tomar las tres cifras de `wc -l`,
+  `sort -u | wc -l` y `sort | uniq -d`, sin escribirlas aparte; y publicar la salida de las seis
+  posiciones que quedaron sin ella.
+
+---
+
+### F-049 - `DT-004` declara siete lineas nuevas con `0x08` donde hay diez, y dos de las no contadas alteran la salida cruda publicada en la correccion de `F-045`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-019 |
+| Fecha | 2026-09-03 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `DT-004` afirma «siete lineas nuevas de esta misma sesion […] Cinco estan en
+  `_persistence/decisions.md` […] y dos en `_persistence/tasks.md`», y la seccion 6 del informe
+  enumera los archivos que el barrido no cubrio, sin nombrar los dos donde el defecto tambien
+  aparecio. Barrido sobre todo el arbol del commit, y comparacion contra el padre:
+
+~~~
+$ for f in $(git ls-tree -r --name-only 1b30e16 | grep -E '\.md$'); do n=$(git show 1b30e16:"$f" | grep -c $'\x08'); if [ "$n" -gt 0 ]; then echo "$f: $n"; fi; done
+_audit/S-018.md: 2
+_audit/S-019.md: 1
+_audit/findings.md: 1
+_persistence/decisions.md: 7
+_persistence/tasks.md: 5
+
+$ for f in _audit/S-018.md _audit/findings.md _persistence/decisions.md _persistence/tasks.md; do echo "$f parent=$(git show 1b30e16^:$f | grep -c $'\x08') commit=$(git show 1b30e16:$f | grep -c $'\x08')"; done
+_audit/S-018.md parent=0 commit=2
+_audit/findings.md parent=1 commit=1
+_persistence/decisions.md parent=2 commit=7
+_persistence/tasks.md parent=3 commit=5
+~~~
+
+  Diez lineas nuevas, no siete. Las dos de `_audit/S-018.md` caen dentro de la nota fechada que
+  corrige `F-045`, y son la transcripcion de la salida cruda de dos ordenes: la salida real lleva el
+  limite de palabra y la publicada lleva el caracter de control (`^H` es como lo muestra `cat -A`).
+
+~~~
+$ git show 1b30e16:_audit/S-018.md | grep -n $'\x08' | cat -A | cut -c1-140
+254:> +$ grep -rnoE "^H(FT|SC|VS|TC|ADR)-[0-9]{3}^H" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"$
+266:>     18^I+$ grep -rnoE "^H(FT|SC|VS|TC|ADR)-[0-9]{3}^H" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"$
+
+$ git diff -U0 9a52cfa^ 9a52cfa -- _persistence _audit ":(exclude)_audit/S-018.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort | uniq -d | cat -A | cut -c1-140
++$ grep -nE '^\| `(FT|SC)-XXX`' project.md$
++$ grep -oE '^\| `[A-Z]+-[A-Za-z]+`' project.md | sort | uniq -d | wc -l$
++$ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"$
+~~~
+
+  La de `_audit/S-019.md` es la linea 189, en prosa, en la frase que explica como restituir el limite
+  de palabra.
+- **Por que importa:** la deuda queda con un ambito y una cifra que el commit desmiente, y quien la
+  pague creyendo `DT-004` dejara tres lineas sin tocar. Y la nota que corrige `F-045` publica como
+  «salida cruda» algo distinto de lo que la orden devuelve, que es la clase de defecto que `F-045`
+  existia para corregir.
+- **Que lo corregiria:** ampliar ambito y cifra de `DT-004` con una nota fechada, y añadir al cierre
+  un barrido de caracteres de control sobre todos los archivos que el commit toca, no sobre dos
+  elegidos a mano.
+
+---
+
+### F-050 - El informe y `progress.md` llaman «las tres etapas nuevas de `025_wslt`» a los tres artefactos de una sola etapa
+| Campo | Valor |
+|---|---|
+| Auditoria | R-019 |
+| Fecha | 2026-09-03 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** dos frases del registro cuentan como etapas lo que son artefactos.
+
+~~~
+$ git show 1b30e16:_audit/S-019.md | grep -c 'tres etapas nuevas de `025_wslt`'
+1
+$ git show 1b30e16:_persistence/progress.md | grep -c 'tres etapas nuevas de `025_wslt`'
+1
+~~~
+
+  «Ninguna de las tres etapas nuevas de `025_wslt` queda adoptada — el archivo, la plantilla y el
+  reparto existen» (informe, seccion 2) y «Las tres etapas nuevas de `025_wslt` no quedan adoptadas
+  ni su reparto» (`progress.md`). `025_wslt` es **una** etapa; lo que nace son tres archivos:
+  `_phases/025_wslt.md`, `_templates/025_wslt/005_skeleton_record.md` y `_workflow/025_wslt.md`.
+- **Por que importa:** `project.md` lleva la cuenta de las etapas declaradas y `T-002` existe para
+  declarar las que faltan; «tres etapas nuevas» deja al arranque siguiente buscando dos que no
+  existen.
+- **Que lo corregiria:** nota fechada en las dos frases aclarando que son tres artefactos de una
+  sola etapa.
