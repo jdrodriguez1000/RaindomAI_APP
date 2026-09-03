@@ -65,9 +65,15 @@
 | [T-054](#t-054---reescribir-en-forma-generica-la-cita-instanciada-de-_workflow005_discoverymd-f-036) | Reescribir en forma generica la cita instanciada de `_workflow/005_discovery.md` (`F-036`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-055](#t-055---resolver-la-comprobacion-0-del-gate-1-por-orden-del-grafo-no-por-fecha-f-037) | Resolver la Comprobacion 0 del Gate 1 por orden del grafo, no por fecha (`F-037`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-056](#t-056---dar-a-la-comprobacion-0-forma-de-localizar-la-subcarpeta-del-prototipo-y-salida-si-no-existe-f-038) | Dar a la Comprobacion 0 forma de localizar la subcarpeta del prototipo y salida si no existe (`F-038`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-057](#t-057---escribir-el-reparto-y-las-plantillas-de-la-etapa-de-la-baseline) | Escribir el reparto y las plantillas de la etapa de la baseline | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-057](#t-057---escribir-el-reparto-y-las-plantillas-de-la-etapa-de-la-baseline) | Escribir el reparto y las plantillas de la etapa de la baseline | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-058](#t-058---escribir-el-archivo-de-etapa-de-la-baseline-_phases020_baselinemd) | Escribir el archivo de etapa de la baseline (`_phases/020_baseline.md`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-059](#t-059---publicar-en-el-paso-2d-el-recuento-de-lineas-y-la-orden-que-reproduce-contra-el-commit-f-039) | Publicar en el Paso 2d el recuento de lineas y la orden que reproduce contra el commit (`F-039`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-060](#t-060---anotar-en-progressmd-la-afirmacion-absoluta-sobre-la-comprobacion-0-f-037) | Anotar en `progress.md` la afirmacion absoluta sobre la Comprobacion 0 (`F-037`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-061](#t-061---declarar-ft--y-sc--en-la-tabla-codigos-de-projectmd-f-040) | Declarar `FT-` y `SC-` en la tabla «Codigos» de `project.md` (`F-040`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-062](#t-062---acotar-el-alcance-del-control-de-codigos-instanciados-de-d-073-y-t-057-f-041) | Acotar el alcance del control de codigos instanciados de `D-073` y `T-057` (`F-041`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-063](#t-063---dar-deuda-registrada-a-las-cinco-lineas-con-x08-y-corregir-el-reparto-de-l-024-f-042) | Dar deuda registrada a las cinco lineas con `\x08` y corregir el reparto de `L-024` (`F-042`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-064](#t-064---corregir-en-l-024-el-recuento-de-lineas-presentado-como-apariciones-f-043) | Corregir en `L-024` el recuento de lineas presentado como apariciones (`F-043`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-065](#t-065---exigir-en-la-seccion-1-del-informe-las-entradas-existentes-que-el-commit-edita-f-044) | Exigir en la seccion 1 del informe las entradas existentes que el commit edita (`F-044`) | Implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -2522,7 +2528,7 @@ $ grep -c "Esa salida es para los criterios del Paso 4, no para la Comprobacion 
 ### T-057 - Escribir el reparto y las plantillas de la etapa de la baseline
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -2545,6 +2551,70 @@ $ grep -c "Esa salida es para los criterios del Paso 4, no para la Comprobacion 
   `_templates/` permite (`N-001`, ya usado por las otras dos carpetas de plantillas). Sigue faltando
   `_workflow/020_baseline.md`, el reparto Humano/Software/IA de los pasos de la etapa: la tarea
   **no** se marca `Implementada`, porque el criterio de cierre pide los dos.
+
+  > 📌 **Nota del 2026-09-03 (`T-062`, hallazgo `F-041`).** El parrafo de arriba **no se reescribe**,
+  > y esta nota lo acota. «Sin codigos instanciados del registro mas alla del primero» descansa en el
+  > bloque de verificacion de `D-073`, cuyo patron es **ciego a los prefijos de dos letras**: no
+  > reconoce `FT-001` ni `SC-001`. La frase sigue siendo cierta de los codigos del **registro**; no
+  > lo es de la carpeta entera, que es como se lee. Con el patron ampliado aparecen `FT-003`,
+  > `SC-003` (dos veces), `SC-007` y `FT-004`, y esos no son «el primero»:
+  >
+  > ```
+  > $ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"
+  > _templates/020_baseline/015_features.md:72:FT-003
+  > _templates/020_baseline/020_scenarios.md:72:SC-003
+  > _templates/020_baseline/025_specification.md:236:SC-003
+  > _templates/020_baseline/045_traceability.md:200:SC-007
+  > _templates/020_baseline/045_traceability.md:200:FT-004
+  > ```
+  >
+  > `FT-` y `SC-` quedan declarados en `project.md` por `D-075` (hallazgo `F-040`), asi que dejan de
+  > ser codigos sin declarar; lo que esta nota corrige es el **alcance de la afirmacion**, no el
+  > contenido de las plantillas.
+
+- **En que punto quedo (S-018):** nace `_workflow/020_baseline.md`, y con el la tarea queda
+  `Implementada`: los dos artefactos existen, `_phases/020_baseline.md` los cita como condicion de
+  entrada, y ninguno filtra datos propios ni codigos instanciados fuera de lo que la convencion de
+  `_templates/` permite. El reparto que el archivo describe **no queda adoptado por existir**: eso
+  exige su `D-XXX` el dia que la etapa se abra (`_workflow/team.md` §8).
+- **Correccion colateral, y se dice:** `_phases/020_baseline.md` citaba el reparto como «el archivo
+  de esta etapa en `_workflow/`», sin nombrarlo — y los dos archivos de etapa hermanos si lo nombran.
+  Con la cita generica, la segunda orden del bloque de verificacion de este archivo no habria
+  devuelto nada, que es exactamente el enganche que `DT-002` y `L-014` existen para vigilar. Se
+  nombra en los dos sitios donde la etapa lo invoca (§4 y §5). Es un cambio de dos lineas sobre un
+  archivo ya auditado, dentro del criterio de cierre de esta tarea —«`_phases/020_baseline.md` los
+  cita»— y no fuera de el.
+- **La eleccion de fondo del archivo va aparte:** por que esta etapa puntua «variabilidad de la
+  entrada» en 2 y no en 3, cuando las dos anteriores tuvieron que declarar discrepancia por ese
+  mismo eje, esta en `D-076` con sus alternativas descartadas.
+
+**Verificacion — los dos artefactos existen, la etapa los cita por nombre, y el archivo nuevo tiene
+una fila por paso sin fugas ni codigos instanciados:**
+
+```
+$ ls -1 _workflow/
+005_discovery.md
+010_prototype.md
+020_baseline.md
+ai_levels.md
+team.md
+
+$ grep -cE "^\| \*\*([1-9]|10) · " _workflow/020_baseline.md
+10
+
+$ grep -c "^### Paso " _phases/020_baseline.md
+10
+
+$ grep -n "_workflow/020_baseline" _phases/020_baseline.md
+138:**`_workflow/020_baseline.md`**, que se lee ahora y no despues. Ese reparto se adopta con su `D-XXX`
+316:🚨 **Las plantillas y el reparto de `_workflow/020_baseline.md` son condicion de entrada, no trabajo
+
+$ grep -rnE "RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" _workflow/020_baseline.md ; echo "exit=$?"
+exit=1
+
+$ grep -rnoE "\b(N|T|D|A|C|I|F|L|S|R|DT|FT|SC|VS|TC|ADR)-[0-9]{3}\b" _workflow/020_baseline.md ; echo "exit=$?"
+exit=1
+```
 
 ---
 
@@ -2657,5 +2727,224 @@ $ grep -c "sin deduplicar" .claude/skills/protocol-close/SKILL.md
 1
 
 $ grep -c "la orden se publica en la forma que reproduce contra el commit" .claude/skills/protocol-close/SKILL.md
+1
+```
+
+---
+
+### T-060 - Anotar en `progress.md` la afirmacion absoluta sobre la Comprobacion 0 (`F-037`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-018 |
+
+- **Que:** anotar con una nota fechada la bitacora de `S-015` en `_persistence/progress.md`, que
+  publica como hecho que la Comprobacion 0 del Gate 1 esta «resuelta con fechas del historial de
+  `git` — la unica comprobacion del metodo imposible de aprobar a posteriori».
+- **Por que:** es el **tercero de los tres sitios** que nombraba `F-037`, y el unico que `R-016`
+  encontro sin corregir. `T-055` llevo la correccion al skill, a la plantilla del dictamen y a
+  `D-069`, pero no aqui; el hallazgo siguio `Aceptado — pendiente` por eso. La afirmacion es falsa
+  tal como estaba implementada: `%ad` se sobrescribe con una variable de entorno, y `D-071` ya
+  cambio el mecanismo al orden del grafo.
+- **Como se hizo:** con una **nota fechada** debajo del parrafo, sin reescribirlo. Es el mismo
+  tratamiento que recibio `D-069` en `T-055`, y por la misma razon: `progress.md` es la bitacora de
+  lo que se decidio aquel dia, y reescribirla convertiria «falta evidencia» en «hay evidencia falsa».
+- **Criterio de cierre:** la nota existe, cita `F-037` y `D-071`, y su bloque de verificacion
+  reproduce sobre el commit auditado.
+
+```
+$ git show 6b42d0f:.claude/skills/protocol-gate1/SKILL.md | grep -c "merge-base --is-ancestor"
+3
+
+$ grep -c 'Nota del 2026-09-03 (`T-060`, hallazgo `F-037`)' _persistence/progress.md
+1
+```
+
+---
+
+### T-061 - Declarar `FT-` y `SC-` en la tabla «Codigos» de `project.md` (`F-040`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-018 |
+
+- **Que:** añadir `FT-XXX` (feature) y `SC-XXX` (scenario) a la tabla «Codigos» de `project.md`, y
+  reescribir el parrafo que decia que de los codigos de producto solo estaban declarados `N-` e `I-`.
+- **Por que:** las plantillas de `_templates/020_baseline/` los escriben desde `S-017`, y
+  `project.md` dice que un codigo que aparece en un archivo antes que en esa tabla es un desfase.
+  Mismo caso que produjo `D-034` (`N-`) y `D-038` (`I-`), repetido sin su `D-XXX`. Lo levanta
+  `F-040`, y el hallazgo es correcto.
+- **Alcance:** **solo esos dos**. `VS-`, `TC-` y `ADR-` no se declaran: no aparecen instanciados en
+  ningun archivo fuera de `_methodology/`, donde son propuesta, y declararlos le quitaria al Paso 3
+  de `_phases/020_baseline.md` el contraste contra el registro que es su razon de existir.
+- **Criterio de cierre:** las dos filas estan en la tabla, ninguna colisiona con un codigo del
+  registro, y la decision con sus alternativas descartadas esta en `D-075`.
+
+```
+$ grep -nE '^\| `(FT|SC)-XXX`' project.md
+232:| `FT-XXX` | el artefacto de features de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | feature |
+233:| `SC-XXX` | el artefacto de escenarios de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | scenario |
+
+$ grep -oE '^\| `[A-Z]+-[A-Za-z]+`' project.md | sort | uniq -d | wc -l
+0
+```
+
+---
+
+### T-062 - Acotar el alcance del control de codigos instanciados de `D-073` y `T-057` (`F-041`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-018 |
+
+- **Que:** anotar con una nota fechada el bloque de verificacion de `D-073` y el parrafo «En que
+  punto quedo (S-017)» de `T-057`, publicando el patron ampliado y su salida real.
+- **Por que:** los dos afirman que las plantillas quedan «sin codigos instanciados del registro mas
+  alla del primero», y el patron que lo respalda es **ciego a los prefijos de dos letras**: el limite
+  de palabra inicial no casa delante de la `F` de `FT`. La afirmacion es cierta de los codigos del
+  registro y se lee como un veredicto de toda la carpeta. Misma familia que `F-018` y `L-021`: un
+  resultado publicado con su comando, pero con el ambito del comando mas estrecho que la frase.
+- **Como se hizo:** notas fechadas, **sin reescribir** ninguno de los dos bloques originales, y
+  declarando que de aqui en adelante el control se corre con el patron ampliado a dos letras.
+- **Criterio de cierre:** las dos notas existen, publican el patron ampliado, y su salida reproduce.
+
+```
+$ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"
+_templates/020_baseline/015_features.md:72:FT-003
+_templates/020_baseline/020_scenarios.md:72:SC-003
+_templates/020_baseline/025_specification.md:236:SC-003
+_templates/020_baseline/045_traceability.md:200:SC-007
+_templates/020_baseline/045_traceability.md:200:FT-004
+
+$ grep -c 'Nota del 2026-09-03 (`T-062`, hallazgo `F-041`)' _persistence/decisions.md _persistence/tasks.md
+_persistence/decisions.md:1
+_persistence/tasks.md:2
+```
+
+📌 **`tasks.md` devuelve 2 y no 1 porque el cuerpo de esta misma tarea cita la cadena.** Se publica
+el numero que devuelve la orden, no el que uno esperaba: una nota puesta y la cita de esa nota.
+
+---
+
+### T-063 - Dar deuda registrada a las cinco lineas con `\x08` y corregir el reparto de `L-024` (`F-042`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-018 |
+
+- **Que:** abrir `DT-003` para las cinco lineas del registro que publican ordenes con el caracter de
+  retroceso `0x08`, y quitar de `L-024` la frase que remitia la decision a «una auditoria, no
+  `manager`».
+- **Por que:** dos defectos distintos en la misma viñeta. (1) Un pendiente sin `T-XXX` ni `DT-XXX`
+  **no lo mira nadie**: el arranque de sesion lee tareas y deuda, no el cuerpo de las lecciones, y el
+  pendiente sale del radar en cuanto `L-024` deje de ser lo ultimo escrito. (2) `project.md` dice
+  que `report_auditor` «no construye, no corrige y no decide» — delegar en el la decision la deja en
+  un actor que por definicion no puede tomarla.
+- **Que NO se hizo, a proposito:** las cinco lineas **no se reescriben**. El argumento de `L-024` es
+  correcto y el propio auditor lo respalda en `F-042`: reescribir un bloque antiguo para que exhiba
+  una orden que en su dia no se ejecuto asi convierte «falta evidencia» en «hay evidencia falsa». La
+  forma de pagar la deuda es anotar cada linea, y eso queda en `DT-003`.
+- **Criterio de cierre:** `DT-003` existe con su fila en el indice, la frase de `L-024` esta
+  sustituida por una nota fechada que nombra a `DT-003`, y el barrido de caracteres de control
+  reproduce.
+
+```
+$ grep -c 'lo decide una auditoria' _persistence/lessons.md
+0
+
+$ grep -c 'DT-003' _persistence/lessons.md _persistence/techdebt.md
+_persistence/lessons.md:1
+_persistence/techdebt.md:2
+```
+
+---
+
+### T-064 - Corregir en `L-024` el recuento de lineas presentado como apariciones (`F-043`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-018 |
+
+- **Que:** cambiar «el barrido encontro **seis** apariciones» por «**seis lineas** afectadas» en la
+  viñeta «Que ocurrio» de `L-024`, y la misma correccion en «las cinco apariciones anteriores», que
+  son cinco lineas.
+- **Por que:** son veinte apariciones repartidas en seis lineas, y la propia entrada lo dice tres
+  parrafos mas abajo. Es el defecto que `F-039` corrigio en ese mismo commit —un recuento publicado
+  con el nombre de otra magnitud— reproducido **dentro de la leccion escrita para evitarlo**.
+- **Alcance mayor que el del hallazgo, y se dice:** `F-043` solo señalaba la primera frase. La
+  segunda tiene el mismo defecto y la misma causa, asi que se corrigen las dos en la misma pasada;
+  corregir una y dejar la otra habria dejado la entrada diciendo las dos cosas.
+- **Criterio de cierre:** ninguna de las dos frases presenta un recuento de lineas como apariciones,
+  y el recuento por apariciones sigue estando, con su nombre.
+
+```
+$ grep -nE 'seis lineas|cinco lineas|veinte apariciones|dieciocho apariciones' _persistence/lessons.md
+850:  obtiene otro resultado. El barrido que lo destapo encontro **seis lineas** afectadas en el registro
+851:  —una de esta sesion, ya reparada, y **cinco anteriores**, que no se tocan—. Son veinte apariciones
+852:  del caracter repartidas en esas seis lineas; el recuento por lineas y el recuento por apariciones
+869:como `(x10)`; el total del barrido fue **veinte apariciones en seis lineas**. Se dice aqui para que
+873:`_persistence/decisions.md:3869`: devuelve **dieciocho apariciones en cinco lineas**, las cinco
+887:- **Lo que queda pendiente, y por que no se hizo hoy:** las **cinco lineas anteriores** no se
+
+$ grep -cE '\*\*seis\*\* apariciones|\*\*cinco apariciones' _persistence/lessons.md
+0
+```
+
+📌 **Seis lineas devueltas, no cuatro.** La orden se publica entera y sin deduplicar (`L-023`,
+`F-039`): las dos frases corregidas son la 850 y la 887, y las otras cuatro son el recuento por
+apariciones que ya estaba bien y que se conserva.
+
+---
+
+### T-065 - Exigir en la seccion 1 del informe las entradas existentes que el commit edita (`F-044`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-018 |
+
+- **Que:** endurecer la seccion `## 1. Que se hizo` de la plantilla del informe en
+  `.claude/skills/protocol-close/SKILL.md`, para que nombre tambien las **entradas ya existentes**
+  que el commit edita, no solo las que nacen.
+- **Por que:** `S-017` describio `_persistence/lessons.md` unicamente por «`L-024` (nace)», y el
+  commit ademas anadio notas de reincidencia a `L-004` y a `L-019`. Mismo defecto que `F-028`. La
+  salida pegada dice que **archivos** se tocaron; no dice que **entradas** de dentro, y un archivo de
+  registro se edita casi siempre de las dos formas a la vez.
+- **Por que importa mas de lo que parece:** una nota anadida a una entrada antigua suele ser la
+  evidencia de que algo ya registrado **volvio a fallar**. Es el dato mas util del commit para
+  decidir si el mecanismo de lecciones funciona, y es justo el que se pierde.
+- **Como se hizo:** dos huecos nuevos en la plantilla —donde se ven cada vez que se escribe la
+  seccion, no en un bloque explicativo que se lee una vez— y un apartado con la tabla de contraste y
+  la orden de la que sale la lista.
+- **Criterio de cierre:** la plantilla lo pide y el bloque explicativo lo desarrolla.
+
+```
+$ grep -c 'entradas YA EXISTENTES que el commit edita' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'no es todo lo que cambia' .claude/skills/protocol-close/SKILL.md
 1
 ```

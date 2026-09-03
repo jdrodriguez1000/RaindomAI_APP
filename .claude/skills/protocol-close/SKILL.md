@@ -681,6 +681,27 @@ escribe la seccion. Una salida pegada tampoco puede quedarse corta — o esta en
 abiertas, la frase lo tiene que decir. El coste de la version correcta es cero; el de la incorrecta
 es que la proxima omision, cuando importe, llegue con la misma cara de completa.
 
+### 🚨 En un archivo de registro, lo que **nace** no es todo lo que cambia
+
+La salida pegada dice que **archivos** se tocaron; no dice que **entradas** de dentro. Y un archivo
+de registro se edita casi siempre de las dos formas a la vez: nace una entrada nueva **y** se anotan
+entradas antiguas. Describir `_persistence/lessons.md` como «`L-XXX` (nace)» es cierto y esta
+incompleto.
+
+| Escribe | En vez de |
+|---|---|
+| `lessons.md`: `L-024` (nace), `L-004` y `L-019` (nota de reincidencia) | `lessons.md`: `L-024` (nace) |
+| `decisions.md`: `D-075` (nace), `D-073` (nota fechada) | `decisions.md`: `D-075` |
+
+⚠️ **Y no es un detalle de completitud: casi siempre es el dato mas util del commit.** Una nota
+anadida a una entrada antigua suele ser la evidencia de que algo ya registrado **volvio a fallar** —
+una reincidencia, un alcance que no cubria lo que afirmaba, un bloque que no reproducia—. Quien lea
+el informe sin abrir el diff no sabra que existe.
+
+🔑 **De donde sale, para no reconstruirla de memoria:** `git diff <commit>^ <commit> -- <archivo>`.
+Las cabeceras `@@` marcan cuantos puntos distintos del archivo se tocaron; si son mas que las
+entradas que nacen, hay ediciones sobre entradas existentes que nombrar.
+
 ### Estructura del informe
 
 ```markdown
@@ -709,6 +730,9 @@ es que la proxima omision, cuando importe, llegue con la misma cara de completa.
 <es la lista completa e incluye los archivos que anade el propio cierre: el informe y la fila de `_audit/index.md`>
 
 <y debajo, lo que muestra el diff: con codigos y rutas, que archivos nacieron, cuales cambiaron y por que>
+<en un archivo de registro no basta con nombrar las entradas que NACEN: se nombran tambien las
+entradas YA EXISTENTES que el commit edita, con su codigo (`L-XXX (nace)`, `L-XXX (nota anadida)`)>
+<esa lista sale del diff, no de la memoria: `git diff <commit>^ <commit> -- <archivo>`>
 
 ## 2. Que NO se hizo, y por que
 <lo que quedo pendiente o a medias, y en que punto quedo>

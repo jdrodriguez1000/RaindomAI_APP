@@ -15,6 +15,7 @@
 | [A-003](#a-003---el-historico-de-la-fuente-oficial-es-obtenible-de-forma-automatizable) | El historico de la fuente oficial es obtenible de forma automatizable | 2026-08-31 | Abierto |
 | [A-004](#a-004---existe-acceso-al-patrocinador-y-a-personas-que-puedan-hablar-del-proceso-real) | Existe acceso al patrocinador y a personas que puedan hablar del proceso real | 2026-09-02 | Abierto |
 | [A-005](#a-005---la-parte-de-ai_levelsmd-escrita-sin-experiencia-propia-es-correcta) | La parte de `ai_levels.md` escrita sin experiencia propia es correcta | 2026-09-02 | Abierto |
+| [A-006](#a-006---los-codigos-de-feature-y-escenario-que-el-proyecto-declaro-son-los-que-acabara-usando) | Los codigos de feature y escenario que el proyecto declaro son los que acabara usando | 2026-09-03 | Abierto |
 
 ---
 
@@ -337,3 +338,37 @@ llegue el momento no se improvise — el mismo criterio con el que existe `_meth
 describe el ciclo entero sin que ninguna de sus etapas posteriores este declarada. Lo que este
 supuesto anota es otra cosa: **que el contenido acierte**, que es justo lo que no se puede saber sin
 haberlo usado.
+
+---
+
+### A-006 - Los codigos de feature y escenario que el proyecto declaro son los que acabara usando
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueño | `manager` |
+
+- **Supuesto:** `D-075` declaro `FT-XXX` y `SC-XXX` en la tabla «Codigos» de `project.md`. Eso da por
+  cierto que **este proyecto va a adoptar la etapa de la baseline con el juego de codigos de la guia
+  de metodo**, y que cuando llegue el momento seguiran sirviendo tal cual.
+- **Por que se supone, y no se afirma:** la etapa `020_baseline` **no esta declarada** —la tabla
+  «Etapas» sigue teniendo solo `000_preproject` y `005_discovery`—, y declarar las etapas posteriores
+  es trabajo de `005_discovery` (`T-002`), que aun no ha empezado. La declaracion de los dos codigos
+  no se hizo porque hubiera producto: se hizo porque las plantillas ya los escribian y un codigo
+  citado antes de declararse es un desfase. **Es una regularizacion, no una eleccion de diseño**, y
+  esa diferencia es exactamente lo que este supuesto guarda.
+- **Por que se registra ahora:** porque la fila ya esta en la tabla, y una fila en la tabla de
+  codigos se lee, a los pocos meses, como un codigo elegido. Sin este supuesto, el dia que
+  `005_discovery` decida las etapas posteriores nadie sabra que estos dos entraron por la puerta de
+  atras y que nunca se contrastaron contra el producto real.
+- **Lo que este supuesto NO cubre:** `N-XXX` e `I-XXX`, que entraron por el mismo argumento pero
+  para una etapa **si declarada**; ni `VS-`, `TC-` y `ADR-`, que deliberadamente **no** se
+  declararon y siguen siendo propuesta.
+- **Como se refuta:** que las etapas posteriores se declaren con un metodo distinto que no tenga
+  features ni escenarios; que la etapa de la baseline se adopte con otros nombres para esos dos
+  conceptos; o que al llegar al Paso 3 de esa etapa el contraste contra el registro obligue a
+  cambiar alguno de los dos. En cualquiera de los tres casos la fila sobra o cambia, y **la retirada
+  se registra con su `D-XXX`** citando `D-075` — no se borra en silencio.
+- **Disparador:** **la decision que declare las etapas posteriores a `005_discovery`** (`T-002`), y
+  en su defecto el Paso 3 de la etapa de la baseline el dia que se abra. Lo que llegue primero.

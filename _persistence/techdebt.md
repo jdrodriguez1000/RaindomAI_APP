@@ -12,6 +12,7 @@
 |---|---|---|---|---|---|
 | [DT-001](#dt-001---debtecmd-incumple-la-regla-de-nombres-en-ingles) | `debtec.md` incumple la regla de nombres en ingles | Implementada | Confirmada | Baja | No bloqueante |
 | [DT-002](#dt-002---_workflow-nace-sin-ningun-enganche-de-uso-l-014) | `_workflow/` nace sin ningun enganche de uso (`L-014`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
+| [DT-003](#dt-003---cinco-lineas-del-registro-publican-ordenes-con-un-caracter-de-control-x08-y-no-se-reejecutan-l-024) | Cinco lineas del registro publican ordenes con un caracter de control `\x08` y no se reejecutan (`L-024`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 
 ---
 
@@ -175,3 +176,51 @@ $ git show 99c3aa3:_persistence/techdebt.md | grep -n 'registrado `L-01[34]` de'
 $ grep -n 'registrado `L-01[34]` de' _persistence/techdebt.md
 149:  registrado `L-014` de `lessons.md`.
 ```
+
+---
+
+### DT-003 - Cinco lineas del registro publican ordenes con un caracter de control `\x08` y no se reejecutan (`L-024`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Fecha | 2026-09-03 |
+
+- **Deuda:** cinco lineas de `_persistence/decisions.md` y `_persistence/tasks.md` publican bloques
+  de verificacion cuyas ordenes llevan el caracter de retroceso `0x08` donde el autor escribio `\b`
+  (limite de palabra). Son dieciocho apariciones del caracter repartidas en esas cinco lineas. El
+  bloque se ve correcto en pantalla y **no se reejecuta tal como esta escrito**: quien copie la
+  linea le pasa al interprete un caracter de control y obtiene otro resultado. Lo destapo `L-024`
+  en `S-017`; `F-042` (`R-017`) señalo que quedaba sin `T-XXX` ni `DT-XXX`, y esta entrada lo tapa.
+
+```
+$ python -c "import io,re; pat=re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1f]'); [print(f,i,repr(m.group())) for f in ['_persistence/decisions.md','_persistence/tasks.md'] for i,l in enumerate(io.open(f,encoding='utf-8'),1) for m in pat.finditer(l)]" | awk '{print $1, $2}' | uniq -c
+      2 _persistence/decisions.md 917
+      2 _persistence/decisions.md 1304
+      2 _persistence/tasks.md 1212
+     10 _persistence/tasks.md 1931
+      2 _persistence/tasks.md 1987
+```
+
+- **Por que se tomo:** el atajo es **no reescribir las cinco lineas**, y es deliberado. Reescribir un
+  bloque antiguo para que exhiba una orden que en su dia no se ejecuto asi convierte «falta
+  evidencia» en «hay evidencia falsa», y esta vez sin nadie que lo note — es exactamente lo que
+  `CLAUDE.md` prohibe cuando dice que la regla rige hacia adelante y no se aplica hacia atras.
+- **Costo de no pagarla:** cinco bloques de verificacion del registro no son reproducibles. Quien los
+  reejecute obtiene otra cosa y no sabra si se equivoco el registro o si cambio el repositorio — que
+  es el defecto que `L-019` y `L-024` existen para evitar.
+- **Como se paga:** anotando cada una de las cinco lineas con una **nota fechada** que diga que la
+  orden publicada lleva un caracter corrompido y cual es su forma reejecutable, **sin tocar la linea
+  original**. Es la recomendacion de fondo que dio el propio auditor en `F-042`.
+
+📌 **Se registra como `Propuesta (pendiente del usuario)`** porque pagarla implica escribir sobre
+entradas antiguas del registro, y el eje que decide —cuanto se toca lo ya auditado— es del usuario.
+`manager` la evalua y la propone; no la confirma.
+
+⚠️ **La clasifico como reversible a criterio**, porque anotar una nota fechada junto a una linea
+existente se deshace con un commit y no destruye nada de lo ya escrito. Mientras no exista el
+inventario de acciones irreversibles del proyecto (`T-037`), esta clasificacion se declara como
+criterio y no como lectura de una tabla.

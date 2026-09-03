@@ -51,11 +51,11 @@
 | [F-037](#f-037---la-comprobacion-0-del-gate-1-compara-fechas-de-autor-que-si-se-pueden-falsificar-y-tres-archivos-afirman-lo-contrario) | La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario | R-015 | Media | Aceptado — pendiente |
 | [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Implementado |
 | [F-039](#f-039---el-primer-bloque-de-la-seccion-7-de-s-016-publica-quince-de-las-veintiuna-lineas-que-devuelve-su-orden) | El primer bloque de la seccion 7 de `S-016` publica quince de las veintiuna lineas que devuelve su orden | R-016 | Media | Implementado |
-| [F-040](#f-040---las-plantillas-nuevas-usan-los-codigos-ft--y-sc--que-projectmd-declara-propuesta-no-declarada) | Las plantillas nuevas usan los codigos `FT-` y `SC-`, que `project.md` declara «propuesta, no declarada» | R-017 | Media | Abierto |
-| [F-041](#f-041---t-057-afirma-que-las-plantillas-no-llevan-codigos-instanciados-mas-alla-del-primero-y-el-commit-lo-desmiente) | `T-057` afirma que las plantillas no llevan codigos instanciados «mas alla del primero», y el commit lo desmiente | R-017 | Media | Abierto |
-| [F-042](#f-042---las-cinco-apariciones-de-x08-quedan-sin-t-xxx-ni-dt-xxx-y-la-decision-se-delega-en-un-actor-que-no-decide) | Las cinco apariciones de `\x08` quedan sin `T-XXX` ni `DT-XXX`, y la decision se delega en un actor que no decide | R-017 | Media | Abierto |
-| [F-043](#f-043---l-024-dice-seis-apariciones-donde-son-seis-lineas-y-veinte-apariciones-en-la-misma-entrada) | `L-024` dice «seis apariciones» donde son seis lineas y veinte apariciones, en la misma entrada | R-017 | Baja | Abierto |
-| [F-044](#f-044---la-seccion-1-del-informe-omite-las-dos-notas-de-reincidencia-anadidas-a-l-004-y-l-019) | La seccion 1 del informe omite las dos notas de reincidencia añadidas a `L-004` y `L-019` | R-017 | Baja | Abierto |
+| [F-040](#f-040---las-plantillas-nuevas-usan-los-codigos-ft--y-sc--que-projectmd-declara-propuesta-no-declarada) | Las plantillas nuevas usan los codigos `FT-` y `SC-`, que `project.md` declara «propuesta, no declarada» | R-017 | Media | Aceptado — pendiente |
+| [F-041](#f-041---t-057-afirma-que-las-plantillas-no-llevan-codigos-instanciados-mas-alla-del-primero-y-el-commit-lo-desmiente) | `T-057` afirma que las plantillas no llevan codigos instanciados «mas alla del primero», y el commit lo desmiente | R-017 | Media | Aceptado — pendiente |
+| [F-042](#f-042---las-cinco-apariciones-de-x08-quedan-sin-t-xxx-ni-dt-xxx-y-la-decision-se-delega-en-un-actor-que-no-decide) | Las cinco apariciones de `\x08` quedan sin `T-XXX` ni `DT-XXX`, y la decision se delega en un actor que no decide | R-017 | Media | Aceptado — pendiente |
+| [F-043](#f-043---l-024-dice-seis-apariciones-donde-son-seis-lineas-y-veinte-apariciones-en-la-misma-entrada) | `L-024` dice «seis apariciones» donde son seis lineas y veinte apariciones, en la misma entrada | R-017 | Baja | Aceptado — pendiente |
+| [F-044](#f-044---la-seccion-1-del-informe-omite-las-dos-notas-de-reincidencia-anadidas-a-l-004-y-l-019) | La seccion 1 del informe omite las dos notas de reincidencia añadidas a `L-004` y `L-019` | R-017 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -2300,7 +2300,7 @@ $ git show ca56b93:_persistence/techdebt.md | sed -n '/^## Indice/,/^---/p' | gr
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
 | Estado | Aceptado — pendiente |
-| Registrado en | T-055 |
+| Registrado en | T-055, T-060 |
 | Cerrado en | |
 
 - **Que se observo:** el Paso 2 de `.claude/skills/protocol-gate1/SKILL.md` resuelve la
@@ -2339,6 +2339,13 @@ db6c138 sesion 1
   —el tercer sitio que este hallazgo nombra— sigue publicando la afirmacion como hecho, sin
   correccion y sin nota, y la omision no esta declarada en ningun sitio. Detalle y salidas crudas
   en `_audit/R-016.md`, seccion 3.
+- **Que se hizo con lo que `R-016` dejo abierto (2026-09-03, sesion `S-018`):** `manager` corrige el
+  tercer sitio. La bitacora de `S-015` en `_persistence/progress.md` recibe una **nota fechada** que
+  dice que la afirmacion era falsa tal como estaba implementada y que `D-071` ya cambio el mecanismo
+  al orden del grafo; el parrafo original **no se reescribe**, por el mismo criterio con que se
+  trato `D-069` en `T-055`. Registrado en `T-060`. **El hallazgo sigue `Aceptado — pendiente`**: lo
+  cierra la auditoria siguiente si verifica la correccion sobre el commit de esta sesion, no
+  `manager`.
 
 ---
 
@@ -2446,8 +2453,8 @@ $ git diff -U0 1988d2f^ 1988d2f -- _persistence _audit ":(exclude)_audit/S-017.m
 | Auditoria | R-017 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-061` |
 | Cerrado en | |
 
 - **Que se observo:** cuatro de las nueve plantillas que nacen en `1988d2f` usan `FT-XXX` (feature) y
@@ -2488,6 +2495,15 @@ desfase—; los demas no entran hasta que haya producto y su `D-XXX`.
   existen.
 - **Que lo corregiria:** declarar `FT-` y `SC-` en `project.md` con su `D-XXX`, siguiendo el
   precedente; o escribir las plantillas con el hueco generico en vez del codigo instanciado.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-018`). El hallazgo es correcto y
+  verificado contra `HEAD` (`6b42d0f`): los quince codigos siguen en las cuatro plantillas y
+  `project.md` seguia llamandolos «propuesta, no declarada». Se toma la **primera** de las dos
+  correcciones —declararlos— porque es el precedente exacto de `D-034` (`N-`) y `D-038` (`I-`), y
+  porque la segunda haria ilegible la plantilla de trazabilidad, que existe para enseñar la cadena
+  `N-001 → FT-001 → SC-001`. Se declaran **solo `FT-` y `SC-`**: `VS-`, `TC-` y `ADR-` no aparecen
+  instanciados en ningun archivo fuera de `_methodology/` y su declaracion es del Paso 3 de la etapa.
+  Decision, alternativas descartadas y la objecion resuelta —que `020_baseline` no esta adoptada— en
+  `D-075`. Registrado en `T-061`.
 
 ---
 
@@ -2497,8 +2513,8 @@ desfase—; los demas no entran hasta que haya producto y su `D-XXX`.
 | Auditoria | R-017 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-062` |
 | Cerrado en | |
 
 - **Que se observo:** el parrafo «En que punto quedo (S-017)» de `T-057` afirma que las nueve
@@ -2530,6 +2546,13 @@ _templates/020_baseline/045_traceability.md:215:SC-007
 - **Que lo corregiria:** una nota fechada junto al bloque de `D-073` y al parrafo de `T-057` con el
   patron ampliado y su salida real, sin reescribir el bloque original; y ampliar ese control a los
   prefijos de dos letras.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-018`). El hallazgo es correcto: el
+  patron `\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b` no casa con `FT-001` porque el limite de palabra
+  inicial no aplica delante de la `F` de `FT`, y con el patron ampliado aparecen cinco codigos que no
+  son «el primero». Se toman las dos correcciones propuestas: **notas fechadas** junto al bloque de
+  `D-073` y junto al parrafo de `T-057` —sin reescribir ninguno de los dos originales— con el patron
+  ampliado y su salida real, y la declaracion de que este control se corre en adelante con los
+  prefijos de dos letras incluidos. Registrado en `T-062`.
 
 ---
 
@@ -2539,8 +2562,8 @@ _templates/020_baseline/045_traceability.md:215:SC-007
 | Auditoria | R-017 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-063` |
 | Cerrado en | |
 
 - **Que se observo:** `L-024` deja cinco lineas del registro con el caracter de retroceso `0x08`
@@ -2568,6 +2591,15 @@ $ git show 1988d2f:_persistence/lessons.md | grep -n "lo decide una auditoria"
   se le pregunta: **no** reescribir las cinco lineas antiguas —el argumento de `L-024` es correcto—,
   sino anotarlas con una nota fechada que diga que la orden publicada lleva un caracter corrompido y
   cual es su forma reejecutable.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-018`), y acepta tambien la
+  recomendacion de fondo del auditor. Los dos defectos son ciertos contra `HEAD` (`6b42d0f`): no
+  habia ninguna `T-XXX` ni `DT-XXX` que sostuviera el pendiente, y `L-024` delegaba la decision en
+  `report_auditor`, que `project.md` define como quien «no construye, no corrige y no decide». Se
+  abre **`DT-003`** —`Propuesta (pendiente del usuario)`, porque pagarla implica escribir sobre
+  entradas ya auditadas y ese eje es del usuario— y la frase de `L-024` se sustituye por una nota
+  fechada que nombra la deuda. **Las cinco lineas no se reescriben**, como el propio hallazgo
+  recomienda: la forma de pagar la deuda es anotar cada una con su forma reejecutable. Registrado en
+  `T-063`.
 
 ---
 
@@ -2577,8 +2609,8 @@ $ git show 1988d2f:_persistence/lessons.md | grep -n "lo decide una auditoria"
 | Auditoria | R-017 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-064` |
 | Cerrado en | |
 
 - **Que se observo:** la viñeta «Que ocurrio» de `L-024` afirma que el barrido encontro «**seis**
@@ -2595,6 +2627,11 @@ $ git show 1988d2f:_persistence/lessons.md | sed -n '845,870p' | grep -nE "seis|
   con el nombre de otra magnitud— reproducido dentro de la leccion escrita para evitarlo. `Baja`
   porque la cifra correcta esta en la misma entrada y no induce a ninguna accion equivocada.
 - **Que lo corregiria:** cambiar «seis apariciones» por «seis lineas» en esa viñeta.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-018`). El hallazgo es correcto y la
+  correccion es la que propone. Se corrige **ademas una segunda frase que el hallazgo no señalaba** y
+  que tiene el mismo defecto y la misma causa —«las cinco apariciones anteriores», que son cinco
+  lineas—: corregir una y dejar la otra habria dejado la entrada diciendo las dos cosas. El recuento
+  por apariciones se conserva donde ya estaba bien, con su nombre. Registrado en `T-064`.
 
 ---
 
@@ -2604,8 +2641,8 @@ $ git show 1988d2f:_persistence/lessons.md | sed -n '845,870p' | grep -nE "seis|
 | Auditoria | R-017 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-065` |
 | Cerrado en | |
 
 - **Que se observo:** el informe describe `_persistence/lessons.md` unicamente por «`L-024` (nace)».
@@ -2629,3 +2666,11 @@ exit=1
   mecanismo de lecciones funciona. Quien lea el informe sin el diff no sabra que existen.
 - **Que lo corregiria:** que la seccion 1 nombre tambien las entradas existentes que el commit edita,
   no solo las que nacen.
+- **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-018`). El hallazgo es correcto. **El
+  informe `_audit/S-017.md` no se reescribe** —es el artefacto de una sesion ya cerrada y auditada, y
+  reescribirlo dejaria la auditoria describiendo un estado que ya cambio—; lo que se corrige es la
+  causa: la plantilla de la seccion `## 1. Que se hizo` de `protocol-close` pasa a exigir que se
+  nombren tambien las **entradas ya existentes** que el commit edita, con su codigo, y dice de que
+  orden sale esa lista. Va como hueco en la plantilla y no solo como aviso en un bloque explicativo,
+  por la razon que el propio skill ya escribio a proposito de `S-007`: un aviso se lee una vez, un
+  hueco se ve cada vez. Registrado en `T-065`.

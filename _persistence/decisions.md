@@ -83,6 +83,8 @@
 | [D-072](#d-072---el-archivo-de-etapa-de-la-baseline-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa de la baseline se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-03 | Vigente |
 | [D-073](#d-073---las-plantillas-de-la-baseline-se-numeran-por-orden-de-procedimiento-no-por-el-orden-de-la-tabla-de-artefactos) | Las plantillas de la baseline se numeran por orden de procedimiento, no por el orden de la tabla de artefactos | 2026-09-03 | Vigente |
 | [D-074](#d-074---la-seccion-5-del-archivo-de-etapa-de-la-baseline-dice-nueve-artefactos-no-ocho) | La seccion 5 del archivo de etapa de la baseline dice nueve artefactos, no ocho | 2026-09-03 | Vigente |
+| [D-075](#d-075---se-declaran-ft--y-sc--en-la-tabla-codigos-porque-las-plantillas-ya-los-citan) | Se declaran `FT-` y `SC-` en la tabla «Codigos», porque las plantillas ya los citan | 2026-09-03 | Vigente |
+| [D-076](#d-076---el-reparto-de-la-baseline-puntua-la-variabilidad-de-la-entrada-en-2-y-por-eso-no-declara-discrepancia) | El reparto de la baseline puntua la variabilidad de la entrada en 2, y por eso no declara discrepancia | 2026-09-03 | Vigente |
 
 ---
 
@@ -3871,6 +3873,26 @@ _templates/020_baseline/015_features.md:189:N-001
 _templates/020_baseline/045_traceability.md:199:N-001
 ```
 
+> 📌 **Nota del 2026-09-03 (`T-062`, hallazgo `F-041`).** El bloque de arriba **no se reescribe**, y
+> esta nota dice hasta donde llega. El titulo del bloque afirma «ni codigos instanciados del registro
+> mas alla del primero», pero el patron que lo respalda es **ciego a los prefijos de dos letras**:
+> `\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b` no reconoce `FT-001` ni `SC-001`, porque el limite de
+> palabra inicial no casa delante de la `F` de `FT`. Con el patron ampliado a dos letras si aparecen,
+> y algunos **no** son «el primero»:
+>
+> ```
+> $ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"
+> _templates/020_baseline/015_features.md:72:FT-003
+> _templates/020_baseline/020_scenarios.md:72:SC-003
+> _templates/020_baseline/025_specification.md:236:SC-003
+> _templates/020_baseline/045_traceability.md:200:SC-007
+> _templates/020_baseline/045_traceability.md:200:FT-004
+> ```
+>
+> **Lo que el bloque original prueba sigue siendo cierto** —no hay codigos del **registro**
+> instanciados mas alla de `N-001`—; lo que no prueba es lo que su titulo sugiere, que es la carpeta
+> entera. Los codigos de **producto** que aparecen son `FT-` y `SC-`, y su falta de declaracion es
+> `F-040`, resuelto en `D-075`. De aqui en adelante este control se corre con el patron ampliado.
 
 ---
 
@@ -3911,4 +3933,133 @@ $ sed -n '/^## 5. Artefactos que produce/,/^Y \*\*el esqueleto/p' _phases/020_ba
 
 $ grep -nEi "\bocho\b" _phases/020_baseline.md ; echo "exit=$?"
 exit=1
+```
+
+---
+
+### D-075 - Se declaran `FT-` y `SC-` en la tabla «Codigos», porque las plantillas ya los citan
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** las nueve plantillas de `_templates/020_baseline/` que nacieron en `S-017` usan
+  `FT-XXX` (feature) y `SC-XXX` (scenario) en sus ejemplos. `project.md` los nombra **solo como
+  propuesta** de `_methodology/000_method.md` §46, no como codigos declarados, y en la misma pagina
+  dice que **un codigo que aparece en un archivo antes que en esta tabla es un desfase**. Ninguna
+  `D-XXX` de `S-017` los declaro. Lo levanta `F-040` (`R-017`), y el hallazgo es correcto.
+- **Decision:** se declaran **`FT-` y `SC-`** en la tabla «Codigos» de `project.md`. Solo esos dos:
+  `VS-`, `TC-` y `ADR-` **no** se declaran aqui, porque no aparecen instanciados en ningun archivo
+  del repositorio fuera de `_methodology/` (donde son propuesta) y su declaracion es trabajo del
+  Paso 3 de `_phases/020_baseline.md`, en la pasada en que se escriba el primero.
+- **Por que:** es exactamente el precedente de `D-034` (`N-`) y `D-038` (`I-`), y por el mismo
+  argumento textual: *«la plantilla lo cita, y un codigo citado antes de declararse es un desfase»*.
+  Que el precedente exista y no se siga es peor que no tenerlo — la tabla de `project.md` deja de ser
+  el sitio unico donde se sabe que codigos existen, y quien la lea manana concluira que `FT-` no se
+  usa en ninguna parte.
+- **La objecion que tuvo que resolverse, y por que no gana:** `020_baseline` **no es una etapa
+  declarada** (`project.md` §Etapas: solo `000_preproject` y `005_discovery`), y `project.md` dice
+  que los codigos de producto «no entran hasta que haya producto y su `D-XXX`». Declararlos hoy
+  parece adelantarse. No gana por dos razones: (1) el desfase **ya existe** —el codigo ya esta
+  escrito en cuatro archivos—, y las dos unicas salidas son declararlo o borrarlo; (2) el mismo
+  archivo de etapa admite que un artefacto puede existir por adelantado siempre que haya un `D-XXX`
+  que lo explique, y esta decision es ese `D-XXX`. **Declarar un codigo no adopta una etapa**, igual
+  que `D-061` declaro la carpeta del prototipo sin adoptar su etapa.
+- **Alternativas descartadas:** (1) **escribir las plantillas con el hueco generico** en vez del
+  codigo instanciado —era la otra correccion que proponia el hallazgo; se descarta porque una
+  plantilla existe para enseñar la forma, y la de trazabilidad se vuelve ilegible sin cadenas
+  concretas (`N-001 → FT-001 → SC-001`); ademas `CLAUDE.md` permite expresamente que una plantilla
+  escriba el primer codigo y use los siguientes en sus ejemplos—; (2) **declarar los cinco prefijos
+  del metodo de una vez** (`FT-`, `SC-`, `VS-`, `TC-`, `ADR-`) — es mas comodo, pero declara cuatro
+  codigos que nadie ha escrito todavia y le quita al Paso 3 de la etapa el contraste contra el
+  registro que es su unica razon de existir; (3) **añadir a `project.md` una excepcion que diga que
+  los codigos dentro de `_templates/` no cuentan** — el propio `project.md` avisa de que una lista de
+  excepciones envejece sin que nadie la revise y acaba tapando lo que el control existe para ver.
+- **Contraste contra los codigos del registro, que es el paso que el metodo exige:** `FT-` y `SC-`
+  **no colisionan** con ninguno. Es justo el motivo por el que el metodo les puso dos letras: `F-` ya
+  es el hallazgo de auditoria y `S-` la sesion de trabajo (`project.md`, misma seccion).
+- **Clasificacion:** **reversible a criterio** — es una fila en una tabla de un archivo de registro,
+  sin ningun artefacto de producto escrito todavia contra ella; retirarla es un commit. Mientras no
+  exista el inventario de acciones irreversibles del proyecto (`T-037`), la clasificacion se declara
+  como criterio y no como lectura de una tabla.
+
+**Verificacion — los dos codigos estan ahora en la tabla, y el contraste contra el registro:**
+
+```
+$ grep -nE '^\| `(FT|SC)-XXX`' project.md
+232:| `FT-XXX` | el artefacto de features de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | feature |
+233:| `SC-XXX` | el artefacto de escenarios de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | scenario |
+
+$ grep -oE '^\| `[A-Z]+-[A-Za-z]+`' project.md | sort | uniq -d | wc -l
+0
+
+$ grep -rnoE "\b(VS|TC|ADR)-[0-9]{3}\b" _templates/ _phases/ _workflow/ _persistence/ _audit/ ; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-076 - El reparto de la baseline puntua la variabilidad de la entrada en 2, y por eso no declara discrepancia
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** al escribir `_workflow/020_baseline.md` (`T-057`) hubo que aplicar la rubrica de
+  `_workflow/ai_levels.md` §6 al trabajo de la etapa, como ya hicieron los dos archivos de reparto
+  anteriores. Los dos puntuaron **«variabilidad de la entrada» en 3** —notas de entrevista y
+  comentarios de sesion, lenguaje abierto e imprevisible— y los dos tuvieron que **declarar una
+  discrepancia** con la tabla de lectura, que manda al nivel 5 en cuanto cualquier eje esta en 3.
+  La pregunta era si esta etapa hereda esa discrepancia o no.
+- **Decision:** **no la hereda.** La variabilidad de la entrada se puntua en **2** («lenguaje natural
+  acotado»), y por tanto ningun eje queda en 3 y **no hay discrepancia que declarar**. El archivo lo
+  dice expresamente, para que la ausencia se lea como un resultado y no como un olvido.
+- **Por que:** las seis entradas de esta etapa, enumeradas en `_phases/020_baseline.md` §3, son
+  **artefactos ya escritos** —el dictamen del Gate con sus criterios resueltos, la decision del
+  patrocinador, los hallazgos no bloqueantes, las observaciones del prototipo **ya clasificadas**, la
+  validacion de negocio, y las necesidades, restricciones y supuestos del descubrimiento—. Es la
+  primera etapa del metodo cuya entrada no son personas hablando. Puntuar 3 aqui seria copiar la
+  puntuacion de la etapa anterior en vez de mirar la entrada de esta, que es justo lo que
+  `_workflow/ai_levels.md` §6 pide evitar cuando dice que se puntua «con la evidencia delante y no
+  de memoria».
+- **Lo que la decision NO dice:** que el trabajo sea mas facil, ni que se revise menos. El nivel
+  sigue siendo **2** —la IA escribe archivos—, y la autonomia sigue siendo la de lo reversible y de
+  impacto relevante: **cada** borrador lo revisa una persona antes de entrar al registro. Lo que
+  cambia es que aqui esa exigencia sale de la propia rubrica y no de una excepcion argumentada
+  contra ella.
+- **Alternativas descartadas:** (1) **puntuar 3 por coherencia con los dos archivos hermanos** y
+  declarar la misma discrepancia — es lo mas comodo y lo mas facil de defender ante quien lea los
+  tres seguidos, pero convierte la rubrica en una formalidad: si la puntuacion se hereda, deja de
+  medir nada y la discrepancia se vuelve un parrafo de plantilla; (2) **puntuar 3 solo por el Paso 2
+  y el Paso 7**, donde el alcance y la tecnologia se discuten en conversacion — se descarta porque
+  la rubrica puntua **la etapa**, no el paso, y trocearla por pasos multiplica las puntuaciones sin
+  que ninguna decida nada; (3) **no puntuar y remitir al archivo de la etapa anterior** — deja el
+  nivel sin declarar, que es lo que `_workflow/ai_levels.md` §7 prohibe expresamente.
+- **Que la traeria de vuelta, y se escribe para que se pueda comprobar:** si la especificacion
+  pasara a escribirse a partir de conversaciones sin artefacto previo, el eje vuelve al 3; y si la IA
+  pasara a **producir** el registro en vez de redactar borradores que un humano contrasta, el que se
+  mueve es «impacto de un error». En cualquiera de los dos casos la lectura ya no es esta y este
+  `D-XXX` hay que rehacerlo diciendo **que eje se movio**.
+- **Clasificacion:** **reversible a criterio** — es una puntuacion escrita en un archivo de metodo,
+  sin etapa adoptada y sin ningun `D-XXX` de adopcion que la haya tomado todavia. Cambiarla es un
+  commit. Mientras no exista el inventario de acciones irreversibles del proyecto (`T-037`), la
+  clasificacion se declara como criterio y no como lectura de una tabla.
+
+**Verificacion — los tres archivos de reparto puntuan, y solo los dos anteriores declaran
+discrepancia:**
+
+```
+$ grep -c "Variabilidad de la entrada" _workflow/005_discovery.md _workflow/010_prototype.md _workflow/020_baseline.md
+_workflow/005_discovery.md:1
+_workflow/010_prototype.md:1
+_workflow/020_baseline.md:1
+
+$ grep -l "discrepancia con la tabla de lectura" _workflow/005_discovery.md _workflow/010_prototype.md _workflow/020_baseline.md
+_workflow/005_discovery.md
+_workflow/010_prototype.md
+
+$ grep -c "no hay discrepancia que declarar" _workflow/020_baseline.md
+1
 ```

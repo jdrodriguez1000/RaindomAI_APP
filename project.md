@@ -229,18 +229,26 @@ envejece sin que nadie la revise y acaba tapando justo lo que el control existe 
 | `R-XXX` | `_audit/R-XXX.md` | auditoria de una sesion |
 | `N-XXX` | `005_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-045`) | necesidad |
 | `I-XXX` | `005_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`, ruta por `D-045`) | interesado |
+| `FT-XXX` | el artefacto de features de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | feature |
+| `SC-XXX` | el artefacto de escenarios de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | scenario |
 
 🚨 **Ningun codigo se reutiliza, en ningun archivo.** Un id retirado queda retirado; la entrada que
 lo llevaba conserva su texto para que se entienda que se creia y por que dejo de valer.
 
-⚠️ **De los codigos del producto solo estan declarados `N-XXX` e `I-XXX`** —la necesidad y el
-interesado, que es lo que `005_discovery` produce con codigo propio; sus supuestos y restricciones
-van a `A-XXX` y `C-XXX`, que ya existian (`D-034`), y no tiene codigo propio ni el actor ni la
-hipotesis, que se identifican por su tipo y por su archivo—. Features, escenarios, slices y casos de
-prueba **siguen sin definir**,
-porque no hay producto declarado todavia. Se añaden a esta tabla en la misma pasada en que se
-escriba el primero, con su `D-XXX`. Un codigo que aparece en un archivo antes que en esta tabla es un
-desfase, no una novedad.
+⚠️ **De los codigos del producto estan declarados `N-XXX`, `I-XXX`, `FT-XXX` y `SC-XXX`.** Los dos
+primeros son lo que `005_discovery` produce con codigo propio; sus supuestos y restricciones van a
+`A-XXX` y `C-XXX`, que ya existian (`D-034`), y no tiene codigo propio ni el actor ni la hipotesis,
+que se identifican por su tipo y por su archivo. **Slices, casos de prueba y decisiones
+arquitectonicas siguen sin definir**, porque no hay producto declarado todavia. Se añaden a esta
+tabla en la misma pasada en que se escriba el primero, con su `D-XXX`. Un codigo que aparece en un
+archivo antes que en esta tabla es un desfase, no una novedad.
+
+🚨 **`FT-XXX` y `SC-XXX` entraron por esa ultima frase, no porque haya producto** (`D-075`,
+hallazgo `F-040`). Las plantillas de `_templates/020_baseline/` los escriben en sus ejemplos desde
+`S-017`, y un codigo citado antes de declararse es un desfase — el mismo argumento que metio
+`N-XXX` (`D-034`) e `I-XXX` (`D-038`). **Declararlos no adopta `020_baseline`**: la etapa sigue sin
+declarar en la tabla «Etapas», y por eso la columna «Archivo» de esas dos filas dice «ruta por
+declarar» en vez de inventarse una.
 
 📌 **Hay una propuesta escrita, y esta en `_methodology/000_method.md` (§46):** `N-`
 necesidad, `FT-` feature, `SC-` scenario, `VS-` vertical slice, `T-` task, `TC-` caso de prueba,

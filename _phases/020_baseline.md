@@ -134,9 +134,9 @@ esten escritas; lo que lo garantiza es abrirlas y verlas. Si falta una, se regis
 ## 4. Procedimiento
 
 🚨 **Antes del Paso 1 se reparte el trabajo.** Los diez pasos que siguen dicen **que** hay que
-hacer; quien hace cada uno —humano, software, IA, o una combinacion— lo dice el archivo de esta
-etapa en `_workflow/`, que se lee ahora y no despues. Ese reparto se adopta con su `D-XXX` en el
-registro: leer la tabla no reparte nada.
+hacer; quien hace cada uno —humano, software, IA, o una combinacion— lo dice
+**`_workflow/020_baseline.md`**, que se lee ahora y no despues. Ese reparto se adopta con su `D-XXX`
+en el registro: leer la tabla no reparte nada.
 
 ⚠️ **Y se escribe al decidirlo, no al cerrar la etapa.** Reconstruido despues, lo que queda
 registrado es el reparto que salio, no el que se eligio.
@@ -313,8 +313,8 @@ excepcion — que las cree una herramienta no las exime de estar declaradas.
 Un artefacto se escribe copiando su plantilla, y la regla de «adherencia a plantillas» tiene entonces
 contra que comprobarse.
 
-🚨 **Las plantillas y el reparto de `_workflow/` son condicion de entrada, no trabajo de dentro de la
-etapa.** Mientras falte cualquiera de los dos, **la etapa no puede abrirse aunque sus seis entradas
+🚨 **Las plantillas y el reparto de `_workflow/020_baseline.md` son condicion de entrada, no trabajo
+de dentro de la etapa.** Mientras falte cualquiera de los dos, **la etapa no puede abrirse aunque sus seis entradas
 esten completas** — se especificaria sin forma acordada para escribirlo, y sin saber quien hace cada
 paso.
 

@@ -33,6 +33,8 @@
 | [L-022](#l-022---una-garantia-se-comprueba-contra-el-mecanismo-no-contra-lo-que-el-mecanismo-sugiere) | Una garantia se comprueba contra el mecanismo, no contra lo que el mecanismo sugiere | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-023](#l-023---un-dato-derivable-escrito-a-mano-se-equivoca-justo-donde-nadie-lo-vuelve-a-mirar) | Un dato derivable escrito a mano se equivoca justo donde nadie lo vuelve a mirar | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-024](#l-024---una-orden-publicada-se-reejecuta-antes-de-publicarla-copiarla-la-puede-corromper-en-silencio) | Una orden publicada se reejecuta antes de publicarla: copiarla la puede corromper en silencio | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-025](#l-025---un-patron-con-limite-de-palabra-es-ciego-a-los-prefijos-mas-largos-que-empiezan-igual) | Un patron con limite de palabra es ciego a los prefijos mas largos que empiezan igual | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-026](#l-026---un-enganche-de-uso-escrito-en-generico-no-engancha-tiene-que-nombrar-el-archivo) | Un enganche de uso escrito en generico no engancha: tiene que nombrar el archivo | 2026-09-03 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -704,6 +706,16 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
 > se **corrio** —sobre el area de staging, antes de que el informe existiera— y no en la que
 > **reproduce** contra el commit. Corregido en el mismo sitio (`T-059`).
 
+> 🔁 **Reincidencia numero dos, del 2026-09-03 (`T-062`, hallazgo `F-041`).** Tercera vez que esta
+> leccion se cumple, y la primera con una causa **mecanica** en vez de editorial. En `F-035` el
+> control cubria parte de su salida por como se redacto; en `F-039`, por deduplicarla. Aqui el
+> bloque publica su salida **entera y sin tocar** —no hay recorte, no hay deduplicacion— y aun asi
+> no sostiene la frase, porque **el patron no podia ver lo que faltaba**: un `\b` delante de una
+> alternancia de una letra es ciego a los prefijos de dos. Es lo que le da el filo nuevo: hasta hoy,
+> «publica la salida entera» bastaba para cumplir esta leccion. Ya no. Lo que hay que contrastar es
+> el **ambito del patron** contra el **alcance de la frase**, y eso no se ve mirando la salida.
+> Registrado aparte como `L-025`, porque el mecanismo es reutilizable y esta leccion no lo cubre.
+
 ---
 
 ### L-020 - Una regla que dice QUE registrar pero no DONDE no se incumple: se evapora
@@ -847,8 +859,10 @@ ampliarlo a los criterios de cierre es candidato natural si el patron reaparece.
   leer.
 - **Que ocurrio:** el bloque publicado se ve correcto en pantalla y **no se puede reejecutar**: quien
   copie esa linea le pasa al interprete un caracter de control en vez de un limite de palabra, y
-  obtiene otro resultado. El barrido que lo destapo encontro **seis** apariciones en el registro
-  —una de esta sesion, ya reparada, y **cinco anteriores**, que no se tocan.
+  obtiene otro resultado. El barrido que lo destapo encontro **seis lineas** afectadas en el registro
+  —una de esta sesion, ya reparada, y **cinco anteriores**, que no se tocan—. Son veinte apariciones
+  del caracter repartidas en esas seis lineas; el recuento por lineas y el recuento por apariciones
+  se dicen aqui con su nombre y no se mezclan (`T-064`, hallazgo `F-043`).
 
 ```
 $ python -c "import io,re; pat=re.compile(u'[\x00-\x08\x0b\x0c\x0e-\x1f]'); [print(f,i,repr(m.group())) for f in ['_persistence/decisions.md','_persistence/tasks.md'] for i,l in enumerate(io.open(f,encoding='utf-8'),1) for m in pat.finditer(l)]"
@@ -882,8 +896,113 @@ anteriores. Antes de reparar la de hoy eran veinte en seis.
 - **Como aplicarla:** cuando una orden publicada lleve `\\b`, `\\d`, `\\t`, `\\n` o cualquier escape de
   expresion regular, **se copia del archivo y se reejecuta desde ahi** antes de dar el bloque por
   bueno. Si la reejecucion no reproduce, la orden se corrompio al escribirla.
-- **Lo que queda pendiente, y por que no se hizo hoy:** las **cinco apariciones anteriores** no se
+- **Lo que queda pendiente, y por que no se hizo hoy:** las **cinco lineas anteriores** no se
   reescriben. Reescribir un bloque antiguo para que exhiba una orden que en su dia no se ejecuto asi
   convierte «falta evidencia» en «hay evidencia falsa», y esta vez sin nadie que lo note. Se dejan
-  como estan, se declaran aqui, y **lo decide una auditoria**, no `manager`.
+  como estan y se anotan con una nota fechada que diga que la orden publicada lleva un caracter
+  corrompido y cual es su forma reejecutable.
+
+  > 📌 **Nota del 2026-09-03 (`T-063`, hallazgo `F-042`).** La frase original decia que esto **«lo
+  > decide una auditoria», no `manager`**, y eso estaba mal repartido: `project.md` dice que
+  > `report_auditor` «no construye, no corrige y no decide». Un pendiente delegado en quien por
+  > definicion no puede decidirlo no espera a nadie. La decision es de `manager` —evaluar— y del
+  > usuario —confirmar la deuda—; queda registrada en **`DT-003`**, y asi la ve el arranque de
+  > sesion, que lee tareas y deuda y no el cuerpo de las lecciones.
 - **Donde queda aplicada:** los bloques de `D-073` y `D-074` de esta sesion, reparados y reejecutados.
+
+---
+
+### L-025 - Un patron con limite de palabra es ciego a los prefijos mas largos que empiezan igual
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** el control que comprueba que una plantilla no lleva codigos instanciados del registro
+  se corre con `\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b`, y su salida se publica como bloque de
+  verificacion. Sobre las nueve plantillas de la etapa de la baseline devolvio dos lineas, y con esas
+  dos se escribio la frase «sin codigos instanciados mas alla del primero».
+- **Que ocurrio:** el patron **no puede** encontrar `FT-001` ni `SC-001`. El limite de palabra
+  inicial exige que delante de la `F` no haya un caracter de palabra, y en `FT-` lo hay: la propia
+  `F` de la alternativa casa, pero entonces queda `T-001` precedido de `F`, y ahi el `\b` falla. El
+  resultado es un cero limpio que parece un barrido en verde. Con el patron ampliado a dos letras
+  aparecen cinco codigos, y tres de ellos no son «el primero».
+
+```
+$ grep -rnoE "\b(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]{3}\b" _templates/020_baseline/
+_templates/020_baseline/015_features.md:189:N-001
+_templates/020_baseline/045_traceability.md:199:N-001
+
+$ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"
+_templates/020_baseline/015_features.md:72:FT-003
+_templates/020_baseline/020_scenarios.md:72:SC-003
+_templates/020_baseline/025_specification.md:236:SC-003
+_templates/020_baseline/045_traceability.md:200:SC-007
+_templates/020_baseline/045_traceability.md:200:FT-004
+```
+
+- **Leccion:** **cuando una alternativa del patron es prefijo de otra que existe, el barrido tiene un
+  punto ciego exactamente ahi.** Y el punto ciego no se manifiesta como error: se manifiesta como un
+  resultado corto, que es la forma en que un control miente sin que nadie lo note. Vale para
+  cualquier familia de identificadores donde convivan prefijos de una y de dos letras — que en este
+  metodo es la norma y no la excepcion, porque los codigos de producto se alargaron a proposito para
+  no chocar con los del registro.
+- **Por que se escapa con facilidad:** el patron se escribio cuando **solo existian** prefijos de una
+  letra, y era correcto entonces. No se rompio al cambiar el patron: se rompio al aparecer un codigo
+  nuevo que el patron no contemplaba, y un patron no avisa de lo que no busca. Ademas el cero salio
+  acompañado de dos aciertos —`N-001` dos veces—, que es lo que le dio credibilidad.
+- **Como aplicarla:** **antes de publicar un barrido de identificadores, se enumera contra que tabla
+  de codigos se esta barriendo y se comprueba que el patron cubre todas sus filas.** Si algun prefijo
+  es prefijo de otro, se ordenan de mas largo a mas corto en la alternancia, o se sustituye el `\b`
+  inicial por un delimitador explicito. Y la frase que acompaña al bloque dice **que familia** se
+  barrio, no «no hay codigos instanciados».
+- **Donde queda aplicada:** las notas fechadas de `D-073` y `T-057` (`T-062`), que publican el patron
+  ampliado y su salida real sin reescribir los bloques originales.
+
+---
+
+### L-026 - Un enganche de uso escrito en generico no engancha: tiene que nombrar el archivo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-03 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** cada archivo de reparto de `_workflow/` cierra con un bloque de verificacion de dos
+  ordenes. La segunda —`grep -n "_workflow/<etapa>" _phases/<etapa>.md`— **no comprueba el archivo:
+  comprueba que la etapa manda leerlo**. Es el «cuarto enganche» de `L-014`, el de uso, y es la razon
+  entera de que ese bloque tenga dos ordenes y no una.
+- **Que ocurrio:** al escribir el reparto de la baseline, esa orden devolvia vacio. El archivo de
+  etapa **si** invocaba el reparto, dos veces, pero escrito en generico: «el archivo de esta etapa en
+  `_workflow/`» y «el reparto de `_workflow/`». Los dos archivos de etapa anteriores lo nombran
+  entero. La invocacion existia y era legible para una persona; para el control, no existia.
+
+```
+$ git show 6b42d0f:_phases/020_baseline.md | grep -c "_workflow/020_baseline"
+0
+
+$ git show 6b42d0f:_phases/005_discovery.md | grep -c "_workflow/005_discovery"
+1
+
+$ git show 6b42d0f:_phases/010_prototype.md | grep -c "_workflow/010_prototype"
+2
+```
+
+- **Leccion:** **una referencia en prosa generica cumple para el lector humano y desaparece para el
+  control.** Y aqui el coste es doble, porque en esta etapa el reparto no es material de consulta
+  sino **condicion de entrada**: si la cita no se puede encontrar, lo que se pierde no es una
+  recomendacion de lectura, es la condicion que impide abrir la etapa sin saber quien hace cada paso
+  — y se pierde en silencio, porque el archivo sigue existiendo y el control sigue devolviendo cero
+  sin que nadie sepa si es que falta la cita o que falta el archivo.
+- **Por que se escapa con facilidad:** escribir «el archivo de esta etapa en `_workflow/`» se siente
+  **mas limpio**, y hasta mas correcto: evita repetir un nombre que se deduce del contexto. Es la
+  forma en que un texto bien redactado desactiva un control automatico, y no hay ninguna señal
+  mientras el archivo referido no existe todavia — que es justo cuando se escribe el archivo de
+  etapa.
+- **Como aplicarla:** **toda referencia de la que dependa un control se escribe con el nombre
+  completo del archivo, aunque el contexto lo haga obvio.** Y al escribir un archivo cuyo bloque de
+  verificacion incluya un enganche de uso, ese enganche se corre **antes** de dar el archivo por
+  terminado: si devuelve vacio, lo que falta no es el archivo nuevo, es la cita en el que lo invoca.
+- **Donde queda aplicada:** `_phases/020_baseline.md` §4 y §5 nombran ahora
+  `_workflow/020_baseline.md` entero (`T-057`), y el enganche devuelve dos lineas.
