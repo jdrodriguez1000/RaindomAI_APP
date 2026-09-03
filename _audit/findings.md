@@ -46,10 +46,11 @@
 | [F-032](#f-032---el-bloque-de-t-041-publica-un-recuento-que-su-commit-no-sostiene-y-su-prosa-afirma-cuatro-notas-donde-hay-tres) | El bloque de `T-041` publica un recuento que su commit no sostiene, y su prosa afirma cuatro notas donde hay tres | R-012 | Media | Implementado |
 | [F-033](#f-033---la-nota-de-cierre-de-d-060-afirma-que-projectmd-no-nombra-la-etapa-nueva-y-el-mismo-commit-lo-desmiente) | La nota de cierre de `D-060` afirma que `project.md` no nombra la etapa nueva, y el mismo commit lo desmiente | R-012 | Baja | Implementado |
 | [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Implementado |
-| [F-035](#f-035---la-seccion-7-de-s-014-atribuye-tres-de-sus-once-ordenes-a-bloques-donde-no-estan) | La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan | R-014 | Media | Aceptado — pendiente |
-| [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Aceptado — pendiente |
+| [F-035](#f-035---la-seccion-7-de-s-014-atribuye-tres-de-sus-once-ordenes-a-bloques-donde-no-estan) | La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan | R-014 | Media | Implementado |
+| [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Implementado |
 | [F-037](#f-037---la-comprobacion-0-del-gate-1-compara-fechas-de-autor-que-si-se-pueden-falsificar-y-tres-archivos-afirman-lo-contrario) | La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario | R-015 | Media | Aceptado — pendiente |
-| [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Aceptado — pendiente |
+| [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Implementado |
+| [F-039](#f-039---el-primer-bloque-de-la-seccion-7-de-s-016-publica-quince-de-las-veintiuna-lineas-que-devuelve-su-orden) | El primer bloque de la seccion 7 de `S-016` publica quince de las veintiuna lineas que devuelve su orden | R-016 | Media | Abierto |
 
 ---
 
@@ -2215,9 +2216,9 @@ $ git show ca56b93:.claude/skills/protocol-close/SKILL.md | grep -n "^## 7. Evid
 | Auditoria | R-014 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-053 |
-| Cerrado en | |
+| Cerrado en | `bd8a9ff` |
 
 - **Que se observo:** la lista y los recuentos de la seccion 7 de `_audit/S-014.md` reproducen
   exactos (19 apariciones, 11 ordenes distintas). Lo que no se sostiene es la anotacion de
@@ -2259,9 +2260,9 @@ $ grep -nE "(N|T|D|A|C|I|F|L|S|R|DT)-[0-9]+" _workflow/010_prototype.md ; echo "
 | Auditoria | R-014 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-054 |
-| Cerrado en | |
+| Cerrado en | `bd8a9ff` |
 
 - **Que se observo:** `D-066` y `T-051` declaran que `_workflow/005_discovery.md` incumple la regla
   de codigos genericos que su propia cabecera enuncia —cita `L-014`, instanciado—, publican el
@@ -2328,6 +2329,11 @@ db6c138 sesion 1
   --is-ancestor`, o el orden de `git log --format='%H'`), dejando `%ad` como dato informativo; y
   ajustar la frase de `D-069`, del skill y de `progress.md` a lo que el mecanismo garantiza.
 - **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-016`). El hallazgo es correcto y era el mas grave de los cuatro: la Comprobacion 0 habria dado `PASA` sobre evidencia fabricada. Se adopta el orden del grafo (`D-071`), `%ad` queda como dato informativo, y la afirmacion absoluta se ajusta en el skill y en la plantilla; en `D-069` va como nota fechada, sin reescribir. Registrado en `T-055`.
+- **Verificacion de `R-016` (2026-09-03, commit `bd8a9ff`):** no se cierra. La correccion llego
+  al skill, a la plantilla del dictamen y a `D-069` (nota fechada), pero `_persistence/progress.md`
+  —el tercer sitio que este hallazgo nombra— sigue publicando la afirmacion como hecho, sin
+  correccion y sin nota, y la omision no esta declarada en ningun sitio. Detalle y salidas crudas
+  en `_audit/R-016.md`, seccion 3.
 
 ---
 
@@ -2337,9 +2343,9 @@ db6c138 sesion 1
 | Auditoria | R-015 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | T-056 |
-| Cerrado en | |
+| Cerrado en | `bd8a9ff` |
 
 - **Que se observo:** el skill usa `<subcarpeta del prototipo>` como valor a resolver en
   `project.md`, y `project.md` dice que existe una subcarpeta pero no como se llama.
@@ -2360,3 +2366,41 @@ ea48ae8:project.md:182:| `010_prototype/` | ... y el codigo descartable del prot
 - **Que lo corregiria:** declarar el nombre de la subcarpeta en `project.md` al abrir
   `010_prototype/`, o que el Paso 2 diga como se localiza y que resultado emite si no existe.
 - **Que se hizo:** `manager` lo acepta (2026-09-03, sesion `S-016`). Se toma la segunda de las dos correcciones propuestas —la del protocolo— porque es la que no depende de que la etapa haya arrancado: el Paso 2 localiza la subcarpeta con `git ls-tree -d` y declara `NO AUDITABLE` si no la encuentra, y el Paso 0 queda acotado para no contradecirlo. Registrado en `T-056`.
+
+---
+
+### F-039 - El primer bloque de la seccion 7 de `S-016` publica quince de las veintiuna lineas que devuelve su orden
+| Campo | Valor |
+|---|---|
+| Auditoria | R-016 |
+| Fecha | 2026-09-03 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 7 de `_audit/S-016.md` encabeza su primer bloque con
+  `git diff -U0 -- _persistence _audit | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'`,
+  publica debajo quince lineas y las llama «Quince lineas». Esa orden devuelve veintiuna: seis
+  ordenes estan citadas tanto en `_persistence/decisions.md` como en `_persistence/tasks.md`. Quince
+  es el numero de ordenes **distintas**, y el bloque presentado como salida cruda esta deduplicado a
+  mano. El segundo bloque de la misma seccion si publica las veintiuna.
+
+~~~
+$ git diff -U0 bd8a9ff^ bd8a9ff -- _persistence _audit ":(exclude)_audit/S-016.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+21
+
+$ git show bd8a9ff:_audit/S-016.md | awk '/^\$ git diff -U0 -- _persistence _audit \| grep -E/{f=1;next} f&&/^```$/{exit} f' | grep -c '^+\$ '
+15
+~~~
+
+- **Por que importa:** el Paso 2d de `protocol-close`, en ese mismo commit, exige «la lista COMPLETA
+  que devolvio la primera orden del Paso 2d, con la orden literal, su recuento y todas sus lineas —
+  nunca una seleccion». Es ademas el mismo defecto de familia que `F-035` corrige en esa sesion
+  (`L-023`), esta vez en el recuento en vez de en la procedencia: quien reejecute la orden obtiene un
+  numero distinto del publicado y no puede saber si se equivoco el informe o si cambio el repositorio.
+- **Que lo corregiria:** publicar las lineas tal como salen, con el recuento real, y decir aparte
+  cuantas ordenes distintas son; y escribir la orden con la exclusion del propio informe
+  (`":(exclude)_audit/S-XXX.md"`) o con su equivalencia anclada al commit, como ya hace la nota de
+  `_audit/S-014.md` — tal como esta escrita hoy tampoco reproduce contra el commit, porque incluye su
+  propio archivo (39 lineas).
