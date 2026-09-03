@@ -48,6 +48,8 @@
 | [F-034](#f-034---el-informe-remite-a-una-lista-completa-del-paso-2d-que-no-existe-en-el-commit) | El informe remite a una lista completa del Paso 2d que no existe en el commit | R-013 | Media | Implementado |
 | [F-035](#f-035---la-seccion-7-de-s-014-atribuye-tres-de-sus-once-ordenes-a-bloques-donde-no-estan) | La seccion 7 de `S-014` atribuye tres de sus once ordenes a bloques donde no estan | R-014 | Media | Abierto |
 | [F-036](#f-036---una-no-conformidad-declarada-en-_workflow005_discoverymd-se-aparca-sin-dt-xxx) | Una no conformidad declarada en `_workflow/005_discovery.md` se aparca sin `DT-XXX` | R-014 | Baja | Abierto |
+| [F-037](#f-037---la-comprobacion-0-del-gate-1-compara-fechas-de-autor-que-si-se-pueden-falsificar-y-tres-archivos-afirman-lo-contrario) | La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario | R-015 | Media | Abierto |
+| [F-038](#f-038---la-comprobacion-0-depende-de-subcarpeta-del-prototipo-que-projectmd-no-declara-y-para-ese-caso-no-hay-salida-escrita) | La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita | R-015 | Baja | Abierto |
 
 ---
 
@@ -2281,4 +2283,80 @@ $ git show ca56b93:_persistence/techdebt.md | sed -n '/^## Indice/,/^---/p' | gr
   aparece en ningun indice de trabajo pendiente y nada lo trae de vuelta.
 - **Que lo corregiria:** un `DT-XXX` que nombre la cita, su archivo y por que se aplaza; o una
   `T-XXX` que reescriba la frase en forma generica.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-037 - La Comprobacion 0 del Gate 1 compara fechas de autor, que si se pueden falsificar, y tres archivos afirman lo contrario
+| Campo | Valor |
+|---|---|
+| Auditoria | R-015 |
+| Fecha | 2026-09-03 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el Paso 2 de `.claude/skills/protocol-gate1/SKILL.md` resuelve la
+  auditabilidad de la evidencia comparando la **fecha de autor** (`%ad`), y afirma que eso no se
+  puede burlar. `%ad` se sobrescribe con una variable de entorno.
+
+~~~
+$ git show ea48ae8:.claude/skills/protocol-gate1/SKILL.md | grep -nE '%ad|imposible de aprobar a posteriori|no se pueden convencer'
+124:git log --diff-filter=A --format="%ad %h %s" --date=short -- <DISC>/020_hypothesis.md
+127:git log --diff-filter=A --format="%ad %h %s" --date=short -- <PROTO>/015_session_001.md
+166:🔑 **Esta comprobacion es la unica del metodo imposible de aprobar a posteriori.** Las fechas del
+167:historial no se pueden convencer. Todo lo demas se puede redactar mejor; el orden en que se
+
+(repositorio desechable, fuera del proyecto)
+$ GIT_AUTHOR_DATE="2026-01-10T10:00:00" GIT_COMMITTER_DATE="2026-01-10T10:00:00" git commit -q -m "sesion 1"
+$ GIT_AUTHOR_DATE="2026-01-01T10:00:00" GIT_COMMITTER_DATE="2026-01-01T10:00:00" git commit -q -m "hipotesis (escrita DESPUES, fechada ANTES)"
+$ git log --diff-filter=A --format="%ad %h %s" --date=short -- 020_hypothesis.md
+2026-01-01 19cbaec hipotesis (escrita DESPUES, fechada ANTES)
+$ git log --diff-filter=A --format="%ad %h %s" --date=short -- 015_session_001.md
+2026-01-10 db6c138 sesion 1
+$ git log --oneline
+19cbaec hipotesis (escrita DESPUES, fechada ANTES)
+db6c138 sesion 1
+~~~
+
+- **Por que importa:** `D-069` apoya todo el tercer resultado (`NO AUDITABLE`) en esa propiedad, y
+  `_persistence/progress.md` la repite como hecho. La hipotesis del ejemplo se escribio despues de
+  la sesion y la Comprobacion 0 daria `PASA`. El orden real del grafo, que si resiste, sale en la
+  misma pantalla y el protocolo no manda mirarlo.
+- **Que lo corregiria:** resolver la Comprobacion 0 por orden topologico (`git merge-base
+  --is-ancestor`, o el orden de `git log --format='%H'`), dejando `%ad` como dato informativo; y
+  ajustar la frase de `D-069`, del skill y de `progress.md` a lo que el mecanismo garantiza.
+- **Que se hizo:** pendiente de la evaluacion de `manager`.
+
+---
+
+### F-038 - La Comprobacion 0 depende de `<subcarpeta del prototipo>`, que `project.md` no declara, y para ese caso no hay salida escrita
+| Campo | Valor |
+|---|---|
+| Auditoria | R-015 |
+| Fecha | 2026-09-03 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el skill usa `<subcarpeta del prototipo>` como valor a resolver en
+  `project.md`, y `project.md` dice que existe una subcarpeta pero no como se llama.
+
+~~~
+$ git show ea48ae8:.claude/skills/protocol-gate1/SKILL.md | grep -n "subcarpeta del prototipo"
+128:git log --diff-filter=A --format="%ad %h %s" --date=short -- <PROTO>/<subcarpeta del prototipo>
+133:git log --format="%ad %h" --date=short -- <PROTO>/<subcarpeta del prototipo>
+
+$ git grep -n "subcarpeta" ea48ae8 -- project.md
+ea48ae8:project.md:37:| Entregables de `010_prototype` | `010_prototype/` (el codigo descartable, en una subcarpeta suya) |
+ea48ae8:project.md:182:| `010_prototype/` | ... y el codigo descartable del prototipo en una subcarpeta suya. ...
+~~~
+
+- **Por que importa:** dos de las siete lecturas de la Comprobacion 0 dependen de ese valor. El
+  Paso 0 del skill da como salida `NO COMPROBABLE`, que la Comprobacion 0 no admite: sus resultados
+  son `PASA` o `NO AUDITABLE`.
+- **Que lo corregiria:** declarar el nombre de la subcarpeta en `project.md` al abrir
+  `010_prototype/`, o que el Paso 2 diga como se localiza y que resultado emite si no existe.
 - **Que se hizo:** pendiente de la evaluacion de `manager`.
