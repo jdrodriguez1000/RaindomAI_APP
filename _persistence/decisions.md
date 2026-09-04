@@ -91,6 +91,9 @@
 | [D-080](#d-080---el-despliegue-no-se-delega-en-la-ia-y-por-eso-el-eje-de-impacto-puntua-2-y-no-3) | El despliegue no se delega en la IA, y por eso el eje de impacto puntua 2 y no 3 | 2026-09-03 | Vigente |
 | [D-081](#d-081---una-nota-fechada-que-corrige-un-dato-de-techdebtmd-la-escribe-manager-no-el-cierre) | Una nota fechada que corrige un dato de `techdebt.md` la escribe `manager`, no el cierre | 2026-09-04 | Vigente |
 | [D-082](#d-082---el-archivo-de-etapa-del-crecimiento-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa del crecimiento se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-04 | Vigente |
+| [D-083](#d-083---la-linea-de-control-de-_auditfindingsmd-queda-fuera-de-dt-003-y-dt-004-y-nace-dt-005) | La linea de control de `_audit/findings.md` queda fuera de `DT-003` y `DT-004`, y nace `DT-005` | 2026-09-05 | Vigente | report_auditor |
+| [D-084](#d-084---el-ancla-del-informe-es-un-hash-literal-y-el-cierre-gana-un-paso-de-anclaje) | El ancla del informe es un hash literal, y el cierre gana un paso de anclaje | 2026-09-05 | Vigente | report_auditor |
+| [D-085](#d-085---las-plantillas-del-crecimiento-son-tres-y-ninguna-estrena-un-codigo-de-producto) | Las plantillas del crecimiento son tres, y ninguna estrena un codigo de producto | 2026-09-05 | Vigente | usuario |
 
 ---
 
@@ -4495,4 +4498,247 @@ $ ls -1 _phases/
 
 $ grep -n "Etapas declaradas" project.md
 105:| Etapas declaradas | `000_preproject`, `005_discovery` |
+```
+
+---
+
+### D-083 - La linea de control de `_audit/findings.md` queda fuera de `DT-003` y `DT-004`, y nace `DT-005`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-05 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-051` (`R-020`) senalo que la seccion 8 de `_audit/S-020.md` publica cuatro cifras
+  que suman **catorce** y las declara «exactamente los diez casos que `DT-004` documenta». Las dos
+  cuentas no son la misma, y al separarlas aparece una linea que **ninguna de las dos deudas cubre**:
+  la de `_audit/findings.md`.
+- **Evaluacion del hallazgo:** correcto, verificado contra `HEAD` antes de aceptarlo. Las cuatro
+  cifras reproducen y la suma es catorce:
+
+```
+$ git diff --name-only --diff-filter=d f09d1f7^ f09d1f7 | while read f; do n=$(grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' "$f"); [ "$n" -gt 0 ] && echo "$f: $n"; done
+_audit/S-019.md: 1
+_audit/findings.md: 1
+_persistence/decisions.md: 7
+_persistence/tasks.md: 5
+
+$ git diff --name-only --diff-filter=d f09d1f7^ f09d1f7 | while read f; do grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' "$f"; done | awk '{s+=$1} END {print s}'
+14
+```
+
+- **Y la linea de `findings.md` no nace en un commit de sesion, sino en uno de auditoria**, que es lo
+  que explica por que se cayo de las dos deudas:
+
+```
+$ for c in 9a52cfa ac31884 1b30e16 f09d1f7 628fd47; do echo "$c: $(git show $c:_audit/findings.md 2>/dev/null | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"; done
+9a52cfa: 0
+ac31884: 1
+1b30e16: 1
+f09d1f7: 1
+628fd47: 1
+```
+
+- **Decision:** la linea **no se anexa a `DT-003` ni a `DT-004`**, y se registra en una entrada
+  propia, `DT-005`, con `Confirmacion: Propuesta (pendiente del usuario)`. La seccion 8 de
+  `_audit/S-020.md` recibe una nota fechada que separa las dos cuentas (`T-077`).
+- **Por que una entrada propia y no ampliar una de las dos:** las dos deudas existentes acotan un
+  ambito que esta linea no cumple. `DT-003` se acota a `decisions.md` y `tasks.md`; `DT-004` se acota
+  a **lo nuevo de `S-019`**, y su propio barrido cuenta esta linea como heredada (`parent=1`).
+  Estirar cualquiera de las dos para que la abarque destruye el dato que las hace utiles: cuantas
+  lineas introdujo cada sesion. Una deuda cuyo ambito se ensancha cada vez que aparece un caso nuevo
+  deja de medir nada.
+- **Y hay una asimetria que obliga a separarla igualmente:** esta linea vive en un archivo que
+  **`manager` no escribe**. `CLAUDE.md` le encarga solo la columna de estado del indice de
+  `_audit/findings.md`; el resto es de `report_auditor`. Las otras catorce se pagan editando archivos
+  propios; esta no, y meterla en una deuda que si se puede pagar la dejaria pareciendo pagable.
+- **Alternativas descartadas:** (1) **ampliar `DT-004` con otra nota fechada**, al amparo de `D-081`
+  — descartada porque `D-081` autoriza corregir un **dato factual** de la entrada, no ensanchar su
+  ambito a un archivo que su propio barrido ya clasifico fuera; (2) **corregir la linea
+  directamente**, que es lo mas barato — descartada porque reescribe una salida ya auditada en un
+  archivo ajeno, que es exactamente lo que `DT-003` decidio no hacer y por la misma razon; (3) **no
+  registrarla**, dado que es una sola linea heredada — descartada porque asi es como desaparecio del
+  radar la primera vez.
+- **Reversible a criterio**, porque nace una entrada de registro y una nota fechada, y las dos se
+  deshacen con un commit sin destruir nada de lo escrito. Se declara como criterio y no como lectura
+  de una tabla, porque el inventario de acciones irreversibles todavia no existe (`T-037`).
+- **Criterio de cierre:** `DT-005` existe con su fila en el indice, la nota fechada esta en la
+  seccion 8 de `_audit/S-020.md`, y la fila de `F-051` en `_audit/findings.md` cita `T-077`.
+
+```
+$ grep -c '^### DT-005' _persistence/techdebt.md
+$ grep -c 'T-077' _audit/S-020.md
+```
+
+---
+
+### D-084 - El ancla del informe es un hash literal, y el cierre gana un paso de anclaje
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-05 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-052` y `F-053` (`R-020`) son el mismo defecto por dos caras. El informe de una
+  sesion se escribe **antes** de que exista su commit, asi que tres de sus datos no pueden estar
+  completos al escribirlo: el hash de la cabecera, la lista de archivos de la seccion 1 y las ordenes
+  ancladas de la seccion 7. `S-020` cerro con un segundo commit que relleno **solo la tercera**.
+- **Evaluacion de los hallazgos:** los dos correctos, verificados contra `HEAD`. La nota que la
+  seccion 1 prometia dos veces no existe, y la unica del informe cae dentro de la seccion 7:
+
+```
+$ grep -n 'nota de cierre de esta seccion' _audit/S-020.md
+37:ya cerrado, se deja pegada en la nota de cierre de esta seccion; el listado de arriba es el mismo
+149:  pego el equivalente sobre el area de staging; la nota de cierre de esta seccion trae la version
+
+$ grep -n 'Nota de cierre' _audit/S-020.md
+243:> 📌 **Nota de cierre (post-commit, hash `f09d1f7`).** La orden anclada reproduce exactamente el
+
+$ grep -nE '^## 1\.|^## 7\.' _audit/S-020.md
+19:## 1. Que se hizo
+152:## 7. Evidencia del Paso 2d
+```
+
+- **Y la cabecera no lleva un hash: lleva la orden que lo deriva**, que tras el segundo commit
+  devuelve el commit equivocado:
+
+```
+$ grep -n 'Commit auditado' _audit/S-020.md
+9:| Commit auditado | el commit que contiene este archivo (`git log -1 -- _audit/S-020.md`) |
+
+$ git log -1 --format=%h -- _audit/S-020.md
+3ff670e
+
+$ git show --stat --name-only --format= 3ff670e
+_audit/S-020.md
+```
+
+  Un archivo, frente a los once que la seccion 1 del informe enumera.
+
+- **Decision, en tres partes:**
+  1. **La cabecera del informe lleva el hash literal** del commit sustantivo, no la orden que lo
+     deriva. `protocol-close` cambia su plantilla.
+  2. **Nace el Paso 7c de `protocol-close`**: despues del push, un unico commit de anclaje rellena
+     los **tres** sitios juntos —cabecera, nota de cierre de la seccion 1 y nota de cierre de la
+     seccion 7—, con el mensaje diciendo que es un anclaje. Y el protocolo **nombra cual de los dos
+     commits es «el commit de la sesion»**: el primero, el que lleva el trabajo.
+  3. **`protocol-audit` deja de fiarse de la orden derivada.** El auditor lee el hash literal de la
+     cabecera y, si lo que deriva no coincide, audita el literal; si la cabecera no lleva hash, lo
+     dice y es un hallazgo. Se le da ademas el control que lo delata: el `--stat` de un commit de
+     anclaje tiene un solo archivo.
+- **Por que el hash literal y no una orden mejor.** Se buscaron ordenes que sobrevivieran al segundo
+  commit —«el primer commit que toca el informe», «el commit anterior al de anclaje»— y todas fallan
+  igual: son autorreferencias sobre un archivo **que el protocolo vuelve a tocar por diseno**. Un
+  dato escrito no se mueve; una orden que lo deriva depende de un historial que sigue creciendo.
+- **Alternativas descartadas:** (1) **no hacer el segundo commit y dejar el informe sin anclar** —
+  descartada: es lo que `F-045` y `F-048` ya corrigieron para la seccion 7, y perder eso cuesta mas
+  que un commit extra; (2) **usar `--amend` sobre el commit de la sesion** para que haya uno solo —
+  descartada de plano: el Paso 7 lo prohibe sin excepcion, y reescribir un commit ya subido borra el
+  estado que la auditoria dice haber juzgado; (3) **anclar solo la cabecera y dejar las dos notas
+  como estaban** — descartada porque las secciones 1 y 7 **prometen** su nota por escrito, y una
+  promesa que el protocolo no cumple es peor que no haberla hecho; (4) **que el auditor derive por su
+  cuenta el commit sustantivo** (el anterior al de anclaje) — descartada porque obligaria a suponer
+  que hubo anclaje, y un cierre sin segundo commit rompe esa suposicion en silencio.
+- **Reversible a criterio**, porque son ediciones de dos skills y de un informe, todas bajo control
+  de versiones y sin efecto fuera del repositorio. Criterio declarado, no leido de una tabla
+  (`T-037`).
+- **Criterio de cierre:** `protocol-close` tiene su Paso 7c y su cabecera pide un hash literal;
+  `protocol-audit` comprueba el literal contra el derivado; y las dos notas de cierre que faltaban
+  estan en `_audit/S-020.md`.
+
+```
+$ grep -nE '^### 7c|^### Cual de los dos' .claude/skills/protocol-close/SKILL.md
+$ grep -c 'HASH LITERAL' .claude/skills/protocol-close/SKILL.md
+$ grep -c 'Esa orden puede devolver el commit equivocado' .claude/skills/protocol-audit/SKILL.md
+$ grep -c 'Nota de cierre' _audit/S-020.md
+```
+
+---
+
+### D-085 - Las plantillas del crecimiento son tres, y ninguna estrena un codigo de producto
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-05 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pidio crear las plantillas que exige `_phases/030_growth.md`, tomando como
+  guia las de las otras etapas, alineadas con `_methodology/000_method.md` y **totalmente
+  agnosticas**. Es el mismo movimiento que `T-022` (descubrimiento), `T-048` (prototipo) y las de la
+  baseline y el esqueleto.
+- **Decision:** nace `_templates/030_growth/` con **tres** plantillas, las tres que el §5 del archivo
+  de etapa nombra por su nombre y ninguna mas:
+
+| Archivo | Que registra | Cuantas veces se copia |
+|---|---|---|
+| `005_iteration_NNN.md` | que slices entran, **en que orden y por que**, y que quedo al cerrar | una por iteracion |
+| `010_slice_NNN.md` | enunciado, trazabilidad, tareas, tests con su rojo, que rompio, y la baseline que toco | una por slice |
+| `015_observation_window.md` | metrica, ventana y umbral, fijados antes del primer dato | **una sola vez** |
+
+- **Por que tres y no mas.** El §5 del archivo de etapa enumera **siete artefactos**, y cuatro de
+  ellos no llevan plantilla propia: el codigo y los tests viven en las carpetas que `project.md`
+  declare; la baseline actualizada usa las plantillas de `_templates/020_baseline/`, que ya existen;
+  y las decisiones arquitectonicas nuevas usan `035_adr_NNN.md`, que tambien existe. Escribir una
+  plantilla para cualquiera de esos cuatro habria duplicado un artefacto que ya tiene forma — y dos
+  formas para lo mismo es como una de las dos deja de mantenerse.
+- **Ninguna de las tres estrena un codigo de producto, y es la decision que mas se noto al
+  escribirlas.** Las plantillas de la baseline si escriben los suyos en sus ejemplos (`FT-001`,
+  `SC-001`, `N-001`), porque esos cuatro estan declarados en la tabla «Codigos». Los que esta etapa
+  necesitaria —**slice, tarea de producto y caso de prueba**— **no lo estan**, y `project.md` dice
+  con todas las letras que un codigo que aparece en un archivo antes que en esa tabla es un desfase,
+  no una novedad. Asi que las tres plantillas dejan **huecos** que remiten a la tabla, y lo dicen con
+  un recuadro en el sitio donde el hueco aparece.
+
+```
+$ PAT=$( { sed -n '/^## Codigos/,/^---/p' project.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; sed -n '/^## 46\. Identificadores/,/^```/p' _methodology/000_method.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; } | tr -d '|` ' | sed 's/-.*//' | sort -u | awk '{print length, $0}' | sort -rn | cut -d' ' -f2 | paste -sd'|' - ) && grep -rnoE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}" _templates/030_growth/ ; echo "exit=$?"
+exit=1
+```
+
+- **Y la tarea de producto tiene ademas un choque de prefijos, que la plantilla senala en vez de
+  resolver.** La guia de metodo (§46) le da a la tarea de producto la misma inicial que `project.md`
+  usa para la tarea de jornada. `project.md` ya lo llama «la unica coincidencia deliberada», porque
+  es el mismo concepto; pero **donde se registran las tareas de una slice** sigue sin decidirse, y el
+  Paso 3 del archivo de etapa exige tenerlo decidido antes de escribir la primera. La plantilla pone
+  el recuadro que obliga a mirarlo al copiarla; decidirlo es de la etapa de la baseline (`D-082`).
+- **Alternativas descartadas:** (1) **escribir `VS-001`, `T-001` y `TC-001` en los ejemplos**, como
+  hacen las plantillas de la baseline — descartada porque estrena tres codigos sin declararlos, y
+  ademas `T-001` **ya existe en este proyecto con contenido detras**, que es justo lo que `CLAUDE.md`
+  prohibe que lleve una plantilla; (2) **declarar los tres en la tabla «Codigos» de `project.md` en
+  esta misma pasada**, que es lo que hizo `D-075` con `FT-` y `SC-` — descartada porque aquello se
+  hizo para tapar un desfase ya existente, y aqui seria crearlo: declarar codigos de producto para
+  una etapa que no esta adoptada y un producto que no esta definido; (3) **una sola plantilla de
+  «acta de crecimiento»** que cubriera iteracion y slice — descartada porque la iteracion y la slice
+  se escriben en momentos distintos y con periodicidad distinta, y fundirlas hace que el registro de
+  la slice se rellene al cerrar la iteracion, que es exactamente el fallo que el Paso 7 existe para
+  evitar; (4) **escribir tambien `_workflow/030_growth.md` de paso** — descartada porque el usuario
+  no lo pidio y el reparto exige decidir quien hace cada paso, que no es una decision de plantilla.
+- **Lo que sigue faltando, y esta declarado:** `_workflow/030_growth.md`. El §5 del archivo de etapa
+  exige **los dos** como condicion de entrada, asi que la etapa **sigue sin poder abrirse**. La nota
+  fechada del archivo de etapa lo dice con esas palabras, en vez de dejar la frase original diciendo
+  que faltan las dos cosas.
+- **No adopta la etapa:** `project.md` sigue declarando `000_preproject` y `005_discovery`.
+- **Reversible a criterio**, porque son tres archivos nuevos bajo control de versiones que no adoptan
+  nada ni tocan nada fuera del repositorio. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** las tres plantillas existen, no filtran ningun dato propio del proyecto, no
+  instancian ningun codigo, no llevan caracteres de control, y cada una tiene su seccion de
+  comprobacion y su guia de llenado marcada para borrar.
+
+```
+$ ls -1 _templates/030_growth/
+005_iteration_NNN.md
+010_slice_NNN.md
+015_observation_window.md
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" _templates/030_growth/ ; echo "exit=$?"
+exit=1
+
+$ for f in _templates/030_growth/*.md; do echo "$f: $(grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' "$f")"; done
+_templates/030_growth/005_iteration_NNN.md: 0
+_templates/030_growth/010_slice_NNN.md: 0
+_templates/030_growth/015_observation_window.md: 0
+
+$ grep -c 'Guia de llenado' _templates/030_growth/*.md
+_templates/030_growth/005_iteration_NNN.md:3
+_templates/030_growth/010_slice_NNN.md:3
+_templates/030_growth/015_observation_window.md:3
 ```

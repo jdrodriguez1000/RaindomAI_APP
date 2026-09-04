@@ -44,6 +44,7 @@
 | [S-018](#s-018---se-aceptan-f-040-a-f-044-nace-_workflow020_baselinemd-t-057-d-075-d-076) | Se aceptan `F-040` a `F-044`; nace `_workflow/020_baseline.md` (`T-057`, `D-075`, `D-076`) | 2026-09-03 | `000_preproject` |
 | [S-019](#s-019---se-aceptan-f-045-a-f-047-t-066-a-t-068-d-077-nace-_phases025_wsltmd-y-su-reparto-d-078-a-d-080) | Se aceptan `F-045` a `F-047` (`T-066` a `T-068`, `D-077`); nace `_phases/025_wslt.md` y su reparto (`D-078` a `D-080`) | 2026-09-03 | `000_preproject` |
 | [S-020](#s-020---se-aceptan-f-048-a-f-050-t-072-a-t-075-d-081-nace-el-paso-2e-de-protocol-close-y-_phases030_growthmd-d-082) | Se aceptan `F-048` a `F-050` (`T-072` a `T-075`, `D-081`); nace el Paso 2e de `protocol-close` y `_phases/030_growth.md` (`D-082`) | 2026-09-04 | `000_preproject` |
+| [S-021](#s-021---se-aceptan-f-051-a-f-054-t-077-a-t-082-nace-el-paso-7c-de-protocol-close-d-083-a-d-085-y-las-plantillas-de-_templates030_growth) | Se aceptan `F-051` a `F-054` (`T-077` a `T-082`); nace el Paso 7c de `protocol-close` (`D-084`) y las plantillas de `_templates/030_growth/` (`D-085`, `T-083`) | 2026-09-05 | `000_preproject` |
 
 ---
 
@@ -69,63 +70,66 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-04 (S-020) |
+| Ultima actualizacion | 2026-09-05 (S-021) |
 | Salud | En marcha |
-| Avance de la etapa | `manager` evaluo los tres hallazgos de `R-019` (sobre `S-019`) y los acepto todos. `F-048` (la seccion 7 de `_audit/S-019.md` publicaba 42 de las 48 lineas que devuelve su propia orden, con las cifras derivadas de la lista truncada; nota fechada con las tres cifras reales —48 lineas, 37 ordenes distintas, 11 repetidas— y la salida de las seis posiciones que faltaban, `T-072`). `F-049` (`DT-004` declaraba siete lineas nuevas con `0x08` en dos archivos, cuando el barrido sobre el commit entero da diez en cuatro; nota fechada con los dos barridos —contra el commit y contra su padre— escrita por `manager` con autorizacion explicita de `D-081`, que acota esa excepcion a una correccion factual sin tocar `Estado`, `Confirmacion` ni el titulo, `T-073`). `F-050` (el informe y `progress.md` llamaban «las tres etapas nuevas de `025_wslt`» a los tres archivos de una sola etapa; nota fechada en los dos sitios, `T-075`). Nace el **Paso 2e** de `protocol-close` (`T-074`): barre caracteres de control sobre los archivos que el commit toca, derivados del diff y no de una lista escrita a mano, con su seccion 8 propia en el informe. Nace `L-028`: el defecto de los tres hallazgos es el mismo —un recuento sobre «los archivos que se tocaron» en vez de sobre lo que devuelve una orden— y no es una variante de `L-027`, porque ahi lo que fallaba era la lista y aqui es el conjunto sobre el que corre. Aparte, a peticion del usuario, nace `_phases/030_growth.md` (`D-082`, `T-076`): la etapa que hace crecer el producto colgando slices de un esqueleto que ya camina, portada de un borrador del usuario y adaptada al agnosticismo del repositorio; no instancia ningun codigo de producto porque la guia de metodo colisiona el prefijo de la tarea con el que `project.md` ya usa para la sesion de jornada, y esa colision se resuelve en la etapa de la baseline. Ninguna etapa nueva queda adoptada. |
+| Avance de la etapa | `manager` evaluo, contra `HEAD` (`628fd47`), los cuatro hallazgos que dejo `R-020` (sobre `S-020`): `F-051`, `F-052`, `F-053` y `F-054`. Los cuatro se aceptan. `F-051` (`T-077`, `D-083`): la seccion 8 de `_audit/S-020.md` igualaba catorce lineas de control con «los diez casos que `DT-004` documenta», y los dos conjuntos no son el mismo; nota fechada que separa las dos cuentas, y la linea sobrante de `_audit/findings.md` nace como `DT-005` porque no cabe en `DT-003` ni en `DT-004`. `F-052` (`T-078`): la seccion 1 del informe prometia una nota de cierre con la lista de archivos anclada al commit que nunca se pego; se pega ahora, con `f09d1f7` y sus once archivos. `F-053` (`T-079`, junto con `F-052` resueltos de fondo por `D-084`): el campo «Commit auditado» pedia una orden, no un hash, y esa orden devolvia el commit de anclaje (`3ff670e`) en vez del commit de la sesion (`f09d1f7`); nota que fija el hash literal. `F-054` (`T-080`): la enumeracion de etapas sin adoptar nombraba tres y son cuatro —faltaba `020_baseline`—; nota fechada en las dos viñetas de este archivo, con la lista derivada de `_phases/` menos lo declarado en `project.md`. De fondo, `D-084`/`T-081` dan a `protocol-close` el **Paso 7c**: un commit de anclaje, posterior al push, que rellena en una sola pasada la cabecera (hash literal), la nota de cierre de la seccion 1 y la de la seccion 7 del informe; y a `protocol-audit` el control que reconoce un commit de anclaje por su `--stat` de un solo archivo. `T-082`/`F-054` dan al Paso 3 del cierre el recuadro que exige derivar la lista de etapas sin adoptar con `comm -23`, nunca escribirla de memoria. Aparte, a peticion del usuario, nacen las tres plantillas de `_templates/030_growth/` (`D-085`, `T-083`): acta de iteracion, acta de slice y declaracion de la ventana de observacion, ninguna instancia codigo de producto porque `slice`, `tarea de producto` y `caso de prueba` no estan declarados en la tabla «Codigos» de `project.md`. `_workflow/030_growth.md` sigue sin existir, asi que la etapa del crecimiento sigue sin poder abrirse. Nace `A-008` (los huecos de codigo de esas plantillas seran rellenables cuando la etapa se abra) y `L-029` (la herramienta con la que se documenta un defecto de escape puede reproducirlo). Ninguna etapa nueva queda adoptada. |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo, contra `HEAD` (`c2a98b5`), los tres hallazgos que dejo `R-019` (sobre `S-019`):
-`F-048`, `F-049` y `F-050`. Los tres se aceptan.
+`manager` evaluo, contra `HEAD` (`628fd47`), los cuatro hallazgos que dejo `R-020` (sobre `S-020`):
+`F-051`, `F-052`, `F-053` y `F-054`. Los cuatro se aceptan.
 
-`F-048` (`T-072`): la seccion 7 de `_audit/S-019.md` declaraba «42 lineas devueltas (31 ordenes
-distintas; hay 11 repetidas)» debajo de una lista truncada en la posicion 42, cuando la orden anclada
-al commit `1b30e16` devuelve 48 lineas, 37 ordenes distintas y 11 repetidas. Las seis posiciones
-faltantes (43-48) eran ordenes propias de `DT-004`, no lineas de continuacion. Nota fechada en la
-seccion 7 con las tres cifras tomadas de `wc -l` / `sort -u | wc -l` / `sort | uniq -d | wc -l` y la
-salida de las seis posiciones que faltaban, sin reescribir el informe (`D-019`).
+`F-051` (`T-077`, `D-083`): la seccion 8 de `_audit/S-020.md` publicaba cuatro cifras que suman
+catorce y las declaraba «exactamente los diez casos que `DT-004` documenta»; las dos cuentas no son
+la misma. Nota fechada que separa las dos cuentas, y la linea de `_audit/findings.md` que no cabe en
+ninguna de las dos deudas existentes nace como `DT-005` —acotada aparte porque es un archivo que
+`manager` no escribe y nace en un commit de auditoria, no de sesion.
 
-`F-049` (`T-073`, `D-081`): `DT-004` declaraba siete lineas nuevas con `0x08` en dos archivos
-(`decisions.md` y `tasks.md`), contadas a mano sobre los dos archivos que el Paso 6 del cierre tenia
-delante en ese momento; el barrido sobre todos los `.md` del commit `1b30e16` da diez en cuatro
-archivos —las tres que faltaban son dos en `_audit/S-018.md` y una en `_audit/S-019.md`, y las dos
-primeras caen dentro de la salida cruda transcrita de la nota que corrige `F-045`—. Nota fechada con
-los dos barridos (contra el commit y contra su padre, para separar lo nuevo de lo heredado). La
-escribe `manager`, no el cierre: `D-081` abre esa excepcion puntual, acotada a una correccion
-factual que no toca `Estado`, `Confirmacion` ni el titulo de la entrada.
+`F-052` (`T-078`): la seccion 1 del informe prometia dos veces una nota de cierre con la lista de
+archivos anclada al commit, y esa nota nunca se escribio —la unica que existia estaba en la seccion
+7—. Se pega ahora, con `git show --stat --name-only --format= f09d1f7` y sus once archivos.
 
-`F-050` (`T-075`): dos frases —la seccion 2 de `_audit/S-019.md` y la entrada `S-019` de este mismo
-archivo— llamaban «las tres etapas nuevas de `025_wslt`» a los tres archivos de una sola etapa. Nota
-fechada en los dos sitios, con la orden que deriva los tres archivos del diff. El mensaje del commit
-y `D-078` ya lo decian bien; ninguno de los dos se reescribe (`D-019`).
+`F-053` (`T-079`): el campo «Commit auditado» de la cabecera no llevaba un hash, llevaba la orden que
+lo deriva, y esa orden devuelve el ultimo commit que toca el informe. Con el segundo commit de
+`S-020` (`3ff670e`, de anclaje), la orden apuntaba al commit equivocado. Nota que fija el hash
+literal del commit sustantivo, `f09d1f7`.
 
-Nace `L-028`: los tres hallazgos son el mismo defecto en dos formas —`F-048` trunca una lista,
-`F-049` acota el conjunto sobre el que cuenta a los archivos que se recuerdan—, y no es una variante
-de `L-027`: aquella dice que la lista se deriva de una orden; esta dice que el conjunto sobre el que
-esa orden corre tambien se deriva, nunca de la memoria. Por eso nace el **Paso 2e** de
-`protocol-close` (`T-074`): barre caracteres de control sobre los archivos que el commit toca
-—derivados de `git diff --cached --name-only`, no de una lista escrita a mano—, distingue lo nuevo de
-lo heredado contra `HEAD`, y exige `cat -A` para que el `0x08` se vea. El informe gana su **seccion
-8** para publicar ese resultado, tambien cuando sale vacio.
+`F-054` (`T-080`): las dos viñetas de este archivo que enumeran las etapas sin adoptar nombraban tres
+y son cuatro —faltaba `020_baseline`, que ya tiene archivo de etapa, plantillas y reparto—. Nota
+fechada en las dos, con la lista derivada de `_phases/` menos lo declarado en `project.md`.
 
-Aparte, a peticion del usuario, nace `_phases/030_growth.md` (`D-082`, `T-076`): la sexta etapa del
-metodo, la que hace crecer el producto colgando unidades incrementales de un esqueleto que ya camina
-—la mas larga y la unica que se repite—. Portada de un borrador del usuario en `temporal/`, conserva
-su estructura y sus dos prohibiciones con recuadro (el corte horizontal y tocar el test para que
-pase) y descarta todo su vocabulario de rutas y codigos de otro proyecto. El archivo **no instancia
-ningun codigo de producto, ni siquiera generico**: la guia de metodo asigna a la tarea de producto el
-mismo prefijo `T-` que `project.md` ya usa para la tarea de jornada, y esa colision se resuelve en la
-etapa de la baseline, no aqui. No adopta la etapa: `project.md` sigue declarando solo
-`000_preproject` y `005_discovery`.
+De fondo, `F-052` y `F-053` son el mismo defecto por dos caras —tres datos del informe no pueden
+estar completos mientras se escribe, porque el commit todavia no existe—, y `D-084`/`T-081` lo
+corrigen en el protocolo, no solo en el informe: nace el **Paso 7c** de `protocol-close`, un commit
+de anclaje posterior al push que rellena en una sola pasada la cabecera (con el hash literal), la
+nota de cierre de la seccion 1 y la de la seccion 7; el protocolo nombra por escrito cual de los dos
+commits es «el commit de la sesion» (el primero, el que lleva el trabajo). `protocol-audit` gana el
+control simetrico: deja de fiarse de la orden derivada, lee el hash literal de la cabecera, y
+reconoce un commit de anclaje por su `--stat` de un solo archivo. Y `F-054`/`T-082` dan al Paso 3 del
+cierre el recuadro que exige derivar con `comm -23` cualquier lista que una orden pueda producir —
+empezando por la de etapas sin adoptar—, en vez de escribirla de memoria.
 
-- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype` sigue
-  sin adoptarse en `project.md` (`D-060`). `025_wslt` y `030_growth` siguen sin adoptar. `DT-003` y
-  `DT-004` (ahora con ambito ampliado a diez lineas en cuatro archivos) siguen `No implementada` y
-  `Propuesta (pendiente del usuario)`. `A-006` y `A-007` quedan abiertos. Los tres hallazgos de
-  `R-019` quedan `Aceptado — pendiente` en `_audit/findings.md` hasta que una auditoria posterior
+Aparte, a peticion del usuario, nacen las tres plantillas de `_templates/030_growth/` (`D-085`,
+`T-083`): `005_iteration_NNN.md` (el acta de iteracion, que orden), `010_slice_NNN.md` (el acta de
+slice, con el rojo del test) y `015_observation_window.md` (la ventana de observacion, una sola vez).
+Son las tres que el §5 de `_phases/030_growth.md` nombra y ninguna mas — los otros cuatro artefactos
+de esa etapa reusan plantillas que ya existen. Ninguna estrena codigo de producto: `slice`, `tarea de
+producto` y `caso de prueba` no estan en la tabla «Codigos» de `project.md`, asi que las tres dejan
+huecos con su recuadro en vez de instanciar un codigo antes de que se declare. `_workflow/030_growth.md`
+sigue sin existir, asi que la etapa del crecimiento sigue sin poder abrirse (nota fechada en el
+propio archivo de etapa). Nace `A-008` (los tres huecos seran rellenables cuando la etapa se abra) y
+`L-029` (la herramienta con la que se documento la correccion de `F-051` reintrodujo, de paso, el
+mismo defecto de escape que documentaba — detectado y corregido antes de este cierre, sin que
+sobreviva en el estado actual del archivo).
+
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype`,
+  `020_baseline`, `025_wslt` y `030_growth` siguen sin adoptar en `project.md`. `_workflow/030_growth.md`
+  sigue sin existir. `DT-002`, `DT-003`, `DT-004` y `DT-005` siguen `No implementada` y `Propuesta
+  (pendiente del usuario)`. `A-006`, `A-007` y `A-008` quedan abiertos. Los cuatro hallazgos de
+  `R-020` quedan `Aceptado — pendiente` en `_audit/findings.md` hasta que una auditoria posterior
   verifique la correccion sobre este commit.
 
 ---
@@ -148,9 +152,11 @@ archivos de etapa; falta adoptar formalmente cada una en `project.md` (`D-060` p
 dejo registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`).
 
 Es decision del usuario si `DT-002` se confirma ya como pagada, si se autoriza `T-038` sobre
-`protocol-audit`, si se confirma `DT-003` y `DT-004` (notas fechadas sobre lineas con `0x08`), si
-`A-006` (los codigos `FT-`/`SC-` declarados) se valida o se retira, y si `A-007` (que habra un humano
-disponible para el despliegue del esqueleto) se confirma cuando la etapa se adopte.
+`protocol-audit`, si se confirma `DT-003`, `DT-004` y `DT-005` (notas fechadas sobre lineas con
+`0x08`, la ultima en un archivo que `manager` no escribe), si `A-006` (los codigos `FT-`/`SC-`
+declarados) se valida o se retira, y si `A-007` (que habra un humano disponible para el despliegue
+del esqueleto) se confirma cuando la etapa se adopte. Para abrir `030_growth` falta ademas
+`_workflow/030_growth.md`, que las plantillas de esta sesion no cubren (`D-085`).
 
 ---
 
@@ -920,6 +926,62 @@ _workflow/025_wslt.md
   `Propuesta (pendiente del usuario)`. `A-006` y `A-007` quedan abiertos. Los tres hallazgos de
   `R-019` quedan `Aceptado — pendiente` hasta que una auditoria posterior verifique la correccion
   sobre este commit.
+
+> 📌 **Nota del 2026-09-05 (`T-080`, hallazgo `F-054`).** La enumeracion de etapas sin adoptar
+> de esta viñeta **esta corta: nombra tres y son cuatro.** Falta `020_baseline`, que tiene archivo de
+> etapa, plantillas en `_templates/020_baseline/` y reparto en `_workflow/020_baseline.md`. La lista se
+> deriva —no se escribe a mano— restando las declaradas a los archivos de `_phases/`, anclada al
+> commit que esta viñeta describe:
+>
+> ```
+> $ comm -23 <(git ls-tree --name-only f09d1f7 _phases/ | sed 's|_phases/||; s|\.md$||' | sort) <(git show f09d1f7:project.md | grep 'Etapas declaradas' | grep -oE '`[a-z0-9_]+`' | tr -d '`' | sort)
+> 010_prototype
+> 020_baseline
+> 025_wslt
+> 030_growth
+> ```
+>
+> ⚠️ **Y es exactamente la forma de `L-027`/`L-028`:** una lista derivable con una orden,
+> escrita de memoria. `T-002` saca de aqui cuales son las etapas que faltan por declarar, asi que una
+> etapa que se cae de la enumeracion es una etapa que nadie recuerda declarar. `T-082` hace que el
+> cierre la derive en vez de escribirla.
+
+---
+
+### S-021 - Se aceptan `F-051` a `F-054` (`T-077` a `T-082`); nace el Paso 7c de `protocol-close` (`D-084`) y las plantillas de `_templates/030_growth/` (`D-085`, `T-083`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-05 |
+| Etapa | `000_preproject` |
+| Tareas | T-077, T-078, T-079, T-080, T-081, T-082, T-083 |
+
+- **Que se hizo:** `manager` evaluo, contra `HEAD` (`628fd47`), los cuatro hallazgos de `R-020`
+  (sobre `S-020`) y los acepto todos. `F-051`: la seccion 8 de `_audit/S-020.md` igualaba catorce
+  lineas de control con «los diez casos que `DT-004` documenta», sin serlo; nota fechada que separa
+  las dos cuentas, y la linea de `_audit/findings.md` que no cabe en ninguna de las dos deudas nace
+  como `DT-005` (`T-077`, `D-083`). `F-052`: la seccion 1 del informe prometia una nota de cierre con
+  la lista de archivos anclada al commit que nunca se pego; se pega ahora, con `f09d1f7` y sus once
+  archivos (`T-078`). `F-053`: la cabecera pedia una orden en vez de un hash, y esa orden devolvia el
+  commit de anclaje (`3ff670e`) en vez del commit de la sesion (`f09d1f7`); nota que fija el hash
+  literal (`T-079`). `F-054`: las dos viñetas de este archivo que enumeran etapas sin adoptar
+  nombraban tres y son cuatro —faltaba `020_baseline`—; nota fechada en las dos (`T-080`). De fondo,
+  `F-052` y `F-053` son el mismo defecto —tres datos del informe no pueden estar completos mientras
+  se escribe, porque su commit aun no existe—, y `D-084`/`T-081` lo corrigen en el protocolo: nace el
+  **Paso 7c** de `protocol-close` (un commit de anclaje posterior al push que rellena cabecera, nota
+  de la seccion 1 y nota de la seccion 7 en una sola pasada, y nombra cual de los dos commits es «el
+  commit de la sesion»), y `protocol-audit` deja de fiarse de la orden derivada y reconoce un commit
+  de anclaje por su `--stat` de un solo archivo. `T-082`/`F-054` dan al Paso 3 del cierre el recuadro
+  que exige derivar con `comm -23` cualquier lista que una orden pueda producir. Aparte, a peticion
+  del usuario, nacen las tres plantillas de `_templates/030_growth/` —iteracion, slice y ventana de
+  observacion— sin instanciar ningun codigo de producto, porque `slice`, `tarea de producto` y `caso
+  de prueba` no estan en la tabla «Codigos» de `project.md` (`D-085`, `T-083`). `_workflow/030_growth.md`
+  sigue sin existir, asi que la etapa sigue sin poder abrirse. Nace `A-008` y `L-029`.
+- **Que quedo abierto:** `T-001`, `T-002` y `T-003` siguen `No implementada`. `010_prototype`,
+  `020_baseline`, `025_wslt` y `030_growth` siguen sin adoptar en `project.md`.
+  `_workflow/030_growth.md` sigue sin existir. `DT-002`, `DT-003`, `DT-004` y `DT-005` siguen `No
+  implementada` y `Propuesta (pendiente del usuario)`. `A-006`, `A-007` y `A-008` quedan abiertos. Los
+  cuatro hallazgos de `R-020` quedan `Aceptado — pendiente` hasta que una auditoria posterior
+  verifique la correccion sobre este commit.
 
 ---
 

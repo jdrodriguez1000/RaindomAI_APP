@@ -37,6 +37,7 @@
 | [L-026](#l-026---un-enganche-de-uso-escrito-en-generico-no-engancha-tiene-que-nombrar-el-archivo) | Un enganche de uso escrito en generico no engancha: tiene que nombrar el archivo | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-027](#l-027---cuando-existe-la-orden-que-produce-una-lista-escribirla-a-mano-es-el-error-no-el-atajo) | Cuando existe la orden que produce una lista, escribirla a mano es el error, no el atajo | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-028](#l-028---un-recuento-sobre-los-archivos-que-toque-no-es-un-barrido-el-diff-sabe-cuales-son-la-memoria-no) | Un recuento sobre «los archivos que toque» no es un barrido: el diff sabe cuales son, la memoria no | 2026-09-04 | 000_preproject | Sin evaluar |
+| [L-029](#l-029---la-herramienta-con-la-que-se-documenta-un-defecto-de-escape-lo-reproduce-y-el-barrido-del-cierre-llega-tarde) | La herramienta con la que se documenta un defecto de escape lo reproduce, y el barrido del cierre llega tarde | 2026-09-05 |
 
 ---
 
@@ -1120,3 +1121,41 @@ _audit/findings.md: 1
 _persistence/decisions.md: 7
 _persistence/tasks.md: 5
 ```
+
+---
+
+### L-029 - La herramienta con la que se documenta un defecto de escape lo reproduce, y el barrido del cierre llega tarde
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-05 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al escribir la nota fechada que corrige `F-051` —cuyo asunto es, literalmente, el
+  recuento de lineas con caracteres de control— el script que la inserto **introdujo un caracter de
+  control nuevo** en `_audit/S-020.md`. El barrido de control subio de 14 a 15 sobre los mismos
+  archivos.
+- **Que ocurrio, en concreto:** la nota pega una orden de shell que contiene la clase
+  `[\x01-\x08...]`. Esa cadena viajo dentro de una cadena de Python que **no era cruda**, asi que
+  `\x01` dejo de ser texto y paso a ser el byte. El archivo resultante se ve identico en pantalla:
+
+```
+$ grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _audit/S-020.md | cat -A | cut -c1-120
+351:> $ git diff --name-only --diff-filter=d f09d1f7^ f09d1f7 | while read f; do n=$(git show f09d1f7:"$f" | grep -c $'[^A-^H^K^L^N-^_]'
+```
+
+- **Leccion:** **una orden que contiene secuencias de escape no sobrevive a ser escrita por un
+  programa que tambien las interpreta.** El defecto no lo introduce el descuido: lo introduce la capa
+  de por medio, y por eso reaparece justo cuando alguien se pone a documentarlo. `DT-003` nacio asi,
+  `DT-004` lo repitio, y esto lo repitio una tercera vez **dentro de su propia correccion**.
+- **Por que es peligroso mas alla de la anecdota:** el resultado se ve bien. Nada falla, nada avisa,
+  y el texto renderizado es indistinguible del correcto. La unica senal es un barrido de bytes, y un
+  barrido solo se corre si alguien decidio correrlo.
+- **Y el Paso 2e no lo habria atrapado a tiempo.** Existe, funciona y esta bien puesto — pero corre
+  **en el cierre**, cuando el archivo ya lleva horas escrito. Aqui se detecto antes solo porque la
+  cifra formaba parte de un criterio de cierre que se estaba reejecutando; sin esa casualidad, habria
+  llegado al commit y el hallazgo lo habria abierto la auditoria siguiente.
+- **Como aplicarla:** **cuando un archivo vaya a contener una orden con secuencias de escape,
+  escribirla en una cadena cruda y correr el barrido de control sobre ese archivo en el momento, no
+  al cerrar.** Y si el archivo se genera con un script, el barrido se corre sobre la salida del
+  script — no sobre lo que uno cree que escribio.

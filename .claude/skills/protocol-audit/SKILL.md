@@ -65,6 +65,36 @@ git log -1 --format=%h -- _audit/S-XXX.md
 commit: **detente**, no audites, y reportalo. Es un fallo del cierre —su Paso 7b existe justamente
 para impedirlo— y es en si mismo un hallazgo.
 
+### 🚨 Esa orden puede devolver el commit equivocado, y hay que comprobarlo
+
+El cierre ancla el informe en un **segundo commit** (su Paso 7c), asi que la orden de arriba devuelve
+el **commit de anclaje** — el que solo toca el informe —, no el **commit de la sesion**, que es el que
+lleva el trabajo y al que apunta toda la evidencia del informe.
+
+**Manda el hash literal que el informe escribe en su cabecera**, no lo que derive la orden:
+
+```bash
+git show <hash-derivado>:_audit/S-XXX.md | sed -n '/^| Commit auditado |/p'
+```
+
+| Que sale | Que significa | Que haces |
+|---|---|---|
+| un hash literal, distinto del derivado | el cierre uso su Paso 7c | **auditas ese hash**; el derivado es solo el commit de anclaje |
+| un hash literal, igual al derivado | el cierre no necesito anclaje | sigue con el |
+| una orden en vez de un hash, o el campo vacio | la cabecera **no esta anclada** | 🚨 auditas el commit derivado, **lo dices**, y es un hallazgo |
+
+⚠️ **Y se comprueba, no se supone:** un cierre con dos commits deja el `--stat` del segundo con
+**un solo archivo**. Si el `--stat` del commit que vas a auditar no cuadra con la lista que la seccion
+1 del informe enumera, estas mirando el commit de anclaje.
+
+```bash
+git show --stat --name-only --format= <hash-que-vas-a-auditar> | grep -c .
+```
+
+🔑 **Por que manda el literal y no la orden.** Una autorreferencia deja de anclar en cuanto el
+archivo se vuelve a tocar, y el informe se vuelve a tocar por diseño. El hash escrito no se mueve;
+la orden que lo deriva, si.
+
 Si no hay ninguna fila `Pendiente`, **dilo y detente**: no hay nada que auditar. No busques trabajo.
 
 ---

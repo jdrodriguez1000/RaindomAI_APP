@@ -14,6 +14,7 @@
 | [DT-002](#dt-002---_workflow-nace-sin-ningun-enganche-de-uso-l-014) | `_workflow/` nace sin ningun enganche de uso (`L-014`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 | [DT-003](#dt-003---cinco-lineas-del-registro-publican-ordenes-con-un-caracter-de-control-x08-y-no-se-reejecutan-l-024) | Cinco lineas del registro publican ordenes con un caracter de control `\x08` y no se reejecutan (`L-024`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 | [DT-004](#dt-004---siete-lineas-nuevas-de-s-019-repiten-el-defecto-de-dt-003-en-decisionsmd-y-tasksmd) | Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md` | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
+| [DT-005](#dt-005---una-linea-de-_auditfindingsmd-repite-el-defecto-de-dt-003-en-un-archivo-que-manager-no-escribe) | Una linea de `_audit/findings.md` repite el defecto de `DT-003`, en un archivo que `manager` no escribe | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
 
 ---
 
@@ -365,3 +366,61 @@ $ grep -rnoE "\b(FT|SC|VS|TC|ADR)-[0-9]{3}\b" _templates/020_baseline/ | wc -l
 
 📌 **Se registra como `Propuesta (pendiente del usuario)`**, igual que `DT-003`: decidir cuanto se
 toca un texto que otra sesion escribio es un eje que le corresponde al usuario, no al cierre.
+
+---
+
+### DT-005 - Una linea de `_audit/findings.md` repite el defecto de `DT-003`, en un archivo que `manager` no escribe
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Origen | report_auditor |
+| Fecha | 2026-09-05 |
+
+- **Deuda:** la linea 2721 de `_audit/findings.md` publica una orden con el caracter de retroceso
+  `0x08` donde el autor escribio `\b` (limite de palabra). Es el mismo defecto que `DT-003` y
+  `DT-004` documentan: el bloque se ve correcto en pantalla y **no se reejecuta tal como esta
+  escrito**.
+
+```
+$ grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _audit/findings.md | cat -A | cut -c1-200
+2721:+$ grep -rnoE "^H(FT|SC|VS|TC|ADR)-[0-9]{3}^H" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"$
+```
+
+- **Por que necesita entrada propia y no cabe en las dos existentes** (`D-083`): `DT-003` acota su
+  ambito a `decisions.md` y `tasks.md`; `DT-004` se acota a lo **nuevo de `S-019`**, y su propio
+  barrido cuenta esta linea como heredada. Ensanchar cualquiera de las dos destruiria el dato que las
+  hace utiles —cuantas lineas introdujo cada sesion—, y una deuda cuyo ambito crece con cada caso
+  nuevo deja de medir nada.
+- **De donde sale:** de un commit de auditoria, no de sesion. Nace en `ac31884` y sobrevive desde
+  entonces:
+
+```
+$ for c in 9a52cfa ac31884 1b30e16 f09d1f7 628fd47; do echo "$c: $(git show $c:_audit/findings.md 2>/dev/null | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"; done
+9a52cfa: 0
+ac31884: 1
+1b30e16: 1
+f09d1f7: 1
+628fd47: 1
+```
+
+- **Por que se tomo:** por lo mismo que `DT-003` — reescribir un bloque antiguo para que exhiba una
+  orden que en su dia no se ejecuto asi convierte «falta evidencia» en «hay evidencia falsa».
+- **Y aqui hay ademas un limite de reparto que las otras dos no tienen.** `_audit/findings.md` es un
+  archivo de `report_auditor`: `CLAUDE.md` encarga a `manager` **solo la columna de estado del
+  indice**. Pagar esta deuda editando la linea seria escribir en un archivo ajeno, y por eso la via
+  probable no es una nota de `manager` sino que el protocolo de auditoria deje de producir el
+  defecto — igual que el Paso 2e lo cerro para el cierre.
+- **Costo de no pagarla:** un bloque de verificacion mas del registro que no es reproducible, y en el
+  archivo que existe precisamente para que los hallazgos no se pierdan.
+- **Como se paga:** la decision es del usuario, y hay dos caminos que no son equivalentes: (1) una
+  nota fechada junto a la linea, con su forma reejecutable, aceptando que `manager` escriba en un
+  archivo del auditor por una sola vez y con su `D-XXX`; o (2) llevar a `protocol-audit` el
+  equivalente del Paso 2e, para que el defecto no vuelva a nacer, y dejar la linea con su nota cuando
+  el auditor pase por ella.
+
+⚠️ **La clasifico como reversible a criterio**, porque cualquiera de los dos caminos anade texto y se
+deshace con un commit sin destruir lo escrito. Criterio declarado, no leido de una tabla, porque el
+inventario de acciones irreversibles todavia no existe (`T-037`).

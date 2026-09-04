@@ -85,6 +85,13 @@
 | [T-074](#t-074---anadir-al-cierre-el-barrido-de-caracteres-de-control-paso-2e-de-protocol-close-f-049) | Anadir al cierre el barrido de caracteres de control (Paso 2e de `protocol-close`, `F-049`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-075](#t-075---aclarar-que-025_wslt-es-una-etapa-con-tres-archivos-no-tres-etapas-f-050) | Aclarar que `025_wslt` es una etapa con tres archivos, no tres etapas (`F-050`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-076](#t-076---escribir-el-archivo-de-etapa-del-crecimiento-_phases030_growthmd-d-082) | Escribir el archivo de etapa del crecimiento (`_phases/030_growth.md`, `D-082`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-077](#t-077---separar-las-dos-cuentas-de-la-seccion-8-de-s-020-f-051) | Separar las dos cuentas de la seccion 8 de `S-020` (`F-051`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-078](#t-078---escribir-la-nota-de-cierre-de-la-seccion-1-de-s-020-f-052) | Escribir la nota de cierre de la seccion 1 de `S-020` (`F-052`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-079](#t-079---anclar-la-cabecera-de-s-020-al-hash-literal-f-053) | Anclar la cabecera de `S-020` al hash literal (`F-053`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-080](#t-080---corregir-en-progressmd-el-recuento-de-etapas-sin-adoptar-f-054) | Corregir en `progress.md` el recuento de etapas sin adoptar (`F-054`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-081](#t-081---dar-al-cierre-un-paso-de-anclaje-y-al-auditor-el-hash-literal-f-052-f-053) | Dar al cierre un paso de anclaje, y al auditor el hash literal (`F-052`, `F-053`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-082](#t-082---que-el-cierre-derive-la-lista-de-etapas-sin-adoptar-f-054) | Que el cierre derive la lista de etapas sin adoptar (`F-054`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-083](#t-083---escribir-las-plantillas-de-_templates030_growth) | Escribir las plantillas de `_templates/030_growth/` | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -3381,4 +3388,262 @@ $ grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _phases/030_growth.md
 
 $ ls -1 _phases/ | wc -l
 6
+```
+
+---
+
+### T-077 - Separar las dos cuentas de la seccion 8 de `S-020` (`F-051`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-021 |
+
+- **Que:** nota fechada al final de la seccion 8 de `_audit/S-020.md` que separa las dos cuentas que
+  el informe habia igualado: las **catorce** lineas de control presentes en los archivos que el
+  commit toca, y las **diez** nuevas de `S-019` que `DT-004` documenta. La nota enumera las tres
+  discrepancias concretas y remite a `D-083` por la linea de `_audit/findings.md`.
+- **Por que era un hallazgo y no una errata de suma:** el enunciado afirmaba mas de lo que su orden
+  devolvia, en la seccion que nacio (Paso 2e, `F-049`) para impedir exactamente eso. La consecuencia
+  practica es que una linea real quedaba declarada como deuda ya documentada sin que ninguna entrada
+  la documentara.
+- **Lo que NO se hizo:** no se reescribio el parrafo original. Se deja tal cual con su nota al lado,
+  que es lo que `D-019` fija para el registro ya auditado.
+- **Criterio de cierre:** la nota existe en la seccion 8, cita las dos cuentas, y su barrido
+  reproduce catorce.
+
+```
+$ grep -c 'T-077' _audit/S-020.md
+1
+
+$ git diff --name-only --diff-filter=d f09d1f7^ f09d1f7 | while read f; do grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' "$f"; done | awk '{s+=$1} END {print s}'
+14
+
+$ grep -c 'diez casos' _audit/S-020.md
+1
+```
+
+---
+
+### T-078 - Escribir la nota de cierre de la seccion 1 de `S-020` (`F-052`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-021 |
+
+- **Que:** la seccion 1 de `_audit/S-020.md` prometia dos veces una lista de archivos anclada al
+  commit, y esa nota nunca se escribio: la unica del informe estaba en la seccion 7. Se pega ahora,
+  con `git show --stat --name-only --format= f09d1f7` y su salida cruda.
+- **El contenido ya era correcto; lo que faltaba era poder comprobarlo.** Los once archivos coinciden
+  con el diff del commit. Lo que la version publicada describia era el area de staging, que ya no
+  existe — no reproducible por nadie, que es el defecto entero.
+- **Criterio de cierre:** la nota existe en la seccion 1, con la orden anclada y sus once archivos, y
+  el informe pasa a tener dos notas de cierre en vez de una.
+
+```
+$ grep -c 'Nota de cierre' _audit/S-020.md
+2
+
+$ git show --stat --name-only --format= f09d1f7 | grep -c .
+11
+
+$ awk '/^## 1\. Que se hizo/,/^## 2\./' _audit/S-020.md | grep -c 'Nota de cierre de la seccion 1'
+1
+```
+
+---
+
+### T-079 - Anclar la cabecera de `S-020` al hash literal (`F-053`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-021 |
+
+- **Que:** nota fechada bajo la cabecera de `_audit/S-020.md` que fija el hash literal del commit de
+  la sesion —`f09d1f7`— y explica que `3ff670e` es un commit de anclaje sin trabajo dentro. El campo
+  original no se reescribe: queda superado por la nota.
+- **Por que la definicion original fallaba:** no escribia un hash, escribia la orden que lo deriva, y
+  esa orden devuelve el ultimo commit que toca el informe. Con dos commits, devuelve el equivocado —
+  uno cuyo `--stat` tiene un archivo frente a los once que la seccion 1 enumera.
+- **La correccion de fondo va aparte** (`T-081`, `D-084`): el defecto era del protocolo, no del
+  informe.
+- **Criterio de cierre:** la nota existe, nombra `f09d1f7` como commit de la sesion, y la asimetria
+  de los dos `--stat` queda pegada.
+
+```
+$ grep -c 'T-079' _audit/S-020.md
+1
+
+$ git show --stat --name-only --format= 3ff670e | grep -c .
+1
+
+$ git show --stat --name-only --format= f09d1f7 | grep -c .
+11
+```
+
+---
+
+### T-080 - Corregir en `progress.md` el recuento de etapas sin adoptar (`F-054`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-021 |
+
+- **Que:** las dos vinetas de `_persistence/progress.md` que enumeran las etapas pendientes de
+  adoptar nombraban **tres** y son **cuatro**: faltaba `020_baseline`, que tiene archivo de etapa,
+  plantillas y reparto. Las dos reciben la misma nota fechada, con la lista derivada de una orden.
+- **Por que importa mas de lo que su gravedad sugiere:** de esa enumeracion saca `T-002` cuales son
+  las etapas que faltan por declarar. Una etapa que se cae de la lista no produce ningun error
+  visible; produce que nadie recuerde declararla.
+- **Es la forma exacta de `L-027`/`L-028`:** una lista derivable con una orden, escrita de memoria.
+  Por eso la correccion de fondo (`T-082`) no es el numero, sino que el cierre la derive.
+- **Criterio de cierre:** las dos vinetas llevan su nota, la orden derivada devuelve cuatro etapas, y
+  las cuatro estan nombradas.
+
+```
+$ grep -c 'T-080' _persistence/progress.md
+2
+
+$ comm -23 <(git ls-tree --name-only f09d1f7 _phases/ | sed 's|_phases/||; s|\.md$||' | sort) <(git show f09d1f7:project.md | grep 'Etapas declaradas' | grep -oE '`[a-z0-9_]+`' | tr -d '`' | sort)
+010_prototype
+020_baseline
+025_wslt
+030_growth
+```
+
+---
+
+### T-081 - Dar al cierre un paso de anclaje, y al auditor el hash literal (`F-052`, `F-053`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-021 |
+
+- **Que, en `protocol-close`:** nace el **Paso 7c**, que despues del push rellena en un unico commit
+  de anclaje los **tres** sitios que el informe no podia tener completos mientras se escribia —la
+  cabecera, la nota de cierre de la seccion 1 y la de la seccion 7—. La cabecera de la plantilla pasa
+  a pedir un **hash literal**, y el protocolo nombra por escrito cual de los dos commits es «el
+  commit de la sesion»: el primero, el que lleva el trabajo.
+- **Que, en `protocol-audit`:** el auditor deja de fiarse de la orden que deriva el commit. Lee el
+  hash literal de la cabecera; si no coincide con el derivado, audita el literal; si la cabecera no
+  lleva hash, lo dice y es un hallazgo. Se le da ademas el control que delata un commit de anclaje:
+  su `--stat` tiene un solo archivo.
+- **Por que las dos skills y no solo una:** anclar bien en el cierre y seguir derivando mal en la
+  auditoria deja el defecto entero. El auditor arranca en frio y solo tiene el historial; si nadie le
+  dice cual de los dos commits manda, elige el ultimo.
+- **La alternativa que se descarto de plano** era hacer un solo commit con `--amend`. El Paso 7 lo
+  prohibe sin excepcion, y reescribir un commit ya subido borra el estado que la auditoria dice haber
+  juzgado (`D-084`).
+- **Criterio de cierre:** el Paso 7c existe con su seccion de los dos commits, la plantilla pide el
+  hash literal, y `protocol-audit` tiene su control del commit equivocado.
+
+```
+$ grep -nE '^### 7c|^### Cual de los dos' .claude/skills/protocol-close/SKILL.md
+1079:### 7c — Anclar el informe al hash (obligatorio)
+1095:### Cual de los dos commits es «el commit de la sesion»
+
+$ grep -c 'HASH LITERAL' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'Esa orden puede devolver el commit equivocado' .claude/skills/protocol-audit/SKILL.md
+1
+```
+
+---
+
+### T-082 - Que el cierre derive la lista de etapas sin adoptar (`F-054`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-021 |
+
+- **Que:** el Paso 3 de `protocol-close` gana un recuadro que prohibe escribir de memoria cualquier
+  lista que una orden pueda producir, y da la orden concreta de la que se equivoca sola en cada
+  cierre: las etapas con archivo en `_phases/` menos las declaradas en `project.md`.
+- **Por que va en el Paso 3 y no en el 2d:** el Paso 2d vigila que los bloques de verificacion lleven
+  ancla; esto es otra cosa — una lista escrita en prosa, sin bloque, que nadie mira porque no parece
+  evidencia. `L-028` ya generalizo el principio; esto le da el mecanismo.
+- **Criterio de cierre:** el recuadro existe en el Paso 3 con su orden, y la orden devuelve las
+  cuatro etapas.
+
+```
+$ grep -n 'Lo que enumeres, derivalo' .claude/skills/protocol-close/SKILL.md
+
+$ sed -n '/^## Paso 3 /,/^## Paso 4 /p' .claude/skills/protocol-close/SKILL.md | grep -c 'Etapas declaradas'
+1
+```
+
+---
+
+### T-083 - Escribir las plantillas de `_templates/030_growth/`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-021 |
+
+- **Que:** nacen las tres plantillas que `_phases/030_growth.md` §5 nombra por su nombre —el acta de
+  iteracion, el acta de slice y la declaracion de la ventana de observacion—, con la misma forma que
+  las de las otras etapas: cabecera con estado y fechas, una seccion 0 con la regla que gobierna el
+  archivo, secciones que piden salidas crudas y no conclusiones, una comprobacion final con ordenes
+  mecanicas, y una guia de llenado marcada para borrar al cerrar el artefacto.
+- **Que separa cada una** (`D-085`): la de iteracion conserva **el orden de las slices y su razon**,
+  que es lo que el `git diff` nunca muestra; la de slice conserva **el rojo del test y lo que rompio
+  por el camino**; la de la ventana conserva **cuando se fijaron metrica, ventana y umbral**, que es
+  lo unico que hace que el Gate pueda dar un «no».
+- **Las tres se escribieron sin estrenar ningun codigo de producto**, que es la desviacion respecto a
+  las plantillas de la baseline y esta razonada en `D-085`: slice, tarea de producto y caso de prueba
+  no estan en la tabla «Codigos» de `project.md`, y un codigo citado antes de declararse es un
+  desfase. Donde haria falta uno hay un hueco con su recuadro.
+- **Lo que NO se hizo:** `_workflow/030_growth.md` sigue sin existir. El usuario pidio las plantillas;
+  el reparto exige decidir quien hace cada paso y no es trabajo de plantilla. **La etapa sigue sin
+  poder abrirse**, porque su §5 exige los dos, y la nota fechada del archivo de etapa lo dice.
+- **Criterio de cierre:** las tres existen con su estructura, no filtran datos propios, no instancian
+  codigos, no llevan caracteres de control, y el archivo de etapa lleva su nota fechada.
+
+```
+$ ls -1 _templates/030_growth/
+005_iteration_NNN.md
+010_slice_NNN.md
+015_observation_window.md
+
+$ for f in _templates/030_growth/*.md; do echo "$f -> $(grep -c '^## ' "$f") secciones, $(grep -c 'Guia de llenado' "$f") marcas de guia"; done
+_templates/030_growth/005_iteration_NNN.md -> 9 secciones, 3 marcas de guia
+_templates/030_growth/010_slice_NNN.md -> 9 secciones, 3 marcas de guia
+_templates/030_growth/015_observation_window.md -> 8 secciones, 3 marcas de guia
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" _templates/030_growth/ ; echo "exit=$?"
+exit=1
+
+$ ls _workflow/030_growth.md 2>&1
+ls: cannot access '_workflow/030_growth.md': No such file or directory
+
+$ grep -c 'T-083' _phases/030_growth.md
+1
 ```

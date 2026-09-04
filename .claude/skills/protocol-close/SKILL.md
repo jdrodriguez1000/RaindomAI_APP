@@ -497,6 +497,23 @@ El siguiente paso es concreto: no «seguir con el desarrollo», sino la primera 
 
 Y si algun hito de `## 4. Hitos` cambio de estado, actualizalo.
 
+### 🚨 Lo que enumeres, derivalo; no lo escribas de memoria
+
+Vale para cualquier lista que una orden pueda producir, y hay una que se equivoca sola en cada
+cierre: **las etapas que tienen archivo en `_phases/` y todavia no estan declaradas en el registro
+del proyecto.** Se saca restando, nunca contando a ojo:
+
+```bash
+comm -23   <(git ls-tree --name-only <commit> _phases/ | sed 's|_phases/||; s|\.md$||' | sort)   <(git show <commit>:project.md | grep 'Etapas declaradas' | grep -oE '`[a-z0-9_]+`' | tr -d '`' | sort)
+```
+
+⚠️ **La orden va con su salida al registro**, igual que cualquier otro barrido: una lista
+publicada sin la orden que la produce hay que rehacerla entera para contrastarla.
+
+🔑 **Por que precisamente esta.** De esa enumeracion sale la tarea que declara las etapas
+pendientes. Una etapa que se cae de la lista no produce ningun error visible: produce que nadie
+recuerde declararla, y eso solo se nota etapas despues.
+
 ### 🚨 La pregunta NO es «esta el archivo al dia?»
 
 Es: **«tiene ESTA sesion su propia fila, con un id nuevo?»**
@@ -822,7 +839,7 @@ nombrar.
 | Fecha | AAAA-MM-DD |
 | Etapa | |
 | Rama | la rama principal, segun `project.md` |
-| Commit auditado | el commit que contiene este archivo (`git log -1 -- _audit/S-XXX.md`) |
+| Commit auditado | <HASH LITERAL del commit sustantivo de la sesion — se rellena en el Paso 7c> |
 
 ## 0. Respuesta a la auditoria anterior     <-- omitir solo si no hay ninguna sin responder
 
@@ -837,6 +854,9 @@ nombrar.
 <PEGA AQUI, sin editar, la salida cruda de:>
 <`git show --stat --name-only --format= <commit>`>
 <es la lista completa e incluye los archivos que anade el propio cierre: el informe y la fila de `_audit/index.md`>
+<mientras el commit no exista, esta lista sale de `git diff --cached --stat --name-only`: se dice que
+sale del area de staging, y la version anclada la pega el Paso 7c en la nota de cierre de ESTA
+seccion — la seccion 1 y la 7 prometen lo mismo y se anclan juntas>
 
 <y debajo, lo que muestra el diff: con codigos y rutas, que archivos nacieron, cuales cambiaron y por que>
 <en un archivo de registro no basta con nombrar las entradas que NACEN: se nombran tambien las
@@ -1055,6 +1075,53 @@ commiteado— ni abras un commit nuevo para arreglarlo. El porque esta en el Pas
 > 🔑 La regla no es «si no hay hash, no hubo cierre»: eso se cumple entero y el trabajo se queda sin
 > subir igual, porque **un commit es local**. La regla es **«si el hash no esta en `origin`, no hubo
 > cierre»**, y se comprueba con `git status -sb`, no con el hash.
+
+### 7c — Anclar el informe al hash (obligatorio)
+
+**Ahora, y solo ahora, existe el dato que el informe no podia tener mientras se escribia: su propio
+hash.** Tres sitios del informe lo prometian y quedaban a medias hasta este paso. Se rellenan **los
+tres juntos, en un unico commit de anclaje**:
+
+| Sitio del informe | Que se escribe | Orden anclada |
+|---|---|---|
+| **Cabecera**, campo `Commit auditado` | el **hash literal** del commit sustantivo | `git log -1 --format=%h` justo despues del commit del Paso 7 |
+| **Seccion 1**, nota de cierre | la lista de archivos anclada al commit | `git show --stat --name-only --format= <hash>` |
+| **Seccion 7**, nota de cierre | las ordenes del Paso 2d reejecutadas sobre el commit | las del propio Paso 2d, en su forma anclada |
+
+🚨 **Los tres, o ninguno.** Anclar la seccion 7 y dejar la 1 y la cabecera sin anclar es el
+defecto que abrio `F-052` y `F-053`: el informe queda con una parte reproducible y otra que describe
+un area de staging que ya no existe, y **ninguna regla escrita dice cual manda**.
+
+### Cual de los dos commits es «el commit de la sesion»
+
+Un cierre que necesita anclaje deja **dos** commits, y hay que decir cual es cual porque el auditor
+arranca en frio y solo ve el historial:
+
+| | Que contiene | Como se le llama |
+|---|---|---|
+| **El primero** (Paso 7) | todo el trabajo de la jornada, el informe y la fila del indice | **el commit de la sesion**. Es al que apunta toda la evidencia |
+| **El segundo** (este paso) | solo el informe, con los tres anclajes rellenos | **el commit de anclaje**. No lleva trabajo |
+
+🚨 **El campo `Commit auditado` lleva el hash del PRIMERO**, no el del commit que lo escribe.
+Es contraintuitivo y por eso se dice: el segundo commit existe para describir al primero, no para
+sustituirlo. Un informe que se anclara a si mismo apuntaria a un `--stat` de un solo archivo frente a
+los que la seccion 1 enumera.
+
+⚠️ **Y no se hace con `--amend`.** La prohibicion del Paso 7 sigue entera: el anclaje **anade**
+un commit, nunca reescribe el que ya se subio. El mensaje lo dice con esas palabras — «ancla el
+informe de S-XXX al hash <hash>» — para que el historial distinga solo, sin leer el diff, un commit
+de trabajo de uno de anclaje.
+
+```
+git add _audit/S-XXX.md
+git commit -m "S-XXX: ancla el informe al hash <hash>"
+git push
+git status -sb
+```
+
+📌 **Si el push del Paso 7 fallo, este paso se hace igual.** Los dos commits viajan juntos
+cuando el push se recupere, y el informe queda coherente en local mientras tanto. Lo que no se puede
+es dejar el informe sin anclar porque la red fallo.
 
 ---
 

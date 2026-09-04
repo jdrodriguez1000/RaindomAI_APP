@@ -17,6 +17,7 @@
 | [A-005](#a-005---la-parte-de-ai_levelsmd-escrita-sin-experiencia-propia-es-correcta) | La parte de `ai_levels.md` escrita sin experiencia propia es correcta | 2026-09-02 | Abierto |
 | [A-006](#a-006---los-codigos-de-feature-y-escenario-que-el-proyecto-declaro-son-los-que-acabara-usando) | Los codigos de feature y escenario que el proyecto declaro son los que acabara usando | 2026-09-03 | Abierto |
 | [A-007](#a-007---habra-un-humano-disponible-para-ejecutar-cada-despliegue-de-la-etapa-del-esqueleto) | Habra un humano disponible para ejecutar cada despliegue de la etapa del esqueleto | 2026-09-03 | Abierto |
+| [A-008](#a-008---los-huecos-de-codigo-que-dejan-las-plantillas-del-crecimiento-seran-rellenables-cuando-la-etapa-se-abra) | Los huecos de codigo que dejan las plantillas del crecimiento seran rellenables cuando la etapa se abra | 2026-09-05 | Abierto |
 
 ---
 
@@ -416,3 +417,52 @@ haberlo usado.
 
 ⚠️ **No se confunde con `C-002`.** Aquella fija **donde** se despliega, y es una restriccion
 confirmada. Este supone **quien** lo ejecuta, y no lo esta.
+
+---
+
+### A-008 - Los huecos de codigo que dejan las plantillas del crecimiento seran rellenables cuando la etapa se abra
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-05 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | `manager` |
+
+- **Supuesto:** `D-085` decidio que las tres plantillas de `_templates/030_growth/` **no estrenen
+  ningun codigo de producto**, y dejen en su lugar huecos que remiten a la tabla «Codigos» de
+  `project.md`. Los huecos son tres: **el codigo de slice**, **el codigo de la tarea de producto** y
+  **el del caso de prueba**. Esa decision da por cierto que, cuando la etapa se abra, **esos tres
+  codigos existiran en la tabla** y el hueco se podra rellenar sin rehacer la plantilla.
+- **Por que se supone, y no se afirma:** hoy ninguno de los tres esta declarado. `A-006` ya lo dice
+  con esas palabras — `VS-`, `TC-` y `ADR-` «deliberadamente no se declararon y siguen siendo
+  propuesta». Y el de la tarea de producto es peor que no estar declarado: **la guia de metodo le da
+  la misma inicial que `project.md` ya usa para la tarea de jornada**, y donde se registran las
+  tareas de una slice sigue sin decidirse.
+- **Sobre que se construyo encima:** sobre esto se escribieron las tres plantillas, y en concreto la
+  tabla de tareas de `010_slice_NNN.md` §2 y las columnas de codigo de `005_iteration_NNN.md` §2 y
+  §4. Si el supuesto es falso, esas tablas no se pueden rellenar tal como estan.
+- **Por que se registro despues de construir, y no antes:** por descuido, y conviene que conste. La
+  regla es registrarlo **antes** de construir encima; aqui la decision de dejar huecos se tomo al
+  escribir las plantillas y el supuesto que la sostiene no se separo de la decision hasta revisar los
+  cuatro archivos del porque al cerrar. Se registra en la misma sesion, que es lo unico que salva la
+  situacion — un dia mas y habria quedado dentro de `D-085` sin que nadie lo leyera como un supuesto.
+- **Que pasa si resulta falso:** hay dos formas de que lo sea, y cuestan cosas distintas.
+  1. **Que el proyecto adopte otro juego de codigos** —o ninguno, si decide identificar las slices
+     por su enunciado—. Coste bajo: se rellenan los huecos con lo que haya, que es justo para lo que
+     el hueco existe.
+  2. **Que la colision del prefijo de la tarea no se resuelva antes de la primera slice.** Coste
+     alto: el Paso 3 del archivo de etapa exige tenerlo decidido **antes de escribir la primera
+     tarea**, porque un proyecto que descubre a mitad de la tercera slice que tiene dos registros de
+     tareas ya no puede unificarlos sin reescribir historia. La plantilla pone el recuadro que obliga
+     a mirarlo, pero un recuadro no decide nada.
+- **Como se refuta:** que la etapa del crecimiento se abra —o que se escriba la primera slice— sin
+  que la tabla «Codigos» tenga los tres codigos, o sin una decision registrada sobre donde viven las
+  tareas de una slice. En ese caso el supuesto queda refutado y **se marca, no se borra**, con la
+  decision que lo sustituya.
+- **Disparador:** **la decision que adopte la etapa de la baseline** —que es quien estrena los
+  codigos de producto y a quien `D-082` remitio la colision— y, en su defecto, el Paso 1 de la
+  primera iteracion del crecimiento. Lo que llegue primero.
+
+📌 **Este supuesto no cubre `ADR-`**, aunque `A-006` lo nombre junto a los otros dos: las decisiones
+arquitectonicas de esta etapa usan la plantilla que ya existe en `_templates/020_baseline/`, y su
+codigo es problema de aquella etapa, no de estas tres plantillas.

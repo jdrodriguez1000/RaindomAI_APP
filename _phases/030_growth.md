@@ -399,6 +399,23 @@ orden necesita un nombre que buscar.
 es parte de la condicion: un archivo de etapa que exige dos artefactos sin decir que faltan deja al
 lector suponiendo que estan.
 
+> 📌 **Nota del 2026-09-05 (`T-083`, decision `D-085`).** La frase de arriba se deja tal cual y
+> **queda a medias por esta nota: las plantillas ya existen; el reparto sigue sin existir.** Se
+> escribieron las tres que este §5 nombra, y ninguna mas:
+>
+> ```
+> $ ls -1 _templates/030_growth/
+> 005_iteration_NNN.md
+> 010_slice_NNN.md
+> 015_observation_window.md
+>
+> $ ls _workflow/030_growth.md 2>&1
+> ls: cannot access '"_workflow/030_growth.md"': No such file or directory
+> ```
+>
+> ⚠️ **Y la condicion de entrada NO esta cumplida.** Este §5 exige **los dos**; con uno solo,
+> la etapa sigue sin poder abrirse. Lo que cambia es cual de los dos falta, no que falte.
+
 ⚠️ **Es la condicion que mas facil se salta, porque no la senala nadie.** Las seis entradas de §3 se
 echan en falta al buscarlas; estas dos no las trae nadie, y su ausencia solo se nota **despues**,
 cuando ya hay tres slices cerradas y lo que ensenaron se registro cada vez de una forma distinta.
