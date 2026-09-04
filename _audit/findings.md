@@ -66,10 +66,10 @@
 | [F-052](#f-052---la-seccion-1-promete-una-lista-de-archivos-anclada-al-commit-que-nunca-se-pego-y-la-unica-publicada-sale-del-area-de-staging) | La seccion 1 promete una lista de archivos anclada al commit que nunca se pego, y la unica publicada sale del area de staging | R-020 | Media | Implementado |
 | [F-053](#f-053---el-campo-commit-auditado-apunta-por-su-propia-definicion-a-un-commit-distinto-de-aquel-al-que-toda-la-evidencia-del-informe-esta-anclada) | El campo «Commit auditado» apunta, por su propia definicion, a un commit distinto de aquel al que toda la evidencia del informe esta anclada | R-020 | Media | Implementado |
 | [F-054](#f-054---el-recuento-de-etapas-sin-adoptar-escrito-en-este-commit-omite-020_baseline) | El recuento de etapas sin adoptar escrito en este commit omite `020_baseline` | R-020 | Baja | Implementado |
-| [F-055](#f-055---_phases030_growthmd-instancia-t-083-y-d-085-y-es-la-unica-ocurrencia-de-toda-_phases) | `_phases/030_growth.md` instancia `T-083` y `D-085`, y es la unica ocurrencia de toda `_phases/` | R-021 | Media | Abierto |
-| [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Abierto |
-| [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Abierto |
-| [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Abierto |
+| [F-055](#f-055---_phases030_growthmd-instancia-t-083-y-d-085-y-es-la-unica-ocurrencia-de-toda-_phases) | `_phases/030_growth.md` instancia `T-083` y `D-085`, y es la unica ocurrencia de toda `_phases/` | R-021 | Media | Aceptado — pendiente (`T-084`, `T-085`) |
+| [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Aceptado — pendiente (`T-086`) |
+| [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Aceptado — pendiente (`T-087`, `T-089`) |
+| [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Aceptado — pendiente (`T-088`) |
 
 ---
 
@@ -3174,8 +3174,8 @@ $ git show f09d1f7:project.md | grep 'Etapas declaradas'
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente (`T-084`, `T-085`) |
+| Registrado en | `T-084` y `T-085` (`D-086`, `D-087`) |
 | Cerrado en | |
 
 - **Que se observo:** la nota que este commit anade a `_phases/030_growth.md` cita dos codigos
@@ -3210,8 +3210,8 @@ $ git grep -cE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' 76a2cb6^ -- _phases
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente (`T-086`) |
+| Registrado en | `T-086` (`D-086`) |
 | Cerrado en | |
 
 - **Que se observo:** la nota encabeza el bloque con `ls _workflow/030_growth.md 2>&1` y pega debajo
@@ -3244,8 +3244,8 @@ ls: cannot access '_workflow/030_growth.md': No such file or directory
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente (`T-087`, `T-089`) |
+| Registrado en | `T-087` y `T-089` (`D-088`) |
 | Cerrado en | |
 
 - **Que se observo:** los dos bloques listan seis ordenes en total y ninguna lleva salida debajo.
@@ -3288,8 +3288,8 @@ $ grep -c 'Nota de cierre' _audit/S-020.md
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente (`T-088`) |
+| Registrado en | `T-088` (`D-089`) |
 | Cerrado en | |
 
 - **Que se observo:** dos lineas del informe son la instruccion de llenado de la plantilla, no

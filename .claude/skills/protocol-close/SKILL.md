@@ -133,6 +133,40 @@ fuente de esos datos. La regresion es facil de cometer y **detectable sin ejecut
 es una busqueda de texto: cuesta un segundo. Va escrito con su patron literal precisamente para
 que nadie tenga que reinventarlo cada sesion.
 
+### 1c. El control de codigos instanciados
+
+El Paso 1b busca **datos** propios del proyecto: nombre, ruta y host. Hay una segunda forma de la
+misma fuga que aquel patron no ve, y es la de los **codigos del registro**: un `T-` o un `D-` con su
+numero detras citado dentro de un archivo que tiene que poder copiarse tal cual. Copiado a otro
+proyecto, cita entradas que alli no existen.
+
+```bash
+git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow
+```
+
+🔑 **La respuesta correcta es CERO lineas** (`exit 1`). Si devuelve alguna, se reporta como hallazgo
+propio en el informe con su archivo y su linea, igual que en 1b: no se arregla en silencio.
+
+🚨 **El ambito son dos carpetas, no las seis del Paso 1b, y la diferencia no es un descuido.** En
+`.claude/`, `_methodology/`, `_templates/` y `CLAUDE.md` un codigo con numero es **legitimo**: los
+protocolos citan las decisiones que los explican, el metodo numera ejemplos, y una plantilla escribe
+el primero de su serie porque esa forma es lo que la plantilla existe para dar. Las dos que quedan
+son las unicas donde «cero» es la respuesta correcta:
+
+| Carpeta | Por que cero |
+|---|---|
+| `_phases/` | `CLAUDE.md` lo dice literal: los codigos se escriben genericos —`T-XXX`, `D-XXX`, `F-NNN`—, **nunca instanciados** |
+| `_workflow/` | reparte trabajo con codigos genericos; lo que se **adopta** vive en el registro, y ahi es donde lleva numero |
+
+⚠️ **Ensanchar este control a las seis carpetas lo apaga.** Devolveria decenas de lineas correctas
+cada sesion, y un control que siempre avisa termina sin lector — lo mismo que advierte el Paso 1b
+sobre su propio ambito.
+
+📌 **Por que existe:** la fuga que lo motivo entro por una **nota fechada** dentro de un archivo de
+etapa, escrita para explicar de donde salia un cambio. La intencion era buena —dejar trazabilidad— y
+por eso no la ve nadie releyendo: parece exactamente lo que el resto del repositorio pide hacer. Lo
+que la delata es que las dos carpetas tenian cero ocurrencias y pasaron a tener dos.
+
 ---
 
 ## Paso 2 — El traspaso, solo para el porque
@@ -985,6 +1019,28 @@ que arranca en frio, no una copia del registro.
 ⛔ **No toques `_audit/findings.md`.** Ese archivo es del auditor: registra lo que encontro y en que
 acabo cada hallazgo. Tu no has abierto ninguno.
 
+### 🚨 Ninguna linea de la plantilla sobrevive en el informe
+
+Los huecos de la plantilla de arriba van entre `<` y `>`, uno por linea. **Se sustituyen por
+contenido; no se dejan encima de el.** Antes de seguir al Paso 7:
+
+```bash
+grep -nE '^<' _audit/S-XXX.md
+```
+
+🔑 **La respuesta correcta es CERO lineas** (`exit 1`). Si sale alguna, se borra: es la instruccion
+de llenado, no el llenado.
+
+⚠️ **El defecto no hace que falte evidencia, y por eso pasa desapercibido.** El hueco suele estar
+relleno debajo; lo que queda es un artefacto que mezcla la orden de rellenar con lo rellenado — que
+es exactamente lo que `CLAUDE.md` persigue en `_templates/`, «una plantilla que alguien rellena en
+su sitio deja de ser plantilla». Se ve en un segundo con la orden y en ninguno leyendo, porque una
+linea de instruccion entre parrafos de instrucciones no desentona.
+
+⛔ **Y despues del commit ya no se borra:** el informe estaria auditado, y quitarle lineas cambia lo
+que la auditoria describio. Entonces la salida es la nota fechada, como siempre. Por eso este
+control va **aqui**, antes del `git add`, y no en el Paso 7b.
+
 ---
 
 ## Paso 7 — El commit y el push
@@ -1154,8 +1210,10 @@ retransmite. Un reporte recortado se recorta dos veces.
 
 ### Controles
 Fuga de datos propios (1b) — <cero lineas | 🚨 <las lineas> | 🚨 SIN COMPROBAR — <que falta en project.md>>
+Codigos instanciados en `_phases/` y `_workflow/` (1c) — <cero lineas | 🚨 <las lineas, con archivo y numero de linea>>
 Indices de `_persistence/` (2b) — <al dia | corregidos | 🚨 SIN COMPROBAR — <que fallo>>
 Carpetas declaradas (2c) — <coinciden | <las diferencias y su razon> | 🚨 SIN COMPROBAR — <por que>>
+Huecos de plantilla en el informe (6b) — <cero lineas | 🚨 <las lineas, borradas antes del `git add`>>
 
 ### Commit
 Informe de auditoria — <`_audit/S-XXX.md` y su fila en `_audit/index.md`, **comprobados en el commit** (Paso 7b) | 🚨 NO ENTRO — <que falto y en que commit nuevo entro> | 🚨 SIN COMPROBAR — <que fallo>>

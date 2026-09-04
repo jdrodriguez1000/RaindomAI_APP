@@ -399,7 +399,7 @@ orden necesita un nombre que buscar.
 es parte de la condicion: un archivo de etapa que exige dos artefactos sin decir que faltan deja al
 lector suponiendo que estan.
 
-> 📌 **Nota del 2026-09-05 (`T-083`, decision `D-085`).** La frase de arriba se deja tal cual y
+> 📌 **Nota del 2026-09-05.** La frase de arriba se deja tal cual y
 > **queda a medias por esta nota: las plantillas ya existen; el reparto sigue sin existir.** Se
 > escribieron las tres que este §5 nombra, y ninguna mas:
 >
@@ -415,6 +415,36 @@ lector suponiendo que estan.
 >
 > ⚠️ **Y la condicion de entrada NO esta cumplida.** Este §5 exige **los dos**; con uno solo,
 > la etapa sigue sin poder abrirse. Lo que cambia es cual de los dos falta, no que falte.
+
+> 📌 **Nota del 2026-09-06 — dos correcciones sobre la nota de arriba, que se deja intacta.**
+>
+> **1. La salida pegada arriba no era la de la orden que la encabeza.** La linea publicada lleva
+> comillas dobles dentro de las simples —`'"_workflow/030_growth.md"'`— y la orden escrita
+> (`ls _workflow/030_growth.md 2>&1`) no las produce: delata que lo que se corrio fue
+> `ls "_workflow/030_growth.md"`. El hecho de fondo era cierto; lo pegado no era reproducible. El
+> bloque original no se toca, por la regla de correccion por nota fechada que fija
+> `_persistence/decisions.md`.
+>
+> **2. El reparto ya existe, asi que la nota de arriba tambien queda superada en su segunda mitad.**
+> Con la orden escrita tal como se corrio, y su salida tal como salio:
+>
+> ```
+> $ ls -1 _workflow/
+> 005_discovery.md
+> 010_prototype.md
+> 020_baseline.md
+> 025_wslt.md
+> 030_growth.md
+> ai_levels.md
+> team.md
+>
+> $ ls _workflow/030_growth.md 2>&1
+> _workflow/030_growth.md
+> ```
+>
+> ✅ **Las dos condiciones de entrada de este §5 estan cumplidas:** las tres plantillas y el archivo
+> de reparto existen. Lo que sigue sin existir es la **adopcion** de la etapa —su decision y su fila
+> en `project.md`—, que es otra cosa y no la declara este archivo.
 
 ⚠️ **Es la condicion que mas facil se salta, porque no la senala nadie.** Las seis entradas de §3 se
 echan en falta al buscarlas; estas dos no las trae nadie, y su ausencia solo se nota **despues**,

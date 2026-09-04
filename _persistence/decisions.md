@@ -94,6 +94,12 @@
 | [D-083](#d-083---la-linea-de-control-de-_auditfindingsmd-queda-fuera-de-dt-003-y-dt-004-y-nace-dt-005) | La linea de control de `_audit/findings.md` queda fuera de `DT-003` y `DT-004`, y nace `DT-005` | 2026-09-05 | Vigente | report_auditor |
 | [D-084](#d-084---el-ancla-del-informe-es-un-hash-literal-y-el-cierre-gana-un-paso-de-anclaje) | El ancla del informe es un hash literal, y el cierre gana un paso de anclaje | 2026-09-05 | Vigente | report_auditor |
 | [D-085](#d-085---las-plantillas-del-crecimiento-son-tres-y-ninguna-estrena-un-codigo-de-producto) | Las plantillas del crecimiento son tres, y ninguna estrena un codigo de producto | 2026-09-05 | Vigente | usuario |
+| [D-086](#d-086---la-cabecera-de-una-nota-se-reescribe-su-bloque-de-verificacion-no) | La cabecera de una nota se reescribe; su bloque de verificacion, no | 2026-09-06 | Vigente | report_auditor |
+| [D-087](#d-087---nace-el-control-1c-cero-codigos-instanciados-en-_phases-y-_workflow) | Nace el control 1c: cero codigos instanciados en `_phases/` y `_workflow/` | 2026-09-06 | Vigente | report_auditor |
+| [D-088](#d-088---el-criterio-de-cierre-lleva-orden-anclada-y-salida-siempre) | El criterio de cierre lleva orden anclada y salida, siempre | 2026-09-06 | Vigente | report_auditor |
+| [D-089](#d-089---un-hueco-de-plantilla-en-un-informe-auditado-se-anota-y-el-control-va-antes-del-commit) | Un hueco de plantilla en un informe auditado se anota, y el control va antes del commit | 2026-09-06 | Vigente | report_auditor |
+| [D-090](#d-090---el-tablero-de-auditoria-publica-el-hash-literal-del-informe) | El tablero de auditoria publica el hash literal del informe | 2026-09-06 | Vigente | report_auditor |
+| [D-091](#d-091---el-reparto-del-crecimiento-un-bucle-que-llega-a-usuarios-reales) | El reparto del crecimiento: un bucle que llega a usuarios reales | 2026-09-06 | Vigente | usuario |
 
 ---
 
@@ -111,6 +117,18 @@ se penso distinto en su momento es parte del registro.
 
 🚨 **Toda decision que verifica algo antes de aceptarlo lleva comando y salida cruda.** No se
 escribe «se comprobo que…» de memoria: va el comando ejecutado y su salida literal.
+
+🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+criterio se escribe en tres partes, siempre las tres:
+
+1. **el enunciado** — que tiene que ser cierto para dar la decision por cerrada;
+2. **la orden que lo comprueba, anclada al commit** (`git show <hash>:<archivo> | …`), no al arbol
+   de trabajo, que cambia debajo;
+3. **la salida que devolvio**, literal.
+
+⛔ **Un criterio de cierre con la orden y sin la salida no es evidencia**: obliga a rehacer el
+barrido a quien lo lea, que es exactamente el coste que la regla existe para evitar. Y un criterio
+sin anclar reproduce el dia que se escribe y deja de reproducir en cuanto el archivo crece.
 
 ⚠️ **El titulo nombra la decision, no su consecuencia**, y no cambia despues.
 
@@ -4570,6 +4588,25 @@ $ grep -c '^### DT-005' _persistence/techdebt.md
 $ grep -c 'T-077' _audit/S-020.md
 ```
 
+> 📌 **Nota del 2026-09-06 (`F-057`).** El bloque de arriba se deja intacto y **publica sus ordenes
+> sin la salida que devolvieron**, que es el defecto que `F-057` senala: un comando sin salida no es
+> evidencia, obliga a rehacer el barrido para contrastarlo. Las mismas ordenes, ancladas al commit en
+> que la decision se cerro, con lo que devuelven:
+>
+> ```
+> $ git show 76a2cb6:_persistence/techdebt.md | grep -c '^### DT-005'
+> 1
+>
+> $ git show 76a2cb6:_audit/S-020.md | grep -c 'T-077'
+> 1
+>
+> $ git show 76a2cb6:_audit/findings.md | awk -F'|' '/^\| \[F-051\]/{print $4, $5, $6}'
+>  R-020   Media   Aceptado — pendiente (`T-077`)
+> ```
+>
+> Las tres partes del criterio reproducen. La tercera —la fila de `F-051` citando su tarea— no
+> figuraba ni como orden en el bloque original, y se anade aqui porque el enunciado si la afirmaba.
+
 ---
 
 ### D-084 - El ancla del informe es un hash literal, y el cierre gana un paso de anclaje
@@ -4652,6 +4689,29 @@ $ grep -c 'HASH LITERAL' .claude/skills/protocol-close/SKILL.md
 $ grep -c 'Esa orden puede devolver el commit equivocado' .claude/skills/protocol-audit/SKILL.md
 $ grep -c 'Nota de cierre' _audit/S-020.md
 ```
+
+> 📌 **Nota del 2026-09-06 (`F-057`).** Mismo defecto que en la decision anterior: cuatro ordenes
+> publicadas **sin su salida**. El bloque no se toca; las mismas ordenes, ancladas al commit en que
+> la decision se cerro, con lo que devuelven:
+>
+> ```
+> $ git show 76a2cb6:.claude/skills/protocol-close/SKILL.md | grep -nE '^### 7c|^### Cual de los dos'
+> 1079:### 7c — Anclar el informe al hash (obligatorio)
+> 1095:### Cual de los dos commits es «el commit de la sesion»
+>
+> $ git show 76a2cb6:.claude/skills/protocol-close/SKILL.md | grep -c 'HASH LITERAL'
+> 1
+>
+> $ git show 76a2cb6:.claude/skills/protocol-audit/SKILL.md | grep -c 'Esa orden puede devolver el commit equivocado'
+> 1
+>
+> $ git show 76a2cb6:_audit/S-020.md | grep -c 'Nota de cierre'
+> 2
+> ```
+>
+> ⚠️ **Los dos numeros de linea de la primera orden ya no valen sobre el archivo de trabajo**, porque
+> `protocol-close` ha crecido desde ese commit. Por eso la version que se publica va anclada: un
+> criterio de cierre que solo reproduce el dia que se escribe no es un criterio de cierre.
 
 ---
 
@@ -4741,4 +4801,378 @@ $ grep -c 'Guia de llenado' _templates/030_growth/*.md
 _templates/030_growth/005_iteration_NNN.md:3
 _templates/030_growth/010_slice_NNN.md:3
 _templates/030_growth/015_observation_window.md:3
+```
+
+---
+
+### D-086 - La cabecera de una nota se reescribe; su bloque de verificacion, no
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-055` y `F-056` (`R-021`) caen sobre **la misma nota fechada** del §5 de
+  `_phases/030_growth.md`, pero sobre dos partes distintas de ella: la cabecera cita dos codigos
+  instanciados en una carpeta que tiene que poder copiarse tal cual, y el bloque de abajo pega una
+  salida que la orden escrita no produce.
+- **Evaluacion de los hallazgos:** los dos correctos, verificados contra `HEAD` antes de tocar nada:
+
+```
+$ git rev-parse --short HEAD
+e1d1b54
+
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' HEAD -- _phases
+HEAD:_phases/030_growth.md:402:T-083
+HEAD:_phases/030_growth.md:402:D-085
+
+$ grep -n "cannot access" _phases/030_growth.md
+413:> ls: cannot access '"_workflow/030_growth.md"': No such file or directory
+
+$ ls _workflow/030_growth.md 2>&1
+ls: cannot access '_workflow/030_growth.md': No such file or directory
+```
+
+⚠️ **Ese bloque se corrio ANTES de corregir nada, y por eso dos de sus cuatro ordenes ya no
+reproducen sobre el arbol de trabajo:** la primera devuelve otro hash, la segunda ya no encuentra los
+dos codigos y la cuarta encuentra el archivo. Es evidencia del estado que se evaluo, no del estado
+actual. Sus equivalentes anclados, que reproducen siempre:
+
+```
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' e1d1b54 -- _phases
+e1d1b54:_phases/030_growth.md:402:T-083
+e1d1b54:_phases/030_growth.md:402:D-085
+
+$ git show e1d1b54:_workflow/030_growth.md 2>&1 | head -2
+fatal: path '_workflow/030_growth.md' exists on disk, but not in 'e1d1b54'
+```
+
+- **Decision, y son dos tratamientos distintos para la misma nota:**
+  1. **La cabecera se reescribe** — se quitan los dos codigos y queda solo la fecha (`T-084`).
+  2. **El bloque de verificacion no se toca**, y la correccion va en una nota fechada debajo, con la
+     orden tal como se corre y la salida tal como sale (`T-086`).
+- **Por que no el mismo tratamiento para las dos partes.** `D-019` protege **la evidencia**: no se
+  reescribe un bloque para que exhiba lo que en su dia no se ejecuto, porque eso convierte «falta
+  evidencia» en «hay evidencia falsa». Una **cabecera** no es evidencia: no afirma un resultado, cita
+  una procedencia. Quitarle dos codigos no borra ningun rastro de nada — el porque de esa nota sigue
+  estando en este registro, que es donde vive.
+- **Y al reves tambien importa:** aplicar a la cabecera la regla del bloque dejaria la fuga viva para
+  siempre en una carpeta que se copia, y aplicar al bloque la regla de la cabecera falsificaria una
+  salida. Las dos reglas son la misma idea —no mentir sobre lo que se ejecuto— aplicada a dos cosas
+  que no son iguales.
+- **Alternativas descartadas:** (1) **reescribir tambien el bloque** para que la salida cuadre —
+  descartada de plano por `D-019`; (2) **dejar tambien la cabecera y anotarla** — descartada porque
+  una nota no quita la fuga: el codigo instanciado seguiria ahi y el control nuevo (`D-087`) seguiria
+  encontrandolo cada sesion; (3) **borrar la nota entera** — descartada porque explica por que el §5
+  quedo a medias, y esa es informacion que el `git diff` no muestra.
+- **Reversible a criterio**, porque son ediciones de texto en un archivo versionado, sin efecto fuera
+  del repositorio. Criterio declarado, no leido de una tabla: sigue sin existir en `_persistence/` el
+  inventario de acciones irreversibles (`T-037`).
+- **Criterio de cierre:** cero codigos instanciados en el archivo, y la nota nueva reproduce.
+
+```
+$ grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' _phases/030_growth.md; echo "exit=$?"
+exit=1
+
+$ grep -c 'Nota del 2026-09-06' _phases/030_growth.md
+1
+
+$ ls _workflow/030_growth.md 2>&1
+_workflow/030_growth.md
+```
+
+---
+
+### D-087 - Nace el control 1c: cero codigos instanciados en `_phases/` y `_workflow/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-055` senala algo mas grave que la fuga concreta: **esa clase de fuga no la ve
+  ningun control**. El Paso 1b del cierre busca nombre, ruta y host; un codigo del registro con su
+  numero pasa por delante sin que nada suene. La auditoria la encontro corriendo un barrido propio,
+  no un control del protocolo — y un defecto que solo se detecta cuando a alguien se le ocurre
+  buscarlo no esta detectado, esta pendiente de suerte.
+- **Decision:** nace el **Paso 1c** de `protocol-close`, con su patron literal escrito y su linea en
+  el reporte de pantalla:
+
+```
+git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow
+```
+
+- **El ambito son dos carpetas, no las seis del Paso 1b, y esa es la parte que hubo que decidir.**
+  Barrido sobre las seis, el resultado de hoy es este:
+
+```
+$ for d in .claude _methodology _phases _templates _workflow CLAUDE.md; do echo "== $d"; git grep -cE '\b(T|D|F|L|A|C|DT|S|N|I|R|H)-[0-9]{2,3}\b' HEAD -- "$d" | head -3; done
+== .claude
+HEAD:.claude/agents/session-starter.md:1
+HEAD:.claude/skills/protocol-close/SKILL.md:23
+HEAD:.claude/skills/protocol-start/SKILL.md:2
+== _methodology
+HEAD:_methodology/000_method.md:11
+HEAD:_methodology/sources/005_vertical.md:16
+== _phases
+HEAD:_phases/030_growth.md:1
+== _templates
+HEAD:_templates/005_discovery/005_needs.md:5
+HEAD:_templates/005_discovery/010_actors.md:2
+HEAD:_templates/005_discovery/015_stakeholders.md:10
+== _workflow
+== CLAUDE.md
+HEAD:CLAUDE.md:1
+```
+
+⚠️ **La cifra de cada fila es el numero de LINEAS con al menos una ocurrencia, no el de
+ocurrencias**, y el `head -3` corta la lista de cada carpeta: son cuentas para decidir el ambito, no
+un inventario. `_phases/030_growth.md` sale con `1` porque sus dos codigos caian en la misma linea.
+
+  En cuatro de las seis las ocurrencias son **legitimas y numerosas**: los protocolos citan las
+  decisiones que los explican, el metodo numera ejemplos de trazabilidad, las plantillas escriben el
+  primero de su serie porque esa forma es lo que existen para dar, y `CLAUDE.md` nombra los dos
+  primeros codigos de producto. Solo `_phases/` y `_workflow/` tenian cero — y `_phases/` acababa de
+  dejar de tenerlo.
+- **Por que no ensancharlo «por si acaso»:** un control que devuelve decenas de lineas correctas cada
+  sesion deja de mirarse, y entonces no detecta nada. Es el mismo argumento que el Paso 1b ya escribe
+  sobre su propio ambito, y no se repite aqui por casualidad: es la misma trampa.
+- **Alternativas descartadas:** (1) **ampliar el patron del Paso 1b** en vez de crear un paso nuevo —
+  descartada porque los ambitos son distintos y mezclarlos obligaria a excluir cuatro carpetas dentro
+  de una orden que hoy es de una linea; (2) **dejarlo como norma escrita sin control** — descartada:
+  es `L-008` literal, una regla sin mecanismo es una intencion, y esta ya fallo una vez; (3)
+  **ponerlo en la auditoria y no en el cierre** — descartada porque en el cierre todavia se puede
+  corregir antes del commit, y en la auditoria solo se puede anotar.
+- **Reversible a criterio** —es texto en una skill versionada—, asi que se decide y se registra.
+- **Criterio de cierre:** el paso existe, su linea de reporte existe, y el barrido devuelve cero.
+
+```
+$ grep -n '^### 1c' .claude/skills/protocol-close/SKILL.md
+136:### 1c. El control de codigos instanciados
+
+$ grep -c 'Codigos instanciados en' .claude/skills/protocol-close/SKILL.md
+1
+
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow; echo "exit=$?"
+exit=1
+```
+
+---
+
+### D-088 - El criterio de cierre lleva orden anclada y salida, siempre
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-057` (`R-021`) encontro que `D-083` y `D-084` publican su «Criterio de cierre» con
+  seis ordenes y **ninguna salida**. Y `R-021` anade, sin abrir hallazgo, la causa de fondo: en la
+  misma sesion y en el mismo archivo, `D-085` si la pego entera. **El formato del bloque no estaba
+  fijado en ningun sitio**, asi que dependia de quien lo escribiera.
+- **Evaluacion del hallazgo:** correcto, verificado contra `HEAD`:
+
+```
+$ for d in D-083 D-084; do echo "== $d"; git show 76a2cb6:_persistence/decisions.md | awk -v d="^### $d" '$0~d{f=1;next} f&&/^### D-0/{exit} f' | sed -n '/Criterio de cierre/,$p' | grep -c '^\$ '; done
+== D-083
+2
+== D-084
+4
+```
+
+  Seis ordenes, y ninguna con salida debajo.
+
+- **Decision, en dos partes:**
+  1. **Las dos entradas reciben su nota fechada** con las mismas ordenes **ancladas al commit** y su
+     salida literal; los bloques originales no se tocan (`T-087`, y `D-019` como siempre).
+  2. **Las convenciones de `decisions.md` fijan la forma** del bloque: enunciado, orden anclada al
+     commit, y salida literal. Las tres partes, siempre (`T-089`).
+- **Por que anclada y no corrida sobre el arbol.** Una de las seis ordenes —los numeros de linea de
+  `protocol-close`— **ya no reproduce**: la skill ha crecido desde ese commit, y en esta misma sesion
+  crece otra vez. Un criterio de cierre que solo reproduce el dia que se escribe no es un criterio de
+  cierre: es una foto.
+- **Alternativas descartadas:** (1) **reescribir los bloques originales anadiendoles la salida** —
+  descartada por `D-019`: parecerian ejecutados entonces; (2) **anotarlo solo en `findings.md`** —
+  descartada: el defecto quedaria vivo en el archivo que la gente lee; (3) **fijar la forma y no
+  corregir las dos entradas** — descartada porque deja el hallazgo sin atender y la regla nueva sin
+  su primer caso aplicado, que es donde se ve si funciona.
+- **Reversible a criterio** —texto anadido a archivos versionados—, sin efecto fuera del repositorio.
+- **Criterio de cierre:** las dos notas existen, la convencion esta escrita, y las ordenes ancladas
+  devuelven lo que publican.
+
+```
+$ awk '/^### D-083/,/^### D-085/' _persistence/decisions.md | grep -c 'Nota del 2026-09-06'
+2
+
+$ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
+115:🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+
+$ git show 76a2cb6:.claude/skills/protocol-close/SKILL.md | grep -c 'HASH LITERAL'
+1
+```
+
+---
+
+### D-089 - Un hueco de plantilla en un informe auditado se anota, y el control va antes del commit
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-058` (`R-021`, gravedad `Baja`) encontro que el informe de la sesion anterior
+  conserva dos lineas que son la **instruccion de llenado** de la plantilla, dejadas encima del
+  contenido. El propio hallazgo ofrece las dos salidas: borrarlas, o dejarlas y ajustar la plantilla.
+- **Evaluacion del hallazgo:** correcto, verificado contra `HEAD`:
+
+```
+$ grep -nE '^<' _audit/S-021.md
+22:<PEGA AQUI, sin editar, la salida cruda de `git show --stat --name-only --format= <commit>` — mientras
+112:<Las tareas abiertas salen del indice de `tasks.md` filtrando `No implementada` por su columna de
+```
+
+  Las dos lineas siguen ahi. Los numeros no son los que publico la auditoria (22 y 88) porque el
+  commit de anclaje del Paso 7c anadio texto en medio; el hecho es el mismo.
+- **Decision:** **no se borran.** El informe ya esta auditado, y quitarle lineas cambia el artefacto
+  que la auditoria describio. Reciben su nota fechada, con la orden anclada al commit auditado para
+  que reproduzca siempre. Y lo que si cambia es que el defecto **no pueda repetirse**:
+  `protocol-close` gana en el Paso 6b un control que exige **cero lineas `^<`** en el informe.
+- **El momento del control es la parte que hubo que pensar.** Va **antes del `git add`**, no en el
+  Paso 7b ni en la auditoria, porque es el unico momento en que borrar la linea todavia es correcto:
+  despues del commit ya solo se puede anotar. Es la misma razon por la que el Paso 2e vive donde vive.
+- **Por que un control y no solo cuidado al escribir.** El defecto no hace que falte evidencia —el
+  hueco esta relleno debajo— y por eso no desentona al releer: una linea de instruccion entre
+  parrafos de instrucciones parece contenido. Un `grep` lo ve en un segundo; una relectura, no.
+- **Alternativas descartadas:** (1) **borrar las dos lineas del informe** — descartada por lo dicho:
+  reescribe un artefacto auditado, aunque sea para mejor; (2) **rehacer la plantilla para que los
+  huecos no vayan entre `<` y `>`** — descartada porque esa forma es justamente lo que hace el
+  control posible: un hueco que no se distingue del contenido no se puede barrer; (3) **anotarlo y no
+  poner control** — descartada: el defecto entro sin que nadie lo notara, y volveria igual.
+- **Reversible a criterio** —una nota en un informe y un paso en una skill, los dos versionados—.
+- **Criterio de cierre:** la nota existe y el control existe.
+
+```
+$ grep -c 'Nota del 2026-09-06' _audit/S-021.md
+1
+
+$ grep -n 'Ninguna linea de la plantilla sobrevive' .claude/skills/protocol-close/SKILL.md
+1022:### 🚨 Ninguna linea de la plantilla sobrevive en el informe
+
+$ grep -c 'Huecos de plantilla en el informe' .claude/skills/protocol-close/SKILL.md
+1
+```
+
+---
+
+### D-090 - El tablero de auditoria publica el hash literal del informe
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** una **recomendacion sin hallazgo** de `R-021`. La fila de `S-020` en el tablero
+  apunta a `3ff670e`, que es su **commit de anclaje** —un solo archivo— y no el commit de la sesion
+  (`f09d1f7`). No es hallazgo: la fila describe con exactitud el commit que `R-020` audito de hecho, y
+  ese defecto ya quedo registrado como `F-053`. Verificado:
+
+```
+$ git show 3ff670e --stat --name-only --format= | grep -c .
+1
+
+$ git show f09d1f7 --stat --name-only --format= | grep -c .
+11
+```
+
+- **Decision:** `protocol-audit` pasa a decir que el hash de la fila es **el literal de la cabecera
+  del informe**, el mismo que se audito, y no el que devuelve `git log -1 -- _audit/S-XXX.md`. Con su
+  razon escrita al lado, porque la orden derivada parece la correcta y por eso se uso.
+- **Las filas anteriores no se reescriben.** Describen lo que la auditoria de su dia miro de hecho, y
+  reescribirlas convertiria el tablero en una version corregida de una historia que no paso asi. Lo
+  que cambia rige hacia adelante, que es como rige todo en este registro.
+- **Por que merece la regla aunque no fuera hallazgo.** El tablero es **el primer sitio** donde
+  alguien busca «que estado se juzgo» —antes que el informe y antes que la auditoria—, y un hash
+  equivocado ahi no se contradice con nada: se lee, se copia y se cree. Un dato que nadie puede
+  desmentir en el sitio donde se mira primero es peor que uno que falta.
+- **Alternativas descartadas:** (1) **una segunda columna con los dos hashes** — descartada por
+  `PI-2`: anade una columna permanente para un caso que la regla nueva ya evita; (2) **reescribir la
+  fila de `S-020`** — descartada por lo dicho arriba; (3) **dejarlo como esta, porque la fila es
+  tecnicamente correcta** — descartada: es correcta sobre lo que aquella auditoria miro, y eso es
+  justamente lo que el lector del tablero no sabe.
+- **Reversible a criterio** —texto en la skill del auditor—, sin efecto fuera del repositorio.
+- **Criterio de cierre:** la regla esta escrita en `protocol-audit`.
+
+```
+$ grep -n 'el literal de la cabecera del informe' .claude/skills/protocol-audit/SKILL.md
+275:🚨 **El `<hash>` de esa fila es el mismo que auditaste: el literal de la cabecera del informe, no el
+```
+
+---
+
+### D-091 - El reparto del crecimiento: un bucle que llega a usuarios reales
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pide escribir `_workflow/030_growth.md`, el quinto y ultimo archivo de
+  reparto por etapa. Con el quedan cumplidas **las dos condiciones de entrada** que el §5 del archivo
+  de etapa exige, y que hasta hoy impedian abrir la etapa aunque sus seis entradas estuvieran
+  completas.
+- **Decision de forma:** la misma que los cuatro anteriores —nueve secciones, una fila por paso del
+  procedimiento, las asignaciones no obvias razonadas una a una, lo que no se delega, que cuenta como
+  software, las casillas de salida separadas en mecanico y juicio, la rubrica de nivel, que se
+  registra, la verificacion y los errores frecuentes—. Ocho filas, porque el procedimiento tiene ocho
+  pasos.
+- **Las tres decisiones de fondo, que son las que no se copian de las etapas anteriores:**
+  1. **El reparto se ejecuta a dos ritmos.** Los pasos 2 a 7 se recorren por cada slice y los pasos 1
+     y 8 por cada iteracion, asi que una asignacion del Paso 5 se ejecuta decenas de veces y una del
+     Paso 1 unas pocas. **Lo que se repite es lo que se erosiona**, y por eso el §2.1 mira sobre todo
+     a esas. Es la primera etapa del metodo en que el reparto tiene que aguantar repeticion.
+  2. **La reversibilidad tiene dos relojes dentro del mismo paso.** El codigo escrito y no desplegado
+     es reversible —un commit lo deshace—; **el mismo codigo una vez desplegado no lo es**, porque ya
+     corrio sobre datos de gente. Ninguna etapa anterior necesitaba esa distincion, y sin ella el
+     Paso 5 se clasifica entero de una de las dos formas y las dos son falsas la mitad del tiempo.
+  3. **El eje «impacto de un error» sube a 3, y con el la lectura a nivel 5.** No es una eleccion
+     ambiciosa: el reparto del esqueleto puntuo ese eje en 2 y **escribio al lado el disparador
+     exacto** —«el entorno de destino tiene datos reales o usuarios cuando se despliega»—, y esta
+     etapa termina con el producto desplegado y en uso real. `_workflow/ai_levels.md` §6 es taxativo:
+     cualquier eje en 3 pide nivel 5 y el harness deja de ser opcional.
+- **Y el harness que eso pide se acota, para que no se lea como pedir el nivel 5 entero del
+  producto.** Son tres piezas —traza de lo que la IA produjo por slice, casos con salidas
+  inaceptables, y tasa de correccion humana por iteracion— y las tres caben en artefactos que la
+  etapa ya escribe. El harness del producto, si el producto lleva IA, es otra cosa y sale del nivel
+  que declaro la baseline.
+- **Alternativas descartadas:** (1) **mantener el eje en 2** como en el esqueleto, argumentando que
+  §3 le quita a la IA las acciones irreversibles — descartada porque el 2 de alli era **condicional y
+  con su condicion escrita**, y aqui la condicion se rompe por definicion de la etapa; sostener el 2
+  seria apretar la puntuacion hasta que diera el resultado comodo, que es lo que
+  `_workflow/ai_levels.md` §10 llama «harness eternamente aplazado»; (2) **puntuar tambien
+  «autonomia» en 3** porque la IA escribe mucho codigo — descartada: escribe dentro de una
+  descomposicion que firma un humano y no ejecuta nada con efecto, que es la definicion del 1; (3)
+  **partir el archivo en dos, uno por iteracion y otro por slice** — descartada por `PI-2` y porque
+  rompe la regla de «una fila por paso del procedimiento» que hace comprobable la §8 de todos los
+  archivos de reparto.
+- **Lo que este archivo NO decide, y conviene decirlo:** no adopta ningun reparto para este proyecto.
+  La etapa sigue sin adoptar (`D-060`), y adoptar el reparto es una decision que se toma **al abrir la
+  etapa**, con sus alternativas, no al escribir la tabla.
+- **Reversible a criterio** —un archivo nuevo en el repositorio, sin efecto fuera de el, y que nadie
+  aplica todavia—. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** ocho filas, el archivo de etapa lo cita, y ni datos propios ni codigos
+  instanciados dentro.
+
+```
+$ grep -cE "^\| \*\*[1-8] · " _workflow/030_growth.md
+8
+
+$ grep -n "_workflow/030_growth" _phases/030_growth.md | head -2
+201:quien hace cada uno —humano, software, IA, o una combinacion— lo dice **`_workflow/030_growth.md`**,
+387:🚨 **Las plantillas de esta etapa y el reparto de `_workflow/030_growth.md` son condicion de entrada,
+
+$ grep -nE "RaidomAI|RaindomAI|TripleS|Proyectos_TripleS|github.com|USUARIO" _workflow/030_growth.md; echo "exit=$?"
+exit=1
+
+$ grep -noE '\b(T|D|F|L|A|C|DT|S|N|I|R|H)-[0-9]{2,3}\b' _workflow/030_growth.md; echo "exit=$?"
+exit=1
 ```

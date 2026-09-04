@@ -37,7 +37,8 @@
 | [L-026](#l-026---un-enganche-de-uso-escrito-en-generico-no-engancha-tiene-que-nombrar-el-archivo) | Un enganche de uso escrito en generico no engancha: tiene que nombrar el archivo | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-027](#l-027---cuando-existe-la-orden-que-produce-una-lista-escribirla-a-mano-es-el-error-no-el-atajo) | Cuando existe la orden que produce una lista, escribirla a mano es el error, no el atajo | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-028](#l-028---un-recuento-sobre-los-archivos-que-toque-no-es-un-barrido-el-diff-sabe-cuales-son-la-memoria-no) | Un recuento sobre «los archivos que toque» no es un barrido: el diff sabe cuales son, la memoria no | 2026-09-04 | 000_preproject | Sin evaluar |
-| [L-029](#l-029---la-herramienta-con-la-que-se-documenta-un-defecto-de-escape-lo-reproduce-y-el-barrido-del-cierre-llega-tarde) | La herramienta con la que se documenta un defecto de escape lo reproduce, y el barrido del cierre llega tarde | 2026-09-05 |
+| [L-029](#l-029---la-herramienta-con-la-que-se-documenta-un-defecto-de-escape-lo-reproduce-y-el-barrido-del-cierre-llega-tarde) | La herramienta con la que se documenta un defecto de escape lo reproduce, y el barrido del cierre llega tarde | 2026-09-05 | 000_preproject | Sin evaluar |
+| [L-030](#l-030---una-nota-que-explica-de-donde-sale-un-cambio-filtra-codigos-y-la-buena-intencion-es-lo-que-la-hace-invisible) | Una nota que explica de donde sale un cambio filtra codigos, y la buena intencion es lo que la hace invisible | 2026-09-06 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1159,3 +1160,30 @@ $ grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _audit/S-020.md | cat -A | cut -c1-120
   escribirla en una cadena cruda y correr el barrido de control sobre ese archivo en el momento, no
   al cerrar.** Y si el archivo se genera con un script, el barrido se corre sobre la salida del
   script — no sobre lo que uno cree que escribio.
+
+---
+
+### L-030 - Una nota que explica de donde sale un cambio filtra codigos, y la buena intencion es lo que la hace invisible
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `_phases/` tenia **cero codigos instanciados** en toda la carpeta. La sesion anterior
+  anadio a un archivo de etapa una nota fechada que empezaba citando la tarea y la decision que la
+  producian, y con eso introdujo las dos primeras ocurrencias de la carpeta entera (`F-055`).
+- **Que ocurrio, en concreto:** la nota se escribio **para dejar trazabilidad**, que es exactamente
+  lo que el resto del repositorio pide hacer en todas partes. En `_persistence/` citar el codigo es
+  obligatorio; en `_phases/` esta prohibido, porque la carpeta tiene que poder copiarse a otro
+  proyecto tal cual. La misma frase es buena practica en un archivo y fuga en el de al lado.
+- **Leccion:** **una regla que cambia de signo segun la carpeta no se sostiene con atencion**, porque
+  el gesto correcto y el incorrecto se escriben igual y se sienten igual al escribirlos. Lo que la
+  hace cumplible es un control que mire la carpeta, no la intencion.
+- **Por que es peligroso mas alla de la anecdota:** una fuga hecha con mala forma se ve al releer
+  —desentona—; esta **no desentona**, porque parece rigor. Y el control que existia para las fugas de
+  `_phases/` buscaba nombre, ruta y host: un codigo con su numero le pasa por delante sin sonar.
+- **Como aplicarla:** **antes de anotar en una carpeta agnostica, comprobar contra que cero se esta
+  escribiendo.** Y en general: cuando un archivo tenga cero de algo, esa cifra vale como control
+  —cualquier linea nueva es la primera—, asi que conviene barrerla antes de commitear y no despues.
+  El Paso 1c del cierre hace exactamente eso sobre `_phases/` y `_workflow/` (`D-087`).

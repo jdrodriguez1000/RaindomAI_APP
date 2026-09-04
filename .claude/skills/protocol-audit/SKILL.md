@@ -272,6 +272,15 @@ se reinician por auditoria y no se reutilizan.
 | `S-XXX.md` | S-XXX | AAAA-MM-DD | <hash> | `R-XXX.md` | Con hallazgos (N) | F-NNN, F-NNN |
 ```
 
+🚨 **El `<hash>` de esa fila es el mismo que auditaste: el literal de la cabecera del informe, no el
+que devuelve `git log -1 -- _audit/S-XXX.md`.** Cuando el cierre ancla el informe con un segundo
+commit, esa orden devuelve el **commit de anclaje** —un solo archivo—, y una fila que lo publique
+manda a quien la lea a un estado que no es el que se juzgo.
+
+⚠️ **Y el tablero es el primer sitio donde alguien busca «que estado se juzgo»**, antes que el
+informe y antes que la auditoria. Un hash equivocado ahi no se contradice con nada: se lee, se copia
+y se cree.
+
 **d)** Vuelve a correr el control de coherencia sobre `findings.md`, que ahora acabas de tocar:
 
 ```bash

@@ -18,6 +18,7 @@
 | [A-006](#a-006---los-codigos-de-feature-y-escenario-que-el-proyecto-declaro-son-los-que-acabara-usando) | Los codigos de feature y escenario que el proyecto declaro son los que acabara usando | 2026-09-03 | Abierto |
 | [A-007](#a-007---habra-un-humano-disponible-para-ejecutar-cada-despliegue-de-la-etapa-del-esqueleto) | Habra un humano disponible para ejecutar cada despliegue de la etapa del esqueleto | 2026-09-03 | Abierto |
 | [A-008](#a-008---los-huecos-de-codigo-que-dejan-las-plantillas-del-crecimiento-seran-rellenables-cuando-la-etapa-se-abra) | Los huecos de codigo que dejan las plantillas del crecimiento seran rellenables cuando la etapa se abra | 2026-09-05 | Abierto |
+| [A-009](#a-009---_phases-y-_workflow-podran-seguir-en-cero-codigos-instanciados-sin-perder-nada) | `_phases/` y `_workflow/` podran seguir en cero codigos instanciados sin perder nada | 2026-09-06 | Abierto |
 
 ---
 
@@ -466,3 +467,42 @@ confirmada. Este supone **quien** lo ejecuta, y no lo esta.
 📌 **Este supuesto no cubre `ADR-`**, aunque `A-006` lo nombre junto a los otros dos: las decisiones
 arquitectonicas de esta etapa usan la plantilla que ya existe en `_templates/020_baseline/`, y su
 codigo es problema de aquella etapa, no de estas tres plantillas.
+
+---
+
+### A-009 - `_phases/` y `_workflow/` podran seguir en cero codigos instanciados sin perder nada
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | `manager` |
+
+- **Supuesto:** `D-087` crea el Paso 1c del cierre, que exige **cero** codigos instanciados en
+  `_phases/` y `_workflow/`. Ese cero no es una observacion: es una **apuesta a futuro**. Da por
+  cierto que ninguna necesidad legitima va a pedir citar un `T-XXX` o un `D-XXX` con su numero dentro
+  de esas dos carpetas — es decir, que **todo lo que haya que trazar desde ahi se puede trazar sin
+  numero**, remitiendo al registro sin citarlo.
+- **Por que se supone, y no se afirma:** la fuga que motivo el control entro precisamente por una
+  necesidad razonable —explicar de donde salia un cambio— y no por descuido (`L-030`). Que esa
+  necesidad se pudiera satisfacer sin numero se comprobo **una vez**, en la nota del §5 del archivo de
+  etapa del crecimiento: bastaba con la fecha. Una vez no es una muestra.
+- **Sobre que se construyo encima:** sobre esto se construyo un control mecanico que corre en **cada
+  cierre** y cuya respuesta correcta es cero. Un control cuyo cero deja de ser alcanzable no se queda
+  quieto: empieza a devolver una linea legitima cada sesion, alguien la aprueba «porque esta bien», y
+  a la tercera vez nadie mira las demas. Es el fallo que el propio Paso 1b describe sobre su ambito.
+- **Como se refuta:** aparece una necesidad de trazabilidad **dentro de una de las dos carpetas** que
+  no se puede satisfacer con una fecha ni con una referencia sin numero — por ejemplo, una nota que
+  tenga que distinguir entre dos decisiones que dicen lo contrario, donde el numero es lo unico que
+  las separa.
+- 🚨 **Y donde se distingue su fallo de su funcionamiento:** en la **salida del propio Paso 1c**. Si
+  algun cierre devuelve una linea y la evaluacion honesta es «esta bien puesta», el supuesto acaba de
+  quedar refutado — no se aprueba la excepcion y se sigue. Es un control que se autodiagnostica: su
+  primer falso positivo real es la refutacion.
+- **Disparador:** cada ejecucion del Paso 1c. No hace falta una fecha: el control corre en todos los
+  cierres, y este supuesto se mira con el.
+- **Que pasa si resulta falso:** el control no se apaga, se acota. La salida sera declarar la
+  excepcion con su `D-XXX` —que codigo, en que archivo y por que ahi hace falta el numero— y anadir
+  esa exclusion al patron, con la regla de que **cada exclusion lleva su decision**; una lista de
+  excepciones sin razones escritas envejece y acaba tapando lo que el control existe para ver, que es
+  lo que el Paso 2c ya advierte de no hacer.

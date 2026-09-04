@@ -92,6 +92,15 @@
 | [T-081](#t-081---dar-al-cierre-un-paso-de-anclaje-y-al-auditor-el-hash-literal-f-052-f-053) | Dar al cierre un paso de anclaje, y al auditor el hash literal (`F-052`, `F-053`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-082](#t-082---que-el-cierre-derive-la-lista-de-etapas-sin-adoptar-f-054) | Que el cierre derive la lista de etapas sin adoptar (`F-054`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-083](#t-083---escribir-las-plantillas-de-_templates030_growth) | Escribir las plantillas de `_templates/030_growth/` | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-084](#t-084---quitar-los-dos-codigos-instanciados-de-_phases030_growthmd-f-055) | Quitar los dos codigos instanciados de `_phases/030_growth.md` (`F-055`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-085](#t-085---dar-al-cierre-el-control-1c-de-codigos-instanciados-f-055) | Dar al cierre el control 1c de codigos instanciados (`F-055`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-086](#t-086---corregir-por-nota-la-salida-cruda-de-la-nota-de-_phases030_growthmd-f-056) | Corregir por nota la salida cruda de la nota de `_phases/030_growth.md` (`F-056`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-087](#t-087---publicar-la-salida-del-criterio-de-cierre-de-d-083-y-d-084-f-057) | Publicar la salida del criterio de cierre de `D-083` y `D-084` (`F-057`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-088](#t-088---anotar-los-huecos-de-plantilla-de-s-021-y-darle-al-cierre-su-control-f-058) | Anotar los huecos de plantilla de `S-021` y darle al cierre su control (`F-058`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-089](#t-089---fijar-la-forma-del-bloque-criterio-de-cierre-en-decisionsmd) | Fijar la forma del bloque «Criterio de cierre» en `decisions.md` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-090](#t-090---que-la-fila-de-_auditindexmd-lleve-el-hash-literal-del-informe) | Que la fila de `_audit/index.md` lleve el hash literal del informe | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-091](#t-091---escribir-el-reparto-de-la-etapa-del-crecimiento) | Escribir el reparto de la etapa del crecimiento | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-092](#t-092---completar-las-dos-columnas-que-le-faltaban-a-la-fila-de-l-029) | Completar las dos columnas que le faltaban a la fila de `L-029` | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -3646,4 +3655,301 @@ ls: cannot access '_workflow/030_growth.md': No such file or directory
 
 $ grep -c 'T-083' _phases/030_growth.md
 1
+```
+
+> 📌 **Nota del 2026-09-06.** Dos de las ordenes de arriba **ya no devuelven lo publicado**, y las
+> dos por trabajo posterior, no por error de entonces:
+>
+> - `ls _workflow/030_growth.md 2>&1` devolvia «No such file or directory» y ahora devuelve la ruta:
+>   el archivo de reparto se escribio (ver la tarea del reparto de la etapa del crecimiento).
+> - `grep -c 'T-083' _phases/030_growth.md` devolvia `1` y ahora devuelve `0`: esa ocurrencia era el
+>   codigo instanciado que la auditoria abrio como hallazgo, y se quito.
+>
+> El bloque no se toca, por la regla de correccion por nota fechada de `D-019`. Las dos siguen
+> reproduciendo ancladas al commit que las contiene:
+>
+> ```
+> $ git show 76a2cb6:_phases/030_growth.md | grep -c 'T-083'
+> 1
+> ```
+
+---
+
+### T-084 - Quitar los dos codigos instanciados de `_phases/030_growth.md` (`F-055`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** la cabecera de la nota fechada del §5 del archivo de etapa citaba una tarea y una decision
+  con su numero. Eran las **dos unicas ocurrencias de un codigo instanciado en toda `_phases/`**, y
+  `CLAUDE.md` exige ahi codigos genericos porque la carpeta tiene que poder copiarse a otro proyecto
+  tal cual. Copiada, la nota citaba dos entradas que en el destino no existen.
+- **Como:** se reescribe la cabecera dejando solo la fecha. **El bloque de verificacion de la nota no
+  se toca** — la cabecera no es evidencia, y la distincion esta razonada en `D-086`.
+- **Criterio de cierre:** cero codigos instanciados en el archivo, y cero en las dos carpetas que
+  tienen que estar limpias.
+
+```
+$ grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' _phases/030_growth.md; echo "exit=$?"
+exit=1
+
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow; echo "exit=$?"
+exit=1
+```
+
+---
+
+### T-085 - Dar al cierre el control 1c de codigos instanciados (`F-055`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** `T-084` quita la fuga; esto impide que vuelva. Nace el **Paso 1c** de `protocol-close`,
+  hermano del 1b: aquel busca datos propios —nombre, ruta, host—, este busca **codigos del registro
+  con su numero** dentro de `_phases/` y `_workflow/`.
+- **Por que solo esas dos carpetas:** en `.claude/`, `_methodology/`, `_templates/` y `CLAUDE.md` un
+  codigo numerado es legitimo —los protocolos citan sus decisiones, el metodo numera ejemplos, y una
+  plantilla escribe el primero de su serie porque esa forma es lo que existe para dar—. Ensancharlo a
+  las seis lo apagaria: devolveria decenas de lineas correctas cada sesion. Razonado en `D-087`.
+- **Y su linea en el reporte de pantalla**, para que un cierre que lo corrio y uno que no se lean
+  distinto.
+- **Criterio de cierre:** el paso existe en la skill y su linea esta en el bloque de controles.
+
+```
+$ grep -n '^### 1c' .claude/skills/protocol-close/SKILL.md
+136:### 1c. El control de codigos instanciados
+
+$ grep -c 'Codigos instanciados en' .claude/skills/protocol-close/SKILL.md
+1
+```
+
+---
+
+### T-086 - Corregir por nota la salida cruda de la nota de `_phases/030_growth.md` (`F-056`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** la nota del §5 encabezaba su bloque con `ls _workflow/030_growth.md 2>&1` y pegaba debajo
+  una salida con **comillas dobles de mas** dentro de las simples, que esa orden no produce. El hecho
+  de fondo era cierto —el archivo no existia—; lo pegado no era reproducible, y la comilla delata que
+  lo corrido fue `ls "_workflow/030_growth.md"`.
+- **Como:** el bloque original **se deja intacto** y se le anade debajo una nota fechada que dice que
+  la salida no era la de la orden, y que republica la orden tal como se corre con la salida tal como
+  sale. Es `D-019` literal: reescribir la salida vieja convertiria «falta evidencia» en «hay
+  evidencia falsa».
+- **Y la nota aprovecha para cerrar la otra mitad:** el archivo de reparto ya existe (`T-091`), asi
+  que la segunda afirmacion de la nota original —«el reparto sigue sin existir»— tambien queda
+  superada, y las dos condiciones de entrada del §5 pasan a estar cumplidas.
+- **Criterio de cierre:** la nota nueva existe y su bloque reproduce.
+
+```
+$ grep -c 'Nota del 2026-09-06' _phases/030_growth.md
+1
+
+$ ls _workflow/030_growth.md 2>&1
+_workflow/030_growth.md
+```
+
+---
+
+### T-087 - Publicar la salida del criterio de cierre de `D-083` y `D-084` (`F-057`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** las dos decisiones publicaban su «Criterio de cierre» con **seis ordenes y ninguna
+  salida**. Las dos tienen `Origen: report_auditor`, y para esas `CLAUDE.md` exige «la orden ejecutada
+  literal **y** lo que devolvio». Un comando sin salida obliga a rehacer el barrido para
+  contrastarlo, que es el coste exacto que la regla existe para evitar.
+- **Como:** los bloques originales **se dejan intactos** y cada decision recibe una nota fechada con
+  las mismas ordenes **ancladas al commit en que se cerro** y su salida literal. Ancladas, porque una
+  de ellas —los numeros de linea de `protocol-close`— ya no reproduce sobre el arbol de trabajo: la
+  skill ha crecido desde entonces.
+- **Un anadido:** el criterio de `D-083` afirmaba tres cosas y su bloque solo publicaba dos ordenes.
+  La tercera —la fila del hallazgo citando su tarea— se anade en la nota, porque el enunciado la
+  afirmaba.
+- **Criterio de cierre:** las dos notas existen y las seis ordenes ancladas devuelven lo publicado.
+
+```
+$ awk '/^### D-083/,/^### D-085/' _persistence/decisions.md | grep -c 'Nota del 2026-09-06'
+2
+
+$ git show 76a2cb6:_persistence/techdebt.md | grep -c '^### DT-005'
+1
+
+$ git show 76a2cb6:_audit/S-020.md | grep -c 'Nota de cierre'
+2
+```
+
+---
+
+### T-088 - Anotar los huecos de plantilla de `S-021` y darle al cierre su control (`F-058`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** dos lineas del informe de la sesion anterior eran la **instruccion de llenado** de la
+  plantilla, dejadas encima del contenido en vez de sustituidas por el. No falta evidencia —el hueco
+  esta relleno debajo—; lo que queda es un artefacto que mezcla la orden de rellenar con lo
+  rellenado, que es el defecto que `CLAUDE.md` persigue en `_templates/`.
+- **Como, en dos mitades:** el informe **no se toca** —esta auditado, y quitarle lineas cambiaria lo
+  que la auditoria describio—, y recibe su nota fechada. Y `protocol-close` gana en el Paso 6b el
+  control que exige **cero lineas `^<`** en el informe **antes** del `git add`, que es el unico
+  momento en que borrarlas todavia es correcto. Razonado en `D-089`.
+- **Criterio de cierre:** la nota existe en el informe y el control existe en la skill.
+
+```
+$ grep -c 'Nota del 2026-09-06' _audit/S-021.md
+1
+
+$ grep -n 'Ninguna linea de la plantilla sobrevive' .claude/skills/protocol-close/SKILL.md
+1022:### 🚨 Ninguna linea de la plantilla sobrevive en el informe
+```
+
+---
+
+### T-089 - Fijar la forma del bloque «Criterio de cierre» en `decisions.md`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** viene de una **recomendacion sin hallazgo** de `R-021`, y es la causa de fondo de `F-057`:
+  en la misma sesion y en el mismo archivo, una decision publico su criterio de cierre con salida
+  cruda y dos no. No habia forma fijada en ningun sitio, asi que dependia de quien escribiera.
+- **Como:** las convenciones de `decisions.md` pasan a exigir tres partes siempre —enunciado, orden
+  **anclada al commit**, y salida literal— y a decir que un criterio con la orden y sin la salida no
+  es evidencia, y que uno sin anclar deja de reproducir en cuanto el archivo crece.
+- **Criterio de cierre:** la convencion esta escrita en el archivo.
+
+```
+$ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
+115:🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+```
+
+---
+
+### T-090 - Que la fila de `_audit/index.md` lleve el hash literal del informe
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-022 |
+
+- **Que:** la otra **recomendacion sin hallazgo** de `R-021`. La fila de una sesion en el tablero
+  apuntaba al **commit de anclaje** —un solo archivo— en vez de al commit de la sesion, porque el
+  auditor la derivaba con `git log -1 -- _audit/S-XXX.md`. La fila describia con exactitud lo que esa
+  auditoria juzgo de hecho, asi que no era hallazgo; pero el tablero es el primer sitio donde alguien
+  busca «que estado se juzgo».
+- **Como:** `protocol-audit` pasa a decir que el hash de la fila es **el literal de la cabecera del
+  informe**, no el derivado, y por que. **No se reescribe ninguna fila anterior:** describen lo que la
+  auditoria de su dia miro, y ese defecto ya quedo registrado en su hallazgo. Razonado en `D-090`.
+- **Criterio de cierre:** la regla esta escrita en la skill del auditor.
+
+```
+$ grep -n 'el literal de la cabecera del informe' .claude/skills/protocol-audit/SKILL.md
+275:🚨 **El `<hash>` de esa fila es el mismo que auditaste: el literal de la cabecera del informe, no el
+```
+
+---
+
+### T-091 - Escribir el reparto de la etapa del crecimiento
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-022 |
+
+- **Que:** nace `_workflow/030_growth.md`, el quinto y ultimo archivo de reparto por etapa. Con el,
+  **las dos condiciones de entrada** que el §5 del archivo de etapa exige —las tres plantillas y el
+  reparto— quedan cumplidas: hasta hoy la etapa no podia abrirse aunque sus seis entradas estuvieran
+  completas.
+- **Como:** la misma forma que los cuatro anteriores —nueve secciones, una fila por paso del
+  procedimiento, las asignaciones no obvias razonadas, lo que no se delega, que cuenta como software,
+  las casillas de salida separadas en mecanico y juicio, la rubrica de nivel, que se registra, la
+  verificacion y los errores frecuentes—. Ocho filas, porque el procedimiento de esta etapa tiene
+  ocho pasos.
+- **Lo que lo distingue de los cuatro anteriores**, y esta razonado en `D-091`: es la primera etapa
+  que **se repite**, asi que el reparto se ejecuta decenas de veces y lo que se erosiona es lo que se
+  repite; y es la primera cuyo trabajo **llega a usuarios reales**, lo que sube el eje «impacto de un
+  error» a **3** y con el la lectura de nivel a **5**.
+- **Criterio de cierre:** ocho filas, el archivo de etapa lo cita, y no filtra ni datos propios ni
+  codigos instanciados.
+
+```
+$ grep -cE "^\| \*\*[1-8] · " _workflow/030_growth.md
+8
+
+$ grep -n "_workflow/030_growth" _phases/030_growth.md | head -2
+201:quien hace cada uno —humano, software, IA, o una combinacion— lo dice **`_workflow/030_growth.md`**,
+387:🚨 **Las plantillas de esta etapa y el reparto de `_workflow/030_growth.md` son condicion de entrada,
+
+$ grep -noE '\b(T|D|F|L|A|C|DT|S|N|I|R|H)-[0-9]{2,3}\b' _workflow/030_growth.md; echo "exit=$?"
+exit=1
+```
+
+---
+
+### T-092 - Completar las dos columnas que le faltaban a la fila de `L-029`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-022 |
+
+- **Que:** hallazgo propio, encontrado al ir a escribir la leccion de esta sesion. La fila de `L-029`
+  en el indice de `lessons.md` tenia **cinco campos en vez de siete**: le faltaban `Etapa` y
+  `Portabilidad`. Ninguna auditoria lo habia visto, y el control del Paso 2b tampoco: ese compara
+  **codigos** entre indice y detalle, no el numero de columnas de cada fila.
+- **Por que importa mas de lo que parece:** `Portabilidad` **solo vive en el indice**, y la cosecha
+  de lecciones se comprueba barriendo esa columna. Una fila sin ella no sale como `Sin evaluar`: no
+  sale de ninguna manera, y la casilla de cosecha de una etapa se aprobaria con una leccion que nadie
+  miro.
+- **Como:** se completa la fila con `000_preproject` y `Sin evaluar`, que es el valor de partida que
+  las convenciones del archivo fijan para toda leccion nueva. **No se toca la ficha de detalle**: el
+  estado de portabilidad vive en el indice y en ningun sitio mas.
+- **Criterio de cierre:** todas las filas del indice tienen siete campos.
+
+```
+$ awk 'NR>=12 && /^\| \[L-/' _persistence/lessons.md | awk -F'|' '{if(NF!=7) print "FILA MAL: "$2}'; echo "exit=$?"
+exit=0
 ```
