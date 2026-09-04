@@ -62,10 +62,14 @@
 | [F-048](#f-048---la-seccion-7-de-s-019-publica-42-de-las-48-lineas-que-devuelve-su-propia-orden-y-las-seis-omitidas-quedan-sin-salida) | La seccion 7 de `S-019` publica 42 de las 48 lineas que devuelve su propia orden, y las seis omitidas quedan sin salida | R-019 | Media | Implementado |
 | [F-049](#f-049---dt-004-declara-siete-lineas-nuevas-con-0x08-donde-hay-diez-y-dos-de-las-no-contadas-alteran-la-salida-cruda-publicada-en-la-correccion-de-f-045) | `DT-004` declara siete lineas nuevas con `0x08` donde hay diez, y dos de las no contadas alteran la salida cruda publicada en la correccion de `F-045` | R-019 | Media | Implementado |
 | [F-050](#f-050---el-informe-y-progressmd-llaman-las-tres-etapas-nuevas-de-025_wslt-a-los-tres-artefactos-de-una-sola-etapa) | El informe y `progress.md` llaman «las tres etapas nuevas de `025_wslt`» a los tres artefactos de una sola etapa | R-019 | Baja | Implementado |
-| [F-051](#f-051---la-seccion-8-iguala-catorce-lineas-de-control-con-los-diez-casos-que-dt-004-documenta-y-los-dos-conjuntos-no-son-el-mismo) | La seccion 8 iguala catorce lineas de control con «los diez casos que `DT-004` documenta», y los dos conjuntos no son el mismo | R-020 | Media | Aceptado — pendiente (`T-077`) |
-| [F-052](#f-052---la-seccion-1-promete-una-lista-de-archivos-anclada-al-commit-que-nunca-se-pego-y-la-unica-publicada-sale-del-area-de-staging) | La seccion 1 promete una lista de archivos anclada al commit que nunca se pego, y la unica publicada sale del area de staging | R-020 | Media | Aceptado — pendiente (`T-078`) |
-| [F-053](#f-053---el-campo-commit-auditado-apunta-por-su-propia-definicion-a-un-commit-distinto-de-aquel-al-que-toda-la-evidencia-del-informe-esta-anclada) | El campo «Commit auditado» apunta, por su propia definicion, a un commit distinto de aquel al que toda la evidencia del informe esta anclada | R-020 | Media | Aceptado — pendiente (`T-079`) |
-| [F-054](#f-054---el-recuento-de-etapas-sin-adoptar-escrito-en-este-commit-omite-020_baseline) | El recuento de etapas sin adoptar escrito en este commit omite `020_baseline` | R-020 | Baja | Aceptado — pendiente (`T-080`) |
+| [F-051](#f-051---la-seccion-8-iguala-catorce-lineas-de-control-con-los-diez-casos-que-dt-004-documenta-y-los-dos-conjuntos-no-son-el-mismo) | La seccion 8 iguala catorce lineas de control con «los diez casos que `DT-004` documenta», y los dos conjuntos no son el mismo | R-020 | Media | Implementado |
+| [F-052](#f-052---la-seccion-1-promete-una-lista-de-archivos-anclada-al-commit-que-nunca-se-pego-y-la-unica-publicada-sale-del-area-de-staging) | La seccion 1 promete una lista de archivos anclada al commit que nunca se pego, y la unica publicada sale del area de staging | R-020 | Media | Implementado |
+| [F-053](#f-053---el-campo-commit-auditado-apunta-por-su-propia-definicion-a-un-commit-distinto-de-aquel-al-que-toda-la-evidencia-del-informe-esta-anclada) | El campo «Commit auditado» apunta, por su propia definicion, a un commit distinto de aquel al que toda la evidencia del informe esta anclada | R-020 | Media | Implementado |
+| [F-054](#f-054---el-recuento-de-etapas-sin-adoptar-escrito-en-este-commit-omite-020_baseline) | El recuento de etapas sin adoptar escrito en este commit omite `020_baseline` | R-020 | Baja | Implementado |
+| [F-055](#f-055---_phases030_growthmd-instancia-t-083-y-d-085-y-es-la-unica-ocurrencia-de-toda-_phases) | `_phases/030_growth.md` instancia `T-083` y `D-085`, y es la unica ocurrencia de toda `_phases/` | R-021 | Media | Abierto |
+| [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Abierto |
+| [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Abierto |
+| [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Abierto |
 
 ---
 
@@ -2983,9 +2987,9 @@ $ git show 1b30e16:_persistence/progress.md | grep -c 'tres etapas nuevas de `02
 | Auditoria | R-020 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-077` |
+| Cerrado en | `76a2cb6` (`R-021`) |
 
 - **Que se observo:** la seccion 8 de `_audit/S-020.md` publica cuatro cifras (1, 1, 7, 5) y concluye
   que «son exactamente los diez casos que `DT-004` (ampliada por `F-049`/`T-073`) ya documenta como
@@ -3047,9 +3051,9 @@ $ git show f09d1f7:_audit/findings.md | grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' 
 | Auditoria | R-020 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-078` |
+| Cerrado en | `76a2cb6` (`R-021`) |
 
 - **Que se observo:** la seccion 1 de `_audit/S-020.md` publica el listado con
   `git diff --cached --stat --name-only` y declara dos veces que la version definitiva va «en la nota
@@ -3086,9 +3090,9 @@ $ git show 3ff670e:_audit/S-020.md | grep -nE '^## '
 | Auditoria | R-020 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-079` |
+| Cerrado en | `76a2cb6` (`R-021`) |
 
 - **Que se observo:** el informe no escribe un hash en su cabecera: escribe la orden que lo deriva.
   Tras el segundo commit de la sesion esa orden devuelve `3ff670e`, mientras la nota de cierre y las
@@ -3126,9 +3130,9 @@ $ git show --stat --name-only --format= f09d1f7 | grep -c .
 | Auditoria | R-020 |
 | Fecha | 2026-09-04 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-080` |
+| Cerrado en | `76a2cb6` (`R-021`) |
 
 - **Que se observo:** las dos frases nuevas de este commit en `_persistence/progress.md` enumeran las
   etapas pendientes de adoptar y nombran tres, cuando hay cuatro archivos de etapa fuera de la tabla
@@ -3161,3 +3165,152 @@ $ git show f09d1f7:project.md | grep 'Etapas declaradas'
 - **Que lo corregiria:** nota fechada en las dos frases con la lista derivada de
   `git ls-tree --name-only <commit> _phases/` contra la tabla «Etapas», y que el cierre la derive en
   vez de escribirla.
+
+---
+
+### F-055 - `_phases/030_growth.md` instancia `T-083` y `D-085`, y es la unica ocurrencia de toda `_phases/`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-021 |
+| Fecha | 2026-09-05 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota que este commit anade a `_phases/030_growth.md` cita dos codigos
+  instanciados de este proyecto, y son las dos primeras ocurrencias de toda la carpeta.
+
+~~~
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' 76a2cb6 -- _phases
+76a2cb6:_phases/030_growth.md:402:D-085
+76a2cb6:_phases/030_growth.md:402:T-083
+
+$ git grep -cE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' 76a2cb6^ -- _phases
+(sin salida - cero ocurrencias en toda la carpeta antes de este commit)
+~~~
+
+  La linea 402 es la cabecera de la nota: `> [nota] **Nota del 2026-09-05 (T-083, decision D-085).**`
+- **Por que importa:** `CLAUDE.md` dice de `_phases/` que «los codigos se escriben genericos
+  (`T-XXX`, `D-XXX`, `F-NNN`), **nunca instanciados**», y que la carpeta tiene que poder copiarse a
+  otro proyecto tal cual. El barrido del Paso 1b solo busca nombre, ruta y host, asi que esta clase
+  de fuga no la ve ningun control: el commit anterior tenia cero ocurrencias en las seis etapas y
+  este introduce las dos primeras. Copiada a otro proyecto, la nota cita dos codigos que alli no
+  existen.
+- **Que lo corregiria:** reescribir la cabecera de la nota sin instanciar -fecharla y remitir el
+  porque a `_persistence/decisions.md` sin numero-, o, si se decide que una nota fechada necesita su
+  trazabilidad, registrar la excepcion con su `D-XXX` y ampliar el barrido de fuga del cierre a los
+  prefijos de codigo sobre `_phases/`.
+
+---
+
+### F-056 - La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza
+| Campo | Valor |
+|---|---|
+| Auditoria | R-021 |
+| Fecha | 2026-09-05 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota encabeza el bloque con `ls _workflow/030_growth.md 2>&1` y pega debajo
+  una salida con comillas dobles de mas dentro de las simples, que esa orden no produce.
+
+~~~
+$ git show 76a2cb6:_phases/030_growth.md | grep -n "cannot access"
+413:> ls: cannot access '"_workflow/030_growth.md"': No such file or directory
+
+$ ls _workflow/030_growth.md 2>&1
+ls: cannot access '_workflow/030_growth.md': No such file or directory
+~~~
+
+  El mismo comando, en la posicion [40] de la seccion 7 de `_audit/S-021.md`, si publica la salida
+  correcta -sin las comillas dobles-, asi que las dos versiones del mismo hecho no coinciden.
+- **Por que importa:** el hecho de fondo (el archivo no existe) es cierto, pero lo pegado no es la
+  salida de lo escrito: la comilla doble delata que se corrio `ls "_workflow/030_growth.md"`. Una
+  salida cruda vale por ser reproducible; quien copie la orden de arriba obtendra un texto distinto
+  del publicado y tendra que decidir cual de los dos miente. Es el patron que `L-029` acaba de
+  documentar -la capa que escribe el archivo altera lo que se pega- reapareciendo en el mismo commit
+  que lo registra, en otro archivo.
+- **Que lo corregiria:** pegar la salida tal como la devuelve la orden escrita, o escribir la orden
+  tal como se corrio.
+
+---
+
+### F-057 - Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-021 |
+| Fecha | 2026-09-05 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** los dos bloques listan seis ordenes en total y ninguna lleva salida debajo.
+
+~~~
+$ git show 76a2cb6:_persistence/decisions.md | awk '/^### D-083/,/^### D-084/' | sed -n '/Criterio de cierre/,$p'
+- **Criterio de cierre:** `DT-005` existe con su fila en el indice, la nota fechada esta en la
+  seccion 8 de `_audit/S-020.md`, y la fila de `F-051` en `_audit/findings.md` cita `T-077`.
+
+$ grep -c '^### DT-005' _persistence/techdebt.md
+$ grep -c 'T-077' _audit/S-020.md
+
+$ git show 76a2cb6:_persistence/decisions.md | awk '/^### D-084/,/^### D-085/' | sed -n '/Criterio de cierre/,$p'
+- **Criterio de cierre:** `protocol-close` tiene su Paso 7c y su cabecera pide un hash literal;
+  `protocol-audit` comprueba el literal contra el derivado; y las dos notas de cierre que faltaban
+  estan en `_audit/S-020.md`.
+
+$ grep -nE '^### 7c|^### Cual de los dos' .claude/skills/protocol-close/SKILL.md
+$ grep -c 'HASH LITERAL' .claude/skills/protocol-close/SKILL.md
+$ grep -c 'Esa orden puede devolver el commit equivocado' .claude/skills/protocol-audit/SKILL.md
+$ grep -c 'Nota de cierre' _audit/S-020.md
+~~~
+
+  `D-085`, en la misma sesion y en el mismo archivo, si pega la salida entera de las suyas.
+- **Por que importa:** las dos son decisiones con `Origen: report_auditor`, y `CLAUDE.md` exige para
+  ellas «la orden ejecutada literal **y** lo que devolvio, tal cual salio». Un comando sin salida no
+  es evidencia: obliga a rehacer el barrido para contrastarlo, que es exactamente el coste que la
+  regla existe para evitar. Reejecutadas por esta auditoria reproducen (R-021 §1.10), pero eso lo
+  sabe quien las reejecuta, no quien lee la entrada.
+- **Que lo corregiria:** pegar bajo cada orden la salida que devuelve, anclada al commit
+  (`git show 76a2cb6:<archivo> | ...`), en una nota fechada que no reescriba el texto original.
+  Que la seccion 6 del informe lo declare es correcto y no lo sustituye: declarar un defecto no lo
+  corrige.
+
+---
+
+### F-058 - `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla
+| Campo | Valor |
+|---|---|
+| Auditoria | R-021 |
+| Fecha | 2026-09-05 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** dos lineas del informe son la instruccion de llenado de la plantilla, no
+  contenido; ninguno de los tres informes anteriores las lleva.
+
+~~~
+$ for i in 018 019 020 021; do echo "== S-$i"; git show 76a2cb6:_audit/S-$i.md | grep -nE '^<'; done
+== S-018
+== S-019
+== S-020
+== S-021
+22:<PEGA AQUI, sin editar, la salida cruda de `git show --stat --name-only --format= <commit>` - mientras
+88:<Las tareas abiertas salen del indice de `tasks.md` filtrando `No implementada` por su columna de
+~~~
+
+  Corresponden a los huecos que la plantilla del informe marca en `protocol-close` (`## 1. Que se
+  hizo` y `## 2. Que NO se hizo`).
+- **Por que importa:** «Adherencia a plantillas» significa rellenar el hueco, no dejar la
+  instruccion junto al contenido. El informe si pego lo que la instruccion pedia, asi que no falta
+  evidencia; lo que queda es un artefacto que mezcla la orden de llenado con lo llenado, que es el
+  defecto que `CLAUDE.md` persigue en `_templates/`. Gravedad `Baja` porque no hace que el registro
+  afirme nada falso.
+- **Que lo corregiria:** borrar las dos lineas, o -si se prefiere no reescribir un informe ya
+  auditado (`D-019`)- dejarlo y ajustar la plantilla para que el hueco quede separado del contenido.
