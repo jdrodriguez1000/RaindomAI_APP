@@ -80,6 +80,11 @@
 | [T-069](#t-069---escribir-el-archivo-de-etapa-del-esqueleto-que-camina-_phases025_wsltmd) | Escribir el archivo de etapa del esqueleto que camina (`_phases/025_wslt.md`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-070](#t-070---escribir-la-plantilla-del-acta-del-esqueleto-_templates025_wslt005_skeleton_recordmd) | Escribir la plantilla del acta del esqueleto (`_templates/025_wslt/005_skeleton_record.md`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-071](#t-071---escribir-el-reparto-de-la-etapa-del-esqueleto-_workflow025_wsltmd-d-080) | Escribir el reparto de la etapa del esqueleto (`_workflow/025_wslt.md`, `D-080`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-072](#t-072---publicar-en-s-019-la-lista-completa-del-paso-2d-y-las-cifras-reales-f-048) | Publicar en `S-019` la lista completa del Paso 2d y las cifras reales (`F-048`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-073](#t-073---ampliar-el-ambito-y-la-cifra-de-dt-004-con-su-barrido-f-049-d-081) | Ampliar el ambito y la cifra de `DT-004` con su barrido (`F-049`, `D-081`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-074](#t-074---anadir-al-cierre-el-barrido-de-caracteres-de-control-paso-2e-de-protocol-close-f-049) | Anadir al cierre el barrido de caracteres de control (Paso 2e de `protocol-close`, `F-049`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-075](#t-075---aclarar-que-025_wslt-es-una-etapa-con-tres-archivos-no-tres-etapas-f-050) | Aclarar que `025_wslt` es una etapa con tres archivos, no tres etapas (`F-050`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-076](#t-076---escribir-el-archivo-de-etapa-del-crecimiento-_phases030_growthmd-d-082) | Escribir el archivo de etapa del crecimiento (`_phases/030_growth.md`, `D-082`) | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -3184,5 +3189,196 @@ $ grep -cE "^\| \*\*[1-6] · " _workflow/025_wslt.md
 6
 
 $ grep -c "^### Paso " _phases/025_wslt.md
+6
+```
+
+### T-072 - Publicar en `S-019` la lista completa del Paso 2d y las cifras reales (`F-048`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-020 |
+
+- **Que:** nota fechada en la seccion 7 de `_audit/S-019.md`. El informe declaraba «42 lineas
+  devueltas (31 ordenes distintas; hay 11 repetidas)» debajo de una lista **truncada en la posicion
+  42**; la orden anclada devuelve **48 lineas y 37 ordenes distintas**. La nota publica las tres
+  cifras tomadas de `wc -l`, `sort -u | wc -l` y `sort | uniq -d | wc -l`, las seis posiciones
+  omitidas (43 a 48) y la salida de cada una, que el informe original nunca publico.
+- **Por que:** es el mismo defecto que `F-045` —recuento falso en la seccion 7 y ordenes sin salida—
+  y aparece **en el commit que corrige `F-045`**. Las seis omitidas no son lineas de continuacion
+  (esa justificacion vale solo para la 42): son ordenes propias que el filtro si captura, y estaban
+  dentro de `DT-004`, ya escrita cuando el informe se redacto.
+- **Lo que el informe original hizo bien y aun asi no basto:** el Paso 2d ya exigia numerar con
+  `cat -n` y sacar las repetidas de `uniq -d`, y las dos cosas se hicieron. Lo que no impide ese
+  remedio es **truncar la lista al pegarla** — de ahi que la nota tome las tres cifras de las
+  ordenes en vez de escribirlas al lado.
+- **Criterio de cierre:** la nota existe en la seccion 7, publica las tres cifras con su orden
+  anclada a `1b30e16`, y las seis posiciones 43-48 tienen su salida.
+
+```
+$ grep -c 'Nota del 2026-09-04 (`T-072`, hallazgo `F-048`)' _audit/S-019.md
+1
+
+$ git diff -U0 1b30e16^ 1b30e16 -- _persistence _audit ":(exclude)_audit/S-019.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+48
+```
+
+### T-073 - Ampliar el ambito y la cifra de `DT-004` con su barrido (`F-049`, `D-081`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-020 |
+
+- **Que:** nota fechada en `DT-004`. La entrada declaraba **siete** lineas nuevas con `0x08` en
+  **dos** archivos; el barrido sobre todos los `.md` del commit devuelve **diez** en **cuatro**. Las
+  tres no contadas son dos en `_audit/S-018.md` y una en `_audit/S-019.md`. La nota publica los dos
+  barridos —el del commit y el del padre, para separar lo nuevo de lo heredado— con su salida cruda.
+- **Por que importa mas que la cifra:** las dos de `_audit/S-018.md` caen dentro de la nota fechada
+  que corrige `F-045`, y no son prosa: son la transcripcion de la **salida cruda** de dos ordenes.
+  La nota que existia para dejar de publicar cifras falsas publica una salida que la orden no
+  devuelve.
+- **Como se conto mal:** enumerando a mano los archivos que el Paso 6 del cierre tenia delante
+  —`decisions.md` y `tasks.md`— en vez de barrer el arbol. Los tres que faltaban estaban en archivos
+  tocados al principio de la sesion, que son los que la memoria deja fuera. El remedio de fondo es
+  `T-074`.
+- **Quien escribe la nota:** `manager`, por `D-081`. `Estado`, `Confirmacion` y el titulo de la
+  entrada no se tocan.
+- **Criterio de cierre:** la nota existe en `DT-004`, cita `F-049` y `D-081`, y su barrido reproduce.
+
+```
+$ grep -c 'Nota del 2026-09-04 (`T-073`, hallazgo `F-049`, decision `D-081`)' _persistence/techdebt.md
+1
+
+$ for f in $(git ls-tree -r --name-only 1b30e16 | grep -E '\.md$'); do n=$(git show 1b30e16:"$f" | grep -c $'\x08'); if [ "$n" -gt 0 ]; then echo "$f: $n"; fi; done
+_audit/S-018.md: 2
+_audit/S-019.md: 1
+_audit/findings.md: 1
+_persistence/decisions.md: 7
+_persistence/tasks.md: 5
+```
+
+### T-074 - Anadir al cierre el barrido de caracteres de control (Paso 2e de `protocol-close`, `F-049`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-020 |
+
+- **Que:** nace el **Paso 2e** de `protocol-close`, entre el 2d y la seccion de como se escriben los
+  archivos. Barre los caracteres de control —excluyendo tabulador, salto de linea y retorno de
+  carro— sobre **los archivos que el commit toca**, derivados de `git diff --cached --name-only`, y
+  no sobre una lista escrita a mano. Trae su tabla de tres salidas posibles, la orden que separa lo
+  nuevo de lo heredado contra `HEAD`, y la exigencia de `cat -A` para que el `^H` se vea. El informe
+  gana una **seccion 8** donde publicar su resultado, tambien cuando sale vacio.
+- **Por que:** el `0x08` lleva tres sesiones consecutivas apareciendo —`DT-003`, `DT-004` y las tres
+  lineas que documenta `F-049`— y las tres veces se detecto a mano y por casualidad. Es `L-008`
+  literal: una regla sin mecanismo es una intencion. Lo que faltaba no era saber que el defecto
+  existe, sino una orden que lo busque sin que nadie se acuerde.
+- **Por que antes del `git add` y no en la auditoria:** commiteado, el defecto ya no se corrige —se
+  anota—. Esa diferencia es la unica razon de que el paso viva en el cierre.
+- **Alcance que NO cubre:** el patron ve caracteres de control, no errores de transcripcion en
+  general. Un bloque que publica una salida distinta de la que la orden devuelve **sin** caracteres
+  raros sigue siendo cosa del Paso 2d.
+- **Criterio de cierre:** el paso existe con su orden, la estructura del informe tiene su seccion 8,
+  y el propio archivo del protocolo pasa su barrido.
+
+```
+$ grep -c '^## Paso 2e' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c '^## 8. Evidencia del Paso 2e' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' .claude/skills/protocol-close/SKILL.md
+0
+```
+
+### T-075 - Aclarar que `025_wslt` es una etapa con tres archivos, no tres etapas (`F-050`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-020 |
+
+- **Que:** nota fechada en dos sitios —la seccion 2 de `_audit/S-019.md` y la entrada `S-019` de
+  `_persistence/progress.md`—. Las dos frases decian «las tres etapas nuevas de `025_wslt`»; lo que
+  nace son **tres archivos de una sola etapa**, y la orden que los deriva va en la nota.
+- **Por que:** `project.md` lleva la cuenta de las etapas declaradas y `T-002` existe para declarar
+  las que faltan. Un registro que dice «tres etapas nuevas» donde hay una deja al arranque siguiente
+  buscando dos etapas que no existen.
+- **Lo que no se toca:** el mensaje del commit y `D-078` ya lo dicen bien; ninguno de los dos textos
+  originales se reescribe (`D-019`).
+- **Criterio de cierre:** las dos notas existen y su orden reproduce.
+
+```
+$ grep -c 'Nota del 2026-09-04 (`T-075`, hallazgo `F-050`)' _audit/S-019.md _persistence/progress.md
+_audit/S-019.md:1
+_persistence/progress.md:1
+
+$ git diff --name-only --diff-filter=A 1b30e16^ 1b30e16 | grep 025_wslt
+_phases/025_wslt.md
+_templates/025_wslt/005_skeleton_record.md
+_workflow/025_wslt.md
+```
+
+### T-076 - Escribir el archivo de etapa del crecimiento (`_phases/030_growth.md`, `D-082`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-020 |
+
+- **Que:** nace `_phases/030_growth.md`, el sexto archivo de `_phases/`, con las mismas ocho
+  secciones que sus hermanos. Cubre la etapa que hace crecer el producto colgando unidades
+  incrementales de un esqueleto que ya camina: es la mas larga del metodo y **la unica que se
+  repite**, con los pasos 2 a 7 por cada slice y los pasos 1 y 8 por cada iteracion.
+- **De donde sale:** de un borrador que el usuario dejo en la carpeta temporal del repositorio,
+  reescrito para esta metodologia. Se conserva su estructura y sus dos prohibiciones con recuadro
+  —el corte horizontal y tocar el test para que pase—; se descarta todo su vocabulario de rutas,
+  carpetas y codigos, que era el de otro proyecto (`D-082`).
+- **La desviacion que hay que saber leer:** el archivo **no instancia ningun codigo de producto, ni
+  siquiera generico**. La guia de metodo asigna a la tarea de producto el mismo prefijo que
+  `project.md` ya tiene tomado por la tarea del registro de jornada, y esta es la etapa donde esa
+  colision se cobra. El archivo habla en prosa y remite a la tabla «Codigos»; resolver la colision
+  es de la etapa de la baseline. Decidido con el usuario antes de escribir.
+- **No adopta la etapa** (misma nota que `D-082`): `project.md` sigue declarando `000_preproject` y
+  `005_discovery`, y declarar las posteriores es `T-002`.
+- **Deja pendientes dos artefactos, y el archivo lo dice:** ni `_templates/030_growth/` ni
+  `_workflow/030_growth.md` existen, y su §5 los declara condicion de entrada — igual que hizo la
+  etapa del esqueleto con los suyos.
+- **Criterio de cierre:** el archivo tiene sus ocho secciones y sus ocho pasos, no filtra ningun dato
+  propio del proyecto, no instancia ningun codigo, no lleva caracteres de control, y sus recuentos
+  declarados coinciden con lo que contiene.
+
+```
+$ grep -c "^## " _phases/030_growth.md
+8
+
+$ grep -c "^### Paso " _phases/030_growth.md
+8
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" _phases/030_growth.md ; echo "exit=$?"
+exit=1
+
+$ grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _phases/030_growth.md
+0
+
+$ ls -1 _phases/ | wc -l
 6
 ```

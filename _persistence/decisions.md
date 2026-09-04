@@ -89,6 +89,8 @@
 | [D-078](#d-078---el-archivo-de-etapa-del-esqueleto-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa del esqueleto se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-03 | Vigente |
 | [D-079](#d-079---la-etapa-del-esqueleto-produce-un-acta-propia-y-por-eso-tiene-plantilla) | La etapa del esqueleto produce un acta propia, y por eso tiene plantilla | 2026-09-03 | Vigente |
 | [D-080](#d-080---el-despliegue-no-se-delega-en-la-ia-y-por-eso-el-eje-de-impacto-puntua-2-y-no-3) | El despliegue no se delega en la IA, y por eso el eje de impacto puntua 2 y no 3 | 2026-09-03 | Vigente |
+| [D-081](#d-081---una-nota-fechada-que-corrige-un-dato-de-techdebtmd-la-escribe-manager-no-el-cierre) | Una nota fechada que corrige un dato de `techdebt.md` la escribe `manager`, no el cierre | 2026-09-04 | Vigente |
+| [D-082](#d-082---el-archivo-de-etapa-del-crecimiento-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa del crecimiento se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-04 | Vigente |
 
 ---
 
@@ -4363,3 +4365,134 @@ $ grep -c "^### Paso " _phases/025_wslt.md
 reparto dice que hay una fila por paso del procedimiento: si el archivo de etapa gana o pierde un
 paso y el reparto no cambia, quedan dos archivos diciendo cosas distintas y el que envejece miente
 sin que nadie lo note.
+
+### D-081 - Una nota fechada que corrige un dato de `techdebt.md` la escribe `manager`, no el cierre
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-04 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `F-049` señala que `DT-004` declara siete lineas nuevas con `0x08` donde el commit
+  tiene diez, y en cuatro archivos, no en dos. La correccion que el hallazgo recomienda es una nota
+  fechada sobre esa entrada. Pero `CLAUDE.md` reparte `techdebt.md` de otra forma: el
+  `session-closer` **propone** las entradas y el **usuario** las confirma; `manager` no figura como
+  quien escribe ahi.
+- **Decision:** `manager` escribe la nota fechada en `DT-004`. Se acota a esto y no a mas: **una
+  nota que corrige un dato factual de una entrada existente, respaldada por un `F-NNN`, sin tocar
+  `Estado`, sin tocar `Confirmacion` y sin tocar el titulo.** Crear una entrada nueva, pagarla o
+  confirmarla siguen sin ser de `manager`.
+- **Por que asi:** es el mismo argumento que ya sostiene las dos excepciones escritas de
+  `tasks.md` (`D-020` y `D-025`). El `session-closer` arranca en frio y solo ve archivos: el dato
+  que hay que corregir aqui no esta en ningun `git diff` —nace de un hallazgo y de un barrido
+  corrido a proposito—, y esperar al cierre significa que el hallazgo se evalua hoy y su correccion
+  no existe en ningun sitio hasta la noche. Ademas, el reparto de `techdebt.md` protege **quien
+  decide que algo es deuda**; una nota que no toca `Confirmacion` no toca esa decision.
+- **Alternativas descartadas:** (1) dejar la nota al `session-closer` — no puede derivarla del diff,
+  y el hallazgo quedaria evaluado sin registro durante toda la jornada, que es el agujero que
+  `D-020` ya cerro para `tasks.md`; (2) corregir la cifra dentro del texto de `DT-004` en vez de
+  anotarla — lo prohibe `D-019`, y convertiria «falta evidencia» en «hay evidencia falsa»; (3) abrir
+  una `DT-005` nueva con el ambito correcto y dejar `DT-004` como esta — duplicaria la deuda: dos
+  entradas para el mismo defecto, y quien pague una creera haber pagado las dos.
+- **Reversible a criterio**, porque el asunto es una nota en un archivo bajo control de versiones:
+  deshacerla es un commit, no toca nada fuera del repositorio y no consume nada. Se declara aqui
+  como criterio y no como lectura de una tabla, porque el inventario de acciones irreversibles del
+  proyecto todavia no existe (`T-037`).
+- **Criterio de cierre:** la nota existe en `DT-004`, cita `F-049` y esta `D-081`, publica el
+  barrido con su salida cruda, y los campos `Estado`, `Confirmacion` y el titulo de la entrada
+  siguen siendo los mismos que antes de la nota.
+
+```
+$ git show c2a98b5:_persistence/techdebt.md | sed -n '/^### DT-004/,/^| Fecha/p' | grep -E '^\| (Estado|Confirmacion)'
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+
+$ sed -n '/^### DT-004/,/^| Fecha/p' _persistence/techdebt.md | grep -E '^\| (Estado|Confirmacion)'
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+
+$ git show c2a98b5:_persistence/techdebt.md | grep -c '^### DT-004 - Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md`'
+1
+
+$ grep -c '^### DT-004 - Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md`' _persistence/techdebt.md
+1
+```
+
+### D-082 - El archivo de etapa del crecimiento se escribe por adelantado, y la etapa NO queda adoptada
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-04 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pidio crear `_phases/030_growth.md`, tomando como guia un borrador que
+  vivia en la carpeta temporal del repositorio, y exigio que el resultado quedara alineado con
+  `_methodology/000_method.md` y con los archivos ya escritos de `_phases/`, y que fuera agnostico.
+  Es el mismo movimiento que `D-078` hizo para la etapa del esqueleto.
+- **Decision:** nace `_phases/030_growth.md`, con las mismas ocho secciones que sus hermanos. **No
+  adopta la etapa**: `project.md` sigue declarando `000_preproject` y `005_discovery`, y declarar las
+  posteriores es trabajo de `005_discovery` (`T-002`). Este `D-XXX` es el registro que el propio
+  archivo exige para un archivo de etapa escrito por adelantado.
+- **Que se tomo del borrador y que no:** se conservan su esqueleto de secciones, las dos
+  prohibiciones con recuadro —el corte horizontal y tocar el test para que pase—, el criterio de
+  orden de las slices, el paso de cerrar la slice actualizando la baseline, y la declaracion de la
+  ventana de observacion. **Se descarta todo su vocabulario de rutas y codigos**, porque era el de
+  otro proyecto: el borrador nombraba carpetas concretas, un registro de memoria que aqui se llama
+  de otra forma, y codigos de producto instanciados. Donde el borrador escribia una ruta, el archivo
+  referencia `project.md`.
+- **Los codigos de producto NO se escriben, ni siquiera genericos, y esa es la desviacion
+  deliberada respecto al borrador.** El borrador usaba los del metodo directamente. Aqui no se puede:
+  la guia de metodo (§46) asigna la inicial de la tarea de producto al mismo prefijo que `project.md`
+  ya tiene tomado por la tarea del registro de jornada, y **esta es justo la etapa donde esa colision
+  se cobra**, porque su Paso 3 descompone slices en tareas. El archivo habla en prosa —«slices»,
+  «tareas», «tests»— y remite a la tabla «Codigos». **La colision se resuelve en la etapa de la
+  baseline, que es la que estrena los codigos de producto**, no en un archivo de etapa.
+- **Alternativas descartadas:** (1) escribir en el archivo que la tarea de una slice **es** la
+  `T-XXX` del registro de jornada — resuelve la colision, pero mete una decision de proyecto dentro
+  de un archivo que tiene que poder copiarse a otro; (2) estrenar un codigo generico nuevo para la
+  tarea de producto — seria declarar un codigo desde un sitio que no declara codigos, y ademas antes
+  de que exista producto; (3) copiar el borrador tal cual y limpiarlo despues — es lo que el Paso 1b
+  del cierre existe para atrapar, y la limpieza posterior siempre deja algo.
+- **Lo que el archivo declara como pendiente, en vez de suponerlo hecho:** ni `_templates/030_growth/`
+  ni `_workflow/030_growth.md` existen, y su §5 lo dice con esas palabras. Los dos son condicion de
+  entrada de la etapa, igual que en la del esqueleto.
+- **Reversible a criterio**, porque es un archivo nuevo bajo control de versiones que no adopta nada
+  ni toca nada fuera del repositorio. Se declara aqui como criterio y no como lectura de una tabla,
+  porque el inventario de acciones irreversibles del proyecto todavia no existe (`T-037`).
+- **Criterio de cierre:** el archivo existe con sus ocho secciones, no filtra ningun dato propio del
+  proyecto, no instancia ningun codigo, y sus recuentos declarados coinciden con lo que el archivo
+  contiene.
+
+```
+$ grep -c "^## " _phases/030_growth.md
+8
+
+$ grep -rnE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" _phases/030_growth.md ; echo "exit=$?"
+exit=1
+
+$ PAT=$( { sed -n '/^## Codigos/,/^---/p' project.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; sed -n '/^## 46\. Identificadores/,/^```/p' _methodology/000_method.md | grep -oE '^\| `[A-Z]+-[A-Za-z0-9]+`'; } | tr -d '|` ' | sed 's/-.*//' | sort -u | awk '{print length, $0}' | sort -rn | cut -d' ' -f2 | paste -sd'|' - ) && grep -noE "(^|[^A-Za-z])(${PAT})-[0-9]{2,3}" _phases/030_growth.md ; echo "exit=$?"
+exit=1
+
+$ grep -c "^### Paso " _phases/030_growth.md
+8
+
+$ sed -n '/^## 6. Condicion de salida/,/^Si alguna falla/p' _phases/030_growth.md | grep -c "^- \[ \]"
+8
+
+$ sed -n '/^## 5. Artefactos que produce/,/^⚠️ \*\*Cual es la carpeta/p' _phases/030_growth.md | grep -c "^| \*\*"
+7
+
+$ sed -n '/^## 8\./,$p' _phases/030_growth.md | grep -c "^### "
+5
+
+$ ls -1 _phases/
+000_preproject.md
+005_discovery.md
+010_prototype.md
+020_baseline.md
+025_wslt.md
+030_growth.md
+
+$ grep -n "Etapas declaradas" project.md
+105:| Etapas declaradas | `000_preproject`, `005_discovery` |
+```

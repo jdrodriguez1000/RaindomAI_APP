@@ -36,6 +36,7 @@
 | [L-025](#l-025---un-patron-con-limite-de-palabra-es-ciego-a-los-prefijos-mas-largos-que-empiezan-igual) | Un patron con limite de palabra es ciego a los prefijos mas largos que empiezan igual | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-026](#l-026---un-enganche-de-uso-escrito-en-generico-no-engancha-tiene-que-nombrar-el-archivo) | Un enganche de uso escrito en generico no engancha: tiene que nombrar el archivo | 2026-09-03 | 000_preproject | Sin evaluar |
 | [L-027](#l-027---cuando-existe-la-orden-que-produce-una-lista-escribirla-a-mano-es-el-error-no-el-atajo) | Cuando existe la orden que produce una lista, escribirla a mano es el error, no el atajo | 2026-09-03 | 000_preproject | Sin evaluar |
+| [L-028](#l-028---un-recuento-sobre-los-archivos-que-toque-no-es-un-barrido-el-diff-sabe-cuales-son-la-memoria-no) | Un recuento sobre «los archivos que toque» no es un barrido: el diff sabe cuales son, la memoria no | 2026-09-04 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1062,4 +1063,60 @@ $ grep -c 'que entrada contiene cada punto tocado' .claude/skills/protocol-close
 
 $ grep -c 'D-077' _persistence/decisions.md
 3
+```
+
+### L-028 - Un recuento sobre «los archivos que toque» no es un barrido: el diff sabe cuales son, la memoria no
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-04 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** `F-049` señala que `DT-004` declara siete lineas nuevas con el caracter `0x08` en dos
+  archivos, cuando en el commit hay diez en cuatro. La entrada no se invento la cifra: la conto bien
+  **sobre los dos archivos que tenia delante**, que eran los que el Paso 6 del cierre estaba
+  revisando en ese momento. Los otros dos se habian editado antes, en la misma sesion.
+- **Que ocurrio:** el defecto no se manifesto como una cifra absurda. Se manifesto como una cifra
+  **plausible y corta**, con su ambito escrito al lado —«cinco en un archivo y dos en otro»— y una
+  seccion del informe declarando explicitamente que el barrido no habia sido completo y enumerando
+  los archivos no cubiertos. **Esa enumeracion tambien se escribio a mano, y tambien omitio los dos
+  que importaban.** Es decir: la salvedad que existia para acotar el alcance repitio el mismo error
+  que acotaba.
+- **Y las tres lineas que faltaban eran las peores del lote.** Dos caian dentro de la nota fechada
+  que corregia `F-045`, y no en prosa: en la transcripcion de la **salida cruda** de dos ordenes. La
+  nota que existia para dejar de publicar cifras falsas publicaba una salida que la orden no
+  devuelve.
+- **Leccion:** **cuando el alcance de un recuento es «los archivos que se tocaron», ese alcance se
+  deriva del diff — nunca de recordar cuales fueron.** No es una variante de `L-027`: `L-027` dice
+  que la **lista** se saca de una orden; esto dice que **el conjunto sobre el que la orden corre** se
+  saca de otra. Una orden impecable sobre un conjunto elegido a mano devuelve un resultado impecable
+  y falso, y encima parece mas riguroso que no haberlo corrido.
+- **Por que se escapa con facilidad:** los archivos que uno recuerda haber tocado son los del final
+  de la sesion. Los del principio ya se cerraron mentalmente hace horas — y son justo los que llevan
+  mas rato acumulando defectos sin que nadie los vuelva a mirar. Ademas, declarar la salvedad
+  («no se barrio todo, faltan estos») **produce sensacion de rigor** y desactiva la pregunta: quien
+  lee ve un limite declarado y da por hecho que quien lo declaro sabia cual era.
+- **Como aplicarla:** **antes de publicar un recuento cuyo alcance sean unos archivos, la lista de
+  archivos sale de `git diff --cached --name-only` (o de `git ls-tree` si el alcance es el arbol
+  entero), y el recuento se calcula recorriendola.** Si el alcance de verdad es parcial, el recorte
+  tambien se deriva: se dice con que orden se filtro, no que archivos se recuerdan.
+- **Que cambio por esta leccion:** nace el **Paso 2e** de `protocol-close` (`T-074`), que barre los
+  caracteres de control sobre los archivos que el commit toca —derivados del diff— y publica su
+  resultado en la seccion 8 del informe, tambien cuando sale vacio. El `0x08` llevaba tres sesiones
+  apareciendo y las tres se detecto a mano y por casualidad; es `L-008` otra vez, una regla sin
+  mecanismo.
+
+```
+$ grep -c '^## Paso 2e' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c '^## 8. Evidencia del Paso 2e' .claude/skills/protocol-close/SKILL.md
+1
+
+$ for f in $(git ls-tree -r --name-only 1b30e16 | grep -E '\.md$'); do n=$(git show 1b30e16:"$f" | grep -c $'\x08'); if [ "$n" -gt 0 ]; then echo "$f: $n"; fi; done
+_audit/S-018.md: 2
+_audit/S-019.md: 1
+_audit/findings.md: 1
+_persistence/decisions.md: 7
+_persistence/tasks.md: 5
 ```

@@ -245,6 +245,52 @@ criterio y no como lectura de una tabla.
   `_persistence/tasks.md` (dentro de `T-068`). El defecto es identico al que `L-024`/`DT-003` ya
   documentaron, y ocurre **en el mismo commit que escribe `D-077`**, la decision que sustituye un
   patron escrito a mano precisamente para dejar de tener este tipo de punto ciego.
+
+> 📌 **Nota del 2026-09-04 (`T-073`, hallazgo `F-049`, decision `D-081`).** La entrada se deja tal
+> cual se escribio, y **su cifra y su ambito son cortos**: no son siete lineas nuevas en dos
+> archivos, son **diez en cuatro**. La entrada las conto revisando a mano solo `decisions.md` y
+> `tasks.md` —los dos archivos que el Paso 6 del cierre estaba mirando en ese momento—, en vez de
+> barrer el arbol. Barrido sobre **todos** los `.md` del commit que la entrada describe:
+>
+> ```
+> $ for f in $(git ls-tree -r --name-only 1b30e16 | grep -E '\.md$'); do n=$(git show 1b30e16:"$f" | grep -c $'\x08'); if [ "$n" -gt 0 ]; then echo "$f: $n"; fi; done
+> _audit/S-018.md: 2
+> _audit/S-019.md: 1
+> _audit/findings.md: 1
+> _persistence/decisions.md: 7
+> _persistence/tasks.md: 5
+> ```
+>
+> Y contra el commit padre, para separar lo nuevo de esta sesion de lo heredado:
+>
+> ```
+> $ for f in _audit/S-018.md _audit/S-019.md _audit/findings.md _persistence/decisions.md _persistence/tasks.md; do echo "$f parent=$(git show 1b30e16^:$f | grep -c $'\x08') commit=$(git show 1b30e16:$f | grep -c $'\x08')"; done
+> _audit/S-018.md parent=0 commit=2
+> _audit/S-019.md parent=0 commit=1
+> _audit/findings.md parent=1 commit=1
+> _persistence/decisions.md parent=2 commit=7
+> _persistence/tasks.md parent=3 commit=5
+> ```
+>
+> **Nuevas de `S-019`: 2 + 1 + 0 + 5 + 2 = 10.** Las tres que la entrada no contaba son las dos de
+> `_audit/S-018.md` y la de `_audit/S-019.md`, y las tres importan mas que las siete ya contadas:
+>
+> - Las **dos de `_audit/S-018.md`** caen dentro de la nota fechada que corrige `F-045`, y no son
+>   prosa: son la transcripcion de la **salida cruda** de dos ordenes. La salida real lleva el
+>   limite de palabra; la publicada lleva el caracter de control. Es decir, la nota que existia
+>   para dejar de publicar cifras falsas publica una salida cruda que la orden no devuelve — la
+>   misma clase de defecto que venia a corregir.
+> - La **de `_audit/S-019.md`** es la linea 189, en prosa: «Restituyendo el `` que el `0x08`
+>   reemplazo, si reproducen». El informe pierde el limite de palabra justo en la frase que explica
+>   como restituirlo.
+>
+> **El ambito de esta deuda queda ampliado a esos diez casos en cuatro archivos**, no a los siete en
+> dos que dice el enunciado. El titulo de la entrada no se reescribe (`D-019`): se lee con esta nota.
+>
+> ⚠️ **Y la leccion de la ampliacion no es la cifra: es como se conto.** Enumerar a mano los
+> archivos que uno recuerda haber tocado no es un barrido, y produce exactamente este resultado —
+> deja fuera los que se editaron al principio de la sesion. Por eso el remedio no es corregir el
+> numero, sino que el cierre lo derive de una orden sobre los archivos que el commit toca (`T-074`).
 - **Como se detecto:** revisando los cuatro archivos del porque contra la evidencia (Paso 6 del
   cierre), con el mismo patron que usa `DT-003`:
 

@@ -370,6 +370,75 @@ orden no lo reconoce. Sale en la lista, y al reejecutarla da lo mismo — fila s
 no hay nada que corregir. Se deja asi a proposito: **un cedazo que deja pasar de mas no avisa de
 nada, y uno que se afina hasta no dar falsos positivos acaba dejando pasar el caso que importa.**
 
+
+## Paso 2e — Ningun caracter de control en lo que el commit toca (antes del `git add`)
+
+El Paso 2d comprueba que una orden publicada **reproduzca**. Este comprueba lo anterior: que la orden
+y su salida **digan lo que se escribio**. Un caracter de control invisible dentro de un bloque de
+verificacion rompe las dos cosas a la vez, y no lo ve nadie leyendo.
+
+**Cual es el defecto exacto.** Al escribir un patron que lleva `\b` —el limite de palabra de una
+expresion regular— o al teclear dos acentos graves vacios, el caracter que acaba en el archivo puede
+ser `0x08`, el retroceso. En pantalla no se distingue de nada: el bloque **parece** correcto. Copiado
+y reejecutado, el interprete recibe un caracter de control donde el texto pretendia poner un limite
+de palabra, y la orden devuelve otra cosa —normalmente `0`—. Y si el `0x08` cae en una **salida
+cruda** transcrita, lo publicado deja de ser lo que la orden devolvio.
+
+**Que se hace, en una orden.** Sobre los archivos que el commit va a llevar, excluyendo tabulador,
+salto de linea y retorno de carro:
+
+```bash
+for f in $(git diff --cached --name-only --diff-filter=d); do
+  n=$(git show :"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')
+  [ "$n" -gt 0 ] && echo "$f: $n"
+done
+```
+
+Y para cada archivo que salga, **donde**, con la linea a la vista:
+
+```bash
+git show :"<archivo>" | grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' | cat -A | cut -c1-160
+```
+
+`cat -A` es lo que lo hace visible: el `0x08` aparece como `^H`. Sin el, la orden encuentra la linea
+y la imprime **igual de invisible**.
+
+**Las tres salidas posibles:**
+
+| Lo que ves | Que significa | Que haces |
+|---|---|---|
+| ninguna linea | limpio | sigue |
+| una linea, y la misma linea ya esta en `HEAD` | es preexistente, no la escribio esta jornada | sigue, y **dilo** en la seccion del informe con su cifra: heredada no es inexistente |
+| una linea que la jornada **anadio** | 🚨 el commit introduce un bloque que no reproduce | no se cierra asi. Se corrige la linea antes del `git add`, o va con su **nota fechada** (`D-019`) si ya estaba commiteada |
+
+Para separar lo nuevo de lo heredado, el mismo barrido contra `HEAD`:
+
+```bash
+for f in $(git diff --cached --name-only --diff-filter=d); do
+  echo "$f head=$(git show HEAD:"$f" 2>/dev/null | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]') staged=$(git show :"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"
+done
+```
+
+🚨 **El ambito es «los archivos que el commit toca», y esa palabra es el paso entero.** Enumerar a
+mano los archivos que uno recuerda haber editado no es un barrido: `DT-004` conto siete casos en dos
+archivos porque miro los dos que el Paso 6 tenia delante en ese momento, y eran diez en cuatro
+(`F-049`). Los tres que faltaban estaban en archivos tocados **al principio** de la sesion — que son
+exactamente los que la memoria deja fuera. **El diff sabe que archivos se tocaron; quien escribe, no.**
+
+🚨 **Y este paso va antes del `git add`, no despues del commit.** Una vez commiteado, el defecto ya
+no se corrige: se anota. La diferencia entre las dos cosas es la unica razon de que el paso exista
+aqui y no en la auditoria.
+
+⚠️ **Su resultado se publica en el informe, tambien cuando sale vacio.** «Ninguna linea» es un
+resultado, y va con su orden y su salida cruda como cualquier otro — un control sin evidencia
+publicada es indistinguible de un control que no se corrio.
+
+📌 **Por que existe este paso.** El `0x08` lleva tres sesiones consecutivas apareciendo —`DT-003`,
+`DT-004` y las tres lineas que documenta `F-049`—, y las tres veces se detecto **a mano y de
+casualidad**, mirando un archivo por otro motivo. `L-008` literal: una regla sin mecanismo no es una
+regla, es una intencion. Lo que faltaba no era saber que el defecto existe; era una orden que lo
+buscara sin que nadie se acuerde.
+
 ---
 
 ## Como se escriben estos archivos
@@ -803,6 +872,13 @@ equivalencia anclada al commit>
 <si la lista salio vacia, se publica igual: la orden y su salida vacia>
 <y si se anota de que archivo sale cada orden, esa procedencia se DERIVA del diff, nunca se
 escribe a mano: se pega la orden que la produce y su salida cruda>
+
+## 8. Evidencia del Paso 2e
+<la orden del barrido de caracteres de control sobre los archivos que el commit toca, y su salida
+cruda — tambien cuando sale vacia>
+<si sale alguna linea, se dice de cada archivo si la cifra es NUEVA o HEREDADA, derivandolo del
+barrido contra HEAD, y para las nuevas se publica la linea con `cat -A` para que el `^H` se vea>
+<una cifra heredada no se omite: heredada no es inexistente>
 ```
 
 ### Los tres veredictos de la seccion 0, y nada mas
