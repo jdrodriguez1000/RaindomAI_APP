@@ -59,9 +59,13 @@
 | [F-045](#f-045---la-seccion-7-declara-28-ordenes-donde-son-26-afirma-que-no-hay-repetidas-cuando-hay-tres-y-deja-una-sin-salida-publicada) | La seccion 7 declara 28 ordenes donde son 26, afirma que no hay repetidas cuando hay tres, y deja una sin salida publicada | R-018 | Media | Implementado |
 | [F-046](#f-046---la-seccion-1-atribuye-a-l-020-la-nota-de-reincidencia-que-el-commit-pone-en-l-019) | La seccion 1 atribuye a `L-020` la nota de reincidencia que el commit pone en `L-019` | R-018 | Media | Implementado |
 | [F-047](#f-047---el-patron-ampliado-que-t-062-adopta-de-aqui-en-adelante-sigue-ciego-al-prefijo-h-) | El patron ampliado que `T-062` adopta «de aqui en adelante» sigue ciego al prefijo `H-` | R-018 | Baja | Implementado |
-| [F-048](#f-048---la-seccion-7-de-s-019-publica-42-de-las-48-lineas-que-devuelve-su-propia-orden-y-las-seis-omitidas-quedan-sin-salida) | La seccion 7 de `S-019` publica 42 de las 48 lineas que devuelve su propia orden, y las seis omitidas quedan sin salida | R-019 | Media | Aceptado — pendiente (`T-072`) |
-| [F-049](#f-049---dt-004-declara-siete-lineas-nuevas-con-0x08-donde-hay-diez-y-dos-de-las-no-contadas-alteran-la-salida-cruda-publicada-en-la-correccion-de-f-045) | `DT-004` declara siete lineas nuevas con `0x08` donde hay diez, y dos de las no contadas alteran la salida cruda publicada en la correccion de `F-045` | R-019 | Media | Aceptado — pendiente (`T-073` y `T-074`) |
-| [F-050](#f-050---el-informe-y-progressmd-llaman-las-tres-etapas-nuevas-de-025_wslt-a-los-tres-artefactos-de-una-sola-etapa) | El informe y `progress.md` llaman «las tres etapas nuevas de `025_wslt`» a los tres artefactos de una sola etapa | R-019 | Baja | Aceptado — pendiente (`T-075`) |
+| [F-048](#f-048---la-seccion-7-de-s-019-publica-42-de-las-48-lineas-que-devuelve-su-propia-orden-y-las-seis-omitidas-quedan-sin-salida) | La seccion 7 de `S-019` publica 42 de las 48 lineas que devuelve su propia orden, y las seis omitidas quedan sin salida | R-019 | Media | Implementado |
+| [F-049](#f-049---dt-004-declara-siete-lineas-nuevas-con-0x08-donde-hay-diez-y-dos-de-las-no-contadas-alteran-la-salida-cruda-publicada-en-la-correccion-de-f-045) | `DT-004` declara siete lineas nuevas con `0x08` donde hay diez, y dos de las no contadas alteran la salida cruda publicada en la correccion de `F-045` | R-019 | Media | Implementado |
+| [F-050](#f-050---el-informe-y-progressmd-llaman-las-tres-etapas-nuevas-de-025_wslt-a-los-tres-artefactos-de-una-sola-etapa) | El informe y `progress.md` llaman «las tres etapas nuevas de `025_wslt`» a los tres artefactos de una sola etapa | R-019 | Baja | Implementado |
+| [F-051](#f-051---la-seccion-8-iguala-catorce-lineas-de-control-con-los-diez-casos-que-dt-004-documenta-y-los-dos-conjuntos-no-son-el-mismo) | La seccion 8 iguala catorce lineas de control con «los diez casos que `DT-004` documenta», y los dos conjuntos no son el mismo | R-020 | Media | Abierto |
+| [F-052](#f-052---la-seccion-1-promete-una-lista-de-archivos-anclada-al-commit-que-nunca-se-pego-y-la-unica-publicada-sale-del-area-de-staging) | La seccion 1 promete una lista de archivos anclada al commit que nunca se pego, y la unica publicada sale del area de staging | R-020 | Media | Abierto |
+| [F-053](#f-053---el-campo-commit-auditado-apunta-por-su-propia-definicion-a-un-commit-distinto-de-aquel-al-que-toda-la-evidencia-del-informe-esta-anclada) | El campo «Commit auditado» apunta, por su propia definicion, a un commit distinto de aquel al que toda la evidencia del informe esta anclada | R-020 | Media | Abierto |
+| [F-054](#f-054---el-recuento-de-etapas-sin-adoptar-escrito-en-este-commit-omite-020_baseline) | El recuento de etapas sin adoptar escrito en este commit omite `020_baseline` | R-020 | Baja | Abierto |
 
 ---
 
@@ -2848,9 +2852,9 @@ A C D DT F FT H I L N R S SC T
 | Auditoria | R-019 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-072` |
+| Cerrado en | `f09d1f7` (`R-020`) |
 
 - **Que se observo:** la seccion 7 anuncia «Lista COMPLETA, numerada por la propia orden (`cat -n`),
   sin deduplicar» y cierra con «**Recuento: 42 lineas devueltas** (31 ordenes distintas; hay 11
@@ -2891,9 +2895,9 @@ $ (la misma, con | cat -n | sed -n '43,48p')
 | Auditoria | R-019 |
 | Fecha | 2026-09-03 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-073` y `T-074` |
+| Cerrado en | `f09d1f7` (`R-020`) |
 
 - **Que se observo:** `DT-004` afirma «siete lineas nuevas de esta misma sesion […] Cinco estan en
   `_persistence/decisions.md` […] y dos en `_persistence/tasks.md`», y la seccion 6 del informe
@@ -2948,9 +2952,9 @@ $ git diff -U0 9a52cfa^ 9a52cfa -- _persistence _audit ":(exclude)_audit/S-018.m
 | Auditoria | R-019 |
 | Fecha | 2026-09-03 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
-| Cerrado en | |
+| Estado | Implementado |
+| Registrado en | `T-075` |
+| Cerrado en | `f09d1f7` (`R-020`) |
 
 - **Que se observo:** dos frases del registro cuentan como etapas lo que son artefactos.
 
@@ -2970,3 +2974,190 @@ $ git show 1b30e16:_persistence/progress.md | grep -c 'tres etapas nuevas de `02
   existen.
 - **Que lo corregiria:** nota fechada en las dos frases aclarando que son tres artefactos de una
   sola etapa.
+
+---
+
+### F-051 - La seccion 8 iguala catorce lineas de control con «los diez casos que `DT-004` documenta», y los dos conjuntos no son el mismo
+| Campo | Valor |
+|---|---|
+| Auditoria | R-020 |
+| Fecha | 2026-09-04 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 8 de `_audit/S-020.md` publica cuatro cifras (1, 1, 7, 5) y concluye
+  que «son exactamente los diez casos que `DT-004` (ampliada por `F-049`/`T-073`) ya documenta como
+  deuda tecnica sin pagar». Suman **catorce**, no diez, y el conjunto de archivos tampoco coincide.
+
+~~~
+$ for f in $(git diff --name-only --diff-filter=d f09d1f7^ f09d1f7); do n=$(git show f09d1f7:"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'); [ "$n" -gt 0 ] && echo "$f: $n"; done
+_audit/S-019.md: 1
+_audit/findings.md: 1
+_persistence/decisions.md: 7
+_persistence/tasks.md: 5
+
+$ for f in $(git diff --name-only --diff-filter=d f09d1f7^ f09d1f7); do git show f09d1f7:"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'; done | awk '{s+=$1} END {print s}'
+14
+~~~
+
+  Las diez de `DT-004` son las **nuevas de `S-019`**, y su propio barrido lo dice:
+
+~~~
+$ for f in _audit/S-018.md _audit/S-019.md _audit/findings.md _persistence/decisions.md _persistence/tasks.md; do echo "$f parent=$(git show 1b30e16^:$f 2>/dev/null | grep -c $'\x08') commit=$(git show 1b30e16:$f | grep -c $'\x08')"; done
+_audit/S-018.md parent=0 commit=2
+_audit/S-019.md parent=0 commit=1
+_audit/findings.md parent=1 commit=1
+_persistence/decisions.md parent=2 commit=7
+_persistence/tasks.md parent=3 commit=5
+~~~
+
+  Tres discrepancias concretas: (1) las **dos de `_audit/S-018.md`**, que si son de las diez, no
+  aparecen en la seccion 8 porque este commit no toca ese archivo
+  (`git diff --name-only f09d1f7^ f09d1f7 | grep -c 'S-018'` devuelve `0`); (2) de las 7 de
+  `decisions.md` y las 5 de `tasks.md`, solo 5 y 2 son de las diez — las otras 2 y 3 son las cinco de
+  `DT-003`; (3) la de `_audit/findings.md` **no la cubre ninguna de las dos deudas**, y su origen es
+  un commit de auditoria, no de sesion:
+
+~~~
+$ for c in 9a52cfa ac31884 1b30e16; do echo "$c: $(git show $c:_audit/findings.md | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"; done
+9a52cfa: 0
+ac31884: 1
+1b30e16: 1
+$ git show f09d1f7:_audit/findings.md | grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' | cat -A | cut -c1-200
+2717:+$ grep -rnoE "^H(FT|SC|VS|TC|ADR)-[0-9]{3}^H" _templates/020_baseline/ | grep -vE "(FT|SC)-00[12]"$
+~~~
+
+- **Por que importa:** es la misma clase de defecto que `F-049`, cometida en la seccion que nacio
+  para impedirlo. El Paso 2e obliga a publicar la cifra de lo heredado precisamente para que
+  «heredado» no se lea como «inexistente»; aqui la cifra se publica bien y despues se la equipara a
+  un registro que no la contiene. Una linea real —la de `findings.md`— queda declarada como deuda ya
+  documentada cuando ninguna entrada la documenta.
+- **Que lo corregiria:** nota fechada en la seccion 8 de `_audit/S-020.md` (`D-019`) separando las
+  dos cuentas —catorce lineas presentes en los archivos que el commit toca, frente a las diez nuevas
+  de `S-019` que `DT-004` documenta—, y una decision sobre la linea de `_audit/findings.md`: o entra
+  en el ambito de una de las dos deudas, o se registra por que se deja fuera.
+
+---
+
+### F-052 - La seccion 1 promete una lista de archivos anclada al commit que nunca se pego, y la unica publicada sale del area de staging
+| Campo | Valor |
+|---|---|
+| Auditoria | R-020 |
+| Fecha | 2026-09-04 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 1 de `_audit/S-020.md` publica el listado con
+  `git diff --cached --stat --name-only` y declara dos veces que la version definitiva va «en la nota
+  de cierre de esta seccion». Esa nota no existe: la unica del informe esta en la linea 243, dentro
+  de la seccion 7, que empieza en la 152.
+
+~~~
+$ git show 3ff670e:_audit/S-020.md | grep -n 'nota de cierre de esta seccion'
+37:ya cerrado, se deja pegada en la nota de cierre de esta seccion; el listado de arriba es el mismo
+149:  pego el equivalente sobre el area de staging; la nota de cierre de esta seccion trae la version
+$ git show 3ff670e:_audit/S-020.md | grep -n 'Nota de cierre'
+243:> 📌 **Nota de cierre (post-commit, hash `f09d1f7`).** La orden anclada reproduce exactamente el
+$ git show 3ff670e:_audit/S-020.md | grep -nE '^## '
+19:## 1. Que se hizo
+152:## 7. Evidencia del Paso 2d
+~~~
+
+  El contenido de la lista si es correcto —los once archivos coinciden con
+  `git diff --numstat f09d1f7^ f09d1f7`—, pero eso solo se sabe rehaciendolo: la orden publicada
+  describe un area de staging que ya no existe.
+- **Por que importa:** la seccion 1 es la lista de lo que se hizo, y es donde una omision cuesta mas.
+  Publicada contra staging no es reproducible por nadie — exactamente lo que `F-045` y `F-048`
+  corrigieron para la seccion 7. Y el commit `3ff670e` volvio sobre el informe justo para anclar la
+  seccion 7, dejando esta sin anclar.
+- **Que lo corregiria:** nota fechada en la seccion 1 con
+  `git show --stat --name-only --format= f09d1f7` y su salida; y, para las proximas, que el paso del
+  cierre que ancla la seccion 7 ancle tambien la seccion 1, que promete lo mismo.
+
+---
+
+### F-053 - El campo «Commit auditado» apunta, por su propia definicion, a un commit distinto de aquel al que toda la evidencia del informe esta anclada
+| Campo | Valor |
+|---|---|
+| Auditoria | R-020 |
+| Fecha | 2026-09-04 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el informe no escribe un hash en su cabecera: escribe la orden que lo deriva.
+  Tras el segundo commit de la sesion esa orden devuelve `3ff670e`, mientras la nota de cierre y las
+  secciones 7 y 8 estan ancladas a `f09d1f7`.
+
+~~~
+$ git show 3ff670e:_audit/S-020.md | grep -n 'Commit auditado'
+9:| Commit auditado | el commit que contiene este archivo (`git log -1 -- _audit/S-020.md`) |
+$ git log -1 --format=%h -- _audit/S-020.md
+3ff670e
+$ git show --stat --name-only --format= 3ff670e
+_audit/S-020.md
+$ git show --stat --name-only --format= f09d1f7 | grep -c .
+11
+~~~
+
+  Quien siga la definicion del propio informe obtiene un commit cuyo `--stat` tiene un archivo frente
+  a los once que la seccion 1 enumera.
+- **Por que importa:** el ancla es lo que hace reproducible todo lo demas, y una autorreferencia deja
+  de serlo en cuanto el archivo se vuelve a tocar. Aqui se volvio a tocar: `3ff670e` sustituye cinco
+  lineas ya commiteadas de la seccion 7 —cambia el marcador de la nota por su contenido— en vez de
+  añadir. No es el caso que `D-019` prohibe (el bloque original no afirmaba de mas: era un hueco),
+  pero deja una sesion con dos commits y el ancla partida entre ellos, sin ninguna regla escrita que
+  diga cual manda.
+- **Que lo corregiria:** que la cabecera lleve el hash literal —que es lo que el tablero y las
+  auditorias citan— y se rellene en el mismo commit posterior que escribe la nota de cierre de la
+  seccion 7, de modo que las dos referencias apunten al mismo sitio. Y que `protocol-close` diga por
+  escrito cual de los dos commits es «el commit de la sesion» cuando el cierre necesita dos.
+
+---
+
+### F-054 - El recuento de etapas sin adoptar escrito en este commit omite `020_baseline`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-020 |
+| Fecha | 2026-09-04 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** las dos frases nuevas de este commit en `_persistence/progress.md` enumeran las
+  etapas pendientes de adoptar y nombran tres, cuando hay cuatro archivos de etapa fuera de la tabla
+  «Etapas» de `project.md`.
+
+~~~
+$ git diff f09d1f7^ f09d1f7 -- _persistence/progress.md | grep -nE '^[+-].*sin adopt' | cut -c1-120
+119:-  sin adoptarse en `project.md` (`D-060`). Ninguna de las tres etapas nuevas (`025_wslt`) queda
+124:+  sin adoptarse en `project.md` (`D-060`). `025_wslt` y `030_growth` siguen sin adoptar. `DT-003` y
+221:+  `025_wslt` y `030_growth` siguen sin adoptarse en `project.md`. `DT-003` y `DT-004` (con ambito
+
+$ git ls-tree --name-only f09d1f7 _phases/
+_phases/000_preproject.md
+_phases/005_discovery.md
+_phases/010_prototype.md
+_phases/020_baseline.md
+_phases/025_wslt.md
+_phases/030_growth.md
+$ git show f09d1f7:project.md | grep 'Etapas declaradas'
+| Etapas declaradas | `000_preproject`, `005_discovery` |
+~~~
+
+  Las frases citan `010_prototype`, `025_wslt` y `030_growth`; `020_baseline` —que tiene archivo de
+  etapa, plantillas en `_templates/020_baseline/` y reparto en `_workflow/020_baseline.md`— no
+  aparece en ninguna de las dos.
+- **Por que importa:** `T-002` existe para declarar las etapas que faltan, y esta enumeracion es de
+  donde el arranque siguiente saca cuales son. Una etapa que se cae de la lista es una etapa que
+  nadie recuerda declarar. Es ademas la forma exacta de `L-027`/`L-028`: una lista derivable con una
+  orden escrita a mano.
+- **Que lo corregiria:** nota fechada en las dos frases con la lista derivada de
+  `git ls-tree --name-only <commit> _phases/` contra la tabla «Etapas», y que el cierre la derive en
+  vez de escribirla.
