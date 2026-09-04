@@ -66,10 +66,13 @@
 | [F-052](#f-052---la-seccion-1-promete-una-lista-de-archivos-anclada-al-commit-que-nunca-se-pego-y-la-unica-publicada-sale-del-area-de-staging) | La seccion 1 promete una lista de archivos anclada al commit que nunca se pego, y la unica publicada sale del area de staging | R-020 | Media | Implementado |
 | [F-053](#f-053---el-campo-commit-auditado-apunta-por-su-propia-definicion-a-un-commit-distinto-de-aquel-al-que-toda-la-evidencia-del-informe-esta-anclada) | El campo «Commit auditado» apunta, por su propia definicion, a un commit distinto de aquel al que toda la evidencia del informe esta anclada | R-020 | Media | Implementado |
 | [F-054](#f-054---el-recuento-de-etapas-sin-adoptar-escrito-en-este-commit-omite-020_baseline) | El recuento de etapas sin adoptar escrito en este commit omite `020_baseline` | R-020 | Baja | Implementado |
-| [F-055](#f-055---_phases030_growthmd-instancia-t-083-y-d-085-y-es-la-unica-ocurrencia-de-toda-_phases) | `_phases/030_growth.md` instancia `T-083` y `D-085`, y es la unica ocurrencia de toda `_phases/` | R-021 | Media | Aceptado — pendiente (`T-084`, `T-085`) |
-| [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Aceptado — pendiente (`T-086`) |
-| [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Aceptado — pendiente (`T-087`, `T-089`) |
-| [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Aceptado — pendiente (`T-088`) |
+| [F-055](#f-055---_phases030_growthmd-instancia-t-083-y-d-085-y-es-la-unica-ocurrencia-de-toda-_phases) | `_phases/030_growth.md` instancia `T-083` y `D-085`, y es la unica ocurrencia de toda `_phases/` | R-021 | Media | Implementado |
+| [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Implementado |
+| [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Implementado |
+| [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Implementado |
+| [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Abierto |
+| [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Abierto |
+| [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Abierto |
 
 ---
 
@@ -3174,9 +3177,9 @@ $ git show f09d1f7:project.md | grep 'Etapas declaradas'
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente (`T-084`, `T-085`) |
+| Estado | Implementado |
 | Registrado en | `T-084` y `T-085` (`D-086`, `D-087`) |
-| Cerrado en | |
+| Cerrado en | `97bb948` (`R-022`) |
 
 - **Que se observo:** la nota que este commit anade a `_phases/030_growth.md` cita dos codigos
   instanciados de este proyecto, y son las dos primeras ocurrencias de toda la carpeta.
@@ -3210,9 +3213,9 @@ $ git grep -cE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' 76a2cb6^ -- _phases
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente (`T-086`) |
+| Estado | Implementado |
 | Registrado en | `T-086` (`D-086`) |
-| Cerrado en | |
+| Cerrado en | `97bb948` (`R-022`) |
 
 - **Que se observo:** la nota encabeza el bloque con `ls _workflow/030_growth.md 2>&1` y pega debajo
   una salida con comillas dobles de mas dentro de las simples, que esa orden no produce.
@@ -3244,9 +3247,9 @@ ls: cannot access '_workflow/030_growth.md': No such file or directory
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente (`T-087`, `T-089`) |
+| Estado | Implementado |
 | Registrado en | `T-087` y `T-089` (`D-088`) |
-| Cerrado en | |
+| Cerrado en | `97bb948` (`R-022`) |
 
 - **Que se observo:** los dos bloques listan seis ordenes en total y ninguna lleva salida debajo.
 
@@ -3288,9 +3291,9 @@ $ grep -c 'Nota de cierre' _audit/S-020.md
 | Auditoria | R-021 |
 | Fecha | 2026-09-05 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente (`T-088`) |
+| Estado | Implementado |
 | Registrado en | `T-088` (`D-089`) |
-| Cerrado en | |
+| Cerrado en | `97bb948` (`R-022`) |
 
 - **Que se observo:** dos lineas del informe son la instruccion de llenado de la plantilla, no
   contenido; ninguno de los tres informes anteriores las lleva.
@@ -3314,3 +3317,174 @@ $ for i in 018 019 020 021; do echo "== S-$i"; git show 76a2cb6:_audit/S-$i.md |
   afirme nada falso.
 - **Que lo corregiria:** borrar las dos lineas, o -si se prefiere no reescribir un informe ya
   auditado (`D-019`)- dejarlo y ajustar la plantilla para que el hueco quede separado del contenido.
+
+---
+
+### F-059 - Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe
+| Campo | Valor |
+|---|---|
+| Auditoria | R-022 |
+| Fecha | 2026-09-04 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-088` fija en este mismo commit que el bloque «Criterio de cierre» se escribe
+  en tres partes, y que la segunda es la orden **anclada al commit**. Las seis decisiones nacidas en
+  ese commit publican 18 ordenes en sus criterios de cierre, y solo 2 estan ancladas.
+
+~~~
+$ git show 97bb948:_persistence/decisions.md | sed -n '120,126p'
+🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+criterio se escribe en tres partes, siempre las tres:
+
+1. **el enunciado** - que tiene que ser cierto para dar la decision por cerrada;
+2. **la orden que lo comprueba, anclada al commit** (`git show <hash>:<archivo> | ...`), no al arbol
+   de trabajo, que cambia debajo;
+3. **la salida que devolvio**, literal.
+
+$ git show 97bb948:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -cE '^\$ '
+18
+
+$ git show 97bb948:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -E '^\$ ' | grep -cE 'git show [0-9a-f]{7,40}:'
+2
+~~~
+
+  No es un incumplimiento solo formal: una de las 16 ordenes sin anclar dejo de reproducir el mismo
+  dia en que se escribio. Publicada devolvia una coincidencia en la linea 115; hoy devuelve tres, y
+  ninguna en la 115.
+
+~~~
+$ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
+121:🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+5007:$ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
+5008:115:🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+~~~
+
+- **Por que importa:** una regla incumplida en el mismo commit que la crea nace sin fuerza: quien
+  copie la forma de `D-086` a `D-091` copiara el defecto creyendo que sigue la convencion. El coste es
+  el que `F-057` acababa de cobrar - un criterio sin anclar reproduce el dia que se escribe y deja de
+  reproducir despues. La seccion 6 de `_audit/S-022.md` declara **un caso** (la autorreferencia de
+  `D-088`) y lo trata como defecto de redaccion de ese enunciado; el alcance real son 16 ordenes en
+  seis decisiones. Gravedad `Media` y no `Alta` porque ninguna afirmacion del registro es falsa: lo
+  que se pierde es la reproducibilidad.
+- **Que lo corregiria:** una nota fechada por decision -sin reescribir los bloques originales, por
+  `D-019`- que republique las ordenes ancladas a `97bb948` con su salida; y un control en
+  `protocol-close` que exija que toda orden de un bloque «Criterio de cierre» de una decision nueva
+  empiece por `git show <hash>:`. Queda por resolver el problema de secuencia: cuando se escribe la
+  decision, el commit de la sesion todavia no existe - el mismo huevo-y-gallina que el Paso 7c
+  resolvio para el informe.
+
+---
+
+### F-060 - El registro fecha la sesion dos dias por delante del commit que la contiene
+| Campo | Valor |
+|---|---|
+| Auditoria | R-022 |
+| Fecha | 2026-09-04 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el commit auditado es del `2026-09-04` -fecha de autor y de committer-, y todo
+  el registro que escribe fecha la sesion el `2026-09-06`.
+
+~~~
+$ git log -1 --format='%h %ad %cd' --date=short 97bb948
+97bb948 2026-09-04 2026-09-04
+
+$ git show 97bb948:_audit/S-022.md | sed -n '/^| Fecha |/p'
+| Fecha | 2026-09-06 |
+
+$ git show 97bb948:_audit/index.md | grep 'S-022'
+| `S-022.md` | S-022 | 2026-09-06 | Pendiente | Pendiente | Pendiente | - |
+
+$ git grep -c '2026-09-06' 97bb948 -- _persistence _audit _phases _workflow
+97bb948:_audit/S-021.md:1
+97bb948:_audit/S-022.md:10
+97bb948:_audit/index.md:1
+97bb948:_persistence/assumptions.md:2
+97bb948:_persistence/decisions.md:17
+97bb948:_persistence/lessons.md:2
+97bb948:_persistence/progress.md:3
+97bb948:_persistence/tasks.md:4
+97bb948:_phases/030_growth.md:1
+
+$ git grep -c 'Nota del 2026-09-06' 97bb948 -- _persistence _audit _phases _workflow
+97bb948:_audit/S-021.md:1
+97bb948:_audit/S-022.md:9
+97bb948:_persistence/decisions.md:5
+97bb948:_persistence/tasks.md:4
+97bb948:_phases/030_growth.md:1
+~~~
+
+  Cuarenta y una lineas del commit escriben esa fecha, y veinte encabezan una **nota fechada**. No es
+  un desliz aislado: las tres ultimas sesiones se commitearon el mismo dia y el registro las fecha en
+  dias consecutivos.
+
+~~~
+$ git log --format='%h %ad %s' --date=short -6
+5c56301 2026-09-04 S-022: ancla el informe al hash 97bb948
+97bb948 2026-09-04 S-022: acepta F-055 a F-058 (T-084 a T-090); nace el Paso 1c de protocol-close y _workflow/030_growth.md (D-091)
+e1d1b54 2026-09-04 auditoria R-021 sobre S-021 (76a2cb6)
+7591320 2026-09-04 S-021: ancla el informe al hash 76a2cb6
+76a2cb6 2026-09-04 S-021: acepta F-051 a F-054 (T-077 a T-083, D-083 a D-085); nace el Paso 7c de protocol-close y las plantillas de _templates/030_growth/
+628fd47 2026-09-04 auditoria R-020 sobre S-020 (3ff670e)
+~~~
+
+- **Por que importa:** la nota fechada es el mecanismo con el que este repositorio corrige sin
+  reescribir, y su valor entero esta en decir **cuando** se supo algo. Si la fecha de la nota no es la
+  del commit, la unica cronologia fiable pasa a ser `git log` y las notas dejan de ordenar nada.
+  Ademas `CLAUDE.md` ya previo el caso - «Puede haber varias sesiones en la misma fecha, y cada una
+  lleva su propio `S-XXX`» -, asi que incrementar la fecha por sesion no resuelve ningun problema que
+  existiera. Gravedad `Media`: no rompe ningun control automatico, pero hace que el registro afirme
+  algo comprobablemente falso.
+- **Que lo corregiria:** fijar por escrito que la fecha de una sesion es la del commit que la cierra,
+  derivada con `git log -1 --format=%ad --date=short` y comprobada en el cierre antes del `git add`.
+  Lo ya escrito **no se reescribe**: se anota una vez, con la fecha real. Y si el desfase fuera
+  deliberado -una fecha nominal de jornada distinta de la del reloj-, lo que falta es la `D-XXX` que
+  lo declare: esta auditoria no la encontro en `decisions.md`.
+
+---
+
+### F-061 - `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza
+| Campo | Valor |
+|---|---|
+| Auditoria | R-022 |
+| Fecha | 2026-09-04 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-090` escribio en `protocol-audit` que la fila del tablero lleva el hash
+  literal de la cabecera del informe, «no el que devuelve `git log -1 -- _audit/S-XXX.md`». La
+  seccion «Convenciones» del propio `_audit/index.md`, archivo que el commit tambien toca, sigue
+  prescribiendo esa misma orden como la forma de rellenar la columna.
+
+~~~
+$ git show 97bb948:.claude/skills/protocol-audit/SKILL.md | sed -n '275,278p'
+🚨 **El `<hash>` de esa fila es el mismo que auditaste: el literal de la cabecera del informe, no el
+que devuelve `git log -1 -- _audit/S-XXX.md`.** Cuando el cierre ancla el informe con un segundo
+commit, esa orden devuelve el **commit de anclaje** -un solo archivo-, y una fila que lo publique
+manda a quien la lea a un estado que no es el que se juzgo.
+
+$ git show 97bb948:_audit/index.md | sed -n '53,58p'
+⚠️ **El commit auditado no lo escribe el cierre**, y no es un olvido: la fila se escribe **antes**
+del commit que la contiene. Lo rellena la auditoria, que ya lo tiene delante:
+
+```bash
+git log -1 --format=%h -- _audit/S-XXX.md
+```
+~~~
+
+- **Por que importa:** la regla nueva vive en la skill y la contraria vive en el archivo que esa
+  regla gobierna. Quien rellene la fila leyendo el tablero -que es donde esta escrito «lo rellena la
+  auditoria», con su comando al lado- reintroducira el defecto que `F-053` abrio y que `D-090`
+  acababa de cerrar. Gravedad `Baja` porque la skill manda y las dos redacciones estan a un `grep` de
+  distancia; lo que falla es que el archivo contradiga a su propia regla.
+- **Que lo corregiria:** sustituir en «Convenciones» de `_audit/index.md` el bloque de esa orden por
+  la regla de `D-090` -el hash literal de la cabecera del informe-, dejando como mucho la orden
+  derivada nombrada como lo que es: la que devuelve el commit de anclaje.

@@ -30,7 +30,7 @@
 | `S-019.md` | S-019 | 2026-09-03 | `1b30e16` | `R-019.md` | Con hallazgos (3) | F-048, F-049, F-050 |
 | `S-020.md` | S-020 | 2026-09-04 | `3ff670e` | `R-020.md` | Con hallazgos (4) | F-051, F-052, F-053, F-054 |
 | `S-021.md` | S-021 | 2026-09-05 | `76a2cb6` | `R-021.md` | Con hallazgos (4) | F-055, F-056, F-057, F-058 |
-| `S-022.md` | S-022 | 2026-09-06 | Pendiente | Pendiente | Pendiente | - |
+| `S-022.md` | S-022 | 2026-09-06 | `97bb948` | `R-022.md` | Con hallazgos (3) | F-059, F-060, F-061 |
 
 ---
 
