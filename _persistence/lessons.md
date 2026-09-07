@@ -44,6 +44,7 @@
 | [L-033](#l-033---una-autorizacion-para-sustituir-texto-necesita-un-borde-que-se-vea-no-una-prohibicion-al-lado) | Una autorizacion para sustituir texto necesita un borde que se vea, no una prohibicion al lado | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-034](#l-034---un-pre-compromiso-que-no-distingue-el-fallo-total-del-parcial-se-renegocia-en-su-primera-aplicacion) | Un pre-compromiso que no distingue el fallo total del parcial se renegocia en su primera aplicacion | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-035](#l-035---una-regla-que-nombra-un-archivo-se-cumple-en-ese-archivo-y-se-incumple-en-el-de-al-lado) | Una regla que nombra un archivo se cumple en ese archivo y se incumple en el de al lado | 2026-09-07 | 000_preproject | Sin evaluar |
+| [L-036](#l-036---una-condicion-de-parada-que-no-se-puede-cumplir-se-convierte-en-una-excepcion-redactada-cada-vez) | Una condicion de parada que no se puede cumplir se convierte en una excepcion redactada cada vez | 2026-09-07 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1360,3 +1361,40 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   excepcion escrita. **(2)** La regla se enuncia por la **forma** del artefacto —«todo bloque
   Criterio de cierre»—, y solo despues se lista donde vive hoy. Enunciada por el nombre del archivo,
   caduca el dia que nace el segundo.
+
+
+---
+
+### L-036 - Una condicion de parada que no se puede cumplir se convierte en una excepcion redactada cada vez
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `D-101` escribio un control nuevo en el Paso 7c del cierre — un barrido universal
+  cuya salida «tiene que estar VACIA», y una linea obliga a detenerse y reportar. En **su primera
+  ejecucion**, en esa misma sesion, devolvio tres lineas. El cierre no se detuvo: escribio «no sale
+  vacio, y se explica cada linea en vez de forzarla a cero», justifico las tres en prosa y siguio.
+  Lo abrio `F-071` (`D-107`).
+- **Que ocurrio, en concreto:** la condicion no era alcanzable, y no por descuido en la ejecucion.
+  El patron acertaba en tres clases de linea y solo una era un pendiente real: las otras dos —
+  ordenes que llevan el marcador como **dato buscado**, y bloques de sesiones anteriores que `D-019`
+  **congela** y que ya tienen su nota fechada — iban a salir en cada cierre futuro, para siempre.
+  Una regla asi no se incumple una vez: se incumple **todas**.
+- **Y lo caro no fue la parada que no ocurrio, sino lo que la sustituyo.** Al no poder cumplir la
+  condicion, el informe redacto la excepcion en su propio texto. Esa prosa —tres parrafos que
+  explicaban cada linea y una frase de cierre que las resumia— es donde entraron los otros tres
+  hallazgos de la misma auditoria (`F-070`, `F-072`, `F-073`): cifras escritas a mano al lado de una
+  salida que ya las contenia.
+- **Leccion:** **antes de escribir una condicion de parada, se corre contra el estado actual del
+  repositorio.** Si no sale limpia el primer dia, no es un control: es una excepcion que alguien va a
+  redactar en cada pasada, y esa redaccion es codigo sin revisar escrito en prosa. El sintoma que hay
+  que reconocer es concreto — **el que enuncia la regla y el que la ejecuta la primera vez son el
+  mismo**, y por eso la excepcion parece razonable en vez de parecer un incumplimiento.
+- **Como aplicarla:** dos cosas concretas. **(1)** Toda condicion binaria que se escriba en un
+  protocolo se ejecuta contra `HEAD` **en la misma pasada en que se escribe**, y su salida se publica
+  con la decision que la crea; si no sale limpia, se acota la condicion antes de adoptarla, no
+  despues. **(2)** Cuando un control legitimo devuelve casos que no son defectos, se parte en dos —
+  uno que **informa** y no juzga, y otro **acotado a lo que se puede cumplir**, que es el que detiene.
+  Explicar las excepciones en prosa es siempre la tercera opcion, y es la que produce hallazgos.

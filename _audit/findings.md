@@ -81,10 +81,10 @@
 | [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Implementado |
 | [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Implementado |
 | [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Implementado |
-| [F-070](#f-070---el-barrido-universal-de-la-nota-de-cierre-se-etiqueta-sobre-f1f2291-y-su-salida-no-reproduce-contra-f1f2291) | El barrido universal de la nota de cierre se etiqueta «sobre `f1f2291`» y su salida no reproduce contra `f1f2291` | R-025 | Alta | Abierto |
-| [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Abierto |
-| [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Abierto |
-| [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Abierto |
+| [F-070](#f-070---el-barrido-universal-de-la-nota-de-cierre-se-etiqueta-sobre-f1f2291-y-su-salida-no-reproduce-contra-f1f2291) | El barrido universal de la nota de cierre se etiqueta «sobre `f1f2291`» y su salida no reproduce contra `f1f2291` | R-025 | Alta | Aceptado — pendiente |
+| [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Aceptado — pendiente |
+| [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Aceptado — pendiente |
+| [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Aceptado — pendiente |
 
 ---
 
@@ -3686,8 +3686,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Alta |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-106` (`D-106`) |
 | Cerrado en | |
 
 - **Que se observo:** la nota de cierre de `_audit/S-025.md` §7 encabeza su barrido con «corrido
@@ -3709,8 +3709,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-107` (`D-107`) |
 | Cerrado en | |
 
 - **Que se observo:** el recuadro que `T-101`/`D-101` anadieron a `protocol-close` dice que la salida
@@ -3730,8 +3730,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-108` (`D-108`) |
 | Cerrado en | |
 
 - **Que se observo:** `_audit/S-025.md` §7 publica «Ordenes distintas, aparte (misma tuberia, con
@@ -3752,8 +3752,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-109` (`D-109`) |
 | Cerrado en | |
 
 - **Que se observo:** en `_audit/S-025.md` §7, la nota dice «Las tres que NO se anclaron» y la frase

@@ -49,6 +49,7 @@
 | [S-023](#s-023---se-aceptan-f-059-a-f-061-t-093-a-t-096-nacen-los-pasos-7c-bis-y-7d-de-protocol-close-y-el-gate-2-d-094) | Se aceptan `F-059` a `F-061` (`T-093` a `T-096`); nacen los Pasos 7c-bis y 7d de `protocol-close`, y el Gate 2 (`D-094`) | 2026-09-06 | `000_preproject` |
 | [S-024](#s-024---se-aceptan-f-062-a-f-065-t-097-a-t-100-a-010-se-refuta-y-se-acota-d-099-nace-_phases040_evolmd-d-100) | Se aceptan `F-062` a `F-065` (`T-097` a `T-100`); `A-010` se refuta y se acota (`D-099`); nace `_phases/040_evol.md` (`D-100`) | 2026-09-07 | `000_preproject` |
 | [S-025](#s-025---se-aceptan-f-066-a-f-069-t-101-a-t-104-nacen-las-plantillas-de-_templates040_evol-d-105) | Se aceptan `F-066` a `F-069` (`T-101` a `T-104`); nacen las plantillas de `_templates/040_evol/` (`D-105`) | 2026-09-07 | `000_preproject` |
+| [S-026](#s-026---se-aceptan-f-070-a-f-073-t-106-a-t-109-nace-_workflow040_evolmd-sin-adoptar-d-110) | Se aceptan `F-070` a `F-073` (`T-106` a `T-109`); nace `_workflow/040_evol.md`, sin adoptar (`D-110`) | 2026-09-07 | `000_preproject` |
 
 ---
 
@@ -74,102 +75,111 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-07 (S-025) |
+| Ultima actualizacion | 2026-09-07 (S-026) |
 | Salud | En marcha |
-| Avance de la etapa | `manager` evaluo, contra `HEAD` (`8959da8`), los cuatro hallazgos que dejo `R-024` (sobre `S-024`): `F-066` a `F-069`. Los cuatro se aceptan. `F-066` (`T-101`, `D-101`): el Paso 7c exige anclar cuatro sitios «los cuatro juntos» y el cierre de `S-024` anclo solo tres, dejando la seccion 7 del informe remitiendo a una nota de cierre que nunca se escribio; `protocol-close` gana el recuadro que fija que dice esa nota —un puntero con el hash, el recuento por archivo y la frase que cierra el pendiente, nunca una republicacion de las 41 ordenes—, con un barrido universal que se detiene si senala un archivo que el Paso 7c-bis no tiene autorizado tocar. `F-067` (`T-102`, `D-102`): tras el anclaje de `S-024`, `decisions.md` no dejo ninguna orden sin anclar pero `tasks.md` dejo doce, en los criterios de cierre de `T-097` a `T-100`; el Paso 7c-bis pasa a anclar tambien `tasks.md`, que ya es del `session-closer`, y las doce se republican ancladas a `a1f5fa8`. `F-068` (`T-103`, `D-103`): la seccion 7 de `S-024` afirmo que las 41 ordenes no se repetian citando un `sort -u` que en realidad devuelve 31; el Paso 2d exige ahora que la cifra accesoria vaya siempre con su propia orden y salida, y la afirmacion de `S-024` se corrige por nota fechada. `F-069` (`T-104`, `D-104`): dos notas del Paso 7c-bis quedaron pegadas al separador `---` en `decisions.md`, que Markdown lee como encabezado en vez de regla horizontal; se anaden las lineas en blanco que faltaban y el paso exige la linea en blanco de ahi en adelante. Nace `L-035`: una regla que amplia su alcance nombrando el archivo donde dolio deja igual de abierto el archivo de al lado. Por peticion del usuario se escriben las dos plantillas que `_phases/040_evol.md` §5 declaraba como condicion de entrada —`_templates/040_evol/005_iteration_NNN.md` y `010_slice_NNN.md`— (`D-105`); el archivo de etapa actualiza su tabla de estado a «plantillas escritas, reparto pendiente», y nace `T-105` para escribir `_workflow/040_evol.md`, la condicion que falta. La etapa sigue sin adoptarse. |
+| Avance de la etapa | `manager` evaluo, contra `HEAD` (`3bf61d4`), los cuatro hallazgos que dejo `R-025` (sobre `S-025`): `F-070` a `F-073`. Los cuatro se aceptan. `F-070` (`T-106`, `D-106`): la nota de cierre de `S-025` §7 se etiquetaba «sobre `HEAD` (`f1f2291`)» pero mezclaba la lista de archivos del commit con el contenido del arbol de trabajo, y su salida (`2/2/14`) correspondia al estado posterior al anclaje, no a `f1f2291` (`2/22/28`); el Paso 7c pasa a exigir que los barridos de la nota se publiquen siempre en forma anclada —`cat` y `HEAD` prohibidos— y que la nota nombre el commit al que corresponde su salida, y se anade la nota fechada que republica la comprobacion contra los dos commits. `F-071` (`T-107`, `D-107`): el recuadro exigia que ese barrido saliera VACIO y en su primera ejecucion devolvio tres lineas sin detenerse, justificandolas en prosa sin ningun `D-XXX` que respaldara la excepcion; el barrido se parte en un CENSO universal que informa sin exigir nada y un CONTROL —tambien universal y anclado— cuya condicion de parada es que todo archivo de su salida sea uno que el Paso 7c-bis tenga autorizado a escribir. `F-072` (`T-108`, `D-108`): el recuento accesorio de `S-025` §7 publico 27 ordenes distintas citando un `sort -u` que en realidad devuelve 22, y describio como «las mismas ocho» lo que el propio `uniq -d` publicado lista como trece; se corrige por nota fechada con las cifras reales (22 y 13). `F-073` (`T-109`, `D-109`): la frase de cierre de esa misma seccion contradecia a la nota que la precedia y publicaba cifras que no salian de ninguna orden (32 anclas de 35 listadas, no 34; 34 anclas totales incluyendo dos que el filtro del Paso 2d excluye; 18 lineas del barrido, no 16); se corrige por nota fechada y el punto 3 del recuadro pasa a exigir que la frase de cierre se construya con las salidas de los dos barridos, nunca recontando a mano. Nace `L-036`: una condicion de parada que no se puede cumplir se convierte en una excepcion redactada en prosa cada vez, y eso es lo que produjo `F-070`, `F-072` y `F-073`. El criterio de refutacion de `A-011` se sustituye por uno que se valida contra los bloques «Criterio de cierre» y no contra cualquier linea con `<hash>` (`D-107`); nace `A-012` sobre la lectura de «operar de forma sostenida con usuarios reales» en `_workflow/ai_levels.md` §6. Por peticion del usuario, y alineado con `_methodology/000_method.md`, `_phases/040_evol.md` y las plantillas de `_templates/040_evol/`, se escribe `_workflow/040_evol.md` —el reparto de trabajo de la etapa de la evolucion, con lectura de nivel de sistema de IA en 6, la unica del metodo— sin adoptarlo (`D-110`); `_phases/040_evol.md` §5 actualiza su tabla de estado a «escrito, sin adoptar» y `T-105` pasa a `Implementada` con el criterio acotado a lo que `D-110` cubre. La etapa sigue sin adoptarse. |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo, contra `HEAD` (`8959da8`), los cuatro hallazgos que dejo `R-024` (sobre `S-024`):
-`F-066` a `F-069`. Los cuatro se aceptan.
+`manager` evaluo, contra `HEAD` (`3bf61d4`), los cuatro hallazgos que dejo `R-025` (sobre `S-025`):
+`F-070` a `F-073`. Los cuatro se aceptan.
 
-`F-066` (`T-101`, `D-101`): el Paso 7c de `protocol-close` exige anclar cuatro sitios «los cuatro
-juntos», y el cierre de `S-024` anclo tres —la cabecera y la seccion 1 del informe, y
-`decisions.md`—, dejando la seccion 7 remitiendo a una nota de cierre que nunca se escribio. El paso
-gana el recuadro «Que dice la nota de la seccion 7, exactamente»: un **puntero**, no una tercera
-copia de las 41 ordenes —el hash derivado, cuantas ordenes quedaron ancladas y en que archivos, con
-un barrido que recorre **todos** los archivos de `_persistence` y `_audit` y que se detiene si
-senala uno que el Paso 7c-bis no tiene autorizado tocar.
+`F-070` (`T-106`, `D-106`): la nota de cierre de `_audit/S-025.md` §7 se etiquetaba «corrido sobre
+`HEAD` (`f1f2291`)», pero la orden publicada era hibrida —lista de archivos de `git ls-tree HEAD`,
+contenido del arbol de trabajo con `cat "$f"`—, y su salida (`2/2/14`) correspondia al estado
+posterior al anclaje, no a `f1f2291` (`2/22/28`). El Paso 7c pasa a exigir que los barridos de la
+nota se publiquen **siempre en forma anclada** —`cat` y `HEAD` prohibidos dentro de la orden— y que
+la nota **nombre el commit** al que corresponde su salida. Se anade la nota fechada que republica la
+comprobacion contra `f1f2291` y `f4658f5`, con sus dos salidas crudas.
 
-`F-067` (`T-102`, `D-102`): tras el commit de anclaje de `S-024`, `decisions.md` no dejo ninguna
-orden con `<hash>` sin anclar, pero `tasks.md` dejo doce, en los bloques «Criterio de cierre» de
-`T-097` a `T-100` — el mismo hecho de `F-059`, desplazado de archivo. El Paso 7c-bis pasa a anclar
-**los dos archivos**; `tasks.md` no es una excepcion nueva, ya es del `session-closer`. Las doce
-ordenes se republican ancladas a `a1f5fa8`, con la salida que devuelven, incluido el `0` de `T-099`
-que se comprueba por ausencia.
+`F-071` (`T-107`, `D-107`): el recuadro que la propia sesion `S-025` escribio exigia que ese barrido
+saliera **VACIO**, y en su primera ejecucion devolvio tres lineas: el informe no se detuvo, justifico
+las tres en prosa y su frase de cierre afirmo lo que el recuadro dice que en ese caso no se puede
+afirmar — sin ningun `D-XXX` que respaldara la excepcion. La causa de fondo es que la condicion no
+era alcanzable: el patron acierta tambien en ordenes que llevan `<hash>` como dato buscado y en
+bloques de sesiones anteriores que `D-019` congela. El barrido se parte en dos: un **CENSO**
+universal y anclado que informa sin exigir nada, y un **CONTROL** — tambien universal y anclado —
+cuya condicion de parada es que **todo archivo de su salida sea uno que el Paso 7c-bis tenga
+autorizado a escribir**; si aparece otro, se detiene y lo reporta.
 
-`F-068` (`T-103`, `D-103`): la seccion 7 de `_audit/S-024.md` publico «Ordenes distintas, aparte: 41
-— no hubo repeticion; `sort -u` tambien devuelve 41», y `sort -u` devuelve 31 — diez ordenes salen
-dos veces, una en `decisions.md` y otra en `tasks.md`. El Paso 2d exige ahora que la cifra accesoria,
-si se da, vaya siempre con su propia orden y su salida cruda; la afirmacion de `S-024` se corrige por
-nota fechada, sin reescribir la linea original (`D-019`).
+`F-072` (`T-108`, `D-108`): la seccion 7 de `S-025` publico «27 ordenes distintas», y el `sort -u`
+que ella misma cita devuelve 22; describio las repetidas como «las mismas ocho» cuando el `uniq -d`
+publicado a continuacion lista trece. Se corrige por nota fechada con las cifras reales (22 y 13),
+sin reescribir la linea original (`D-019`) — es la reincidencia de `F-068` por la puerta de al lado:
+se publico la orden, pero con una salida que no se corrio.
 
-`F-069` (`T-104`, `D-104`): en `D-098` y `D-099` la nota que anade el Paso 7c-bis quedo pegada al
-`---` que separa entradas, y en Markdown eso no es una regla horizontal sino un encabezado setext —el
-separador desaparece al renderizar. Se anaden las dos lineas en blanco que faltaban (sin tocar una
-sola palabra de prosa) y el paso exige esa linea en blanco de ahi en adelante, con un ejemplo.
+`F-073` (`T-109`, `D-109`): la frase de cierre de esa misma seccion contradecia a la nota que la
+precedia (»las tres que NO se anclaron» vs. «la unica que no») y publicaba cifras que no salen de
+ninguna orden: de las 35 ordenes listadas se anclaron 32, no 34; el Paso 7c-bis escribio 34 anclas
+en total —dos de ellas de una orden que el filtro del Paso 2d excluye por contener un hash—; y el
+barrido devuelve tres lineas que suman 18, no 16. Se corrige por nota fechada con las tres cifras,
+cada una con su orden y su salida, y el punto 3 del recuadro del Paso 7c pasa a exigir que la frase
+de cierre se construya **con las salidas de los dos barridos**, nunca recontando a mano.
 
-Nace `L-035`: una regla que se amplia nombrando el archivo donde dolio el defecto —como hizo `D-096`
-con «toda orden de `decisions.md`»— deja igual de abierto el archivo de al lado; la ampliacion tiene
-que enunciarse por la forma del artefacto, no por el nombre de donde vivia. Queda registrada en
-`A-011` la costumbre que sostiene la asimetria «deteccion universal, escritura acotada» del Paso
-7c-bis, con su forma de refutarse.
+Nace `L-036`: una condicion de parada que no se puede cumplir se convierte en una excepcion
+redactada en prosa cada vez — y esa prosa es exactamente donde entraron `F-070`, `F-072` y `F-073`.
+El criterio de refutacion de `A-011` se sustituye (sin reescribir el enunciado, `D-019`) por uno que
+se valida contra los bloques «Criterio de cierre» y no contra cualquier linea que contenga
+`<hash>` (`D-107`), porque el control original acertaba igual si el supuesto era cierto o falso.
+Nace `A-012`: la lectura de «opera de forma sostenida con usuarios reales» en `_workflow/ai_levels.md`
+§6 admite dos lecturas —producto o sistema de trabajo— y `_workflow/040_evol.md` se apoya en la
+segunda sin que el metodo la zanje.
 
-Por peticion del usuario se escriben las dos plantillas que `_phases/040_evol.md` §5 declaraba como
-condicion de entrada de la etapa —`_templates/040_evol/005_iteration_NNN.md` y
-`010_slice_NNN.md`— (`D-105`). Son agnosticas, con la misma estructura que sus hermanas de
-`030_growth`, y anaden lo que la etapa necesita y la anterior no: evidencia de uso obligatoria,
-recuperacion con evidencia nueva, tres decisiones de deuda sin «ya veremos», cosecha por iteracion, y
-dos recuentos de la bateria de tests por el riesgo de regresion. La tabla de estado de
-`_phases/040_evol.md` §5 se actualiza: las plantillas ya existen, el reparto (`_workflow/040_evol.md`)
-todavia no — nace `T-105` para escribirlo. **La etapa sigue sin adoptarse.**
+Por peticion del usuario, alineado con `_methodology/000_method.md`, `_phases/040_evol.md` y las dos
+plantillas de `_templates/040_evol/`, se escribe `_workflow/040_evol.md` (`D-110`): el reparto de la
+etapa de la evolucion, con una fila por cada uno de sus ocho pasos, sin condicion de salida propia y
+con lectura de nivel de sistema de IA en **6** —la unica del metodo, por tres ejes en 3 y operacion
+sostenida—. **Se escribe, y no se adopta**: `_phases/040_evol.md` §5 actualiza su tabla de estado a
+«escrito, sin adoptar», y `T-105` pasa a `Implementada` con su criterio acotado a lo que esta
+decision cubre. **La etapa sigue sin adoptarse.**
 
-- **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037`, `T-038` y ahora `T-105` siguen `No
-  implementada`. `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin
-  adoptar en `project.md`. `DT-002` a `DT-005` siguen `No implementada` y `Propuesta (pendiente del
-  usuario)`. `A-006` a `A-009` quedan abiertos; `A-010` sigue `Refutado`; nace `A-011`, abierto. Los
-  cuatro hallazgos de `R-024` quedan `Aceptado — pendiente` en `_audit/findings.md` hasta que una
-  auditoria posterior verifique la correccion sobre este commit. `_phases/040_evol.md` declara
-  faltante, como condicion de entrada de su etapa, el reparto de `_workflow/040_evol.md` (las
-  plantillas ya estan). La autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`)
-  sigue sin resolver.
+- **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037` y `T-038` siguen `No implementada`.
+  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en
+  `project.md`, y `040_evol` ademas necesita su `D-XXX` de adopcion del reparto ya escrito. `DT-002`
+  a `DT-005` siguen `No implementada` y `Propuesta (pendiente del usuario)`. `A-006` a `A-009` y
+  `A-012` quedan abiertos; `A-010` sigue `Refutado`; `A-011` sigue abierto con su criterio de
+  refutacion corregido. Los cuatro hallazgos de `R-025` quedan `Aceptado — pendiente` en
+  `_audit/findings.md` hasta que una auditoria posterior verifique la correccion sobre este commit.
+  La autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`) sigue sin resolver.
 
 ---
 
 ## 3. Siguiente paso
 
-`manager` debe lanzar `report_auditor` sobre el commit de este cierre. Con el, quien audite tiene dos
-frentes nuevos que mirar con atencion: si el commit de anclaje de esta sesion aplica de verdad la
-deteccion universal / escritura acotada de `D-101`/`D-102` sobre `D-101` a `D-105` y `T-101` a
-`T-104` (dos archivos, `decisions.md` y `tasks.md`, nunca un tercero sin decision previa), y si las
-dos plantillas nuevas de `_templates/040_evol/` pasan limpio el barrido de fuga de datos y de codigos
-instanciados — ya comprobado en este cierre (Paso 1b/1c, cero lineas) pero merece una segunda mirada
-independiente. Con el Gate 2 escrito (`D-094`), las cuatro etapas con archivo propio y las dos
-plantillas de `040_evol` ya escritas, el siguiente paso de fondo sigue siendo definir el alcance y el
-objetivo del proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa `005_discovery`) — y antes
-de arrancarla, resolver `A-004`: confirmar que existe un patrocinador alcanzable y personas que
-puedan hablar del proceso real, porque el propio archivo de etapa dice que sin ese acceso no puede
-empezar. `T-037` (inventario de acciones irreversibles), `T-038` (igualar el barrido de fuga de
-`protocol-audit`) y ahora `T-105` (`_workflow/040_evol.md`) siguen disponibles sin depender de
-`A-004`, igual que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en
-`S-011`. Para abrir `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` o `040_evol` ya estan
-sus archivos de etapa; falta adoptar formalmente cada una en `project.md` (`D-060` para
-`010_prototype`), y `040_evol` ademas necesita su reparto (`T-105`) antes de poder abrirse. Al abrir
-`005_discovery`, registrar el `D-XXX` de adopcion del reparto de `_workflow/005_discovery.md` que
-`D-052` deja pendiente, y evaluar las cinco señales que `D-054` dejo registradas sin adoptar
-(`LG-39`, `LG-45`, `LG-48`, `LG-54`).
+`manager` debe lanzar `report_auditor` sobre el commit de este cierre. Con el, quien audite tiene
+frentes nuevos que mirar con atencion: si la particion CENSO/CONTROL de `D-107` sale limpia sobre
+`D-106` a `D-110` y `T-106` a `T-109` (ningun archivo fuera de `decisions.md` y `tasks.md` en la
+salida del CONTROL), si las tres notas fechadas de `_audit/S-025.md` §7 (`F-070` a `F-073`) reproducen
+sus cifras contra los commits que citan, y si `_workflow/040_evol.md` es agnostico de verdad —cero
+codigos instanciados, cero datos propios— y aplica correctamente `team.md`/`ai_levels.md` a sus ocho
+pasos, en particular la lectura de nivel 6 que `A-012` deja registrada como criterio, no como hecho
+cerrado. Con el Gate 2 escrito (`D-094`), las cinco etapas con archivo propio y ahora tambien con
+reparto escrito, el siguiente paso de fondo sigue siendo definir el alcance y el objetivo del
+proyecto a partir de `_brief/client_brief.md` (`T-001`, etapa `005_discovery`) — y antes de
+arrancarla, resolver `A-004`: confirmar que existe un patrocinador alcanzable y personas que puedan
+hablar del proceso real, porque el propio archivo de etapa dice que sin ese acceso no puede empezar.
+`T-037` (inventario de acciones irreversibles) y `T-038` (igualar el barrido de fuga de
+`protocol-audit`) siguen disponibles sin depender de `A-004`, igual que continuar la verificacion de
+`A-003`/`T-003` con lo que quedo sin probar en `S-011`. Para abrir `010_prototype`, `020_baseline`,
+`025_wslt`, `030_growth` o `040_evol` ya estan sus archivos de etapa y sus repartos; falta adoptar
+formalmente cada una en `project.md` (`D-060` para `010_prototype`), y `040_evol` ademas necesita el
+`D-XXX` de adopcion de su reparto —ya escrito, no adoptado— al abrirla. Al abrir `005_discovery`,
+registrar el `D-XXX` de adopcion del reparto de `_workflow/005_discovery.md` que `D-052` deja
+pendiente, y evaluar las cinco señales que `D-054` dejo registradas sin adoptar (`LG-39`, `LG-45`,
+`LG-48`, `LG-54`).
 
 Es decision del usuario si `DT-002` se confirma ya como pagada, si se autoriza `T-038` sobre
 `protocol-audit`, si se confirma `DT-003`, `DT-004` y `DT-005` (notas fechadas sobre lineas con
 `0x08`, la ultima en un archivo que `manager` no escribe), si `A-006` (los codigos `FT-`/`SC-`
-declarados) se valida o se retira, y si `A-007` (que habra un humano disponible para el despliegue
-del esqueleto) se confirma cuando la etapa se adopte. Sigue tambien sin resolver la autorreferencia
-del criterio de cierre de `D-088` (senalada desde `S-022`), que esta sesion no toco. Y sigue vigente
-lo que `D-099` dejo escrito: si el Paso 7c-bis vuelve a tocar prosa fuera de su bloque de codigo, no
-hay una tercera vuelta.
+declarados) se valida o se retira, si `A-007` (que habra un humano disponible para el despliegue
+del esqueleto) se confirma cuando la etapa se adopte, y si la lectura de `A-012` sobre «usuarios
+reales» en `_workflow/ai_levels.md` §6 se confirma o se corrige antes de que `040_evol` se adopte.
+Sigue tambien sin resolver la autorreferencia del criterio de cierre de `D-088` (senalada desde
+`S-022`), que esta sesion no toco. Y sigue vigente lo que `D-099` dejo escrito: si el Paso 7c-bis
+vuelve a tocar prosa fuera de su bloque de codigo, no hay una tercera vuelta.
 
 ---
 
@@ -1151,6 +1161,47 @@ _workflow/025_wslt.md
   `A-010` sigue `Refutado`. Los cuatro hallazgos de `R-024` quedan `Aceptado — pendiente` hasta que
   una auditoria posterior verifique la correccion sobre este commit. La autorreferencia del criterio
   de cierre de `D-088` sigue sin resolver.
+
+---
+
+### S-026 - Se aceptan F-070 a F-073 (T-106 a T-109); nace _workflow/040_evol.md, sin adoptar (D-110)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | `000_preproject` |
+| Tareas | T-106, T-107, T-108, T-109, T-105 |
+
+- **Que se hizo:** `manager` evaluo, contra `HEAD` (`3bf61d4`), los cuatro hallazgos de `R-025`
+  (sobre `S-025`): `F-070` a `F-073`. Los cuatro se aceptan. `F-070` (`T-106`, `D-106`): la nota de
+  cierre de `S-025` §7 se etiquetaba «sobre `HEAD` (`f1f2291`)» con una orden hibrida —lista del
+  commit, contenido del arbol de trabajo—, y su salida `2/2/14` correspondia al estado posterior al
+  anclaje, no a `f1f2291` (`2/22/28`); el Paso 7c exige ahora forma anclada siempre (`cat` y `HEAD`
+  prohibidos) y que la nota nombre el commit de su salida, con la nota fechada que republica la
+  comprobacion contra los dos commits. `F-071` (`T-107`, `D-107`): el barrido debia salir VACIO y en
+  su primera ejecucion devolvio tres lineas sin `D-XXX` que respaldara la excepcion escrita en prosa;
+  se parte en un CENSO universal que informa y un CONTROL —tambien universal y anclado— cuya
+  condicion de parada es que todo archivo de su salida este autorizado por el Paso 7c-bis. `F-072`
+  (`T-108`, `D-108`): el recuento accesorio de `S-025` publico 27 ordenes distintas siendo 22, y
+  «las mismas ocho» siendo trece; se corrige por nota fechada. `F-073` (`T-109`, `D-109`): la frase
+  de cierre de `S-025` contradecia a su propia nota y publicaba cifras sin orden (32 anclas de 35,
+  no 34; 34 anclas totales con dos fuera de la lista por el filtro del Paso 2d; 18 lineas del
+  barrido, no 16); se corrige por nota fechada y el recuadro exige ahora construir la frase con las
+  salidas de los barridos, nunca recontando a mano. Nace `L-036`: una condicion de parada
+  inalcanzable se convierte en excepcion redactada en prosa cada vez, y esa prosa es donde entraron
+  `F-070`, `F-072` y `F-073`. El criterio de refutacion de `A-011` se sustituye por uno que se valida
+  contra los bloques «Criterio de cierre» (`D-107`); nace `A-012` sobre la doble lectura de «usuarios
+  reales» en `ai_levels.md` §6. Por peticion del usuario nace `_workflow/040_evol.md` (`D-110`): el
+  reparto de la etapa de la evolucion, con una fila por cada uno de sus ocho pasos y lectura de nivel
+  de sistema de IA en 6 —la unica del metodo—; se escribe y **no se adopta**, `_phases/040_evol.md`
+  §5 pasa a decir «escrito, sin adoptar», y `T-105` se marca `Implementada` con su criterio acotado a
+  lo que esta decision cubre. La etapa sigue sin adoptarse.
+- **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037` y `T-038` siguen `No implementada`. Las
+  cinco etapas con archivo de etapa siguen sin adoptar en `project.md`, y `040_evol` ademas necesita
+  el `D-XXX` de adopcion de su reparto ya escrito. `DT-002` a `DT-005` siguen `Propuesta (pendiente
+  del usuario)`. `A-006` a `A-009` y `A-012` quedan abiertos; `A-010` sigue `Refutado`; `A-011` sigue
+  abierto con su criterio corregido. Los cuatro hallazgos de `R-025` quedan `Aceptado — pendiente`
+  hasta que una auditoria posterior verifique la correccion sobre este commit. La autorreferencia del
+  criterio de cierre de `D-088` sigue sin resolver.
 
 ---
 

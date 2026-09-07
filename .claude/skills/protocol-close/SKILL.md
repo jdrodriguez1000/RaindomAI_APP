@@ -1234,9 +1234,21 @@ desfasa.
 
 1. **el hash** del commit sustantivo, derivado con la orden de la tabla, nunca supuesto;
 2. **cuantas** de las ordenes listadas iban con `<hash>` y **en que archivos** quedaron ancladas,
-   con el barrido que lo comprueba y su salida cruda — que tiene que salir vacia;
+   con **los dos barridos** de abajo y sus salidas crudas;
 3. **la frase que cierra el pendiente**: que ya no queda ninguna orden de la lista sin forma anclada,
-   o cuales quedan y por que.
+   o cuales quedan y por que — **construida con las salidas de esos dos barridos, no recontando a
+   mano lo que la salida ya dice**.
+
+🚨 **Son DOS barridos, y lo que puede detener el paso es el segundo.** Lo abrio `F-071`: la
+version anterior pedia un solo barrido universal y exigia que saliera **VACIO**, y en su primera
+ejecucion no salio vacio — porque el patron acierta tambien en lineas que **no estan pendientes de
+anclar**: las que llevan `<hash>` como dato buscado, y los bloques de sesiones anteriores que `D-019`
+congela y que ya tienen su nota fechada debajo. Una regla que su propio autor incumple la primera vez
+no es una regla: es una excepcion redactada en prosa cada vez, que es como entraron `F-070`, `F-072`
+y `F-073`.
+
+**Barrido 1 — el CENSO.** Universal y anclado. Dice cuantas lineas con `<hash>` hay en el registro a
+ese commit, heredadas incluidas. **No tiene que salir vacio**, y su salida se publica tal cual:
 
 ```bash
 for f in $(git ls-tree -r --name-only <hash> _persistence _audit | grep -v '_audit/S-XXX.md'); do
@@ -1245,18 +1257,60 @@ for f in $(git ls-tree -r --name-only <hash> _persistence _audit | grep -v '_aud
 done
 ```
 
-⛔ **La orden va con su salida, y esa salida tiene que estar VACIA.** Una linea significa que queda
-una orden sin anclar, y entonces la nota no puede decir que no queda ninguna: **se detiene y se
-reporta**, como cualquier otra discrepancia de este paso.
+**Barrido 2 — el CONTROL.** Acotado a **lo que este commit anadio** y a la **ranura vacia de un
+ancla**, que es la forma literal `git show <hash>:` **al principio de la orden**. Es la lista de
+trabajo del Paso 7c-bis: aqui no hay herencia posible, todo lo que salga lo escribio esta sesion.
+
+```bash
+for f in $(git diff --name-only <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md"); do
+  n=$(git diff -U0 <hash>^ <hash> -- "$f" | grep -cE '^\+\$ git show <hash>:')
+  [ "$n" != "0" ] && echo "$f: $n"
+done
+```
+
+🔑 **La forma literal es la diferencia entera entre el censo y el control, y no es un detalle de
+escritura.** El censo busca el marcador **en cualquier posicion** — tambien dentro de un patron
+entrecomillado que lo busca como dato, y tambien en un `<commit>` de una evidencia. El control busca
+**una orden anclada a la que le falta el commit**, y esa tiene una sola forma. Cualquier patron mas
+ancho acierta en toda linea que *mencione* el marcador, y entonces el control vuelve a ser
+incumplible — que es de lo que venimos.
+
+⚠️ **Y hay un caso que ningun patron mas ancho puede resolver, asi que conviene nombrarlo:** este
+mismo recuadro, y cualquier decision que lo cite, **contiene el patron escrito**. Un barrido que
+busque el marcador suelto se acierta a si mismo cada vez que alguien documenta el barrido. La forma
+literal no tiene ese problema porque nadie escribe `$ git show <hash>:` al principio de una linea
+salvo para dejar un ancla sin rellenar.
+
+⛔ **La condicion de parada es del CONTROL, y es esta: todo archivo que aparezca en su salida tiene
+que ser uno que el Paso 7c-bis tenga autorizado a escribir.** Si aparece cualquier otro, el paso **no
+lo ancla**: se detiene y lo reporta a `manager`, que decide — nunca se resuelve escribiendo una
+excepcion dentro del informe.
+
+🔑 **Y asi la condicion vuelve a ser mecanica y alcanzable.** El censo informa y no juzga; el
+control juzga y se puede cumplir. Las lineas del censo que el control no recoge son **anteriores a
+este commit**, y lo anterior lo gobierna `D-019`: no se reescriben, se corrigen por nota fechada.
 
 🚨 **El barrido es de TODOS los archivos, no de los dos que el 7c-bis escribe, y esa asimetria
-es deliberada.** Detectar es universal; **escribir sigue acotado a `decisions.md` y `tasks.md`**. Si
-la salida senala un tercer archivo, el paso **no lo ancla**: se detiene y lo reporta, porque anclar
-un archivo que este paso no tiene autorizado a tocar seria ampliar la excepcion por su cuenta.
+es deliberada.** Detectar es universal — los dos barridos lo son; **escribir sigue acotado a
+`decisions.md` y `tasks.md`**. Nombrar esos dos aqui no contradice a `L-035`: la autorizacion de
+`D-102` **es** por nombre de archivo, y lo que `L-035` avisa es de enunciar por nombre lo que se
+quiere universal — que es justo lo que la deteccion sigue siendo.
 
-🔑 **Y se escribe asi porque la version anterior nombraba los dos archivos, que es el defecto
-que `L-035` describe:** una regla enunciada por el nombre del archivo se cumple ahi y se incumple en
-el de al lado — exactamente como nacio `F-067`. El propio control lo habria repetido.
+⛔ **Los dos barridos se publican SIEMPRE en su forma anclada, y `cat` no aparece en ninguno.** Lo
+abrio `F-070`: el cierre publico el censo tomando la **lista de archivos** de `git ls-tree HEAD` y el
+**contenido** de `cat "$f"` — el arbol de trabajo —, lo etiqueto «sobre `<hash>`», y su salida
+correspondia a un estado **posterior** al commit citado. Una orden hibrida reproduce el dia que se
+corre y ningun otro, y quien la reejecuta no puede saber si se equivoco el informe o cambio el
+repositorio.
+
+⚠️ **Y la nota nombra el commit al que corresponde su salida.** No «sobre `HEAD`»: `HEAD` se mueve
+con el commit siguiente, y es lo que convierte una evidencia en una afirmacion.
+
+🔑 **La deteccion se enuncia sin nombrar archivos por lo que `L-035` describe:** una regla
+enunciada por el nombre del archivo se cumple ahi y se incumple en el de al lado — exactamente como
+nacio `F-067`. Por eso los dos barridos recorren el arbol entero y **es la condicion de parada, no el
+barrido, la que mira los nombres**: parar es una cuestion de permiso, y el permiso de `D-102` esta
+escrito con dos nombres propios.
 
 ### 7c-bis — Los criterios de cierre de las entradas de esta sesion
 

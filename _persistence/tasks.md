@@ -113,7 +113,11 @@
 | [T-102](#t-102---ampliar-el-ancla-del-paso-7c-bis-a-tasksmd-f-067) | Ampliar el ancla del Paso 7c-bis a `tasks.md` (`F-067`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-103](#t-103---exigir-que-el-recuento-accesorio-del-paso-2d-lleve-su-orden-y-corregir-el-de-s-024-f-068) | Exigir que el recuento accesorio del Paso 2d lleve su orden, y corregir el de `S-024` (`F-068`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-104](#t-104---exigir-la-linea-en-blanco-antes-del-separador-y-anadir-las-dos-que-faltaban-f-069) | Exigir la linea en blanco antes del separador, y anadir las dos que faltaban (`F-069`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-105](#t-105---escribir-el-reparto-de-trabajo-de-la-etapa-de-la-evolucion-_workflow040_evolmd) | Escribir el reparto de trabajo de la etapa de la evolucion (`_workflow/040_evol.md`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-105](#t-105---escribir-el-reparto-de-trabajo-de-la-etapa-de-la-evolucion-_workflow040_evolmd) | Escribir el reparto de trabajo de la etapa de la evolucion (`_workflow/040_evol.md`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-106](#t-106---publicar-el-barrido-de-la-nota-de-cierre-siempre-anclado-y-corregir-el-de-s-025-f-070) | Publicar el barrido de la nota de cierre siempre anclado, y corregir el de `S-025` (`F-070`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-107](#t-107---partir-el-barrido-de-la-nota-de-cierre-en-censo-y-control-f-071) | Partir el barrido de la nota de cierre en censo y control (`F-071`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-108](#t-108---corregir-por-nota-fechada-el-recuento-accesorio-de-s-025-22-y-13-f-072) | Corregir por nota fechada el recuento accesorio de `S-025`: 22 y 13 (`F-072`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-109](#t-109---fijar-las-tres-cifras-de-la-frase-de-cierre-de-s-025-y-prohibir-recontar-a-mano-f-073) | Fijar las tres cifras de la frase de cierre de `S-025`, y prohibir recontar a mano (`F-073`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -4557,7 +4561,7 @@ $ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea 
 ### T-105 - Escribir el reparto de trabajo de la etapa de la evolucion (`_workflow/040_evol.md`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -4577,13 +4581,153 @@ $ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea 
 - **No es urgente y por eso no es bloqueante.** La etapa esta a dos Gates de distancia y ni siquiera
   adoptada. Lo que si es, es **invisible**: `R-024` §5 lo recomendo precisamente para que no se
   descubriera el dia que la etapa arranque.
-- **Criterio de cierre:** el archivo existe, tiene una fila por paso del procedimiento, y su adopcion
-  tiene su `D-XXX` en el registro.
+- 📌 **Nota del 2026-09-07 (`D-110`) — el criterio de cierre original exigia tambien la adopcion, y
+  esa parte no se cumple hoy a proposito.** El usuario pidio escribir el reparto ahora y dejar su
+  adopcion para cuando la etapa se abra (`D-110`): son dos decisiones distintas, y solo la primera se
+  puede tomar con la etapa a dos Gates de distancia. El criterio de cierre de esta tarea se acota a lo
+  que `D-110` deja hecho — que el archivo exista, agnostico y completo — y la adopcion pasa a ser
+  trabajo de cuando `040_evol` se declare, sin tarea propia todavia porque no hay fecha que la dispare.
+- **Criterio de cierre:** el archivo existe, tiene una fila por paso del procedimiento, es agnostico
+  (cero codigos instanciados y cero datos propios), y el archivo de etapa dice «escrito, sin adoptar».
 
 ```
 $ git ls-tree --name-only <hash> _workflow/
-<pendiente: la orden se corre cuando la tarea se implemente>
+$ git show <hash>:_workflow/040_evol.md | grep -cE '^\| \*\*[1-8] · '
+$ git show <hash>:_workflow/040_evol.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+$ git show <hash>:_phases/040_evol.md | grep -c 'escrito, sin adoptar'
 ```
 
-⚠️ **El bloque de arriba no es evidencia de nada todavia**, y se marca asi a proposito: la tarea esta
-`No implementada`. Se rellena con su orden anclada y su salida el dia que se cierre.
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-106 - Publicar el barrido de la nota de cierre siempre anclado, y corregir el de `S-025` (`F-070`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-026 |
+
+- **Que:** el recuadro del Paso 7c de `protocol-close` pasa a exigir que los barridos de la nota se
+  publiquen **siempre en su forma anclada** —`cat` y `HEAD` prohibidos dentro de la orden— y que la
+  nota **nombre el commit** al que corresponde su salida. Y se anade la nota fechada a
+  `_audit/S-025.md` §7 que republica la comprobacion contra `f1f2291` y contra `f4658f5`, con sus dos
+  salidas crudas.
+- **Por que:** `F-070` (Alta, `R-025`). La nota publicada etiquetaba su salida «sobre `HEAD`
+  (`f1f2291`)» y la orden era hibrida: lista de archivos del commit, contenido del arbol de trabajo.
+  Quien la reejecute contra el hash que la propia nota cita obtiene `22` y `28` donde el informe
+  publica `2` y `14`, y no puede saber si se equivoco el informe o cambio el repositorio.
+- **Se escribe a mano** por la primera excepcion de este archivo: nace de un hallazgo aceptado, y su
+  decision es `D-106`.
+- **Criterio de cierre:** el recuadro lo exige, y la nota fechada esta en el informe.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos barridos se publican SIEMPRE en su forma anclada'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la nota nombra el commit al que corresponde su salida'
+$ git show <hash>:_audit/S-025.md | grep -c 'el barrido de arriba se etiqueta'
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-107 - Partir el barrido de la nota de cierre en censo y control (`F-071`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-026 |
+
+- **Que:** el recuadro del Paso 7c deja de pedir un barrido unico que salga vacio. Pasa a describir
+  **dos**: un **censo** universal y anclado, que se publica tal cual y no tiene que salir vacio; y un
+  **control** — tambien universal y anclado — acotado a lo que el commit anadio, cuya condicion de
+  parada es que **todo archivo de su salida sea uno que el Paso 7c-bis tenga autorizado a escribir**.
+- **Por que:** `F-071` (Media, `R-025`). La condicion «vacia» no era alcanzable: el patron acierta
+  tambien en ordenes que llevan `<hash>` como dato buscado y en bloques que `D-019` congela. En su
+  primera ejecucion el barrido devolvio tres lineas, el informe no se detuvo y redacto la excepcion
+  en prosa, **sin `D-XXX`** que la respaldara.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-107`.
+- **Criterio de cierre:** el recuadro describe los dos barridos y la condicion de parada es la del
+  control.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS barridos, y lo que puede detener el paso es el segundo'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La condicion de parada es del CONTROL'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -cE 'Barrido [12].*el (CENSO|CONTROL)'
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-108 - Corregir por nota fechada el recuento accesorio de `S-025`: 22 y 13 (`F-072`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-026 |
+
+- **Que:** nota fechada en `_audit/S-025.md` §7 que republica, con su orden anclada y su salida cruda,
+  las dos cifras accesorias que no reproducian: **22** ordenes distintas (el informe publico 27) y
+  **trece** repetidas (el informe dijo «las mismas ocho»). La cifra principal —35 lineas— es correcta
+  y no cambia. La linea original **no se reescribe** (`D-019`).
+- **Por que:** `F-072` (Media, `R-025`). Es la reincidencia de `F-068` en la sesion que lo corrige, y
+  por la puerta de al lado: `D-103` cerro «no se publica la orden», y el defecto entro por «se publica
+  la orden y una salida que no se corrio».
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-108`. El cambio de
+  protocolo que evita la reincidencia va en `D-109` / `T-109`, no aqui.
+- **Criterio de cierre:** la nota fechada esta en el informe, con las tres ordenes y sus salidas.
+
+```
+$ git show <hash>:_audit/S-025.md | grep -c 'el recuento accesorio de arriba es falso: son 22'
+$ git show <hash>:_audit/S-025.md | grep -c 'las filas 3-15 y 22-34 son las'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-109 - Fijar las tres cifras de la frase de cierre de `S-025`, y prohibir recontar a mano (`F-073`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-026 |
+
+- **Que:** dos cosas. **(1)** Nota fechada en `_audit/S-025.md` §7 que fija con su orden y su salida
+  las tres cifras que no salian de ninguna: se anclaron **32** de las 35 listadas (no 34), el Paso
+  7c-bis escribio **34** anclas en total —dos de ellas de una orden que el filtro del Paso 2d excluye
+  por contener un hash—, y el barrido devuelve **tres** lineas que suman **18** (no 16). Y deja
+  escrito que las dos ordenes de `A-011` **siguen sin anclar**, como decia la nota y no la frase de
+  cierre. **(2)** El punto 3 del recuadro del Paso 7c pasa a exigir que la frase de cierre se
+  construya **con las salidas de los dos barridos**, no recontando a mano.
+- **Por que:** `F-073` (Media, `R-025`). La nota de cierre es el mecanismo entero con el que `D-101`
+  cierra el pendiente de la seccion 7; si su parrafo final contradice al anterior y sus cifras no
+  salen de ninguna orden, deja de ser un puntero comprobable.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-109`.
+- **Criterio de cierre:** la nota fechada esta en el informe y el recuadro exige construir la frase
+  con las salidas.
+
+```
+$ git show <hash>:_audit/S-025.md | grep -c 'la frase de cierre de arriba contradice a la nota'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'no recontando a'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.

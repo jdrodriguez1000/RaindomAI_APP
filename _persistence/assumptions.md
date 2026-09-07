@@ -21,6 +21,7 @@
 | [A-009](#a-009---_phases-y-_workflow-podran-seguir-en-cero-codigos-instanciados-sin-perder-nada) | `_phases/` y `_workflow/` podran seguir en cero codigos instanciados sin perder nada | 2026-09-06 | Abierto |
 | [A-010](#a-010---el-anclaje-del-paso-7c-bis-se-queda-en-mecanico-y-no-se-desliza-a-escribir-el-porque) | El anclaje del Paso 7c-bis se queda en mecanico y no se desliza a escribir el porque | 2026-09-06 | Refutado |
 | [A-011](#a-011---el-paso-7c-bis-podra-seguir-escribiendo-solo-en-dos-archivos-porque-los-criterios-de-cierre-no-nacen-en-otros) | El Paso 7c-bis podra seguir escribiendo solo en dos archivos, porque los criterios de cierre no nacen en otros | 2026-09-07 | Abierto |
+| [A-012](#a-012---opera-de-forma-sostenida-con-usuarios-reales-se-lee-sobre-el-sistema-de-trabajo-no-sobre-el-producto) | «Opera de forma sostenida con usuarios reales» se lee sobre el sistema de trabajo, no sobre el producto | 2026-09-07 | Abierto |
 
 ---
 
@@ -637,3 +638,112 @@ $ for f in $(git ls-tree -r --name-only <commit> _persistence _audit | grep -v '
   ya corre ahi, y su salida vacia **es** la confirmacion de este supuesto en esa pasada.
 - **Y por eso este supuesto no necesita fecha limite.** Se comprueba solo, una vez por sesion, en el
   sitio donde importa. Lo que hay que hacer el dia que falle esta escrito arriba.
+
+📌 **Nota del 2026-09-07 (`D-107`, `F-071`) — este supuesto sigue `Abierto`, pero su criterio de
+refutacion era el equivocado y se sustituye.** El supuesto no se reescribe (`D-019`): su enunciado
+—que los bloques «Criterio de cierre» no nacen fuera de `decisions.md` y `tasks.md`— **se sostiene**,
+y se comprueba con la orden que le corresponde, anclada:
+
+```
+$ for f in $(git ls-tree -r --name-only 3bf61d4 _persistence); do n=$(git show 3bf61d4:"$f" | grep -c '^- \*\*Criterio de cierre:\*\*'); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/decisions.md: 25
+_persistence/tasks.md: 105
+```
+
+**Cero criterios de cierre fuera de los dos archivos autorizados.** Ese es el enunciado, y es el que
+manda.
+
+⛔ **Lo que falla es el control que la entrada nombro como «Como se refuta».** Barre toda linea que
+lleve `<hash>`, no los bloques «Criterio de cierre», y por eso **acierta en cosas que no son el
+supuesto** — empezando por las dos ordenes de esta misma entrada. Las convenciones de este archivo lo
+prohiben con todas las letras: *«un supuesto se valida donde su fallo se distingue de su
+funcionamiento»*. Este control da la misma salida tanto si el supuesto es cierto como si es falso.
+
+**El criterio de refutacion pasa a ser este, y sustituye al de arriba:**
+
+> El barrido de bloques «Criterio de cierre» devuelve una linea de un archivo distinto de
+> `_persistence/decisions.md` y `_persistence/tasks.md`.
+
+⚠️ **Y el CENSO del protocolo si señala algo real, aunque no sea la refutacion de este supuesto.**
+El censo que `D-107` estrena —universal y anclado— devuelve `assumptions.md` sobre el commit que creo
+esta entrada; el CONTROL no, porque ninguna de las dos es una ranura de ancla vacia
+(`git show <hash>:` al principio de la orden), sino el marcador dentro de un patron entrecomillado:
+
+```
+$ for f in $(git ls-tree -r --name-only f1f2291 _persistence _audit | grep -v '_audit/S-'); do n=$(git show f1f2291:"$f" | grep -cE '^\$ .*<hash>'); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/assumptions.md: 2
+_persistence/decisions.md: 22
+_persistence/tasks.md: 28
+
+$ for f in $(git diff --name-only f1f2291^ f1f2291 -- _persistence _audit ":(exclude)_audit/S-025.md"); do n=$(git diff -U0 f1f2291^ f1f2291 -- "$f" | grep -cE '^\+\$ git show <hash>:'); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/decisions.md: 19
+_persistence/tasks.md: 14
+```
+
+🔑 **Y esa diferencia entre los dos barridos es exactamente el reparto que `D-107` busca.** El
+censo informa: hay dos lineas en un archivo que el Paso 7c-bis no puede tocar. El control no detiene
+el cierre, porque ninguna de las dos esta **esperando un commit**. Lo que queda no es un fallo del
+protocolo: es trabajo de `manager`, que es quien publica y quien ancla en este archivo — y es lo que
+hace la nota de abajo.
+
+**La primera de las dos, republicada en su forma anclada.** La original se corrio sobre el **arbol de
+trabajo** —el mismo defecto que `F-070`—, y su salida corresponde al estado en que se escribio, antes
+de que esta entrada existiera. Anclada al commit que la contiene devuelve otra cosa, y las dos van
+aqui:
+
+```
+$ for f in $(git ls-tree -r --name-only f1f2291 _persistence _audit); do n=$(git show f1f2291:"$f" | grep -cE '^\$ .*<hash>'); [ "$n" != "0" ] && echo "$f: $n"; done
+_audit/S-017.md: 1
+_audit/S-024.md: 1
+_audit/S-025.md: 13
+_persistence/assumptions.md: 2
+_persistence/decisions.md: 22
+_persistence/tasks.md: 28
+```
+
+🔑 **La diferencia con lo publicado arriba se explica entera y no cambia la conclusion.**
+`assumptions.md: 2` son las dos ordenes de esta entrada, que no existian cuando la orden se corrio;
+`_audit/S-025.md: 13` es el informe de la sesion, que la orden original excluia. Los dos archivos que
+importaban entonces —`decisions.md: 22` y `tasks.md: 28`— reproducen exactamente.
+
+⚠️ **La segunda orden de esta entrada no se ancla, y no es un olvido:** es una **plantilla** del
+criterio de refutacion, sin salida publicada. No afirma nada, asi que no hay nada que reproducir. Y
+queda sustituida por el criterio nuevo de esta nota.
+
+---
+
+### A-012 - «Opera de forma sostenida con usuarios reales» se lee sobre el sistema de trabajo, no sobre el producto
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | `manager` |
+
+- **Supuesto:** `_workflow/ai_levels.md` §6 separa el nivel 5 del 6 con una sola linea —«lo anterior
+  **y** opera de forma sostenida con usuarios reales»— y no dice **quien** son esos usuarios.
+  `_workflow/040_evol.md` §6 la lee sobre el **sistema de trabajo**: los usuarios son el equipo, y lo
+  que sostiene la operacion es que la etapa **no tiene condicion de salida**. Sobre esa lectura
+  descansa que el reparto de esa etapa se declare en **nivel 6**, el unico del metodo.
+- **Por que se supone, y no se afirma:** la otra lectura es igual de defendible con el texto delante.
+  Si «usuarios reales» son los del **producto**, la linea la cumpliria tambien la etapa del
+  crecimiento —que termina con el producto desplegado y en uso real— y sin embargo su reparto se
+  declaro en **5**. Las dos lecturas no pueden ser ciertas a la vez sin que uno de los dos archivos
+  este mal, y hoy no hay nada en el metodo que zanje cual es.
+- **Sobre que se construyo encima:** sobre esto se construyo la lectura de `_workflow/040_evol.md` §6
+  y, con ella, su §6.1 — la cuarta pieza del harness, la **serie** de las tres metricas a lo largo de
+  las vueltas, que es lo unico que el 6 anade sobre el 5. Si el supuesto cae, esa pieza sobra y el
+  archivo dice de mas.
+- **Lo que NO depende de esto, y conviene separarlo:** los tres ejes en `3` —impacto, variabilidad de
+  la entrada y volumen— no dependen de ninguna lectura: salen de lo que `_phases/040_evol.md` dice de
+  si misma. Con o sin este supuesto, el nivel **no baja de 5** y el harness sigue sin ser opcional.
+  Lo que esta en juego es el escalon, no la obligacion.
+- **Como se refuta:** que el usuario, o una revision independiente, lea la linea sobre los usuarios
+  del **producto**; o que otro archivo de reparto del metodo aplique la lectura contraria a la misma
+  linea, lo que dejaria dos lecturas vivas del mismo criterio.
+- **Disparador:** el momento en que se adopte el reparto de esa etapa —su `D-XXX`, al abrirla—, que
+  es cuando la lectura deja de ser una linea escrita y pasa a costar dinero. Y antes de eso,
+  cualquier auditoria que lea `_workflow/040_evol.md` §6.
+- ⚠️ **No se escala hoy porque no hay nada que decidir todavia.** La etapa esta a dos Gates de
+  distancia y sin declarar; lo clasifico como reversible a criterio —es un parrafo de un archivo
+  agnostico que nadie ha adoptado—, y por eso se registra como supuesto en vez de bloquear.

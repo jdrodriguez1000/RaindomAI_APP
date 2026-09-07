@@ -114,6 +114,11 @@
 | [D-103](#d-103---el-recuento-accesorio-del-paso-2d-va-con-su-propia-orden-y-su-salida-o-no-se-escribe) | El recuento accesorio del Paso 2d va con su propia orden y su salida, o no se escribe | 2026-09-07 | Vigente | report_auditor |
 | [D-104](#d-104---la-nota-del-paso-7c-bis-deja-una-linea-en-blanco-antes-del-separador-y-la-que-falto-se-anade) | La nota del Paso 7c-bis deja una linea en blanco antes del separador, y la que falto se anade | 2026-09-07 | Vigente | report_auditor |
 | [D-105](#d-105---las-dos-plantillas-de-la-evolucion-se-escriben-ahora-el-reparto-queda-pendiente-y-el-archivo-de-etapa-lo-dice) | Las dos plantillas de la evolucion se escriben ahora; el reparto queda pendiente y el archivo de etapa lo dice | 2026-09-07 | Vigente | usuario |
+| [D-106](#d-106---el-barrido-de-la-nota-de-cierre-se-publica-siempre-anclado-y-la-nota-nombra-el-commit-de-su-salida) | El barrido de la nota de cierre se publica siempre anclado, y la nota nombra el commit de su salida | 2026-09-07 | Vigente | report_auditor |
+| [D-107](#d-107---el-barrido-de-la-nota-de-cierre-se-parte-en-censo-y-control-y-la-condicion-de-parada-es-del-control) | El barrido de la nota de cierre se parte en censo y control, y la condicion de parada es del control | 2026-09-07 | Vigente | report_auditor |
+| [D-108](#d-108---el-recuento-accesorio-de-s-025-se-corrige-por-nota-fechada-22-y-13) | El recuento accesorio de `S-025` se corrige por nota fechada: 22 y 13 | 2026-09-07 | Vigente | report_auditor |
+| [D-109](#d-109---la-frase-de-cierre-se-construye-con-las-salidas-de-los-barridos-y-no-recontando-a-mano) | La frase de cierre se construye con las salidas de los barridos, y no recontando a mano | 2026-09-07 | Vigente | report_auditor |
+| [D-110](#d-110---el-reparto-de-la-etapa-de-la-evolucion-se-escribe-ahora-su-adopcion-queda-para-cuando-la-etapa-se-abra) | El reparto de la etapa de la evolucion se escribe ahora; su adopcion queda para cuando la etapa se abra | 2026-09-07 | Vigente | usuario |
 
 ---
 
@@ -6519,3 +6524,393 @@ $ git show f1f2291:_phases/040_evol.md | grep -c 'Estado de los dos: las plantil
 existe.** Las ancla el Paso 7c-bis del cierre.
 
 📌 **Ancladas por el Paso 7c-bis al commit `f1f2291`.** Las seis reproducen exactamente lo publicado arriba.
+
+---
+
+### D-106 - El barrido de la nota de cierre se publica siempre anclado, y la nota nombra el commit de su salida
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-070` (Alta, `R-025`) observa que la nota de cierre de `_audit/S-025.md` §7 encabeza
+  su barrido con «corrido sobre `HEAD` (`f1f2291`)» y publica `2 / 2 / 14`, pero la orden publicada es
+  **hibrida**: toma la lista de archivos de `git ls-tree HEAD` y el **contenido** de `cat "$f"`, que es
+  el arbol de trabajo. Verificado contra `HEAD` (`3bf61d4`), el hallazgo se sostiene entero:
+
+```
+$ git show 3bf61d4:_audit/S-025.md | grep -cE '^\$ for f in \$\(git ls-tree -r --name-only HEAD _persistence _audit \| grep -v ._audit/S-.\); do n=\$\(cat'
+1
+
+$ for f in $(git ls-tree -r --name-only f1f2291 _persistence _audit | grep -v '_audit/S-'); do n=$(git show f1f2291:"$f" | grep -cE '^\$ .*<hash>'); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/assumptions.md: 2
+_persistence/decisions.md: 22
+_persistence/tasks.md: 28
+
+$ for f in $(git ls-tree -r --name-only f4658f5 _persistence _audit | grep -v '_audit/S-'); do n=$(git show f4658f5:"$f" | grep -cE '^\$ .*<hash>'); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/assumptions.md: 2
+_persistence/decisions.md: 2
+_persistence/tasks.md: 14
+```
+
+- **El hallazgo es correcto, y ademas identifica el estado al que si corresponde la salida:** `2 / 2 /
+  14` es `f4658f5`, el commit de anclaje, que es **posterior** al commit que la etiqueta cita. No es
+  que la cifra estuviera mal calculada: es que se calculo sobre otra cosa.
+- **Decision:** se acepta. Dos cambios, y ninguno inventa una regla nueva — los dos hacen explicito en
+  el Paso 7c lo que las convenciones de este archivo ya exigen para toda orden publicada:
+  1. **los barridos de la nota se publican siempre en su forma anclada**, y `cat` no aparece en
+     ninguno;
+  2. **la nota nombra el commit al que corresponde su salida**, no «sobre `HEAD`».
+- **Y la nota fechada en `_audit/S-025.md` §7**, que republica la comprobacion contra los **dos**
+  commits con sus salidas crudas. La linea original no se reescribe (`D-019`).
+- **Por que la regla ya existia y aun asi hizo falta escribirla aqui.** Las convenciones de este
+  archivo prohiben `HEAD` dentro de una orden publicada desde `F-065`, y lo dicen para `decisions.md`.
+  El barrido de la nota no vive en `decisions.md`: vive en el informe, y la prohibicion no le llegaba.
+  Es exactamente la forma de fallo que `L-035` describe — una regla enunciada en un sitio se cumple
+  ahi y se incumple en el de al lado.
+- **Lo que la nota original afirmaba sigue siendo cierto.** Las tres explicaciones que da de su salida
+  describen `2 / 2 / 14` y son ciertas sobre `f4658f5`. Lo que fallo fue la etiqueta, no el
+  razonamiento — y por eso la correccion es republicar, no rectificar el fondo.
+- **Alternativas descartadas:** (1) **dejarlo como esta y anotar solo la nota fechada** — descartada:
+  el defecto es del procedimiento, y sin tocarlo el proximo cierre lo repite; (2) **prohibir el arbol
+  de trabajo en cualquier orden de cualquier archivo, de golpe** — descartada por `PI-3`: hay ordenes
+  que preguntan legitimamente por lo que el commit no contiene (`git status`, `date`), y las
+  convenciones ya lo excluyen con su criterio; (3) **exigir que la nota se escriba despues del commit
+  de anclaje**, para que su hash exista — descartada: es el mismo huevo-y-gallina un nivel mas arriba,
+  y ademas el commit de anclaje contiene la nota.
+- **Reversible a criterio** — dos parrafos de una skill y una nota fechada en un informe, sin efecto
+  fuera del repositorio y sin nada que dependa de ellos. Criterio declarado, no leido de una tabla
+  (`T-037` sigue abierta).
+- **Criterio de cierre:** el recuadro del Paso 7c prohibe `cat` y exige nombrar el commit, y la nota
+  fechada de `F-070` esta en `_audit/S-025.md` con sus dos salidas.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos barridos se publican SIEMPRE en su forma anclada'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la nota nombra el commit al que corresponde su salida'
+$ git show <hash>:_audit/S-025.md | grep -c 'el barrido de arriba se etiqueta'
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-107 - El barrido de la nota de cierre se parte en censo y control, y la condicion de parada es del control
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-071` (Media, `R-025`) observa que el recuadro que `D-101` escribio exige que el
+  barrido salga **VACIO** y que una sola linea obligue a detenerse; en su primera ejecucion devolvio
+  tres lineas, el informe no se detuvo, las justifico en prosa, y despues afirmo lo que el recuadro
+  dice que en ese caso no se puede afirmar. Verificado contra `HEAD` (`3bf61d4`):
+
+```
+$ git show 3bf61d4:.claude/skills/protocol-close/SKILL.md | grep -c 'La orden va con su salida, y esa salida tiene que estar VACIA'
+1
+
+$ git show 3bf61d4:_audit/S-025.md | grep -c 'No sale vacio, y se explica cada linea en vez de forzarla a cero'
+1
+
+$ git show 3bf61d4:_persistence/decisions.md | grep -cE 'orden pendiente de anclar|coincidencia del patron'
+0
+```
+
+- **El hallazgo es correcto, y su parte mas importante es la ultima cifra: `0`.** La excepcion se
+  introdujo **sin `D-XXX`** — ni `D-101` ni las otras cuatro de esa sesion la contienen —, y el
+  registro quedo con una regla en el protocolo y una practica contraria en el informe, sin nada que
+  diga cual manda.
+- **Y hay una causa de fondo que el hallazgo nombra y conviene fijar:** la condicion «vacia» **no era
+  alcanzable**. El patron acierta en tres clases de linea, y solo una es un pendiente de verdad:
+  1. ordenes que llevan `<hash>` como **dato buscado**, no como marcador propio;
+  2. bloques de sesiones anteriores que `D-019` **congela** y que ya tienen su nota fechada debajo;
+  3. ordenes de esta sesion **realmente sin anclar**.
+- **Decision:** se acepta, y se corrige por la via que el hallazgo pone primero —acotar el recuadro—
+  pero **sin trasladar la distincion a la prosa**, que es donde se colaron `F-070`, `F-072` y `F-073`.
+  El barrido se parte en dos ordenes, las dos universales y las dos ancladas:
+
+| Barrido | Que mide | Que exige |
+|---|---|---|
+| **CENSO** | cuantas lineas con `<hash>` hay en el registro a ese commit, heredadas incluidas | nada: se publica tal cual, **no tiene que salir vacio** |
+| **CONTROL** | las que **este commit anadio**, por archivo — la lista de trabajo del Paso 7c-bis | que **todo archivo de su salida sea uno que el 7c-bis tenga autorizado a escribir**; si aparece otro, se detiene y lo reporta a `manager` |
+
+- **Por que esto devuelve la condicion a lo mecanico.** Lo heredado deja de ser un caso que explicar:
+  si una linea sale en el censo y no en el control, es anterior al commit, y lo anterior lo gobierna
+  `D-019` — sin que nadie tenga que decidirlo. Lo que queda por juzgar es una sola cosa, y es un
+  nombre de archivo contra una lista de permisos.
+- 🚨 **El control se corrio contra el estado pendiente de esta misma sesion antes de adoptarlo, y
+  la primera version del patron no salio limpia.** Es lo que `L-036` exige, y lo que `D-101` no hizo.
+  Con el patron `<hash>` a secas, el control senalaba `_persistence/assumptions.md` — dos lineas que
+  **ya estaban ancladas**, y que solo acertaban porque el marcador aparece dentro del patron
+  entrecomillado que ellas mismas buscan. Habria detenido el cierre por un falso positivo, en su
+  primera pasada:
+
+```
+$ for f in $(git diff --name-only <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md"); do n=$(git diff -U0 <hash>^ <hash> -- "$f" | grep -cE '^\+\$ .*<hash>'); [ "$n" != "0" ] && echo "$f: $n"; done
+```
+
+  ⚠️ **Esta orden y la de abajo se escriben con `<hash>` y sin salida a proposito, y es la unica
+  forma honesta de publicarlas.** El falso positivo que describen es una propiedad **del commit de
+  esta sesion**, que todavia no existe: corrido sobre el arbol de trabajo, el resultado cambia cada
+  vez que se anade un parrafo que cite el patron — que es exactamente el defecto de `F-070`. Las
+  ancla y las corre el Paso 7c-bis, y entonces reproducen para siempre.
+
+- 🚨 **Y la segunda version del patron tampoco salio limpia, por una razon que merece quedar
+  escrita: el barrido se acierta a si mismo.** Estrechado a `<hash>` seguido de `:`, seguia señalando
+  `assumptions.md` — esta vez por **una sola linea, la que documenta el propio control** en la nota
+  que esta sesion escribe sobre `A-011`. Es una propiedad de cualquier control basado en un patron:
+  **el documento que lo publica lo contiene**, y perseguirlo con patrones cada vez mas anchos no
+  converge.
+- **El patron final es la forma literal del ancla vacia — `git show <hash>:` al principio de la
+  orden**, que es la unica manera en que el marcador esta de verdad esperando un commit. Nadie
+  escribe esa linea salvo para dejar un ancla sin rellenar. Sale limpio en los dos estados que se le
+  pueden pedir hoy:
+
+```
+$ for f in $(git diff --name-only f1f2291^ f1f2291 -- _persistence _audit ":(exclude)_audit/S-025.md"); do n=$(git diff -U0 f1f2291^ f1f2291 -- "$f" | grep -cE '^\+\$ git show <hash>:'); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/decisions.md: 19
+_persistence/tasks.md: 14
+
+$ for f in $(git diff --name-only <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md"); do n=$(git diff -U0 <hash>^ <hash> -- "$f" | grep -cE '^\+\$ git show <hash>:'); [ "$n" != "0" ] && echo "$f: $n"; done
+```
+
+  **La primera reproduce ya, sobre el commit donde el hallazgo nacio.** La segunda es la misma sobre
+  el commit de esta sesion, y la ancla el Paso 7c-bis — es la que demuestra que el patron final
+  tampoco se acierta a si mismo aqui, donde esta escrito tres veces.
+
+  **Solo los dos archivos que `D-102` autoriza, en los dos estados.** El censo sigue señalando lo
+  demas, que es su trabajo; lo que ya no hace el control es detener el cierre por una linea que
+  *menciona* el marcador sin estar esperandolo.
+
+🔑 **Las tres versiones del patron son la leccion `L-036` aplicandose a si misma, y por eso van
+escritas y no limpiadas.** Ninguna se descubrio razonando: las tres se descubrieron **corriendo el
+control contra el arbol real antes de adoptarlo**. Si esta decision publicara solo la tercera, el
+proximo que amplie el barrido volveria a empezar por la primera.
+- **Que NO se cambia, y se dice para que no se suponga:** la deteccion sigue siendo universal. Los dos
+  barridos recorren el arbol entero; los nombres de archivo solo aparecen en la **condicion de
+  parada**, que es una cuestion de permiso, y el permiso de `D-102` esta escrito con dos nombres
+  propios. Enunciar la deteccion por nombre es lo que `L-035` avisa de no hacer, y no se hace.
+- **Alternativas descartadas:** (1) **afinar el patron para que no devuelva las dos primeras clases** —
+  descartada: «`<hash>` como dato buscado» no es distinguible con una expresion regular sin inventar
+  un marcador nuevo, y un marcador nuevo es coste permanente contra `PI-2`; (2) **dejar la regla y
+  aceptar que el informe explique las lineas** — descartada: es la practica que produjo el hallazgo, y
+  ademas es la puerta por la que entraron los otros tres; (3) **quitar la condicion de parada** —
+  descartada: es lo unico que impide que el paso ancle un archivo que no tiene autorizado; (4)
+  **excluir `assumptions.md` del barrido** — descartada, y es la peor: convierte un archivo del
+  registro en un punto ciego permanente, que es lo contrario de una deteccion universal.
+- **Reversible a criterio** — la reescritura de un recuadro de una skill, sin efecto fuera del
+  repositorio. Criterio declarado, no leido de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el recuadro describe los dos barridos con sus dos ordenes, y la condicion de
+  parada es la del control.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS barridos, y lo que puede detener el paso es el segundo'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La condicion de parada es del CONTROL'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -cE 'Barrido [12].*el (CENSO|CONTROL)'
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-108 - El recuento accesorio de `S-025` se corrige por nota fechada: 22 y 13
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-072` (Media, `R-025`) observa que el informe publica **27** ordenes distintas y que
+  el valor real es **22**, y que describe las repetidas como «las mismas ocho» cuando el `uniq -d` que
+  el propio informe publica a continuacion lista **trece**. Verificado contra `HEAD` (`3bf61d4`), con
+  la orden en la forma anclada que el informe declara equivalente:
+
+```
+$ git diff -U0 f1f2291^ f1f2291 -- _persistence _audit ":(exclude)_audit/S-025.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+35
+
+$ git diff -U0 f1f2291^ f1f2291 -- _persistence _audit ":(exclude)_audit/S-025.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+22
+
+$ git diff -U0 f1f2291^ f1f2291 -- _persistence _audit ":(exclude)_audit/S-025.md" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sed 's/^+//' | sort | uniq -d | wc -l
+13
+```
+
+- **El hallazgo es correcto, y la cifra principal no cambia:** las **35** lineas reproducen. Lo que no
+  reproduce son las dos cifras que la acompanan.
+- **Es la reincidencia de `F-068` en la sesion que lo corrige, y por la puerta de al lado.** `D-103`
+  cerro «no se publica la orden»; el defecto entro por «se publica la orden y una salida que no se
+  corrio». Es el mecanismo que `L-035`, nacida en esa misma sesion, describe.
+- **Decision:** se acepta. Nota fechada en `_audit/S-025.md` §7 que republica las dos cifras con su
+  orden y su salida cruda. La linea original **no se reescribe** (`D-019`).
+- **No lleva cambio de protocolo propio, y se dice para que no se lea como un olvido.** La regla que
+  faltaba —no recontar a mano lo que la salida ya dice— se escribe en `D-109`, que es donde
+  corresponde: `F-073` es el hallazgo que la pide de frente, y duplicarla aqui crearia dos
+  formulaciones de la misma regla envejeciendo por separado.
+- **Alternativas descartadas:** (1) **reescribir las dos cifras en su sitio** — descartada por `D-019`:
+  convierte «falta evidencia» en «hay evidencia falsa»; (2) **una regla propia que prohiba recontar a
+  mano** — descartada por lo de arriba, se escribe una vez en `D-109`; (3) **suprimir la cifra
+  accesoria del Paso 2d** — descartada: `D-103` ya decidio que puede darse, con su orden; el problema
+  nunca fue la cifra, fue no correrla.
+- **Reversible a criterio** — una nota fechada en un informe ya auditado, sin efecto fuera del
+  repositorio. Criterio declarado, no leido de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** la nota fechada de `F-072` esta en `_audit/S-025.md`, con las tres ordenes y
+  sus salidas.
+
+```
+$ git show <hash>:_audit/S-025.md | grep -c 'el recuento accesorio de arriba es falso: son 22'
+$ git show <hash>:_audit/S-025.md | grep -c 'las filas 3-15 y 22-34 son las'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-109 - La frase de cierre se construye con las salidas de los barridos, y no recontando a mano
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-073` (Media, `R-025`) observa tres afirmaciones incompatibles en la misma seccion
+  del informe: la nota dice «las **tres** que NO se anclaron» y la frase de cierre dice «la **unica**
+  que no»; la frase abre diciendo que no queda ninguna sin forma anclada y la nota anterior dice que
+  dos quedan con `<hash>` literal; y habla de «las **16** lineas que devuelve el barrido» cuando el
+  barrido devuelve **tres** lineas que suman **18**. Verificado contra `HEAD` (`3bf61d4`):
+
+```
+$ git diff -U0 f1f2291^ f1f2291 -- _persistence/decisions.md _persistence/tasks.md | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+33
+
+$ git diff -U0 f1f2291^ f1f2291 -- _persistence/assumptions.md | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+2
+
+$ expr $(git show f4658f5:_persistence/decisions.md | grep -cE '^\$ .*f1f2291') + $(git show f4658f5:_persistence/tasks.md | grep -cE '^\$ .*f1f2291')
+34
+
+$ git show 3bf61d4:_audit/S-025.md | sed -n '/^\$ for f in \$(git ls-tree -r --name-only HEAD/,/^```$/p' | grep -oE ': [0-9]+$' | tr -d ': ' | awk '{s+=$1} END{print s}'
+18
+```
+
+- **El hallazgo es correcto en los tres puntos.** De las 35 ordenes listadas, **33** viven en
+  `decisions.md` o `tasks.md` y una de esas 33 es la de `T-105`, que no se anclo: se anclaron **32**,
+  no 34. Las **34** anclas reales incluyen **dos lineas** de una orden que el filtro del propio Paso
+  2d excluye de la lista por contener un hash. Y el barrido devuelve tres lineas que suman 18.
+- **Decision:** se acepta. Dos cosas:
+  1. **Nota fechada** en `_audit/S-025.md` §7 que fija las tres cifras —32, 34 y 18— cada una con su
+     orden y su salida cruda, y que deja escrito que las dos ordenes de `A-011` **siguen sin anclar**,
+     como decia la nota y no la frase de cierre. Las lineas originales no se reescriben (`D-019`).
+  2. **El punto 3 del recuadro del Paso 7c** pasa a exigir que la frase de cierre se construya **con
+     las salidas de los dos barridos**, no recontando a mano lo que la salida ya dice.
+- **Por que el cambio va en la frase de cierre y no en la lista.** La lista literal de 35 lineas
+  reproduce sin problema en cada auditoria; lo que falla siempre es **la prosa que la resume**. Es la
+  observacion que `R-025` §5 pone como primera recomendacion sin hallazgo, y la comparten `F-064`,
+  `F-068`, `F-072` y este: cuatro de los ultimos hallazgos son cifras escritas a mano al lado de una
+  salida que ya las contenia.
+- **Lo que NO se hace, y es la parte de la recomendacion que se rechaza:** `R-025` §5 sugiere que la
+  seccion publique **solo ordenes y salidas**, sin prosa. No se adopta. La prosa del Paso 2d es lo que
+  explica **por que** una orden no se pudo anclar, y eso no sale de ninguna salida — quitarla dejaria
+  al auditor con cifras correctas y sin saber que significan. Lo que se prohibe es **recontar**, no
+  explicar. ⚠️ No es un rechazo de hallazgo: es el alcance de una recomendacion §5 sin `F-NNN`, y por
+  eso no lleva `DT-XXX`.
+- **Alternativas descartadas:** (1) **solo la nota fechada, sin tocar el protocolo** — descartada: el
+  defecto se ha repetido cuatro veces, y una nota corrige el sintoma; (2) **suprimir la prosa del Paso
+  2d**, como sugiere §5 — descartada por lo de arriba; (3) **un control mecanico que compare las
+  cifras de la prosa con las de las salidas** — descartada por `PI-2`: pide un analizador de prosa
+  para un problema que se resuelve no escribiendo el numero dos veces.
+- **Reversible a criterio** — una nota fechada y un punto de un recuadro, sin efecto fuera del
+  repositorio. Criterio declarado, no leido de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** la nota fechada de `F-073` esta en `_audit/S-025.md` con sus cuatro ordenes y
+  su tabla de tres cifras, y el punto 3 del recuadro exige construir la frase con las salidas.
+
+```
+$ git show <hash>:_audit/S-025.md | grep -c 'la frase de cierre de arriba contradice a la nota'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'no recontando a'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-110 - El reparto de la etapa de la evolucion se escribe ahora; su adopcion queda para cuando la etapa se abra
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `_phases/040_evol.md` §5 declara **dos** condiciones de entrada que no son trabajo de
+  dentro de la etapa: sus plantillas y su archivo de reparto. `D-105` escribio las plantillas y dejo
+  el reparto pendiente con su tarea (`T-105`). El usuario pide escribirlo ahora, alineado con
+  `_methodology/000_method.md`, con `_phases/040_evol.md` y con las dos plantillas de
+  `_templates/040_evol/`, y agnostico.
+- **Decision:** se escribe `_workflow/040_evol.md` con la estructura de sus cuatro hermanos —una fila
+  por paso del procedimiento, las asignaciones no obvias, lo que no se delega, que cuenta como
+  software, el mecanico/juicio de la condicion de cierre, el nivel de sistema de IA, que se registra,
+  la verificacion y los errores frecuentes—. **La adopcion NO se hace hoy**, y la linea de estado de
+  §5 del archivo de etapa pasa a decirlo.
+- **Por que escrito y adoptado son dos cosas, y solo la primera se puede adelantar.** El archivo
+  describe el metodo: reparte los ocho pasos del procedimiento, que son los mismos en cualquier
+  proyecto, y por eso puede existir antes que la etapa —igual que el propio archivo de etapa—. La
+  adopcion es una decision **sobre un proyecto concreto**: dice que se toma de esas tablas y que se
+  descarta, y tomarla con la etapa a dos Gates de distancia y sin declarar seria elegir un reparto
+  para un equipo que todavia no se sabe cual es.
+- **Las tres diferencias con el reparto de la etapa anterior**, que son las que justifican que el
+  archivo no sea una copia ajustada: (1) **la etapa no tiene condicion de salida**, asi que el reparto
+  tiene que aguantar anos y no un alcance; (2) **la entrada del trabajo deja de ser un alcance escrito
+  y pasa a ser evidencia de uso**; (3) **hay usuarios que ya dependen de lo que funciona**, asi que el
+  riesgo cambia de «no llegar» a «retroceder».
+- **Lo que el archivo asigna al software, y es donde mas se separa del anterior:** el **recuento de
+  uso por capacidad** del Paso 1 —incluidas las que estan a cero— y la **comparacion de fechas** del
+  Paso 7. Son las dos unicas defensas mecanicas que le quedan al metodo despues del ultimo Gate: la
+  primera obliga a que la pregunta sobre lo que no usa nadie se llegue a formular; la segunda es lo
+  unico que impide elegir la metrica despues de ver los datos.
+- 🚨 **La lectura de nivel de sistema de IA es 6, y es la unica etapa del metodo que la alcanza.**
+  Tres ejes en 3 —impacto, variabilidad de la entrada y volumen— y operacion sostenida. El reparto de
+  la etapa anterior leia **5** con un solo eje en 3, y anuncio en su propio texto los disparadores que
+  moverian los otros dos; esta etapa los cumple **por definicion**, no por riesgo futuro.
+- ⚠️ **Y esa lectura se declara como criterio, no como si se leyera de una tabla.** La linea que separa
+  el 5 del 6 en `_workflow/ai_levels.md` §6 dice «opera de forma sostenida con usuarios reales», y
+  admite dos lecturas: los usuarios del **producto** o los del **sistema de trabajo**. Se aplica la
+  segunda, porque el eje se puntua sobre el trabajo de la etapa y no sobre el producto, y lo que la
+  sostiene es la **ausencia de condicion de salida**. Queda escrito asi para que se pueda discutir.
+- **Lo que NO se hace, y se dice para que no se suponga:** no se adopta el reparto, no se adopta la
+  etapa, y no se declaran las etapas posteriores —eso es trabajo de la etapa de descubrimiento—. Que
+  la etapa tenga ya archivo, plantillas y reparto no la acerca ni un paso a estar adoptada.
+- **Por que la linea de estado de §5 se actualiza en vez de corregirse por nota fechada.** Mismo
+  argumento que `D-105`: `D-019` protege el **registro**, y un archivo de etapa es un **procedimiento
+  vivo**; esa linea es un campo de estado dentro de el. Dejarla como estaba haria que el archivo
+  afirmase que el reparto no existe cuando existe, que es una afirmacion comprobablemente falsa.
+- **Alternativas descartadas:** (1) **adoptar el reparto de paso, ya que se escribe** — descartada:
+  es la decision del usuario al abrir la etapa, y tomarla aqui la haria invisible el dia que importe;
+  (2) **copiar el reparto de la etapa anterior y ajustarlo** — descartada: comparten la mecanica de
+  construccion pero no la fuente del trabajo, ni el riesgo, ni la cadencia del bucle, y una copia
+  ajustada arrastra el vocabulario del alcance cerrado a una etapa que no lo tiene; (3) **leer el
+  nivel como 5, igual que la etapa anterior** — descartada: tres ejes en 3 y una etapa sin final no
+  son el mismo caso, y bajarlo a 5 dejaria sin nombrar lo unico que el 6 anade, que es leer el harness
+  en cada vuelta; (4) **esperar a que la etapa se declare para escribirlo** — descartada: es la
+  condicion de entrada que `R-024` §5 senalo precisamente para que no se descubriera el dia que la
+  etapa arranque.
+- **Reversible a criterio** — un archivo nuevo que nadie usa todavia, y un campo de estado de un
+  archivo de etapa; sin efecto fuera del repositorio y sin nada que dependa de ellos. Criterio
+  declarado, no leido de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el archivo existe, tiene una fila por paso del procedimiento, es agnostico
+  —cero codigos instanciados y cero datos propios—, la etapa lo cita, y la linea de estado de §5 dice
+  que esta escrito y sin adoptar.
+
+```
+$ git show <hash>:_workflow/040_evol.md | grep -cE '^\| \*\*[1-8] · '
+$ git show <hash>:_workflow/040_evol.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+$ git show <hash>:_phases/040_evol.md | grep -c '_workflow/040_evol'
+$ git show <hash>:_phases/040_evol.md | grep -c 'escrito, sin adoptar'
+```
+
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.

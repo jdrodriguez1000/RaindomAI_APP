@@ -391,22 +391,27 @@ Gate. Aqui la declaracion del Paso 7 se escribe **en cada iteracion** y no la ju
 auditoria: separarla de su iteracion crearia un artefacto suelto por vuelta del bucle sin nada que lo
 ate al trabajo que describe.
 
-🚨 **Estado de los dos: las plantillas ya existen; el reparto todavia no.** Decirlo aqui es parte
-de la condicion: un archivo de etapa que exige dos artefactos sin decir cual falta deja al lector
-suponiendo que estan los dos.
+🚨 **Estado de los dos: los dos artefactos ya estan escritos; lo que falta es adoptar el
+reparto.** Decirlo aqui es parte de la condicion: un archivo de etapa que exige dos artefactos sin
+decir en que estado esta cada uno deja al lector suponiendo lo que le convenga.
 
 | Artefacto | Estado | Que falta para poder abrir la etapa |
 |---|---|---|
 | `_templates/040_evol/` — las dos plantillas de registro | **escritas** | nada por este lado |
-| `_workflow/040_evol.md` — el reparto del trabajo | **no existe** | escribirlo, y adoptarlo con su `D-XXX` |
+| `_workflow/040_evol.md` — el reparto del trabajo | **escrito, sin adoptar** | adoptarlo con su `D-XXX`, al abrir la etapa |
 
-⚠️ **Falta uno, luego la condicion sigue sin cumplirse.** Los dos son condicion de entrada y la
-condicion es conjunta: mientras el reparto no exista, la etapa no puede abrirse aunque sus cinco
-entradas de §3 esten completas.
+⚠️ **Escrito no es adoptado, y la condicion pide las dos cosas.** Leer la tabla de un reparto no
+reparte nada: mientras no exista el `D-XXX` que dice **que se adopta y que se descarta** de ella, la
+etapa no puede abrirse aunque sus cinco entradas de §3 esten completas.
+
+🔑 **Y esa segunda mitad no se puede adelantar, a diferencia de la primera.** El archivo se escribe
+antes porque describe el metodo y no cambia al cambiar de producto; la adopcion es una decision
+**sobre un proyecto concreto en un momento concreto**, y tomarla hoy —con la etapa a dos Gates de
+distancia y sin declarar— seria elegir un reparto para un equipo que todavia no se sabe cual es.
 
 🔑 **Esta linea se actualiza cuando el estado cambie, y por eso no lleva fecha.** Es un campo de
 estado dentro de un procedimiento vivo, no una nota fechada del registro: lo que no se puede es que
-diga que faltan dos cuando falta uno.
+diga que un artefacto no existe cuando existe.
 
 ⚠️ **Es la condicion que mas facil se salta, porque no la senala nadie.** Las cinco entradas de §3 se
 echan en falta al buscarlas; estas dos no las trae nadie, y su ausencia solo se nota **despues**,
