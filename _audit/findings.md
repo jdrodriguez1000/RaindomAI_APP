@@ -77,10 +77,14 @@
 | [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Implementado |
 | [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Implementado |
 | [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Implementado |
-| [F-066](#f-066---la-seccion-7-del-informe-se-quedo-sin-su-nota-de-anclaje-que-el-paso-7c-exige-y-el-propio-informe-promete) | La seccion 7 del informe se quedo sin su nota de anclaje, que el Paso 7c exige y el propio informe promete | R-024 | Media | Aceptado — pendiente |
-| [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Aceptado — pendiente |
-| [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Aceptado — pendiente |
-| [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Aceptado — pendiente |
+| [F-066](#f-066---la-seccion-7-del-informe-se-quedo-sin-su-nota-de-anclaje-que-el-paso-7c-exige-y-el-propio-informe-promete) | La seccion 7 del informe se quedo sin su nota de anclaje, que el Paso 7c exige y el propio informe promete | R-024 | Media | Implementado |
+| [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Implementado |
+| [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Implementado |
+| [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Implementado |
+| [F-070](#f-070---el-barrido-universal-de-la-nota-de-cierre-se-etiqueta-sobre-f1f2291-y-su-salida-no-reproduce-contra-f1f2291) | El barrido universal de la nota de cierre se etiqueta «sobre `f1f2291`» y su salida no reproduce contra `f1f2291` | R-025 | Alta | Abierto |
+| [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Abierto |
+| [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Abierto |
+| [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Abierto |
 
 ---
 
@@ -3598,9 +3602,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-101` (`D-101`) |
-| Cerrado en | |
+| Cerrado en | `R-025`, commit `f1f2291` |
 
 - **Que se observo:** el Paso 7c de `protocol-close` ancla cuatro sitios «los cuatro juntos», y el
   tercero es la nota de cierre de la seccion 7 del informe. El commit de anclaje `9c82d59` toco
@@ -3619,9 +3623,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-102` (`D-102`) |
-| Cerrado en | |
+| Cerrado en | `R-025`, commit `f1f2291` |
 
 - **Que se observo:** tras el commit de anclaje, `decisions.md` no conserva ninguna orden con
   `git show <hash>:` y `tasks.md` conserva doce, en los bloques «Criterio de cierre» de `T-097` a
@@ -3640,9 +3644,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-103` (`D-103`) |
-| Cerrado en | |
+| Cerrado en | `R-025`, commit `f1f2291` |
 
 - **Que se observo:** el informe escribe «Ordenes distintas, aparte: 41 - no hubo repeticion; `sort
   -u` sobre la misma lista tambien devuelve 41». Reejecutado sobre `a1f5fa8`, `sort -u` devuelve 31:
@@ -3661,9 +3665,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-104` (`D-104`) |
-| Cerrado en | |
+| Cerrado en | `R-025`, commit `f1f2291` |
 
 - **Que se observo:** en `D-095`, `D-096` y `D-097` la nota de anclaje deja una linea en blanco antes
   del `---`; al cierre de `D-098` (linea 5953) y de `D-099` (linea 6042) el `---` queda pegado al
@@ -3673,3 +3677,93 @@ git log -1 --format=%h -- _audit/S-XXX.md
   entre esas entradas.
 - **Que lo corregiria:** una linea en blanco antes del `---`, y que el Paso 7c-bis lo diga al
   describir donde se anade la nota.
+
+---
+
+### F-070 - El barrido universal de la nota de cierre se etiqueta «sobre `f1f2291`» y su salida no reproduce contra `f1f2291`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-025 |
+| Fecha | 2026-09-07 |
+| Gravedad | Alta |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota de cierre de `_audit/S-025.md` §7 encabeza su barrido con «corrido
+  sobre `HEAD` (`f1f2291`)» y publica `assumptions.md: 2`, `decisions.md: 2`, `tasks.md: 14`. La
+  orden es hibrida: toma la lista de archivos de `git ls-tree HEAD` y el contenido de `cat "$f"`, es
+  decir del arbol de trabajo. Contra el contenido de `f1f2291` devuelve `2`, `22` y `28`. Evidencia
+  completa en `_audit/R-025.md` §2.
+- **Por que importa:** es el control que `D-101` puso como nucleo de la nota, y su valor entero esta
+  en poder reejecutarlo. Ademas, las tres explicaciones que el informe da de la salida describen
+  2/2/14 y ninguna seria cierta sobre 2/22/28.
+- **Que lo corregiria:** publicar la orden en su forma anclada (`git show <hash>:"$f"`, como ya la
+  escribe el recuadro del `SKILL.md`) y decir a que estado corresponde la salida.
+
+---
+
+### F-071 - La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo
+| Campo | Valor |
+|---|---|
+| Auditoria | R-025 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el recuadro que `T-101`/`D-101` anadieron a `protocol-close` dice que la salida
+  del barrido «tiene que estar VACIA» y que una linea obliga a detenerse y reportar. El barrido
+  devolvio tres lineas y el informe siguio, justificandolas en prosa y afirmando despues que «no
+  queda ninguna sin una forma anclada». Evidencia completa en `_audit/R-025.md` §2.
+- **Por que importa:** la excepcion se introdujo sin `D-XXX` — `D-101` a `D-105` no la contienen —, y
+  deja el protocolo diciendo una cosa y la practica otra, sin nada que diga cual manda.
+- **Que lo corregiria:** una `D-XXX` que distinga «orden pendiente de anclar» de «coincidencia del
+  patron» y de «bloque congelado por `D-019`», o un patron de barrido que no las devuelva.
+
+---
+
+### F-072 - El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22
+| Campo | Valor |
+|---|---|
+| Auditoria | R-025 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `_audit/S-025.md` §7 publica «Ordenes distintas, aparte (misma tuberia, con
+  `sort -u` antes de contar): 27». Reejecutada en forma anclada, la tuberia devuelve `22`; la cifra
+  principal (`35`) si reproduce. En el mismo parrafo, «las mismas ocho» describe trece lineas, que es
+  lo que su propio `uniq -d` lista. Evidencia completa en `_audit/R-025.md` §2.
+- **Por que importa:** es la reincidencia de `F-068` en la sesion que lo corrige, por la puerta de al
+  lado: la cifra accesoria se escribio sin correr la orden que ahora la acompaña.
+- **Que lo corregiria:** una nota fechada en `_audit/S-025.md` que republique el `sort -u` con su
+  salida real (22) y corrija «las mismas ocho» por trece. No se reescribe la linea original
+  (`D-019`).
+
+---
+
+### F-073 - La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden
+| Campo | Valor |
+|---|---|
+| Auditoria | R-025 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** en `_audit/S-025.md` §7, la nota dice «Las tres que NO se anclaron» y la frase
+  de cierre dice «la unica que no (`T-105`)»; la frase abre afirmando que «no queda ninguna sin una
+  forma anclada» cuando la nota acaba de decir que las filas 1 y 2 quedan con `<hash>`/`<commit>`
+  literal; y cita «Las 16 lineas que devuelve el barrido» cuando su propia enumeracion suma 18
+  (2 + 2 + 14). Ademas, de las 35 ordenes listadas solo 32 se anclaron: 33 viven en `decisions.md` o
+  `tasks.md` y una de ellas es la de `T-105`. Evidencia completa en `_audit/R-025.md` §2.
+- **Por que importa:** la nota de cierre es el mecanismo con el que `D-101` cierra el pendiente de la
+  seccion 7. Con su parrafo final contradiciendo al anterior, deja de ser un puntero comprobable.
+- **Que lo corregiria:** una nota fechada que fije las tres cifras contra su orden: 32 de las 35
+  ancladas, 34 anclas escritas en total (con las dos que la lista no recoge y por que), y 18 lineas
+  del barrido.
