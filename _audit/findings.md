@@ -70,9 +70,13 @@
 | [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Implementado |
 | [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Implementado |
 | [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Implementado |
-| [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Aceptado — pendiente (`T-093`, `T-094`) |
-| [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Aceptado — pendiente (`T-095`) |
-| [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Aceptado — pendiente (`T-096`) |
+| [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Implementado |
+| [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Implementado |
+| [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Implementado |
+| [F-062](#f-062---la-primera-ejecucion-del-paso-7c-bis-borro-prosa-en-d-092-que-el-propio-paso-prohibe-literalmente) | La primera ejecucion del Paso 7c-bis borro prosa en `D-092`, que el propio paso prohibe literalmente | R-023 | Media | Abierto |
+| [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Abierto |
+| [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Abierto |
+| [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Abierto |
 
 ---
 
@@ -3326,9 +3330,9 @@ $ for i in 018 019 020 021; do echo "== S-$i"; git show 76a2cb6:_audit/S-$i.md |
 | Auditoria | R-022 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-093` y `T-094` (`D-092`) |
-| Cerrado en | |
+| Cerrado en | `b83ce5e` (`R-023`) |
 
 - **Que se observo:** `D-088` fija en este mismo commit que el bloque «Criterio de cierre» se escribe
   en tres partes, y que la segunda es la orden **anclada al commit**. Las seis decisiones nacidas en
@@ -3384,9 +3388,9 @@ $ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
 | Auditoria | R-022 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-095` (`D-093`) |
-| Cerrado en | |
+| Cerrado en | `b83ce5e` (`R-023`) |
 
 - **Que se observo:** el commit auditado es del `2026-09-04` -fecha de autor y de committer-, y todo
   el registro que escribe fecha la sesion el `2026-09-06`.
@@ -3455,9 +3459,9 @@ e1d1b54 2026-09-04 auditoria R-021 sobre S-021 (76a2cb6)
 | Auditoria | R-022 |
 | Fecha | 2026-09-04 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-096` |
-| Cerrado en | |
+| Cerrado en | `b83ce5e` (`R-023`) |
 
 - **Que se observo:** `D-090` escribio en `protocol-audit` que la fila del tablero lleva el hash
   literal de la cabecera del informe, «no el que devuelve `git log -1 -- _audit/S-XXX.md`». La
@@ -3488,3 +3492,96 @@ git log -1 --format=%h -- _audit/S-XXX.md
 - **Que lo corregiria:** sustituir en «Convenciones» de `_audit/index.md` el bloque de esa orden por
   la regla de `D-090` -el hash literal de la cabecera del informe-, dejando como mucho la orden
   derivada nombrada como lo que es: la que devuelve el commit de anclaje.
+
+---
+
+### F-062 - La primera ejecucion del Paso 7c-bis borro prosa en `D-092`, que el propio paso prohibe literalmente
+| Campo | Valor |
+|---|---|
+| Auditoria | R-023 |
+| Fecha | 2026-09-06 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el Paso 7c-bis, nacido en `b83ce5e`, escribe «no puedes escribir, alterar o
+  borrar una sola palabra de prosa», y `CLAUDE.md` lo repite en el mismo commit. Su primera ejecucion
+  real, en `a48411a`, borro tres lineas de prosa de `D-092` y las sustituyo por otras tres. En
+  `D-093`, en cambio, el mismo paso anadio su nota sin borrar nada: dos formas incompatibles en el
+  mismo commit. Evidencia completa en `_audit/R-023.md` §2.
+- **Por que importa:** `A-010` declara la excepcion como **mecanica** y fija esa primera ejecucion
+  como su disparador de validacion; la ejecucion la desmiente. Gravedad `Media`: rompe la regla, no
+  altera ningun dato verificable.
+- **Que lo corregiria:** fijar cual de las dos formas es la correcta y dejarla escrita sin
+  ambiguedad en el Paso 7c-bis; si es la de `D-093`, reponer por nota fechada el texto borrado.
+
+---
+
+### F-063 - Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen
+| Campo | Valor |
+|---|---|
+| Auditoria | R-023 |
+| Fecha | 2026-09-06 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la verificacion previa de `D-092` —la que `CLAUDE.md` exige para toda decision
+  con `Origen: report_auditor`— se publico con dos ordenes ancladas a `HEAD`. Devolvian `18` y `2`
+  con `HEAD` = `20ef118`; hoy, con `HEAD` = `a48411a`, la primera devuelve `33` y la segunda `12`.
+  Evidencia completa en `_audit/R-023.md` §2.
+- **Por que importa:** es el defecto que `F-059` acababa de cobrar, dentro de la decision que lo
+  corrige. `D-088` y el Paso 7c-bis solo cubren el bloque «Criterio de cierre»; el bloque «Contexto»
+  quedo fuera de las dos reglas, y ahi es donde vive la prueba de que un hallazgo se verifico antes
+  de aceptarlo. Gravedad `Media`: la conclusion sigue siendo cierta, la prueba ya no se reproduce.
+- **Que lo corregiria:** ampliar la regla del ancla a toda orden escrita en `_persistence/`. Una
+  verificacion previa corre sobre un commit que ya existe, asi que aqui no hay huevo-y-gallina: el
+  hash literal se puede escribir en el acto. Lo ya escrito sale por nota fechada (`D-019`).
+
+---
+
+### F-064 - El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado
+| Campo | Valor |
+|---|---|
+| Auditoria | R-023 |
+| Fecha | 2026-09-06 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el Paso 7c-bis nombra `un ls` como ejemplo de orden **no anclable**, que «se
+  deja como esta y se dice»; en `D-094` el `ls -1` se sustituyo por `git ls-tree`. Y en `D-092` una
+  orden sobre dos archivos se partio en dos, con lo que el bloque paso de 4 ordenes a 5 mientras la
+  nota anadida debajo sigue diciendo «Las cuatro reproducen». Evidencia completa en
+  `_audit/R-023.md` §2.
+- **Por que importa:** el caso del `ls` esta bien resuelto en el fondo pero contradice el texto
+  literal del paso recien escrito; «las cuatro» donde hay cinco es una afirmacion falsa pequena
+  introducida por el automatismo. Gravedad `Baja`: ningun resultado cambia.
+- **Que lo corregiria:** autorizar explicitamente la reescritura de forma cuando la pregunta se
+  conserva —retirando entonces el `ls` de la lista de no anclables— o prohibirla; y exigir que la
+  nota diga si el numero de ordenes del bloque cambio.
+
+---
+
+### F-065 - La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era
+| Campo | Valor |
+|---|---|
+| Auditoria | R-023 |
+| Fecha | 2026-09-06 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `_audit/S-023.md` (linea 19) afirma que los tres hallazgos «se verificaron
+  contra `HEAD` (`97bb948`)». `HEAD` al empezar la sesion era `20ef118`; `97bb948` era el commit
+  auditado por `R-022`. Evidencia completa en `_audit/R-023.md` §2.
+- **Por que importa:** `CLAUDE.md` manda verificar contra `HEAD`, y el informe certifica el
+  cumplimiento nombrando un commit que no lo era. Aqui el resultado no cambia —`20ef118` solo toca
+  `_audit/`—, pero es la misma confusion commit-auditado/`HEAD` que `F-053` y `F-061` persiguen.
+  Gravedad `Baja`: ninguna cifra publicada resulta incorrecta.
+- **Que lo corregiria:** nombrar los dos commits por lo que son, como costumbre hacia adelante. La
+  linea escrita no se reescribe.
