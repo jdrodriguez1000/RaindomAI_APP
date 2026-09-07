@@ -5348,23 +5348,25 @@ $ git show HEAD:_persistence/decisions.md \
   `CLAUDE.md` y en el agente, y las seis decisiones llevan su nota.
 
 ```
-$ grep -n '^### 7c-bis' .claude/skills/protocol-close/SKILL.md
+$ git show b83ce5e:.claude/skills/protocol-close/SKILL.md | grep -n '^### 7c-bis'
 1176:### 7c-bis — Los criterios de cierre de las decisiones de esta sesion
 
-$ grep -c 'Criterios de cierre anclados' .claude/skills/protocol-close/SKILL.md
+$ git show b83ce5e:.claude/skills/protocol-close/SKILL.md | grep -c 'Criterios de cierre anclados'
 1
 
-$ grep -c 'Paso 7c-bis' CLAUDE.md .claude/agents/session-closer.md
-CLAUDE.md:1
-.claude/agents/session-closer.md:1
+$ git show b83ce5e:CLAUDE.md | grep -c 'Paso 7c-bis'
+1
 
-$ grep -cE '^> .+ \*\*Nota del 2026-09-06 \(`F-059`, sesion S-023\)' _persistence/decisions.md
+$ git show b83ce5e:.claude/agents/session-closer.md | grep -c 'Paso 7c-bis'
+1
+
+$ git show b83ce5e:_persistence/decisions.md | grep -cE '^> .+ \*\*Nota del 2026-09-06 \(`F-059`, sesion S-023\)'
 6
 ```
 
-⚠️ **Las cuatro ordenes se corren sobre el arbol de trabajo, y el Paso 7c-bis que esta misma
-decision crea las anclara al commit** — es el primer caso al que se aplica la regla. Los numeros de
-linea de la primera son los que mas se mueven, y por eso el anclaje importa.
+📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`** (la primera ejecucion real de este paso,
+que la propia decision crea). Las cuatro reproducen exactamente lo publicado arriba sobre el arbol
+de trabajo.
 
 ---
 
@@ -5408,18 +5410,21 @@ linea de la primera son los que mas se mueven, y por eso el anclaje importa.
   el tablero lleva su nota con el barrido.
 
 ```
-$ grep -n '^### 7d' .claude/skills/protocol-close/SKILL.md
+$ git show b83ce5e:.claude/skills/protocol-close/SKILL.md | grep -n '^### 7d'
 1220:### 7d — La fecha escrita contra la del commit (obligatorio)
 
-$ grep -c 'Fecha de la sesion contra el commit' .claude/skills/protocol-close/SKILL.md
+$ git show b83ce5e:.claude/skills/protocol-close/SKILL.md | grep -c 'Fecha de la sesion contra el commit'
 1
 
-$ grep -c 'su fecha es la del reloj' CLAUDE.md
+$ git show b83ce5e:CLAUDE.md | grep -c 'su fecha es la del reloj'
 1
 
-$ grep -c 'Nota del 2026-09-06 (`F-060`, sesion S-023)' _audit/index.md
+$ git show b83ce5e:_audit/index.md | grep -c 'Nota del 2026-09-06 (`F-060`, sesion S-023)'
 1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`.** Las cuatro reproducen exactamente lo
+publicado arriba sobre el arbol de trabajo.
 
 ⚠️ **Mismas cuatro sobre el arbol de trabajo, y las anclara el Paso 7c-bis.**
 
@@ -5502,21 +5507,26 @@ anadir las marcas. Cuatro razones:
   proyecto.
 
 ```
-$ ls -1 .claude/agents/gate2_auditor.md .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md
+$ git ls-tree --name-only b83ce5e .claude/agents/gate2_auditor.md .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md
 .claude/agents/gate2_auditor.md
 .claude/skills/protocol-gate2/SKILL.md
 _templates/035_gate2/005_verdict.md
 
-$ grep -c 'gate2_auditor\|protocol-gate2\|035_gate2' project.md
+$ git show b83ce5e:project.md | grep -c 'gate2_auditor\|protocol-gate2\|035_gate2'
 3
 
-$ grep -nE "RaidomAI|RaindomAI|TripleS|Proyectos_TripleS|github.com|USUARIO" .claude/agents/gate2_auditor.md .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md; echo "exit=$?"
+$ git grep -nE "RaidomAI|RaindomAI|TripleS|Proyectos_TripleS|github.com|USUARIO" b83ce5e -- .claude/agents/gate2_auditor.md .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md; echo "exit=$?"
 exit=1
 
-$ grep -c '^## ' .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md
-.claude/skills/protocol-gate2/SKILL.md:15
-_templates/035_gate2/005_verdict.md:11
+$ git grep -c '^## ' b83ce5e -- .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md
+b83ce5e:.claude/skills/protocol-gate2/SKILL.md:15
+b83ce5e:_templates/035_gate2/005_verdict.md:11
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`.** La primera cambia de forma, no de pregunta
+—`ls` interroga al disco, que no tiene version; `git ls-tree` hace la misma pregunta sobre el
+commit—, igual que ya hizo `D-086` con su propio `ls`. Las cuatro reproducen exactamente lo
+publicado arriba.
 
 ⚠️ **La segunda orden cuenta las tres formas de nombrarlo, no una.** Contar solo `protocol-gate2`
 daria `1` y dejaria sin comprobar la fila de la tabla de reparto y la de la carpeta `_audit/`.
