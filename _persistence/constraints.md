@@ -17,6 +17,7 @@
 | [C-005](#c-005---el-idioma-del-contenido-y-el-de-los-nombres-son-distintos) | El idioma del contenido y el de los nombres son distintos | Proceso | Vigente |
 | [C-006](#c-006---los-principios-de-ingenieria-y-las-reglas-de-operacion-son-vinculantes) | Los principios de ingenieria y las reglas de operacion son vinculantes | Proceso | Vigente |
 | [C-007](#c-007---las-fuentes-de-la-guia-de-metodo-no-se-editan) | Las fuentes de la guia de metodo no se editan | Proceso | Vigente |
+| [C-008](#c-008---el-repositorio-no-tiene-un-final-de-linea-unico-y-no-se-normaliza) | El repositorio no tiene un final de linea unico, y no se normaliza | Entorno | Vigente |
 
 ---
 
@@ -172,3 +173,27 @@ encargo no es una decision: adoptarla exigiria su `D-XXX`, y hoy no existe.
 - **Lo que la restriccion NO impide:** el control de fuga de datos propios del Paso 1b, que si cubre
   `sources/` —ese barrido espera cero y hoy da cero—. Conservar el material original no autoriza a
   que lleve dentro datos de este proyecto; si algun dia los llevara, seria un hallazgo.
+
+---
+
+### C-008 - El repositorio no tiene un final de linea unico, y no se normaliza
+| Campo | Valor |
+|---|---|
+| Tipo | Entorno |
+| Origen | manager |
+| Estado | Vigente |
+
+- **Restriccion:** los archivos versionados de este repositorio **conviven con dos finales de linea
+  distintos**. No es una hipotesis: se midio, y la orden y su salida estan en `L-032`.
+- **Y no se normalizan.** Cambiar el final de linea de un archivo lo marca **entero** como modificado
+  en el `git diff`, y eso sepultaria el cambio real de esa sesion bajo miles de lineas — que es
+  exactamente lo que la auditoria necesita poder leer. El coste de normalizar se paga una vez y el de
+  convivir se paga cada vez, pero el primero se paga **contra la auditabilidad**, que es lo unico que
+  este repositorio no negocia.
+- **Implicacion:** **toda edicion automatizada detecta el final de linea del archivo antes de
+  construir su patron.** Un patron escrito con un solo salto de linea no aparece nunca en un archivo
+  con el otro, y el error que devuelve —«no encontrado»— manda a buscar una diferencia de texto que no
+  existe. El modo de fallo es benigno pero empuja a reintentar con patrones cada vez mas cortos, hasta
+  que uno coincide por casualidad en un sitio que no era; ese si escribe.
+- **Complementa a `C-004`**, que fija el entorno; esto fija una consecuencia suya que `C-004` no
+  nombraba.

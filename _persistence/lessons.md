@@ -39,6 +39,8 @@
 | [L-028](#l-028---un-recuento-sobre-los-archivos-que-toque-no-es-un-barrido-el-diff-sabe-cuales-son-la-memoria-no) | Un recuento sobre «los archivos que toque» no es un barrido: el diff sabe cuales son, la memoria no | 2026-09-04 | 000_preproject | Sin evaluar |
 | [L-029](#l-029---la-herramienta-con-la-que-se-documenta-un-defecto-de-escape-lo-reproduce-y-el-barrido-del-cierre-llega-tarde) | La herramienta con la que se documenta un defecto de escape lo reproduce, y el barrido del cierre llega tarde | 2026-09-05 | 000_preproject | Sin evaluar |
 | [L-030](#l-030---una-nota-que-explica-de-donde-sale-un-cambio-filtra-codigos-y-la-buena-intencion-es-lo-que-la-hace-invisible) | Una nota que explica de donde sale un cambio filtra codigos, y la buena intencion es lo que la hace invisible | 2026-09-06 | 000_preproject | Sin evaluar |
+| [L-031](#l-031---un-guion-que-abre-el-archivo-para-escribir-antes-de-tener-el-contenido-lo-destruye-si-falla) | Un guion que abre el archivo para escribir antes de tener el contenido lo destruye si falla | 2026-09-06 | 000_preproject | Sin evaluar |
+| [L-032](#l-032---el-repositorio-mezcla-finales-de-linea-y-una-sustitucion-literal-falla-sin-decir-por-que) | El repositorio mezcla finales de linea, y una sustitucion literal falla sin decir por que | 2026-09-06 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1187,3 +1189,80 @@ $ grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _audit/S-020.md | cat -A | cut -c1-120
   escribiendo.** Y en general: cuando un archivo tenga cero de algo, esa cifra vale como control
   —cualquier linea nueva es la primera—, asi que conviene barrerla antes de commitear y no despues.
   El Paso 1c del cierre hace exactamente eso sobre `_phases/` y `_workflow/` (`D-087`).
+
+---
+
+### L-031 - Un guion que abre el archivo para escribir antes de tener el contenido lo destruye si falla
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al corregir `F-061` se edito `_audit/index.md` con un guion de Python que leia el
+  archivo, sustituia un bloque y lo volvia a escribir. El guion fallo al codificar la salida — el
+  archivo contiene caracteres que la codificacion por defecto no acepta — y **dejo `_audit/index.md`
+  con cero bytes**.
+- **Que ocurrio, en concreto:** la escritura se hizo con `open(ruta, 'w')`. Esa llamada **trunca el
+  archivo en el momento de abrirlo**, antes de escribir nada. Cuando la excepcion salto en la linea
+  siguiente, el contenido original ya no existia. El intento de reparacion inmediato fallo tambien, y
+  con un mensaje que no tenia nada que ver —«bloque no encontrado»—, porque estaba buscando en un
+  archivo vacio.
+- **Como se recupero:** `git show HEAD:_audit/index.md > _audit/index.md`. Se eligio esa forma y no
+  `git checkout --`, que el repositorio tiene prohibida en sus protocolos: redirigir la salida de
+  `git show` **solo escribe un archivo**, no toca el indice ni el arbol ni la historia.
+- **Leccion:** **una edicion en el sitio no es atomica, y su punto de fallo esta antes de escribir.**
+  Un guion que abre para escribir apuesta a que todo lo que viene despues funcione; el dia que no
+  funciona, el archivo original es la unica copia que habia.
+- **Por que es peligroso mas alla de la anecdota:** el archivo destruido era un **tablero de
+  auditoria** con veintidos filas de historia. Se recupero porque estaba commiteado y sin cambios;
+  con trabajo sin commitear encima, se habria perdido. Y el fallo no avisa de lo que hizo: avisa de
+  la codificacion, que es la mitad menos importante.
+- **Como aplicarla:** **tener el contenido completo en memoria antes de abrir nada para escribir**, y
+  escribir en bytes cuando el archivo pueda llevar caracteres fuera de lo esperado. En la practica:
+  leer con `open(ruta, 'rb')`, operar sobre bytes, y no llamar a `open(..., 'wb')` hasta tener el
+  resultado entero. **Y comprobar el tamano despues**, que cuesta un `wc -c` — un archivo que ha
+  quedado en cero no se distingue de uno correcto hasta que alguien lo abre.
+
+---
+
+### L-032 - El repositorio mezcla finales de linea, y una sustitucion literal falla sin decir por que
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** tres sustituciones seguidas fallaron con «el bloque no aparece» sobre bloques que
+  estaban delante, copiados literalmente de la salida de `sed`. La causa no era el texto: era el final
+  de linea.
+- **Que ocurrio, en concreto:** este repositorio **no tiene un solo final de linea**. `CLAUDE.md` y
+  `project.md` usan `CRLF`; `_persistence/`, `_audit/` y los archivos de `.claude/` usan `LF`. Un
+  patron escrito con `\n` no aparece nunca en un archivo `CRLF`, y el error que se recibe —«no
+  encontrado»— manda a buscar una diferencia de texto que no existe.
+- **Y por que no se vio antes:** `cat -A` lo dice, pero solo si se mira el final de la linea. La
+  salida se habia cortado a noventa columnas para que cupiera, y el `^M` cae justo despues.
+- **Leccion:** **cuando una sustitucion literal falla sobre un bloque que se acaba de ver, lo primero
+  que hay que sospechar no es el texto, es el byte invisible.** Y en un repositorio con finales
+  mezclados, esa sospecha acierta la mayoria de las veces.
+- **Por que es peligroso mas alla de la anecdota:** el modo de fallo es benigno —no encuentra y no
+  escribe—, pero **empuja a reintentar con patrones cada vez mas cortos** hasta que uno coincide por
+  casualidad en un sitio que no era. Ese si escribe, y en el archivo equivocado.
+- **Como aplicarla:** **detectar el final de linea del archivo y adaptar el patron**, en vez de
+  escribirlo a mano por archivo. Una linea basta:
+
+```
+$ for f in CLAUDE.md project.md _persistence/decisions.md _audit/index.md .claude/skills/protocol-close/SKILL.md; do
+      printf '%-50s ' "$f"
+      grep -qU $'\r' "$f" && echo CRLF || echo LF
+  done
+CLAUDE.md                                          CRLF
+project.md                                         CRLF
+_persistence/decisions.md                          LF
+_audit/index.md                                    LF
+.claude/skills/protocol-close/SKILL.md             LF
+```
+
+⚠️ **Y no se arregla normalizando el repositorio.** Cambiar el final de linea de un archivo lo marca
+entero como modificado en el `git diff`, y eso sepultaria el cambio real de esa sesion bajo miles de
+lineas — que es exactamente lo que la auditoria necesita poder leer.

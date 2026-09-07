@@ -70,9 +70,9 @@
 | [F-056](#f-056---la-salida-cruda-que-publica-_phases030_growthmd-no-es-la-que-devuelve-la-orden-que-la-encabeza) | La salida cruda que publica `_phases/030_growth.md` no es la que devuelve la orden que la encabeza | R-021 | Media | Implementado |
 | [F-057](#f-057---los-bloques-criterio-de-cierre-de-d-083-y-d-084-publican-los-comandos-sin-su-salida) | Los bloques «Criterio de cierre» de `D-083` y `D-084` publican los comandos sin su salida | R-021 | Media | Implementado |
 | [F-058](#f-058---_audits-021md-conserva-dos-lineas-de-instruccion-de-la-plantilla) | `_audit/S-021.md` conserva dos lineas de instruccion de la plantilla | R-021 | Baja | Implementado |
-| [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Abierto |
-| [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Abierto |
-| [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Abierto |
+| [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Aceptado — pendiente (`T-093`, `T-094`) |
+| [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Aceptado — pendiente (`T-095`) |
+| [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Aceptado — pendiente (`T-096`) |
 
 ---
 
@@ -3326,8 +3326,8 @@ $ for i in 018 019 020 021; do echo "== S-$i"; git show 76a2cb6:_audit/S-$i.md |
 | Auditoria | R-022 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-093` y `T-094` (`D-092`) |
 | Cerrado en | |
 
 - **Que se observo:** `D-088` fija en este mismo commit que el bloque «Criterio de cierre» se escribe
@@ -3384,8 +3384,8 @@ $ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
 | Auditoria | R-022 |
 | Fecha | 2026-09-04 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-095` (`D-093`) |
 | Cerrado en | |
 
 - **Que se observo:** el commit auditado es del `2026-09-04` -fecha de autor y de committer-, y todo
@@ -3455,8 +3455,8 @@ e1d1b54 2026-09-04 auditoria R-021 sobre S-021 (76a2cb6)
 | Auditoria | R-022 |
 | Fecha | 2026-09-04 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-096` |
 | Cerrado en | |
 
 - **Que se observo:** `D-090` escribio en `protocol-audit` que la fila del tablero lleva el hash

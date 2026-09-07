@@ -87,8 +87,12 @@ reporte. Las dos estan escritas en la convencion del propio `tasks.md`; lo demas
   escribir.** Los llena `manager`, en el momento, porque un porque no aparece en el `git diff`:
   nace en la conversacion, y tu no estuviste ahi. Tu los **revisas** contra la evidencia y reportas
   si falta algo, para que lo dicte el usuario.
-  - *Unica excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
+  - *Primera excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
     decirlo.
+  - *Segunda excepcion, y tambien mecanica — el Paso 7c-bis (`D-092`):* **despues** del commit,
+    anclar al hash las ordenes del bloque «Criterio de cierre» de las decisiones nacidas en esta
+    sesion, y pegar su salida. No escribes prosa, no tocas los otros tres archivos, y si la salida
+    anclada no coincide con la publicada **te detienes y lo reportas** — no la corriges.
 - **`techdebt.md` si admite propuestas tuyas**, porque la deuda **si** deja rastro en la evidencia.
   Dos condiciones: solo lo que el diff respalde, y **marcada como propuesta** —en el campo
   `Confirmacion` de la entrada y en el reporte— para que el usuario la confirme. ⚠️ Los estados

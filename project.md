@@ -66,6 +66,7 @@ consulta, como lo seria una documentacion en linea.
 | **`manager`** (esta sesion) | dirige, coordina, construye, y registra el porque en el momento | **no audita su propio trabajo** |
 | **`report_auditor`** (agente) | audita un commit ya cerrado, verifica y recomienda | **no construye, no corrige, no decide** |
 | **`gate1_auditor`** (agente) | emite el **dictamen tecnico** del Gate 1 sobre la evidencia del prototipo | **no construye, no corrige, y no decide si se construye el MVP** |
+| **`gate2_auditor`** (agente) | emite el **dictamen tecnico** del Gate 2 sobre la evidencia del crecimiento | **no construye, no corrige, y no decide si se sigue invirtiendo** |
 
 🚨 **Un Gate necesita dos firmas, y ninguna sustituye a la otra.** `gate1_auditor` dice si la
 evidencia satisface los criterios, uno por uno, y ahi termina su papel; **quien decide si se
@@ -142,12 +143,25 @@ skill**—, y no con un archivo de etapa. Lo fija `D-067`.
 | Gate | Agente | Skill | Donde deja su dictamen |
 |---|---|---|---|
 | **Gate 1** — ¿vale la pena construir el MVP? | `gate1_auditor` | `protocol-gate1` | `_audit/015_gate1/` |
+| **Gate 2** — ¿vale la pena seguir invirtiendo? | `gate2_auditor` | `protocol-gate2` | `_audit/035_gate2/` |
 
-⚠️ **El prefijo `015_` marca donde cae en el ciclo, no que sea una etapa.** Se eligio para que se
-lea junto a `010_prototype`, que es la etapa cuya evidencia juzga.
+⚠️ **El prefijo numerico marca donde cae en el ciclo, no que sea una etapa.** `015_` se eligio
+para que se lea junto a `010_prototype`, y `035_` junto a `030_growth` — en cada caso, la etapa cuya
+evidencia juzga.
 
-📌 **El Gate 2 no existe todavia**, y no se adelanta: se montara cuando haga falta, con lo que
-entonces se sepa que comparte de verdad con el primero.
+📌 **El Gate 2 se monto en `S-023`, por peticion del usuario** (`D-094`). Hasta entonces este
+archivo decia que no se adelantaba; se adelanto porque se pidio, y el porque vive en esa decision, no
+aqui. **Adoptar un Gate no adopta su etapa:** las etapas declaradas siguen siendo las dos de la
+tabla de arriba, y `030_growth` no esta entre ellas.
+
+🔑 **Lo que el segundo comparte con el primero, ahora que existe:** la forma —agente y skill—, el
+vocabulario del dictamen —`CRITERIOS SATISFECHOS`, `CRITERIOS NO SATISFECHOS`, `NO AUDITABLE`—, la
+regla de las dos firmas, y que su ultimo criterio es del patrocinador y no se evalua.
+
+⚠️ **Y lo que NO comparte, que es lo que obligo a escribirlo entero en vez de copiarlo:** el
+primero comprueba que la **evidencia** naciera antes de las sesiones; el segundo comprueba que la
+**medicion** —metrica, ventana y umbral— naciera antes del primer dato, y ademas **quien genero el
+uso**. Son dos comprobaciones que el primero no tiene y que aqui deciden el dictamen.
 
 ⚠️ **Aqui va el vocabulario, no el avance: que etapas existen, no en cual estamos.** En cual
 estamos vive en `_persistence/progress.md`, que es lo que cambia. Declararlo tambien aqui crearia
@@ -174,7 +188,7 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `.claude/` | **Con que** se construye: los agentes y las skills que ejecutan los protocolos. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_brief/` | El encargo del cliente, tal como llego. **Entrada al proyecto, no registro de el** |
 | `_persistence/` | **Como va** el trabajo: siete archivos, indice arriba y detalle debajo |
-| `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos. En `015_gate1/`, ademas, los dictamenes del Gate 1 — que **no** son auditorias de sesion y no entran en el tablero ni en `findings.md` |
+| `_audit/` | **Como se comprueba** el trabajo: el informe de cada sesion, la auditoria de cada una, el tablero y el registro de hallazgos. En `015_gate1/` y `035_gate2/`, ademas, los dictamenes de cada Gate — que **no** son auditorias de sesion y no entran en el tablero ni en `findings.md` |
 | `_methodology/` | **Con que criterio** se construye: el metodo de desarrollo —`000_method.md`, el documento canonico— y en `sources/` las fuentes de las que se consolido, que no se editan. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_phases/` | **Que se hace en cada etapa**: un archivo por etapa declarada, con lo que autoriza, lo que prohibe, su procedimiento y su condicion de salida. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por **etapa o gate** que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa —o, para un gate, en `_audit/`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |

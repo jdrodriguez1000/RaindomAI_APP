@@ -31,6 +31,33 @@
 | `S-020.md` | S-020 | 2026-09-04 | `3ff670e` | `R-020.md` | Con hallazgos (4) | F-051, F-052, F-053, F-054 |
 | `S-021.md` | S-021 | 2026-09-05 | `76a2cb6` | `R-021.md` | Con hallazgos (4) | F-055, F-056, F-057, F-058 |
 | `S-022.md` | S-022 | 2026-09-06 | `97bb948` | `R-022.md` | Con hallazgos (3) | F-059, F-060, F-061 |
+| `S-023.md` | S-023 | 2026-09-06 | Pendiente | Pendiente | Pendiente | - |
+
+> 📌 **Nota del 2026-09-06 (`F-060`, sesion S-023).** La columna `Fecha` de este tablero **no
+> coincide con la fecha del commit** en ocho de las veintidos filas. `F-060` lo abrio sobre `S-021` y
+> `S-022`; el barrido completo, corrido al evaluarlo, ensena que el desfase venia de antes. Ninguna
+> fila se reescribe — estan todas auditadas, y cambiarles la fecha convertiria «falta exactitud» en
+> «hay exactitud falsa». Lo que se corrige es la regla, hacia adelante: `D-093` y el Paso 7d de
+> `protocol-close`.
+>
+> ```
+> $ awk -F'|' '/^\| `S-[0-9]+\.md`/{gsub(/[ `]/,"",$4); gsub(/[ `]/,"",$5); if($5!="") printf "%s %s\n",$5,$4}' _audit/index.md \
+>     | while read h f; do
+>         c=$(git log -1 --format=%ad --date=short "$h" 2>/dev/null)
+>         [ "$c" = "$f" ] || echo "$h tablero=$f commit=$c"
+>     done
+> d906a5d tablero=2026-09-02 commit=2026-09-01
+> 122b770 tablero=2026-09-02 commit=2026-09-01
+> f096fff tablero=2026-09-02 commit=2026-09-01
+> fc91957 tablero=2026-09-02 commit=2026-09-01
+> ca56b93 tablero=2026-09-03 commit=2026-09-02
+> bd8a9ff tablero=2026-09-03 commit=2026-09-02
+> 76a2cb6 tablero=2026-09-05 commit=2026-09-04
+> 97bb948 tablero=2026-09-06 commit=2026-09-04
+> ```
+>
+> ⚠️ **La orden se corre sobre el arbol de trabajo a proposito**, porque interroga a este
+> mismo archivo tal como esta hoy; anclarla a un commit anterior mediria un tablero mas corto.
 
 ---
 
@@ -52,11 +79,17 @@ se puede contrastar contra el `git show` de ese commit.
 puede saber que va a encontrar alguien que todavia no ha mirado.
 
 ⚠️ **El commit auditado no lo escribe el cierre**, y no es un olvido: la fila se escribe **antes**
-del commit que la contiene. Lo rellena la auditoria, que ya lo tiene delante:
+del commit que la contiene. Lo rellena la auditoria, que ya lo tiene delante — y lo que escribe es
+**el hash literal de la cabecera del informe**, el mismo que acaba de auditar.
 
-```bash
-git log -1 --format=%h -- _audit/S-XXX.md
-```
+🚨 **No se deriva con `git log -1 --format=%h -- _audit/S-XXX.md`.** Cuando el cierre ancla el
+informe con un segundo commit, esa orden devuelve **el commit de anclaje** —que lleva un solo
+archivo— y no el commit de la sesion, que es el que la auditoria juzgo. Una fila que publique el de
+anclaje manda a quien la lea a un estado que no es el que se juzgo. Lo fija `D-090`, y el
+procedimiento vive en `protocol-audit`.
+
+📌 **Esa orden sigue sirviendo para una cosa, y conviene saber cual:** dice **si hubo commit de
+anclaje** y cual es. Como dato de historial vale; como fuente de la columna, no.
 
 🚨 **Una fila con `Auditoria: Pendiente` y mas de una sesion de antiguedad es una auditoria que no
 se corrio.** El arranque la reporta arriba del todo. Un paso obligatorio cuyo olvido no deja huella

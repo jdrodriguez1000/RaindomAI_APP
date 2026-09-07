@@ -101,6 +101,10 @@
 | [T-090](#t-090---que-la-fila-de-_auditindexmd-lleve-el-hash-literal-del-informe) | Que la fila de `_audit/index.md` lleve el hash literal del informe | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-091](#t-091---escribir-el-reparto-de-la-etapa-del-crecimiento) | Escribir el reparto de la etapa del crecimiento | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-092](#t-092---completar-las-dos-columnas-que-le-faltaban-a-la-fila-de-l-029) | Completar las dos columnas que le faltaban a la fila de `L-029` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-093](#t-093---republicar-ancladas-las-16-ordenes-de-los-criterios-de-cierre-de-d-086-a-d-091-f-059) | Republicar ancladas las 16 ordenes de los criterios de cierre de `D-086` a `D-091` (`F-059`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-094](#t-094---dar-al-cierre-el-paso-7c-bis-de-anclaje-de-criterios-de-cierre-f-059) | Dar al cierre el Paso 7c-bis de anclaje de criterios de cierre (`F-059`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-095](#t-095---fijar-que-la-fecha-de-una-sesion-es-la-del-commit-y-anotar-el-desfase-f-060) | Fijar que la fecha de una sesion es la del commit, y anotar el desfase (`F-060`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-096](#t-096---corregir-las-dos-convenciones-que-prescriben-la-orden-que-d-090-rechaza-f-061) | Corregir las dos convenciones que prescriben la orden que `D-090` rechaza (`F-061`) | Implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -3953,3 +3957,162 @@ exit=1
 $ awk 'NR>=12 && /^\| \[L-/' _persistence/lessons.md | awk -F'|' '{if(NF!=7) print "FILA MAL: "$2}'; echo "exit=$?"
 exit=0
 ```
+
+---
+
+### T-093 - Republicar ancladas las 16 ordenes de los criterios de cierre de `D-086` a `D-091` (`F-059`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-023 |
+
+- **Que:** `F-059` encontro que las seis decisiones nacidas en `97bb948` publican 18 ordenes en sus
+  bloques «Criterio de cierre» y solo 2 estan ancladas al commit, contra la convencion que `D-088`
+  estrenaba en ese mismo commit. Evaluado y aceptado: `D-092`.
+- **Como:** una nota fechada por decision —los bloques originales no se tocan, por `D-019`— que
+  republica las mismas 16 ordenes ancladas a `97bb948` con su salida literal.
+- **Lo que la reejecucion encontro, y no estaba en el hallazgo:** quince de las dieciseis devuelven
+  exactamente lo publicado. **La decimosexta no**, y es la de `D-088`: publicada devolvia una linea
+  —la `115`—, anclada devuelve tres, y ninguna es la `115`. Dos de esas tres son el propio bloque de
+  `D-088` citandose. La orden se corrio sobre el area de staging antes de que la decision terminara
+  de escribirse. Va publicada en su nota, con las dos salidas, sin corregir el bloque original.
+- **Una orden cambio de forma, no de pregunta:** el `ls _workflow/030_growth.md` de `D-086` interroga
+  al disco, que no tiene version. Se ancla como `git ls-tree --name-only 97bb948 <archivo>`, que hace
+  la misma pregunta sobre el commit.
+- **Criterio de cierre:** las seis notas existen, publican dieciseis ordenes, y **ninguna de las
+  dieciseis carece del ancla**.
+
+```
+$ grep -cE '^> .+ \*\*Nota del 2026-09-06 \(`F-059`, sesion S-023\)' _persistence/decisions.md
+6
+
+$ awk '/^### D-086/,/^### D-092/' _persistence/decisions.md | grep -cE '^> \$ '
+16
+
+$ awk '/^### D-086/,/^### D-092/' _persistence/decisions.md | grep -E '^> \$ ' | grep -cv '97bb948'
+0
+```
+
+⚠️ **El tercer barrido pregunta si el hash aparece en la linea, no en que posicion.** Un
+`git grep <patron> <hash> -- <ruta>` lo lleva detras del patron y un `git show <hash>:<archivo>`
+delante; exigir una de las dos formas marcaria como sin anclar tres ordenes que si lo estan.
+
+---
+
+### T-094 - Dar al cierre el Paso 7c-bis de anclaje de criterios de cierre (`F-059`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-023 |
+
+- **Que:** corregir las seis notas de `T-093` no impide que el defecto vuelva la proxima jornada. La
+  causa —el commit no existe cuando la decision se escribe— pide un paso, no una correccion.
+- **Como:** nace el **Paso 7c-bis** de `protocol-close`, junto al 7c que ya resolvia el mismo
+  huevo-y-gallina para el informe: despues del commit, el cierre ancla las ordenes de los criterios
+  de cierre de las decisiones nacidas en esa sesion y pega su salida. Con su linea en el reporte de
+  pantalla, su regla de parada ante discrepancia, y la excepcion escrita en `CLAUDE.md` y en el
+  agente `session-closer`. Lo fija `D-092`.
+- **Lo que NO autoriza, escrito donde se lee la excepcion:** ni una palabra de prosa, ni los otros
+  tres archivos del porque, ni decisiones de sesiones anteriores. Y si la salida anclada no coincide
+  con la publicada, el cierre **se detiene y lo reporta** — no la corrige.
+- **Criterio de cierre:** el paso existe, su linea de reporte existe, y la excepcion esta en los dos
+  sitios que la gobiernan.
+
+```
+$ grep -n '^### 7c-bis' .claude/skills/protocol-close/SKILL.md
+1176:### 7c-bis — Los criterios de cierre de las decisiones de esta sesion
+
+$ grep -c 'Criterios de cierre anclados' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'Paso 7c-bis' CLAUDE.md .claude/agents/session-closer.md
+CLAUDE.md:1
+.claude/agents/session-closer.md:1
+```
+
+---
+
+### T-095 - Fijar que la fecha de una sesion es la del commit, y anotar el desfase (`F-060`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-023 |
+
+- **Que:** `F-060` encontro que `S-022` se fecha `2026-09-06` y su commit es del `2026-09-04`.
+  Evaluado y aceptado: `D-093`.
+- **Lo que la verificacion encontro, y era mayor que el hallazgo:** el barrido de las veintidos filas
+  del tablero devuelve **ocho** desfasadas, no dos, y la primera es `S-006`. Publicado con su orden y
+  su salida cruda en la nota fechada de `_audit/index.md`.
+- **Como:** la regla pasa a `CLAUDE.md` y a `protocol-close` —la fecha se deriva con `date +%F`, no
+  se cuenta—, y nace el **Paso 7d**, que la contrasta contra `git log -1 --format=%ad --date=short`
+  con el commit ya hecho. Las ocho filas **no se reescriben**: estan auditadas, y cambiarlas
+  convertiria «falta exactitud» en «hay exactitud falsa».
+- **Criterio de cierre:** el paso existe con su linea de reporte, la regla esta en `CLAUDE.md`, y el
+  tablero lleva su nota.
+
+```
+$ grep -n '^### 7d' .claude/skills/protocol-close/SKILL.md
+1220:### 7d — La fecha escrita contra la del commit (obligatorio)
+
+$ grep -c 'Fecha de la sesion contra el commit' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'su fecha es la del reloj' CLAUDE.md
+1
+
+$ grep -c 'Nota del 2026-09-06 (`F-060`, sesion S-023)' _audit/index.md
+1
+```
+
+---
+
+### T-096 - Corregir las dos convenciones que prescriben la orden que `D-090` rechaza (`F-061`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-023 |
+
+- **Que:** `D-090` escribio en `protocol-audit` que la fila del tablero lleva el **hash literal de la
+  cabecera del informe**, no el que devuelve `git log -1 --format=%h -- _audit/S-XXX.md`. La seccion
+  «Convenciones» de `_audit/index.md` seguia prescribiendo esa orden. `F-061`, aceptado.
+- **Lo que el barrido encontro por iniciativa propia:** el mismo texto vivia en **dos** sitios, no en
+  uno. `protocol-close` le decia al cierre lo mismo, en su Paso 6. `F-061` solo nombraba
+  `_audit/index.md`.
+- **Como:** los dos bloques pasan a decir la regla de `D-090`, y en `_audit/index.md` se deja escrito
+  para que sirve la orden derivada —decir si hubo commit de anclaje y cual es— en vez de borrarla sin
+  mas. **Los dos usos legitimos de la orden en `protocol-audit` no se tocan**: alli entra como punto
+  de partida y el propio protocolo la corrige dos lineas despues.
+- **Criterio de cierre:** ninguno de los dos sitios prescribe ya la orden, y `protocol-audit`
+  conserva la suya.
+
+```
+$ grep -rn 'git log -1 --format=%h -- _audit/S-XXX.md' .claude/ | grep -v 'protocol-audit'; echo "exit=$?"
+exit=1
+
+$ grep -c 'el hash literal de la cabecera del informe' _audit/index.md .claude/skills/protocol-close/SKILL.md
+_audit/index.md:1
+.claude/skills/protocol-close/SKILL.md:1
+
+$ grep -c 'git log -1 --format=%h -- _audit/S-XXX.md' .claude/skills/protocol-audit/SKILL.md
+1
+```
+
+📌 **La tercera devuelve `1` y no `0` a proposito:** es el uso legitimo del Paso 1 de
+`protocol-audit`, donde la orden entra como punto de partida y el propio protocolo la corrige dos
+lineas despues. Borrarla dejaria al auditor sin por donde empezar.

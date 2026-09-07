@@ -19,6 +19,7 @@
 | [A-007](#a-007---habra-un-humano-disponible-para-ejecutar-cada-despliegue-de-la-etapa-del-esqueleto) | Habra un humano disponible para ejecutar cada despliegue de la etapa del esqueleto | 2026-09-03 | Abierto |
 | [A-008](#a-008---los-huecos-de-codigo-que-dejan-las-plantillas-del-crecimiento-seran-rellenables-cuando-la-etapa-se-abra) | Los huecos de codigo que dejan las plantillas del crecimiento seran rellenables cuando la etapa se abra | 2026-09-05 | Abierto |
 | [A-009](#a-009---_phases-y-_workflow-podran-seguir-en-cero-codigos-instanciados-sin-perder-nada) | `_phases/` y `_workflow/` podran seguir en cero codigos instanciados sin perder nada | 2026-09-06 | Abierto |
+| [A-010](#a-010---el-anclaje-del-paso-7c-bis-se-queda-en-mecanico-y-no-se-desliza-a-escribir-el-porque) | El anclaje del Paso 7c-bis se queda en mecanico y no se desliza a escribir el porque | 2026-09-06 | Abierto |
 
 ---
 
@@ -506,3 +507,48 @@ codigo es problema de aquella etapa, no de estas tres plantillas.
   esa exclusion al patron, con la regla de que **cada exclusion lleva su decision**; una lista de
   excepciones sin razones escritas envejece y acaba tapando lo que el control existe para ver, que es
   lo que el Paso 2c ya advierte de no hacer.
+
+---
+
+### A-010 - El anclaje del Paso 7c-bis se queda en mecanico, y no se desliza a escribir el porque
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | `manager` |
+
+- **Supuesto:** `D-092` abre la **primera grieta** en una regla que hasta hoy no tenia ninguna — que
+  el cierre no escribe en los cuatro archivos del porque. La grieta se justifica en que sustituir el
+  ancla de una orden ya escrita y pegar su salida **no pide ni un dato de la conversacion**. Eso da
+  por cierto que la frontera entre «anclar» y «redactar» **se sostiene en la practica**, con un agente
+  que arranca en frio, que ve el archivo entero delante, y al que la orden que acaba de correr le
+  devuelve algo que no cuadra.
+- **Por que se supone, y no se afirma:** la frontera esta escrita con todo el detalle que se pudo
+  —que puede tocar, que no, y que hacer ante una discrepancia—, pero **no se ha ejecutado ni una
+  vez**. Todo lo que hoy la sostiene es que el argumento parece bueno, y un argumento que parece bueno
+  es exactamente lo que precede a la mayoria de las reglas que despues hay que acotar.
+- **La situacion concreta en la que se rompe, y va a ocurrir:** el Paso 7c-bis corre una orden anclada
+  y la salida **no coincide** con la publicada. Ya paso hoy, en `D-088`, y la nota lo documenta. La
+  regla dice detenerse y reportar; la tentacion es corregir el numero, porque es un numero, porque es
+  obvio cual es el bueno, y porque cuesta un segundo. **Ese segundo es la grieta entera.**
+- **Sobre que se construyo encima:** sobre esto se construyo un paso obligatorio del cierre que toca
+  el archivo mas sensible del registro. Si el limite se desliza, lo que se pierde no es una linea: es
+  la garantia de que `decisions.md` lo escribio quien vivio la jornada — y esa garantia es la razon de
+  que los cuatro archivos sean de `manager`.
+- **Como se refuta:** una auditoria encuentra en un commit de anclaje **cualquier cambio en
+  `decisions.md` que no sea una orden anclada o su salida** — una palabra de prosa, una salida
+  corregida en vez de reportada, o el bloque de una decision de una sesion anterior. Se ve en una
+  linea:
+
+```
+git show <commit-de-anclaje> -- _persistence/decisions.md
+```
+
+- **Disparador:** cada cierre que abra alguna decision, a partir de la sesion siguiente. El commit de
+  anclaje es publico y su diff es pequeño por definicion: revisarlo cuesta segundos, y es la unica
+  ventana en que este supuesto se puede mirar.
+- **Que pasa si resulta falso:** la excepcion se retira y se vuelve a la alternativa que se descarto
+  —que `manager` ancle en la sesion siguiente—, asumiendo su coste conocido: el commit que la
+  auditoria juzga lleva siempre los criterios sin anclar. **No se acota con una excepcion nueva**: una
+  grieta que ya se ensancho una vez no se estrecha escribiendo mas letra.

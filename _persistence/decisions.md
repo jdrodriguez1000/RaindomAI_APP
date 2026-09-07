@@ -100,6 +100,9 @@
 | [D-089](#d-089---un-hueco-de-plantilla-en-un-informe-auditado-se-anota-y-el-control-va-antes-del-commit) | Un hueco de plantilla en un informe auditado se anota, y el control va antes del commit | 2026-09-06 | Vigente | report_auditor |
 | [D-090](#d-090---el-tablero-de-auditoria-publica-el-hash-literal-del-informe) | El tablero de auditoria publica el hash literal del informe | 2026-09-06 | Vigente | report_auditor |
 | [D-091](#d-091---el-reparto-del-crecimiento-un-bucle-que-llega-a-usuarios-reales) | El reparto del crecimiento: un bucle que llega a usuarios reales | 2026-09-06 | Vigente | usuario |
+| [D-092](#d-092---el-anclaje-de-un-criterio-de-cierre-lo-hace-el-cierre-despues-del-commit) | El anclaje de un criterio de cierre lo hace el cierre, despues del commit | 2026-09-06 | Vigente | report_auditor |
+| [D-093](#d-093---la-fecha-de-una-sesion-es-la-del-commit-que-la-cierra) | La fecha de una sesion es la del commit que la cierra | 2026-09-06 | Vigente | report_auditor |
+| [D-094](#d-094---nace-el-gate-2-y-se-comprueba-por-el-historial-no-por-marcas-en-los-artefactos) | Nace el Gate 2, y se comprueba por el historial, no por marcas en los artefactos | 2026-09-06 | Vigente | usuario |
 
 ---
 
@@ -4881,6 +4884,26 @@ $ ls _workflow/030_growth.md 2>&1
 _workflow/030_growth.md
 ```
 
+> 📌 **Nota del 2026-09-06 (`F-059`, sesion S-023).** El bloque de arriba se deja intacto y
+> publica sus ordenes **sin anclar al commit**, contra la convencion que `D-088` estrenaba en esta
+> misma entrega. La causa esta escrita en `F-059`: cuando la decision se escribe, el commit de la
+> sesion todavia no existe. Se resuelve con el Paso 7c-bis del cierre (`D-092`), y aqui se
+> republican las mismas ordenes ancladas a `97bb948`, con lo que devuelven:
+>
+> ```
+> $ git show 97bb948:_phases/030_growth.md | grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b'; echo "exit=$?"
+> exit=1
+>
+> $ git show 97bb948:_phases/030_growth.md | grep -c 'Nota del 2026-09-06'
+> 1
+>
+> $ git ls-tree --name-only 97bb948 _workflow/030_growth.md
+> _workflow/030_growth.md
+> ```
+>
+> ⚠️ **La tercera orden cambio de forma, no de pregunta.** El `ls` interroga al disco, que
+> no tiene version; `git ls-tree` hace la misma pregunta —¿existe ese archivo?— sobre el commit.
+
 ---
 
 ### D-087 - Nace el control 1c: cero codigos instanciados en `_phases/` y `_workflow/`
@@ -4957,6 +4980,23 @@ $ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow; echo "
 exit=1
 ```
 
+> 📌 **Nota del 2026-09-06 (`F-059`, sesion S-023).** El bloque de arriba se deja intacto y
+> publica sus ordenes **sin anclar al commit**, contra la convencion que `D-088` estrenaba en esta
+> misma entrega. La causa esta escrita en `F-059`: cuando la decision se escribe, el commit de la
+> sesion todavia no existe. Se resuelve con el Paso 7c-bis del cierre (`D-092`), y aqui se
+> republican las mismas ordenes ancladas a `97bb948`, con lo que devuelven:
+>
+> ```
+> $ git show 97bb948:.claude/skills/protocol-close/SKILL.md | grep -n '^### 1c'
+> 136:### 1c. El control de codigos instanciados
+>
+> $ git show 97bb948:.claude/skills/protocol-close/SKILL.md | grep -c 'Codigos instanciados en'
+> 1
+>
+> $ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' 97bb948 -- _phases _workflow; echo "exit=$?"
+> exit=1
+> ```
+
 ---
 
 ### D-088 - El criterio de cierre lleva orden anclada y salida, siempre
@@ -5011,6 +5051,30 @@ $ git show 76a2cb6:.claude/skills/protocol-close/SKILL.md | grep -c 'HASH LITERA
 1
 ```
 
+> 📌 **Nota del 2026-09-06 (`F-059`, sesion S-023).** El bloque de arriba se deja intacto y
+> publica sus ordenes **sin anclar al commit**, contra la convencion que `D-088` estrenaba en esta
+> misma entrega. La causa esta escrita en `F-059`: cuando la decision se escribe, el commit de la
+> sesion todavia no existe. Se resuelve con el Paso 7c-bis del cierre (`D-092`), y aqui se
+> republican las mismas ordenes ancladas a `97bb948`, con lo que devuelven:
+>
+> ```
+> $ git show 97bb948:_persistence/decisions.md | awk '/^### D-083/,/^### D-085/' | grep -c 'Nota del 2026-09-06'
+> 2
+>
+> $ git show 97bb948:_persistence/decisions.md | grep -n 'que hasta ahora no tenia forma fijada'
+> 121:🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+> 5007:$ grep -n 'que hasta ahora no tenia forma fijada' _persistence/decisions.md
+> 5008:115:🚨 **Y eso incluye el bloque «Criterio de cierre», que hasta ahora no tenia forma fijada.** El
+> ```
+>
+> 🚨 **La segunda orden NO devuelve lo que el bloque de arriba publica, y esa diferencia es
+> el hallazgo entero.** Publicada devolvia una linea, la `115`; anclada devuelve tres, y ninguna
+> es la `115` — dos de ellas son el propio bloque de arriba citandose. La orden se corrio sobre el
+> area de staging **antes** de que la decision terminara de escribirse, y el archivo siguio
+> creciendo debajo: exactamente el coste que `D-088` fijaba la regla para evitar, cobrado en la
+> entrada que la fija. **El bloque original no se corrige** (`D-019`): lo que valia entonces
+> queda, y esta nota dice que devuelve hoy sobre el commit.
+
 ---
 
 ### D-089 - Un hueco de plantilla en un informe auditado se anota, y el control va antes del commit
@@ -5062,6 +5126,23 @@ $ grep -c 'Huecos de plantilla en el informe' .claude/skills/protocol-close/SKIL
 1
 ```
 
+> 📌 **Nota del 2026-09-06 (`F-059`, sesion S-023).** El bloque de arriba se deja intacto y
+> publica sus ordenes **sin anclar al commit**, contra la convencion que `D-088` estrenaba en esta
+> misma entrega. La causa esta escrita en `F-059`: cuando la decision se escribe, el commit de la
+> sesion todavia no existe. Se resuelve con el Paso 7c-bis del cierre (`D-092`), y aqui se
+> republican las mismas ordenes ancladas a `97bb948`, con lo que devuelven:
+>
+> ```
+> $ git show 97bb948:_audit/S-021.md | grep -c 'Nota del 2026-09-06'
+> 1
+>
+> $ git show 97bb948:.claude/skills/protocol-close/SKILL.md | grep -n 'Ninguna linea de la plantilla sobrevive'
+> 1022:### 🚨 Ninguna linea de la plantilla sobrevive en el informe
+>
+> $ git show 97bb948:.claude/skills/protocol-close/SKILL.md | grep -c 'Huecos de plantilla en el informe'
+> 1
+> ```
+
 ---
 
 ### D-090 - El tablero de auditoria publica el hash literal del informe
@@ -5106,6 +5187,17 @@ $ git show f09d1f7 --stat --name-only --format= | grep -c .
 $ grep -n 'el literal de la cabecera del informe' .claude/skills/protocol-audit/SKILL.md
 275:🚨 **El `<hash>` de esa fila es el mismo que auditaste: el literal de la cabecera del informe, no el
 ```
+
+> 📌 **Nota del 2026-09-06 (`F-059`, sesion S-023).** El bloque de arriba se deja intacto y
+> publica sus ordenes **sin anclar al commit**, contra la convencion que `D-088` estrenaba en esta
+> misma entrega. La causa esta escrita en `F-059`: cuando la decision se escribe, el commit de la
+> sesion todavia no existe. Se resuelve con el Paso 7c-bis del cierre (`D-092`), y aqui se
+> republican las mismas ordenes ancladas a `97bb948`, con lo que devuelven:
+>
+> ```
+> $ git show 97bb948:.claude/skills/protocol-audit/SKILL.md | grep -n 'el literal de la cabecera del informe'
+> 275:🚨 **El `<hash>` de esa fila es el mismo que auditaste: el literal de la cabecera del informe, no el
+> ```
 
 ---
 
@@ -5176,3 +5268,259 @@ exit=1
 $ grep -noE '\b(T|D|F|L|A|C|DT|S|N|I|R|H)-[0-9]{2,3}\b' _workflow/030_growth.md; echo "exit=$?"
 exit=1
 ```
+
+> 📌 **Nota del 2026-09-06 (`F-059`, sesion S-023).** El bloque de arriba se deja intacto y
+> publica sus ordenes **sin anclar al commit**, contra la convencion que `D-088` estrenaba en esta
+> misma entrega. La causa esta escrita en `F-059`: cuando la decision se escribe, el commit de la
+> sesion todavia no existe. Se resuelve con el Paso 7c-bis del cierre (`D-092`), y aqui se
+> republican las mismas ordenes ancladas a `97bb948`, con lo que devuelven:
+>
+> ```
+> $ git show 97bb948:_workflow/030_growth.md | grep -cE "^\| \*\*[1-8] · "
+> 8
+>
+> $ git show 97bb948:_phases/030_growth.md | grep -n "_workflow/030_growth" | head -2
+> 201:quien hace cada uno —humano, software, IA, o una combinacion— lo dice **`_workflow/030_growth.md`**,
+> 387:🚨 **Las plantillas de esta etapa y el reparto de `_workflow/030_growth.md` son condicion de entrada,
+>
+> $ git grep -nE "RaidomAI|RaindomAI|TripleS|Proyectos_TripleS|github.com|USUARIO" 97bb948 -- _workflow/030_growth.md; echo "exit=$?"
+> exit=1
+>
+> $ git grep -noE '\b(T|D|F|L|A|C|DT|S|N|I|R|H)-[0-9]{2,3}\b' 97bb948 -- _workflow/030_growth.md; echo "exit=$?"
+> exit=1
+> ```
+
+---
+
+### D-092 - El anclaje de un criterio de cierre lo hace el cierre, despues del commit
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-059` (`R-022`) encontro que las seis decisiones nacidas en `97bb948` publican 18
+  ordenes en sus bloques «Criterio de cierre» y **solo 2 estan ancladas**, contra la convencion que
+  `D-088` estrenaba en ese mismo commit. Verificado contra `HEAD` antes de aceptarlo — el hallazgo
+  sigue vivo:
+
+```
+$ git show HEAD:_persistence/decisions.md \
+    | awk '/^### D-086/,0' \
+    | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -cE '^\$ '
+18
+
+$ git show HEAD:_persistence/decisions.md \
+    | awk '/^### D-086/,0' \
+    | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' \
+    | grep -E '^\$ ' | grep -cE 'git show [0-9a-f]{7,40}:'
+2
+```
+
+- **La causa, que el hallazgo nombra y no resuelve:** cuando `manager` escribe una decision —durante
+  la jornada, al cerrar el tema— **el commit de la sesion todavia no existe**. Anclar a el es
+  literalmente imposible en ese momento. Es el mismo huevo-y-gallina que tenia el informe, y que el
+  Paso 7c resolvio anclandolo **despues** del commit.
+- **Decision, en dos partes:**
+  1. **Nace el Paso 7c-bis de `protocol-close`** (`T-094`): despues del commit, el cierre sustituye el
+     ancla de las ordenes del bloque «Criterio de cierre» de **las decisiones nacidas en esa sesion**,
+     las corre, y pega su salida. Entra en el mismo commit de anclaje que el informe.
+  2. **Las seis decisiones ya escritas reciben su nota fechada** (`T-093`) republicando las 16 ordenes
+     ancladas a `97bb948` con su salida. Los bloques originales no se tocan (`D-019`).
+- **La excepcion que esto abre en `CLAUDE.md`, y por que es estrecha.** `CLAUDE.md` prohibe al cierre
+  escribir en los cuatro archivos del porque, y da su razon: *un porque nace en la conversacion, que
+  el no vio*. Sustituir `$ grep X archivo` por `$ git show <hash>:archivo | grep X` y pegar la salida
+  **no pide ni un dato de la conversacion**: es la misma operacion mecanica que el Paso 7c ya hace
+  sobre la seccion 7 del informe. La excepcion se escribe nombrando lo que **no** autoriza — ni una
+  palabra de prosa, ni los otros tres archivos, ni decisiones de sesiones anteriores — y con una
+  regla de parada: si la salida anclada no coincide con la publicada, **el cierre se detiene y lo
+  reporta**, no la corrige.
+- **Alternativas descartadas:** (1) **que `manager` ancle en la sesion siguiente** — descartada, y
+  es la que mas convencia al principio: deja el commit que el auditor juzga **siempre** con los
+  criterios sin anclar, con lo que `F-059` se reabriria cada jornada; una correccion que garantiza
+  que el hallazgo vuelve no es una correccion; (2) **solo el control, y `DT-XXX`** — descartada
+  porque el defecto ya esta diagnosticado y la solucion cuesta un paso, no una etapa; (3) **quitar de
+  `D-088` la exigencia de anclar** — descartada: el coste que esa regla evita esta cobrado y medido
+  en la nota de `D-088`, donde una orden sin anclar dejo de reproducir el mismo dia.
+- **Reversible a criterio** — texto en dos archivos de procedimiento y notas anadidas a un archivo
+  de registro, sin efecto fuera del repositorio. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** el Paso 7c-bis existe con su linea de reporte, la excepcion esta escrita en
+  `CLAUDE.md` y en el agente, y las seis decisiones llevan su nota.
+
+```
+$ grep -n '^### 7c-bis' .claude/skills/protocol-close/SKILL.md
+1176:### 7c-bis — Los criterios de cierre de las decisiones de esta sesion
+
+$ grep -c 'Criterios de cierre anclados' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'Paso 7c-bis' CLAUDE.md .claude/agents/session-closer.md
+CLAUDE.md:1
+.claude/agents/session-closer.md:1
+
+$ grep -cE '^> .+ \*\*Nota del 2026-09-06 \(`F-059`, sesion S-023\)' _persistence/decisions.md
+6
+```
+
+⚠️ **Las cuatro ordenes se corren sobre el arbol de trabajo, y el Paso 7c-bis que esta misma
+decision crea las anclara al commit** — es el primer caso al que se aplica la regla. Los numeros de
+linea de la primera son los que mas se mueven, y por eso el anclaje importa.
+
+---
+
+### D-093 - La fecha de una sesion es la del commit que la cierra
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-060` (`R-022`) encontro que `S-022` se fecha `2026-09-06` y su commit es del
+  `2026-09-04`. Verificado contra `HEAD` antes de aceptarlo, y **el alcance real es mayor que el que
+  el hallazgo describe**: no son dos filas, son ocho de veintidos, y el desfase venia de antes de
+  `S-020`. El barrido —corrido por iniciativa propia al evaluar el hallazgo, con su patron y su
+  ambito— esta publicado con su salida cruda en la nota fechada de `_audit/index.md`.
+- **Que lo produjo:** la fecha se escribia **contando** —«es otra jornada, luego es el dia
+  siguiente»— en vez de derivarse del reloj. `CLAUDE.md` ya decia que puede haber varias sesiones en
+  la misma fecha, asi que incrementarla no resolvia ningun problema que existiera.
+- **Decision, en dos partes:**
+  1. **La fecha se deriva, no se cuenta** (`T-095`): `date +%F` al cerrar, y esa fecha unica va al
+     informe, a la fila del tablero, a `progress.md` y a toda nota fechada de la jornada.
+  2. **Nace el Paso 7d de `protocol-close`**: con el commit ya hecho, se contrasta la fecha escrita
+     contra `git log -1 --format=%ad --date=short`. Si no coinciden, se corrige **lo de esta sesion**
+     y entra en el commit de anclaje. Tiene su linea en el reporte de pantalla.
+- **Lo que NO se hace, y es la mitad de la decision:** las ocho filas desfasadas **no se reescriben**.
+  Estan todas auditadas, y cambiarles la fecha convertiria «falta exactitud» en «hay exactitud
+  falsa», esta vez sin nadie que lo note. Sale por nota fechada, que es el mecanismo que este
+  repositorio tiene para exactamente esto.
+- **Por que importa mas de lo que parece:** la nota fechada es como aqui se corrige sin reescribir, y
+  su valor entero esta en decir **cuando** se supo algo. Con la fecha desviada, la unica cronologia
+  fiable pasa a ser `git log` y las notas dejan de ordenar nada.
+- **Alternativas descartadas:** (1) **declarar el desfase deliberado** —una fecha nominal de jornada
+  distinta de la del reloj— descartada: obligaria a mantener dos calendarios y a decir cual manda en
+  cada archivo, y no resuelve nada que `S-XXX` no resolviera ya; (2) **corregir las ocho filas**
+  —descartada por `D-019` y por lo dicho arriba; (3) **dejarlo en el informe sin control**
+  —descartada: el defecto duro ocho filas sin que nadie lo viera, que es la definicion de un control
+  que falta.
+- **Reversible a criterio** — texto en un archivo de procedimiento y una nota en un tablero, sin
+  efecto fuera del repositorio. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** el Paso 7d existe con su linea de reporte, la regla esta en `CLAUDE.md`, y
+  el tablero lleva su nota con el barrido.
+
+```
+$ grep -n '^### 7d' .claude/skills/protocol-close/SKILL.md
+1220:### 7d — La fecha escrita contra la del commit (obligatorio)
+
+$ grep -c 'Fecha de la sesion contra el commit' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c 'su fecha es la del reloj' CLAUDE.md
+1
+
+$ grep -c 'Nota del 2026-09-06 (`F-060`, sesion S-023)' _audit/index.md
+1
+```
+
+⚠️ **Mismas cuatro sobre el arbol de trabajo, y las anclara el Paso 7c-bis.**
+
+---
+
+### D-094 - Nace el Gate 2, y se comprueba por el historial, no por marcas en los artefactos
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-06 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pide construir el Gate 2 con la misma forma que el Gate 1, partiendo de un
+  documento suyo que describe el Gate en el vocabulario de otro kit. `project.md` decia hasta hoy que
+  el Gate 2 **no se adelantaba**; se adelanta porque el patrocinador lo pide, y esa frase se sustituye
+  por esta decision. **Adoptar un Gate no adopta su etapa:** `030_growth` sigue sin declarar.
+- **Decision de forma:** la misma que el Gate 1, y por la misma razon (`D-067`) — un Gate es un acto
+  de juicio, no un tramo de trabajo, asi que se monta con **un agente y su skill**, no con un archivo
+  de etapa. Tres piezas: `gate2_auditor`, `protocol-gate2` y `_templates/035_gate2/005_verdict.md`,
+  con su carpeta de salida en `_audit/035_gate2/`. El prefijo `035_` lo coloca junto a `030_growth`,
+  que es la etapa cuya evidencia juzga.
+- **Lo que se copia del Gate 1, porque ya funciona:** el vocabulario del dictamen —`CRITERIOS
+  SATISFECHOS`, `CRITERIOS NO SATISFECHOS`, `NO AUDITABLE`—, la prohibicion de escribir `APROBADO`,
+  la regla de las dos firmas, que el ultimo criterio es del patrocinador y no se evalua, que
+  `NO COMPROBABLE` no se redondea a `CUMPLE`, y que ningun dictamen se borra ni se sobrescribe.
+
+### Las tres decisiones de fondo, que son las que no se copian
+
+1. **La comprobacion 0 cambia de objeto: no mira la evidencia, mira la MEDICION.** En el Gate 1 se
+   comprueba que la hipotesis, la tarea y el perfil nacieran antes de las sesiones. Aqui se comprueba
+   que **la metrica, la ventana y el umbral** nacieran antes del primer dato, y que no se hayan movido
+   despues. Es la diferencia entre un Gate que juzga un experimento y uno que juzga una medicion.
+2. **Nace una comprobacion que el Gate 1 no tiene: quien genero el uso.** Una cifra de uso sin
+   identidad detras no mide adopcion, es un contador. Si el registro no permite separar generadores
+   reales de equipo, patrocinador, invitados y pruebas, el dictamen es `NO AUDITABLE` — y el hallazgo
+   va contra la instrumentacion del esqueleto, no contra el producto.
+3. **Adopcion y utilizacion recurrente se auditan por separado, y no se funden en una cifra.** Un
+   producto con cuarenta altas y ningun segundo uso cumple el criterio 4 y falla el 5. Fundirlos daria
+   un verde a un producto que nadie volvio a abrir.
+
+### La decision tecnica que el usuario zanjo: historial, no marcas
+
+El documento de origen resuelve la comprobacion 0 con un **bloque sellado** dentro del PRD, cuya
+huella `md5` se compara a lo largo del historial, y la lista del «no» con un bloque **SOLO-ANADIR**
+delimitado por marcas. **Ninguna de las dos marcas existe en las plantillas de este repositorio.**
+
+Se opta por comprobarlo **con el historial de `git` sobre los artefactos tal como estan**, y no por
+anadir las marcas. Cuatro razones:
+
+1. **La declaracion de la ventana ya se escribio para esto.** Lleva fecha de declaracion, fecha del
+   primer dato, la orden de extraccion en §1 y §5, las cuatro rendijas de §2 y una §4 explicita para
+   cualquier cambio — y dice ella misma que esas fechas se cruzan contra el historial.
+2. **El sello resuelve un problema que aqui no existe.** Alli el PRD es un documento vivo con muchos
+   commits a proposito, asi que contar commits no distingue una ampliacion de alcance de un umbral
+   rebajado. La declaracion de la ventana es de **una sola pasada**, y un `git log -p` sobre ella
+   ensena el cambio directamente.
+3. **El sello tiene una puerta abierta que el historial no tiene**, y el propio documento de origen la
+   nombra: si alguien borra las marcas, el `sed` devuelve vacio en todas las versiones, todas dan la
+   misma huella del vacio, y **la comprobacion pasa sin comprobar nada**.
+4. **`PI-3`:** anadir marcas obliga a editar dos plantillas de una etapa **que no esta adoptada** y
+   cuya forma puede cambiar al adoptarla.
+
+- **Alternativas descartadas:** (1) **anadir las marcas `SELLO` y `SOLO-ANADIR` a las plantillas de la
+  baseline** — descartada por las cuatro razones de arriba; (2) **hacer las dos cosas, con una `T-XXX`
+  para las marcas** — descartada por el mismo argumento con que `project.md` no declara etapas por
+  adelantado: precompromete una forma para una etapa que aun no se ha adoptado, y una tarea abierta
+  contra un futuro que puede no llegar es ruido; (3) **traducir el documento de origen tal cual**
+  —conservando `_baseline/005_prd.md`, `_memory/progress.md` y sus codigos— descartada: nombra
+  artefactos que en este repositorio se llaman de otra forma o no existen, y un protocolo que apunta a
+  rutas inexistentes no se puede correr.
+- **Lo que este Gate NO decide, y conviene decirlo:** no adopta `030_growth`, `025_wslt` ni
+  `020_baseline`. Las tres referencias del protocolo —`<GRTH>`, `<BASE>`, `<WSLT>`— se resuelven en
+  `project.md`, y hoy **ninguna esta declarada**: el Paso 0 obliga al agente a detenerse si falta. Es
+  deliberado — el Gate existe escrito, y no se puede correr hasta que haya etapa que juzgar.
+- **Reversible a criterio** —tres archivos nuevos y cuatro parrafos en `project.md`, sin efecto fuera
+  del repositorio y sin que nadie los ejecute todavia—. Criterio declarado, no leido de una tabla
+  (`T-037`).
+- **Criterio de cierre:** las tres piezas existen, `project.md` las cita, el agente delega en su
+  skill y no lleva el procedimiento dentro, y ninguna de las tres lleva un dato propio de este
+  proyecto.
+
+```
+$ ls -1 .claude/agents/gate2_auditor.md .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md
+.claude/agents/gate2_auditor.md
+.claude/skills/protocol-gate2/SKILL.md
+_templates/035_gate2/005_verdict.md
+
+$ grep -c 'gate2_auditor\|protocol-gate2\|035_gate2' project.md
+3
+
+$ grep -nE "RaidomAI|RaindomAI|TripleS|Proyectos_TripleS|github.com|USUARIO" .claude/agents/gate2_auditor.md .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md; echo "exit=$?"
+exit=1
+
+$ grep -c '^## ' .claude/skills/protocol-gate2/SKILL.md _templates/035_gate2/005_verdict.md
+.claude/skills/protocol-gate2/SKILL.md:15
+_templates/035_gate2/005_verdict.md:11
+```
+
+⚠️ **La segunda orden cuenta las tres formas de nombrarlo, no una.** Contar solo `protocol-gate2`
+daria `1` y dejaria sin comprobar la fila de la tabla de reparto y la de la carpeta `_audit/`.
+
+📌 **La cuarta cuenta secciones, no huecos.** Un `grep -cE '^<'` sobre la skill devuelve `10`, y las
+diez son legitimas: viven dentro del bloque del reporte de pantalla, igual que las seis del Gate
+anterior. Ese barrido solo significa algo sobre un artefacto **rellenado**, no sobre el molde.

@@ -388,6 +388,17 @@ Una **sesion** es una jornada de trabajo —una manana, una tarde, una noche o u
 nunca por definicion un dia entero. Puede haber varias sesiones en la misma fecha, y cada una lleva
 su propio `S-XXX`.
 
+🚨 **Y su fecha es la del reloj, no la siguiente a la de la sesion anterior.** Se deriva con
+`date +%F` al cerrar, y el Paso 7d de `protocol-close` la contrasta contra la del commit antes de dar
+la sesion por cerrada (`D-093`). Incrementarla por sesion —«es otra jornada, luego es otro
+dia»— hace que el registro **afirme algo comprobablemente falso**, y arrastra con el cada nota
+fechada de la jornada. Es lo que abrio `F-060`.
+
+🔑 **La nota fechada es el mecanismo con el que este repositorio corrige sin reescribir, y su
+valor entero esta en decir CUANDO se supo algo.** Si su fecha no es la del commit, la unica cronologia
+fiable pasa a ser `git log` y las notas dejan de ordenar nada — que es lo contrario de para lo que
+existen.
+
 Al terminar cada sesion de trabajo, **delega en el agente `session-closer`** y muestra su reporte al
 usuario. El recoge la evidencia con `git`, actualiza `progress.md` y `tasks.md`, propone entradas de
 `techdebt.md`, y hace el commit de la jornada con su push.
@@ -412,6 +423,17 @@ completo; en pantalla se muestra una version corta.
 —`decisions.md`, `assumptions.md`, `constraints.md`, `lessons.md`— **no son suyos**. El arranca en
 frio y solo ve archivos; un porque nace en la conversacion y no aparece en ningun `git diff`. Si
 llegas al cierre sin haberlos escrito, esa informacion **ya se perdio**.
+
+🔑 **Una sola excepcion, y es mecanica: el anclaje de los criterios de cierre.** Una decision
+que se escribe durante la jornada no puede anclar su orden al commit de la sesion, porque ese commit
+todavia no existe — el mismo huevo-y-gallina que el informe tenia. El cierre lo resuelve **despues
+del commit**, en su Paso 7c-bis: coge una orden **ya escrita** en un bloque «Criterio de cierre» de
+una decision nacida en esa sesion, le pone el ancla, la corre y pega la salida. Lo fija `D-092`.
+
+⛔ **Y no autoriza nada mas.** No escribe, no altera ni borra **una palabra de prosa**; no toca
+`assumptions.md`, `constraints.md` ni `lessons.md`; no toca decisiones de sesiones anteriores. Si la
+salida anclada no coincide con la publicada, **se detiene y lo reporta** — no la corrige. La regla
+de arriba sigue entera: lo que pide contexto de la conversacion sigue siendo tuyo, y esto no lo pide.
 
 ### El cierre no termina en el push: termina en la auditoria
 

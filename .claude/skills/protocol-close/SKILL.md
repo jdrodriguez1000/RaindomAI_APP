@@ -650,6 +650,13 @@ donde `Implementada` significa deuda **ya pagada**. Mas Importancia y Urgencia, 
 `manager` en el momento en que las cosas pasan, porque una decision no aparece en el `git diff`:
 nace en la conversacion, y tu no estuviste ahi.
 
+⚠️ **Hay exactamente una excepcion, y esta acotada al Paso 7c-bis** (`D-092`): despues del
+commit, sustituyes el ancla de las ordenes del bloque «Criterio de cierre» de las decisiones nacidas
+en esta sesion y pegas su salida. **Eso no es escribir el porque** — es correr una orden ya escrita
+y publicar lo que devolvio, y no pide ni un dato de la jornada. **Ni una palabra de prosa se toca**,
+y los otros tres archivos no se tocan en absoluto. Hasta el Paso 7, este archivo es de solo lectura
+para ti.
+
 **Lo que si haces: comprobar que no se quedaron cortos.**
 
 1. Leelos.
@@ -864,13 +871,29 @@ nombrar.
 
 ### Estructura del informe
 
+🚨 **La fecha sale del reloj del sistema, no de una cuenta.** Se deriva, no se escribe de
+memoria:
+
+```bash
+date +%F
+```
+
+⛔ **No se incrementa por sesion.** Varias sesiones pueden caer el mismo dia — `CLAUDE.md` lo
+dice con esas palabras — y cada una lleva su propio `S-XXX`, no su propia fecha. Sumarle un dia a la
+sesion anterior «porque es otra jornada» produce un registro que **afirma algo comprobablemente
+falso**, y arrastra con el cada nota fechada que se escriba ese dia. Es lo que abrio `F-060`: tres
+sesiones commiteadas el mismo dia, fechadas en tres dias consecutivos.
+
+🔑 **Y esa fecha es la misma que llevaran la fila de `_audit/index.md`, `progress.md` y toda
+nota fechada de la jornada.** Una sola fuente, derivada una vez.
+
 ```markdown
 # Informe de auditoria — S-XXX
 
 | Campo | Valor |
 |---|---|
 | Sesion | S-XXX |
-| Fecha | AAAA-MM-DD |
+| Fecha | AAAA-MM-DD — la del RELOJ, no la siguiente a la de la sesion anterior |
 | Etapa | |
 | Rama | la rama principal, segun `project.md` |
 | Commit auditado | <HASH LITERAL del commit sustantivo de la sesion — se rellena en el Paso 7c> |
@@ -1009,9 +1032,10 @@ hallazgos los pone el agente `report_auditor` cuando corra — tu no puedes sabe
 que todavia no ha mirado.
 
 ⚠️ **Y el commit auditado tampoco lo escribes, aunque parezca que si.** No puedes: la fila se
-escribe **antes** del commit que la contiene. Lo rellena la auditoria, que ya lo tiene delante con
-`git log -1 --format=%h -- _audit/S-XXX.md`. Es la misma imposibilidad que la del push (Paso 4), y
-la misma solucion: preguntarle a git en vez de intentar escribirlo.
+escribe **antes** del commit que la contiene. Lo rellena la auditoria, que ya lo tiene delante, y lo
+que escribe ahi es **el hash literal de la cabecera del informe** — el mismo que tu Paso 7c acaba de
+anclar (`D-090`). Es la misma imposibilidad que la del push (Paso 4), y la misma solucion: dejarselo
+a quien si tiene el dato en vez de intentar escribirlo.
 
 ⚠️ **Este informe no reemplaza a `_persistence/`.** Es una vista de **esta sesion** para un lector
 que arranca en frio, no una copia del registro.
@@ -1135,18 +1159,84 @@ commiteado— ni abras un commit nuevo para arreglarlo. El porque esta en el Pas
 ### 7c — Anclar el informe al hash (obligatorio)
 
 **Ahora, y solo ahora, existe el dato que el informe no podia tener mientras se escribia: su propio
-hash.** Tres sitios del informe lo prometian y quedaban a medias hasta este paso. Se rellenan **los
-tres juntos, en un unico commit de anclaje**:
+hash.** Cuatro sitios lo prometian y quedaban a medias hasta este paso. Se rellenan **los cuatro
+juntos, en un unico commit de anclaje**:
 
-| Sitio del informe | Que se escribe | Orden anclada |
+| Sitio | Que se escribe | Orden anclada |
 |---|---|---|
-| **Cabecera**, campo `Commit auditado` | el **hash literal** del commit sustantivo | `git log -1 --format=%h` justo despues del commit del Paso 7 |
-| **Seccion 1**, nota de cierre | la lista de archivos anclada al commit | `git show --stat --name-only --format= <hash>` |
-| **Seccion 7**, nota de cierre | las ordenes del Paso 2d reejecutadas sobre el commit | las del propio Paso 2d, en su forma anclada |
+| **Cabecera** del informe, campo `Commit auditado` | el **hash literal** del commit sustantivo | `git log -1 --format=%h` justo despues del commit del Paso 7 |
+| **Seccion 1** del informe, nota de cierre | la lista de archivos anclada al commit | `git show --stat --name-only --format= <hash>` |
+| **Seccion 7** del informe, nota de cierre | las ordenes del Paso 2d reejecutadas sobre el commit | las del propio Paso 2d, en su forma anclada |
+| **`decisions.md`**, bloque «Criterio de cierre» de **las decisiones nacidas en esta sesion** | las mismas ordenes, reejecutadas ancladas, con su salida | ver **7c-bis**, justo debajo |
 
-🚨 **Los tres, o ninguno.** Anclar la seccion 7 y dejar la 1 y la cabecera sin anclar es el
+🚨 **Los cuatro, o ninguno.** Anclar la seccion 7 y dejar la 1 y la cabecera sin anclar es el
 defecto que abrio `F-052` y `F-053`: el informe queda con una parte reproducible y otra que describe
 un area de staging que ya no existe, y **ninguna regla escrita dice cual manda**.
+
+### 7c-bis — Los criterios de cierre de las decisiones de esta sesion
+
+🔑 **Es el mismo huevo-y-gallina, en otro archivo.** `D-088` exige que la orden de un
+«Criterio de cierre» vaya **anclada al commit**; pero cuando `manager` escribe la decision, durante
+la jornada, ese commit **todavia no existe**. El resultado fue `F-059`: seis decisiones nacidas en un
+commit publicando 16 ordenes sin anclar, contra la convencion que ese mismo commit estrenaba. La
+solucion es la que ya funciona para el informe — se ancla **aqui**, cuando el hash existe.
+
+🚨 **Y esta es la unica cosa que puedes escribir en los cuatro archivos del porque.**
+`CLAUDE.md` te los prohibe, y con razon: un porque nace en la conversacion, que tu no viste. Esta
+excepcion no la toca. **Lo que haces aqui es mecanico y no pide ni un dato de la jornada:** coges una
+orden **ya escrita**, le pones el ancla, la corres, y pegas lo que devolvio.
+
+**Como se localiza que hay que anclar:**
+
+```bash
+git show <hash>:_persistence/decisions.md \
+  | awk '/^### D-/{d=$2} /Criterio de cierre/{f=1} /^---$/{f=0} f&&/^\$ /{print d" | "$0}'
+```
+
+De esa lista, **solo tocas las decisiones nacidas en esta sesion** — las que el Paso 2 te dio como
+nuevas en el diff. Una decision de una sesion anterior **no se toca**: su bloque ya esta auditado, y
+reescribirlo es lo que `D-019` prohibe.
+
+**Que puedes hacer, y que no:**
+
+| ✅ Puedes | ⛔ No puedes |
+|---|---|
+| sustituir `<orden> <archivo>` por su forma anclada (`git show <hash>:<archivo> \| <orden>`) | cambiar **que** comprueba la orden |
+| pegar debajo la salida cruda que devolvio | escribir, alterar o borrar **una sola palabra de prosa** |
+| anadir una linea diciendo que el anclaje es de este paso | tocar `assumptions.md`, `constraints.md` o `lessons.md`, que no tienen este bloque |
+| detenerte y reportarlo si algo no cuadra | «arreglar» un criterio que no reproduce |
+
+🚨 **Si la salida anclada NO coincide con la publicada, te detienes.** No la sustituyes y no
+la corriges: **pegas las dos** — la publicada y la anclada — y lo dices en el reporte, en «Sin
+resolver». Una discrepancia ahi significa que la orden se corrio sobre un arbol distinto del que
+quedo en el commit, y **eso es informacion**, no un error de formato. Quien decida que hacer con ella
+es `manager`, en la sesion siguiente, con el auditor de por medio.
+
+⚠️ **Si una orden no se puede anclar, se deja como esta y se dice.** Hay ordenes que
+preguntan por el arbol de trabajo o por el sistema y no por el commit — un `ls`, un `git status`.
+Forzarlas a una forma anclada que no significa lo mismo seria peor que dejarlas: se anotan en el
+reporte como «no anclable, y por que».
+
+### 7d — La fecha escrita contra la del commit (obligatorio)
+
+**El commit ya existe, asi que la fecha ya se puede comprobar en vez de suponer.** Es el control que
+`F-060` dejo escrito: tres sesiones commiteadas el mismo dia y fechadas en tres dias consecutivos,
+sin que nada lo detectara.
+
+```bash
+git log -1 --format=%ad --date=short
+grep -m1 '^| Fecha |' _audit/S-XXX.md
+```
+
+| Que sale | Que significa | Que haces |
+|---|---|---|
+| las dos fechas coinciden | el registro dice la verdad | sigue |
+| no coinciden | 🚨 **el registro afirma algo falso** | **detente**: la fecha escrita es la del commit. Corrigela en el informe, en la fila de `_audit/index.md`, en `progress.md` y en toda nota fechada de la jornada, y **entra en el commit de anclaje** del Paso 7c |
+| el comando falla | **no lo comprobaste** | sigue, y a **Sin resolver** con 🚨 `SIN COMPROBAR` |
+
+⚠️ **La segunda fila corrige lo de ESTA sesion, que aun no esta auditado.** Lo de sesiones
+anteriores **no se toca**: ya se auditó, y reescribir su fecha convierte «falta exactitud» en «hay
+exactitud falsa». Eso sale por nota fechada, y lo escribe `manager`.
 
 ### Cual de los dos commits es «el commit de la sesion»
 
@@ -1156,7 +1246,7 @@ arranca en frio y solo ve el historial:
 | | Que contiene | Como se le llama |
 |---|---|---|
 | **El primero** (Paso 7) | todo el trabajo de la jornada, el informe y la fila del indice | **el commit de la sesion**. Es al que apunta toda la evidencia |
-| **El segundo** (este paso) | solo el informe, con los tres anclajes rellenos | **el commit de anclaje**. No lleva trabajo |
+| **El segundo** (este paso) | el informe y `decisions.md`, con los cuatro anclajes rellenos | **el commit de anclaje**. No lleva trabajo |
 
 🚨 **El campo `Commit auditado` lleva el hash del PRIMERO**, no el del commit que lo escribe.
 Es contraintuitivo y por eso se dice: el segundo commit existe para describir al primero, no para
@@ -1169,11 +1259,22 @@ informe de S-XXX al hash <hash>» — para que el historial distinga solo, sin l
 de trabajo de uno de anclaje.
 
 ```
-git add _audit/S-XXX.md
-git commit -m "S-XXX: ancla el informe al hash <hash>"
+git add _audit/S-XXX.md _persistence/decisions.md
+git commit -m "S-XXX: ancla el informe y los criterios de cierre al hash <hash>"
 git push
 git status -sb
 ```
+
+⚠️ **`_persistence/decisions.md` entra aqui solo si el Paso 7c-bis lo toco** — es decir,
+si esta sesion abrio alguna decision con criterio de cierre. Si no la abrio, se anade solo el
+informe y el mensaje vuelve a ser «ancla el informe de S-XXX al hash <hash>».
+
+🚨 **Y si el Paso 7d obligo a corregir la fecha**, entran tambien los archivos que la
+llevaban — `_audit/index.md`, `_persistence/progress.md` y los que tuvieran nota fechada — y
+el mensaje lo dice.
+
+⛔ **Nada mas entra en este commit.** Un commit de anclaje que lleve trabajo deja de distinguirse
+del de la sesion, y entonces el auditor no puede saber cual de los dos juzgar.
 
 📌 **Si el push del Paso 7 fallo, este paso se hace igual.** Los dos commits viajan juntos
 cuando el push se recupere, y el informe queda coherente en local mientras tanto. Lo que no se puede
@@ -1214,6 +1315,8 @@ Codigos instanciados en `_phases/` y `_workflow/` (1c) — <cero lineas | 🚨 <
 Indices de `_persistence/` (2b) — <al dia | corregidos | 🚨 SIN COMPROBAR — <que fallo>>
 Carpetas declaradas (2c) — <coinciden | <las diferencias y su razon> | 🚨 SIN COMPROBAR — <por que>>
 Huecos de plantilla en el informe (6b) — <cero lineas | 🚨 <las lineas, borradas antes del `git add`>>
+Criterios de cierre anclados (7c-bis) — <N ordenes de M, en <las D-XXX nuevas> | ninguna decision nueva | 🚨 <las que no coinciden, con las dos salidas> | <las no anclables, y por que>>
+Fecha de la sesion contra el commit (7d) — <coinciden: AAAA-MM-DD | 🚨 <la escrita y la del commit, y donde se corrigio> | 🚨 SIN COMPROBAR>
 
 ### Commit
 Informe de auditoria — <`_audit/S-XXX.md` y su fila en `_audit/index.md`, **comprobados en el commit** (Paso 7b) | 🚨 NO ENTRO — <que falto y en que commit nuevo entro> | 🚨 SIN COMPROBAR — <que fallo>>
