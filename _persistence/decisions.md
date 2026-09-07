@@ -6228,21 +6228,23 @@ $ git show 8959da8:_audit/S-024.md | grep -n 'las publica la nota de cierre'
   recuento, y la plantilla de la seccion 7 del informe la pide.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Que dice la nota de la seccion 7, exactamente'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'Que dice la nota de la seccion 7, exactamente'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'No republica las ordenes: dice donde quedaron ancladas'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'No republica las ordenes: dice donde quedaron ancladas'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'El barrido es de TODOS los archivos'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'El barrido es de TODOS los archivos'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'NOTA DE CIERRE, la escribe el Paso 7c despues del commit'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'NOTA DE CIERRE, la escribe el Paso 7c despues del commit'
 1
 ```
 
 ⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `f1f2291`.** Las cuatro reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6292,21 +6294,23 @@ $ git show 8959da8:_persistence/tasks.md | grep -cE '^\$ .*git show <hash>:'
   estan republicadas ancladas.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS archivos, no uno'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS archivos, no uno'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Y `tasks.md` entra en el commit de anclaje'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'Y `tasks.md` entra en el commit de anclaje'
 1
 
-$ git show <hash>:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tareas/p' | grep -c 'lleva su orden anclada al commit, igual que en'
+$ git show f1f2291:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tareas/p' | grep -c 'lleva su orden anclada al commit, igual que en'
 1
 
-$ git show <hash>:_persistence/tasks.md | grep -cE '^\$ git show a1f5fa8:'
+$ git show f1f2291:_persistence/tasks.md | grep -cE '^\$ git show a1f5fa8:'
 12
 ```
 
 ⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `f1f2291`.** Las cuatro reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6358,18 +6362,20 @@ Recuento de LINEAS devueltas: **41**. (Ordenes distintas, aparte: 41 — no hubo
   nota fechada esta en el informe con sus dos salidas.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Y si se da esa segunda cifra, va con SU orden y su salida cruda'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'Y si se da esa segunda cifra, va con SU orden y su salida cruda'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la cifra accesoria no se estima'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'la cifra accesoria no se estima'
 1
 
-$ git show <hash>:_audit/S-024.md | grep -c 'el recuento accesorio de arriba es falso: son 31, no'
+$ git show f1f2291:_audit/S-024.md | grep -c 'el recuento accesorio de arriba es falso: son 31, no'
 1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `f1f2291`.** Las tres reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6412,18 +6418,20 @@ $ git show 8959da8:_persistence/decisions.md | grep -A1 '^publicado arriba\.$' |
   exige con su ejemplo.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -A1 '^publicado arriba\.$' | grep -c '^---$'
+$ git show f1f2291:_persistence/decisions.md | grep -A1 '^publicado arriba\.$' | grep -c '^---$'
 0
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'deja una linea en blanco entre la nota y el'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'deja una linea en blanco entre la nota y el'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea en blanco es obligatoria'
+$ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea en blanco es obligatoria'
 1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `f1f2291`.** Las tres reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6487,25 +6495,27 @@ existe.** Las ancla el Paso 7c-bis del cierre.
   artefactos.
 
 ```
-$ git ls-tree --name-only <hash> _templates/040_evol/
+$ git ls-tree --name-only f1f2291 _templates/040_evol/
 _templates/040_evol/005_iteration_NNN.md
 _templates/040_evol/010_slice_NNN.md
 
-$ git show <hash>:_templates/040_evol/005_iteration_NNN.md | grep -cE '^(QUE SE ANADE|QUE SE ESPERA|METRICA|VENTANA):'
+$ git show f1f2291:_templates/040_evol/005_iteration_NNN.md | grep -cE '^(QUE SE ANADE|QUE SE ESPERA|METRICA|VENTANA):'
 4
 
-$ git show <hash>:_templates/040_evol/010_slice_NNN.md | grep -c 'La regresion — lo que esta etapa anade y la anterior no tenia'
+$ git show f1f2291:_templates/040_evol/010_slice_NNN.md | grep -c 'La regresion — lo que esta etapa anade y la anterior no tenia'
 1
 
-$ git show <hash>:_templates/040_evol/005_iteration_NNN.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+$ git show f1f2291:_templates/040_evol/005_iteration_NNN.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
 0
 
-$ git show <hash>:_templates/040_evol/010_slice_NNN.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+$ git show f1f2291:_templates/040_evol/010_slice_NNN.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
 0
 
-$ git show <hash>:_phases/040_evol.md | grep -c 'Estado de los dos: las plantillas ya existen; el reparto todavia no'
+$ git show f1f2291:_phases/040_evol.md | grep -c 'Estado de los dos: las plantillas ya existen; el reparto todavia no'
 1
 ```
 
 ⚠️ **Las seis ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `f1f2291`.** Las seis reproducen exactamente lo publicado arriba.
