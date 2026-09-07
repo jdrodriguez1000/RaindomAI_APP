@@ -81,10 +81,12 @@
 | [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Implementado |
 | [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Implementado |
 | [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Implementado |
-| [F-070](#f-070---el-barrido-universal-de-la-nota-de-cierre-se-etiqueta-sobre-f1f2291-y-su-salida-no-reproduce-contra-f1f2291) | El barrido universal de la nota de cierre se etiqueta «sobre `f1f2291`» y su salida no reproduce contra `f1f2291` | R-025 | Alta | Aceptado — pendiente |
-| [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Aceptado — pendiente |
-| [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Aceptado — pendiente |
-| [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Aceptado — pendiente |
+| [F-070](#f-070---el-barrido-universal-de-la-nota-de-cierre-se-etiqueta-sobre-f1f2291-y-su-salida-no-reproduce-contra-f1f2291) | El barrido universal de la nota de cierre se etiqueta «sobre `f1f2291`» y su salida no reproduce contra `f1f2291` | R-025 | Alta | Implementado |
+| [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Implementado |
+| [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Implementado |
+| [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Implementado |
+| [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Abierto |
+| [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Abierto |
 
 ---
 
@@ -3686,9 +3688,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Alta |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-106` (`D-106`) |
-| Cerrado en | |
+| Cerrado en | `d1a8c02` (`R-026`) |
 
 - **Que se observo:** la nota de cierre de `_audit/S-025.md` §7 encabeza su barrido con «corrido
   sobre `HEAD` (`f1f2291`)» y publica `assumptions.md: 2`, `decisions.md: 2`, `tasks.md: 14`. La
@@ -3709,9 +3711,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-107` (`D-107`) |
-| Cerrado en | |
+| Cerrado en | `d1a8c02` (`R-026`) |
 
 - **Que se observo:** el recuadro que `T-101`/`D-101` anadieron a `protocol-close` dice que la salida
   del barrido «tiene que estar VACIA» y que una linea obliga a detenerse y reportar. El barrido
@@ -3730,9 +3732,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-108` (`D-108`) |
-| Cerrado en | |
+| Cerrado en | `d1a8c02` (`R-026`) |
 
 - **Que se observo:** `_audit/S-025.md` §7 publica «Ordenes distintas, aparte (misma tuberia, con
   `sort -u` antes de contar): 27». Reejecutada en forma anclada, la tuberia devuelve `22`; la cifra
@@ -3752,9 +3754,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-025 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-109` (`D-109`) |
-| Cerrado en | |
+| Cerrado en | `d1a8c02` (`R-026`) |
 
 - **Que se observo:** en `_audit/S-025.md` §7, la nota dice «Las tres que NO se anclaron» y la frase
   de cierre dice «la unica que no (`T-105`)»; la frase abre afirmando que «no queda ninguna sin una
@@ -3767,3 +3769,55 @@ git log -1 --format=%h -- _audit/S-XXX.md
 - **Que lo corregiria:** una nota fechada que fije las tres cifras contra su orden: 32 de las 35
   ancladas, 34 anclas escritas en total (con las dos que la lista no recoge y por que), y 18 lineas
   del barrido.
+
+---
+
+### F-074 - La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL
+| Campo | Valor |
+|---|---|
+| Auditoria | R-026 |
+| Fecha | 2026-09-07 |
+| Gravedad | Alta |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la NOTA DE CIERRE de `_audit/S-026.md` §7 (version de `89f9f73`) afirma que
+  «de las 29 ordenes con `<hash>` literal listadas arriba, las 29 quedaron ancladas a `d1a8c02`»,
+  desglosadas en «14 en `decisions.md` y 14 en `tasks.md`, mas una orden (`git ls-tree`, en `T-105`)».
+  Las ordenes realmente ancladas son **28**, y la `ls-tree` esta dentro de las 14 de `tasks.md`, no
+  ademas. Dos de las 29 listadas no se anclaron —correctamente: son las ilustrativas del «Contexto»
+  de `D-107`, que la propia decision declara escritas con `<hash>` a proposito—. Evidencia completa
+  en `_audit/R-026.md` §2.
+- **Por que importa:** es el hecho de `F-073` repetido bajo la regla que la propia sesion escribio
+  para impedirlo (`D-109`: la frase se construye con las salidas, no recontando a mano). El parrafo
+  publica una afirmacion comprobablemente falsa junto a las salidas que la desmienten (`14` y `13`).
+- **Que lo corregiria:** una nota fechada en `_audit/S-026.md` §7 que fije las cifras contra su
+  orden (28 ancladas; 27 de las 29 listadas; las 2 restantes, las ilustrativas de `D-107`), sin
+  reescribir la linea original (`D-019`); y, si se estima, una regla que obligue a derivar el total
+  del `diff` del commit de anclaje en vez de sumarlo en prosa.
+
+---
+
+### F-075 - `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado
+| Campo | Valor |
+|---|---|
+| Auditoria | R-026 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `d1a8c02` borra la linea «**Criterio de cierre:** el archivo existe, tiene una
+  fila por paso del procedimiento, y su adopcion tiene su `D-XXX` en el registro» de `T-105` y la
+  sustituye por otra acotada, ademas de anadir la nota fechada de `D-110`. `T-105` nacio en `S-025`
+  (commit `f1f2291`, ya auditado por `R-025`). Evidencia completa en `_audit/R-026.md` §2.
+- **Por que importa:** `D-019` descarta explicitamente «editar el titulo del bloque para acotarlo»
+  como alternativa, porque borra que la afirmacion ancha existio. `D-110` justifica reescribir la
+  linea de estado de `_phases/040_evol.md` §5 —un procedimiento vivo—, pero no cubre `tasks.md`, que
+  es registro, y ninguna decision de la sesion menciona esa reescritura. Deja el precedente de cerrar
+  una tarea rebajando su criterio sin que quede rastro en el archivo.
+- **Que lo corregiria:** restaurar la linea original y dejar que la nota de `D-110` la acote —lo que
+  `D-019` prescribe—, o una `D-XXX` que decida y limite cuando el enunciado de un «Criterio de
+  cierre» es reescribible.
