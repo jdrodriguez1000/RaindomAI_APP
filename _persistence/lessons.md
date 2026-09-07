@@ -43,6 +43,7 @@
 | [L-032](#l-032---el-repositorio-mezcla-finales-de-linea-y-una-sustitucion-literal-falla-sin-decir-por-que) | El repositorio mezcla finales de linea, y una sustitucion literal falla sin decir por que | 2026-09-06 | 000_preproject | Sin evaluar |
 | [L-033](#l-033---una-autorizacion-para-sustituir-texto-necesita-un-borde-que-se-vea-no-una-prohibicion-al-lado) | Una autorizacion para sustituir texto necesita un borde que se vea, no una prohibicion al lado | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-034](#l-034---un-pre-compromiso-que-no-distingue-el-fallo-total-del-parcial-se-renegocia-en-su-primera-aplicacion) | Un pre-compromiso que no distingue el fallo total del parcial se renegocia en su primera aplicacion | 2026-09-07 | 000_preproject | Sin evaluar |
+| [L-035](#l-035---una-regla-que-nombra-un-archivo-se-cumple-en-ese-archivo-y-se-incumple-en-el-de-al-lado) | Una regla que nombra un archivo se cumple en ese archivo y se incumple en el de al lado | 2026-09-07 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1326,3 +1327,36 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   señalable, Y»—, no como una sola orden. **(2)** Cuando se renegocie de todas formas, **lo decide
   quien no lo escribio** —aqui, el usuario— y va a `decisions.md` con las alternativas descartadas.
   Un pre-compromiso renegociado por su propio autor no dejo de existir: nunca existio.
+
+---
+
+### L-035 - Una regla que nombra un archivo se cumple en ese archivo y se incumple en el de al lado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `F-059` abrio el hueco de las ordenes publicadas con `<hash>` sin anclar. `S-024` lo
+  cerro: el Paso 7c-bis anclo `decisions.md`, y `D-096` amplio la convencion a «toda orden que se
+  escriba en **este archivo**». En la misma pasada, esa sesion dejo doce ordenes con `<hash>` en
+  `tasks.md` — el archivo de al lado, con bloques identicos. Lo encontro `F-067` una auditoria
+  despues (`D-102`).
+- **Que ocurrio, en concreto:** la ampliacion se escribio con el vocabulario del sitio donde dolia.
+  «Toda orden **de este archivo**» suena a generalizacion —pasa de un bloque a un archivo entero—, y
+  por eso se leyo como si cerrara el asunto. Lo que hacia era mover la frontera un paso, dejandola
+  igual de arbitraria.
+- **Leccion:** **al ampliar una regla, la pregunta no es «¿que mas cabe en este archivo?», sino
+  «¿que otro sitio tiene la misma forma?».** Un defecto que aparece en un bloque de un archivo esta
+  casi siempre en todos los archivos que usan ese bloque; la ampliacion que se queda en el archivo
+  donde salio produce la sensacion de haber cerrado el agujero y deja abierto el de al lado.
+- **Por que cuesta verlo desde dentro:** el que amplia la regla acaba de corregir el caso concreto y
+  lo tiene delante; el archivo vecino no esta en el diff, ni en el hallazgo, ni en la conversacion.
+  La unica cosa que los une es la **forma** del bloque, y la forma no aparece en ningun barrido que
+  busque por nombre.
+- **Como aplicarla:** dos cosas concretas. **(1)** Al ampliar una regla que nace de un hallazgo,
+  antes de escribirla se corre el barrido de su patron **sobre todo el repositorio**, no sobre el
+  archivo del hallazgo: si el patron aparece en otro sitio, o entra en la regla o queda como
+  excepcion escrita. **(2)** La regla se enuncia por la **forma** del artefacto —«todo bloque
+  Criterio de cierre»—, y solo despues se lista donde vive hoy. Enunciada por el nombre del archivo,
+  caduca el dia que nace el segundo.

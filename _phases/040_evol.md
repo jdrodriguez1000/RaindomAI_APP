@@ -391,9 +391,22 @@ Gate. Aqui la declaracion del Paso 7 se escribe **en cada iteracion** y no la ju
 auditoria: separarla de su iteracion crearia un artefacto suelto por vuelta del bucle sin nada que lo
 ate al trabajo que describe.
 
-🚨 **A la fecha de escribir este archivo, ni esas plantillas ni ese reparto existen.** Decirlo aqui
-es parte de la condicion: un archivo de etapa que exige dos artefactos sin decir que faltan deja al
-lector suponiendo que estan.
+🚨 **Estado de los dos: las plantillas ya existen; el reparto todavia no.** Decirlo aqui es parte
+de la condicion: un archivo de etapa que exige dos artefactos sin decir cual falta deja al lector
+suponiendo que estan los dos.
+
+| Artefacto | Estado | Que falta para poder abrir la etapa |
+|---|---|---|
+| `_templates/040_evol/` — las dos plantillas de registro | **escritas** | nada por este lado |
+| `_workflow/040_evol.md` — el reparto del trabajo | **no existe** | escribirlo, y adoptarlo con su `D-XXX` |
+
+⚠️ **Falta uno, luego la condicion sigue sin cumplirse.** Los dos son condicion de entrada y la
+condicion es conjunta: mientras el reparto no exista, la etapa no puede abrirse aunque sus cinco
+entradas de §3 esten completas.
+
+🔑 **Esta linea se actualiza cuando el estado cambie, y por eso no lleva fecha.** Es un campo de
+estado dentro de un procedimiento vivo, no una nota fechada del registro: lo que no se puede es que
+diga que faltan dos cuando falta uno.
 
 ⚠️ **Es la condicion que mas facil se salta, porque no la senala nadie.** Las cinco entradas de §3 se
 echan en falta al buscarlas; estas dos no las trae nadie, y su ausencia solo se nota **despues**,

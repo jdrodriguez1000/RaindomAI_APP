@@ -20,6 +20,7 @@
 | [A-008](#a-008---los-huecos-de-codigo-que-dejan-las-plantillas-del-crecimiento-seran-rellenables-cuando-la-etapa-se-abra) | Los huecos de codigo que dejan las plantillas del crecimiento seran rellenables cuando la etapa se abra | 2026-09-05 | Abierto |
 | [A-009](#a-009---_phases-y-_workflow-podran-seguir-en-cero-codigos-instanciados-sin-perder-nada) | `_phases/` y `_workflow/` podran seguir en cero codigos instanciados sin perder nada | 2026-09-06 | Abierto |
 | [A-010](#a-010---el-anclaje-del-paso-7c-bis-se-queda-en-mecanico-y-no-se-desliza-a-escribir-el-porque) | El anclaje del Paso 7c-bis se queda en mecanico y no se desliza a escribir el porque | 2026-09-06 | Refutado |
+| [A-011](#a-011---el-paso-7c-bis-podra-seguir-escribiendo-solo-en-dos-archivos-porque-los-criterios-de-cierre-no-nacen-en-otros) | El Paso 7c-bis podra seguir escribiendo solo en dos archivos, porque los criterios de cierre no nacen en otros | 2026-09-07 | Abierto |
 
 ---
 
@@ -581,3 +582,58 @@ git show <commit-de-anclaje> -- _persistence/decisions.md
 > ⛔ **Y la consecuencia que este supuesto dejo escrita NO se cumple, a proposito.** Decia «la
 > excepcion se retira» y «no se acota con una excepcion nueva». Se ha acotado. **Eso es renegociar un
 > pre-compromiso, y no se disimula: se registra con su razon en `D-099`, y lo zanjo el usuario.**
+
+---
+
+### A-011 - El Paso 7c-bis podra seguir escribiendo solo en dos archivos, porque los criterios de cierre no nacen en otros
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | `manager` |
+
+- **Supuesto:** `D-101` y `D-102` dejan el Paso 7c-bis con **deteccion universal y escritura acotada**:
+  el barrido de la nota de la seccion 7 recorre todos los archivos de `_persistence` y `_audit`, pero
+  lo que el paso puede anclar sigue siendo `decisions.md` y `tasks.md`. Eso da por cierto que **los
+  bloques «Criterio de cierre» no van a nacer en ningun otro archivo** — que ninguna entrada de
+  `constraints.md`, `assumptions.md`, `lessons.md` o `techdebt.md` va a publicar una orden con
+  `<hash>` que necesite anclarse despues del commit.
+- **Por que se supone, y no se afirma:** hoy es cierto y se comprobo, pero es cierto **por costumbre,
+  no por regla**. Ninguna convencion prohibe que una entrada de `constraints.md` publique manana un
+  criterio con su orden; al contrario, la convencion de `decisions.md` que `D-096` estreno hace que
+  publicar ordenes ancladas sea **lo normal**, y esa costumbre se contagia. Verificado contra el arbol
+  de esta sesion, antes de escribir el barrido:
+
+```
+$ for f in _persistence/*.md _audit/*.md; do n=$(grep -cE '^\$ .*<hash>' "$f"); [ "$n" != "0" ] && echo "$f: $n"; done
+_persistence/decisions.md: 22
+_persistence/tasks.md: 28
+_audit/S-017.md: 1
+_audit/S-024.md: 1
+```
+
+  Los dos de `_audit/` son listados de la seccion 7, que citan ordenes ajenas y no son criterios de
+  cierre. Fuera de `decisions.md` y `tasks.md` no hay ninguno — **hoy**.
+
+- **Sobre que se construyo encima:** sobre esto se construyo el control que cierra la nota de la
+  seccion 7. Si el supuesto falla, el control **hace exactamente lo que debe** —senala el archivo y
+  el paso se detiene—, asi que el fallo no es silencioso. Lo que se paga es que el cierre se para y
+  hay que decidir en el momento: ampliar la autorizacion del paso, o mover el criterio a un archivo
+  que si la tenga.
+- **Por que se acota la escritura en vez de ampliarla ya:** ampliar la excepcion a los cuatro
+  archivos del porque por si acaso es justo lo que `A-010` vigila. `CLAUDE.md` se los prohibe al
+  `session-closer` con una razon, y `tasks.md` entro porque **ya era suyo**, no porque hiciera falta
+  sitio. Un permiso concedido para un caso que aun no ha ocurrido no se puede retirar despues, porque
+  nadie sabra si se estaba usando.
+- **Como se refuta:** el barrido de la nota de la seccion 7 devuelve una linea de un archivo distinto
+  de `_persistence/decisions.md` y `_persistence/tasks.md`.
+
+```
+$ for f in $(git ls-tree -r --name-only <commit> _persistence _audit | grep -v '_audit/S-'); do n=$(git show <commit>:"$f" | grep -cE '^\$ .*<hash>'); [ "$n" != "0" ] && echo "$f: $n"; done
+```
+
+- **Disparador:** cada cierre de sesion, en el Paso 7c. No hace falta ir a mirarlo aparte: el control
+  ya corre ahi, y su salida vacia **es** la confirmacion de este supuesto en esa pasada.
+- **Y por eso este supuesto no necesita fecha limite.** Se comprueba solo, una vez por sesion, en el
+  sitio donde importa. Lo que hay que hacer el dia que falle esta escrito arriba.

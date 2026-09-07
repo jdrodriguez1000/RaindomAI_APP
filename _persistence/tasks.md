@@ -109,6 +109,11 @@
 | [T-098](#t-098---ampliar-el-ancla-a-toda-orden-de-decisionsmd-f-063) | Ampliar el ancla a toda orden de `decisions.md` (`F-063`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-099](#t-099---autorizar-en-el-paso-7c-bis-la-reescritura-de-forma-y-exigir-que-la-nota-cuente-f-064) | Autorizar en el Paso 7c-bis la reescritura de forma, y exigir que la nota cuente (`F-064`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-100](#t-100---dar-nombres-distintos-a-head-y-al-commit-auditado-en-la-seccion-0-del-informe-f-065) | Dar nombres distintos a `HEAD` y al commit auditado en la seccion 0 del informe (`F-065`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-101](#t-101---fijar-que-dice-la-nota-de-anclaje-de-la-seccion-7-del-informe-f-066) | Fijar que dice la nota de anclaje de la seccion 7 del informe (`F-066`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-102](#t-102---ampliar-el-ancla-del-paso-7c-bis-a-tasksmd-f-067) | Ampliar el ancla del Paso 7c-bis a `tasks.md` (`F-067`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-103](#t-103---exigir-que-el-recuento-accesorio-del-paso-2d-lleve-su-orden-y-corregir-el-de-s-024-f-068) | Exigir que el recuento accesorio del Paso 2d lleve su orden, y corregir el de `S-024` (`F-068`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-104](#t-104---exigir-la-linea-en-blanco-antes-del-separador-y-anadir-las-dos-que-faltaban-f-069) | Exigir la linea en blanco antes del separador, y anadir las dos que faltaban (`F-069`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-105](#t-105---escribir-el-reparto-de-trabajo-de-la-etapa-de-la-evolucion-_workflow040_evolmd) | Escribir el reparto de trabajo de la etapa de la evolucion (`_workflow/040_evol.md`) | No implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -163,6 +168,21 @@ indistinguible de saltarse la regla — y entonces la regla deja de existir. Lo 
 `session-closer`.
 
 🚨 **El indice se escribe a mano, sin generador.** Cada fila enlaza por ancla a su tarea.
+
+🚨 **El bloque «Criterio de cierre» de una tarea lleva su orden anclada al commit, igual que en
+`decisions.md`.** Lo abrio `F-067`: las tareas nacidas en una sesion publican su criterio con
+`<hash>` literal —el commit todavia no existe cuando se escriben—, y hasta `D-102` nadie las
+anclaba. `<hash>` no es un commit: quien quiera contrastar la Definicion de Terminado tiene que
+adivinar cual.
+
+🔑 **Quien lo ancla es el Paso 7c-bis de `protocol-close`, despues del commit**, en la misma pasada
+en que ancla `decisions.md`. Aqui no hay excepcion que justificar: este archivo ya es del
+`session-closer`, asi que anclar lo que el mismo escribio es terminar su trabajo, no invadir el de
+`manager`.
+
+⚠️ **Rige hacia adelante** (`D-019`). Las ordenes con `<hash>` ya publicadas en tareas de sesiones
+anteriores **no se reescriben**: se corrigen por nota fechada, republicando la misma orden anclada
+con la salida que devuelve.
 
 ---
 
@@ -4153,7 +4173,26 @@ $ git show <hash>:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p
 1
 ```
 
+
+📌 **Nota del 2026-09-07 (`F-067`, `R-024`) — las tres ordenes de arriba se publicaron con `<hash>`
+literal y nadie las anclo.** Mismo motivo y misma solucion que en `T-100` (`D-102`). Republicadas
+ancladas a `a1f5fa8`:
+
+```
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'La frontera es el bloque de codigo'
+1
+
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'NO se actualiza a pasado'
+1
+
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -c 'Las cuatro ordenes se corren sobre el arbol de trabajo'
+1
+```
+
+Las tres reproducen exactamente lo publicado arriba.
+
 ---
+
 
 ### T-098 - Ampliar el ancla a toda orden de `decisions.md` (`F-063`)
 | Campo | Valor |
@@ -4214,7 +4253,26 @@ $ git show <hash>:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p
 2
 ```
 
+
+📌 **Nota del 2026-09-07 (`F-067`, `R-024`) — las tres ordenes de arriba se publicaron con `<hash>`
+literal y nadie las anclo.** Mismo motivo y misma solucion que en `T-100` (`D-102`). Republicadas
+ancladas a `a1f5fa8`:
+
+```
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'es de toda orden que se escriba en este'
+1
+
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c '`HEAD` no se escribe nunca dentro de una orden'
+1
+
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -c '^> \$ git show 20ef118:_persistence/decisions\.md'
+2
+```
+
+Las tres reproducen exactamente lo publicado arriba.
+
 ---
+
 
 ### T-099 - Autorizar en el Paso 7c-bis la reescritura de forma, y exigir que la nota cuente (`F-064`)
 | Campo | Valor |
@@ -4253,7 +4311,26 @@ $ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'declara el r
 📌 **La segunda devuelve `0` a proposito:** es la frase que el hallazgo señalaba, y su desaparicion
 es la correccion. Es la unica de las tres que se comprueba por ausencia.
 
+
+📌 **Nota del 2026-09-07 (`F-067`, `R-024`) — las tres ordenes de arriba se publicaron con `<hash>`
+literal y nadie las anclo.** Mismo motivo y misma solucion que en `T-100` (`D-102`). Republicadas
+ancladas a `a1f5fa8`:
+
+```
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'la forma anclada contesta lo mismo que contestaba la original'
+1
+
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | sed -n '/^### 7c-bis/,/^### 7d/p' | grep -c 'un `ls`, un `git status`'
+0
+
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'declara el recuento real del bloque, contandolo'
+1
+```
+
+Las tres reproducen exactamente lo publicado arriba, incluido el `0` que se comprueba por ausencia.
+
 ---
+
 
 ### T-100 - Dar nombres distintos a `HEAD` y al commit auditado en la seccion 0 del informe (`F-065`)
 | Campo | Valor |
@@ -4286,3 +4363,219 @@ $ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Llamar `HEAD
 $ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'estado que `<hash auditado>` dejo'
 1
 ```
+
+📌 **Nota del 2026-09-07 (`F-067`, `R-024`) — las tres ordenes de arriba se publicaron con `<hash>`
+literal y nadie las anclo.** El Paso 7c-bis solo miraba `decisions.md`; `D-102` lo amplia a este
+archivo hacia adelante. Las de aqui no se reescriben (`D-019`): se republican ancladas a `a1f5fa8`,
+el commit de `S-024`, con la salida que devuelven.
+
+```
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'En esta seccion hay DOS commits'
+1
+
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'Llamar `HEAD` al commit auditado'
+1
+
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'estado que `<hash auditado>` dejo'
+1
+```
+
+Las tres reproducen exactamente lo publicado arriba.
+
+---
+
+### T-101 - Fijar que dice la nota de anclaje de la seccion 7 del informe (`F-066`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-025 |
+
+- **Que:** el Paso 7c exige anclar cuatro sitios «los cuatro juntos», y el cierre de `S-024` anclo
+  tres. La seccion 7 del informe quedo remitiendo a una nota de cierre que nunca se escribio.
+  `F-066`, aceptado (`D-101`).
+- **Como:** `protocol-close` gana en el Paso 7c el recuadro «Que dice la nota de la seccion 7,
+  exactamente» —el hash, el recuento por archivo con sus dos ordenes, y la frase que cierra el
+  pendiente—, y la plantilla de la seccion 7 del informe pide esa nota. El barrido recorre **todos**
+  los archivos de `_persistence` y `_audit`, no dos nombrados, y tiene que salir vacio; si senala uno
+  que el Paso 7c-bis no tiene autorizado tocar, el paso **no lo ancla**: se detiene y lo reporta.
+- **Por que un puntero y no una copia.** Las ordenes que la seccion 7 lista quedan ancladas en
+  `decisions.md` y `tasks.md`, con su salida; republicarlas en el informe seria una tercera copia
+  —la que nadie recomprueba, que es justo la que `F-068` muestra desfasada—.
+- **La seccion 7 de `_audit/S-024.md` no se reescribe** (`D-019`): la nota que falto ese dia no se
+  escribe hoy fingiendo que se escribio entonces.
+- **Criterio de cierre:** el recuadro existe, dice que la nota no republica las ordenes, publica las
+  barrido, y la plantilla del informe la pide.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Que dice la nota de la seccion 7, exactamente'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'No republica las ordenes: dice donde quedaron ancladas'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'El barrido es de TODOS los archivos'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'NOTA DE CIERRE, la escribe el Paso 7c despues del commit'
+1
+```
+
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre — que desde `D-102` alcanza tambien a este archivo.
+
+---
+
+### T-102 - Ampliar el ancla del Paso 7c-bis a `tasks.md` (`F-067`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-025 |
+
+- **Que:** tras el commit de anclaje de `S-024`, `decisions.md` no conservaba ni una orden sin anclar
+  y `tasks.md` conservaba doce, en los bloques «Criterio de cierre» de `T-097` a `T-100`. `F-067`,
+  aceptado (`D-102`).
+- **Como:** el Paso 7c-bis pasa a nombrar los dos archivos, da la orden de localizacion de cada uno,
+  y declara que `tasks.md` entra en el commit de anclaje. La convencion de `tasks.md` gana el parrafo
+  que exige el ancla y remite al paso.
+- **Por que aqui la excepcion no se amplia.** El Paso 7c-bis es excepcional porque `CLAUDE.md` prohibe
+  al `session-closer` escribir en los cuatro archivos del porque. `tasks.md` ya es suyo: lo escribe
+  entero en el Paso 5. Anclar ahi termina su propio trabajo.
+- **Las doce ordenes ya publicadas no se reescriben** (`D-019`): se republican ancladas a `a1f5fa8`
+  por nota fechada, una por tarea. Las doce reproducen lo que sus bloques publican, incluido el `0`
+  de `T-099` que se comprueba por ausencia.
+- **Criterio de cierre:** el paso nombra los dos archivos, la convencion lo exige, y las doce ordenes
+  estan republicadas ancladas.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS archivos, no uno'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Y `tasks.md` entra en el commit de anclaje'
+1
+
+$ git show <hash>:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tareas/p' | grep -c 'lleva su orden anclada al commit, igual que en'
+1
+
+$ git show <hash>:_persistence/tasks.md | grep -cE '^\$ git show a1f5fa8:'
+12
+```
+
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-103 - Exigir que el recuento accesorio del Paso 2d lleve su orden, y corregir el de `S-024` (`F-068`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-025 |
+
+- **Que:** la seccion 7 de `_audit/S-024.md` publica «Ordenes distintas, aparte: 41 — no hubo
+  repeticion», y `sort -u` devuelve 31. `F-068`, aceptado (`D-103`).
+- **Como:** el Paso 2d gana el parrafo que exige que la segunda cifra vaya con su propia orden y su
+  salida cruda, con las dos tuberias escritas al lado; la plantilla de la seccion 7 lo pide. La
+  afirmacion de `S-024` se corrige por nota fechada en su sitio, republicando las dos ordenes
+  ancladas a `a1f5fa8` con sus salidas (41 y 31).
+- **La duplicacion en si no es un defecto.** `decisions.md` y `tasks.md` publican la misma orden a
+  proposito, y el Paso 2d prohibe deduplicar la lista. Lo que fallo fue la frase que decia que no se
+  repetia.
+- **La linea 207 no se reescribe** (`D-019`).
+- **Criterio de cierre:** el Paso 2d lo exige, la plantilla lo pide, y la nota fechada esta en el
+  informe con sus dos salidas.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Y si se da esa segunda cifra, va con SU orden y su salida cruda'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la cifra accesoria no se estima'
+1
+
+$ git show <hash>:_audit/S-024.md | grep -c 'el recuento accesorio de arriba es falso: son 31, no'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-104 - Exigir la linea en blanco antes del separador, y anadir las dos que faltaban (`F-069`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-025 |
+
+- **Que:** en `D-098` y `D-099` la nota del Paso 7c-bis quedo pegada al `---` que separa entradas. En
+  Markdown eso no es una regla horizontal: es un encabezado setext de nivel 2, y el separador
+  desaparece. `F-069`, aceptado (`D-104`).
+- **Como:** se anade la linea en blanco que faltaba en las dos entradas —dos lineas vacias, cero
+  lineas borradas—, y el Paso 7c-bis gana el aviso con su ejemplo, ademas de la mencion en la tabla
+  de lo que el paso puede hacer.
+- **Por que esto no es reescribir** (`D-019`): no cambia una palabra, un caracter visible ni un
+  numero. Repara el render de un texto que se queda igual.
+- **Criterio de cierre:** ninguna nota del archivo queda pegada al separador, y el paso lo exige con
+  su ejemplo.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -A1 '^publicado arriba\.$' | grep -c '^---$'
+0
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'deja una linea en blanco entre la nota y el'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea en blanco es obligatoria'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-105 - Escribir el reparto de trabajo de la etapa de la evolucion (`_workflow/040_evol.md`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-025 |
+
+- **Que:** `_phases/040_evol.md` §5 declara **dos** condiciones de entrada que no son trabajo de
+  dentro de la etapa: sus plantillas y su archivo de reparto. `D-105` escribio las plantillas; el
+  reparto sigue sin existir, y la condicion es **conjunta**: mientras falte, la etapa no puede
+  abrirse aunque sus cinco entradas de §3 esten completas.
+- **Por que se escribe a mano y no la deduce el cierre** (`D-025`): un archivo que **falta** no
+  produce ninguna linea de `git diff`. El `session-closer` arranca en frio y solo ve archivos; una
+  ausencia no la ve nadie salvo quien la decidio dejar.
+- **Como:** una fila por paso del procedimiento de la etapa —los ocho—, aplicando `team.md` y
+  `ai_levels.md` a sus actividades, con el mismo formato que los archivos de reparto de las etapas ya
+  declaradas. Y su adopcion va aparte, en `decisions.md`: **leer la tabla no reparte nada.**
+- **No es urgente y por eso no es bloqueante.** La etapa esta a dos Gates de distancia y ni siquiera
+  adoptada. Lo que si es, es **invisible**: `R-024` §5 lo recomendo precisamente para que no se
+  descubriera el dia que la etapa arranque.
+- **Criterio de cierre:** el archivo existe, tiene una fila por paso del procedimiento, y su adopcion
+  tiene su `D-XXX` en el registro.
+
+```
+$ git ls-tree --name-only <hash> _workflow/
+<pendiente: la orden se corre cuando la tarea se implemente>
+```
+
+⚠️ **El bloque de arriba no es evidencia de nada todavia**, y se marca asi a proposito: la tarea esta
+`No implementada`. Se rellena con su orden anclada y su salida el dia que se cierre.

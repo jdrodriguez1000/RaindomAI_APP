@@ -318,6 +318,25 @@ interesa cuantas ordenes distintas hay, ese numero se da **aparte y con ese nomb
 recuento de la salida. Dos cifras con dos nombres se contrastan; una cifra con el nombre de la otra
 no reproduce, y quien la reejecute no puede saber si se equivoco el informe o cambio el repositorio.
 
+🚨 **Y si se da esa segunda cifra, va con SU orden y su salida cruda — no se estima.** Lo abrio
+`F-068`: el informe publico «Ordenes distintas, aparte: 41 — no hubo repeticion; `sort -u` sobre la
+misma lista tambien devuelve 41», y `sort -u` devolvia 31. La cifra principal estaba bien; la
+accesoria se escribio sin correrla, y es justamente la que nadie recomprueba.
+
+```bash
+# la principal: LINEAS devueltas
+git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md" \
+  | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+
+# la accesoria: ORDENES DISTINTAS — misma tuberia, con `sort -u` antes de contar
+git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md" \
+  | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+```
+
+⚠️ **Que las dos cifras difieran NO es un defecto.** `decisions.md` y `tasks.md` publican la misma
+orden a proposito, y por eso sale dos veces. Lo unico que falla es afirmar que no se repite sin
+haberlo contado.
+
 🚨 **Y la orden se publica en la forma que reproduce contra el commit, que no es la que se corrio.**
 El paso corre sobre el area de staging, cuando el informe todavia no existe; una vez commiteado, esa
 misma orden encuentra tambien las ordenes citadas **dentro del propio informe** y devuelve mucho mas.
@@ -949,6 +968,11 @@ equivalencia anclada al commit>
 <si la lista salio vacia, se publica igual: la orden y su salida vacia>
 <y si se anota de que archivo sale cada orden, esa procedencia se DERIVA del diff, nunca se
 escribe a mano: se pega la orden que la produce y su salida cruda>
+<y si se da el recuento de ordenes distintas, va con SU PROPIA orden (`| sort -u | wc -l`) y su
+salida cruda: la cifra accesoria no se estima>
+<NOTA DE CIERRE, la escribe el Paso 7c despues del commit: el hash, cuantas ordenes iban con
+`<hash>` y en que archivos quedaron ancladas por el 7c-bis, con el barrido de todos los archivos y su
+salida — que tiene que salir vacia —, y la frase que dice que no queda ninguna sin anclar>
 
 ## 8. Evidencia del Paso 2e
 <la orden del barrido de caracteres de control sobre los archivos que el commit toca, y su salida
@@ -1190,14 +1214,51 @@ juntos, en un unico commit de anclaje**:
 |---|---|---|
 | **Cabecera** del informe, campo `Commit auditado` | el **hash literal** del commit sustantivo | `git log -1 --format=%h` justo despues del commit del Paso 7 |
 | **Seccion 1** del informe, nota de cierre | la lista de archivos anclada al commit | `git show --stat --name-only --format= <hash>` |
-| **Seccion 7** del informe, nota de cierre | las ordenes del Paso 2d reejecutadas sobre el commit | las del propio Paso 2d, en su forma anclada |
-| **`decisions.md`**, bloque «Criterio de cierre» de **las decisiones nacidas en esta sesion** | las mismas ordenes, reejecutadas ancladas, con su salida | ver **7c-bis**, justo debajo |
+| **Seccion 7** del informe, nota de cierre | la **nota de anclaje** de la lista del Paso 2d — ver el recuadro de abajo | `git rev-parse --short HEAD` justo despues del commit del Paso 7 |
+| **`decisions.md`** y **`tasks.md`**, bloques «Criterio de cierre» de **las entradas nacidas en esta sesion** | las mismas ordenes, reejecutadas ancladas, con su salida | ver **7c-bis**, justo debajo |
 
 🚨 **Los cuatro, o ninguno.** Anclar la seccion 7 y dejar la 1 y la cabecera sin anclar es el
 defecto que abrio `F-052` y `F-053`: el informe queda con una parte reproducible y otra que describe
-un area de staging que ya no existe, y **ninguna regla escrita dice cual manda**.
+un area de staging que ya no existe, y **ninguna regla escrita dice cual manda**. Dejar la seccion 7
+sin anclar y anclar las otras tres es el mismo defecto por su otra cara, y es lo que abrio `F-066`.
 
-### 7c-bis — Los criterios de cierre de las decisiones de esta sesion
+### Que dice la nota de la seccion 7, exactamente
+
+🔑 **No republica las ordenes: dice donde quedaron ancladas y cuantas son.** Cada orden que
+la seccion 7 lista con `<hash>` sale del diff de `decisions.md` o de `tasks.md`, y el Paso 7c-bis la
+ancla **en su archivo de origen**, con su salida cruda pegada debajo. Copiarlas otra vez al informe
+crearia una tercera copia de la misma evidencia — la que nadie recomprueba, que es justo la que se
+desfasa.
+
+⚠️ **Pero un puntero solo vale si es comprobable**, y por eso la nota lleva las tres cosas:
+
+1. **el hash** del commit sustantivo, derivado con la orden de la tabla, nunca supuesto;
+2. **cuantas** de las ordenes listadas iban con `<hash>` y **en que archivos** quedaron ancladas,
+   con el barrido que lo comprueba y su salida cruda — que tiene que salir vacia;
+3. **la frase que cierra el pendiente**: que ya no queda ninguna orden de la lista sin forma anclada,
+   o cuales quedan y por que.
+
+```bash
+for f in $(git ls-tree -r --name-only <hash> _persistence _audit | grep -v '_audit/S-XXX.md'); do
+  n=$(git show <hash>:"$f" | grep -cE '^\$ .*<hash>')
+  [ "$n" != "0" ] && echo "$f: $n"
+done
+```
+
+⛔ **La orden va con su salida, y esa salida tiene que estar VACIA.** Una linea significa que queda
+una orden sin anclar, y entonces la nota no puede decir que no queda ninguna: **se detiene y se
+reporta**, como cualquier otra discrepancia de este paso.
+
+🚨 **El barrido es de TODOS los archivos, no de los dos que el 7c-bis escribe, y esa asimetria
+es deliberada.** Detectar es universal; **escribir sigue acotado a `decisions.md` y `tasks.md`**. Si
+la salida senala un tercer archivo, el paso **no lo ancla**: se detiene y lo reporta, porque anclar
+un archivo que este paso no tiene autorizado a tocar seria ampliar la excepcion por su cuenta.
+
+🔑 **Y se escribe asi porque la version anterior nombraba los dos archivos, que es el defecto
+que `L-035` describe:** una regla enunciada por el nombre del archivo se cumple ahi y se incumple en
+el de al lado — exactamente como nacio `F-067`. El propio control lo habria repetido.
+
+### 7c-bis — Los criterios de cierre de las entradas de esta sesion
 
 🔑 **Es el mismo huevo-y-gallina, en otro archivo.** `D-088` exige que la orden de un
 «Criterio de cierre» vaya **anclada al commit**; pero cuando `manager` escribe la decision, durante
@@ -1210,16 +1271,34 @@ solucion es la que ya funciona para el informe — se ancla **aqui**, cuando el 
 excepcion no la toca. **Lo que haces aqui es mecanico y no pide ni un dato de la jornada:** coges una
 orden **ya escrita**, le pones el ancla, la corres, y pegas lo que devolvio.
 
-**Como se localiza que hay que anclar:**
+🚨 **Son DOS archivos, no uno: `decisions.md` y `tasks.md`.** Lo abrio `F-067`. Este paso nacio
+mirando solo `decisions.md`, y en la sesion en que se estreno dejo doce ordenes con `<hash>` literal
+en `tasks.md`, en los bloques «Criterio de cierre» de las tareas que cerraban hallazgos. Es el mismo
+hecho de `F-059`, desplazado de archivo: **la evidencia que respalda una Definicion de Terminado no
+es ejecutable si `<hash>` no es un commit.**
+
+🔑 **Y `tasks.md` es mas facil de justificar que `decisions.md`, no menos.** El unico motivo por el
+que este paso es una excepcion es que `CLAUDE.md` te prohibe escribir en los cuatro archivos del
+porque; `tasks.md` **ya es tuyo**, lo escribes entero en el Paso 5. Anclar ahi no es una excepcion:
+es terminar tu propio trabajo.
+
+**Como se localiza que hay que anclar, en los dos archivos:**
 
 ```bash
 git show <hash>:_persistence/decisions.md \
   | awk '/^### D-/{d=$2} /Criterio de cierre/{f=1} /^---$/{f=0} f&&/^\$ /{print d" | "$0}'
+
+git show <hash>:_persistence/tasks.md \
+  | awk '/^### T-/{d=$2} /Criterio de cierre/{f=1} /^---$/{f=0} f&&/^\$ /{print d" | "$0}'
 ```
 
-De esa lista, **solo tocas las decisiones nacidas en esta sesion** — las que el Paso 2 te dio como
-nuevas en el diff. Una decision de una sesion anterior **no se toca**: su bloque ya esta auditado, y
-reescribirlo es lo que `D-019` prohibe.
+De esa lista, **solo tocas las entradas nacidas en esta sesion** — las que el Paso 2 te dio como
+nuevas en el diff. Una decision o una tarea de una sesion anterior **no se toca**: su bloque ya esta
+auditado, y reescribirlo es lo que `D-019` prohibe.
+
+⚠️ **Y `tasks.md` entra en el commit de anclaje**, igual que `decisions.md` y el informe. El barrido
+de la nota de la seccion 7 (Paso 7c) recorre **todos** los archivos y tiene que salir vacio; si
+senala un tercero, este paso **no lo ancla**: se detiene y lo reporta.
 
 **Que puedes hacer, y que no:**
 
@@ -1227,7 +1306,7 @@ reescribirlo es lo que `D-019` prohibe.
 |---|---|
 | sustituir `<orden> <archivo>` por su forma anclada (`git show <hash>:<archivo> \| <orden>`) | cambiar **que** comprueba la orden |
 | pegar debajo la salida cruda que devolvio | escribir, alterar o borrar **una sola palabra de prosa** |
-| anadir una linea diciendo que el anclaje es de este paso | tocar `assumptions.md`, `constraints.md` o `lessons.md`, que no tienen este bloque |
+| anadir una linea diciendo que el anclaje es de este paso, **con una linea en blanco antes del `---`** | tocar `assumptions.md`, `constraints.md` o `lessons.md`, que no tienen este bloque |
 | detenerte y reportarlo si algo no cuadra | «arreglar» un criterio que no reproduce |
 
 🚨 **La frontera es el bloque de codigo, y hay que decirla asi porque «no tocar prosa» no basto.**
@@ -1242,6 +1321,17 @@ el aspecto que tiene cumplir la regla. Reescribirlo lo haria parecer escrito des
 
 🔑 **La linea que si puedes anadir va SIEMPRE debajo del bloque, nunca en lugar de nada.** Se anade;
 no sustituye. Si al escribirla estas borrando algo, te has salido del paso.
+
+🚨 **Y deja una linea en blanco entre la nota y el `---` que separa entradas.** Lo abrio `F-069`.
+En Markdown, un `---` pegado a una linea de texto **no es una regla horizontal: es un encabezado
+setext de nivel 2**. La nota se renderiza como titulo y el separador entre entradas desaparece. Es
+invisible en el archivo plano y salta a la vista en cuanto alguien lo lea renderizado.
+
+```text
+📌 **Ancladas por el Paso 7c-bis al commit `<hash>`.** Las tres reproducen lo publicado arriba.
+                                     <-- esta linea en blanco es obligatoria
+---
+```
 
 ⚠️ **Y esa linea declara el recuento real del bloque, contandolo.** Si al anclar el numero de
 ordenes cambio —porque una orden sobre varios archivos se partio, o dos se unieron—, la linea dice

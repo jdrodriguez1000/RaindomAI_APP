@@ -77,10 +77,10 @@
 | [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Implementado |
 | [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Implementado |
 | [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Implementado |
-| [F-066](#f-066---la-seccion-7-del-informe-se-quedo-sin-su-nota-de-anclaje-que-el-paso-7c-exige-y-el-propio-informe-promete) | La seccion 7 del informe se quedo sin su nota de anclaje, que el Paso 7c exige y el propio informe promete | R-024 | Media | Abierto |
-| [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Abierto |
-| [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Abierto |
-| [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Abierto |
+| [F-066](#f-066---la-seccion-7-del-informe-se-quedo-sin-su-nota-de-anclaje-que-el-paso-7c-exige-y-el-propio-informe-promete) | La seccion 7 del informe se quedo sin su nota de anclaje, que el Paso 7c exige y el propio informe promete | R-024 | Media | Aceptado — pendiente |
+| [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Aceptado — pendiente |
+| [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Aceptado — pendiente |
+| [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -3598,8 +3598,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-101` (`D-101`) |
 | Cerrado en | |
 
 - **Que se observo:** el Paso 7c de `protocol-close` ancla cuatro sitios «los cuatro juntos», y el
@@ -3619,8 +3619,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-102` (`D-102`) |
 | Cerrado en | |
 
 - **Que se observo:** tras el commit de anclaje, `decisions.md` no conserva ninguna orden con
@@ -3640,8 +3640,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-103` (`D-103`) |
 | Cerrado en | |
 
 - **Que se observo:** el informe escribe «Ordenes distintas, aparte: 41 - no hubo repeticion; `sort
@@ -3661,8 +3661,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-024 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-104` (`D-104`) |
 | Cerrado en | |
 
 - **Que se observo:** en `D-095`, `D-096` y `D-097` la nota de anclaje deja una linea en blanco antes

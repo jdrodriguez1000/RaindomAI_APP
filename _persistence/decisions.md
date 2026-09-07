@@ -109,6 +109,11 @@
 | [D-098](#d-098---head-y-el-commit-auditado-se-nombran-cada-uno-por-lo-que-son) | `HEAD` y el commit auditado se nombran cada uno por lo que son | 2026-09-07 | Vigente | report_auditor |
 | [D-099](#d-099---a-010-se-refuta-y-su-consecuencia-escrita-no-se-cumple-se-acota-en-vez-de-retirar) | `A-010` se refuta, y su consecuencia escrita NO se cumple: se acota en vez de retirar | 2026-09-07 | Vigente | usuario |
 | [D-100](#d-100---el-archivo-de-etapa-de-la-evolucion-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa de la evolucion se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-07 | Vigente | usuario |
+| [D-101](#d-101---la-nota-de-la-seccion-7-no-republica-las-ordenes-dice-donde-quedaron-ancladas-y-lo-cuenta) | La nota de la seccion 7 no republica las ordenes: dice donde quedaron ancladas, y lo cuenta | 2026-09-07 | Vigente | report_auditor |
+| [D-102](#d-102---el-ancla-del-paso-7c-bis-alcanza-tambien-a-tasksmd-no-solo-a-decisionsmd) | El ancla del Paso 7c-bis alcanza tambien a `tasks.md`, no solo a `decisions.md` | 2026-09-07 | Vigente | report_auditor |
+| [D-103](#d-103---el-recuento-accesorio-del-paso-2d-va-con-su-propia-orden-y-su-salida-o-no-se-escribe) | El recuento accesorio del Paso 2d va con su propia orden y su salida, o no se escribe | 2026-09-07 | Vigente | report_auditor |
+| [D-104](#d-104---la-nota-del-paso-7c-bis-deja-una-linea-en-blanco-antes-del-separador-y-la-que-falto-se-anade) | La nota del Paso 7c-bis deja una linea en blanco antes del separador, y la que falto se anade | 2026-09-07 | Vigente | report_auditor |
+| [D-105](#d-105---las-dos-plantillas-de-la-evolucion-se-escriben-ahora-el-reparto-queda-pendiente-y-el-archivo-de-etapa-lo-dice) | Las dos plantillas de la evolucion se escriben ahora; el reparto queda pendiente y el archivo de etapa lo dice | 2026-09-07 | Vigente | usuario |
 
 ---
 
@@ -5950,6 +5955,7 @@ existe.** Las ancla el Paso 7c-bis del cierre.
 
 📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las tres reproducen exactamente lo
 publicado arriba.
+
 ---
 
 ### D-099 - `A-010` se refuta, y su consecuencia escrita NO se cumple: se acota en vez de retirar
@@ -6039,6 +6045,7 @@ existe.** Las ancla el Paso 7c-bis del cierre — el mismo paso del que trata es
 
 📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las tres reproducen exactamente lo
 publicado arriba.
+
 ---
 
 ### D-100 - El archivo de etapa de la evolucion se escribe por adelantado, y la etapa NO queda adoptada
@@ -6155,3 +6162,350 @@ en vez de al disco, que no tiene version.
 
 📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las nueve reproducen exactamente lo
 publicado arriba.
+
+---
+
+### D-101 - La nota de la seccion 7 no republica las ordenes: dice donde quedaron ancladas, y lo cuenta
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-066` (`R-024`) encontro que el Paso 7c de `protocol-close` enumera cuatro sitios
+  que se anclan «los cuatro juntos», y el cierre de `S-024` anclo tres: la cabecera y la seccion 1
+  del informe y `decisions.md`. La seccion 7 quedo intacta, con 38 de sus 41 ordenes declaradas «no
+  reproducibles todavia» remitiendo a una nota de cierre que nunca se escribio. Verificado contra
+  `HEAD` (`8959da8`), sobre el estado que `a1f5fa8` dejo:
+
+```
+$ git show 9c82d59 -- _audit/S-024.md | grep -E '^@@'
+@@ -6,7 +6,7 @@
+@@ -46,6 +46,26 @@ commit ya hecho la pega el Paso 7c en la nota de cierre de esta seccion (junto c
+
+$ git show 8959da8:_audit/S-024.md | grep -n 'las publica la nota de cierre'
+259:como **no reproducibles todavia**; su forma anclada y su salida real las publica la nota de cierre
+```
+
+  Los dos hunks caen en la cabecera (linea 6) y en la seccion 1 (linea 46) de un informe de 315
+  lineas; la seccion 7 empieza mucho despues. El hallazgo se sostiene entero.
+
+- **Evaluacion: correcto.** Es la mitad de espejo del defecto de `F-052` y `F-053` —alli se anclo la
+  seccion 7 y se dejaron sin anclar la 1 y la cabecera—, y la regla «los cuatro, o ninguno» se
+  cumplio en tres de cuatro.
+- **Decision:** se conserva el cuarto sitio, **pero se fija que la nota NO republica las ordenes**.
+  Dice tres cosas: el hash derivado con su orden; cuantas ordenes iban con `<hash>` y en que archivos
+  quedaron ancladas por el Paso 7c-bis, con el barrido que lo comprueba y su salida; y la frase que
+  cierra el pendiente. El barrido recorre **todos** los archivos de `_persistence` y `_audit` y tiene
+  que salir vacio; si senala uno que el Paso 7c-bis no tiene autorizado tocar, el paso **no lo
+  ancla**: se detiene y lo reporta (`T-101`).
+- **Por que el barrido no nombra archivos, aunque la escritura si.** La primera version de este
+  control listaba `decisions.md` y `tasks.md` por su nombre — el mismo defecto que `L-035` acaba de
+  describir en esta misma sesion, y que es como nacio `F-067`. Un control enunciado por el nombre del
+  archivo pasa en verde el dia que aparece el archivo de al lado. **Detectar es universal; escribir
+  sigue acotado**, y esa asimetria es deliberada: anclar un archivo que el Paso 7c-bis no tiene
+  autorizado tocar seria ampliar la excepcion por su cuenta, que es lo que `A-010` vigila. Lo que
+  queda vivo de esa acotacion se registra en `A-011`.
+- **Por que un puntero y no una copia.** Toda orden que la seccion 7 lista con `<hash>` sale del diff
+  de `decisions.md` o de `tasks.md`, y el Paso 7c-bis la ancla **en su archivo de origen** con su
+  salida cruda debajo. Republicarla en el informe seria una **tercera** copia de la misma evidencia —
+  y `F-068`, abierto en esta misma auditoria, muestra exactamente que le pasa a la copia que nadie
+  recomprueba: se desfasa y nadie lo nota.
+- **Por que entonces no se retira el cuarto sitio, que era la otra opcion que `R-024` ofrecia.**
+  Porque el pendiente es real: el informe declara 38 ordenes «no reproducibles todavia» y alguien
+  tiene que decir que dejaron de serlo. Sin esa frase, quien lea el informe no sabe si el anclaje
+  ocurrio. Lo que sobraba no era el sitio: era suponer que el sitio pedia una copia.
+- **La seccion 7 de `_audit/S-024.md` no se reescribe** (`D-019`): la nota que falto ese dia no se
+  escribe hoy fingiendo que se escribio entonces. La regla rige hacia adelante.
+- **Alternativas descartadas:** (1) **republicar las 41 ordenes ancladas en la seccion 7** —
+  descartada por lo de arriba: tercera copia, y la mas cara de mantener; (2) **retirar el cuarto
+  sitio de la tabla** — descartada: deja el «no reproducibles todavia» sin nadie que lo cierre;
+  (3) **anclar la seccion 7 y quitar el anclaje de `decisions.md`** — descartada: mueve la evidencia
+  lejos de la entrada que la usa, que es justo lo que `D-092` resolvio.
+- **Reversible a criterio** —texto en un archivo de procedimiento versionado, sin efecto fuera del
+  repositorio—. Criterio declarado, no leido de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 7c describe el contenido de la nota, publica las dos ordenes de
+  recuento, y la plantilla de la seccion 7 del informe la pide.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Que dice la nota de la seccion 7, exactamente'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'No republica las ordenes: dice donde quedaron ancladas'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'El barrido es de TODOS los archivos'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'NOTA DE CIERRE, la escribe el Paso 7c despues del commit'
+1
+```
+
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-102 - El ancla del Paso 7c-bis alcanza tambien a `tasks.md`, no solo a `decisions.md`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-067` (`R-024`) encontro que, tras el commit de anclaje de `S-024`, `decisions.md`
+  no conserva ni una orden sin anclar y `tasks.md` conserva doce — los bloques «Criterio de cierre»
+  de `T-097` a `T-100`. Verificado contra `HEAD` (`8959da8`):
+
+```
+$ git show 8959da8:_persistence/decisions.md | grep -cE '^\$ .*git show <hash>:'
+0
+
+$ git show 8959da8:_persistence/tasks.md | grep -cE '^\$ .*git show <hash>:'
+12
+```
+
+- **Evaluacion: correcto, y es el mismo hecho de `F-059` desplazado de archivo.** El Paso 7c-bis se
+  declara limitado a `decisions.md`, y `D-096` —nacida en esa misma sesion justo para ampliar el
+  ancla— la amplia a «toda orden que se escriba en **este archivo**», que sigue siendo `decisions.md`.
+  `tasks.md` no estaba en ninguna de las dos. La sesion cerro el agujero en un archivo y lo dejo
+  abierto en el de al lado, en la misma pasada.
+- **Decision:** el Paso 7c-bis pasa a anclar **los dos archivos**, `tasks.md` entra en el commit de
+  anclaje, y la convencion de `tasks.md` gana el parrafo que lo exige (`T-102`).
+- **Por que `tasks.md` es mas facil de justificar que `decisions.md`, no menos.** El unico motivo por
+  el que este paso es una excepcion es que `CLAUDE.md` prohibe al `session-closer` escribir en los
+  cuatro archivos del porque. `tasks.md` **ya es suyo**: lo escribe entero en el Paso 5. Anclar ahi
+  no amplia ninguna excepcion — termina su propio trabajo.
+- **Las doce ordenes ya publicadas no se reescriben** (`D-019`): se republican ancladas a `a1f5fa8`
+  por nota fechada, una por tarea, con la salida que devuelven. Las doce reproducen exactamente lo
+  que sus bloques publican, incluido el `0` de `T-099` que se comprueba por ausencia.
+- **Alternativas descartadas:** (1) **declarar por escrito que `tasks.md` NO entra** — la otra opcion
+  que `R-024` ofrecia; descartada porque no hay razon que la sostenga: la Definicion de Terminado de
+  `PI-5` vive precisamente en esos bloques, y dejarla inejecutable es peor ahi que en `decisions.md`;
+  (2) **que `manager` las ancle a mano al evaluar** — descartada: repite el trabajo cada sesion y
+  depende de que alguien se acuerde, que es como nacio `F-059`; (3) **abrir una `DT-XXX`** —
+  descartada: la correccion es un parrafo en la skill y otro en la convencion.
+- **Reversible a criterio** —texto en un procedimiento y en una convencion, ambos versionados—.
+  Criterio declarado, no leido de una tabla.
+- **Criterio de cierre:** el Paso 7c-bis nombra los dos archivos y da la orden de localizacion de
+  cada uno, la convencion de `tasks.md` exige el ancla, y las doce ordenes de `T-097` a `T-100`
+  estan republicadas ancladas.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS archivos, no uno'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Y `tasks.md` entra en el commit de anclaje'
+1
+
+$ git show <hash>:_persistence/tasks.md | sed -n '/^## Convenciones/,/^## Tareas/p' | grep -c 'lleva su orden anclada al commit, igual que en'
+1
+
+$ git show <hash>:_persistence/tasks.md | grep -cE '^\$ git show a1f5fa8:'
+12
+```
+
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-103 - El recuento accesorio del Paso 2d va con su propia orden y su salida, o no se escribe
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-068` (`R-024`) encontro que la seccion 7 de `_audit/S-024.md` publica «Ordenes
+  distintas, aparte: 41 — no hubo repeticion; `sort -u` sobre la misma lista tambien devuelve 41», y
+  `sort -u` devuelve 31. Verificado contra `HEAD` (`8959da8`), sobre el estado que `a1f5fa8` dejo:
+
+```
+$ git diff a1f5fa8^ a1f5fa8 -U0 -- _persistence _audit/findings.md _audit/index.md | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+41
+
+$ git diff a1f5fa8^ a1f5fa8 -U0 -- _persistence _audit/findings.md _audit/index.md | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+31
+
+$ git show 8959da8:_audit/S-024.md | sed -n '207p'
+Recuento de LINEAS devueltas: **41**. (Ordenes distintas, aparte: 41 — no hubo repeticion; `sort -u`
+```
+
+- **Evaluacion: correcto.** La cifra principal (41) esta bien; la accesoria se escribio sin correrla.
+  Diez ordenes salen dos veces —una en `decisions.md`, otra en `tasks.md`—, y la propia lista
+  numerada del informe exhibia los diez pares.
+- **Decision:** el Paso 2d pasa a exigir que, **si se da la segunda cifra, vaya con su propia orden y
+  su salida cruda**, y la plantilla de la seccion 7 lo pide. La afirmacion falsa de `S-024` se corrige
+  por nota fechada en su sitio, republicando las dos ordenes ancladas (`T-103`).
+- **Por que falla la accesoria y no la principal, y por que eso importa.** El recuento principal lo
+  mira el auditor primero y se recomprueba solo. La cifra de al lado, que ademas viene con una
+  conclusion pegada —«no hubo repeticion»—, es justamente la que nadie recorre. Un registro que
+  publica como comprobado algo que no se corrio es el defecto que `F-064` acababa de cobrar en esta
+  misma serie.
+- **La duplicacion en si NO es un defecto y no se corrige.** `decisions.md` y `tasks.md` publican la
+  misma orden a proposito, y el Paso 2d prohibe expresamente deduplicar la lista. Lo unico que fallo
+  fue la frase que decia que no se repetia.
+- **La linea 207 no se reescribe** (`D-019`): la nota fechada va al final de la seccion 7, con las dos
+  ordenes ancladas a `a1f5fa8` y sus salidas.
+- **Alternativas descartadas:** (1) **prohibir la segunda cifra** — descartada: es informacion util, y
+  el Paso 2d ya explica por que dos cifras con dos nombres se contrastan bien; (2) **corregir el `41`
+  por `31` en la linea 207** — descartada por `D-019` y porque ese archivo esta dentro de un commit ya
+  auditado: reescribirlo dejaria a `R-024` citando un texto que ya no existe.
+- **Reversible a criterio** —una nota anadida y un parrafo en un procedimiento—. Criterio declarado,
+  no leido de una tabla.
+- **Criterio de cierre:** el Paso 2d exige la orden de la cifra accesoria, la plantilla la pide, y la
+  nota fechada esta en el informe con sus dos salidas.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Y si se da esa segunda cifra, va con SU orden y su salida cruda'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la cifra accesoria no se estima'
+1
+
+$ git show <hash>:_audit/S-024.md | grep -c 'el recuento accesorio de arriba es falso: son 31, no'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-104 - La nota del Paso 7c-bis deja una linea en blanco antes del separador, y la que falto se anade
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-069` (`R-024`) encontro que en `D-098` y `D-099` la nota que anadio el Paso 7c-bis
+  quedo pegada al `---` que separa entradas, mientras que en `D-095`, `D-096` y `D-097` si dejo la
+  linea en blanco. Verificado contra `HEAD` (`8959da8`):
+
+```
+$ git show 8959da8:_persistence/decisions.md | grep -A1 '^publicado arriba\.$' | grep -c '^---$'
+2
+```
+
+- **Evaluacion: correcto, y el efecto es real, no cosmetico.** En Markdown un `---` inmediatamente
+  debajo de una linea de texto no es una regla horizontal: es un **encabezado setext de nivel 2**. Las
+  dos notas se renderizan como titulo, y los separadores entre `D-098`/`D-099` y `D-099`/`D-100`
+  desaparecen. Es invisible en el archivo plano y salta a la vista al leerlo renderizado.
+- **Decision:** se anade la linea en blanco que falta en las dos entradas, y el Paso 7c-bis pasa a
+  exigirla al describir donde va la nota (`T-104`).
+- **Por que aqui SI se toca una entrada ya commiteada, y `D-019` no lo impide.** `D-019` prohibe
+  reescribir lo que se dijo; esto no cambia una sola palabra, un solo caracter visible ni un solo
+  numero: anade dos lineas vacias para que el archivo se lea como ya decia. El diff lo demuestra
+  —cero lineas borradas, dos insertadas, las dos vacias—. Reescribir es sustituir un texto por otro;
+  esto es reparar el render de un texto que se queda igual.
+- **Alternativas descartadas:** (1) **dejarlo y corregir solo hacia adelante** — descartada: el
+  defecto no es una afirmacion desfasada que convenga preservar como testimonio, es un error de
+  render que oculta dos separadores hoy; (2) **corregirlo por nota fechada** — descartada por
+  desproporcionada: una nota explicando dos lineas vacias cuesta mas atencion que el defecto;
+  (3) **cambiar el separador de entradas a otra marca** — descartada: toca las 104 entradas y todos
+  los barridos que buscan `^---$`.
+- **Reversible a criterio** —dos lineas en blanco en un archivo versionado, revertibles con un
+  `git checkout`—. Criterio declarado, no leido de una tabla.
+- **Criterio de cierre:** ninguna nota del archivo queda pegada al separador, y el Paso 7c-bis lo
+  exige con su ejemplo.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -A1 '^publicado arriba\.$' | grep -c '^---$'
+0
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'deja una linea en blanco entre la nota y el'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea en blanco es obligatoria'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-105 - Las dos plantillas de la evolucion se escriben ahora; el reparto queda pendiente y el archivo de etapa lo dice
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-100` escribio `_phases/040_evol.md` por adelantado y declaro en su §5 que las
+  plantillas de la etapa y su archivo de reparto son **condicion de entrada**, no trabajo de dentro
+  de la etapa — y que a esa fecha **no existia ninguno de los dos**. `R-024` lo recomendo ademas como
+  tarea visible. El usuario pide escribir ahora las plantillas.
+- **Decision:** se escriben las **dos** plantillas que §5 nombra —`_templates/040_evol/005_iteration_NNN.md`
+  y `_templates/040_evol/010_slice_NNN.md`—, y la linea de estado de §5 pasa a decir cual de los dos
+  artefactos existe y cual no, en vez de decir que faltan los dos.
+- **Por que dos y no tres.** §5 lo fija: la declaracion del Paso 7 —metrica y ventana— **vive dentro**
+  del acta de iteracion, no en un artefacto propio. En la etapa anterior la ventana de observacion si
+  tenia plantilla suya porque se escribia **una vez** para toda la etapa y la juzgaba un Gate; aqui se
+  escribe **en cada vuelta** y no la juzga nadie mas que la auditoria. Separarla crearia un artefacto
+  suelto por iteracion sin nada que lo ate al trabajo que describe.
+- **Por que la del Paso 7 ocupa su propia seccion dentro del acta, y no una fila mas.** Es el unico
+  control que queda en pie despues del ultimo Gate, y su valor entero esta en **la fecha**: una
+  metrica escrita despues de ver los datos es indistinguible de una escrita antes si no hay campo de
+  fecha. Por eso la seccion pide fecha de declaracion, valor de partida y umbral, y los tres se
+  escriben con los datos aun sin llegar.
+- **Lo que las dos plantillas anaden respecto a las de la etapa anterior**, que es de donde se parte:
+  la **evidencia de uso** como columna obligatoria de lo que entra; la tabla de recuperacion de la
+  lista del «no» con su columna de evidencia **nueva**; las tres decisiones de deuda sin «ya veremos»;
+  la cosecha por iteracion; las cuatro condiciones del Paso 8 con la decision de **no** abrir otra; y,
+  en el acta de unidad, los **dos** recuentos de la bateria de tests —antes y al cerrar— porque aqui
+  la regresion es un riesgo que en el crecimiento no existia.
+- **Lo que NO se hace en esta sesion, y se dice para que no se suponga:** `_workflow/040_evol.md`. La
+  condicion de entrada de §5 es conjunta, asi que **sigue sin cumplirse**: la etapa no puede abrirse.
+  Escribirlo es un trabajo distinto —reparte actividades entre humano, software e IA, y su adopcion
+  pide su propia decision—, y hacerlo de paso, sin pedirlo, seria decidir un reparto por el usuario.
+- **La etapa sigue SIN adoptar.** `D-100` no la adopto y esto tampoco: adoptarla exige su `D-XXX` y su
+  fila en `project.md`, y declarar las etapas posteriores es trabajo de la etapa de descubrimiento.
+  Que existan sus plantillas no la acerca ni un paso a estar adoptada.
+- **Por que la linea de estado de §5 se actualiza en vez de corregirse por nota fechada.** `D-019`
+  protege **el registro**: lo que se afirmo en `decisions.md`, en un informe o en una auditoria no se
+  reescribe, porque su valor esta en decir que se sabia y cuando. Un archivo de etapa es un
+  **procedimiento vivo**, y esa linea es un **campo de estado** dentro de el —igual que la skill que
+  esta sesion ha editado cuatro veces—. Una nota fechada al lado de un campo de estado obliga a leer
+  dos cosas para saber una; y dejarlo como estaba haria que el archivo afirmase que faltan dos
+  artefactos cuando falta uno, que es una afirmacion comprobablemente falsa.
+- **Alternativas descartadas:** (1) **escribir tambien `_workflow/040_evol.md`** — descartada por lo
+  de arriba: no se pidio, y el reparto es una decision del usuario, no un relleno; (2) **una tercera
+  plantilla para la declaracion del Paso 7** — descartada, §5 la excluye con su razon; (3) **copiar
+  las de la etapa del crecimiento y ajustarlas** — descartada: comparten mecanica pero no fuente de
+  trabajo ni riesgo, y una copia ajustada arrastra el vocabulario del alcance cerrado a una etapa que
+  no lo tiene; (4) **dejar la linea de §5 como estaba y anotar el desfase en `progress.md`** —
+  descartada: quien lee el archivo de etapa para saber si puede abrirla no pasa por `progress.md`.
+- **Reversible a criterio** —dos archivos nuevos sin nada que dependa de ellos, y un parrafo de un
+  archivo de etapa—, sin efecto fuera del repositorio. Criterio declarado, no leido de una tabla
+  (`T-037` sigue abierta).
+- **Criterio de cierre:** las dos plantillas existen con la estructura de sus hermanas, la del acta de
+  iteracion lleva dentro la declaracion del Paso 7 con sus cuatro campos, la del acta de unidad lleva
+  el control de regresion, las dos son agnosticas, y el archivo de etapa declara el estado de los dos
+  artefactos.
+
+```
+$ git ls-tree --name-only <hash> _templates/040_evol/
+_templates/040_evol/005_iteration_NNN.md
+_templates/040_evol/010_slice_NNN.md
+
+$ git show <hash>:_templates/040_evol/005_iteration_NNN.md | grep -cE '^(QUE SE ANADE|QUE SE ESPERA|METRICA|VENTANA):'
+4
+
+$ git show <hash>:_templates/040_evol/010_slice_NNN.md | grep -c 'La regresion — lo que esta etapa anade y la anterior no tenia'
+1
+
+$ git show <hash>:_templates/040_evol/005_iteration_NNN.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+0
+
+$ git show <hash>:_templates/040_evol/010_slice_NNN.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+0
+
+$ git show <hash>:_phases/040_evol.md | grep -c 'Estado de los dos: las plantillas ya existen; el reparto todavia no'
+1
+```
+
+⚠️ **Las seis ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
