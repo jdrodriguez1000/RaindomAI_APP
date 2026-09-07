@@ -6586,13 +6586,18 @@ _persistence/tasks.md: 14
   fechada de `F-070` esta en `_audit/S-025.md` con sus dos salidas.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos barridos se publican SIEMPRE en su forma anclada'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la nota nombra el commit al que corresponde su salida'
-$ git show <hash>:_audit/S-025.md | grep -c 'el barrido de arriba se etiqueta'
+$ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos barridos se publican SIEMPRE en su forma anclada'
+1
+$ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -c 'la nota nombra el commit al que corresponde su salida'
+1
+$ git show d1a8c02:_audit/S-025.md | grep -c 'el barrido de arriba se etiqueta'
+1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `d1a8c02`.** Las tres reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6707,13 +6712,18 @@ proximo que amplie el barrido volveria a empezar por la primera.
   parada es la del control.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS barridos, y lo que puede detener el paso es el segundo'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La condicion de parada es del CONTROL'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -cE 'Barrido [12].*el (CENSO|CONTROL)'
+$ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -c 'Son DOS barridos, y lo que puede detener el paso es el segundo'
+1
+$ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -c 'La condicion de parada es del CONTROL'
+1
+$ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -cE 'Barrido [12].*el (CENSO|CONTROL)'
+2
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `d1a8c02`.** Las tres reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6762,12 +6772,16 @@ $ git diff -U0 f1f2291^ f1f2291 -- _persistence _audit ":(exclude)_audit/S-025.m
   sus salidas.
 
 ```
-$ git show <hash>:_audit/S-025.md | grep -c 'el recuento accesorio de arriba es falso: son 22'
-$ git show <hash>:_audit/S-025.md | grep -c 'las filas 3-15 y 22-34 son las'
+$ git show d1a8c02:_audit/S-025.md | grep -c 'el recuento accesorio de arriba es falso: son 22'
+1
+$ git show d1a8c02:_audit/S-025.md | grep -c 'las filas 3-15 y 22-34 son las'
+1
 ```
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `d1a8c02`.** Las dos reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6830,12 +6844,16 @@ $ git show 3bf61d4:_audit/S-025.md | sed -n '/^\$ for f in \$(git ls-tree -r --n
   su tabla de tres cifras, y el punto 3 del recuadro exige construir la frase con las salidas.
 
 ```
-$ git show <hash>:_audit/S-025.md | grep -c 'la frase de cierre de arriba contradice a la nota'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'no recontando a'
+$ git show d1a8c02:_audit/S-025.md | grep -c 'la frase de cierre de arriba contradice a la nota'
+1
+$ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -c 'no recontando a'
+1
 ```
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `d1a8c02`.** Las dos reproducen exactamente lo publicado arriba.
 
 ---
 
@@ -6906,11 +6924,17 @@ existe.** Las ancla el Paso 7c-bis del cierre.
   que esta escrito y sin adoptar.
 
 ```
-$ git show <hash>:_workflow/040_evol.md | grep -cE '^\| \*\*[1-8] · '
-$ git show <hash>:_workflow/040_evol.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
-$ git show <hash>:_phases/040_evol.md | grep -c '_workflow/040_evol'
-$ git show <hash>:_phases/040_evol.md | grep -c 'escrito, sin adoptar'
+$ git show d1a8c02:_workflow/040_evol.md | grep -cE '^\| \*\*[1-8] · '
+8
+$ git show d1a8c02:_workflow/040_evol.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+0
+$ git show d1a8c02:_phases/040_evol.md | grep -c '_workflow/040_evol'
+2
+$ git show d1a8c02:_phases/040_evol.md | grep -c 'escrito, sin adoptar'
+1
 ```
 
 ⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `d1a8c02`.** Las cuatro reproducen exactamente lo publicado arriba.
