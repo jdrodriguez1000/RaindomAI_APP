@@ -73,10 +73,10 @@
 | [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Implementado |
 | [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Implementado |
 | [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Implementado |
-| [F-062](#f-062---la-primera-ejecucion-del-paso-7c-bis-borro-prosa-en-d-092-que-el-propio-paso-prohibe-literalmente) | La primera ejecucion del Paso 7c-bis borro prosa en `D-092`, que el propio paso prohibe literalmente | R-023 | Media | Abierto |
-| [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Abierto |
-| [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Abierto |
-| [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Abierto |
+| [F-062](#f-062---la-primera-ejecucion-del-paso-7c-bis-borro-prosa-en-d-092-que-el-propio-paso-prohibe-literalmente) | La primera ejecucion del Paso 7c-bis borro prosa en `D-092`, que el propio paso prohibe literalmente | R-023 | Media | Aceptado — pendiente |
+| [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Aceptado — pendiente |
+| [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Aceptado — pendiente |
+| [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -3501,8 +3501,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-097` |
 | Cerrado en | |
 
 - **Que se observo:** el Paso 7c-bis, nacido en `b83ce5e`, escribe «no puedes escribir, alterar o
@@ -3524,8 +3524,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-098` |
 | Cerrado en | |
 
 - **Que se observo:** la verificacion previa de `D-092` —la que `CLAUDE.md` exige para toda decision
@@ -3548,8 +3548,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-099` |
 | Cerrado en | |
 
 - **Que se observo:** el Paso 7c-bis nombra `un ls` como ejemplo de orden **no anclable**, que «se
@@ -3572,8 +3572,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-100` |
 | Cerrado en | |
 
 - **Que se observo:** `_audit/S-023.md` (linea 19) afirma que los tres hallazgos «se verificaron

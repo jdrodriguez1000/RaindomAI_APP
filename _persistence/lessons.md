@@ -41,6 +41,8 @@
 | [L-030](#l-030---una-nota-que-explica-de-donde-sale-un-cambio-filtra-codigos-y-la-buena-intencion-es-lo-que-la-hace-invisible) | Una nota que explica de donde sale un cambio filtra codigos, y la buena intencion es lo que la hace invisible | 2026-09-06 | 000_preproject | Sin evaluar |
 | [L-031](#l-031---un-guion-que-abre-el-archivo-para-escribir-antes-de-tener-el-contenido-lo-destruye-si-falla) | Un guion que abre el archivo para escribir antes de tener el contenido lo destruye si falla | 2026-09-06 | 000_preproject | Sin evaluar |
 | [L-032](#l-032---el-repositorio-mezcla-finales-de-linea-y-una-sustitucion-literal-falla-sin-decir-por-que) | El repositorio mezcla finales de linea, y una sustitucion literal falla sin decir por que | 2026-09-06 | 000_preproject | Sin evaluar |
+| [L-033](#l-033---una-autorizacion-para-sustituir-texto-necesita-un-borde-que-se-vea-no-una-prohibicion-al-lado) | Una autorizacion para sustituir texto necesita un borde que se vea, no una prohibicion al lado | 2026-09-07 | 000_preproject | Sin evaluar |
+| [L-034](#l-034---un-pre-compromiso-que-no-distingue-el-fallo-total-del-parcial-se-renegocia-en-su-primera-aplicacion) | Un pre-compromiso que no distingue el fallo total del parcial se renegocia en su primera aplicacion | 2026-09-07 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1266,3 +1268,61 @@ _audit/index.md                                    LF
 ⚠️ **Y no se arregla normalizando el repositorio.** Cambiar el final de linea de un archivo lo marca
 entero como modificado en el `git diff`, y eso sepultaria el cambio real de esa sesion bajo miles de
 lineas — que es exactamente lo que la auditoria necesita poder leer.
+---
+
+### L-033 - Una autorizacion para sustituir texto necesita un borde que se vea, no una prohibicion al lado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** el Paso 7c-bis del cierre autoriza sustituir una cosa —la orden vieja por su forma
+  anclada— y prohibe tocar otra —la prosa—. Las dos frases estaban escritas, juntas, en la misma
+  tabla. Su **primera ejecucion** borro tres lineas de prosa (`F-062`).
+- **Que ocurrio, en concreto:** el ejecutor no ignoro la prohibicion. Sustituyo un `⚠️` por un `📌`
+  que hablaba **del mismo asunto**, dentro de la **misma entrada** que estaba anclando, y eso se
+  parece mucho a la sustitucion que si tenia autorizada. En la entrada de al lado, en la misma
+  pasada, el mismo paso lo hizo bien.
+- **Leccion:** **cuando un procedimiento autoriza sustituir texto, lo que hace falta no es repetir
+  mas fuerte que hay cosas que no se tocan: es decir DONDE termina la zona de sustitucion, con un
+  limite visible en el propio archivo.** «No toques la prosa» es una categoria que hay que deducir
+  mirando cada linea; «solo dentro del bloque de codigo» es un borde que se ve sin pensar.
+- **Por que es peligroso mas alla de la anecdota:** un limite que hay que deducir se deduce bien casi
+  siempre, y ese «casi» es indistinguible del cumplimiento hasta que alguien audita. **Cumplirlo la
+  mitad de las veces produce exactamente la misma sensacion que cumplirlo entero** para quien lo
+  ejecuta.
+- **Como aplicarla:** al escribir un paso que autorice modificar un archivo ajeno, la autorizacion se
+  formula por **region sintactica** —dentro de este bloque, entre estas marcas, en esta tabla—, nunca
+  por **categoria semantica** —«lo mecanico si, el porque no»—. Y si la region no se puede nombrar
+  asi, es señal de que el paso todavia no esta acotado.
+
+---
+
+### L-034 - Un pre-compromiso que no distingue el fallo total del parcial se renegocia en su primera aplicacion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** `A-010` supuso que una excepcion nueva no se desbordaria, y escribio de antemano que
+  hacer si se desbordaba: **retirarla**, con la frase «no se acota con una excepcion nueva». Se
+  refuto en su primera oportunidad (`F-062`). Y no se retiro: se acoto (`D-099`).
+- **Que ocurrio, en concreto:** la refutacion real no fue la que el supuesto imaginaba. `A-010`
+  pensaba en un limite que no se sostiene; lo que hubo fue un limite que se cumplio en una entrada y
+  fallo en la de al lado, **en la misma pasada**, por una causa señalable. El pre-compromiso estaba
+  escrito para el primer caso y se aplicaba, por su letra, tambien al segundo.
+- **Leccion:** **un pre-compromiso vale por lo que impide, no por lo que ordena — y lo que impide es
+  que la decision se tome en silencio.** Escribir la consecuencia por adelantado sigue siendo
+  correcto; lo que hay que esperar es que el dia que se dispare aparezca un caso que no se previo, y
+  **entonces la disciplina no es obedecer la letra: es no poder renegociarla sin dejar rastro.**
+- **Por que es peligroso mas alla de la anecdota:** el que renegocia es siempre la parte que se
+  beneficia, y siempre tiene un argumento razonable —lo tuvo aqui—. Un pre-compromiso que se
+  renegocia **sin registro** desaparece sin que nadie lo note; uno que se renegocia con su decision,
+  su razon y la firma de quien lo zanjo sigue costando algo, que es todo lo que se le puede pedir.
+- **Como aplicarla:** dos cosas concretas. **(1)** Al escribir un supuesto, la consecuencia se
+  redacta con el grado del fallo dentro —«si falla siempre, X; si falla una vez y la causa es
+  señalable, Y»—, no como una sola orden. **(2)** Cuando se renegocie de todas formas, **lo decide
+  quien no lo escribio** —aqui, el usuario— y va a `decisions.md` con las alternativas descartadas.
+  Un pre-compromiso renegociado por su propio autor no dejo de existir: nunca existio.

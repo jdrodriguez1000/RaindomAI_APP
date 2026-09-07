@@ -103,6 +103,12 @@
 | [D-092](#d-092---el-anclaje-de-un-criterio-de-cierre-lo-hace-el-cierre-despues-del-commit) | El anclaje de un criterio de cierre lo hace el cierre, despues del commit | 2026-09-06 | Vigente | report_auditor |
 | [D-093](#d-093---la-fecha-de-una-sesion-es-la-del-commit-que-la-cierra) | La fecha de una sesion es la del commit que la cierra | 2026-09-06 | Vigente | report_auditor |
 | [D-094](#d-094---nace-el-gate-2-y-se-comprueba-por-el-historial-no-por-marcas-en-los-artefactos) | Nace el Gate 2, y se comprueba por el historial, no por marcas en los artefactos | 2026-09-06 | Vigente | usuario |
+| [D-095](#d-095---lo-que-el-paso-7c-bis-reescribe-vive-dentro-del-bloque-de-codigo-la-prosa-nunca-se-toca) | Lo que el Paso 7c-bis reescribe vive dentro del bloque de codigo; la prosa nunca se toca | 2026-09-07 | Vigente | report_auditor |
+| [D-096](#d-096---el-ancla-es-de-toda-orden-que-se-escriba-en-decisionsmd-no-solo-la-del-criterio-de-cierre) | El ancla es de toda orden que se escriba en `decisions.md`, no solo la del criterio de cierre | 2026-09-07 | Vigente | report_auditor |
+| [D-097](#d-097---el-paso-7c-bis-puede-reescribir-la-forma-de-una-orden-si-conserva-la-pregunta-y-su-nota-cuenta) | El Paso 7c-bis puede reescribir la forma de una orden si conserva la pregunta, y su nota cuenta | 2026-09-07 | Vigente | report_auditor |
+| [D-098](#d-098---head-y-el-commit-auditado-se-nombran-cada-uno-por-lo-que-son) | `HEAD` y el commit auditado se nombran cada uno por lo que son | 2026-09-07 | Vigente | report_auditor |
+| [D-099](#d-099---a-010-se-refuta-y-su-consecuencia-escrita-no-se-cumple-se-acota-en-vez-de-retirar) | `A-010` se refuta, y su consecuencia escrita NO se cumple: se acota en vez de retirar | 2026-09-07 | Vigente | usuario |
+| [D-100](#d-100---el-archivo-de-etapa-de-la-evolucion-se-escribe-por-adelantado-y-la-etapa-no-queda-adoptada) | El archivo de etapa de la evolucion se escribe por adelantado, y la etapa NO queda adoptada | 2026-09-07 | Vigente | usuario |
 
 ---
 
@@ -132,6 +138,34 @@ criterio se escribe en tres partes, siempre las tres:
 ⛔ **Un criterio de cierre con la orden y sin la salida no es evidencia**: obliga a rehacer el
 barrido a quien lo lea, que es exactamente el coste que la regla existe para evitar. Y un criterio
 sin anclar reproduce el dia que se escribe y deja de reproducir en cuanto el archivo crece.
+
+🚨 **El ancla no es del bloque «Criterio de cierre»: es de toda orden que se escriba en este
+archivo.** Lo abrio `F-063`: `D-092` publico su bloque «Contexto» —la verificacion que
+`CLAUDE.md` exige antes de aceptar un hallazgo— con dos ordenes sobre `HEAD`, y hoy devuelven `33`
+y `12` donde publican `18` y `2`. La conclusion sigue siendo cierta; lo que se perdio es la prueba,
+que es lo unico que hacia auditable la aceptacion.
+
+🔑 **Y aqui no hay huevo-y-gallina que resolver, a diferencia del criterio de cierre.** Una
+verificacion previa se corre sobre un commit que **ya existe** —el `HEAD` de ese momento—, asi que
+el hash literal se puede escribir en el acto. **Es el unico bloque que el Paso 7c-bis del cierre no
+necesita arreglar despues, porque nace bien.**
+
+⛔ **`HEAD` no se escribe nunca dentro de una orden publicada.** `HEAD` es un puntero que se mueve
+con cada commit: la orden que lo usa contesta una pregunta distinta cada dia, y la salida pegada
+debajo deja de ser su salida. Se resuelve con `git rev-parse --short HEAD` **antes** de escribirla,
+y lo que va al archivo es el hash.
+
+⚠️ **Lo que si se escribe es que ese hash era `HEAD`**, con las dos cosas nombradas por lo que son:
+«verificado contra `HEAD` (`<hash>`)». Un commit no es `HEAD` porque lo diga una frase — lo es
+porque lo era en ese momento, y confundirlo con el commit que una auditoria juzgaba es lo que abrio
+`F-065`.
+
+⚠️ **Rige hacia adelante.** Las ordenes ya publicadas con `HEAD` **no se reescriben** (`D-019`): se
+corrigen por nota fechada, republicando la misma orden anclada con la salida que devuelve.
+
+⚠️ **Y no aplica a ordenes que preguntan por lo que el commit no contiene** —`git status`, `date`,
+el arbol de trabajo—. Esas se dejan como estan; el criterio de que es anclable y que no lo detalla
+el Paso 7c-bis de `protocol-close`, y es el mismo.
 
 ⚠️ **El titulo nombra la decision, no su consecuencia**, y no cambia despues.
 
@@ -5368,6 +5402,81 @@ $ git show b83ce5e:_persistence/decisions.md | grep -cE '^> .+ \*\*Nota del 2026
 que la propia decision crea). Las cuatro reproducen exactamente lo publicado arriba sobre el arbol
 de trabajo.
 
+> 📌 **Nota del 2026-09-07 (`F-062`, `F-063` y `F-064`, sesion S-024).** Tres correcciones sobre
+> esta entrada. **Nada de lo de arriba se reescribe** (`D-019`): lo que la primera ejecucion del Paso
+> 7c-bis dejo escrito se queda tal cual, incluida la linea que dice «Las cuatro».
+>
+> **1. (`F-062`) Aqui habia tres lineas de prosa, y el cierre las borro.** El Paso 7c-bis prohibe
+> literalmente «escribir, alterar o borrar una sola palabra de prosa», y su primera ejecucion
+> sustituyo el `⚠️` que esta decision llevaba debajo de su bloque. El texto borrado era este, y **se
+> repone aqui, no alli**:
+>
+> > ⚠️ **Las cuatro ordenes se corren sobre el arbol de trabajo, y el Paso 7c-bis que esta misma
+> > decision crea las anclara al commit** — es el primer caso al que se aplica la regla. Los numeros
+> > de linea de la primera son los que mas se mueven, y por eso el anclaje importa.
+>
+> 🔑 **La comparacion con `D-093` es la que prueba que fue un error de ejecucion y no de regla:** en
+> la misma pasada y en el mismo commit, alli el paso **anadio** su nota y dejo intacto el `⚠️`
+> anterior, que hoy conviven. El mismo paso, dos formas incompatibles.
+>
+> ```
+> $ git show a661edd:_persistence/decisions.md | sed -n '/^### D-093/,/^### D-094/p' | grep -nE '^(📌|⚠️)'
+> 54:📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`.** Las cuatro reproducen exactamente lo
+> 57:⚠️ **Mismas cuatro sobre el arbol de trabajo, y las anclara el Paso 7c-bis.**
+>
+> $ git show a661edd:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -nE '^(📌|⚠️)'
+> 73:📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`** (la primera ejecucion real de este paso,
+> ```
+>
+> **La forma correcta es la de `D-093`, y ya esta escrita en el paso** (`D-095`, `T-097`): lo que el
+> Paso 7c-bis reescribe vive **dentro** del bloque de codigo; todo lo de fuera es prosa y no se toca.
+> ⛔ **Y el `⚠️` de `D-093` NO se «arregla» a pasado**: que conviva con la nota que dice que ya
+> estan ancladas es exactamente el aspecto que tiene cumplir la regla.
+>
+> **2. (`F-063`) Las dos ordenes del bloque «Contexto» de arriba usan `HEAD` y ya no reproducen.**
+> `HEAD` era `20ef118` cuando se escribieron y devolvia `18` y `2`; hoy es otro y devuelve otra cosa.
+> Se republican **ancladas al commit que era `HEAD` ese dia**, con lo que devuelven:
+>
+> ```
+> $ git show 20ef118:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -cE '^\$ '
+> 18
+>
+> $ git show 20ef118:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -E '^\$ ' | grep -cE 'git show [0-9a-f]{7,40}:'
+> 2
+> ```
+>
+> ✅ **Ancladas devuelven `18` y `2`, que es exactamente lo que el bloque de arriba publica.** El
+> hallazgo era la forma, no el hecho: `F-059` describia 18 ordenes con 2 ancladas, y sigue siendo
+> cierto. Lo mismo sobre `HEAD` de hoy devuelve `33` y `12`, que es otra pregunta:
+>
+> ```
+> $ git rev-parse --short HEAD
+> a661edd
+>
+> $ git show a661edd:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -cE '^\$ '
+> 33
+>
+> $ git show a661edd:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -E '^\$ ' | grep -cE 'git show [0-9a-f]{7,40}:'
+> 12
+> ```
+>
+> La regla que lo evita hacia adelante esta en «Convenciones» de este archivo (`D-096`, `T-098`):
+> **el ancla es de toda orden que se escriba aqui, no solo la del bloque «Criterio de cierre»**.
+>
+> **3. (`F-064`) Donde la nota de arriba dice «Las cuatro», hay cinco.** El anclaje partio en dos
+> una orden que preguntaba por dos archivos, y el recuento se quedo con el numero viejo:
+>
+> ```
+> $ for h in b83ce5e a661edd; do echo -n "$h: "; git show $h:_persistence/decisions.md | awk '/^### D-092/,/^### D-093/' | awk '/^- \*\*Criterio de cierre:/{f=1} f' | grep -cE '^\$ '; done
+> b83ce5e: 4
+> a661edd: 5
+> ```
+>
+> ✅ **Las CINCO reproducen** — lo verifico `R-023` §1h una por una, y ninguna discrepancia. Lo que
+> estaba mal era el numero escrito, no las ordenes. Partirlas fue correcto (`D-097`, `T-099`): la
+> pregunta se conserva entera y solo se reparte. Lo que faltaba era que la linea **contara** en vez
+> de repetir.
+
 ---
 
 ### D-093 - La fecha de una sesion es la del commit que la cierra
@@ -5534,3 +5643,497 @@ daria `1` y dejaria sin comprobar la fila de la tabla de reparto y la de la carp
 📌 **La cuarta cuenta secciones, no huecos.** Un `grep -cE '^<'` sobre la skill devuelve `10`, y las
 diez son legitimas: viven dentro del bloque del reporte de pantalla, igual que las seis del Gate
 anterior. Ese barrido solo significa algo sobre un artefacto **rellenado**, no sobre el molde.
+---
+
+### D-095 - Lo que el Paso 7c-bis reescribe vive dentro del bloque de codigo; la prosa nunca se toca
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-062` (`R-023`) encontro que la **primera ejecucion real** del Paso 7c-bis borro
+  tres lineas de prosa de `D-092`, contra la prohibicion literal que el propio paso estrenaba en ese
+  mismo commit. Verificado contra `HEAD` (`a661edd`), sobre el estado que `b83ce5e` dejo — el
+  hallazgo sigue vivo:
+
+```
+$ git show a661edd:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -nE '^(📌|⚠️)'
+73:📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`** (la primera ejecucion real de este paso,
+
+$ git show a661edd:_persistence/decisions.md | sed -n '/^### D-093/,/^### D-094/p' | grep -nE '^(📌|⚠️)'
+54:📌 **Ancladas por el Paso 7c-bis al commit `b83ce5e`.** Las cuatro reproducen exactamente lo
+57:⚠️ **Mismas cuatro sobre el arbol de trabajo, y las anclara el Paso 7c-bis.**
+```
+
+  **Dos entradas, el mismo paso, la misma pasada: en `D-093` el `⚠️` sigue vivo y en `D-092` no.**
+  Esa asimetria es el hallazgo entero.
+
+- **Evaluacion: correcto, y del tipo que mas importa.** No cambia ninguna cifra publicada —por eso
+  `R-023` lo puso en `Media` y no en `Alta`—, pero rompe la garantia con la que se abrio la
+  excepcion. `A-010` decia que el anclaje se quedaria «en mecanico y no se deslizaria a escribir el
+  porque»; su disparador de validacion era justamente esta primera ejecucion, y la ejecucion lo
+  desmiente.
+- **Decision:** la forma correcta es la de `D-093` —**anadir sin borrar**— y se escribe en el paso
+  con una frontera que se puede señalar con el dedo: **lo que el Paso 7c-bis reescribe vive dentro
+  del bloque de codigo de la orden y su salida; todo lo que esta fuera de ese bloque es prosa y no se
+  toca** (`T-097`). La linea que el paso anade va **siempre debajo**, nunca en lugar de nada.
+- **Por que «no tocar prosa» no bastaba, que es la pregunta util aqui.** La regla ya estaba escrita,
+  con esas palabras, y se incumplio de todas formas — asi que repetirla mas fuerte no habria
+  cambiado nada. El problema es que el paso **si** autoriza sustituir texto (la orden vieja por la
+  anclada), y no decia **donde termina** esa autorizacion. Quien ejecuta ve una zona donde sustituir
+  esta permitido y no tiene un limite dibujado; la nota nueva y el `⚠️` viejo hablan del mismo
+  asunto, y sustituir uno por otro se siente como parte del trabajo. **Un limite que hay que deducir
+  se deduce mal el dia que hay prisa.** El bloque de codigo es un limite que se ve.
+- **Y se añade la consecuencia rara, porque si no alguien la «arregla»:** el `⚠️` de `D-093` dice
+  hoy «y las anclara el Paso 7c-bis» conviviendo con la nota que dice que ya estan ancladas. Se lee
+  mal y **es correcto**: ese texto en futuro es lo que se escribio ese dia. Lo señala tambien
+  `R-023` §5. Actualizarlo a pasado lo haria parecer escrito despues, que es justo lo que `D-019`
+  evita.
+- **Alternativas descartadas:** (1) **autorizar la sustitucion de prosa y quitar la prohibicion de
+  `CLAUDE.md`** — descartada, y es la otra mitad de la disyuntiva que `R-023` plantea: haria del
+  cierre un editor del porque, que es exactamente lo que `CLAUDE.md` le prohibe por una razon que no
+  ha cambiado —arranca en frio y no vio la conversacion—; (2) **dejar la regla como estaba y anotar
+  el incidente** — descartada: la regla textual ya existia y se incumplio, asi que no es un problema
+  de enfasis; (3) **quitar el Paso 7c-bis** — descartada: resuelve `F-062` reabriendo `F-059`, que
+  es peor y ya estaba medido en `D-092`.
+- **Reversible a criterio**, porque es texto en un archivo de procedimiento versionado, sin efecto
+  fuera del repositorio. **Se declara aqui como criterio y no como lectura de una tabla**, porque el
+  inventario de acciones irreversibles del proyecto todavia no existe (`T-037`).
+- **Criterio de cierre:** el paso dice donde esta la frontera, dice que la linea se anade y no
+  sustituye, y prohibe expresamente actualizar a pasado un texto escrito en futuro.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La frontera es el bloque de codigo'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Se anade;'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'NO se actualiza a pasado'
+1
+
+$ git show <hash>:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -c 'Las cuatro ordenes se corren sobre el arbol de trabajo'
+1
+```
+
+⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre, que es lo que `D-092` creo para esto.
+
+---
+
+### D-096 - El ancla es de toda orden que se escriba en `decisions.md`, no solo la del criterio de cierre
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-063` (`R-023`) encontro que `D-092` publica su bloque «Contexto» —la verificacion
+  que `CLAUDE.md` exige antes de aceptar un hallazgo— con dos ordenes sobre `HEAD`, que devolvian
+  `18` y `2` el dia que se escribieron y hoy devuelven otra cosa. Verificado contra `HEAD`
+  (`a661edd`), sobre el estado que `b83ce5e` dejo:
+
+```
+$ git show a661edd:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -cE '^\$ '
+33
+
+$ git show a661edd:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -E '^\$ ' | grep -cE 'git show [0-9a-f]{7,40}:'
+12
+
+$ git show 20ef118:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Criterio de cierre/{f=1} /^---$/{f=0} f' | grep -cE '^\$ '
+18
+```
+
+  **Publicadas dicen `18` y `2`; hoy devuelven `33` y `12`.** Ancladas al commit que era `HEAD` ese
+  dia (`20ef118`) devuelven `18`, lo publicado — la conclusion era cierta y lo que se perdio fue la
+  prueba.
+
+- **Evaluacion: correcto.** Y es exactamente el defecto que `F-059` acababa de cobrar, reaparecido
+  dentro de la decision que lo corregia. La causa esta escrita en el hallazgo: `D-088` solo exigia el
+  ancla en el bloque «Criterio de cierre», y el Paso 7c-bis solo ancla ese bloque. **El bloque
+  «Contexto» —donde vive la evidencia de que un hallazgo se verifico antes de aceptarlo— se quedo
+  fuera de las dos reglas.**
+- **Decision:** «Convenciones» de `decisions.md` deja de hablar solo del bloque «Criterio de cierre»
+  y pasa a exigir el ancla en **toda orden que se escriba en el archivo** (`T-098`). Se añade la
+  prohibicion concreta que lo hace comprobable: **`HEAD` no se escribe nunca dentro de una orden
+  publicada**; se resuelve con `git rev-parse --short HEAD` antes de escribirla, y al archivo va el
+  hash.
+- **Aqui no hay huevo-y-gallina, y esa es la diferencia con el criterio de cierre.** Una verificacion
+  previa se corre sobre un commit que **ya existe** —el `HEAD` de ese momento—, asi que el hash
+  literal se puede escribir en el acto. **Es el unico bloque que el Paso 7c-bis no necesita arreglar
+  despues, porque nace bien.** El criterio de cierre habla de un commit futuro; el contexto habla de
+  uno pasado.
+- **Lo que se hereda de `D-097` y no se repite:** que ordenes son anclables y cuales no lo detalla el
+  Paso 7c-bis de `protocol-close`, y es el mismo criterio. Escribirlo dos veces crearia dos sitios
+  que hay que acordarse de cambiar a la vez.
+- **Lo que absorbe, y conviene decirlo:** `R-023` §5 señala que tres sesiones seguidas mencionan la
+  reincidencia de `D-088` sin registrarla. Esta decision la registra por el lado util —el ancla que
+  faltaba fuera del bloque de cierre—, no como una deuda de disciplina que nadie sabria cerrar.
+- **Alternativas descartadas:** (1) **reescribir las dos ordenes de `D-092` en su sitio** —
+  descartada por `D-019`: parecerian ejecutadas asi entonces; van por nota fechada, que es lo que se
+  hizo; (2) **ampliar el Paso 7c-bis para que ancle tambien el bloque «Contexto»** — descartada, y
+  era la lectura literal de la recomendacion: haria al cierre reescribir un bloque que **podia haber
+  nacido bien**, ampliando justo la excepcion que `F-062` acaba de demostrar que se desborda; (3)
+  **dejarlo en `lessons.md`** — descartada: una leccion no es una convencion, y la que la incumplio
+  fue una decision, no una persona.
+- **Reversible a criterio** —texto en un archivo de registro versionado—, sin efecto fuera del
+  repositorio. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** «Convenciones» exige el ancla para toda orden, prohibe `HEAD` dentro de una
+  orden publicada, y remite al Paso 7c-bis para el criterio de que es anclable.
+
+```
+$ git show <hash>:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'es de toda orden que se escriba en este'
+1
+
+$ git show <hash>:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c '`HEAD` no se escribe nunca dentro de una orden'
+1
+
+$ git show <hash>:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'el criterio de que es anclable y que no lo detalla'
+1
+```
+
+⚠️ **Las tres se acotan a «Convenciones» a proposito, y el motivo es un fallo que se cometio al
+escribirlas.** Sin acotar devuelven `2`, `3` y `2`: cuentan tambien **la propia orden que las busca**
+y la prosa de esta decision. **Un criterio de cierre que se cuenta a si mismo sube de valor cada vez
+que alguien lo cita, y entonces deja de significar nada.**
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-097 - El Paso 7c-bis puede reescribir la forma de una orden si conserva la pregunta, y su nota cuenta
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-064` (`R-023`) encontro dos cosas en la misma ejecucion. El Paso 7c-bis nombraba
+  «un `ls`» como ejemplo de orden **no anclable**, y en `D-094` el `ls -1` se sustituyo por
+  `git ls-tree`; y en `D-092` una orden sobre dos archivos se partio en dos, con lo que el bloque
+  paso de cuatro ordenes a cinco mientras la nota anadida debajo sigue diciendo «Las cuatro
+  reproducen». Verificado contra `HEAD` (`a661edd`), sobre el estado que `b83ce5e` dejo:
+
+```
+$ for h in b83ce5e a661edd; do echo -n "$h: "; git show $h:_persistence/decisions.md | awk '/^### D-092/,/^### D-093/' | awk '/^- \*\*Criterio de cierre:/{f=1} f' | grep -cE '^\$ '; done
+b83ce5e: 4
+a661edd: 5
+
+$ git show a661edd:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -c 'Las cuatro reproducen'
+1
+
+$ git show a661edd:.claude/skills/protocol-close/SKILL.md | sed -n '/^### 7c-bis/,/^### 7d/p' | grep -c 'un `ls`, un `git status`'
+1
+```
+
+- **Evaluacion: correcto en las dos mitades, pero se acepta con una desviacion, y hay que decirla.**
+  `R-023` plantea la disyuntiva —«o autorizar la reescritura de forma, o prohibirla»— sin recomendar
+  cual. **Se autoriza**, y ademas se retira el `ls` de la lista de no anclables, que es lo contrario
+  de lo que el texto del paso decia.
+- **Decision, en dos partes** (`T-099`):
+  1. **La prueba que decide es una sola: ¿la forma anclada contesta lo mismo que contestaba la
+     original?** Si la contesta, se reescribe; si no, no. El paso lo escribe con una tabla de casos
+     —incluidos los dos que aparecieron aqui: el `ls` sobre archivos versionados, que **si** se
+     ancla, y partir una orden sobre varios archivos, que **tambien**.
+  2. **La linea que el paso anade declara el recuento real, contandolo**, no repitiendo el anterior.
+- **Por que el `ls` estaba mal en esa lista, que es el fondo del asunto.** Lo que hace inanclable a
+  una orden no es su nombre: es que **pregunte por algo que el commit no puede contener**.
+  `git status` pregunta por el arbol de trabajo, y ahi no hay nada que anclar. Un `ls` sobre archivos
+  versionados pregunta «¿existen estos archivos?», y **eso el commit lo contiene**. El precedente ya
+  existia y la propia ejecucion lo cito: `D-086` hizo lo mismo con su `ls`.
+- **Y la otra mitad no es un matiz de redaccion: era una afirmacion falsa.** «Las cuatro» sobre cinco
+  ordenes es comprobable en un segundo por cualquiera que las cuente, y la introdujo el propio
+  automatismo. Un paso que produce afirmaciones falsas pequenas erosiona la confianza en las grandes,
+  que es todo el capital de este registro.
+- **Alternativas descartadas:** (1) **prohibir la reescritura de forma** — descartada: obligaria a
+  dejar sin anclar ordenes que **si** preguntan por el commit, que es exactamente el defecto de
+  `F-059`; (2) **quitar la nota del recuento y no decir cuantas son** — descartada: el recuento es lo
+  que permite comprobar que se anclaron todas, y sin el habria que contarlas a mano cada vez; (3)
+  **corregir «Las cuatro» en su sitio** — descartada por `D-019`; va por nota fechada, que es lo que
+  se hizo.
+- **Reversible a criterio** —texto en un archivo de procedimiento versionado—, sin efecto fuera del
+  repositorio. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** el paso trae la prueba de la pregunta con su tabla, el `ls` ya no figura
+  como ejemplo de no anclable, y la linea del recuento esta exigida.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la forma anclada contesta lo mismo que contestaba la original'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | sed -n '/^### 7c-bis/,/^### 7d/p' | grep -c 'un `git status`, un `df`, un'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'declara el recuento real del bloque, contandolo'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-098 - `HEAD` y el commit auditado se nombran cada uno por lo que son
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-065` (`R-023`) encontro que la seccion 0 de `_audit/S-023.md` afirma que los tres
+  hallazgos «se verificaron contra `HEAD` (`97bb948`)». `HEAD` al empezar aquella sesion era
+  `20ef118` —el commit de la auditoria `R-022`—; `97bb948` era el commit que **esa auditoria
+  juzgaba**, uno anterior. Verificado contra `HEAD` (`a661edd`), sobre el estado que `b83ce5e` dejo:
+
+```
+$ git show a661edd:_audit/S-023.md | sed -n '19p'
+Los tres se verificaron contra `HEAD` (`97bb948`) antes de tocar nada — la evidencia de esa
+
+$ git log -1 --format='%h %s' b83ce5e^
+20ef118 auditoria R-022 sobre S-022 (97bb948)
+
+$ git show --stat --name-only --format= 20ef118
+_audit/R-022.md
+_audit/findings.md
+_audit/index.md
+```
+
+- **Evaluacion: correcto, y el resultado no cambia — que es justo lo que lo hace facil de repetir.**
+  `20ef118` solo toca `_audit/`, asi que `_persistence/decisions.md` es identico en los dos commits y
+  la verificacion valia igual. Lo que no vale es la frase: **certifica el cumplimiento de una regla
+  de `CLAUDE.md` nombrando un commit que no era el que la regla nombra.**
+- **Decision:** `protocol-close` gana un bloque en la seccion 0 que dice que **ahi hay dos commits**,
+  cual es cual, de donde sale cada uno, y como se escribe la frase que los nombra a los dos
+  (`T-100`). El hash no se supone: se deriva con `git rev-parse --short HEAD`, y el asunto de
+  `git log -1` dice si ese commit es una auditoria y de que commit.
+- **Por que no basta con no volver a hacerlo.** Es la tercera vez que la misma confusion aparece:
+  `F-053`, `F-061` y ahora esta. Las dos anteriores se cerraron corrigiendo el sitio concreto donde
+  salio; ninguna dejo escrito el vocabulario, y por eso volvio por un sitio nuevo. **Lo que se
+  corrige aqui no es una frase: es que los dos hashes no tenian nombres distintos en ningun
+  procedimiento.**
+- **La linea ya escrita no se reescribe** (`D-019`). Queda en `_audit/S-023.md` tal como salio; la
+  regla rige hacia adelante. `R-023` lo recomienda con esas palabras.
+- **Alternativas descartadas:** (1) **corregir la linea de `_audit/S-023.md`** — descartada por
+  `D-019`, y ademas ese archivo esta dentro de un commit ya auditado: reescribirlo dejaria a `R-023`
+  citando un texto que ya no existe; (2) **escribirlo solo en `CLAUDE.md`** — descartada: quien
+  redacta esa seccion es el `session-closer`, que lee su skill; una regla en `CLAUDE.md` que el
+  procedimiento no repite es una regla que el ejecutor no ve; (3) **abrir una `DT-XXX` y dejarlo** —
+  descartada: la correccion es un bloque de texto, no un proyecto.
+- **Reversible a criterio** —texto en un archivo de procedimiento versionado—, sin efecto fuera del
+  repositorio. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** el bloque existe en `protocol-close`, distingue los dos commits, y da la
+  forma de la frase.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'En esta seccion hay DOS commits'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Llamar `HEAD` al commit auditado'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'estado que `<hash auditado>` dejo'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+---
+
+### D-099 - `A-010` se refuta, y su consecuencia escrita NO se cumple: se acota en vez de retirar
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `A-010` supuso que el anclaje del Paso 7c-bis «se queda en mecanico y no se desliza a
+  escribir el porque». `F-062` lo refuta en su **primera oportunidad**: el commit de anclaje
+  `a48411a` borro tres lineas de prosa de `D-092`. El control que el propio supuesto escribio para
+  refutarse lo devuelve:
+
+```
+$ git diff a48411a^ a48411a -- _persistence/decisions.md | grep -E '^-[^-]' | grep -vE '^-\$ ' | grep -vE '^-[0-9]+:'
+-CLAUDE.md:1
+-.claude/agents/session-closer.md:1
+-⚠️ **Las cuatro ordenes se corren sobre el arbol de trabajo, y el Paso 7c-bis que esta misma
+-decision crea las anclara al commit** — es el primer caso al que se aplica la regla. Los numeros de
+-linea de la primera son los que mas se mueven, y por eso el anclaje importa.
+-.claude/skills/protocol-gate2/SKILL.md:15
+-_templates/035_gate2/005_verdict.md:11
+```
+
+  Las cinco lineas que no son prosa son salidas de ordenes, que el paso **si** podia sustituir. Las
+  tres del medio son texto explicativo, que no.
+
+- **El problema, y es el que obliga a que esto sea una decision y no un renglon:** `A-010` no solo
+  dijo como se refutaba. Dijo **que hacer si se refutaba**, y lo dijo cerrando la puerta a lo que
+  ahora se va a hacer:
+
+  > *«la excepcion se retira y se vuelve a la alternativa que se descarto […] **No se acota con una
+  > excepcion nueva**: una grieta que ya se ensancho una vez no se estrecha escribiendo mas letra.»*
+
+  **`D-095` acota.** Es exactamente lo que ese parrafo prohibia de antemano.
+
+- **Decision del usuario: se acota, y la desviacion se registra en vez de disimularse.** El Paso
+  7c-bis se conserva con la frontera que `D-095` dibuja; `A-010` queda `Refutado` con su nota; y esta
+  entrada existe para que la auditoria pueda juzgar la renegociacion, no para justificarla.
+- **Por que se desvia, con lo que el pre-compromiso no podia saber cuando se escribio:**
+  1. **El limite no fallo siempre: fallo una vez y se cumplio otra, en la misma pasada.** En `D-093`
+     el paso anadio su nota y dejo intacto el `⚠️` anterior. Un limite que se cumple la mitad de las
+     veces tiene una causa concreta; uno que no se cumple nunca es un limite imposible. `A-010`
+     escribio su consecuencia sin poder distinguir los dos casos.
+  2. **La causa es señalable y corregible:** el paso autorizaba sustituir texto sin decir **donde
+     termina** esa autorizacion. `D-095` pone el borde en el bloque de codigo, que se ve. No es «mas
+     letra» sobre la misma regla: es un borde donde no habia ninguno.
+  3. **Ninguna de las formas graves que `A-010` temia ocurrio.** No se corrigio una salida que no
+     cuadraba, no se toco otro archivo, no se toco una decision de una sesion anterior. El unico
+     defecto fue prosa **de la misma decision que se estaba anclando**.
+  4. **La alternativa tiene un coste ya medido, no hipotetico:** retirar la excepcion devuelve el
+     estado que `D-092` describio —el commit que la auditoria juzga lleva **siempre** los criterios
+     sin anclar—, con lo que `F-059` se reabre cada jornada. Se cambiaria un fallo que ocurrio una vez
+     por uno que ocurre todas.
+- ⚠️ **Y lo que esto cuesta, dicho por su nombre:** un pre-compromiso se ha renegociado, y lo ha
+  renegociado la parte que se beneficia de renegociarlo. **Ese es el peligro real, no el Paso
+  7c-bis.** `A-010` existia precisamente para que esta conversacion no se pudiera tener en silencio,
+  y por eso la zanjo el usuario y no `manager`. Si el paso vuelve a tocar prosa, **no hay una tercera
+  vuelta**: la consecuencia que `A-010` escribio se aplica sin discusion.
+- **Alternativas descartadas:** (1) **cumplir `A-010` al pie de la letra y retirar el Paso 7c-bis** —
+  descartada por el usuario, con el coste del punto 4 sobre la mesa; era la opcion que mas respetaba
+  el pre-compromiso y la que reabria `F-059` cada jornada; (2) **acotar y darle al auditor un control
+  fijo sobre cada commit de anclaje** — descartada por el usuario en la misma eleccion: añade trabajo
+  ahora, y el supuesto refutado ya no puede volver a usarse como coartada porque su consecuencia esta
+  escrita aqui; (3) **marcar `A-010` `Confirmado` argumentando que el fallo fue menor** — ni se
+  planteo, y se deja escrita para que no se plantee: el supuesto decia «cualquier cambio que no sea
+  una orden anclada o su salida», y hubo tres lineas.
+- **Reversible a criterio** —texto en archivos versionados, y la retirada de la excepcion sigue
+  disponible sin coste tecnico—. Criterio declarado, no leido de una tabla (`T-037`).
+- **Criterio de cierre:** `A-010` figura `Refutado` en su fila y en su entrada, su nota publica el
+  control que lo refuto, y el Paso 7c-bis sigue existiendo con su frontera.
+
+```
+$ git show <hash>:_persistence/assumptions.md | grep -c '^| \[A-010\].*| Refutado |'
+1
+
+$ git show <hash>:_persistence/assumptions.md | sed -n '/^### A-010/,$p' | grep -c '^| Estado | Refutado |'
+1
+
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-bis'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre — el mismo paso del que trata esta decision.
+---
+
+### D-100 - El archivo de etapa de la evolucion se escribe por adelantado, y la etapa NO queda adoptada
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pidio crear `_phases/040_evol.md`, tomando como guia un borrador que vivia
+  en la carpeta temporal del repositorio, y exigio que el resultado siguiera las guias de los
+  archivos ya escritos de `_phases/` y que fuera **totalmente agnostico**. Es el mismo movimiento que
+  `D-078` hizo para la etapa del esqueleto y `D-082` para la del crecimiento.
+- **Decision:** nace `_phases/040_evol.md`, con las mismas ocho secciones que sus hermanos. **No
+  adopta la etapa**: `project.md` sigue declarando `000_preproject` y `005_discovery`, y declarar las
+  posteriores es trabajo de la etapa de descubrimiento (`T-002`). Este `D-XXX` es el registro que el
+  propio archivo exige para un archivo de etapa escrito por adelantado.
+- **Que se tomo del borrador y que no:** se conservan su esqueleto de secciones, la prohibicion que
+  da nombre a la etapa —«aprobar el Gate no aprobo un plan de producto»—, el criterio de prioridad de
+  que entra en cada iteracion, el tratamiento del actor nuevo como un descubrimiento pequeno, las
+  tres decisiones posibles sobre una entrada de deuda, la declaracion de metrica y ventana por
+  iteracion, el release objetivo, y la cosecha hacia el archivo de lecciones globales. **Se descarta
+  todo su vocabulario de rutas, codigos y actores**, porque era el de otro proyecto: el borrador
+  nombraba carpetas concretas, un registro de memoria que aqui se llama de otra forma, codigos de
+  producto instanciados, la ruta de un archivo global de otra organizacion, y **cinco actores por su
+  nombre**. Donde el borrador escribia una ruta, el archivo referencia `project.md`; donde nombraba
+  actores, remite a la taxonomia de la guia de metodo.
+- **Los cinco actores nombrados son la desviacion que mas texto cambio, y conviene decir por que.**
+  El borrador los usaba como ejemplos concretos, y eso funciona en un archivo de un solo proyecto.
+  Aqui no: **un archivo de etapa que nombra los actores de un dominio esta describiendo un producto,
+  no un metodo.** El unico actor que sobrevive es el **generador**, y no por descuido — es
+  vocabulario de la guia de metodo, ya lo usa el archivo de la etapa del crecimiento, y sin el no se
+  puede decir de quien era el producto minimo.
+- **Los codigos de producto NO se escriben, ni siquiera genericos**, por el mismo argumento que
+  `D-082`: la guia de metodo asigna la inicial de la tarea de producto a un prefijo que `project.md`
+  ya tiene tomado, y la colision se resuelve en la etapa de la baseline, que es la que estrena esos
+  codigos. El archivo habla en prosa —«unidades incrementales», «tareas», «tests»— y remite a la
+  tabla «Codigos».
+- **Dos cosas que este archivo tiene y sus hermanos no, y las dos salen de que la etapa no termina:**
+  1. **Su §6 no es una condicion de salida, sino la de cada iteracion.** Se dice con esas palabras en
+     la cabecera y en la propia seccion, porque leerla como las otras seis produce justo el error
+     contrario al que la etapa corre: buscar el final de algo que no lo tiene.
+  2. **La cosecha se hace por iteracion, no al cerrar la etapa.** Es la unica etapa donde eso pasa, y
+     tambien se dice: en las demas se cosecha al salir, y aqui no hay salida. Dejarla para el final
+     significa no hacerla nunca, precisamente en la etapa que mas lecciones produce.
+- **Y una prohibicion que el borrador no traia:** «la etapa que no termina nunca porque nadie decide
+  que pare». El borrador describia bien que la etapa no acaba, y no decia nada del fallo que eso
+  habilita — seguir abriendo iteraciones por inercia. Se anade como segunda prohibicion con recuadro,
+  al lado de la que si traia.
+- **Alternativas descartadas:** (1) **copiar el borrador y limpiarlo despues** — es lo que el control
+  de fuga del cierre existe para atrapar, y la limpieza posterior siempre deja algo; (2) **conservar
+  los actores por su nombre como «ejemplos»** — descartada: un ejemplo con nombre propio se copia al
+  proyecto siguiente y ahi ya no es un ejemplo, es un dato equivocado; (3) **escribir tambien las
+  plantillas y el reparto de la etapa en esta misma pasada** — descartada por `PI-3` y por el
+  precedente de las tres etapas anteriores: son condicion de entrada de la etapa, y el archivo las
+  declara **faltantes** en vez de suponerlas hechas; (4) **adoptar la etapa aprovechando que existe el
+  archivo** — descartada por lo mismo que en `D-082`: declarar las etapas posteriores es trabajo del
+  descubrimiento, y un archivo no es un acta.
+- **Reversible a criterio**, porque es un archivo nuevo bajo control de versiones que no adopta nada
+  ni toca nada fuera del repositorio. Se declara aqui como criterio y no como lectura de una tabla,
+  porque el inventario de acciones irreversibles del proyecto todavia no existe (`T-037`).
+- **Criterio de cierre:** el archivo existe con sus ocho secciones y sus ocho pasos, no filtra ningun
+  dato propio del proyecto, no instancia ningun codigo, y sus recuentos declarados coinciden con lo
+  que contiene.
+
+```
+$ git show <hash>:_phases/040_evol.md | grep -c '^## '
+8
+
+$ git show <hash>:_phases/040_evol.md | grep -c '^### Paso '
+8
+
+$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" <hash> -- _phases/040_evol.md ; echo "exit=$?"
+exit=1
+
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' <hash> -- _phases/040_evol.md ; echo "exit=$?"
+exit=1
+
+$ git show <hash>:_phases/040_evol.md | sed -n '/^## 6. Condicion de salida/,/^Si alguna falla/p' | grep -c '^- \[ \]'
+6
+
+$ git show <hash>:_phases/040_evol.md | sed -n '/^## 5. Artefactos que produce/,/^⚠️ \*\*Cual es la carpeta/p' | grep -c '^| \*\*'
+5
+
+$ git show <hash>:_phases/040_evol.md | grep -c 'A la fecha de escribir este archivo, ni esas plantillas ni ese reparto existen'
+1
+```
+
+⚠️ **Las nueve ordenes de esta entrada —las siete de arriba y las dos de abajo— se escriben con
+`<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre (`D-092`).
+
+📌 **Lo que el archivo declara como pendiente, en vez de suponerlo hecho:** ni `_templates/040_evol/`
+ni `_workflow/040_evol.md` existen, y su §5 lo dice con esas palabras. Los dos son condicion de
+entrada de la etapa, igual que en las tres etapas anteriores.
+
+```
+$ git ls-tree --name-only <hash> _templates/040_evol _workflow/040_evol.md ; echo "exit=$?"
+exit=0
+
+$ git ls-tree --name-only <hash> _workflow/030_growth.md ; echo "exit=$?"
+_workflow/030_growth.md
+exit=0
+```
+
+🔑 **Las dos van juntas a proposito, y la segunda es la que hace util a la primera.** Una salida
+vacia con `exit=0` significa dos cosas indistinguibles —«no estan» y «la orden no pregunto bien»—, y
+la segunda demuestra que la orden si sabe encontrar lo que existe. **Una ausencia sin un control
+positivo al lado no es evidencia de nada.**
+
+📌 **Y esta es la forma anclada de un `ls`, que es exactamente lo que `D-097` autoriza hoy.** La
+pregunta —«¿existen estos archivos?»— se conserva entera; lo que cambia es que se le hace al commit
+en vez de al disco, que no tiene version.

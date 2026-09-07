@@ -47,6 +47,7 @@
 | [S-021](#s-021---se-aceptan-f-051-a-f-054-t-077-a-t-082-nace-el-paso-7c-de-protocol-close-d-083-a-d-085-y-las-plantillas-de-_templates030_growth) | Se aceptan `F-051` a `F-054` (`T-077` a `T-082`); nace el Paso 7c de `protocol-close` (`D-084`) y las plantillas de `_templates/030_growth/` (`D-085`, `T-083`) | 2026-09-05 | `000_preproject` |
 | [S-022](#s-022---se-aceptan-f-055-a-f-058-t-084-a-t-090-nace-el-paso-1c-de-protocol-close-y-_workflow030_growthmd-d-091) | Se aceptan `F-055` a `F-058` (`T-084` a `T-090`); nace el Paso 1c de `protocol-close` y `_workflow/030_growth.md` (`D-091`) | 2026-09-06 | `000_preproject` |
 | [S-023](#s-023---se-aceptan-f-059-a-f-061-t-093-a-t-096-nacen-los-pasos-7c-bis-y-7d-de-protocol-close-y-el-gate-2-d-094) | Se aceptan `F-059` a `F-061` (`T-093` a `T-096`); nacen los Pasos 7c-bis y 7d de `protocol-close`, y el Gate 2 (`D-094`) | 2026-09-06 | `000_preproject` |
+| [S-024](#s-024---se-aceptan-f-062-a-f-065-t-097-a-t-100-a-010-se-refuta-y-se-acota-d-099-nace-_phases040_evolmd-d-100) | Se aceptan `F-062` a `F-065` (`T-097` a `T-100`); `A-010` se refuta y se acota (`D-099`); nace `_phases/040_evol.md` (`D-100`) | 2026-09-07 | `000_preproject` |
 
 ---
 
@@ -72,96 +73,98 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-06 (S-023) |
+| Ultima actualizacion | 2026-09-07 (S-024) |
 | Salud | En marcha |
-| Avance de la etapa | `manager` evaluo, contra `HEAD` (`97bb948`), los tres hallazgos que dejo `R-022` (sobre `S-022`): `F-059`, `F-060` y `F-061`. Los tres se aceptan. `F-059` (`T-093`, `T-094`, `D-092`): las seis decisiones nacidas en `97bb948` publicaban 18 ordenes de «Criterio de cierre» y solo 2 estaban ancladas al commit; reciben nota fechada republicando las 16 restantes ancladas a `97bb948` con su salida (la reejecucion encontro ademas que el bloque de `D-088` es autorreferencial y no reproduce; se documenta sin corregir el original, por `D-019`). Nace el **Paso 7c-bis** de `protocol-close`: despues del commit, el cierre ancla las ordenes de «Criterio de cierre» de las decisiones nacidas en esa misma sesion y pega su salida — la unica excepcion mecanica que se anade a la prohibicion de escribir en los cuatro archivos del porque. `F-060` (`T-095`, `D-093`): `S-022` se fechaba `2026-09-06` con commit del `2026-09-04`; el barrido completo (publicado en `_audit/index.md`) encontro ocho filas desfasadas de veintidos, desde `S-006`. Las ocho no se reescriben (ya auditadas); la regla pasa a derivar la fecha con `date +%F` y nace el **Paso 7d**, que la contrasta contra el commit. `F-061` (`T-096`): dos convenciones (`protocol-close` y `_audit/index.md`) seguian prescribiendo la orden que `D-090` ya habia rechazado; corregidas las dos. Ademas, a peticion del usuario, nace el **Gate 2** (`D-094`): `gate2_auditor`, `protocol-gate2` y `_templates/035_gate2/005_verdict.md`, con tres comprobaciones propias que no comparte con el Gate 1 (mide la MEDICION en vez de la evidencia, exige identificar generadores reales de uso, y separa adopcion de utilizacion recurrente); `project.md` declara las tres piezas y dice expresamente que adoptar el Gate no adopta `030_growth`. Nacen `C-008` (el repositorio mezcla finales de linea y no se normaliza), `L-031` (un guion que abre para escribir antes de tener el contenido destruyo `_audit/index.md`, recuperado con `git show HEAD`) y `L-032` (una sustitucion literal fallo tres veces por el mismo motivo: CRLF donde se esperaba LF). Nace `A-010`: el anclaje del Paso 7c-bis se declara mecanico y no se ha ejecutado nunca todavia. Ninguna etapa nueva queda adoptada. |
+| Avance de la etapa | `manager` evaluo, contra `HEAD` (`a661edd`), los cuatro hallazgos que dejo `R-023` (sobre `S-023`): `F-062` a `F-065`. Los cuatro se aceptan. `F-062` (`T-097`, `D-095`): la primera ejecucion real del Paso 7c-bis borro tres lineas de prosa de `D-092`, contra su propia prohibicion; el paso gana una frontera visible —solo se reescribe dentro del bloque de codigo de la orden y su salida— y la prosa borrada se repone por nota fechada. `F-063` (`T-098`, `D-096`): el bloque «Contexto» de `D-092` publicaba dos ordenes sobre `HEAD` que dejaron de reproducir; el ancla pasa a exigirse para toda orden de `decisions.md`, no solo el «Criterio de cierre», con la prohibicion de escribir `HEAD` dentro de una orden publicada; las dos ordenes se republican ancladas por nota. `F-064` (`T-099`, `D-097`): el paso nombraba «un `ls`» como no anclable y su propia ejecucion lo anclo igual, y una orden partida en dos dejo la nota diciendo «Las cuatro» sobre cinco; se autoriza reescribir la forma de una orden si conserva la pregunta, con una tabla de casos, y la nota pasa a declarar el recuento contandolo. `F-065` (`T-100`, `D-098`): la seccion 0 de un informe llamo `HEAD` a un commit que no lo era; `protocol-close` gana un bloque que distingue los dos commits de esa seccion y da la forma de la frase. Ademas, `A-010` se refuta en su primera aplicacion real (`F-062`) y, por decision del usuario, no se retira sino que se acota (`D-099`) — contra lo que el propio supuesto habia pre-comprometido; nacen `L-033` y `L-034` sobre el porque de la refutacion y como se renegocia un pre-compromiso sin ocultarlo. A peticion del usuario nace `_phases/040_evol.md` (`D-100`), el archivo de la etapa de evolucion, escrito por adelantado sin adoptar la etapa. |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-`manager` evaluo, contra `HEAD` (`97bb948`), los tres hallazgos que dejo `R-022` (sobre `S-022`):
-`F-059`, `F-060` y `F-061`. Los tres se aceptan.
+`manager` evaluo, contra `HEAD` (`a661edd`), los cuatro hallazgos que dejo `R-023` (sobre `S-023`):
+`F-062` a `F-065`. Los cuatro se aceptan.
 
-`F-059` (`T-093`, `T-094`, `D-092`): las seis decisiones nacidas en `97bb948` (`D-086` a `D-091`)
-publicaban 18 ordenes en sus bloques «Criterio de cierre» y solo 2 estaban ancladas al commit,
-contra la convencion que `D-088` estrenaba en ese mismo commit. `T-093` republica, por nota fechada
-en cada decision, las 16 ordenes restantes ancladas a `97bb948` con su salida literal — los bloques
-originales no se tocan (`D-019`). La reejecucion encontro ademas que el bloque de `D-088` es
-autorreferencial: publicada devolvia una linea, anclada devuelve tres y ninguna es la publicada; se
-documenta en la nota, sin corregir el original. `T-094` da al cierre el **Paso 7c-bis**: despues del
-commit, `protocol-close` sustituye el ancla de las ordenes de «Criterio de cierre» de las decisiones
-nacidas en esa misma sesion, las corre y pega su salida — la primera y unica excepcion mecanica a la
-prohibicion de que el cierre escriba en los cuatro archivos del porque, escrita con lo que no
-autoriza (ni una palabra de prosa, ni los otros tres archivos, ni decisiones de sesiones anteriores)
-y con su regla de parada si la salida anclada no coincide con la publicada.
+`F-062` (`T-097`, `D-095`): la **primera ejecucion real** del Paso 7c-bis borro tres lineas de
+prosa de `D-092`, contra la prohibicion literal que el propio paso estrenaba en ese mismo commit —en
+la entrada de al lado, `D-093`, el mismo paso lo hizo bien en la misma pasada—. El paso gana una
+frontera visible: lo que reescribe vive **dentro** del bloque de codigo de la orden y su salida;
+todo lo de fuera es prosa y no se toca. Se anade que la linea del anclaje se **anade**, nunca
+sustituye, y se prohibe actualizar a pasado un texto escrito en futuro. La prosa borrada se repone
+por nota fechada en `D-092` (`D-019`).
 
-`F-060` (`T-095`, `D-093`): `S-022` se fechaba `2026-09-06` con un commit del `2026-09-04`. El
-barrido completo —corrido por iniciativa propia al evaluar el hallazgo, publicado con su orden y su
-salida cruda en una nota de `_audit/index.md`— encontro que el alcance real es mayor: ocho filas
-desfasadas de veintidos, desde `S-006`. Las ocho no se reescriben (ya auditadas, `D-019`); la regla
-pasa a derivar la fecha con `date +%F` en vez de contarla, y nace el **Paso 7d**, que contrasta la
-fecha escrita contra `git log -1 --format=%ad --date=short` con el commit ya hecho.
+`F-063` (`T-098`, `D-096`): el bloque «Contexto» de `D-092` —la verificacion previa que `CLAUDE.md`
+exige antes de aceptar un hallazgo— publicaba dos ordenes sobre `HEAD` que devolvian `18` y `2` el
+dia que se escribieron y hoy devuelven `33` y `12`. El ancla deja de ser exclusiva del bloque
+«Criterio de cierre» y pasa a exigirse para **toda orden que se escriba en `decisions.md`**, con la
+prohibicion que lo hace comprobable: `HEAD` no se escribe nunca dentro de una orden publicada. Las
+dos ordenes de `D-092` se republican ancladas al commit que era `HEAD` ese dia (`20ef118`), con lo
+que devuelven — la conclusion seguia siendo cierta, lo que se habia perdido era la prueba.
 
-`F-061` (`T-096`): `D-090` habia fijado que la fila del tablero lleva el hash literal de la
-cabecera del informe, no el que deriva `git log -1 --format=%h -- _audit/S-XXX.md`; esa orden
-seguia prescrita en dos convenciones —`_audit/index.md` y `protocol-close`—, no solo en la que
-nombraba el hallazgo. Las dos se corrigen; el uso legitimo de la orden en `protocol-audit` (punto de
-partida que el propio protocolo corrige dos lineas despues) no se toca.
+`F-064` (`T-099`, `D-097`): el Paso 7c-bis nombraba «un `ls`» como ejemplo de orden no anclable y su
+propia ejecucion lo anclo igual (precedente ya sentado por `D-086`); y una orden sobre dos archivos
+se partio en dos sin actualizar la nota, que sigue diciendo «Las cuatro» sobre cinco. Se autoriza la
+reescritura de forma con una prueba unica —¿la forma anclada contesta lo mismo que la original?— y
+una tabla de casos; el `ls` sale de la lista de no anclables (la sustituyen `git status`, `df`,
+`date`) y la nota del anclaje pasa a declarar el recuento **contandolo**, no repitiendolo.
 
-A peticion del usuario nace el **Gate 2** (`D-094`): `gate2_auditor`, `protocol-gate2` y
-`_templates/035_gate2/005_verdict.md`, con la misma forma que el Gate 1 (agente y skill, no etapa) y
-tres comprobaciones que el primero no tiene — la Comprobacion 0 mide la MEDICION (metrica, ventana y
-umbral, no la evidencia), se exige identificar generadores reales de uso, y adopcion y utilizacion
-recurrente se auditan por separado. `project.md` declara las tres piezas y deja escrito que adoptar
-un Gate no adopta su etapa: `030_growth` sigue sin declarar.
+`F-065` (`T-100`, `D-098`): la seccion 0 de `_audit/S-023.md` llamo `HEAD` a `97bb948`, que era el
+commit **auditado**, no el `HEAD` de aquel momento (`20ef118`). `protocol-close` gana un bloque en
+su seccion 0 que distingue los dos commits en juego —el `HEAD` al empezar la sesion y el commit
+auditado—, de donde sale cada uno y como se escribe la frase que los nombra a los dos.
 
-Nacen `C-008` (el repositorio mezcla finales de linea CRLF/LF y no se normaliza, por costar la
-normalizacion contra la auditabilidad), `L-031` (un guion que abre un archivo para escribir antes de
-tener el contenido completo lo destruyo al fallar a mitad — se recupero con `git show HEAD:` sobre
-`_audit/index.md`) y `L-032` (tres sustituciones literales fallaron por el mismo motivo: un patron
-en LF no aparece en un archivo CRLF, y el error no lo dice). Nace `A-010`: el anclaje del Paso
-7c-bis se declara mecanico por argumento, no por haberse ejecutado — todavia no ha corrido ni una
-vez. Ninguna etapa nueva queda adoptada.
+Ademas, `A-010` —que suponia que el anclaje del Paso 7c-bis se quedaria en mecanico— se **refuta**
+en su primera aplicacion real, con el propio `F-062` como control. Su consecuencia escrita decia
+«se retira, no se acota con una excepcion nueva»; el usuario decide **acotar** en vez de retirar
+(`D-099`), registrando la desviacion del pre-compromiso en vez de disimularla. Nacen `L-033` (una
+autorizacion para sustituir texto necesita un borde que se vea, no una prohibicion al lado) y `L-034`
+(un pre-compromiso que no distingue el fallo total del parcial se renegocia en su primera aplicacion).
+
+A peticion del usuario, y tomando como guia un borrador que vivia en `temporal/`, nace
+`_phases/040_evol.md` (`D-100`): el archivo de la etapa de evolucion, con las mismas ocho secciones
+que sus hermanos, sin codigos de producto ni datos propios del proyecto, y con dos piezas que sus
+hermanos no tienen — su condicion de salida es la de cada iteracion, no la del cierre de la etapa, y
+la cosecha se hace por iteracion en vez de al final. **No adopta la etapa**: `project.md` sigue
+declarando solo `000_preproject` y `005_discovery`.
 
 - **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037` y `T-038` siguen `No implementada`.
-  `010_prototype`, `020_baseline`, `025_wslt` y `030_growth` siguen sin adoptar en `project.md`.
-  `DT-002` a `DT-005` siguen `No implementada` y `Propuesta (pendiente del usuario)`. `A-006` a
-  `A-010` quedan abiertos. Los tres hallazgos de `R-022` quedan `Aceptado — pendiente` en
-  `_audit/findings.md` hasta que una auditoria posterior verifique la correccion sobre este commit.
-  El Paso 7c-bis que esta misma sesion crea todavia no se ha ejecutado nunca (`A-010`): su primera
-  ejecucion real es este mismo cierre, sobre las decisiones `D-092`, `D-093` y `D-094`.
+  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en
+  `project.md`. `DT-002` a `DT-005` siguen `No implementada` y `Propuesta (pendiente del usuario)`.
+  `A-006` a `A-009` quedan abiertos; `A-010` queda `Refutado`. Los cuatro hallazgos de `R-023` quedan
+  `Aceptado — pendiente` en `_audit/findings.md` hasta que una auditoria posterior verifique la
+  correccion sobre este commit. `_phases/040_evol.md` declara faltantes, como condicion de entrada de
+  su etapa, las plantillas de `_templates/040_evol/` y el reparto de `_workflow/040_evol.md`.
 
 ---
 
 ## 3. Siguiente paso
 
-`manager` debe lanzar `report_auditor` sobre el commit de este cierre — y esta vez, ademas, sobre el
-commit de anclaje que este mismo cierre produce con la primera ejecucion real del Paso 7c-bis
-(`A-010`): conviene que la auditoria mire ese commit de anclaje con atencion, porque es el caso que
-`A-010` anticipa y todavia no se habia dado. Con el Gate 2 escrito (`D-094`), las tres etapas
-adoptables (`010_prototype`, `020_baseline`, `025_wslt`) y `030_growth` siguen sin adoptar en
-`project.md`. El siguiente paso de fondo sigue siendo definir el alcance y el objetivo del proyecto a
-partir de `_brief/client_brief.md` (`T-001`, etapa `005_discovery`) — y antes de arrancarla, resolver
-`A-004`: confirmar que existe un patrocinador alcanzable y personas que puedan hablar del proceso
-real, porque el propio archivo de etapa dice que sin ese acceso no puede empezar. `T-037`
-(inventario de acciones irreversibles) y `T-038` (igualar el barrido de fuga de `protocol-audit`)
-siguen disponibles sin depender de `A-004`, igual que continuar la verificacion de `A-003`/`T-003`
-con lo que quedo sin probar en `S-011`. Para abrir `010_prototype`, `020_baseline`, `025_wslt` o
-`030_growth` ya estan sus archivos de etapa; falta adoptar formalmente cada una en `project.md`
-(`D-060` para `010_prototype`). Al abrir `005_discovery`, registrar el `D-XXX` de adopcion del
-reparto de `_workflow/005_discovery.md` que `D-052` deja pendiente, y evaluar las cinco señales que
-`D-054` dejo registradas sin adoptar (`LG-39`, `LG-45`, `LG-48`, `LG-54`).
+`manager` debe lanzar `report_auditor` sobre el commit de este cierre — y con el, el que audite
+tiene ahora dos comprobaciones nuevas que mirar con atencion: si el commit de anclaje de esta sesion
+respeta la frontera que `D-095` dibujo (el propio Paso 7c-bis vuelve a ejecutarse aqui, sobre
+`D-095` a `D-100`), y si `_phases/040_evol.md` pasa limpio el barrido de fuga de datos y de codigos
+instanciados. Con el Gate 2 escrito (`D-094`) y las cuatro etapas con archivo propio
+(`010_prototype`, `020_baseline`, `025_wslt`, `030_growth`, `040_evol`), el siguiente paso de fondo
+sigue siendo definir el alcance y el objetivo del proyecto a partir de `_brief/client_brief.md`
+(`T-001`, etapa `005_discovery`) — y antes de arrancarla, resolver `A-004`: confirmar que existe un
+patrocinador alcanzable y personas que puedan hablar del proceso real, porque el propio archivo de
+etapa dice que sin ese acceso no puede empezar. `T-037` (inventario de acciones irreversibles) y
+`T-038` (igualar el barrido de fuga de `protocol-audit`) siguen disponibles sin depender de `A-004`,
+igual que continuar la verificacion de `A-003`/`T-003` con lo que quedo sin probar en `S-011`. Para
+abrir `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` o `040_evol` ya estan sus archivos de
+etapa; falta adoptar formalmente cada una en `project.md` (`D-060` para `010_prototype`). Al abrir
+`005_discovery`, registrar el `D-XXX` de adopcion del reparto de `_workflow/005_discovery.md` que
+`D-052` deja pendiente, y evaluar las cinco señales que `D-054` dejo registradas sin adoptar
+(`LG-39`, `LG-45`, `LG-48`, `LG-54`).
 
 Es decision del usuario si `DT-002` se confirma ya como pagada, si se autoriza `T-038` sobre
 `protocol-audit`, si se confirma `DT-003`, `DT-004` y `DT-005` (notas fechadas sobre lineas con
 `0x08`, la ultima en un archivo que `manager` no escribe), si `A-006` (los codigos `FT-`/`SC-`
 declarados) se valida o se retira, y si `A-007` (que habra un humano disponible para el despliegue
 del esqueleto) se confirma cuando la etapa se adopte. Sigue tambien sin resolver la autorreferencia
-del criterio de cierre de `D-088` (senalada desde `S-022`): esta sesion la documento con nota
-fechada, sin corregir el bloque original — decidir si se ancla o se reformula sigue siendo del
-usuario.
+del criterio de cierre de `D-088` (senalada desde `S-022`), que esta sesion no toco. Y queda escrito
+en `D-099`: si el Paso 7c-bis vuelve a tocar prosa fuera de su bloque de codigo, no hay una tercera
+vuelta — la consecuencia que `A-010` escribio (retirar la excepcion) se aplica sin discusion.
 
 ---
 
@@ -1061,6 +1064,52 @@ _workflow/025_wslt.md
   cierre de `D-088`, senalada desde `S-022`, queda documentada por nota fechada sin corregir el
   bloque original — decidir si se ancla o se reformula sigue siendo del usuario. El Paso 7c-bis que
   esta sesion crea se ejecuta por primera vez en este mismo cierre, sobre `D-092`, `D-093` y `D-094`.
+
+---
+
+### S-024 - Se aceptan `F-062` a `F-065` (`T-097` a `T-100`); `A-010` se refuta y se acota (`D-099`); nace `_phases/040_evol.md` (`D-100`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | `000_preproject` |
+| Tareas | T-097, T-098, T-099, T-100 |
+
+- **Que se hizo:** `manager` evaluo, contra `HEAD` (`a661edd`), los cuatro hallazgos de `R-023`
+  (sobre `S-023`): `F-062` a `F-065`. Los cuatro se aceptan. `F-062` (`T-097`, `D-095`): la primera
+  ejecucion real del Paso 7c-bis borro tres lineas de prosa de `D-092`, incumpliendo la prohibicion
+  que el propio paso estrenaba en el mismo commit (mientras que, en `D-093`, en la misma pasada, el
+  paso cumplio); gana una frontera visible —solo se reescribe dentro del bloque de codigo de la orden
+  y su salida—, la regla de que la linea del anclaje se anade y no sustituye, y la prohibicion de
+  actualizar a pasado un texto en futuro; la prosa borrada se repone por nota fechada. `F-063`
+  (`T-098`, `D-096`): el bloque «Contexto» de `D-092` publicaba dos ordenes sobre `HEAD` que dejaron
+  de reproducir (`18`/`2` publicadas, `33`/`12` hoy); el ancla se exige ahora para toda orden de
+  `decisions.md`, no solo el «Criterio de cierre», con la prohibicion de escribir `HEAD` dentro de
+  una orden publicada; se republican ancladas a `20ef118`, con lo que devuelven `18` y `2`. `F-064`
+  (`T-099`, `D-097`): el paso nombraba «un `ls`» como no anclable y su propia ejecucion lo anclo
+  igual, y una orden partida en dos dejo la nota diciendo «Las cuatro» sobre cinco; se autoriza la
+  reescritura de forma con la prueba «¿la forma anclada contesta lo mismo?» y una tabla de casos, el
+  `ls` sale de la lista de no anclables, y la nota pasa a declarar el recuento contandolo. `F-065`
+  (`T-100`, `D-098`): la seccion 0 de `_audit/S-023.md` llamo `HEAD` a `97bb948`, que era el commit
+  auditado; `protocol-close` gana un bloque que distingue los dos commits de esa seccion, de donde
+  sale cada uno, y la forma de la frase que los nombra. Ademas, `A-010` se refuta en su primera
+  aplicacion real (el propio `F-062` es el control que la refuta) y, por decision del usuario, se
+  **acota** en vez de retirarse (`D-099`) — contra la consecuencia que el propio supuesto habia
+  pre-comprometido por escrito; nacen `L-033` y `L-034` sobre el borde visible que necesita una
+  autorizacion de sustitucion y sobre como se renegocia un pre-compromiso sin ocultarlo. A peticion
+  del usuario, tomando como guia un borrador que vivia en `temporal/`, nace `_phases/040_evol.md`
+  (`D-100`): el archivo de la etapa de evolucion, con las mismas ocho secciones que sus hermanos, sin
+  codigos de producto ni datos propios del proyecto, con su condicion de salida propia de cada
+  iteracion (no del cierre de la etapa) y su cosecha por iteracion. No adopta la etapa.
+- **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037` y `T-038` siguen `No implementada`.
+  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en
+  `project.md`. `DT-002` a `DT-005` siguen `No implementada` y `Propuesta (pendiente del usuario)`.
+  `A-006` a `A-009` quedan abiertos; `A-010` queda `Refutado`. Los cuatro hallazgos de `R-023` quedan
+  `Aceptado — pendiente` hasta que una auditoria posterior verifique la correccion sobre este commit.
+  La autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`) sigue sin resolver:
+  esta sesion no la toco. `_phases/040_evol.md` declara faltantes, como condicion de entrada de su
+  etapa, las plantillas de `_templates/040_evol/` y el reparto de `_workflow/040_evol.md`. `D-099`
+  deja escrito que si el Paso 7c-bis vuelve a tocar prosa fuera de su bloque de codigo, la excepcion
+  se retira sin discusion.
 
 ---
 

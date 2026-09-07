@@ -974,6 +974,30 @@ barrido contra HEAD, y para las nuevas se publica la linea con `cat -A` para que
 | `Aceptado — pendiente` | que cite su `T-XXX`, y que esa tarea **exista y siga abierta** | el hallazgo no se da por recogido |
 | `No se implementa` | que cite su `D-XXX` | un rechazo sin decision registrada **no es auditable** |
 
+### 🚨 En esta seccion hay DOS commits, y se nombran distinto
+
+`CLAUDE.md` manda verificar cada hallazgo **contra `HEAD`** antes de tratarlo. Al escribir la
+seccion 0 hay dos hashes en juego, y **no son el mismo**:
+
+| Cual | Que es | De donde sale |
+|---|---|---|
+| **`HEAD` al empezar la sesion** | el estado contra el que se verifico | normalmente el commit de la **auditoria**, que es el ultimo |
+| **el commit auditado** | el estado que esa auditoria juzgaba | uno **anterior**: es el que la cabecera del informe de la sesion anterior declara |
+
+⛔ **Llamar `HEAD` al commit auditado es afirmar algo comprobablemente falso**, y ademas dentro de
+la frase que da la regla por cumplida — que es lo que la hace peor que un descuido de redaccion. Lo
+abrio `F-065`.
+
+✅ **La forma que sirve nombra los dos:** «verificado contra `HEAD` (`<hash de HEAD>`), sobre el
+estado que `<hash auditado>` dejo».
+
+**Y el hash no se supone, se deriva:**
+
+```bash
+git rev-parse --short HEAD          # el de la izquierda de la tabla
+git log -1 --format='%h %s' HEAD    # el asunto dice si es una auditoria, y de que commit
+```
+
 ⚠️ **No marques `Implementado` lo que el diff no muestre.** Si estas de acuerdo pero no esta hecho,
 su veredicto es `Aceptado — pendiente` con su tarea abierta. Marcarlo hecho no lo adelanta: lo
 convierte en un hallazgo nuevo y deja el original abierto igual.
@@ -1206,6 +1230,25 @@ reescribirlo es lo que `D-019` prohibe.
 | anadir una linea diciendo que el anclaje es de este paso | tocar `assumptions.md`, `constraints.md` o `lessons.md`, que no tienen este bloque |
 | detenerte y reportarlo si algo no cuadra | «arreglar» un criterio que no reproduce |
 
+🚨 **La frontera es el bloque de codigo, y hay que decirla asi porque «no tocar prosa» no basto.**
+Lo que este paso reescribe vive **dentro** del bloque de la orden y su salida: la linea `$ …` y lo
+que devolvio. **Todo lo que esta fuera de ese bloque es prosa y no se toca** — ni el enunciado del
+criterio, ni un `⚠️`, ni un `📌`, ni una linea escrita en futuro que la nueva nota deje sonando
+raro.
+
+⛔ **Una linea que hoy dice «y las anclara el Paso 7c-bis» NO se actualiza a pasado.** Ese texto es
+lo que se escribio ese dia, y que conviva con la nota que dice que ya estan ancladas es exactamente
+el aspecto que tiene cumplir la regla. Reescribirlo lo haria parecer escrito despues.
+
+🔑 **La linea que si puedes anadir va SIEMPRE debajo del bloque, nunca en lugar de nada.** Se anade;
+no sustituye. Si al escribirla estas borrando algo, te has salido del paso.
+
+⚠️ **Y esa linea declara el recuento real del bloque, contandolo.** Si al anclar el numero de
+ordenes cambio —porque una orden sobre varios archivos se partio, o dos se unieron—, la linea dice
+el numero que hay **ahora**, no el que habia. Un «las cuatro reproducen» sobre cinco ordenes es una
+afirmacion falsa introducida por el propio automatismo, y verificable en un segundo por quien las
+cuente.
+
 🚨 **Si la salida anclada NO coincide con la publicada, te detienes.** No la sustituyes y no
 la corriges: **pegas las dos** — la publicada y la anclada — y lo dices en el reporte, en «Sin
 resolver». Una discrepancia ahi significa que la orden se corrio sobre un arbol distinto del que
@@ -1213,9 +1256,25 @@ quedo en el commit, y **eso es informacion**, no un error de formato. Quien deci
 es `manager`, en la sesion siguiente, con el auditor de por medio.
 
 ⚠️ **Si una orden no se puede anclar, se deja como esta y se dice.** Hay ordenes que
-preguntan por el arbol de trabajo o por el sistema y no por el commit — un `ls`, un `git status`.
-Forzarlas a una forma anclada que no significa lo mismo seria peor que dejarlas: se anotan en el
-reporte como «no anclable, y por que».
+preguntan por el arbol de trabajo o por el sistema y no por el commit — un `git status`, un `df`, un
+`date`. Forzarlas a una forma anclada que no significa lo mismo seria peor que dejarlas: se anotan en
+el reporte como «no anclable, y por que».
+
+🔑 **Pero «cambia de forma» y «cambia de pregunta» no son lo mismo, y esa distincion es la que
+decide.** La prueba es una sola: **¿la forma anclada contesta lo mismo que contestaba la original?**
+
+| Cambio | ¿Se hace? | Por que |
+|---|---|---|
+| `grep X <archivo>` → `git show <hash>:<archivo> \| grep X` | **si** | misma pregunta, sobre el commit en vez del arbol |
+| `ls <archivos versionados>` → `git ls-tree --name-only <hash> <archivos>` | **si** | «¿existen estos archivos?» es la misma pregunta; el disco no tiene version y el commit si |
+| una orden sobre varios archivos → varias ordenes ancladas | **si**, y la linea de abajo dice el recuento nuevo | la pregunta se conserva entera; solo se reparte |
+| `git status` → cualquier forma anclada | **no** | pregunta por el arbol de trabajo, que **no** es el commit. Anclarla cambia la pregunta |
+| `grep -c X <archivo>` → `grep -n X <archivo>` | **no** | cambia **que** comprueba, y eso lo prohibe la tabla de arriba |
+
+⛔ **Un `ls` sobre archivos versionados NO es un ejemplo de orden no anclable**, y decia lo
+contrario hasta que `F-064` lo cobro. Lo que lo hace anclable es que pregunte por algo que el commit
+contiene; lo que hace a `git status` inanclable es que pregunte por algo que el commit no puede
+contener.
 
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 
