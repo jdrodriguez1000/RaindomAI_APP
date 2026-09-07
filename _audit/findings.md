@@ -85,8 +85,8 @@
 | [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Implementado |
 | [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Implementado |
 | [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Implementado |
-| [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Abierto |
-| [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Abierto |
+| [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Aceptado — pendiente |
+| [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Aceptado — pendiente |
 
 ---
 
@@ -3778,8 +3778,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-026 |
 | Fecha | 2026-09-07 |
 | Gravedad | Alta |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `D-112`, `T-110` (S-027) |
 | Cerrado en | |
 
 - **Que se observo:** la NOTA DE CIERRE de `_audit/S-026.md` §7 (version de `89f9f73`) afirma que
@@ -3805,8 +3805,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-026 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `D-111`, `T-111` (S-027) |
 | Cerrado en | |
 
 - **Que se observo:** `d1a8c02` borra la linea «**Criterio de cierre:** el archivo existe, tiene una

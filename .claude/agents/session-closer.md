@@ -89,7 +89,7 @@ reporte. Las dos estan escritas en la convencion del propio `tasks.md`; lo demas
   si falta algo, para que lo dicte el usuario.
   - *Primera excepcion, y es mecanica:* ascender un supuesto `A-XXX` ya comprobado por el diff — y
     decirlo.
-  - *Segunda excepcion, y tambien mecanica — el Paso 7c-bis (`D-092`):* **despues** del commit,
+  - *Segunda excepcion, y tambien mecanica — el Paso 7c-bis:* **despues** del commit,
     anclar al hash las ordenes del bloque «Criterio de cierre» de las decisiones nacidas en esta
     sesion, y pegar su salida. No escribes prosa, no tocas los otros tres archivos, y si la salida
     anclada no coincide con la publicada **te detienes y lo reportas** — no la corriges.

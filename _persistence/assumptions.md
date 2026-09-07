@@ -22,6 +22,7 @@
 | [A-010](#a-010---el-anclaje-del-paso-7c-bis-se-queda-en-mecanico-y-no-se-desliza-a-escribir-el-porque) | El anclaje del Paso 7c-bis se queda en mecanico y no se desliza a escribir el porque | 2026-09-06 | Refutado |
 | [A-011](#a-011---el-paso-7c-bis-podra-seguir-escribiendo-solo-en-dos-archivos-porque-los-criterios-de-cierre-no-nacen-en-otros) | El Paso 7c-bis podra seguir escribiendo solo en dos archivos, porque los criterios de cierre no nacen en otros | 2026-09-07 | Abierto |
 | [A-012](#a-012---opera-de-forma-sostenida-con-usuarios-reales-se-lee-sobre-el-sistema-de-trabajo-no-sobre-el-producto) | «Opera de forma sostenida con usuarios reales» se lee sobre el sistema de trabajo, no sobre el producto | 2026-09-07 | Abierto |
+| [A-013](#a-013---cada-cita-que-se-quito-de-los-archivos-agnosticos-tiene-su-procedencia-recuperable-en-el-registro) | Cada cita que se quito de los archivos agnosticos tiene su procedencia recuperable en el registro | 2026-09-07 | Abierto |
 
 ---
 
@@ -747,3 +748,56 @@ queda sustituida por el criterio nuevo de esta nota.
 - ⚠️ **No se escala hoy porque no hay nada que decidir todavia.** La etapa esta a dos Gates de
   distancia y sin declarar; lo clasifico como reversible a criterio —es un parrafo de un archivo
   agnostico que nadie ha adoptado—, y por eso se registra como supuesto en vez de bloquear.
+
+---
+
+### A-013 - Cada cita que se quito de los archivos agnosticos tiene su procedencia recuperable en el registro
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | `manager` |
+
+- **Supuesto:** `D-114` decidio quitar las citas del registro de `CLAUDE.md` y `.claude/` apoyandose
+  en que **la procedencia ya existe en la direccion contraria**: cada `D-XXX` nombra el archivo y la
+  regla que escribio, asi que la pregunta «¿de donde salio esta regla?» se responde buscando su
+  enunciado en `decisions.md`. Sobre eso se quitaron **75 ocurrencias de 50 codigos distintos**, en
+  **55 lineas** de cuatro archivos.
+
+```
+$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+' | sort -u | wc -l
+$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+' | wc -l
+$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -cE '(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+'
+```
+
+⚠️ **Las tres ordenes van con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+- **Por que es un supuesto y no un hecho comprobado:** lo que se corrio fue un recuento agregado, no
+  una comprobacion una por una.
+
+```
+$ grep -c 'CLAUDE\.md' _persistence/decisions.md
+113
+```
+
+  Eso prueba que `decisions.md` habla mucho de `CLAUDE.md`; **no** prueba que **cada una** de las 50
+  reglas cuyo codigo se borro tenga una decision que la nombre y que se pueda encontrar por su
+  enunciado. Las tres citas de `CLAUDE.md` se comprobaron a mano; las de `.claude/` no.
+- **Sobre que se construyo encima:** sobre esto se construyo la ruta entera de `D-114` y su
+  aplicacion en `T-114` y `T-115`. Si el supuesto cae para alguna regla, esa regla queda **sin
+  procedencia recuperable en ningun sitio** — y el defecto es silencioso: nadie lo nota hasta que
+  alguien pregunta por que existe ese paso y no hay donde mirar.
+- **Como se valida:** por muestreo primero y entero despues. Para cada codigo que se quito, buscar en
+  `decisions.md` una entrada que nombre la regla; los que no aparezcan son la lista de reglas
+  huerfanas. La orden que da los codigos quitados es el diff de esta sesion:
+
+```
+$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+' | sort -u
+```
+
+- **Disparador:** la primera vez que alguien pregunte por el origen de una regla de `protocol-close`
+  y no lo encuentre en `decisions.md`. Y, sin esperar a eso, **antes de aplicar `D-114` a un tercer
+  archivo**: si el supuesto es falso, conviene saberlo antes de borrar mas citas y no despues.
+- ⚠️ **Lo que este supuesto NO pone en duda:** que las citas fueran datos propios, ni que quitarlas
+  fuera lo correcto. Eso lo zanja `D-113` con su barrido. Lo que esta sin comprobar es el
+  **coste**: si la trazabilidad se conservo entera o si se perdio en algunos casos.

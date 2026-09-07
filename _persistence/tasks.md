@@ -118,6 +118,12 @@
 | [T-107](#t-107---partir-el-barrido-de-la-nota-de-cierre-en-censo-y-control-f-071) | Partir el barrido de la nota de cierre en censo y control (`F-071`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-108](#t-108---corregir-por-nota-fechada-el-recuento-accesorio-de-s-025-22-y-13-f-072) | Corregir por nota fechada el recuento accesorio de `S-025`: 22 y 13 (`F-072`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-109](#t-109---fijar-las-tres-cifras-de-la-frase-de-cierre-de-s-025-y-prohibir-recontar-a-mano-f-073) | Fijar las tres cifras de la frase de cierre de `S-025`, y prohibir recontar a mano (`F-073`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-110](#t-110---corregir-por-nota-fechada-las-cifras-de-la-nota-de-cierre-de-s-026-y-prohibir-la-aritmetica-de-prosa-f-074) | Corregir por nota fechada las cifras de la nota de cierre de `S-026`, y prohibir la aritmetica de prosa (`F-074`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-111](#t-111---restaurar-el-enunciado-original-del-criterio-de-cierre-de-t-105-f-075) | Restaurar el enunciado original del criterio de cierre de `T-105` (`F-075`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-112](#t-112---anadir-al-paso-1b-el-barrido-de-codigos-instanciados-d-113) | Anadir al Paso 1b el barrido de codigos instanciados (`D-113`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-113](#t-113---decidir-que-se-hace-con-las-55-citas-historicas-de-claude-y-claudemd-d-113) | Decidir que se hace con las 55 citas historicas de `.claude/` y `CLAUDE.md` (`D-113`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-114](#t-114---quitar-de-claudemd-las-citas-del-registro-d-114) | Quitar de `CLAUDE.md` las citas del registro (`D-114`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-115](#t-115---aplicar-la-misma-ruta-a-claude-54-citas-en-tres-archivos-d-114) | Aplicar la misma ruta a `.claude/`: 54 citas en tres archivos (`D-114`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -4587,8 +4593,15 @@ $ git show f1f2291:.claude/skills/protocol-close/SKILL.md | grep -c 'esta linea 
   puede tomar con la etapa a dos Gates de distancia. El criterio de cierre de esta tarea se acota a lo
   que `D-110` deja hecho — que el archivo exista, agnostico y completo — y la adopcion pasa a ser
   trabajo de cuando `040_evol` se declare, sin tarea propia todavia porque no hay fecha que la dispare.
-- **Criterio de cierre:** el archivo existe, tiene una fila por paso del procedimiento, es agnostico
-  (cero codigos instanciados y cero datos propios), y el archivo de etapa dice «escrito, sin adoptar».
+- **Criterio de cierre:** el archivo existe, tiene una fila por paso del procedimiento, y su adopcion
+  tiene su `D-XXX` en el registro.
+- 📌 **Nota del 2026-09-07 (`F-075`, `D-111`) — esta linea es la original de `S-025`, restaurada.**
+  `S-026` la habia sustituido por otra que ya venia acotada —«el archivo existe, tiene una fila por paso
+  del procedimiento, es agnostico (cero codigos instanciados y cero datos propios), y el archivo de etapa
+  dice «escrito, sin adoptar»»—, y eso borraba del archivo que el criterio original exigia tambien la
+  adopcion. `D-019` prescribe lo contrario: la linea original se queda y **la nota de arriba la acota**.
+  Lo que la tarea da por cerrado sigue siendo lo que dice la nota de `D-110`, no la linea literal; el
+  bloque de verificacion de abajo es el de esa parte acotada.
 
 ```
 $ git ls-tree --name-only d1a8c02 _workflow/
@@ -4762,3 +4775,217 @@ $ git show d1a8c02:.claude/skills/protocol-close/SKILL.md | grep -c 'no recontan
 existe.** Las ancla el Paso 7c-bis del cierre.
 
 📌 **Ancladas por el Paso 7c-bis al commit `d1a8c02`.** Las dos reproducen exactamente lo publicado arriba.
+
+---
+
+### T-110 - Corregir por nota fechada las cifras de la nota de cierre de `S-026`, y prohibir la aritmetica de prosa (`F-074`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-027 |
+
+- **Que:** dos cosas. **(1)** Nota fechada en `_audit/S-026.md` §7 que fija con sus ordenes y sus
+  salidas las cifras que la NOTA DE CIERRE publico mal: se anclaron **28** ordenes (14 en
+  `decisions.md` y 14 en `tasks.md`), que son **27** de las 29 listadas mas **1** heredada de `S-025`;
+  el desglose «14 + 14 + 1» contaba dos veces la `ls-tree` de `T-105`, que ya estaba dentro de las 14
+  de `tasks.md`; y quedan **2** lineas con `<hash>` en `decisions.md` —las ilustrativas de `D-107`—,
+  asi que «no deja ninguna orden sin anclar» tambien afirmaba de mas. **(2)** El recuadro de la NOTA
+  DE CIERRE de `protocol-close` pasa a **prohibir la aritmetica de prosa**: el total es la suma de lo
+  que devolvio el CONTROL y nada mas, y lo que el CONTROL no cuenta se enumera aparte.
+- **Por que:** `F-074` (Alta, `R-026`). Es el hecho de `F-073` repetido bajo la regla que la propia
+  sesion anterior escribio para impedirlo. Una nota de cierre existe para ser el puntero comprobable
+  del pendiente de la seccion 7; con la cifra mal, y mal en la direccion de decir que no queda nada,
+  deja de serlo.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-112`.
+- **Criterio de cierre:** la nota fechada esta en `_audit/S-026.md` §7 con las cifras 28/27/2, y la
+  regla esta en el recuadro de la NOTA DE CIERRE de `protocol-close`.
+
+```
+$ git show <hash>:_audit/S-026.md | grep -c 'Ancladas: 28, no 29'
+$ git show <hash>:_audit/S-026.md | grep -c 'se anclaron 27, no 29'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'nunca se dobla dentro del total'
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-111 - Restaurar el enunciado original del criterio de cierre de `T-105` (`F-075`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-027 |
+
+- **Que:** se devuelve a `T-105` la linea literal de su «Criterio de cierre» tal como la escribio
+  `S-025` —«el archivo existe, tiene una fila por paso del procedimiento, y su adopcion tiene su
+  `D-XXX` en el registro»—, y se anade debajo una nota fechada que declara la restauracion y cita la
+  linea acotada que `S-026` habia puesto en su lugar. La nota de `D-110` que ya estaba encima sigue
+  acotando el criterio; lo que la tarea da por cerrado no cambia.
+- **Por que:** `F-075` (Media, `R-026`). `D-019` descarta expresamente acotar un enunciado editandolo,
+  porque borra del archivo que la afirmacion ancha existio. `D-110` justifico reescribir la linea de
+  estado de `_phases/040_evol.md` §5 —un procedimiento vivo—, y ese argumento no alcanza a
+  `tasks.md`, que es registro.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-111`.
+- **Criterio de cierre:** `T-105` vuelve a llevar la linea literal de `S-025`, lleva debajo la nota
+  fechada de la restauracion, y la linea acotada ya no esta.
+
+```
+$ git show <hash>:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, y su adopcion$'
+$ git show <hash>:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, es agnostico$'
+$ git show <hash>:_persistence/tasks.md | grep -cE '^- 📌 \*\*Nota del 2026-09-07 \(`F-075`, `D-111`\)'
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-112 - Anadir al Paso 1b el barrido de codigos instanciados (`D-113`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-027 |
+
+- **Que:** el Paso 1b de `protocol-close` barre las seis areas agnosticas buscando **nombres, rutas y
+  host del remoto**. `D-113` declara que **una cita de un codigo instanciado tambien es un dato
+  propio**, y ese barrido no la ve. Hay que anadir un segundo patron —
+  `\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b`— sobre las mismas seis areas, con su condicion
+  de parada acotada a `_phases/` y `_workflow/`, que son las dos que hoy devuelven cero.
+- **Por que la condicion no puede ser universal, y esto es lo que hay que resolver antes de
+  escribirlo:** `_templates/` y `_methodology/` usan `N-001`, `FT-001` o `T-001…T-008` como **hueco de
+  plantilla y caso trabajado**, y `CLAUDE.md` lo autoriza expresamente. Un barrido que exija cero en
+  las seis areas seria incumplible desde el primer dia — que es exactamente como nacieron `F-071` y
+  `F-073`. La particion CENSO/CONTROL de `D-107` es el molde: uno informa y no juzga, el otro juzga
+  sobre un ambito donde la condicion es alcanzable.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-113`.
+- **Criterio de cierre:** el Paso 1b publica los dos barridos, y el que detiene el paso esta acotado a
+  `_phases/` y `_workflow/`.
+
+---
+
+### T-113 - Decidir que se hace con las 55 citas historicas de `.claude/` y `CLAUDE.md` (`D-113`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-027 |
+
+- **Que:** `D-113` deja medido el incumplimiento y no lo corrige. Son **55 lineas**: 52 en cuatro
+  archivos de `.claude/` —48 solo en `protocol-close`— y 3 en `CLAUDE.md`, todas citas de entradas
+  concretas del registro de este proyecto («lo abrio `F-071`», «es lo que paso en `S-018`»,
+  «lo fija `D-092`»).
+- **Por que no se hizo hoy:** borrarlas cambia el texto que hace entendible cada regla. La prosa de
+  `protocol-close` explica **por que** existe cada paso citando el hallazgo que lo abrio, y ese es el
+  mecanismo con el que el protocolo se defiende de que alguien lo simplifique sin saber que rompe. Lo
+  que se gana copiandolo limpio a otro proyecto se pierde aqui, y cual de las dos cosas vale mas es
+  del usuario.
+- **Las tres salidas posibles, para que la decision no haya que reconstruirla:** (1) **limpiar** —las
+  citas salen y el porque se queda sin ancla; (2) **mover el porque** a un archivo aparte y no
+  copiable, dejando el protocolo con la regla sola; (3) **declarar la excepcion** —una cita de
+  historial dentro de un protocolo no cuenta como dato propio—, que es barata y honesta pero abre la
+  puerta a que cualquier dato entre «como contexto».
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-113`.
+- **Criterio de cierre:** existe una `D-XXX` que elige una de las tres salidas y dice por que descarta
+  las otras dos.
+
+📌 **Nota del 2026-09-07 (`D-114`) — decidida: se elige la salida (1), limpiar.** El usuario elige
+quitar el codigo y conservar el hecho. Lo que hizo barata la eleccion no estaba en las tres salidas
+tal como se escribieron arriba: la procedencia **ya existe en la direccion contraria** —cada `D-XXX`
+nombra el archivo y la regla que escribio—, asi que quitar la cita no pierde trazabilidad. La
+aplicacion se parte: `CLAUDE.md` en `T-114`, `.claude/` en `T-115`.
+
+---
+
+### T-114 - Quitar de `CLAUDE.md` las citas del registro (`D-114`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-027 |
+
+- **Que:** salen las tres citas del registro que llevaba `CLAUDE.md` —dos en la seccion del cierre de
+  sesion y una en la excepcion del Paso 7c-bis—, conservando la frase que explica de que fallo nacio
+  cada regla. Y entra la convencion enunciada una vez, en «Registro del proyecto»: un codigo
+  instanciado es un dato propio; ninguno de los seis cita una entrada del registro; lo que la regla
+  **no** prohibe es el codigo generico ni el primer numero de una serie.
+- **Por que:** `D-113` los midio y `D-114` eligio la ruta. Un archivo que se declara copiable a otro
+  proyecto y cita hallazgos de este afirma alli una historia que no ocurrio.
+- ⚠️ **Un detalle que costo una segunda pasada, y que conviene dejar escrito:** la primera version del
+  parrafo nuevo **ilustraba** la prohibicion escribiendo tres codigos reales. Una regla que se
+  incumple en la linea que la enuncia no se puede comprobar, asi que el parrafo pasa a describir la
+  forma sin escribirla. Es `L-037` otra vez, en su otra cara.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-114`.
+- **Criterio de cierre:** `CLAUDE.md` no contiene ningun codigo que nombre una entrada del registro, y
+  la convencion esta escrita.
+
+```
+$ git show <hash>:CLAUDE.md | grep -ohE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' | sort -u | tr '\n' ' '
+$ git show <hash>:CLAUDE.md | grep -c 'un codigo instanciado es un dato propio'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### T-115 - Aplicar la misma ruta a `.claude/`: 54 citas en tres archivos (`D-114`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-027 |
+
+- **Que:** aplicar `D-114` a los tres archivos de `.claude/` que citan entradas del registro:
+  `protocol-close/SKILL.md` (51 lineas, 50 codigos distintos), `protocol-start/SKILL.md` (2 lineas) y
+  `agents/session-closer.md` (1 linea). Sale el codigo; se queda la frase, reescrita para describir el
+  fallo y no el expediente.
+- **Por que va aparte de `T-114` y no en la misma pasada:** son 54 lineas de prosa que **explican por
+  que existe cada paso** del protocolo mas critico del repositorio, y cada reescritura es una decision
+  de redaccion, no un reemplazo mecanico. Hacerlas de corrido con la de `CLAUDE.md` mezcla un cambio
+  de tres lineas revisable de un vistazo con uno que hay que leer entero.
+- ⚠️ **Y hay un caso que no se resuelve quitando el codigo:** las lineas que **cuentan** hallazgos
+  —«es el defecto mas repetido de este repositorio, siete hallazgos de la misma forma»— pierden la
+  cifra si se quitan los siete codigos. Hay que decidir si la cifra se queda sin sus codigos (sigue
+  siendo un dato propio, pero no navegable) o si la frase pasa a decir el mecanismo sin el recuento.
+- **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-114`.
+- **Criterio de cierre:** el control de pertenencia de `D-114` no devuelve ninguna linea de `.claude/`.
+
+📌 **Nota del 2026-09-07 (`D-115`) — hecha, y el caso que quedaba abierto se resolvio asi.** Salieron
+las 54 citas: 51 de `protocol-close`, 2 de `protocol-start` y 1 de `session-closer`. Se aprovecho para
+genericizar tres ejemplos mas que el control de pertenencia no marcaba pero que eran de la misma
+clase: los encabezados de muestra `### C-XXX` / `| [T-XXX]` de los dos protocolos, la tabla de como
+nombrar entradas en el informe —que ahora usa `L-XXX`/`L-YYY`/`L-ZZZ` en vez de cinco entradas
+reales— y el `H-nn` de `session-starter`. **`.claude/` queda a cero codigos instanciados**, no solo a
+cero citas del registro.
+
+El caso abierto arriba —las lineas que **cuentan** hallazgos— se resolvio conservando la cifra y
+cambiando el sujeto: «el defecto que mas veces ha reaparecido **con este metodo** — siete hallazgos
+de auditoria de la misma forma». Lo fija `D-115`.
+
+```
+$ git grep -nIoE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' -- .claude
+$ echo "exit=$?"
+exit=1
+```

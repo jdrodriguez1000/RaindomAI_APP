@@ -15,6 +15,7 @@
 | [DT-003](#dt-003---cinco-lineas-del-registro-publican-ordenes-con-un-caracter-de-control-x08-y-no-se-reejecutan-l-024) | Cinco lineas del registro publican ordenes con un caracter de control `\x08` y no se reejecutan (`L-024`) | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 | [DT-004](#dt-004---siete-lineas-nuevas-de-s-019-repiten-el-defecto-de-dt-003-en-decisionsmd-y-tasksmd) | Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md` | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 | [DT-005](#dt-005---una-linea-de-_auditfindingsmd-repite-el-defecto-de-dt-003-en-un-archivo-que-manager-no-escribe) | Una linea de `_audit/findings.md` repite el defecto de `DT-003`, en un archivo que `manager` no escribe | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
+| [DT-006](#dt-006---cuatro-lineas-nuevas-de-s-027-repiten-el-defecto-de-dt-003-en-assumptionsmd) | Cuatro lineas nuevas de `S-027` repiten el defecto de `DT-003`, en `assumptions.md` | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
 
 ---
 
@@ -424,3 +425,52 @@ f09d1f7: 1
 ⚠️ **La clasifico como reversible a criterio**, porque cualquiera de los dos caminos anade texto y se
 deshace con un commit sin destruir lo escrito. Criterio declarado, no leido de una tabla, porque el
 inventario de acciones irreversibles todavia no existe (`T-037`).
+
+---
+
+### DT-006 - Cuatro lineas nuevas de `S-027` repiten el defecto de `DT-003`, en `assumptions.md`
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Origen | manager (deteccion: cierre de sesion, Paso 2e) |
+| Fecha | 2026-09-07 |
+
+- **Deuda:** cuatro lineas de `_persistence/assumptions.md`, nacidas en `S-027` (entrada `A-013`),
+  publican ordenes con el caracter de retroceso `0x08` donde el texto pretendia escribir `\b` (limite
+  de palabra). Es el mismo defecto que documentan `DT-003`, `DT-004` y `DT-005`, en un archivo que
+  ninguna de las tres cubre.
+
+```
+$ grep -n $'[\x01-\x08\x0b\x0c\x0e-\x1f]' _persistence/assumptions.md | cat -A | cut -c1-200
+769:$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '^H(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+^H' | sort -u | wc -l$
+770:$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '^H(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+^H' | wc -l$
+771:$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -cE '^H(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+^H'$
+795:$ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '^H(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+^H' | sort -u$
+```
+
+  Comprobado tambien contra `HEAD` (`3aadf62`), donde estas lineas todavia no existen: la cifra es
+  **nueva de esta sesion**, no heredada.
+
+```
+$ git show HEAD:_persistence/assumptions.md | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'
+0
+```
+
+- **Por que no se corrige en este cierre:** `assumptions.md` es uno de los cuatro archivos del
+  porque que `session-closer` **no escribe**, y no esta entre los dos que cubre la excepcion
+  mecanica del Paso 7c-bis (`decisions.md` y `tasks.md`). Corregir la linea aqui seria escribir
+  prosa/orden en un archivo ajeno sin evaluacion previa de `manager` — el mismo limite de reparto
+  que ya dejo sin pagar a `DT-005` en `_audit/findings.md`.
+- **Costo de no pagarla:** las cuatro ordenes de `A-013`, tal como estan escritas, no se pueden
+  copiar y ejecutar: el interprete recibe un caracter de control donde el patron esperaba un limite
+  de palabra.
+- **Como se paga:** igual que `DT-003` — nota fechada junto a cada linea con la forma reejecutable
+  (`\b` en vez de `0x08`), sin reescribir la original; o, al no estar todavia commiteadas cuando se
+  detecto, correccion directa por `manager` en la proxima sesion si decide que la prohibicion de
+  reescritura retroactiva (`D-019`) no aplica a un texto que aun no entro en ningun commit.
+
+📌 **Se registra como `Propuesta (pendiente del usuario)`**, igual que `DT-003`/`DT-004`/`DT-005`:
+decidir cuanto se toca un texto que `manager` ya redacto es un eje del usuario, no del cierre.

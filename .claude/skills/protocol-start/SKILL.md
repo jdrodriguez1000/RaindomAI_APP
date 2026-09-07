@@ -18,7 +18,7 @@ por la tarde y otra por la noche **de la misma fecha**.
 
 > 🔑 **Consecuencia directa: las fechas no identifican sesiones. Los ids `S-XXX` si.**
 
-Nunca digas «la sesion de ayer» ni «la ultima sesion, del 27». Di **`S-007`**. Y para saber cual fue
+Nunca digas «la sesion de ayer» ni «la ultima sesion, del 27». Di **su `S-XXX`**. Y para saber cual fue
 la ultima, mira el **id mas alto**, nunca la fecha mas reciente: varias filas pueden compartir fecha
 siendo sesiones distintas, y ordenar por fecha las mezcla.
 
@@ -161,7 +161,7 @@ done
 
 🚨 **El `awk` descarta los bloques de codigo cercados, y no es opcional.** El registro guarda salida
 cruda de comandos como evidencia, y esos bloques contienen encabezados y codigos identicos a los
-reales —`### C-001`, `| [T-001]…`— que son citas de como estaba el archivo, no entradas. Sin el
+reales —`### C-XXX`, `| [T-XXX]…`— que son citas de como estaba el archivo, no entradas. Sin el
 filtro, el control senala como huerfano lo que en realidad es una prueba bien puesta. **Es el mismo
 comando que corre `protocol-close` en su Paso 2b**, y tiene que seguir siendolo: si los dos
 protocolos comprueban lo mismo de forma distinta, uno de los dos empieza a mentir.

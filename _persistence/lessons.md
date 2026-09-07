@@ -45,6 +45,7 @@
 | [L-034](#l-034---un-pre-compromiso-que-no-distingue-el-fallo-total-del-parcial-se-renegocia-en-su-primera-aplicacion) | Un pre-compromiso que no distingue el fallo total del parcial se renegocia en su primera aplicacion | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-035](#l-035---una-regla-que-nombra-un-archivo-se-cumple-en-ese-archivo-y-se-incumple-en-el-de-al-lado) | Una regla que nombra un archivo se cumple en ese archivo y se incumple en el de al lado | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-036](#l-036---una-condicion-de-parada-que-no-se-puede-cumplir-se-convierte-en-una-excepcion-redactada-cada-vez) | Una condicion de parada que no se puede cumplir se convierte en una excepcion redactada cada vez | 2026-09-07 | 000_preproject | Sin evaluar |
+| [L-037](#l-037---un-criterio-que-cita-el-texto-que-comprueba-se-acierta-a-si-mismo) | Un criterio que cita el texto que comprueba se acierta a si mismo | 2026-09-07 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1398,3 +1399,35 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   despues. **(2)** Cuando un control legitimo devuelve casos que no son defectos, se parte en dos —
   uno que **informa** y no juzga, y otro **acotado a lo que se puede cumplir**, que es el que detiene.
   Explicar las excepciones en prosa es siempre la tercera opcion, y es la que produce hallazgos.
+
+---
+
+### L-037 - Un criterio que cita el texto que comprueba se acierta a si mismo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-07 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al corregir `F-075` se restauro en `T-105` la linea original de su «Criterio de
+  cierre» y se escribio el criterio de la decision que lo ordena (`D-111`) como tres `grep -c` sobre
+  `_persistence/tasks.md`: uno que la linea original este, otro que la nota de restauracion este, y
+  otro que la linea acotada **no** este. Al correrlos dieron `3`, `2` y `1` en vez de `1`, `1` y `0`.
+- **Que ocurrio:** la propia correccion **cita** los dos enunciados. La nota de restauracion
+  transcribe la linea acotada para que se vea de que se venia, y `T-111` transcribe la original para
+  decir que se restauro. Un patron suelto no distingue **la linea que es el criterio** de **una linea
+  que la menciona**, asi que el tercer `grep` —el que tenia que devolver cero— devolvia uno, y lo
+  devolvia por culpa del texto escrito para corregir el defecto.
+- **Y el modo de fallo es el peligroso, no el ruidoso.** Aqui salio de mas y se vio. Al reves —un
+  criterio que exige que algo **este** y acierta en su propia cita— sale en verde sin que el archivo
+  contenga lo que se afirma, y nadie lo mira otra vez.
+- **Leccion:** **un criterio que se escribe con el mismo texto que comprueba tiene que anclarse a la
+  forma de la linea, no a su contenido.** `^- \*\*Criterio de cierre:\*\* …$` cuenta criterios;
+  el mismo texto sin anclas cuenta menciones. Es el mismo argumento que separa el CENSO del CONTROL
+  en `D-107` —la forma literal al principio de la orden—, aplicado a la prosa del registro en vez de
+  a las ordenes.
+- **Como aplicarla:** cuando la evidencia de una entrada cite el texto que su propio criterio busca,
+  el patron lleva `^` y `$` y la parte estructural de la linea —el guion, el `**Criterio de
+  cierre:**`, el encabezado—. Y se corre **antes** de publicarlo, no despues: la cifra esperada se
+  escribe habiendola visto salir. Lo mismo vale para cualquier archivo que documente sus propios
+  barridos, que en este repositorio son casi todos.

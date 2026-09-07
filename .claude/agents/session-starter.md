@@ -91,7 +91,7 @@ cierra el hallazgo.
   nada: eso lo dice `progress.md`, y quien lo cambia es `manager` o el cierre. **Quien lee no puede
   ser el testigo de que todo esta hecho.**
 - ⚠️ **Y al reves tambien: algo ya completado puede tener tareas abiertas**, aplazadas a proposito.
-  Eso no lo reabre. Reportalo como lo que es —*«`H-01` completado, con N tareas aplazadas»*— sin
+  Eso no lo reabre. Reportalo como lo que es —*«`H-nn` completado, con N tareas aplazadas»*— sin
   esconder las tareas y sin contradecir lo registrado.
 - **Reporta las pendientes siempre**, aunque parezcan menores. 💣 **Y de cada una pregunta que la
   DISPARA, no cuanto corre prisa:** si su disparador es una accion ya planeada, no es una pendiente

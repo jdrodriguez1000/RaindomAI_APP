@@ -195,7 +195,7 @@ Las dos formas de dejarlo a medias mienten igual. Esta comprobacion las detecta:
 
 🚨 **El `awk` del principio de cada rama no es decoracion: descarta los bloques de codigo
 cercados.** El registro guarda **salida cruda de comandos** como evidencia, y esos bloques
-contienen encabezados y codigos identicos a los reales —`### C-001`, `| [T-001]…`— que son citas de
+contienen encabezados y codigos identicos a los reales —`### C-XXX`, `| [T-XXX]…`— que son citas de
 como estaba el archivo, no entradas. Sin el filtro, el control senala como huerfano lo que en
 realidad es una prueba bien puesta. Y una alarma que siempre resulta falsa se aprende a ignorar:
 el dia que sea verdadera tampoco se mirara.
@@ -302,7 +302,7 @@ una: se vuelve a correr, y su salida tiene que ser la que el bloque publica.
 |---|---|---|
 | ninguna linea | todo lo escrito hoy va anclado | sigue |
 | una linea, y al reejecutarla da lo mismo que el bloque publica | la orden es reproducible aunque no lleve ancla | sigue, pero **anclala**: `git show <hash>:` cuesta un `git grep` |
-| una linea, y al reejecutarla da **otra cosa** | 🚨 el bloque afirma algo que su commit no sostiene | no se cierra asi. O se corrige el numero, o el bloque va con su **nota fechada** al lado (`D-019`) |
+| una linea, y al reejecutarla da **otra cosa** | 🚨 el bloque afirma algo que su commit no sostiene | no se cierra asi. O se corrige el numero, o el bloque va con su **nota fechada** al lado |
 
 🚨 **Y la evidencia de este paso publica la lista COMPLETA de su primera orden, nunca una
 seleccion de ella.** Se pega la orden con **su recuento** y **todas** las lineas que devolvio, con el
@@ -318,8 +318,8 @@ interesa cuantas ordenes distintas hay, ese numero se da **aparte y con ese nomb
 recuento de la salida. Dos cifras con dos nombres se contrastan; una cifra con el nombre de la otra
 no reproduce, y quien la reejecute no puede saber si se equivoco el informe o cambio el repositorio.
 
-🚨 **Y si se da esa segunda cifra, va con SU orden y su salida cruda — no se estima.** Lo abrio
-`F-068`: el informe publico «Ordenes distintas, aparte: 41 — no hubo repeticion; `sort -u` sobre la
+🚨 **Y si se da esa segunda cifra, va con SU orden y su salida cruda — no se estima.** Ya paso:
+un informe publico «Ordenes distintas, aparte: 41 — no hubo repeticion; `sort -u` sobre la
 misma lista tambien devuelve 41», y `sort -u` devolvia 31. La cifra principal estaba bien; la
 accesoria se escribio sin correrla, y es justamente la que nadie recomprueba.
 
@@ -354,8 +354,8 @@ vale es publicar una orden que, tal como esta escrita, devuelve otra cosa que la
 
 🚨 **Y esa lista tiene un sitio fijo: la seccion 7 del informe de `_audit/S-XXX.md`, y no la
 pantalla.** Publicada solo en el reporte de cierre, la evidencia del control desaparece con la
-sesion: al dia siguiente el informe afirma haber corrido el paso y no queda nada que mirar. `D-063`
-decia **que** publicar; esto dice **donde**, que es lo que faltaba para que la regla se pudiera
+sesion: al dia siguiente el informe afirma haber corrido el paso y no queda nada que mirar. La regla
+anterior decia **que** publicar; esto dice **donde**, que es lo que faltaba para que se pudiera
 comprobar. Si la lista sale vacia, la seccion 7 lo dice con su orden y su salida — «ninguna linea» es
 tambien un resultado, y se publica igual.
 
@@ -369,13 +369,13 @@ git diff -U0 -- _persistence _audit | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" ::
 ```
 
 📌 **La procedencia es del archivo, no de la entrada.** El diff sabe en que archivo entro cada
-linea; **no** sabe si dentro de ese archivo cayo en `T-050` o en `D-065`. Si el informe nombra la
+linea; **no** sabe si dentro de ese archivo cayo en una tarea o en una decision. Si el informe nombra la
 entrada, esa mitad si se mira a mano — y entonces se comprueba, una por una, contra el bloque que
 se cita.
 
 🚨 **La lista se numera con la orden, y las repetidas salen de `uniq -d` — nunca a ojo.**
-Marcar «ésta es la misma que la 15» mirando la lista es donde se corrió la numeracion en `S-018`
-(`F-045`): una posicion de diferencia basto para que una orden propia quedara **sin salida
+Marcar «ésta es la misma que la 15» mirando la lista es donde se corrió la numeracion una vez:
+una posicion de diferencia basto para que una orden propia quedara **sin salida
 publicada** mientras el informe declaraba que todas reprodujeron. Las tres ordenes que evitan eso,
 y que se pegan con su salida:
 
@@ -392,7 +392,7 @@ eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}
 
 🔑 **Y el bloque de reejecucion usa esos numeros, no unos propios.** Cada salida se rotula
 con la posicion que le dio `cat -n`; una posicion sin salida es un hueco visible, que es
-exactamente lo que no fue visible en `S-018`. Si una posicion repite a otra, se dice **de cual** y
+exactamente lo que no fue visible la vez que esto fallo. Si una posicion repite a otra, se dice **de cual** y
 la orden repetida tiene que estar en la salida de `uniq -d`.
 
 ⚠️ **El recuento no es estable entre entornos, y por eso no basta con la cifra.** La misma orden
@@ -405,11 +405,11 @@ nueva convierte «falta evidencia» en «hay evidencia falsa», y esta vez sin n
 salida correcta es la nota fechada: quedan visibles las dos cosas, lo que se probo entonces y lo que
 se probo despues.
 
-📌 **Por que existe este paso.** Es el defecto mas repetido de este repositorio —`F-005`, `F-008`,
-`F-011`, `F-022`, `F-025`, `F-027` y `F-031`, siete hallazgos de la misma forma— y no se repite por
+📌 **Por que existe este paso.** Es el defecto que mas veces ha reaparecido con este metodo
+—**siete hallazgos de auditoria de la misma forma**— y no se repite por
 descuido: se repite porque **cuando ocurre nadie lo ve**. La orden se corre pronto, el archivo
-crece despues, y entre las dos cosas no hay ningun momento en que algo chille. `L-013` y `L-015` ya
-describen el defecto; lo que faltaba era quien lo aplicara, que es `L-008` literal — una regla sin
+crece despues, y entre las dos cosas no hay ningun momento en que algo chille. El registro de
+lecciones ya describia el defecto; lo que faltaba era quien lo aplicara — una regla sin
 mecanismo no es una regla, es una intencion.
 
 ⚠️ **El patron `^\+\$ ` acota a proposito, y por eso no basta con el.** Recoge las lineas de orden
@@ -462,7 +462,7 @@ y la imprime **igual de invisible**.
 |---|---|---|
 | ninguna linea | limpio | sigue |
 | una linea, y la misma linea ya esta en `HEAD` | es preexistente, no la escribio esta jornada | sigue, y **dilo** en la seccion del informe con su cifra: heredada no es inexistente |
-| una linea que la jornada **anadio** | 🚨 el commit introduce un bloque que no reproduce | no se cierra asi. Se corrige la linea antes del `git add`, o va con su **nota fechada** (`D-019`) si ya estaba commiteada |
+| una linea que la jornada **anadio** | 🚨 el commit introduce un bloque que no reproduce | no se cierra asi. Se corrige la linea antes del `git add`, o va con su **nota fechada** si ya estaba commiteada |
 
 Para separar lo nuevo de lo heredado, el mismo barrido contra `HEAD`:
 
@@ -473,9 +473,9 @@ done
 ```
 
 🚨 **El ambito es «los archivos que el commit toca», y esa palabra es el paso entero.** Enumerar a
-mano los archivos que uno recuerda haber editado no es un barrido: `DT-004` conto siete casos en dos
-archivos porque miro los dos que el Paso 6 tenia delante en ese momento, y eran diez en cuatro
-(`F-049`). Los tres que faltaban estaban en archivos tocados **al principio** de la sesion — que son
+mano los archivos que uno recuerda haber editado no es un barrido: una vez se contaron siete casos en
+dos archivos, mirando los dos que el Paso 6 tenia delante en ese momento, y eran diez en cuatro.
+Los tres que faltaban estaban en archivos tocados **al principio** de la sesion — que son
 exactamente los que la memoria deja fuera. **El diff sabe que archivos se tocaron; quien escribe, no.**
 
 🚨 **Y este paso va antes del `git add`, no despues del commit.** Una vez commiteado, el defecto ya
@@ -486,9 +486,9 @@ aqui y no en la auditoria.
 resultado, y va con su orden y su salida cruda como cualquier otro — un control sin evidencia
 publicada es indistinguible de un control que no se corrio.
 
-📌 **Por que existe este paso.** El `0x08` lleva tres sesiones consecutivas apareciendo —`DT-003`,
-`DT-004` y las tres lineas que documenta `F-049`—, y las tres veces se detecto **a mano y de
-casualidad**, mirando un archivo por otro motivo. `L-008` literal: una regla sin mecanismo no es una
+📌 **Por que existe este paso.** El `0x08` llego a aparecer **tres sesiones consecutivas**, y las
+tres veces se detecto **a mano y de
+casualidad**, mirando un archivo por otro motivo. Una regla sin mecanismo no es una
 regla, es una intencion. Lo que faltaba no era saber que el defecto existe; era una orden que lo
 buscara sin que nadie se acuerde.
 
@@ -669,7 +669,7 @@ donde `Implementada` significa deuda **ya pagada**. Mas Importancia y Urgencia, 
 `manager` en el momento en que las cosas pasan, porque una decision no aparece en el `git diff`:
 nace en la conversacion, y tu no estuviste ahi.
 
-⚠️ **Hay exactamente una excepcion, y esta acotada al Paso 7c-bis** (`D-092`): despues del
+⚠️ **Hay exactamente una excepcion, y esta acotada al Paso 7c-bis:** despues del
 commit, sustituyes el ancla de las ordenes del bloque «Criterio de cierre» de las decisiones nacidas
 en esta sesion y pegas su salida. **Eso no es escribir el porque** — es correr una orden ya escrita
 y publicar lo que devolvio, y no pide ni un dato de la jornada. **Ni una palabra de prosa se toca**,
@@ -840,7 +840,7 @@ contenido, **dilo**: «los archivos de contenido; el cierre anade ademas…». U
 parcial es honesta; una lista corta presentada como completa, no.
 
 🚨 **Y por eso la seccion 1 no lleva una lista redactada: lleva la salida pegada.** La estructura de
-abajo lo pide asi, y no es una preferencia de formato. Este mismo aviso ya existia cuando `S-007`
+abajo lo pide asi, y no es una preferencia de formato. Este mismo aviso ya existia el dia que un cierre
 escribio una lista de ocho contra un comando que devolvia diez, y no lo evito: un aviso dentro de un
 bloque explicativo se lee una vez, mientras que un hueco en la plantilla se ve cada vez que se
 escribe la seccion. Una salida pegada tampoco puede quedarse corta — o esta entera, o se nota.
@@ -858,8 +858,8 @@ incompleto.
 
 | Escribe | En vez de |
 |---|---|
-| `lessons.md`: `L-024` (nace), `L-004` y `L-019` (nota de reincidencia) | `lessons.md`: `L-024` (nace) |
-| `decisions.md`: `D-075` (nace), `D-073` (nota fechada) | `decisions.md`: `D-075` |
+| `lessons.md`: `L-XXX` (nace), `L-YYY` y `L-ZZZ` (nota de reincidencia) | `lessons.md`: `L-XXX` (nace) |
+| `decisions.md`: `D-XXX` (nace), `D-YYY` (nota fechada) | `decisions.md`: `D-XXX` |
 
 ⚠️ **Y no es un detalle de completitud: casi siempre es el dato mas util del commit.** Una nota
 anadida a una entrada antigua suele ser la evidencia de que algo ya registrado **volvio a fallar** —
@@ -871,8 +871,8 @@ Las cabeceras `@@` marcan cuantos puntos distintos del archivo se tocaron; si so
 entradas que nacen, hay ediciones sobre entradas existentes que nombrar.
 
 🚨 **Y saber cuantos puntos se tocaron no dice cuales son: eso tambien se deriva.** Contar
-hunks y despues buscar la entrada a ojo es como `S-018` atribuyo a `L-020` una nota que el commit
-puso en `L-019` (`F-046`) — en el mismo commit que escribio esta seccion. Las dos ordenes que dan
+hunks y despues buscar la entrada a ojo es como un cierre llego a atribuir a una leccion una nota que
+el commit habia puesto en la de al lado — en el mismo commit que escribio esta seccion. Las dos ordenes que dan
 la respuesta, y que se corren por cada archivo de registro que el commit toque:
 
 ```bash
@@ -900,7 +900,7 @@ date +%F
 ⛔ **No se incrementa por sesion.** Varias sesiones pueden caer el mismo dia — `CLAUDE.md` lo
 dice con esas palabras — y cada una lleva su propio `S-XXX`, no su propia fecha. Sumarle un dia a la
 sesion anterior «porque es otra jornada» produce un registro que **afirma algo comprobablemente
-falso**, y arrastra con el cada nota fechada que se escriba ese dia. Es lo que abrio `F-060`: tres
+falso**, y arrastra con el cada nota fechada que se escriba ese dia. Ya paso: tres
 sesiones commiteadas el mismo dia, fechadas en tres dias consecutivos.
 
 🔑 **Y esa fecha es la misma que llevaran la fila de `_audit/index.md`, `progress.md` y toda
@@ -1009,8 +1009,8 @@ seccion 0 hay dos hashes en juego, y **no son el mismo**:
 | **el commit auditado** | el estado que esa auditoria juzgaba | uno **anterior**: es el que la cabecera del informe de la sesion anterior declara |
 
 ⛔ **Llamar `HEAD` al commit auditado es afirmar algo comprobablemente falso**, y ademas dentro de
-la frase que da la regla por cumplida — que es lo que la hace peor que un descuido de redaccion. Lo
-abrio `F-065`.
+la frase que da la regla por cumplida — que es lo que la hace peor que un descuido de redaccion. Ya
+ocurrio, y costo un hallazgo de auditoria.
 
 ✅ **La forma que sirve nombra los dos:** «verificado contra `HEAD` (`<hash de HEAD>`), sobre el
 estado que `<hash auditado>` dejo».
@@ -1082,7 +1082,7 @@ que todavia no ha mirado.
 ⚠️ **Y el commit auditado tampoco lo escribes, aunque parezca que si.** No puedes: la fila se
 escribe **antes** del commit que la contiene. Lo rellena la auditoria, que ya lo tiene delante, y lo
 que escribe ahi es **el hash literal de la cabecera del informe** — el mismo que tu Paso 7c acaba de
-anclar (`D-090`). Es la misma imposibilidad que la del push (Paso 4), y la misma solucion: dejarselo
+anclar. Es la misma imposibilidad que la del push (Paso 4), y la misma solucion: dejarselo
 a quien si tiene el dato en vez de intentar escribirlo.
 
 ⚠️ **Este informe no reemplaza a `_persistence/`.** Es una vista de **esta sesion** para un lector
@@ -1218,9 +1218,9 @@ juntos, en un unico commit de anclaje**:
 | **`decisions.md`** y **`tasks.md`**, bloques «Criterio de cierre» de **las entradas nacidas en esta sesion** | las mismas ordenes, reejecutadas ancladas, con su salida | ver **7c-bis**, justo debajo |
 
 🚨 **Los cuatro, o ninguno.** Anclar la seccion 7 y dejar la 1 y la cabecera sin anclar es el
-defecto que abrio `F-052` y `F-053`: el informe queda con una parte reproducible y otra que describe
+defecto que ya costo dos hallazgos: el informe queda con una parte reproducible y otra que describe
 un area de staging que ya no existe, y **ninguna regla escrita dice cual manda**. Dejar la seccion 7
-sin anclar y anclar las otras tres es el mismo defecto por su otra cara, y es lo que abrio `F-066`.
+sin anclar y anclar las otras tres es el mismo defecto por su otra cara, y costo un tercero.
 
 ### Que dice la nota de la seccion 7, exactamente
 
@@ -1239,13 +1239,32 @@ desfasa.
    o cuales quedan y por que — **construida con las salidas de esos dos barridos, no recontando a
    mano lo que la salida ya dice**.
 
-🚨 **Son DOS barridos, y lo que puede detener el paso es el segundo.** Lo abrio `F-071`: la
+🚨 **Y si la nota publica un TOTAL, ese total es la suma de los numeros por archivo que el
+CONTROL devolvio, y nada mas.** Ni una linea se anade ni se resta en prosa. Toda orden que el Paso
+7c-bis ancle y que el CONTROL **no** haya contado —porque la escribio una sesion anterior, o porque
+su forma no empieza por `git show <hash>:`— se **enumera aparte, una por una, con su archivo y su
+orden literal**; nunca se dobla dentro del total. Ya paso: una nota sumo «14 + 14 + 1 = 29»
+sobre un CONTROL que habia devuelto `14` y `13`, y el `+ 1` era una orden que ya estaba dentro de esas
+14. Las ancladas de verdad eran 28.
+
+🔑 **Por que la suma en prosa falla siempre en la misma direccion.** Quien la escribe conoce la
+orden «extra» porque acaba de anclarla a mano, y por eso la suma; lo que no puede ver de memoria es si
+el barrido ya la habia contado. Una salida no tiene ese problema. Una version anterior de esta regla ya
+lo pedia para la frase de cierre, y su primera aplicacion lo incumplio: la unica forma de que la cifra salga de una salida es
+**prohibir la aritmetica de prosa**, no pedir que se evite.
+
+⚠️ **Y la frase «no queda ninguna orden sin anclar» solo se escribe si el CENSO al commit de
+anclaje lo sostiene.** Si quedan lineas con `<hash>` a proposito —ordenes ilustrativas, bloques que
+la regla de no reescribir congela—, se dicen **cuantas y cuales**. Afirmar de menos deja un pendiente escondido;
+afirmar de mas, que es lo que paso, deja el informe diciendo algo comprobablemente falso.
+
+🚨 **Son DOS barridos, y lo que puede detener el paso es el segundo.** Lo abrio un hallazgo, y asi: la
 version anterior pedia un solo barrido universal y exigia que saliera **VACIO**, y en su primera
 ejecucion no salio vacio — porque el patron acierta tambien en lineas que **no estan pendientes de
-anclar**: las que llevan `<hash>` como dato buscado, y los bloques de sesiones anteriores que `D-019`
-congela y que ya tienen su nota fechada debajo. Una regla que su propio autor incumple la primera vez
-no es una regla: es una excepcion redactada en prosa cada vez, que es como entraron `F-070`, `F-072`
-y `F-073`.
+anclar**: las que llevan `<hash>` como dato buscado, y los bloques de sesiones anteriores que la regla
+de no reescribir congela y que ya tienen su nota fechada debajo. Una regla que su propio autor incumple la primera vez
+no es una regla: es una excepcion redactada en prosa cada vez — y esa prosa fue por donde entraron
+otros tres hallazgos de la misma auditoria.
 
 **Barrido 1 — el CENSO.** Universal y anclado. Dice cuantas lineas con `<hash>` hay en el registro a
 ese commit, heredadas incluidas. **No tiene que salir vacio**, y su salida se publica tal cual:
@@ -1288,16 +1307,16 @@ excepcion dentro del informe.
 
 🔑 **Y asi la condicion vuelve a ser mecanica y alcanzable.** El censo informa y no juzga; el
 control juzga y se puede cumplir. Las lineas del censo que el control no recoge son **anteriores a
-este commit**, y lo anterior lo gobierna `D-019`: no se reescriben, se corrigen por nota fechada.
+este commit**, y lo anterior no se reescribe: se corrige por nota fechada.
 
 🚨 **El barrido es de TODOS los archivos, no de los dos que el 7c-bis escribe, y esa asimetria
 es deliberada.** Detectar es universal — los dos barridos lo son; **escribir sigue acotado a
-`decisions.md` y `tasks.md`**. Nombrar esos dos aqui no contradice a `L-035`: la autorizacion de
-`D-102` **es** por nombre de archivo, y lo que `L-035` avisa es de enunciar por nombre lo que se
-quiere universal — que es justo lo que la deteccion sigue siendo.
+`decisions.md` y `tasks.md`**. Nombrar esos dos aqui no contradice a la leccion de enunciar por
+nombre: la autorizacion para escribir **es** por nombre de archivo, y lo que esa leccion avisa es de
+enunciar por nombre lo que se quiere universal — que es justo lo que la deteccion sigue siendo.
 
 ⛔ **Los dos barridos se publican SIEMPRE en su forma anclada, y `cat` no aparece en ninguno.** Lo
-abrio `F-070`: el cierre publico el censo tomando la **lista de archivos** de `git ls-tree HEAD` y el
+abrio un hallazgo: un cierre publico el censo tomando la **lista de archivos** de `git ls-tree HEAD` y el
 **contenido** de `cat "$f"` — el arbol de trabajo —, lo etiqueto «sobre `<hash>`», y su salida
 correspondia a un estado **posterior** al commit citado. Una orden hibrida reproduce el dia que se
 corre y ningun otro, y quien la reejecuta no puede saber si se equivoco el informe o cambio el
@@ -1306,17 +1325,17 @@ repositorio.
 ⚠️ **Y la nota nombra el commit al que corresponde su salida.** No «sobre `HEAD`»: `HEAD` se mueve
 con el commit siguiente, y es lo que convierte una evidencia en una afirmacion.
 
-🔑 **La deteccion se enuncia sin nombrar archivos por lo que `L-035` describe:** una regla
+🔑 **La deteccion se enuncia sin nombrar archivos, y es una leccion aprendida:** una regla
 enunciada por el nombre del archivo se cumple ahi y se incumple en el de al lado — exactamente como
-nacio `F-067`. Por eso los dos barridos recorren el arbol entero y **es la condicion de parada, no el
-barrido, la que mira los nombres**: parar es una cuestion de permiso, y el permiso de `D-102` esta
+nacio un hallazgo. Por eso los dos barridos recorren el arbol entero y **es la condicion de parada, no el
+barrido, la que mira los nombres**: parar es una cuestion de permiso, y el permiso de escritura esta
 escrito con dos nombres propios.
 
 ### 7c-bis — Los criterios de cierre de las entradas de esta sesion
 
-🔑 **Es el mismo huevo-y-gallina, en otro archivo.** `D-088` exige que la orden de un
+🔑 **Es el mismo huevo-y-gallina, en otro archivo.** El registro exige que la orden de un
 «Criterio de cierre» vaya **anclada al commit**; pero cuando `manager` escribe la decision, durante
-la jornada, ese commit **todavia no existe**. El resultado fue `F-059`: seis decisiones nacidas en un
+la jornada, ese commit **todavia no existe**. El resultado, la vez que se descubrio: seis decisiones nacidas en un
 commit publicando 16 ordenes sin anclar, contra la convencion que ese mismo commit estrenaba. La
 solucion es la que ya funciona para el informe — se ancla **aqui**, cuando el hash existe.
 
@@ -1325,10 +1344,10 @@ solucion es la que ya funciona para el informe — se ancla **aqui**, cuando el 
 excepcion no la toca. **Lo que haces aqui es mecanico y no pide ni un dato de la jornada:** coges una
 orden **ya escrita**, le pones el ancla, la corres, y pegas lo que devolvio.
 
-🚨 **Son DOS archivos, no uno: `decisions.md` y `tasks.md`.** Lo abrio `F-067`. Este paso nacio
+🚨 **Son DOS archivos, no uno: `decisions.md` y `tasks.md`.** Lo abrio un hallazgo. Este paso nacio
 mirando solo `decisions.md`, y en la sesion en que se estreno dejo doce ordenes con `<hash>` literal
 en `tasks.md`, en los bloques «Criterio de cierre» de las tareas que cerraban hallazgos. Es el mismo
-hecho de `F-059`, desplazado de archivo: **la evidencia que respalda una Definicion de Terminado no
+hecho de antes, desplazado de archivo: **la evidencia que respalda una Definicion de Terminado no
 es ejecutable si `<hash>` no es un commit.**
 
 🔑 **Y `tasks.md` es mas facil de justificar que `decisions.md`, no menos.** El unico motivo por el
@@ -1348,7 +1367,7 @@ git show <hash>:_persistence/tasks.md \
 
 De esa lista, **solo tocas las entradas nacidas en esta sesion** — las que el Paso 2 te dio como
 nuevas en el diff. Una decision o una tarea de una sesion anterior **no se toca**: su bloque ya esta
-auditado, y reescribirlo es lo que `D-019` prohibe.
+auditado, y reescribirlo es justo lo que el registro prohibe.
 
 ⚠️ **Y `tasks.md` entra en el commit de anclaje**, igual que `decisions.md` y el informe. El barrido
 de la nota de la seccion 7 (Paso 7c) recorre **todos** los archivos y tiene que salir vacio; si
@@ -1376,7 +1395,7 @@ el aspecto que tiene cumplir la regla. Reescribirlo lo haria parecer escrito des
 🔑 **La linea que si puedes anadir va SIEMPRE debajo del bloque, nunca en lugar de nada.** Se anade;
 no sustituye. Si al escribirla estas borrando algo, te has salido del paso.
 
-🚨 **Y deja una linea en blanco entre la nota y el `---` que separa entradas.** Lo abrio `F-069`.
+🚨 **Y deja una linea en blanco entre la nota y el `---` que separa entradas.** Lo abrio un hallazgo.
 En Markdown, un `---` pegado a una linea de texto **no es una regla horizontal: es un encabezado
 setext de nivel 2**. La nota se renderiza como titulo y el separador entre entradas desaparece. Es
 invisible en el archivo plano y salta a la vista en cuanto alguien lo lea renderizado.
@@ -1416,14 +1435,14 @@ decide.** La prueba es una sola: **¿la forma anclada contesta lo mismo que cont
 | `grep -c X <archivo>` → `grep -n X <archivo>` | **no** | cambia **que** comprueba, y eso lo prohibe la tabla de arriba |
 
 ⛔ **Un `ls` sobre archivos versionados NO es un ejemplo de orden no anclable**, y decia lo
-contrario hasta que `F-064` lo cobro. Lo que lo hace anclable es que pregunte por algo que el commit
+contrario hasta que una auditoria lo cobro. Lo que lo hace anclable es que pregunte por algo que el commit
 contiene; lo que hace a `git status` inanclable es que pregunte por algo que el commit no puede
 contener.
 
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 
 **El commit ya existe, asi que la fecha ya se puede comprobar en vez de suponer.** Es el control que
-`F-060` dejo escrito: tres sesiones commiteadas el mismo dia y fechadas en tres dias consecutivos,
+Ya quedo escrito una vez: tres sesiones commiteadas el mismo dia y fechadas en tres dias consecutivos,
 sin que nada lo detectara.
 
 ```bash

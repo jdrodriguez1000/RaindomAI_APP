@@ -228,6 +228,30 @@ Por eso no llevan ni un nombre, ni una ruta, ni un host de este proyecto — y e
 `protocol-close` lo comprueba en cada cierre buscando exactamente eso, sobre los seis. Si algun dia
 devuelve una linea, es que un dato propio se colo ahi.
 
+🚨 **Y un codigo instanciado es un dato propio, con el mismo estatuto que un nombre o una ruta.**
+Un hallazgo, una decision o una sesion **con su numero puesto** no resuelven a nada en otro
+repositorio: copiados alli, el texto sigue afirmando una historia que no ocurrio. Por eso
+**ninguno de los seis cita una entrada del registro**, ni siquiera para explicar de que hallazgo
+nacio una regla.
+
+⚠️ **Y este parrafo no escribe el ejemplo, a proposito.** Nombrar aqui «el hallazgo tal» para
+ilustrar lo que no se puede escribir lo escribiria — y un barrido no distingue una cita de un
+ejemplo de la cosa citada. Una regla que se incumple en la linea que la enuncia no se puede
+comprobar.
+
+🔑 **Lo que se conserva es el hecho; lo que se va es el numero.** Una regla que nacio de un fallo
+lo dice —«esta regla nacio de un defecto real», «una version anterior pedia X y no se pudo cumplir»—,
+y esa frase viaja a cualquier proyecto porque describe el fallo, no el expediente. **Lo que no
+viaja es el codigo**, y quitarlo no pierde nada: el puntero ya existe **en la direccion contraria**,
+que es la util. Cada `D-XXX` del registro nombra el archivo y la regla que escribio, asi que la
+pregunta «¿de donde salio esta regla?» se responde buscando su enunciado en `decisions.md`.
+
+⚠️ **Dos cosas que esta regla NO prohibe, porque se confunden con ella.** Un codigo **generico**
+—`T-XXX`, `D-XXX`, `F-NNN`— es la forma, no el dato, y es justo como hay que escribirlo. Y el
+**primer numero de una serie** en una plantilla o en un ejemplo trabajado —`N-001`, `I-001`,
+`FT-001`— tampoco es dato propio: es el mismo en cualquier proyecto, y es parte de la forma que la
+plantilla existe para dar. Lo prohibido es citar **una entrada concreta con su contenido detras**.
+
 🔑 **`_methodology/` esta en esa lista por lo mismo, y con mas motivo:** es el metodo de
 desarrollo entero —que etapas existen, que pregunta responde cada una, que hay que entender antes de
 construir—, escrito sin un solo dato de ningun producto. **Describe el metodo; no declara las etapas
@@ -390,9 +414,10 @@ su propio `S-XXX`.
 
 🚨 **Y su fecha es la del reloj, no la siguiente a la de la sesion anterior.** Se deriva con
 `date +%F` al cerrar, y el Paso 7d de `protocol-close` la contrasta contra la del commit antes de dar
-la sesion por cerrada (`D-093`). Incrementarla por sesion —«es otra jornada, luego es otro
+la sesion por cerrada. Incrementarla por sesion —«es otra jornada, luego es otro
 dia»— hace que el registro **afirme algo comprobablemente falso**, y arrastra con el cada nota
-fechada de la jornada. Es lo que abrio `F-060`.
+fechada de la jornada. **No es un riesgo hipotetico: esta regla nacio de un defecto real**, y la
+decision que la fijo vive en el registro.
 
 🔑 **La nota fechada es el mecanismo con el que este repositorio corrige sin reescribir, y su
 valor entero esta en decir CUANDO se supo algo.** Si su fecha no es la del commit, la unica cronologia
@@ -428,7 +453,7 @@ llegas al cierre sin haberlos escrito, esa informacion **ya se perdio**.
 que se escribe durante la jornada no puede anclar su orden al commit de la sesion, porque ese commit
 todavia no existe — el mismo huevo-y-gallina que el informe tenia. El cierre lo resuelve **despues
 del commit**, en su Paso 7c-bis: coge una orden **ya escrita** en un bloque «Criterio de cierre» de
-una decision nacida en esa sesion, le pone el ancla, la corre y pega la salida. Lo fija `D-092`.
+una decision nacida en esa sesion, le pone el ancla, la corre y pega la salida.
 
 ⛔ **Y no autoriza nada mas.** No escribe, no altera ni borra **una palabra de prosa**; no toca
 `assumptions.md`, `constraints.md` ni `lessons.md`; no toca decisiones de sesiones anteriores. Si la
