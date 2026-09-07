@@ -85,8 +85,12 @@
 | [F-071](#f-071---la-nota-de-cierre-incumple-en-su-primera-ejecucion-la-regla-que-esa-misma-sesion-escribio-el-barrido-no-salio-vacio-y-no-se-detuvo) | La nota de cierre incumple, en su primera ejecucion, la regla que esa misma sesion escribio: el barrido no salio vacio y no se detuvo | R-025 | Media | Implementado |
 | [F-072](#f-072---el-recuento-accesorio-del-paso-2d-vuelve-a-ser-falso-publica-27-ordenes-distintas-y-son-22) | El recuento accesorio del Paso 2d vuelve a ser falso: publica 27 ordenes distintas y son 22 | R-025 | Media | Implementado |
 | [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Implementado |
-| [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Aceptado — pendiente |
-| [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Aceptado — pendiente |
+| [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Implementado |
+| [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Implementado |
+| [F-076](#f-076---las-cifras-del-volumen-de-la-limpieza-de-claude-no-salen-de-ninguna-orden-y-contradicen-la-salida-que-d-113-publica-en-el-mismo-commit) | Las cifras del volumen de la limpieza de `.claude/` no salen de ninguna orden y contradicen la salida que `D-113` publica en el mismo commit | R-027 | Media | Abierto |
+| [F-077](#f-077---a-013-y-d-114-publican-113-en-una-orden-que-devuelve-121-sobre-su-propio-commit) | `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit | R-027 | Media | Abierto |
+| [F-078](#f-078---la-nota-de-cierre-suma-3-en-prosa-dentro-del-total-que-es-lo-que-el-recuadro-escrito-por-esta-misma-sesion-prohibe) | La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe | R-027 | Baja | Abierto |
+| [F-079](#f-079---la-convencion-nueva-de-claudemd-afirma-de-los-seis-lo-que-_methodology-no-cumple-y-su-excepcion-no-cubre-el-caso) | La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso | R-027 | Baja | Abierto |
 
 ---
 
@@ -3778,9 +3782,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-026 |
 | Fecha | 2026-09-07 |
 | Gravedad | Alta |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `D-112`, `T-110` (S-027) |
-| Cerrado en | |
+| Cerrado en | `79e88a2` (R-027) |
 
 - **Que se observo:** la NOTA DE CIERRE de `_audit/S-026.md` §7 (version de `89f9f73`) afirma que
   «de las 29 ordenes con `<hash>` literal listadas arriba, las 29 quedaron ancladas a `d1a8c02`»,
@@ -3805,9 +3809,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-026 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `D-111`, `T-111` (S-027) |
-| Cerrado en | |
+| Cerrado en | `79e88a2` (R-027) |
 
 - **Que se observo:** `d1a8c02` borra la linea «**Criterio de cierre:** el archivo existe, tiene una
   fila por paso del procedimiento, y su adopcion tiene su `D-XXX` en el registro» de `T-105` y la
@@ -3821,3 +3825,95 @@ git log -1 --format=%h -- _audit/S-XXX.md
 - **Que lo corregiria:** restaurar la linea original y dejar que la nota de `D-110` la acote —lo que
   `D-019` prescribe—, o una `D-XXX` que decida y limite cuando el enunciado de un «Criterio de
   cierre» es reescribible.
+---
+
+### F-076 - Las cifras del volumen de la limpieza de `.claude/` no salen de ninguna orden y contradicen la salida que `D-113` publica en el mismo commit
+| Campo | Valor |
+|---|---|
+| Auditoria | R-027 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `T-115` se titula «Aplicar la misma ruta a `.claude/`: 54 citas en tres
+  archivos», su cuerpo dice «`protocol-close/SKILL.md` (51 lineas, 50 codigos distintos)», su nota
+  dice «Salieron las 54 citas: 51 de `protocol-close`, 2 de `protocol-start` y 1 de
+  `session-closer`», y la seccion 1 de `_audit/S-027.md` repite «51 lineas» y «50 citas». Los valores
+  reales son 48 lineas y 48 codigos distintos en `protocol-close`, 51 lineas en los tres archivos y
+  52 en los cuatro de `.claude/` — que es lo que `D-113` publica en el mismo commit. Evidencia
+  completa en `_audit/R-027.md` seccion 2.
+- **Por que importa:** el commit contiene la salida correcta dos entradas mas arriba; la tarea
+  publica otra cifra sin orden detras. Es la familia de `F-072`, `F-073` y `F-074`, ahora en
+  `tasks.md`, que es donde se lee el alcance de la tarea.
+- **Que lo corregiria:** una nota fechada en `T-115` que fije las cifras contra la salida de `D-113`,
+  sin reescribir el titulo ni el cuerpo (`D-019`); y, si se estima, extender la regla del recuadro
+  del Paso 7c a las cifras con que una tarea describe su propio alcance.
+
+---
+
+### F-077 - `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit
+| Campo | Valor |
+|---|---|
+| Auditoria | R-027 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** las dos entradas publican `$ grep -c 'CLAUDE\.md' _persistence/decisions.md`
+  con salida `113`; sobre `79e88a2` esa orden devuelve `121`. Evidencia completa en
+  `_audit/R-027.md` seccion 2.
+- **Por que importa:** es un recuento de ambito global tomado a mitad de la jornada sobre un archivo
+  que la jornada siguio creciendo — el patron que `D-022` y `D-108` existen para evitar. La cifra es
+  el unico respaldo del muestreo agregado con el que `A-013` justifica no comprobar caso por caso.
+- **Que lo corregiria:** una nota fechada en `A-013` y en `D-114` que ancle el recuento al commit o
+  que declare que el numero es «al momento de escribir la entrada» y por que ahi no se puede anclar,
+  sin reescribir la linea original (`D-019`).
+
+---
+
+### F-078 - La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe
+| Campo | Valor |
+|---|---|
+| Auditoria | R-027 |
+| Fecha | 2026-09-07 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el recuadro que `D-112` escribe en este commit exige que el total de la nota
+  sea la suma de los numeros del CONTROL «y nada mas», y que lo no contado se enumere aparte. La NOTA
+  DE CIERRE de `_audit/S-027.md` seccion 7 publica un CONTROL de `13` y `8` (21) y escribe «24
+  ordenes ancladas». El total es cierto —el barrido sobre el commit de anclaje devuelve 16 y 8—, pero
+  no sale de ninguna orden publicada. Evidencia completa en `_audit/R-027.md` seccion 2.
+- **Por que importa:** es el patron de `F-071`: la primera ejecucion de una regla nueva la incumple.
+  Sin cifra falsa que lo delate, el incumplimiento pasa desapercibido y sienta precedente.
+- **Que lo corregiria:** publicar el total con una orden que lo devuelva entero (el `grep -cE
+  '^\+\$ .*<hash>'` sobre el commit de anclaje), o dejar el total en 21 y enumerar las 3 aparte.
+
+---
+
+### F-079 - La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso
+| Campo | Valor |
+|---|---|
+| Auditoria | R-027 |
+| Fecha | 2026-09-07 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el parrafo nuevo de `CLAUDE.md` dice «ninguno de los seis cita una entrada del
+  registro» y solo excepciona «el primer numero de una serie». En el mismo commit, `_methodology/`
+  contiene `T-001` a `T-008`, `F-001` y `S-001`, que existen como entradas reales del registro y no
+  son primeros de serie. Evidencia completa en `_audit/R-027.md` seccion 2.
+- **Por que importa:** la regla queda enunciada como absoluta y el propio commit la contradice en
+  catorce ocurrencias; el barrido que `T-112` va a escribir no puede ser binario contra un texto asi,
+  que es lo que `D-114` descarto como alternativa.
+- **Que lo corregiria:** ampliar la excepcion para que cubra el ejemplo trabajado consecutivo de la
+  guia de metodo y diga como se distingue de una cita, o acotar la afirmacion a las cinco areas que
+  hoy cumplen y nombrar `_methodology/` como pendiente de `T-112`.
