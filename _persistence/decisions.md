@@ -5704,21 +5704,24 @@ $ git show a661edd:_persistence/decisions.md | sed -n '/^### D-093/,/^### D-094/
   sustituye, y prohibe expresamente actualizar a pasado un texto escrito en futuro.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La frontera es el bloque de codigo'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'La frontera es el bloque de codigo'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Se anade;'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'Se anade;'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'NO se actualiza a pasado'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'NO se actualiza a pasado'
 1
 
-$ git show <hash>:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -c 'Las cuatro ordenes se corren sobre el arbol de trabajo'
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^### D-092/,/^### D-093/p' | grep -c 'Las cuatro ordenes se corren sobre el arbol de trabajo'
 1
 ```
 
 ⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre, que es lo que `D-092` creo para esto.
+
+📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las cuatro reproducen exactamente lo
+publicado arriba.
 
 ---
 
@@ -5783,13 +5786,13 @@ $ git show 20ef118:_persistence/decisions.md | awk '/^### D-086/,0' | awk '/Crit
   orden publicada, y remite al Paso 7c-bis para el criterio de que es anclable.
 
 ```
-$ git show <hash>:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'es de toda orden que se escriba en este'
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'es de toda orden que se escriba en este'
 1
 
-$ git show <hash>:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c '`HEAD` no se escribe nunca dentro de una orden'
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c '`HEAD` no se escribe nunca dentro de una orden'
 1
 
-$ git show <hash>:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'el criterio de que es anclable y que no lo detalla'
+$ git show a1f5fa8:_persistence/decisions.md | sed -n '/^## Convenciones/,/^## Decisiones/p' | grep -c 'el criterio de que es anclable y que no lo detalla'
 1
 ```
 
@@ -5800,6 +5803,9 @@ que alguien lo cita, y entonces deja de significar nada.**
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las tres reproducen exactamente lo
+publicado arriba.
 
 ---
 
@@ -5859,18 +5865,21 @@ $ git show a661edd:.claude/skills/protocol-close/SKILL.md | sed -n '/^### 7c-bis
   como ejemplo de no anclable, y la linea del recuento esta exigida.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la forma anclada contesta lo mismo que contestaba la original'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'la forma anclada contesta lo mismo que contestaba la original'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | sed -n '/^### 7c-bis/,/^### 7d/p' | grep -c 'un `git status`, un `df`, un'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | sed -n '/^### 7c-bis/,/^### 7d/p' | grep -c 'un `git status`, un `df`, un'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'declara el recuento real del bloque, contandolo'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'declara el recuento real del bloque, contandolo'
 1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las tres reproducen exactamente lo
+publicado arriba.
 
 ---
 
@@ -5926,18 +5935,21 @@ _audit/index.md
   forma de la frase.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'En esta seccion hay DOS commits'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'En esta seccion hay DOS commits'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Llamar `HEAD` al commit auditado'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'Llamar `HEAD` al commit auditado'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'estado que `<hash auditado>` dejo'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c 'estado que `<hash auditado>` dejo'
 1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las tres reproducen exactamente lo
+publicado arriba.
 ---
 
 ### D-099 - `A-010` se refuta, y su consecuencia escrita NO se cumple: se acota en vez de retirar
@@ -6012,18 +6024,21 @@ $ git diff a48411a^ a48411a -- _persistence/decisions.md | grep -E '^-[^-]' | gr
   control que lo refuto, y el Paso 7c-bis sigue existiendo con su frontera.
 
 ```
-$ git show <hash>:_persistence/assumptions.md | grep -c '^| \[A-010\].*| Refutado |'
+$ git show a1f5fa8:_persistence/assumptions.md | grep -c '^| \[A-010\].*| Refutado |'
 1
 
-$ git show <hash>:_persistence/assumptions.md | sed -n '/^### A-010/,$p' | grep -c '^| Estado | Refutado |'
+$ git show a1f5fa8:_persistence/assumptions.md | sed -n '/^### A-010/,$p' | grep -c '^| Estado | Refutado |'
 1
 
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-bis'
+$ git show a1f5fa8:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-bis'
 1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre — el mismo paso del que trata esta decision.
+
+📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las tres reproducen exactamente lo
+publicado arriba.
 ---
 
 ### D-100 - El archivo de etapa de la evolucion se escribe por adelantado, y la etapa NO queda adoptada
@@ -6090,25 +6105,25 @@ existe.** Las ancla el Paso 7c-bis del cierre — el mismo paso del que trata es
   que contiene.
 
 ```
-$ git show <hash>:_phases/040_evol.md | grep -c '^## '
+$ git show a1f5fa8:_phases/040_evol.md | grep -c '^## '
 8
 
-$ git show <hash>:_phases/040_evol.md | grep -c '^### Paso '
+$ git show a1f5fa8:_phases/040_evol.md | grep -c '^### Paso '
 8
 
-$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" <hash> -- _phases/040_evol.md ; echo "exit=$?"
+$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|TripleS|github.com|USUARIO" a1f5fa8 -- _phases/040_evol.md ; echo "exit=$?"
 exit=1
 
-$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' <hash> -- _phases/040_evol.md ; echo "exit=$?"
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' a1f5fa8 -- _phases/040_evol.md ; echo "exit=$?"
 exit=1
 
-$ git show <hash>:_phases/040_evol.md | sed -n '/^## 6. Condicion de salida/,/^Si alguna falla/p' | grep -c '^- \[ \]'
+$ git show a1f5fa8:_phases/040_evol.md | sed -n '/^## 6. Condicion de salida/,/^Si alguna falla/p' | grep -c '^- \[ \]'
 6
 
-$ git show <hash>:_phases/040_evol.md | sed -n '/^## 5. Artefactos que produce/,/^⚠️ \*\*Cual es la carpeta/p' | grep -c '^| \*\*'
+$ git show a1f5fa8:_phases/040_evol.md | sed -n '/^## 5. Artefactos que produce/,/^⚠️ \*\*Cual es la carpeta/p' | grep -c '^| \*\*'
 5
 
-$ git show <hash>:_phases/040_evol.md | grep -c 'A la fecha de escribir este archivo, ni esas plantillas ni ese reparto existen'
+$ git show a1f5fa8:_phases/040_evol.md | grep -c 'A la fecha de escribir este archivo, ni esas plantillas ni ese reparto existen'
 1
 ```
 
@@ -6121,10 +6136,10 @@ ni `_workflow/040_evol.md` existen, y su §5 lo dice con esas palabras. Los dos 
 entrada de la etapa, igual que en las tres etapas anteriores.
 
 ```
-$ git ls-tree --name-only <hash> _templates/040_evol _workflow/040_evol.md ; echo "exit=$?"
+$ git ls-tree --name-only a1f5fa8 _templates/040_evol _workflow/040_evol.md ; echo "exit=$?"
 exit=0
 
-$ git ls-tree --name-only <hash> _workflow/030_growth.md ; echo "exit=$?"
+$ git ls-tree --name-only a1f5fa8 _workflow/030_growth.md ; echo "exit=$?"
 _workflow/030_growth.md
 exit=0
 ```
@@ -6137,3 +6152,6 @@ positivo al lado no es evidencia de nada.**
 📌 **Y esta es la forma anclada de un `ls`, que es exactamente lo que `D-097` autoriza hoy.** La
 pregunta —«¿existen estos archivos?»— se conserva entera; lo que cambia es que se le hace al commit
 en vez de al disco, que no tiene version.
+
+📌 **Ancladas por el Paso 7c-bis al commit `a1f5fa8`.** Las nueve reproducen exactamente lo
+publicado arriba.
