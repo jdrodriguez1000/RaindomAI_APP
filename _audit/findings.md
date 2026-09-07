@@ -73,10 +73,14 @@
 | [F-059](#f-059---los-seis-criterios-de-cierre-nacidos-en-este-commit-incumplen-la-convencion-que-este-mismo-commit-escribe) | Los seis criterios de cierre nacidos en este commit incumplen la convencion que este mismo commit escribe | R-022 | Media | Implementado |
 | [F-060](#f-060---el-registro-fecha-la-sesion-dos-dias-por-delante-del-commit-que-la-contiene) | El registro fecha la sesion dos dias por delante del commit que la contiene | R-022 | Media | Implementado |
 | [F-061](#f-061---d-090-cambio-la-regla-en-la-skill-y-dejo-el-tablero-prescribiendo-la-orden-que-esa-regla-rechaza) | `D-090` cambio la regla en la skill y dejo el tablero prescribiendo la orden que esa regla rechaza | R-022 | Baja | Implementado |
-| [F-062](#f-062---la-primera-ejecucion-del-paso-7c-bis-borro-prosa-en-d-092-que-el-propio-paso-prohibe-literalmente) | La primera ejecucion del Paso 7c-bis borro prosa en `D-092`, que el propio paso prohibe literalmente | R-023 | Media | Aceptado — pendiente |
-| [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Aceptado — pendiente |
-| [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Aceptado — pendiente |
-| [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Aceptado — pendiente |
+| [F-062](#f-062---la-primera-ejecucion-del-paso-7c-bis-borro-prosa-en-d-092-que-el-propio-paso-prohibe-literalmente) | La primera ejecucion del Paso 7c-bis borro prosa en `D-092`, que el propio paso prohibe literalmente | R-023 | Media | Implementado |
+| [F-063](#f-063---las-dos-ordenes-del-bloque-contexto-de-d-092-usan-head-y-ya-no-reproducen) | Las dos ordenes del bloque «Contexto» de `D-092` usan `HEAD` y ya no reproducen | R-023 | Media | Implementado |
+| [F-064](#f-064---el-paso-7c-bis-cambio-la-forma-de-una-orden-que-su-propia-regla-declara-no-anclable-y-dejo-un-recuento-desfasado) | El Paso 7c-bis cambio la forma de una orden que su propia regla declara «no anclable», y dejo un recuento desfasado | R-023 | Baja | Implementado |
+| [F-065](#f-065---la-seccion-0-del-informe-llama-head-a-97bb948-que-no-lo-era) | La seccion 0 del informe llama `HEAD` a `97bb948`, que no lo era | R-023 | Baja | Implementado |
+| [F-066](#f-066---la-seccion-7-del-informe-se-quedo-sin-su-nota-de-anclaje-que-el-paso-7c-exige-y-el-propio-informe-promete) | La seccion 7 del informe se quedo sin su nota de anclaje, que el Paso 7c exige y el propio informe promete | R-024 | Media | Abierto |
+| [F-067](#f-067---doce-ordenes-de-tasksmd-quedan-publicadas-con-hash-literal-sin-anclar-y-sin-que-ninguna-regla-las-cubra) | Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra | R-024 | Media | Abierto |
+| [F-068](#f-068---el-informe-afirma-que-las-41-ordenes-del-paso-2d-no-se-repiten-se-repiten-diez) | El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez | R-024 | Baja | Abierto |
+| [F-069](#f-069---dos-notas-del-paso-7c-bis-quedaron-pegadas-al-separador----y-el-render-las-convierte-en-encabezado) | Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado | R-024 | Baja | Abierto |
 
 ---
 
@@ -3501,9 +3505,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-097` |
-| Cerrado en | |
+| Cerrado en | `R-024` (`a1f5fa8`) |
 
 - **Que se observo:** el Paso 7c-bis, nacido en `b83ce5e`, escribe «no puedes escribir, alterar o
   borrar una sola palabra de prosa», y `CLAUDE.md` lo repite en el mismo commit. Su primera ejecucion
@@ -3524,9 +3528,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-098` |
-| Cerrado en | |
+| Cerrado en | `R-024` (`a1f5fa8`) |
 
 - **Que se observo:** la verificacion previa de `D-092` —la que `CLAUDE.md` exige para toda decision
   con `Origen: report_auditor`— se publico con dos ordenes ancladas a `HEAD`. Devolvian `18` y `2`
@@ -3548,9 +3552,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-099` |
-| Cerrado en | |
+| Cerrado en | `R-024` (`a1f5fa8`) |
 
 - **Que se observo:** el Paso 7c-bis nombra `un ls` como ejemplo de orden **no anclable**, que «se
   deja como esta y se dice»; en `D-094` el `ls -1` se sustituyo por `git ls-tree`. Y en `D-092` una
@@ -3572,9 +3576,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-023 |
 | Fecha | 2026-09-06 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-100` |
-| Cerrado en | |
+| Cerrado en | `R-024` (`a1f5fa8`) |
 
 - **Que se observo:** `_audit/S-023.md` (linea 19) afirma que los tres hallazgos «se verificaron
   contra `HEAD` (`97bb948`)». `HEAD` al empezar la sesion era `20ef118`; `97bb948` era el commit
@@ -3585,3 +3589,87 @@ git log -1 --format=%h -- _audit/S-XXX.md
   Gravedad `Baja`: ninguna cifra publicada resulta incorrecta.
 - **Que lo corregiria:** nombrar los dos commits por lo que son, como costumbre hacia adelante. La
   linea escrita no se reescribe.
+
+---
+
+### F-066 - La seccion 7 del informe se quedo sin su nota de anclaje, que el Paso 7c exige y el propio informe promete
+| Campo | Valor |
+|---|---|
+| Auditoria | R-024 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el Paso 7c de `protocol-close` ancla cuatro sitios «los cuatro juntos», y el
+  tercero es la nota de cierre de la seccion 7 del informe. El commit de anclaje `9c82d59` toco
+  `_audit/S-024.md` en dos hunks (cabecera y seccion 1) y ninguno en la seccion 7. El propio informe
+  la habia prometido en su linea 259. Evidencia completa en `_audit/R-024.md` §2.
+- **Por que importa:** 38 de las 41 ordenes del Paso 2d quedan declaradas «no reproducibles todavia»
+  remitiendo a una nota que no existe. Es la mitad de espejo del defecto de `F-052` y `F-053`.
+- **Que lo corregiria:** publicar esa nota en la seccion 7, o retirar de la tabla del Paso 7c el
+  cuarto sitio si se considera redundante con `decisions.md` y `tasks.md`.
+
+---
+
+### F-067 - Doce ordenes de `tasks.md` quedan publicadas con `<hash>` literal, sin anclar y sin que ninguna regla las cubra
+| Campo | Valor |
+|---|---|
+| Auditoria | R-024 |
+| Fecha | 2026-09-07 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** tras el commit de anclaje, `decisions.md` no conserva ninguna orden con
+  `git show <hash>:` y `tasks.md` conserva doce, en los bloques «Criterio de cierre» de `T-097` a
+  `T-100`. El Paso 7c-bis se limita a `decisions.md`, y `D-096` amplia el ancla a «toda orden que se
+  escriba en este archivo», que es `decisions.md`. Evidencia completa en `_audit/R-024.md` §2.
+- **Por que importa:** es el hecho de `F-059` y `F-063` desplazado de archivo: la evidencia que
+  respalda la Definicion de Terminado de las cuatro tareas no es ejecutable tal como esta escrita.
+- **Que lo corregiria:** ampliar el Paso 7c-bis y `D-096` a `tasks.md`, o declarar por escrito que
+  `tasks.md` queda fuera del ancla y por que.
+
+---
+
+### F-068 - El informe afirma que las 41 ordenes del Paso 2d no se repiten; se repiten diez
+| Campo | Valor |
+|---|---|
+| Auditoria | R-024 |
+| Fecha | 2026-09-07 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el informe escribe «Ordenes distintas, aparte: 41 - no hubo repeticion; `sort
+  -u` sobre la misma lista tambien devuelve 41». Reejecutado sobre `a1f5fa8`, `sort -u` devuelve 31:
+  diez ordenes aparecen dos veces, una en `decisions.md` y otra en `tasks.md`. Evidencia completa en
+  `_audit/R-024.md` §2.
+- **Por que importa:** el registro publica como comprobado un recuento verificable que es falso — la
+  misma clase de defecto que `F-064`. El numero principal (41) si es correcto.
+- **Que lo corregiria:** una nota fechada que republique el `sort -u` con su salida real. La
+  duplicacion en si es deliberada y no es un defecto.
+
+---
+
+### F-069 - Dos notas del Paso 7c-bis quedaron pegadas al separador `---`, y el render las convierte en encabezado
+| Campo | Valor |
+|---|---|
+| Auditoria | R-024 |
+| Fecha | 2026-09-07 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** en `D-095`, `D-096` y `D-097` la nota de anclaje deja una linea en blanco antes
+  del `---`; al cierre de `D-098` (linea 5953) y de `D-099` (linea 6042) el `---` queda pegado al
+  texto. Evidencia completa en `_audit/R-024.md` §2.
+- **Por que importa:** en Markdown un `---` pegado a una linea de texto es un encabezado setext de
+  nivel 2, no una regla horizontal: las dos notas se renderizan como titulo y desaparece el separador
+  entre esas entradas.
+- **Que lo corregiria:** una linea en blanco antes del `---`, y que el Paso 7c-bis lo diga al
+  describir donde se anade la nota.
