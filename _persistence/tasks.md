@@ -4805,13 +4805,19 @@ existe.** Las ancla el Paso 7c-bis del cierre.
   regla esta en el recuadro de la NOTA DE CIERRE de `protocol-close`.
 
 ```
-$ git show <hash>:_audit/S-026.md | grep -c 'Ancladas: 28, no 29'
-$ git show <hash>:_audit/S-026.md | grep -c 'se anclaron 27, no 29'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'nunca se dobla dentro del total'
+$ git show 79e88a2:_audit/S-026.md | grep -c 'Ancladas: 28, no 29'
+1
+$ git show 79e88a2:_audit/S-026.md | grep -c 'se anclaron 27, no 29'
+1
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -c 'nunca se dobla dentro del total'
+1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las tres reproducen exactamente lo publicado
+arriba.
 
 ---
 
@@ -4839,13 +4845,19 @@ existe.** Las ancla el Paso 7c-bis del cierre.
   fechada de la restauracion, y la linea acotada ya no esta.
 
 ```
-$ git show <hash>:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, y su adopcion$'
-$ git show <hash>:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, es agnostico$'
-$ git show <hash>:_persistence/tasks.md | grep -cE '^- 📌 \*\*Nota del 2026-09-07 \(`F-075`, `D-111`\)'
+$ git show 79e88a2:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, y su adopcion$'
+1
+$ git show 79e88a2:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, es agnostico$'
+0
+$ git show 79e88a2:_persistence/tasks.md | grep -cE '^- 📌 \*\*Nota del 2026-09-07 \(`F-075`, `D-111`\)'
+1
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las tres reproducen exactamente lo publicado
+arriba.
 
 ---
 
@@ -4938,12 +4950,17 @@ aplicacion se parte: `CLAUDE.md` en `T-114`, `.claude/` en `T-115`.
   la convencion esta escrita.
 
 ```
-$ git show <hash>:CLAUDE.md | grep -ohE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' | sort -u | tr '\n' ' '
-$ git show <hash>:CLAUDE.md | grep -c 'un codigo instanciado es un dato propio'
+$ git show 79e88a2:CLAUDE.md | grep -ohE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' | sort -u | tr '\n' ' '
+FT-001 I-001 N-001
+$ git show 79e88a2:CLAUDE.md | grep -c 'un codigo instanciado es un dato propio'
+1
 ```
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las dos reproducen: los tres codigos que
+`CLAUDE.md` conserva son los genericos permitidos, ninguno cita una entrada del registro.
 
 ---
 

@@ -6992,9 +6992,12 @@ $ git show d1a8c02 -- _persistence/tasks.md | grep -E '^[-+]- \*\*Criterio de ci
   fechada que declara la restauracion, y la linea acotada ya no esta.
 
 ```
-$ git show <hash>:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, y su adopcion$'
-$ git show <hash>:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, es agnostico$'
-$ git show <hash>:_persistence/tasks.md | grep -cE '^- 📌 \*\*Nota del 2026-09-07 \(`F-075`, `D-111`\)'
+$ git show 79e88a2:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, y su adopcion$'
+1
+$ git show 79e88a2:_persistence/tasks.md | grep -cE '^- \*\*Criterio de cierre:\*\* el archivo existe, tiene una fila por paso del procedimiento, es agnostico$'
+0
+$ git show 79e88a2:_persistence/tasks.md | grep -cE '^- 📌 \*\*Nota del 2026-09-07 \(`F-075`, `D-111`\)'
+1
 ```
 
 🔑 **Las tres van ancladas al principio de linea a proposito.** El enunciado del criterio se cita
@@ -7004,6 +7007,8 @@ aparezca en el archivo.
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las tres reproducen exactamente lo esperado.
 
 ---
 
@@ -7066,14 +7071,21 @@ $ git show 89f9f73:_persistence/decisions.md | grep -cE '^\$ for f in \$\(git di
   regla esta en el recuadro de la NOTA DE CIERRE de `protocol-close`.
 
 ```
-$ git show <hash>:_audit/S-026.md | grep -c 'Ancladas: 28, no 29'
-$ git show <hash>:_audit/S-026.md | grep -c 'se anclaron 27, no 29'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'ese total es la suma de los numeros por archivo que el'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'nunca se dobla dentro del total'
+$ git show 79e88a2:_audit/S-026.md | grep -c 'Ancladas: 28, no 29'
+1
+$ git show 79e88a2:_audit/S-026.md | grep -c 'se anclaron 27, no 29'
+1
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -c 'ese total es la suma de los numeros por archivo que el'
+1
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -c 'nunca se dobla dentro del total'
+1
 ```
 
 ⚠️ **Las cuatro ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las cuatro reproducen exactamente lo publicado
+arriba.
 
 ---
 
@@ -7152,10 +7164,23 @@ HEAD:_templates/035_gate2/005_verdict.md:1
   `_workflow/` y cinco en `.claude/` mas `CLAUDE.md`.
 
 ```
-$ git grep -cIE "RaindomAI|RaidomAI|Proyectos_TripleS|Company_TripleS|TripleS|github\.com|jdrodriguez1000|USUARIO|C:\\Users" <hash> -- .claude CLAUDE.md _phases _methodology _templates _workflow .gitignore
-$ git grep -lIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' <hash> -- _phases _workflow | wc -l
-$ git grep -lIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' <hash> -- .claude CLAUDE.md | wc -l
+$ git grep -cIE "RaindomAI|RaidomAI|Proyectos_TripleS|Company_TripleS|TripleS|github\.com|jdrodriguez1000|USUARIO|C:\\Users" 79e88a2 -- .claude CLAUDE.md _phases _methodology _templates _workflow .gitignore
+79e88a2:_templates/010_prototype/025_business_validation.md:1
+$ git grep -lIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2 -- _phases _workflow | wc -l
+0
+$ git grep -lIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2 -- .claude CLAUDE.md | wc -l
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** La primera y la segunda reproducen exactamente
+lo publicado (una linea, el falso positivo de `USUARIOS`; cero archivos en `_phases/`/`_workflow/`).
+⚠️ **La tercera NO reproduce «cinco en `.claude/` mas `CLAUDE.md`»: devuelve `1`.** No es un error de
+ancla, es el orden de los hechos dentro de la misma sesion: `D-113` midio el estado **antes** de que
+`D-114`/`T-114`/`T-115` limpiaran `CLAUDE.md` y `.claude/`, y la orden queda anclada al commit
+**final** de la sesion, que ya incluye esa limpieza. El unico archivo que el barrido sigue marcando es
+`CLAUDE.md`, y es el mismo caso que su propio criterio anticipa: contiene `FT-001`/`I-001`/`N-001`,
+los ejemplos de codigo generico que la convencion de `D-114` declara explicitamente permitidos. No se
+reescribe el enunciado de `D-113` (`D-019`): la nota queda aqui, junto a la salida real.
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
@@ -7232,13 +7257,20 @@ _methodology/sources/005_vertical.md: F-001 S-001 T-001 T-002 T-003 T-004 T-005 
   los tres que conserva no existen como entrada.
 
 ```
-$ git show <hash>:CLAUDE.md | grep -ohE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' | sort -u | tr '\n' ' '
-$ git show <hash>:CLAUDE.md | grep -c 'un codigo instanciado es un dato propio'
-$ git show <hash>:CLAUDE.md | grep -c 'esta regla nacio de un defecto real'
+$ git show 79e88a2:CLAUDE.md | grep -ohE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' | sort -u | tr '\n' ' '
+FT-001 I-001 N-001
+$ git show 79e88a2:CLAUDE.md | grep -c 'un codigo instanciado es un dato propio'
+1
+$ git show 79e88a2:CLAUDE.md | grep -c 'esta regla nacio de un defecto real'
+2
 ```
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las tres reproducen: los tres codigos que
+`CLAUDE.md` conserva son exactamente los genericos que la propia convencion declara permitidos
+(`FT-001`, `I-001`, `N-001`), ninguno cita una entrada del registro.
 
 ---
 
@@ -7287,10 +7319,17 @@ $ git show HEAD:.claude/skills/protocol-close/SKILL.md | grep -n 'siete hallazgo
   metodo.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'siete hallazgos de auditoria de la misma forma'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'el defecto que mas veces ha reaparecido con este'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -c 'siete hallazgos de auditoria de la misma forma'
+1
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -c 'el defecto que mas veces ha reaparecido con este'
+1
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -cE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b'
+0
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las tres reproducen exactamente lo publicado:
+el recuento sigue en el archivo con su nuevo sujeto, y `protocol-close/SKILL.md` queda en cero
+codigos instanciados.
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.
