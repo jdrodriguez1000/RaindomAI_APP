@@ -87,13 +87,17 @@
 | [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Implementado |
 | [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Implementado |
 | [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Implementado |
-| [F-076](#f-076---las-cifras-del-volumen-de-la-limpieza-de-claude-no-salen-de-ninguna-orden-y-contradicen-la-salida-que-d-113-publica-en-el-mismo-commit) | Las cifras del volumen de la limpieza de `.claude/` no salen de ninguna orden y contradicen la salida que `D-113` publica en el mismo commit | R-027 | Media | Aceptado — pendiente |
-| [F-077](#f-077---a-013-y-d-114-publican-113-en-una-orden-que-devuelve-121-sobre-su-propio-commit) | `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit | R-027 | Media | Aceptado — pendiente |
-| [F-078](#f-078---la-nota-de-cierre-suma-3-en-prosa-dentro-del-total-que-es-lo-que-el-recuadro-escrito-por-esta-misma-sesion-prohibe) | La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe | R-027 | Baja | Aceptado — pendiente |
-| [F-079](#f-079---la-convencion-nueva-de-claudemd-afirma-de-los-seis-lo-que-_methodology-no-cumple-y-su-excepcion-no-cubre-el-caso) | La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso | R-027 | Baja | Aceptado — pendiente |
-| [F-080](#f-080---el-bloque-de-verificacion-de-d-117-publica-19-donde-su-propia-orden-devuelve-20-sobre-el-commit-que-declara) | El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara | R-028 | Media | Aceptado — pendiente |
-| [F-081](#f-081---el-paso-7c-bis-vuelve-a-borrar-prosa-ahora-en-d-116-y-d-117-que-el-propio-paso-prohibe-literalmente) | El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente | R-028 | Media | Aceptado — pendiente |
-| [F-082](#f-082---la-seccion-1-del-informe-describe-_phases000_preprojectmd-con-dos-hunks-y-numera-mal-las-dos-primeras-secciones-que-toco) | La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco | R-028 | Baja | Aceptado — pendiente |
+| [F-076](#f-076---las-cifras-del-volumen-de-la-limpieza-de-claude-no-salen-de-ninguna-orden-y-contradicen-la-salida-que-d-113-publica-en-el-mismo-commit) | Las cifras del volumen de la limpieza de `.claude/` no salen de ninguna orden y contradicen la salida que `D-113` publica en el mismo commit | R-027 | Media | Implementado |
+| [F-077](#f-077---a-013-y-d-114-publican-113-en-una-orden-que-devuelve-121-sobre-su-propio-commit) | `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit | R-027 | Media | Implementado |
+| [F-078](#f-078---la-nota-de-cierre-suma-3-en-prosa-dentro-del-total-que-es-lo-que-el-recuadro-escrito-por-esta-misma-sesion-prohibe) | La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe | R-027 | Baja | Implementado |
+| [F-079](#f-079---la-convencion-nueva-de-claudemd-afirma-de-los-seis-lo-que-_methodology-no-cumple-y-su-excepcion-no-cubre-el-caso) | La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso | R-027 | Baja | Implementado |
+| [F-080](#f-080---el-bloque-de-verificacion-de-d-117-publica-19-donde-su-propia-orden-devuelve-20-sobre-el-commit-que-declara) | El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara | R-028 | Media | Implementado |
+| [F-081](#f-081---el-paso-7c-bis-vuelve-a-borrar-prosa-ahora-en-d-116-y-d-117-que-el-propio-paso-prohibe-literalmente) | El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente | R-028 | Media | Implementado |
+| [F-082](#f-082---la-seccion-1-del-informe-describe-_phases000_preprojectmd-con-dos-hunks-y-numera-mal-las-dos-primeras-secciones-que-toco) | La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco | R-028 | Baja | Implementado |
+| [F-083](#f-083---el-recuento-de-ordenes-distintas-del-paso-2d-publica-35-donde-la-orden-devuelve-27-y-su-bloque-uniq--d-publica-3-lineas-donde-devuelve-10) | El recuento de ordenes distintas del Paso 2d publica `35` donde la orden devuelve `27`, y su bloque `uniq -d` publica 3 lineas donde devuelve 10 | R-029 | Media | Abierto |
+| [F-084](#f-084---la-tabla-del-paso-2e-publica-0-caracteres-de-control-para-_auditfindingsmd-y-_persistencetasksmd-donde-el-barrido-devuelve-1-y-5) | La tabla del Paso 2e publica `0` caracteres de control para `_audit/findings.md` y `_persistence/tasks.md`, donde el barrido devuelve `1` y `5` | R-029 | Media | Abierto |
+| [F-085](#f-085---la-regla-que-este-commit-escribe-en-claudemd-la-serie-empieza-por-el-primero-y-no-se-salta-ninguno-la-incumple-el-propio-commit-en-_templates) | La regla que este commit escribe en `CLAUDE.md` («la serie empieza por el primero y no se salta ninguno») la incumple el propio commit, en `_templates/` | R-029 | Media | Abierto |
+| [F-086](#f-086---el-control-de-prosa-borrada-nace-obligatorio-y-no-deja-ninguna-salida-en-el-repositorio-su-primera-ejecucion-no-es-auditable) | El CONTROL DE PROSA BORRADA nace obligatorio y no deja ninguna salida en el repositorio: su primera ejecucion no es auditable | R-029 | Baja | Abierto |
 
 ---
 
@@ -3836,9 +3840,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-116` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e` (R-029) |
 
 - **Que se observo:** `T-115` se titula «Aplicar la misma ruta a `.claude/`: 54 citas en tres
   archivos», su cuerpo dice «`protocol-close/SKILL.md` (51 lineas, 50 codigos distintos)», su nota
@@ -3862,9 +3866,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-117` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e` (R-029) |
 
 - **Que se observo:** las dos entradas publican `$ grep -c 'CLAUDE\.md' _persistence/decisions.md`
   con salida `113`; sobre `79e88a2` esa orden devuelve `121`. Evidencia completa en
@@ -3884,9 +3888,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-118` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e` (R-029) |
 
 - **Que se observo:** el recuadro que `D-112` escribe en este commit exige que el total de la nota
   sea la suma de los numeros del CONTROL «y nada mas», y que lo no contado se enumere aparte. La NOTA
@@ -3906,9 +3910,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-119` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e` (R-029) |
 
 - **Que se observo:** el parrafo nuevo de `CLAUDE.md` dice «ninguno de los seis cita una entrada del
   registro» y solo excepciona «el primer numero de una serie». En el mismo commit, `_methodology/`
@@ -3929,9 +3933,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-028 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-120` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e` (R-029) |
 
 - **Que se observo:** `D-117` declara su bloque «corrida contra `HEAD` (`acb3359`), antes de tocar el
   archivo» y publica `19` para `grep -rn '_workflow' _phases/ | grep -c .`. Reejecutada contra ese
@@ -3951,9 +3955,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-028 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-121` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e`, `c5f6365` (R-029) |
 
 - **Que se observo:** el commit de anclaje `4e903d6` borro cuatro lineas de prosa fuera del bloque de
   codigo en `D-116` y `D-117`: los dos avisos «Las ordenes se escriben con `<hash>` a proposito…» y
@@ -3976,9 +3980,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-028 |
 | Fecha | 2026-09-08 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-122` |
-| Cerrado en | |
+| Cerrado en | `c1fb41e` (R-029) |
 
 - **Que se observo:** la vineta dice «dos hunks de contenido» y enumera cinco secciones; el diff da
   seis hunks con contexto por defecto y diecisiete con `-U0`. Ademas llama «seccion 3 Que autoriza» y
@@ -3990,3 +3994,101 @@ git log -1 --format=%h -- _audit/S-XXX.md
 - **Que lo corregiria:** hacia adelante — que la descripcion por archivo cite el recuento de hunks
   con la orden que lo devuelve, y las secciones por su numero real. Los informes commiteados no se
   reescriben.
+
+---
+
+### F-083 - El recuento de ordenes distintas del Paso 2d publica `35` donde la orden devuelve `27`, y su bloque `uniq -d` publica 3 lineas donde devuelve 10
+| Campo | Valor |
+|---|---|
+| Auditoria | R-029 |
+| Fecha | 2026-09-08 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 7 de `_audit/S-029.md` publica «Recuento de LINEAS devueltas: 37.
+  Recuento de ordenes distintas (`sort -u | wc -l`): 35 (las lineas 3/4 y 17/20 y 18/21 se repiten
+  … verificado)» y un bloque `uniq -d` con tres lineas. La lista de 37 reproduce; los dos recuentos
+  derivados no: `sort -u | wc -l` devuelve `27` y `uniq -d` devuelve **diez** pares, no tres. Los
+  siete que el informe omite son los que llevan `<hash>` (8/25, 10/28, 11/29, 12/30, 13/35, 14/32,
+  15/33). Evidencia completa en `_audit/R-029.md` seccion 2.
+- **Por que importa:** es la tercera vez que este mismo recuento sale falso —`F-068` y `F-072` estan
+  los dos cerrados como `Implementado`— y la conducta no ha cambiado. Ademas el informe presenta la
+  salida de `uniq -d` como cruda cuando esta truncada, que es lo que `CLAUDE.md` describe como «hay
+  evidencia falsa».
+- **Que lo corregiria:** pegar las salidas de `sort -u | wc -l` y de `uniq -d` tal cual salen en vez
+  de resumirlas, o retirar del Paso 2d el recuento accesorio de distintas si nadie lo usa. El informe
+  commiteado no se reescribe: la correccion es una nota fechada con la orden y su salida entera, mas
+  una regla hacia adelante.
+
+---
+
+### F-084 - La tabla del Paso 2e publica `0` caracteres de control para `_audit/findings.md` y `_persistence/tasks.md`, donde el barrido devuelve `1` y `5`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-029 |
+| Fecha | 2026-09-08 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 8 de `_audit/S-029.md` escribe `_audit/findings.md head=0 staged=0`
+  y `_persistence/tasks.md head=0 staged=0`, y su primer barrido lista solo `assumptions.md: 4` y
+  `decisions.md: 7`. Reejecutado sobre el mismo estado, `findings.md` da `1` y `tasks.md` da `5`, en
+  seis lineas concretas que la auditoria enumera. Evidencia completa en `_audit/R-029.md` seccion 2.
+- **Por que importa:** la conclusion de fondo del informe («esta sesion no anadio ninguna linea
+  nueva») es cierta —`head` y `commit` coinciden en los once archivos—, pero la evidencia que la
+  sostiene es falsa en dos filas de once. Un Paso 2e que devuelve `0` donde hay seis ocurrencias no
+  detectara la primera nueva que aparezca en esos dos archivos, que es exactamente para lo que existe.
+- **Que lo corregiria:** determinar por que la orden devolvio `0` en esos dos archivos —clase de
+  caracteres, `grep` del entorno o ambito— y fijar en `protocol-close` una forma del barrido que
+  reproduzca.
+
+---
+
+### F-085 - La regla que este commit escribe en `CLAUDE.md` («la serie empieza por el primero y no se salta ninguno») la incumple el propio commit, en `_templates/`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-029 |
+| Fecha | 2026-09-08 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `c1fb41e` anade a `CLAUDE.md` «la serie tiene que empezar por el primero y no
+  saltarse ninguno … o que elige numeros sueltos». En el mismo commit,
+  `_templates/020_baseline/045_traceability.md:200` escribe `SC-007` con la serie en `001, 002, 003`:
+  `SC-004` a `SC-006` no existen en ninguno de los seis archivos agnosticos. Evidencia completa en
+  `_audit/R-029.md` seccion 2.
+- **Por que importa:** la evidencia de `D-118` se corrio solo sobre `_methodology`, y la afirmacion
+  que respalda es sobre los seis. Es la forma exacta de `F-079` con evidencia nueva, en otra carpeta,
+  y deja al barrido binario que `T-112` tiene que escribir sin poder ser binario.
+- **Que lo corregiria:** completar la serie del ejemplo de trazabilidad, o —si el salto es deliberado
+  porque el ejemplo ilustra una feature huerfana— ampliar la excepcion de `CLAUDE.md` para el numero
+  suelto que el ejemplo necesita, con su criterio escrito.
+
+---
+
+### F-086 - El CONTROL DE PROSA BORRADA nace obligatorio y no deja ninguna salida en el repositorio: su primera ejecucion no es auditable
+| Campo | Valor |
+|---|---|
+| Auditoria | R-029 |
+| Fecha | 2026-09-08 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el control nuevo del Paso 7c-bis (`D-119`) se declara obligatorio y manda su
+  fallo «a Sin resolver», que es una seccion del reporte en pantalla, no de ningun archivo. Las once
+  menciones de «CONTROL DE PROSA BORRADA» que hay en `c5f6365` son todas descriptivas; ninguna publica
+  la salida del control corrido. Evidencia completa en `_audit/R-029.md` seccion 2.
+- **Por que importa:** el CENSO y el CONTROL del mismo tramo si publican orden y salida en la seccion
+  7 del informe, y por eso son reejecutables. Este no lo es. Que esta vez no se borrara prosa lo
+  comprobo la auditoria a mano, no el control — y el control nacio justamente para dejar de depender
+  de que alguien lo lea y lo aplique.
+- **Que lo corregiria:** que el Paso 7c-bis publique la salida del control dentro de la NOTA DE CIERRE
+  del informe, junto al CENSO y al CONTROL, aunque salga limpia.
