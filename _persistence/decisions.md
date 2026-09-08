@@ -126,6 +126,12 @@
 | [D-115](#d-115---un-recuento-de-hallazgos-sobrevive-a-la-limpieza-la-cifra-se-queda-y-el-sujeto-pasa-a-ser-el-metodo) | Un recuento de hallazgos sobrevive a la limpieza: la cifra se queda, y el sujeto pasa a ser el metodo | 2026-09-07 | Vigente | manager |
 | [D-116](#d-116---el-andamiaje-copiable-necesita-su-propia-carpeta-de-plantillas-y-vive-en-_templates000_preproject) | El andamiaje copiable necesita su propia carpeta de plantillas, y vive en `_templates/000_preproject/` | 2026-09-08 | Vigente | usuario |
 | [D-117](#d-117---el-archivo-de-etapa-de-000_preproject-se-realinea-con-el-andamiaje-que-la-propia-etapa-construyo) | El archivo de etapa de `000_preproject` se realinea con el andamiaje que la propia etapa construyo | 2026-09-08 | Vigente | usuario |
+| [D-118](#d-118---la-excepcion-de-codigos-agnosticos-pasa-de-el-primer-numero-a-la-serie-consecutiva-y-se-le-da-un-criterio-de-distincion) | La excepcion de codigos agnosticos pasa de «el primer numero» a «la serie consecutiva», y se le da un criterio de distincion | 2026-09-08 | Vigente | report_auditor |
+| [D-119](#d-119---una-prohibicion-que-ya-reincidio-se-sustituye-por-un-control-no-por-mas-enfasis) | Una prohibicion que ya reincidio se sustituye por un control, no por mas enfasis | 2026-09-08 | Vigente | report_auditor |
+| [D-120](#d-120---un-recuento-con-el-que-el-informe-describe-un-archivo-va-con-la-orden-que-lo-devuelve) | Un recuento con el que el informe describe un archivo va con la orden que lo devuelve | 2026-09-08 | Vigente | report_auditor |
+| [D-121](#d-121---una-etapa-no-cierra-sola-nace-el-acta-de-cierre-de-etapa-con-dos-firmas-y-como-puerta-de-la-siguiente) | Una etapa no cierra sola: nace el acta de cierre de etapa, con dos firmas y como puerta de la siguiente | 2026-09-08 | Vigente | usuario |
+| [D-122](#d-122---un-solo-agente-generico-verifica-el-acta-y-el-orden-es-commit-dictamen-y-firma) | Un solo agente generico verifica el acta, y el orden es commit, dictamen y firma | 2026-09-08 | Vigente | usuario |
+| [D-123](#d-123---la-cosecha-va-antes-de-la-firma-y-quien-escribe-en-el-repositorio-de-lecciones-esta-sin-decidir) | La cosecha va antes de la firma, y quien escribe en el repositorio de lecciones esta sin decidir | 2026-09-08 | Vigente | usuario |
 
 ---
 
@@ -7209,6 +7215,22 @@ $ grep -nE '^### (D-092|D-093)' _persistence/decisions.md
 5495:### D-093 - La fecha de una sesion es la del commit que la cierra
 ```
 
+📌 **Nota del 2026-09-08 (`F-077`) — ese `113` es de mitad de la jornada, y el archivo siguio
+creciendo.** La orden de arriba se corrio sin anclar, sobre el arbol de trabajo, y el mismo dia
+`decisions.md` recibio varias entradas mas. Anclada al commit que cerro aquella sesion devuelve otro
+numero. **No se reescribe la linea original (`D-019`)**: la salida anclada queda aqui.
+
+```
+$ git grep -c 'CLAUDE\.md' 79e88a2 -- _persistence/decisions.md
+79e88a2:_persistence/decisions.md:121
+```
+
+⚠️ **Y el numero importa mas aqui que en otros sitios**, porque no es accesorio: es el **unico
+respaldo** del muestreo agregado con el que se justifica no comprobar regla por regla. Un recuento de
+ambito global tomado a mitad de una jornada que sigue escribiendo sobre ese mismo archivo es
+exactamente el patron que `D-022` y `D-108` existen para evitar — y ninguno de los dos lo detecto,
+porque la orden no llevaba ancla que contrastar.
+
   Cada `D-XXX` del registro nombra el archivo y la regla que escribio. La cita **dentro** del archivo
   agnostico es un puntero duplicado y en el sentido inutil: del metodo al expediente, cuando el
   expediente ya apunta al metodo.
@@ -7491,6 +7513,36 @@ Diez carpetas declaradas en el registro del proyecto frente a las seis del arbol
 agentes frente a los tres que la condicion de salida nombraba; y cero menciones a las dos carpetas
 que las otras seis etapas si citan.
 
+📌 **Nota del 2026-09-08 (`F-080`) — la primera orden de ese bloque devuelve `20`, no `19`.** Se
+publico `19` para el recuento de menciones a `_workflow` en los archivos de etapa; reejecutada contra
+el mismo commit que la entrada declara, devuelve `20`. El desglose por archivo que la propia nota
+comenta (1+2+2+2+10+3) tambien suma 20, asi que la cifra publicada se contradice con su propio
+desglose. **No se reescribe la linea original (`D-019`)**: la salida anclada queda aqui.
+
+```
+$ git grep -n '_workflow' acb3359 -- _phases/ | wc -l
+20
+$ git grep -c '_workflow' acb3359 -- _phases/
+acb3359:_phases/005_discovery.md:1
+acb3359:_phases/010_prototype.md:2
+acb3359:_phases/020_baseline.md:2
+acb3359:_phases/025_wslt.md:2
+acb3359:_phases/030_growth.md:10
+acb3359:_phases/040_evol.md:3
+```
+
+⚠️ **Y hay algo mas que la nota corrige: las cuatro ordenes del bloque de arriba se corrieron sobre
+el arbol de trabajo, no sobre un commit.** `grep -rn` y `sed -n … project.md` no llevan ancla, asi
+que ninguna de las cuatro se puede contrastar sin reconstruir el estado del momento — que es
+exactamente el defecto que el bloque existe para evitar. La lectura en prosa («seis del arbol de la
+etapa», «cinco agentes», «cero menciones») sigue siendo cierta; lo que faltaba era poder comprobarla.
+
+🔑 **El cierre lo detecto y no podia arreglarlo, y eso no es un fallo del cierre.** `decisions.md` no
+es suyo: el Paso 7c-bis solo ancla ordenes ya escritas en un bloque «Criterio de cierre», y este
+bloque es de «Verificacion». La consecuencia es que un error visto en el Paso 2d viaja igual dentro
+del commit, y solo se corrige por nota fechada en la sesion siguiente — que es lo que esta pasando
+aqui.
+
 **Criterio de cierre.** El archivo tiene diez casillas de salida y cinco entregables, y sigue en cero
 codigos instanciados y en cero datos propios.
 
@@ -7504,3 +7556,339 @@ exit=1
 ```
 
 📌 **Ancladas por el Paso 7c-bis al commit `5ba9c4e`.** Las tres reproducen lo publicado arriba.
+
+📌 **Nota del 2026-09-08 (`F-081`) — el anclaje borro el enunciado del criterio, y aqui vuelve.** El
+commit de anclaje sustituyo las tres ordenes de arriba y, al hacerlo, se llevo por delante la linea
+de prosa que iba debajo de ellas, que decia:
+
+> Las dos primeras tienen que devolver `10` y `5`; la tercera, cero lineas.
+
+Tambien se llevo el aviso de que las ordenes se escribian con `<hash>` a proposito porque el commit
+de la sesion todavia no existia. **La nota de anclaje ya commiteada no se reescribe**: la linea
+perdida se restaura aqui.
+
+🚨 **Y la linea que se perdio no era una linea envejecida: era el criterio.** Un bloque «Criterio de
+cierre» tiene dos mitades —lo que se exige y lo que salio—, y borrar la primera deja la segunda
+validandose sola. Con el enunciado delante, cualquiera ve que `10` y `5` son lo que habia que
+obtener; sin el, la salida anclada solo demuestra que las ordenes corrieron.
+
+⚠️ **Es reincidencia exacta de un hallazgo anterior ya dado por corregido** (`F-062`, cerrado como
+`Implementado` en `R-024`). Que vuelva a ocurrir dice que la correccion de entonces —repetir la
+prohibicion en el texto del paso— no cambia la conducta: el paso sustituye bloques enteros, y lo que
+esta pegado al bloque cae con el. Por eso `T-121` no se limita a restaurar la linea, y anade al Paso
+7c-bis un control que **detecta** el borrado en vez de prohibirlo.
+
+---
+
+### D-118 - La excepcion de codigos agnosticos pasa de «el primer numero» a «la serie consecutiva», y se le da un criterio de distincion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-079`. `CLAUDE.md` declaro que un codigo instanciado es un dato propio y que
+  «ninguno de los seis cita una entrada del registro», con una sola excepcion: **el primer numero de
+  una serie**. En el mismo commit, la guia de metodo lleva una serie consecutiva de ocho codigos de
+  tarea, que no son primeros de serie y si existen como entradas reales del registro.
+- **Lo que se comprobo antes de decidir, y es lo que fijo la forma de la excepcion:**
+
+```
+$ git grep -hIoE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' d23e5a6 -- _methodology | sort | uniq -c
+      2 F-001
+      2 FT-001
+      4 N-001
+      2 S-001
+      2 SC-001
+      6 T-001
+      2 T-002
+      2 T-003
+      2 T-004
+      2 T-005
+      2 T-006
+      2 T-007
+      2 T-008
+      4 TC-001
+```
+
+  Todo lo instanciado es **una serie consecutiva desde el primero** (`T-001` a `T-008`) mas seis
+  primeros de serie. No hay ni un codigo suelto ni una serie que arranque por la mitad — que es lo
+  que hace que la excepcion se pueda escribir sin abrir un boquete.
+- **Decision:** la excepcion pasa a cubrir **la serie consecutiva de un ejemplo trabajado**, siempre
+  que empiece por el primero y no se salte ninguno, y se le anade el criterio que la distingue de una
+  cita: **de donde sale el contenido que va detras**. Una serie de ejemplo la escribe el propio
+  archivo; una cita remite a una entrada que vive en el registro. El control operativo es la prueba
+  de la copia — si al llevar el archivo a un repositorio vacio la frase sigue significando lo mismo,
+  es serie; si pasa a afirmar una historia que alli no ocurrio, es cita.
+- **Por que importa mas de lo que parece:** el barrido que `T-112` va a anadir al Paso 1b tiene que
+  poder ser **binario**. Contra la redaccion anterior no podia serlo: el propio repositorio la
+  contradecia en veintidos ocurrencias, asi que el control habria nacido devolviendo lineas que hay
+  que perdonar a mano — que es exactamente lo que `D-114` descarto como alternativa cuando eligio
+  «se quita el codigo y se conserva el hecho».
+- **Alternativas descartadas:** (a) **acotar la afirmacion a las cinco areas que hoy cumplen y dejar
+  la guia de metodo como pendiente**: era la otra salida que el hallazgo ofrecia, y convierte una
+  regla en una lista de excepciones por area — que envejece mal y no dice nada sobre el area que se
+  anada manana. (b) **genericizar la serie de la guia de metodo** (`T-XXX`, `T-YYY`…): cumple la
+  regla y **rompe el ejemplo**, porque lo que la guia esta ensenando ahi es precisamente como se
+  numera un conjunto de tareas. (c) **dejarlo como esta y anotarlo como deuda**: el coste de
+  arreglarlo es un parrafo, y aplazar un parrafo para volver a leerlo dentro de tres sesiones cuesta
+  mas que escribirlo.
+- **Reversible a criterio** — se cambia el enunciado de una convencion en un archivo del metodo, sin
+  tocar ningun otro archivo ni ningun control en ejecucion. Clasificacion declarada como criterio, no
+  leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** `CLAUDE.md` enuncia la excepcion de la serie consecutiva con su criterio de
+  distincion, y todo lo que la guia de metodo instancia sigue cabiendo dentro de ella —series desde
+  el primero, sin saltos.
+
+```
+$ git show <hash>:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado'
+$ git grep -hIoE '\bT-[0-9]{3}\b' <hash> -- _methodology | sort -u | tr '\n' ' '
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda, la
+serie `T-001` a `T-008` sin huecos.
+
+---
+
+### D-119 - Una prohibicion que ya reincidio se sustituye por un control, no por mas enfasis
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-081`. El Paso 7c-bis volvio a borrar prosa al anclar, y es **reincidencia exacta**
+  de un hallazgo anterior que se cerro como `Implementado`. La correccion de entonces consistio en
+  escribir la prohibicion con mas claridad y repetirla en tres sitios del paso; el texto sigue ahi,
+  literal, y la conducta se repitio igual.
+- **Decision:** el Paso 7c-bis gana un **control mecanico obligatorio** antes de commitear el
+  anclaje. Compara, para cada archivo que el paso toca, las lineas **fuera de los bloques de codigo**
+  antes y despues, y se detiene si alguna desaparecio. La prohibicion en prosa se queda donde estaba
+  —explica el porque—, pero deja de ser lo unico que impide el borrado.
+- **Por que la frontera es el bloque de codigo:** dentro del bloque, sustituir es justo lo que el
+  paso viene a hacer —la orden cambia de forma y la salida antigua se reemplaza por la anclada—.
+  Fuera del bloque no existe ningun caso legitimo de borrado. La frontera del control es entonces la
+  misma que la regla ya enunciaba; lo que cambia es que ahora se **mide** en vez de confiarse.
+- 🔑 **Lo que este caso ensena, y es lo que hace la decision generalizable:** un hallazgo cerrado
+  como `Implementado` cuya correccion fue **anadir texto** no esta cerrado del mismo modo que uno
+  cuya correccion fue anadir un control. El primero depende de que quien ejecuta lea; el segundo, no.
+  Cuando una conducta reincide, la pregunta ya no es «¿como lo digo mejor?» sino «¿que orden lo
+  detecta?».
+- **Alternativas descartadas:** (a) **volver a reforzar el texto** —negrita, un cuarto sitio, un
+  ejemplo—: es lo que ya se hizo, y es lo que fallo; repetirlo seria tratar la reincidencia como
+  mala suerte. (b) **prohibir la sustitucion y obligar a reescribir el bloque entero a mano**: no
+  reduce el riesgo, lo mueve. (c) **que el control lo corra la auditoria en vez del cierre**: llega
+  tarde por construccion — el commit ya estaria hecho, y la linea perdida solo se recupera por nota
+  fechada en la sesion siguiente, que es el coste que esta decision quiere evitar.
+- **Reversible a criterio** — se anade un control de solo lectura a un paso de un protocolo; no borra
+  nada, no cambia lo que el paso escribe, y su unico efecto posible es detener el cierre y pedir una
+  restauracion. Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 7c-bis lleva el control, y el control corre limpio sobre esta misma
+  sesion —que anadio prosa a cinco entradas y no borro ninguna linea.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE PROSA BORRADA'
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-120 - Un recuento con el que el informe describe un archivo va con la orden que lo devuelve
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-082`. La seccion 1 del informe anterior describio un archivo con «dos hunks de
+  contenido» —el diff da seis con el contexto por defecto y diecisiete con `-U0`— y nombro dos
+  secciones con un numero que no era el suyo.
+- **Decision:** cuando la descripcion por archivo de la seccion 1 lleve un numero —hunks, lineas,
+  entradas, secciones—, ese numero va **con la orden que lo produce**, y las secciones se nombran por
+  su numero real, derivado y no recordado. Entra en el Paso 2d de `protocol-close`, junto a las
+  ordenes que ya derivan que entradas nacen y cuales se editan.
+- **Por que no es la regla general de «comando y salida cruda» otra vez:** ahi el numero **es** la
+  evidencia; aqui no lo es. Aqui el numero es el **mapa** con el que otro decide si le hace falta
+  abrir el diff, y un mapa equivocado cuesta mas que no tener mapa — manda a mirar donde no esta lo
+  que se anuncia, y quien llega no puede distinguir un error de numeracion de un informe que describe
+  otra cosa.
+- ⚠️ **Y se anade el matiz del contexto**, porque sin el la regla se cumple y sigue confundiendo: el
+  recuento de hunks depende de `-U`, asi que son dos preguntas distintas —«¿en cuantos tramos se
+  agrupa?» y «¿cuantos puntos exactos se tocaron?»— y ninguna es «el» numero de hunks. La orden
+  publicada es la que dice cual de las dos se respondio.
+- **Alternativas descartadas:** (a) **prohibir los recuentos en la descripcion por archivo**: el
+  recuento es util, y quitarlo empeora el informe para arreglar un caso de mala derivacion.
+  (b) **corregir el informe ya commiteado**: no se hace — un informe commiteado es el estado que una
+  auditoria ya juzgo, y reescribirlo convierte «falta exactitud» en «hay evidencia falsa».
+- **Reversible a criterio** — se anade una exigencia de forma a una seccion de un informe futuro; no
+  toca ningun informe existente ni ningun dato. Clasificacion declarada como criterio, no leida de
+  una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 2d de `protocol-close` exige la orden junto al recuento y el numero
+  real de seccion.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento sin la orden que lo devuelve'
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-121 - Una etapa no cierra sola: nace el acta de cierre de etapa, con dos firmas y como puerta de la siguiente
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario observa que no existe ningun archivo que certifique el cierre de una etapa,
+  y pregunta si deberia construirse como puerta de entrada de la etapa siguiente. El criterio si
+  existe —el archivo de etapa declara sus casillas de salida y exige comprobar cada una con su orden y
+  su salida cruda—, pero **no existe el sitio donde eso queda escrito**, ni nadie que lo firme.
+- **Lo que faltaba, dicho con precision:** no faltaba el criterio, faltaba **el acta**. Sin ella,
+  salir de una etapa es un acto tacito: nadie pega ninguna salida, nadie firma, y el archivo de la
+  etapa siguiente ni siquiera exige que la anterior este cerrada.
+- **Decision:** nace el **acta de cierre de etapa**, con tres propiedades:
+  1. **Generica, no propia de una etapa.** Su plantilla vive en `_templates/`, y el acta concreta de
+     cada etapa en la subcarpeta de `_audit/` que lleva su nombre — el mismo sitio y la misma forma
+     que ya usan los dos Gates.
+  2. **Con dos firmas, y ninguna sustituye a la otra.** La revision tecnica la emite un agente que
+     arranca en frio (`D-122`); la aprobacion la da el **usuario**, que es el patrocinador. Es la
+     «Doble validacion» de `CLAUDE.md` aplicada al cierre de una etapa.
+  3. **Enganchada como entrada.** El archivo de la etapa siguiente exige el acta de la anterior en su
+     seccion de entradas. Un acta que existe y que nadie tiene que mirar no cierra nada.
+- **Por que `manager` no puede firmarla solo, que es el punto entero:** un acta donde quien construyo
+  certifica su propia construccion rompe «Revision independiente» en la misma linea en que se escribe.
+  Y el defecto no seria ruidoso — un acta autofirmada se lee exactamente igual que una buena.
+- **Alternativas descartadas:** (a) **un archivo de cierre propio de esta etapa**, escrito a medida:
+  mas rapido hoy y siete veces mas caro despues, porque cada etapa reinventaria el procedimiento y la
+  copia mas vieja acabaria mandando. (b) **dar la etapa por cerrada en `progress.md`**, sin acta:
+  `progress.md` lo escribe el cierre de sesion desde el `git diff`, y una etapa no cierra por lo que
+  diga un diff — cierra por diez casillas comprobadas. (c) **exigir el acta solo a partir de la etapa
+  siguiente**, dejando esta fuera: la primera etapa es justo la que construye el mecanismo, y
+  eximirla lo dejaria sin probar nunca.
+- ⚠️ **Lo que esta decision NO decide:** que la etapa esta lista. Hoy no lo esta —dos de sus diez
+  casillas, las de lecciones globales, siguen sin hacerse—, y el acta no las sustituye: las expone.
+- **Reversible a criterio** — se crea una plantilla y se declara un artefacto nuevo; no se borra nada,
+  no se cierra ninguna etapa y no se toca ningun registro existente. Clasificacion declarada como
+  criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** existe la plantilla del acta en `_templates/`, y el archivo de la etapa
+  siguiente exige el acta de la anterior entre sus entradas.
+
+```
+$ git ls-tree --name-only <hash> _templates/ | grep -c 'phase_exit'
+$ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit que las satisface todavia no
+existe** — lo produciran `T-123` y `T-126`. Las dos tienen que devolver `1`.
+
+---
+
+### D-122 - Un solo agente generico verifica el acta, y el orden es commit, dictamen y firma
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** decidida el acta (`D-121`), hace falta quien emita su revision tecnica. Ninguno de los
+  cinco agentes actuales sirve: `report_auditor` contrasta **un informe de sesion contra su commit**,
+  y los dos de Gate juzgan **la evidencia de un producto** contra los criterios del metodo. Las tres
+  son preguntas distintas de «¿se cumplen las casillas de salida de esta etapa?».
+- **Decision:** nace **un solo agente, generico para todas las etapas** —`phase_exit_auditor`— con su
+  protocolo propio —`protocol-phase-exit`—, siguiendo el mismo patron que los agentes de Gate: el
+  archivo del agente dice quien es y que no puede hacer; la skill dice que hacer, y es suya en
+  exclusiva.
+- 🔑 **Generico, y por una razon que no es de comodidad:** el archivo de cada etapa **ya declara sus
+  propias casillas**, asi que el agente no necesita conocerlas — las lee de la seccion de condicion de
+  salida de la etapa que se le pase y las verifica una por una. Un agente por etapa serian siete
+  copias del mismo procedimiento, y ante la discrepancia mandaria siempre la mas vieja.
+- **El orden son tres tiempos, no dos**, y es el mismo del ciclo de la jornada:
+
+| # | Quien | Que |
+|---|---|---|
+| 1 | `manager` | declara la etapa lista y **lo deja commiteado** — sin commit no hay nada que auditar |
+| 2 | `phase_exit_auditor` | audita **ese commit**, arrancando en frio, y emite el dictamen con la orden y la salida cruda de cada casilla |
+| 3 | el **usuario** | firma sobre el dictamen ya emitido |
+
+- **Por que ese orden y no otro:** una firma dada antes del dictamen firma la impresion de quien
+  construyo, no una verificacion. Y un agente al que se le cuenta como fue la etapa deja de auditar y
+  pasa a confirmar — el mismo argumento por el que `report_auditor` arranca sin contexto.
+- 🚨 **Emite dictamen, no decision.** Si el dictamen dice que tres casillas no se cumplen, el
+  patrocinador **puede aun asi decidir salir de etapa** asumiendo el hueco: es su prerrogativa, y
+  entonces el hueco es deuda tecnica y va con su `DT-XXX`. Lo que no puede es desaparecer.
+- ⚠️ **Y hay que decir lo incomodo:** crear este agente **cambia el archivo que el va a certificar**.
+  La casilla 2 de la condicion de salida de la etapa preparatoria dice hoy «los cinco agentes
+  existen»; con este serian seis. Se decide explicitamente y no de pasada, porque es un cambio al
+  criterio hecho por quien va a ser medido con el. Va en `T-125`.
+- **Alternativas descartadas:** (a) **darle un segundo modo a `report_auditor`**: un agente con dos
+  procedimientos elige mal el dia que los dos parecen aplicables, y su descripcion deja de decir que
+  hace. (b) **un agente por etapa**: descartado arriba. (c) **que lo verifique `manager` y el usuario
+  solo firme**: es exactamente lo que `D-121` existe para impedir.
+- **Reversible a criterio** — se anaden un agente y una skill nuevos; ningun protocolo existente
+  cambia de comportamiento, y el agente es de solo lectura sobre el proyecto. Clasificacion declarada
+  como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** existen el agente y su skill, y el archivo del agente delega su
+  procedimiento en la skill en vez de llevarlo dentro.
+
+```
+$ git ls-tree --name-only <hash> .claude/agents/ | grep -c 'phase_exit_auditor'
+$ git ls-tree -r --name-only <hash> .claude/skills/protocol-phase-exit/ | grep -c 'SKILL.md'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit que las satisface todavia no
+existe** — lo producira `T-124`. Las dos tienen que devolver `1`.
+
+---
+
+### D-123 - La cosecha va antes de la firma, y quien escribe en el repositorio de lecciones esta sin decidir
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pregunta si las lecciones globales se actualizan **despues** de que el
+  patrocinador firme el acta. La respuesta que da el propio registro es la contraria, y conviene
+  dejarla escrita porque el orden intuitivo es el equivocado.
+- **Decision:** **la cosecha va antes de la firma, no despues.** La casilla de lecciones globales de
+  la condicion de salida exige que la cosecha **ya este hecha** para poder cerrar; hacerla despues de
+  firmar dejaria esa casilla sin poder marcarse nunca. El orden queda: `manager` cosecha →
+  `phase_exit_auditor` verifica esa casilla como una mas → el usuario firma.
+- **Como se lleva a cabo, en cinco pasos:**
+  1. se recorre la columna `Portabilidad` del indice de `lessons.md` y se toman **las lecciones de la
+     etapa que cierra** que esten `Sin evaluar`;
+  2. **los cuatro filtros se leen en el archivo global**, en su seccion de promocion, no aqui — una
+     segunda copia acabaria diciendo otra cosa;
+  3. cada leccion sale con uno de tres destinos: `Global candidata`, `Ya cubierta por LG-NN` o
+     `Solo proyecto`;
+  4. las `Global candidata` se escriben en el archivo global y su fila pasa a `Promovida a LG-NN`;
+  5. queda su `D-XXX` en este registro, con la **version nueva del archivo global declarada**.
+- 🚨 **Y se declara un hueco que no esta resuelto, antes de tropezar con el:** el paso 4 escribe y
+  commitea **en un repositorio distinto de este**, y **ningun protocolo del andamiaje cubre hoy esa
+  escritura** — ni el cierre, ni la auditoria, ni los Gates. Quien la hace y bajo que protocolo se
+  decide **antes** de la primera cosecha, no durante. Va en `T-127`.
+- ⚠️ **La cosecha solo se dispara cuando de verdad se va a cerrar la etapa.** Corrida a mano cuando
+  apetece, la casilla deja de ser disparador y vuelve a ser una nota — que es el defecto que la
+  casilla existe para resolver, y que este registro ya cobro una vez.
+- **Alternativas descartadas:** (a) **cosechar despues de la firma**, como sugeria la pregunta:
+  imposible por construccion, la casilla quedaria circular. (b) **quitar la cosecha de la condicion de
+  salida y dejarla como tarea suelta**: la desactiva — una tarea sin disparador se pospone
+  indefinidamente, que es exactamente la razon por la que se escribio como casilla.
+- **Reversible a criterio** — se fija un orden entre dos pasos y se declara un hueco pendiente; no se
+  escribe todavia nada en el repositorio de lecciones, que es la parte que no seria reversible.
+  Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el orden queda escrito donde se aplica —la cosecha antes de la firma— y el
+  hueco del repositorio de lecciones tiene su tarea abierta.
+
+```
+$ git show <hash>:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Decidir quien escribe y commitea en el repositorio de lecciones globales'
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.

@@ -124,6 +124,20 @@
 | [T-113](#t-113---decidir-que-se-hace-con-las-55-citas-historicas-de-claude-y-claudemd-d-113) | Decidir que se hace con las 55 citas historicas de `.claude/` y `CLAUDE.md` (`D-113`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-114](#t-114---quitar-de-claudemd-las-citas-del-registro-d-114) | Quitar de `CLAUDE.md` las citas del registro (`D-114`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-115](#t-115---aplicar-la-misma-ruta-a-claude-54-citas-en-tres-archivos-d-114) | Aplicar la misma ruta a `.claude/`: 54 citas en tres archivos (`D-114`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-116](#t-116---fijar-por-nota-fechada-las-cifras-de-volumen-de-t-115-contra-la-salida-de-d-113-f-076) | Fijar por nota fechada las cifras de volumen de `T-115` contra la salida de `D-113` (`F-076`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-117](#t-117---anclar-por-nota-fechada-el-recuento-113-de-a-013-y-d-114-f-077) | Anclar por nota fechada el recuento `113` de `A-013` y `D-114` (`F-077`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-118](#t-118---corregir-por-nota-fechada-el-total-de-la-nota-de-cierre-de-s-027-f-078) | Corregir por nota fechada el total de la NOTA DE CIERRE de `S-027` (`F-078`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-119](#t-119---ampliar-en-claudemd-la-excepcion-de-los-codigos-del-ejemplo-trabajado-f-079) | Ampliar en `CLAUDE.md` la excepcion de los codigos del ejemplo trabajado (`F-079`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-120](#t-120---anclar-por-nota-fechada-el-recuento-19-de-d-117-f-080) | Anclar por nota fechada el recuento `19` de `D-117` (`F-080`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-121](#t-121---restaurar-la-prosa-que-el-paso-7c-bis-borro-en-d-117-y-quitarle-al-paso-la-capacidad-de-borrarla-f-081) | Restaurar la prosa que el Paso 7c-bis borro en `D-117`, y quitarle al paso la capacidad de borrarla (`F-081`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-122](#t-122---exigir-en-protocol-close-que-la-descripcion-por-archivo-cite-su-recuento-con-la-orden-que-lo-devuelve-f-082) | Exigir en `protocol-close` que la descripcion por archivo cite su recuento con la orden que lo devuelve (`F-082`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-123](#t-123---escribir-la-plantilla-del-acta-de-cierre-de-etapa-en-_templates-d-121) | Escribir la plantilla del acta de cierre de etapa en `_templates/` (`D-121`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-124](#t-124---crear-el-agente-phase_exit_auditor-y-su-skill-protocol-phase-exit-d-122) | Crear el agente `phase_exit_auditor` y su skill `protocol-phase-exit` (`D-122`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-125](#t-125---subir-de-cinco-a-seis-los-agentes-que-exige-la-casilla-2-de-_phases000_preprojectmd-d-122) | Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-126](#t-126---exigir-el-acta-de-la-etapa-anterior-en-las-entradas-de-_phases005_discoverymd-d-121) | Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-127](#t-127---decidir-quien-escribe-y-commitea-en-el-repositorio-de-lecciones-globales-d-123) | Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-128](#t-128---hacer-la-cosecha-de-las-lecciones-de-la-etapa-preparatoria-d-123) | Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-129](#t-129---hacer-y-registrar-la-consulta-de-arranque-a-las-lecciones-globales-d-123) | Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -5005,4 +5019,427 @@ de auditoria de la misma forma». Lo fija `D-115`.
 $ git grep -nIoE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' -- .claude
 $ echo "exit=$?"
 exit=1
+```
+
+📌 **Nota del 2026-09-08 (`F-076`) — las cifras de volumen de arriba no salen de ninguna orden, y son
+otras.** El titulo dice «54 citas en tres archivos», el cuerpo «51 lineas, 50 codigos distintos» para
+`protocol-close`, y la nota anterior «las 54 citas: 51 de `protocol-close`, 2 de `protocol-start` y 1
+de `session-closer`». Ninguna de las tres se corresponde con lo que devuelve el barrido sobre el
+commit anterior a la limpieza. **No se reescribe nada de lo de arriba (`D-019`)**: la cifra correcta
+queda aqui, con la orden que la produce.
+
+```
+$ git grep -cIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2^ -- .claude
+79e88a2^:.claude/agents/session-closer.md:1
+79e88a2^:.claude/agents/session-starter.md:1
+79e88a2^:.claude/skills/protocol-close/SKILL.md:48
+79e88a2^:.claude/skills/protocol-start/SKILL.md:2
+$ git grep -cIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2^ -- .claude | awk -F: '{s+=$NF} END {print s}'
+52
+$ git grep -ohIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2^ -- .claude/skills/protocol-close/SKILL.md | sort -u | wc -l
+48
+```
+
+**Son 52 lineas en CUATRO archivos, no 54 en tres**, y `protocol-close` aporta **48 lineas y 48
+codigos distintos**, no 51 y 50. La cuarta —`agents/session-starter.md`— no aparece en el titulo ni
+en el cuerpo. El total de 52 sale de una sola orden, no de sumar los cuatro numeros en prosa
+(`D-112`).
+
+🔑 **La salida correcta ya estaba en el mismo commit, dos entradas mas arriba**, en el segundo barrido
+de `D-113` («`.claude/` (52 lineas en cuatro archivos)»). Que la tarea publicara otra cifra teniendola
+al lado es lo que hace util la regla: **un numero que no viene de una orden no se contrasta con
+nada**, ni siquiera con el que si viene.
+
+---
+
+### T-116 - Fijar por nota fechada las cifras de volumen de `T-115` contra la salida de `D-113` (`F-076`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** anadir una nota fechada bajo `T-115` que fije las cifras de volumen contra una orden que
+  las devuelva, sin reescribir el titulo ni el cuerpo (`D-019`). El titulo dice «54 citas en tres
+  archivos», el cuerpo «51 lineas, 50 codigos distintos» para `protocol-close`, y la nota de cierre
+  «las 54 citas: 51 de `protocol-close`, 2 de `protocol-start` y 1 de `session-closer`».
+- **Por que se acepta:** el hallazgo se verifico contra `HEAD` antes de tratarlo y se sostiene. Las
+  cifras reales, medidas sobre el commit anterior a la limpieza, son 48 lineas y 48 codigos distintos
+  en `protocol-close`, y 52 lineas en los **cuatro** archivos de `.claude/`. El commit contiene la
+  salida correcta dos entradas mas arriba, en `D-113`.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-076`.
+- **Criterio de cierre:** las dos cifras que la nota publica —52 lineas en los cuatro archivos de
+  `.claude/`, y 48 codigos distintos en `protocol-close`— son las que devuelven sus ordenes sobre el
+  commit anterior a la limpieza. El criterio comprueba **el hecho, no el texto de la nota**: un
+  criterio que buscara su propia frase en el mismo archivo donde vive la tarea no podria fallar
+  nunca.
+
+```
+$ git grep -cIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2^ -- .claude | awk -F: '{s+=$NF} END {print s}'
+$ git grep -ohIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2^ -- .claude/skills/protocol-close/SKILL.md | sort -u | wc -l
+```
+
+---
+
+### T-117 - Anclar por nota fechada el recuento `113` de `A-013` y `D-114` (`F-077`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** anadir nota fechada en `A-013` y en `D-114` que ancle al commit el recuento publicado como
+  `113`, sin reescribir la linea original (`D-019`).
+- **Por que se acepta:** verificado contra `HEAD` — la orden anclada al commit de aquella sesion
+  devuelve `121`, no `113`. Es un recuento de ambito global tomado a mitad de la jornada sobre un
+  archivo que la jornada siguio creciendo: el patron que `D-022` y `D-108` existen para evitar. Y es
+  el unico respaldo del muestreo agregado con el que `A-013` justifica no comprobar caso por caso.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-077`.
+- **Criterio de cierre:** `A-013` y `D-114` llevan cada uno su nota fechada del 2026-09-08 con la
+  orden anclada y su salida.
+
+```
+$ git show <hash>:_persistence/assumptions.md | grep -c 'Nota del 2026-09-08 (`F-077`)'
+$ git show <hash>:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-077`)'
+```
+
+---
+
+### T-118 - Corregir por nota fechada el total de la NOTA DE CIERRE de `S-027` (`F-078`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** anadir nota fechada en la seccion 7 de `_audit/S-027.md` que publique el total con una
+  orden que lo devuelva entero, en vez de sumar `3` en prosa sobre el `21` que el CONTROL publica.
+  El informe commiteado no se reescribe.
+- **Por que se acepta:** verificado — el CONTROL de `S-027` seccion 7 publica `13` y `8`, y la prosa
+  escribe «24 ordenes ancladas». El total es cierto, pero no sale de ninguna orden publicada, que es
+  exactamente lo que el recuadro escrito por esa misma sesion (`D-112`, `F-074`) prohibe. Es el
+  patron de `F-071`: la primera ejecucion de una regla nueva la incumple.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-078`.
+- **Criterio de cierre:** `_audit/S-027.md` lleva su nota fechada del 2026-09-08 con la orden que
+  devuelve el total entero y su salida.
+
+```
+$ git show <hash>:_audit/S-027.md | grep -c 'Nota del 2026-09-08 (`F-078`)'
+```
+
+---
+
+### T-119 - Ampliar en `CLAUDE.md` la excepcion de los codigos del ejemplo trabajado (`F-079`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** ampliar la excepcion del apartado «Registro del proyecto» de `CLAUDE.md` para que cubra la
+  **serie consecutiva de un ejemplo trabajado**, y diga como se distingue de una cita del registro.
+- **Por que se acepta:** verificado contra `HEAD` — la guia de metodo contiene una serie consecutiva
+  de codigos de tarea, mas un codigo de sesion y uno de hallazgo, que existen como entradas reales
+  del registro y no son primeros de serie. La regla queda enunciada como absoluta y el propio
+  repositorio la contradice, con lo que el barrido que `T-112` va a escribir no puede ser binario
+  contra un texto asi — que es justo lo que `D-114` descarto como alternativa.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-079`.
+- **Criterio de cierre:** `CLAUDE.md` enuncia la excepcion del ejemplo trabajado consecutivo con su
+  criterio de distincion.
+
+```
+$ git show <hash>:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado'
+```
+
+---
+
+### T-120 - Anclar por nota fechada el recuento `19` de `D-117` (`F-080`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** anadir nota fechada bajo el bloque de verificacion de `D-117` republicando la orden anclada
+  con su salida real, sin reescribir la original (`D-019`).
+- **Por que se acepta:** verificado contra `HEAD` — la orden del bloque, anclada al commit que la
+  propia entrada declara, devuelve `20`, y el bloque publica `19`. El desglose por archivo del propio
+  bloque (1+2+2+2+10+3) tambien suma 20. El cierre lo detecto en su Paso 2d y no podia corregirlo,
+  porque `decisions.md` no es suyo.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-080`.
+- **Criterio de cierre:** `D-117` lleva su nota fechada del 2026-09-08 con la orden anclada y su
+  salida.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-080`)'
+```
+
+---
+
+### T-121 - Restaurar la prosa que el Paso 7c-bis borro en `D-117`, y quitarle al paso la capacidad de borrarla (`F-081`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** dos cosas, y la segunda es la que importa. (a) restaurar por nota fechada el **enunciado
+  del criterio** que se perdio en `D-117`, sin reescribir la nota ya commiteada. (b) cambiar el Paso
+  7c-bis de `protocol-close` para que **no pueda** borrar prosa: hoy la regla lo prohibe con palabras
+  y la conducta reincide, asi que se le da un mecanismo —sustitucion acotada a la linea de la orden,
+  y un control que compara el numero de lineas borradas fuera del bloque de codigo— que no dependa de
+  que el agente lea la prohibicion.
+- **Por que se acepta:** verificado contra `HEAD` — el diff del commit de anclaje muestra cuatro
+  lineas de prosa borradas fuera del bloque de codigo. Es reincidencia exacta de `F-062`, cerrado
+  como `Implementado` en `R-024`: la correccion de entonces no impide la conducta. Y la linea perdida
+  no era una linea envejecida — era el enunciado que permite juzgar si la salida anclada lo cumple;
+  sin ella, criterio y resultado se validan solos.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-081`.
+- **Criterio de cierre:** `D-117` vuelve a llevar el enunciado del criterio, y el Paso 7c-bis de
+  `protocol-close` describe el control que detecta el borrado, no solo su prohibicion.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -c 'la tercera, cero lineas'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE PROSA BORRADA'
+```
+
+---
+
+### T-122 - Exigir en `protocol-close` que la descripcion por archivo cite su recuento con la orden que lo devuelve (`F-082`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-029 |
+
+- **Que:** hacia adelante. Que la seccion 1 del informe, cuando describa un archivo con un recuento
+  —hunks, lineas, secciones—, lo cite con la orden que lo devuelve, y que nombre las secciones por su
+  numero real en el archivo. Los informes commiteados no se reescriben.
+- **Por que se acepta:** verificado — la vineta del informe anterior dice «dos hunks de contenido» y
+  enumera cinco secciones; el diff da seis hunks con contexto por defecto y diecisiete con `-U0`.
+  Ademas nombra dos secciones con un numero que no es el suyo. El informe es el mapa con el que se
+  lee el commit: un recuento sin orden detras obliga a rehacer el diff, que es lo que el informe
+  existe para ahorrar.
+- **Se escribe a mano** por la primera excepcion de este archivo; su hallazgo es `F-082`.
+- **Criterio de cierre:** el Paso 2d de `protocol-close` exige la orden junto al recuento y el numero
+  real de seccion.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento sin la orden que lo devuelve'
+```
+
+---
+
+### T-123 - Escribir la plantilla del acta de cierre de etapa en `_templates/` (`D-121`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** escribir la plantilla generica del acta de cierre de etapa. Lleva, en blanco: la etapa que
+  cierra, el commit sobre el que se dictamina, **una fila por casilla de la condicion de salida** con
+  su orden y su salida cruda, el dictamen del agente, y las **dos firmas** —la tecnica y la del
+  patrocinador— con su fecha.
+- **Agnostica, como toda plantilla:** ni el nombre de una etapa, ni un codigo instanciado, ni un dato
+  propio. El numero de casillas no se fija en la plantilla: lo pone la etapa que cierra.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-121`.
+- **Criterio de cierre:** la plantilla existe y pasa los dos barridos de agnosticismo.
+
+```
+$ git ls-tree --name-only <hash> _templates/ | grep -c 'phase_exit'
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' <hash> -- _templates/000_preproject
+```
+
+---
+
+### T-124 - Crear el agente `phase_exit_auditor` y su skill `protocol-phase-exit` (`D-122`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** el agente y su protocolo, con el patron de los dos agentes de Gate: el archivo del agente
+  dice **quien es y que no puede hacer**; la skill dice **que hacer**, y es suya en exclusiva. El
+  agente arranca en frio, lee las casillas de la etapa que se le pasa, las verifica una por una con su
+  orden y su salida cruda, y deja el acta con su commit y su push.
+- 🚨 **Emite dictamen, no decision**, y su archivo lo dice donde se aplica: si una casilla no se
+  cumple, quien decide salir igualmente es el patrocinador, y el hueco va con su `DT-XXX`.
+- ⚠️ **Aqui se resuelve `A-016`:** al escribir el protocolo, recorrer con el mismo procedimiento la
+  condicion de salida de **dos etapas distintas**. Si una de las dos no se deja verificar sin
+  instrucciones propias, el supuesto cae y la forma de `D-122` hay que replantearla en la misma
+  tarea.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-122`.
+- **Criterio de cierre:** existen el agente y su skill, y el agente delega el procedimiento en la
+  skill en vez de llevarlo dentro.
+
+```
+$ git ls-tree --name-only <hash> .claude/agents/ | grep -c 'phase_exit_auditor'
+$ git ls-tree -r --name-only <hash> .claude/skills/protocol-phase-exit/ | grep -c 'SKILL.md'
+```
+
+---
+
+### T-125 - Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** la casilla 2 de la condicion de salida dice hoy «los cinco agentes existen y su reparto
+  esta escrito», y enumera los tres del ciclo de la jornada mas los dos de Gate. Con
+  `phase_exit_auditor` son seis, y la frontera que la casilla exige enunciar gana un cuarto papel:
+  **quien certifica la salida de una etapa**.
+- ⚠️ **Va despues de `T-124`, no antes.** Subir el numero de la casilla mientras el agente no existe
+  deja el archivo de etapa afirmando algo falso — que es peor que dejarlo desfasado.
+- 🚨 **Y se hace sabiendo lo que es:** un cambio al criterio de salida escrito por quien va a ser
+  medido con el. Queda declarado en `D-122` por esa razon, y no se hace de pasada.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-122`.
+- **Criterio de cierre:** la casilla 2 exige seis agentes y nombra los cuatro papeles de la frontera.
+
+```
+$ git show <hash>:_phases/000_preproject.md | grep -c 'Los seis agentes existen'
+```
+
+---
+
+### T-126 - Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** anadir el acta de cierre de la etapa anterior a la seccion de entradas del archivo de la
+  etapa siguiente. Hoy esa seccion no exige nada de la etapa previa, asi que se podria entrar en el
+  descubrimiento con la etapa preparatoria a medias y nadie lo notaria.
+- 🔑 **Es lo que convierte el acta en puerta.** Sin este enganche el acta existe y nadie tiene que
+  mirarla, que es la forma mas cara de tener un artefacto: cuesta escribirlo y no impide nada.
+- ⚠️ **Se escribe en generico**, como todo `_phases/`: «el acta de cierre de la etapa anterior», no el
+  nombre de esta etapa.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-121`.
+- **Criterio de cierre:** la seccion de entradas de la etapa siguiente cita el acta de cierre de la
+  anterior.
+
+```
+$ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
+```
+
+---
+
+### T-127 - Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | Bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** decidir quien ejecuta el paso de promocion de la cosecha —que **escribe y commitea en un
+  repositorio distinto de este**— y bajo que protocolo. Las opciones sobre la mesa: un paso dentro de
+  `protocol-phase-exit`, un protocolo aparte, o el usuario a mano.
+- 🚨 **Es bloqueante de la cosecha, no de la sesion.** Ningun protocolo del andamiaje cubre hoy esa
+  escritura: ni el cierre, ni la auditoria, ni los Gates. Mientras no se decida, la casilla de
+  lecciones globales no se puede satisfacer, y sin ella la etapa no cierra.
+- ⚠️ **Y hay una asimetria que conviene tener delante al decidir:** todos los agentes de este
+  repositorio estan escritos para operar **dentro** de el. Darle a uno permiso de escritura sobre otro
+  repositorio es un cambio de alcance, no una tarea de configuracion.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-123`.
+- **Criterio de cierre:** existe la decision con su `D-XXX` que nombra quien escribe en el repositorio
+  de lecciones y bajo que protocolo.
+
+---
+
+### T-128 - Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** la cosecha completa, en los cinco pasos que fija `D-123`: recorrer la columna
+  `Portabilidad`, leer los cuatro filtros **en el archivo global**, clasificar cada leccion en uno de
+  los tres destinos, promover las candidatas, y dejar su `D-XXX` con la version nueva del archivo
+  global declarada.
+- ⚠️ **Depende de `T-127`**, que decide quien puede escribir alli, y **de `A-017`**, que da por hecho
+  que los cuatro filtros estan escritos y son aplicables. Los dos se resuelven antes de empezar.
+- 🚨 **Y no se adelanta.** Esta tarea se ejecuta cuando de verdad se vaya a cerrar la etapa. Corrida
+  antes, la casilla deja de ser disparador y vuelve a ser una nota — este registro ya lo cobro una
+  vez.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-123`.
+- **Criterio de cierre:** ninguna leccion de esta etapa queda `Sin evaluar` en la columna
+  `Portabilidad`.
+
+```
+$ git show <hash>:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep -c 'Sin evaluar'
+```
+
+---
+
+### T-129 - Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-029 |
+
+- **Que:** la otra casilla de lecciones globales, la que va en direccion contraria a la cosecha. Leer
+  **por su indice** los bloques de decisiones/arquitectura y de corte del trabajo del archivo global,
+  y dejar en `decisions.md` lo que produjeron, citando el codigo de cada leccion consultada.
+- 🚨 **Los bloques no recorridos se declaran `NO MIRADOS`, no limpios.** Un bloque que nadie abrio no
+  es un bloque sin hallazgos, y escribirlo como si lo fuera es lo unico que esta casilla puede
+  producir de falso.
+- ⚠️ **Se lee por el indice y se sale.** El archivo global no se vuelca al contexto: leido de corrido
+  no queda ninguna leccion, que es exactamente lo que la regla existe para evitar.
+- 🔑 **Y llega tarde a proposito, sin que eso la invalide.** La casilla pide la consulta «antes de
+  definir alcance», y el alcance sigue sin definirse (`T-001`): la ventana **no se ha cerrado**.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-123`.
+- **Criterio de cierre:** `decisions.md` contiene la entrada de la consulta de arranque, citando los
+  codigos de las lecciones leidas y declarando los bloques `NO MIRADOS`.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -c 'NO MIRADOS'
 ```

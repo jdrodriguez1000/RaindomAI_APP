@@ -48,6 +48,8 @@
 | [L-037](#l-037---un-criterio-que-cita-el-texto-que-comprueba-se-acierta-a-si-mismo) | Un criterio que cita el texto que comprueba se acierta a si mismo | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-038](#l-038---un-patron-con-b-escrito-por-un-script-llega-al-archivo-como-caracter-de-control) | Un patron con `\b` escrito por un script llega al archivo como caracter de control | 2026-09-08 | 000_preproject | Sin evaluar |
 | [L-039](#l-039---un-archivo-escrito-al-principio-de-su-etapa-describe-un-andamiaje-que-la-etapa-aun-no-habia-construido) | Un archivo escrito al principio de su etapa describe un andamiaje que la etapa aun no habia construido | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-040](#l-040---una-prohibicion-que-ya-reincidio-no-se-arregla-escribiendola-mejor) | Una prohibicion que ya reincidio no se arregla escribiendola mejor | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-041](#l-041---un-criterio-sin-artefacto-donde-firmarse-no-falla-hasta-que-alguien-intenta-usarlo) | Un criterio sin artefacto donde firmarse no falla hasta que alguien intenta usarlo | 2026-09-08 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1434,6 +1436,15 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   escribe habiendola visto salir. Lo mismo vale para cualquier archivo que documente sus propios
   barridos, que en este repositorio son casi todos.
 
+📌 **Nota de reincidencia del 2026-09-08.** Volvio a ocurrir al escribir el criterio de cierre de una
+tarea nacida de un hallazgo: el criterio buscaba la cadena de su propia nota en el mismo archivo
+donde vive la tarea, asi que al correrlo devolvia `2` —la nota y la propia orden que la busca— y no
+podia devolver menos de `1` pasara lo que pasara. Se detecto corriendolo antes de publicarlo y se
+sustituyo por un criterio que comprueba **el hecho** (las cifras que la nota publica salen de sus
+ordenes) en vez del texto. Refuerza la leccion por el lado que no estaba escrito: cuando el criterio
+y lo que comprueba viven en el **mismo archivo**, anclar el patron no basta — hay que cambiar de
+pregunta.
+
 ---
 
 ### L-038 - Un patron con `\b` escrito por un script llega al archivo como caracter de control
@@ -1458,6 +1469,14 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   escape, escribirla con la herramienta de edicion directa y no via script; y comprobar el resultado
   con `cat -A` o un conteo de bytes de control **antes** de dar la entrada por escrita, nunca solo
   releyendola en pantalla. Un caracter de control invisible pasa cualquier revision visual.
+
+📌 **Nota de reincidencia del 2026-09-08.** Volvio a ocurrir en la sesion siguiente, y por el mismo
+vector: una decision escrita con un script de Python publico su barrido con `0x08` donde decia `\b`.
+Se detecto igual que la primera vez —reejecutando la orden publicada antes de darla por buena, y
+confirmando con `cat -A`— y se corrigio antes del commit. Que reaparezca una jornada despues dice que
+la parte de «como aplicarla» que pide **no escribir por script** es la que no se sostiene sola: el
+script sigue siendo la forma comoda de insertar un bloque largo. Lo que si funciono las dos veces fue
+la comprobacion posterior, asi que esa es la mitad que hay que tratar como obligatoria.
 
 ---
 
@@ -1488,3 +1507,65 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   util no es «¿el archivo esta bien?» sino **«¿cuantas cosas nombra, y cuantas hay?»**, que se
   contesta contando, no leyendo. Vale para cualquier etapa, y con mas motivo para la primera: es la
   unica cuyo objeto es construir el sistema que despues comprueba a las demas.
+
+---
+
+### L-040 - Una prohibicion que ya reincidio no se arregla escribiendola mejor
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** una auditoria abrio que el paso de anclaje del cierre habia borrado prosa del
+  registro. Se corrigio reforzando el texto del paso: se enuncio la frontera con mas precision —«lo
+  que se reescribe vive dentro del bloque de codigo»— y se repitio la prohibicion en tres sitios
+  distintos del mismo paso. El hallazgo se cerro como `Implementado` en la auditoria siguiente.
+- **Que ocurrio:** tres sesiones despues, el mismo paso volvio a borrar prosa, en dos entradas, y una
+  de las lineas perdidas era **el enunciado del criterio** — la mitad que permite juzgar si la salida
+  publicada lo cumple. El texto reforzado seguia ahi, literal y sin tocar.
+- **Y lo que hace util el caso es que la primera correccion no fue floja.** Estaba bien escrita, bien
+  colocada y era correcta. Simplemente pertenecia a una clase de correccion que no puede funcionar
+  sola: **las que dependen de que quien ejecuta lea y aplique**. Con el volumen de un protocolo largo,
+  esa dependencia falla tarde o temprano, y falla en silencio.
+- **Leccion:** **la reincidencia es informacion sobre la clase de correccion, no sobre la disciplina
+  de quien la incumplio.** Cuando una conducta prohibida vuelve, la pregunta deja de ser «¿como lo
+  digo mejor?» y pasa a ser «¿que orden lo detecta?». Un hallazgo cerrado con texto y uno cerrado con
+  un control estan cerrados de dos maneras distintas, y solo la segunda sobrevive a que nadie se
+  acuerde.
+- ⚠️ **Y el corolario incomodo:** un `Implementado` cuya correccion fue anadir texto **no es garantia
+  de nada** para el futuro; es garantia de que en ese commit el texto estaba. Vale la pena mirarlo
+  asi al evaluar hallazgos que se parecen a otros ya cerrados.
+- **Como aplicarla:** al aceptar un hallazgo, comprobar si ya hubo uno de la misma forma. Si lo hubo
+  y se cerro con texto, la correccion de esta vez **incluye un control ejecutable** —una orden que
+  devuelve lineas o no las devuelve— y no solo una redaccion mejor. El control se escribe en el paso
+  que puede romperse, se declara obligatorio, y lleva su tabla de «que sale / que significa / que
+  haces», con la fila de «el comando fallo» incluida.
+
+---
+
+### L-041 - Un criterio sin artefacto donde firmarse no falla hasta que alguien intenta usarlo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | usuario |
+
+- **Contexto:** el archivo de la etapa preparatoria lleva veintiocho sesiones declarando su condicion
+  de salida, y la ultima linea de esa seccion exige desde hace tiempo que **cada casilla se compruebe
+  con una orden y su salida cruda**. El usuario pregunto si no faltaria un archivo que certificase el
+  cierre de la etapa.
+- **Que ocurrio:** faltaba. No el criterio —el criterio estaba escrito, revisado y auditado— sino
+  **el sitio donde el resultado queda y las firmas que lo cierran**. Y nadie lo habia notado, ni
+  `manager` ni cuatro auditorias seguidas, por una razon simple: **la etapa nunca habia intentado
+  cerrar**. Un criterio que no se ejerce se lee bien indefinidamente.
+- **Leccion:** **un criterio y el artefacto que lo registra son dos cosas, y solo la primera se nota
+  cuando falta la segunda.** Una condicion de salida sin acta produce una etapa que se cierra por
+  consenso tacito: nadie pega evidencia, nadie firma, y el paso a la etapa siguiente ocurre porque
+  alguien empezo a trabajar en ella.
+- **Y el modo de fallo es el silencioso:** no hay error, no hay contradiccion, no hay linea que un
+  barrido devuelva. El archivo dice lo correcto; simplemente no hay donde escribir la respuesta.
+- **Como aplicarla:** al escribir una condicion de salida —de una etapa, de un Gate, de lo que sea—
+  se escribe **en la misma pasada** donde queda su resultado y quien lo firma. Y la pregunta que lo
+  destapa, que conviene hacerse en voz alta: *«cuando esto se cumpla, ¿en que archivo se ve, y quien
+  lo firma?»*. Si la respuesta es «se sabra», no hay artefacto.

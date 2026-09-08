@@ -247,10 +247,23 @@ que es la util. Cada `D-XXX` del registro nombra el archivo y la regla que escri
 pregunta «¿de donde salio esta regla?» se responde buscando su enunciado en `decisions.md`.
 
 ⚠️ **Dos cosas que esta regla NO prohibe, porque se confunden con ella.** Un codigo **generico**
-—`T-XXX`, `D-XXX`, `F-NNN`— es la forma, no el dato, y es justo como hay que escribirlo. Y el
-**primer numero de una serie** en una plantilla o en un ejemplo trabajado —`N-001`, `I-001`,
-`FT-001`— tampoco es dato propio: es el mismo en cualquier proyecto, y es parte de la forma que la
-plantilla existe para dar. Lo prohibido es citar **una entrada concreta con su contenido detras**.
+—`T-XXX`, `D-XXX`, `F-NNN`— es la forma, no el dato, y es justo como hay que escribirlo. Y la
+**serie consecutiva de un ejemplo trabajado** en una plantilla o en la guia de metodo —`N-001`,
+`N-002`, `N-003`…, empezando siempre por el primero— tampoco es dato propio: sale igual en cualquier
+proyecto, y es parte de la forma que la plantilla existe para dar. Lo prohibido es citar **una
+entrada concreta con su contenido detras**.
+
+🔑 **Como se distingue una serie de una cita, que es lo unico dificil de las dos.** No lo decide el
+numero: lo decide **de donde sale el contenido que va detras**. Una serie de ejemplo **la escribe el
+propio archivo** —el `N-002` que ilustra la ficha lo inventa la plantilla, y el lector no tiene que
+ir a ningun sitio a buscarlo—; una cita **remite a una entrada que vive en el registro**, y sin ese
+registro delante la frase no se entiende. De ahi el control: si al copiar el archivo a un repositorio
+vacio la frase **sigue significando lo mismo**, es serie; si pasa a afirmar una historia que alli no
+ocurrio, es cita.
+
+⚠️ **Y la serie tiene que empezar por el primero y no saltarse ninguno.** Un ejemplo que arranca por
+la mitad —o que elige numeros sueltos— ya no se distingue de una cita, porque el primer numero es
+justo lo que hace evidente que se esta enumerando y no apuntando a una entrada.
 
 🔑 **`_methodology/` esta en esa lista por lo mismo, y con mas motivo:** es el metodo de
 desarrollo entero —que etapas existen, que pregunta responde cada una, que hay que entender antes de

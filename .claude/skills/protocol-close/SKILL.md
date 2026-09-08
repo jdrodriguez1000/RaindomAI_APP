@@ -888,6 +888,33 @@ Por eso van las dos: la segunda nombra las que nacen, y lo que la primera liste 
 son las entradas existentes que el commit edita. Ese es el conjunto que la seccion 1 tiene que
 nombrar.
 
+### 🚨 Un recuento sin la orden que lo devuelve no entra en la seccion 1
+
+**Cuando la descripcion de un archivo lleva un numero —hunks, lineas, entradas, secciones— ese numero
+va con la orden que lo produce, pegada.** No es la regla general de «comando y salida cruda» dicha
+otra vez: aqui el numero **no es la evidencia de nada**, es el mapa con el que otro decide si le hace
+falta abrir el diff. Un mapa equivocado cuesta mas que no tener mapa.
+
+| Escribe | En vez de |
+|---|---|
+| `<archivo>` — 6 hunks (`git diff <commit>^ <commit> -- <archivo> \| grep -c '^@@'`) | `<archivo>` — dos hunks de contenido |
+| `<archivo>` — secciones 1 y 2 | `<archivo>` — seccion 3 «…» y seccion 4 «…» |
+
+⚠️ **Y el recuento de hunks depende del contexto, asi que la orden tiene que decir cual usa.** El
+mismo diff da un numero con el contexto por defecto y otro bastante mayor con `-U0`: son dos
+preguntas distintas —«¿en cuantos tramos se agrupa?» y «¿cuantos puntos exactos se tocaron?»—, y
+ninguna de las dos es «el» numero de hunks. Publicar el numero sin la orden deja al lector sin saber
+cual de las dos leyo.
+
+🚨 **Las secciones se nombran por su numero real en el archivo, contado en el archivo.** Una seccion
+citada con un numero que no es el suyo manda a quien lea a un sitio donde no esta lo que se le
+anuncia, y ahi ya no puede distinguir «me equivoque de numero» de «el informe describe otra cosa».
+Se deriva, no se recuerda:
+
+```bash
+git show <commit>:<archivo> | grep -n '^## '
+```
+
 ### Estructura del informe
 
 🚨 **La fecha sale del reloj del sistema, no de una cuenta.** Se deriva, no se escribe de
@@ -1438,6 +1465,47 @@ decide.** La prueba es una sola: **¿la forma anclada contesta lo mismo que cont
 contrario hasta que una auditoria lo cobro. Lo que lo hace anclable es que pregunte por algo que el commit
 contiene; lo que hace a `git status` inanclable es que pregunte por algo que el commit no puede
 contener.
+
+#### CONTROL DE PROSA BORRADA (obligatorio, antes de commitear el anclaje)
+
+🚨 **Este control existe porque la prohibicion de arriba no basto: se escribio, se repitio en tres
+sitios, y aun asi el paso volvio a borrar prosa en una sesion posterior.** Una regla que solo vive en
+el texto depende de que quien ejecuta la lea y la aplique; este control no depende de eso — devuelve
+lineas o no las devuelve.
+
+**Que hace:** compara, para cada archivo que este paso toca, **las lineas que estan fuera de los
+bloques de codigo** antes y despues. El anclaje solo puede **anadir** prosa (la linea `📌` del
+recuento). Si alguna linea de prosa desaparecio, el control la imprime.
+
+```bash
+outside() { awk '/^```/{f=!f; next} !f'; }
+for f in _persistence/decisions.md _persistence/tasks.md; do
+  git show HEAD:"$f" | outside > /tmp/prosa_antes
+  outside < "$f" > /tmp/prosa_despues
+  echo "== $f =="
+  diff /tmp/prosa_antes /tmp/prosa_despues | grep '^<'
+done
+```
+
+| Que sale | Que significa | Que haces |
+|---|---|---|
+| solo las dos lineas `== … ==` | ninguna linea de prosa desaparecio | sigue: commitea el anclaje |
+| alguna linea `< …` | 🚨 **el anclaje borro prosa** | **detente**: restaura esas lineas exactamente como estaban y vuelve a correr el control. No sigas hasta que salga limpio |
+| el comando falla | **no lo comprobaste** | sigue, y a **Sin resolver** con 🚨 `SIN COMPROBAR` |
+
+⚠️ **`HEAD` aqui es el commit de la sesion, que ya existe** — este paso corre despues del Paso 7b. No
+hace falta anclarlo a un hash: la pregunta es «¿que habia antes de que yo tocara?», y eso es
+exactamente `HEAD`.
+
+🔑 **Por que compara fuera de los bloques y no el archivo entero.** Dentro del bloque, sustituir es
+justo lo que este paso viene a hacer: la orden cambia de forma y la salida antigua se reemplaza por
+la anclada. Fuera del bloque no hay ningun caso legitimo de borrado. La frontera del control es
+entonces la misma frontera que la regla ya enunciaba — pero medida, no confiada.
+
+⛔ **Y no se salta «porque esta vez solo se movio una linea».** El caso real que abrio este control
+fue exactamente ese: al sustituir tres ordenes por sus formas ancladas, la linea de prosa que iba
+pegada debajo del bloque se fue con ellas, y era el enunciado del criterio — la mitad que permite
+juzgar si la salida cumple.
 
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 

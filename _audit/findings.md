@@ -87,13 +87,13 @@
 | [F-073](#f-073---la-frase-de-cierre-contradice-a-la-nota-que-la-precede-y-publica-dos-cifras-que-no-salen-de-ninguna-orden) | La frase de cierre contradice a la nota que la precede y publica dos cifras que no salen de ninguna orden | R-025 | Media | Implementado |
 | [F-074](#f-074---la-nota-de-cierre-afirma-que-se-anclaron-las-29-ordenes-y-fueron-27-su-desglose-contradice-a-su-propio-control) | La nota de cierre afirma que se anclaron las 29 ordenes, y fueron 27; su desglose contradice a su propio CONTROL | R-026 | Alta | Implementado |
 | [F-075](#f-075---s-026-reescribe-el-enunciado-del-criterio-de-cierre-de-t-105-que-nacio-en-s-025-y-ya-estaba-auditado) | `S-026` reescribe el enunciado del criterio de cierre de `T-105`, que nacio en `S-025` y ya estaba auditado | R-026 | Media | Implementado |
-| [F-076](#f-076---las-cifras-del-volumen-de-la-limpieza-de-claude-no-salen-de-ninguna-orden-y-contradicen-la-salida-que-d-113-publica-en-el-mismo-commit) | Las cifras del volumen de la limpieza de `.claude/` no salen de ninguna orden y contradicen la salida que `D-113` publica en el mismo commit | R-027 | Media | Abierto |
-| [F-077](#f-077---a-013-y-d-114-publican-113-en-una-orden-que-devuelve-121-sobre-su-propio-commit) | `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit | R-027 | Media | Abierto |
-| [F-078](#f-078---la-nota-de-cierre-suma-3-en-prosa-dentro-del-total-que-es-lo-que-el-recuadro-escrito-por-esta-misma-sesion-prohibe) | La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe | R-027 | Baja | Abierto |
-| [F-079](#f-079---la-convencion-nueva-de-claudemd-afirma-de-los-seis-lo-que-_methodology-no-cumple-y-su-excepcion-no-cubre-el-caso) | La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso | R-027 | Baja | Abierto |
-| [F-080](#f-080---el-bloque-de-verificacion-de-d-117-publica-19-donde-su-propia-orden-devuelve-20-sobre-el-commit-que-declara) | El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara | R-028 | Media | Abierto |
-| [F-081](#f-081---el-paso-7c-bis-vuelve-a-borrar-prosa-ahora-en-d-116-y-d-117-que-el-propio-paso-prohibe-literalmente) | El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente | R-028 | Media | Abierto |
-| [F-082](#f-082---la-seccion-1-del-informe-describe-_phases000_preprojectmd-con-dos-hunks-y-numera-mal-las-dos-primeras-secciones-que-toco) | La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco | R-028 | Baja | Abierto |
+| [F-076](#f-076---las-cifras-del-volumen-de-la-limpieza-de-claude-no-salen-de-ninguna-orden-y-contradicen-la-salida-que-d-113-publica-en-el-mismo-commit) | Las cifras del volumen de la limpieza de `.claude/` no salen de ninguna orden y contradicen la salida que `D-113` publica en el mismo commit | R-027 | Media | Aceptado — pendiente |
+| [F-077](#f-077---a-013-y-d-114-publican-113-en-una-orden-que-devuelve-121-sobre-su-propio-commit) | `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit | R-027 | Media | Aceptado — pendiente |
+| [F-078](#f-078---la-nota-de-cierre-suma-3-en-prosa-dentro-del-total-que-es-lo-que-el-recuadro-escrito-por-esta-misma-sesion-prohibe) | La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe | R-027 | Baja | Aceptado — pendiente |
+| [F-079](#f-079---la-convencion-nueva-de-claudemd-afirma-de-los-seis-lo-que-_methodology-no-cumple-y-su-excepcion-no-cubre-el-caso) | La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso | R-027 | Baja | Aceptado — pendiente |
+| [F-080](#f-080---el-bloque-de-verificacion-de-d-117-publica-19-donde-su-propia-orden-devuelve-20-sobre-el-commit-que-declara) | El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara | R-028 | Media | Aceptado — pendiente |
+| [F-081](#f-081---el-paso-7c-bis-vuelve-a-borrar-prosa-ahora-en-d-116-y-d-117-que-el-propio-paso-prohibe-literalmente) | El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente | R-028 | Media | Aceptado — pendiente |
+| [F-082](#f-082---la-seccion-1-del-informe-describe-_phases000_preprojectmd-con-dos-hunks-y-numera-mal-las-dos-primeras-secciones-que-toco) | La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco | R-028 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -3836,8 +3836,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-116` |
 | Cerrado en | |
 
 - **Que se observo:** `T-115` se titula «Aplicar la misma ruta a `.claude/`: 54 citas en tres
@@ -3862,8 +3862,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-117` |
 | Cerrado en | |
 
 - **Que se observo:** las dos entradas publican `$ grep -c 'CLAUDE\.md' _persistence/decisions.md`
@@ -3884,8 +3884,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-118` |
 | Cerrado en | |
 
 - **Que se observo:** el recuadro que `D-112` escribe en este commit exige que el total de la nota
@@ -3906,8 +3906,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-027 |
 | Fecha | 2026-09-07 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-119` |
 | Cerrado en | |
 
 - **Que se observo:** el parrafo nuevo de `CLAUDE.md` dice «ninguno de los seis cita una entrada del
@@ -3929,8 +3929,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-028 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-120` |
 | Cerrado en | |
 
 - **Que se observo:** `D-117` declara su bloque «corrida contra `HEAD` (`acb3359`), antes de tocar el
@@ -3951,8 +3951,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-028 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-121` |
 | Cerrado en | |
 
 - **Que se observo:** el commit de anclaje `4e903d6` borro cuatro lineas de prosa fuera del bloque de
@@ -3976,8 +3976,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-028 |
 | Fecha | 2026-09-08 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-122` |
 | Cerrado en | |
 
 - **Que se observo:** la vineta dice «dos hunks de contenido» y enumera cinco secciones; el diff da

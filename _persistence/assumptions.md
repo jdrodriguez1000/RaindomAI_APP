@@ -25,6 +25,8 @@
 | [A-013](#a-013---cada-cita-que-se-quito-de-los-archivos-agnosticos-tiene-su-procedencia-recuperable-en-el-registro) | Cada cita que se quito de los archivos agnosticos tiene su procedencia recuperable en el registro | 2026-09-07 | Abierto |
 | [A-014](#a-014---las-plantillas-del-andamiaje-bastan-para-arrancar-un-proyecto-desde-cero) | Las plantillas del andamiaje bastan para arrancar un proyecto desde cero | 2026-09-08 | Abierto |
 | [A-015](#a-015---todo-proyecto-que-use-este-metodo-querra-los-dos-gates-montados-desde-la-etapa-preparatoria) | Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria | 2026-09-08 | Abierto |
+| [A-016](#a-016---la-condicion-de-salida-de-las-siete-etapas-tiene-forma-bastante-uniforme-como-para-que-un-solo-agente-la-lea) | La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea | 2026-09-08 | Abierto |
+| [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Abierto |
 
 ---
 
@@ -782,6 +784,22 @@ $ grep -c 'CLAUDE\.md' _persistence/decisions.md
 113
 ```
 
+📌 **Nota del 2026-09-08 (`F-077`) — ese `113` es de mitad de la jornada, y el archivo siguio
+creciendo.** La orden de arriba se corrio sin anclar, sobre el arbol de trabajo, y el mismo dia
+`decisions.md` recibio varias entradas mas. Anclada al commit que cerro aquella sesion devuelve otro
+numero. **No se reescribe la linea original (`D-019`)**: la salida anclada queda aqui.
+
+```
+$ git grep -c 'CLAUDE\.md' 79e88a2 -- _persistence/decisions.md
+79e88a2:_persistence/decisions.md:121
+```
+
+⚠️ **Y el numero importa mas aqui que en otros sitios**, porque no es accesorio: es el **unico
+respaldo** del muestreo agregado con el que se justifica no comprobar regla por regla. Un recuento de
+ambito global tomado a mitad de una jornada que sigue escribiendo sobre ese mismo archivo es
+exactamente el patron que `D-022` y `D-108` existen para evitar — y ninguno de los dos lo detecto,
+porque la orden no llevaba ancla que contrastar.
+
   Eso prueba que `decisions.md` habla mucho de `CLAUDE.md`; **no** prueba que **cada una** de las 50
   reglas cuyo codigo se borro tenga una decision que la nombre y que se pueda encontrar por su
   enunciado. Las tres citas de `CLAUDE.md` se comprobaron a mano; las de `.claude/` no.
@@ -867,3 +885,63 @@ agnosticas — las dos cosas se comprobaron con sus barridos. Lo que esta sin co
 `manager`.** Una discrepancia zanjada no desaparece: se convierte en un supuesto con su forma de
 refutarse, para que el dia que se materialice haya algo escrito con lo que contrastarla. Si el
 supuesto aguanta, la recomendacion estaba de mas y eso tambien es informacion.
+
+---
+
+### A-016 - La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueño | `manager` |
+
+- **Supuesto:** `D-122` decide **un solo agente generico** para verificar el acta de cierre de
+  cualquier etapa, apoyandose en que el agente puede **leer las casillas del archivo de la etapa** en
+  vez de llevarlas dentro. Eso da por hecho que las siete etapas escriben su condicion de salida con
+  una forma lo bastante regular como para localizarla y recorrerla sin conocer la etapa de antemano.
+- **Por que es un supuesto y no un hecho comprobado:** lo unico que se ha mirado es que las casillas
+  se escriben como lineas de lista con casilla vacia. Eso dice que **se pueden contar**, no que se
+  puedan **verificar**: cada casilla enuncia su comprobacion en prosa, y ninguna lleva escrita la
+  orden que la satisface. Un agente que las lea puede saber cuantas hay y no saber que ejecutar para
+  cada una.
+- **Sobre que se construyo encima:** sobre esto se construye la decision de hacer **un** agente en vez
+  de siete. Si el supuesto cae, no cae el acta —`D-121` sigue en pie— pero si la forma de `D-122`: o
+  cada archivo de etapa gana la orden de cada casilla, o el agente acaba llevando dentro una copia por
+  etapa, que es lo que se descarto.
+- **Como se valida:** al escribir `protocol-phase-exit` (`T-124`), intentar recorrer con el mismo
+  procedimiento la condicion de salida de dos etapas distintas —la preparatoria y una posterior— y ver
+  si las dos se dejan verificar sin instrucciones especificas de etapa.
+- **Disparador:** la escritura de `protocol-phase-exit`. Es inmediato: el supuesto se resuelve o se
+  refuta en la misma tarea que lo necesita.
+- ⚠️ **Lo que este supuesto NO pone en duda:** que el acta deba existir, ni que la firme un agente
+  independiente. Eso lo zanjan `D-121` y `D-122`. Lo que esta sin comprobar es si **uno solo** basta.
+
+---
+
+### A-017 - Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueño | `manager` |
+
+- **Supuesto:** `D-123` fija que la cosecha lee **los cuatro filtros en el archivo global**, en su
+  seccion de promocion, y no en este repositorio. Eso da por hecho que esa seccion existe alli, que
+  enuncia cuatro filtros y que se pueden aplicar a una leccion sin interpretacion adicional.
+- **Por que es un supuesto y no un hecho comprobado:** el archivo global **vive fuera de este
+  repositorio** y no se ha abierto en esta sesion. Lo que hay aqui es la convencion de `lessons.md`,
+  que dice que los filtros estan alli — no que los haya visto nadie recientemente.
+- **Sobre que se construyo encima:** sobre esto se construye la casilla de cosecha de la condicion de
+  salida de **todas** las etapas. Si los filtros no estan escritos, o son menos de cuatro, o exigen
+  criterio que no esta enunciado, la cosecha no es reproducible: dos personas clasificarian distinto
+  la misma leccion, y la casilla se marcaria igual.
+- **Como se valida:** abrir el archivo global por su indice **antes** de la primera cosecha, localizar
+  la seccion de promocion y comprobar que enuncia filtros aplicables uno por uno. Es lectura, no
+  escritura — el archivo global no se toca hasta el paso de promocion.
+- **Disparador:** el inicio de la cosecha de la etapa preparatoria (`T-128`), y no antes: la cosecha
+  no se adelanta a su momento.
+- ⚠️ **Y va con el hueco que `D-123` declara:** aunque los filtros esten perfectos, sigue sin decidirse
+  **quien escribe y commitea** en ese repositorio (`T-127`). Los dos problemas son independientes y
+  los dos bloquean la misma casilla.
