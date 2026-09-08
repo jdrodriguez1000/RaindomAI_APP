@@ -38,7 +38,7 @@
 | `S-027.md` | S-027 | 2026-09-07 | `79e88a2` | `R-027.md` | Con hallazgos (4) | F-076, F-077, F-078, F-079 |
 | `S-028.md` | S-028 | 2026-09-08 | `5ba9c4e` | `R-028.md` | Con hallazgos (3) | F-080, F-081, F-082 |
 | `S-029.md` | S-029 | 2026-09-08 | `c1fb41e` | `R-029.md` | Con hallazgos (4) | F-083, F-084, F-085, F-086 |
-| `S-030.md` | S-030 | 2026-09-08 | Pendiente | Pendiente | Pendiente | - |
+| `S-030.md` | S-030 | 2026-09-08 | `9b3f9ee` | `R-030.md` | Con hallazgos (4) | F-087, F-088, F-089, F-090 |
 
 > 📌 **Nota del 2026-09-06 (`F-060`, sesion S-023).** La columna `Fecha` de este tablero **no
 > coincide con la fecha del commit** en ocho de las veintidos filas. `F-060` lo abrio sobre `S-021` y
