@@ -7403,12 +7403,13 @@ Las dos devuelven cero lineas: ni un dato propio, ni un codigo instanciado en la
 codigos instanciados sobre esa carpeta sigue en cero, sobre el commit que las contiene.
 
 ```
-$ git ls-tree --name-only <hash> _templates/000_preproject/ | wc -l
-$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' <hash> -- _templates/000_preproject
+$ git ls-tree --name-only 5ba9c4e _templates/000_preproject/ | wc -l
+10
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' 5ba9c4e -- _templates/000_preproject
+exit=1
 ```
 
-⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
-existe.** Las ancla el Paso 7c-bis del cierre.
+📌 **Ancladas por el Paso 7c-bis al commit `5ba9c4e`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -7494,12 +7495,12 @@ que las otras seis etapas si citan.
 codigos instanciados y en cero datos propios.
 
 ```
-$ git show <hash>:_phases/000_preproject.md | grep -c '^- \[ \] '
-$ git show <hash>:_phases/000_preproject.md | grep -c '^### [0-9]\. '
-$ git grep -nE "<nombre del proyecto>|<carpeta raiz>|<host del remoto>" <hash> -- _phases/000_preproject.md
+$ git show 5ba9c4e:_phases/000_preproject.md | grep -c '^- \[ \] '
+10
+$ git show 5ba9c4e:_phases/000_preproject.md | grep -c '^### [0-9]\. '
+5
+$ git grep -nE "<nombre del proyecto>|<carpeta raiz>|<host del remoto>" 5ba9c4e -- _phases/000_preproject.md
+exit=1
 ```
 
-Las dos primeras tienen que devolver `10` y `5`; la tercera, cero lineas.
-
-⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
-existe.** Las ancla el Paso 7c-bis del cierre.
+📌 **Ancladas por el Paso 7c-bis al commit `5ba9c4e`.** Las tres reproducen lo publicado arriba.
