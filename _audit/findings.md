@@ -91,6 +91,9 @@
 | [F-077](#f-077---a-013-y-d-114-publican-113-en-una-orden-que-devuelve-121-sobre-su-propio-commit) | `A-013` y `D-114` publican `113` en una orden que devuelve `121` sobre su propio commit | R-027 | Media | Abierto |
 | [F-078](#f-078---la-nota-de-cierre-suma-3-en-prosa-dentro-del-total-que-es-lo-que-el-recuadro-escrito-por-esta-misma-sesion-prohibe) | La NOTA DE CIERRE suma 3 en prosa dentro del total, que es lo que el recuadro escrito por esta misma sesion prohibe | R-027 | Baja | Abierto |
 | [F-079](#f-079---la-convencion-nueva-de-claudemd-afirma-de-los-seis-lo-que-_methodology-no-cumple-y-su-excepcion-no-cubre-el-caso) | La convencion nueva de `CLAUDE.md` afirma de los seis lo que `_methodology/` no cumple, y su excepcion no cubre el caso | R-027 | Baja | Abierto |
+| [F-080](#f-080---el-bloque-de-verificacion-de-d-117-publica-19-donde-su-propia-orden-devuelve-20-sobre-el-commit-que-declara) | El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara | R-028 | Media | Abierto |
+| [F-081](#f-081---el-paso-7c-bis-vuelve-a-borrar-prosa-ahora-en-d-116-y-d-117-que-el-propio-paso-prohibe-literalmente) | El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente | R-028 | Media | Abierto |
+| [F-082](#f-082---la-seccion-1-del-informe-describe-_phases000_preprojectmd-con-dos-hunks-y-numera-mal-las-dos-primeras-secciones-que-toco) | La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco | R-028 | Baja | Abierto |
 
 ---
 
@@ -3917,3 +3920,73 @@ git log -1 --format=%h -- _audit/S-XXX.md
 - **Que lo corregiria:** ampliar la excepcion para que cubra el ejemplo trabajado consecutivo de la
   guia de metodo y diga como se distingue de una cita, o acotar la afirmacion a las cinco areas que
   hoy cumplen y nombrar `_methodology/` como pendiente de `T-112`.
+
+---
+
+### F-080 - El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara
+| Campo | Valor |
+|---|---|
+| Auditoria | R-028 |
+| Fecha | 2026-09-08 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-117` declara su bloque «corrida contra `HEAD` (`acb3359`), antes de tocar el
+  archivo» y publica `19` para `grep -rn '_workflow' _phases/ | grep -c .`. Reejecutada contra ese
+  mismo commit devuelve `20`, y el desglose por archivo (1+2+2+2+10+3) tambien suma 20. La lista de
+  los seis archivos si reproduce. Evidencia completa en `_audit/R-028.md` seccion 2.
+- **Por que importa:** el registro publica una cifra comprobablemente falsa en un bloque cuya unica
+  razon de existir es que otro pueda contrastar sin rehacer el trabajo. El cierre lo detecto en su
+  Paso 2d y no podia corregirlo —`decisions.md` no es suyo—, asi que el commit lo lleva igual.
+- **Que lo corregiria:** una nota fechada bajo el bloque, republicando la orden anclada
+  (`git grep -n '_workflow' acb3359 -- _phases/ | wc -l`) con su salida, sin reescribir la original.
+
+---
+
+### F-081 - El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente
+| Campo | Valor |
+|---|---|
+| Auditoria | R-028 |
+| Fecha | 2026-09-08 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el commit de anclaje `4e903d6` borro cuatro lineas de prosa fuera del bloque de
+  codigo en `D-116` y `D-117`: los dos avisos «Las ordenes se escriben con `<hash>` a proposito…» y
+  la frase «Las dos primeras tienen que devolver `10` y `5`; la tercera, cero lineas». El Paso 7c-bis
+  de `protocol-close` lo prohibe con esas palabras en tres sitios (lineas 1381, 1391 y 1395 de la
+  skill). Evidencia completa en `_audit/R-028.md` seccion 2.
+- **Por que importa:** es reincidencia exacta de `F-062`, cerrado como `Implementado` en `R-024`, lo
+  que dice que la correccion de entonces no impide la conducta. Y la linea perdida no era una linea
+  envejecida: era el **enunciado del criterio**, lo que permite juzgar si la salida anclada lo
+  cumple. Sin ella, criterio y resultado se validan solos.
+- **Que lo corregiria:** restaurar por nota fechada las lineas borradas —al menos la del enunciado—,
+  sin reescribir la nota ya commiteada, y revisar por que el paso sigue sustituyendo en vez de
+  anadir debajo.
+
+---
+
+### F-082 - La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco
+| Campo | Valor |
+|---|---|
+| Auditoria | R-028 |
+| Fecha | 2026-09-08 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la vineta dice «dos hunks de contenido» y enumera cinco secciones; el diff da
+  seis hunks con contexto por defecto y diecisiete con `-U0`. Ademas llama «seccion 3 Que autoriza» y
+  «seccion 4 Que prohibe» a las secciones 1 y 2 del archivo. Evidencia completa en
+  `_audit/R-028.md` seccion 2.
+- **Por que importa:** el informe es el mapa con el que se lee el commit; un recuento que no sale de
+  ninguna orden y dos punteros a secciones que no se tocaron obligan a rehacer el diff, que es lo que
+  el informe existe para ahorrar.
+- **Que lo corregiria:** hacia adelante — que la descripcion por archivo cite el recuento de hunks
+  con la orden que lo devuelve, y las secciones por su numero real. Los informes commiteados no se
+  reescriben.
