@@ -23,6 +23,8 @@
 | [A-011](#a-011---el-paso-7c-bis-podra-seguir-escribiendo-solo-en-dos-archivos-porque-los-criterios-de-cierre-no-nacen-en-otros) | El Paso 7c-bis podra seguir escribiendo solo en dos archivos, porque los criterios de cierre no nacen en otros | 2026-09-07 | Abierto |
 | [A-012](#a-012---opera-de-forma-sostenida-con-usuarios-reales-se-lee-sobre-el-sistema-de-trabajo-no-sobre-el-producto) | «Opera de forma sostenida con usuarios reales» se lee sobre el sistema de trabajo, no sobre el producto | 2026-09-07 | Abierto |
 | [A-013](#a-013---cada-cita-que-se-quito-de-los-archivos-agnosticos-tiene-su-procedencia-recuperable-en-el-registro) | Cada cita que se quito de los archivos agnosticos tiene su procedencia recuperable en el registro | 2026-09-07 | Abierto |
+| [A-014](#a-014---las-plantillas-del-andamiaje-bastan-para-arrancar-un-proyecto-desde-cero) | Las plantillas del andamiaje bastan para arrancar un proyecto desde cero | 2026-09-08 | Abierto |
+| [A-015](#a-015---todo-proyecto-que-use-este-metodo-querra-los-dos-gates-montados-desde-la-etapa-preparatoria) | Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria | 2026-09-08 | Abierto |
 
 ---
 
@@ -801,3 +803,67 @@ $ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '(T|D
 - ⚠️ **Lo que este supuesto NO pone en duda:** que las citas fueran datos propios, ni que quitarlas
   fuera lo correcto. Eso lo zanja `D-113` con su barrido. Lo que esta sin comprobar es el
   **coste**: si la trazabilidad se conservo entera o si se perdio en algunos casos.
+
+---
+
+### A-014 - Las plantillas del andamiaje bastan para arrancar un proyecto desde cero
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | usuario |
+
+- **Supuesto:** las diez plantillas de la subcarpeta de esta etapa en `_templates/`, mas los seis
+  archivos agnosticos, mas `.gitignore` y la carpeta de trabajo del usuario creada a mano, bastan
+  para levantar un repositorio nuevo con el andamiaje operativo. Es decir: que al copiarlas y
+  rellenarlas **no falta ninguna pieza** que este proyecto tenga y nadie haya notado.
+- **Sobre que se construye encima:** sobre esto se apoya la respuesta que se le dio al usuario a la
+  pregunta de si podia arrancar un proyecto desde cero, y la decision de escribir esas plantillas en
+  lugar de documentar el arranque de otra forma. Tambien la casilla de copiabilidad que entra ahora
+  en la condicion de salida de esta etapa.
+- **Como se refuta:** copiando el andamiaje a un repositorio vacio, rellenando `project.md` y
+  corriendo un cierre de sesion completo. **Si algun control del cierre sale `SIN COMPROBAR` o si
+  algun protocolo pide un archivo que no existe, el supuesto es falso** — y el hueco que aparezca es
+  exactamente lo que faltaba. El control da resultados distintos segun el supuesto sea cierto o
+  falso, que es lo que lo hace valido: un repaso a ojo de la lista de archivos daria «parece
+  completo» en los dos casos.
+- **Disparador:** la primera vez que se copie el andamiaje a un proyecto nuevo. **Mientras eso no
+  pase, el supuesto no se puede verificar**, y esa es su condicion normal: no es un supuesto olvidado.
+
+⚠️ **Lo que este supuesto NO pone en duda:** que las plantillas esten bien escritas ni que sean
+agnosticas — las dos cosas se comprobaron con sus barridos. Lo que esta sin comprobar es si el
+**inventario** esta completo, y eso solo lo dice el uso.
+
+---
+
+### A-015 - Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Abierto |
+| Origen | usuario |
+| Dueno | usuario |
+
+- **Supuesto:** exigir en la condicion de salida de la etapa preparatoria que existan **los cinco**
+  agentes —los tres del ciclo y los dos de Gate— es correcto para cualquier proyecto, y no solo para
+  este.
+- **Sobre que se construye encima:** sobre ello se apoya la segunda casilla de la condicion de salida
+  tal como queda escrita ahora. El archivo de etapa es agnostico: lo que esa casilla exija se le
+  exigira a todo proyecto que copie el andamiaje.
+- **La tension que lo hace un supuesto y no un hecho:** un proyecto que se detenga en el primer Gate
+  —o que no llegue a el— tendra que montar igualmente el juez del segundo, para una etapa que nunca
+  adoptara. `manager` lo senalo antes de aplicarlo y el usuario decidio los cinco; se mitigo
+  redactando la casilla como **existir montados** y no como haber dictaminado, que es lo unico
+  exigible en una etapa donde ninguna evidencia de Gate ha nacido todavia.
+- **Como se refuta:** la primera vez que un proyecto real cierre la etapa preparatoria **sin haber
+  adoptado ninguna etapa cuya evidencia juzgue un Gate**. Si en ese momento montar los dos auditores
+  se percibe como trabajo sin destinatario —o si se marca la casilla sin haberlos escrito—, el
+  supuesto es falso y la casilla tiene que distinguir entre agentes del ciclo y agentes de Gate.
+- **Disparador:** el segundo proyecto que use este andamiaje, o el cierre de esta etapa en este
+  mismo, lo que ocurra antes.
+
+🔑 **Se registra precisamente porque la decision fue del usuario y contra la recomendacion de
+`manager`.** Una discrepancia zanjada no desaparece: se convierte en un supuesto con su forma de
+refutarse, para que el dia que se materialice haya algo escrito con lo que contrastarla. Si el
+supuesto aguanta, la recomendacion estaba de mas y eso tambien es informacion.

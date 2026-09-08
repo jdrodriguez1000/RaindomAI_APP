@@ -124,6 +124,8 @@
 | [D-113](#d-113---un-codigo-instanciado-es-un-dato-propio-y-el-barrido-del-paso-1b-no-lo-ve) | Un codigo instanciado es un dato propio, y el barrido del Paso 1b no lo ve | 2026-09-07 | Vigente | usuario |
 | [D-114](#d-114---se-quita-el-codigo-y-se-conserva-el-hecho-y-el-control-mide-pertenencia-al-registro) | Se quita el codigo y se conserva el hecho, y el control mide pertenencia al registro | 2026-09-07 | Vigente | usuario |
 | [D-115](#d-115---un-recuento-de-hallazgos-sobrevive-a-la-limpieza-la-cifra-se-queda-y-el-sujeto-pasa-a-ser-el-metodo) | Un recuento de hallazgos sobrevive a la limpieza: la cifra se queda, y el sujeto pasa a ser el metodo | 2026-09-07 | Vigente | manager |
+| [D-116](#d-116---el-andamiaje-copiable-necesita-su-propia-carpeta-de-plantillas-y-vive-en-_templates000_preproject) | El andamiaje copiable necesita su propia carpeta de plantillas, y vive en `_templates/000_preproject/` | 2026-09-08 | Vigente | usuario |
+| [D-117](#d-117---el-archivo-de-etapa-de-000_preproject-se-realinea-con-el-andamiaje-que-la-propia-etapa-construyo) | El archivo de etapa de `000_preproject` se realinea con el andamiaje que la propia etapa construyo | 2026-09-08 | Vigente | usuario |
 
 ---
 
@@ -7330,6 +7332,174 @@ $ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -cE '\b(T|D|F|L
 📌 **Ancladas por el Paso 7c-bis al commit `79e88a2`.** Las tres reproducen exactamente lo publicado:
 el recuento sigue en el archivo con su nuevo sujeto, y `protocol-close/SKILL.md` queda en cero
 codigos instanciados.
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-116 - El andamiaje copiable necesita su propia carpeta de plantillas, y vive en `_templates/000_preproject/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario planteo llevarse el andamiaje a un repositorio nuevo —los seis archivos
+  agnosticos, mas `_audit/` y `_brief/` vacias, `_persistence/` con solo encabezados y `project.md`
+  vacio— y pregunto si con eso podia arrancar un proyecto desde cero. La respuesta fue que no:
+  `project.md` vacio deja **sin poder ejecutarse** a los Pasos 1b y 2c del cierre, al control de
+  etapas del Paso 3 y al Gate 2, que leen sus valores de ahi; y `_audit/` vacia no viaja, porque
+  `git` no versiona carpetas vacias y porque `index.md` y `findings.md` llevan dentro las
+  convenciones y los estados validos de un hallazgo, que no son datos del proyecto sino la forma del
+  archivo.
+- **Decision:** nace `_templates/000_preproject/` con diez plantillas —una por cada archivo del
+  andamiaje que hoy no tenia ninguna—: `005_project.md`, `010_progress.md`, `015_tasks.md`,
+  `020_decisions.md`, `025_constraints.md`, `030_assumptions.md`, `035_lessons.md`,
+  `040_techdebt.md`, `045_audit_index.md` y `050_audit_findings.md`. Cada una lleva la cabecera, el
+  indice vacio, las **convenciones integras** y la plantilla de entrada de su destino; ninguna lleva
+  datos ni codigos instanciados. El nombrado sigue el prefijo numerico del resto de `_templates/`, y
+  cada plantilla declara su destino en su bloque de apertura.
+- **Por que:** `000_preproject` era la unica etapa sin subcarpeta en `_templates/`, y justamente la
+  suya es la que hay que poder copiar entera. Sin ella, arrancar un proyecto nuevo obliga a
+  reconstruir de memoria la forma de diez archivos —o a copiar los del proyecto anterior y borrarles
+  el contenido, que es como se pierden las convenciones sin que nadie lo note. Las convenciones van
+  integras y no resumidas porque `CLAUDE.md` manda leerlas antes de escribir en cada archivo: una
+  plantilla que solo trae la tabla vacia entrega la forma y se deja el criterio.
+- **Alternativas descartadas:** (a) **nombrar las plantillas igual que su destino** —`project.md`,
+  `progress.md`, `index.md`—, mas obvio al copiar pero rompe la convencion numerica de las ocho
+  subcarpetas que ya existen, y deja dos nombres (`index.md`, `findings.md`) que no dicen si van a
+  `_audit/` o a la raiz; el usuario eligio el prefijo numerico. (b) **solo estructura y huecos, sin
+  la prosa que justifica cada regla**: plantillas mucho mas cortas, pero el proyecto nuevo rellena
+  sin saber que protege cada campo, y una regla cuyo motivo no viaja se salta en la primera prisa;
+  el usuario eligio la prosa integra. (c) **no crear la carpeta y documentar el arranque en un
+  README**: un documento que describe una forma envejece por su cuenta respecto de la forma que
+  describe, y aqui la forma ya existe en diez archivos que se pueden copiar.
+
+**Como se genericizo lo que se copio.** Las convenciones reales citan decisiones y hallazgos por su
+codigo —una regla que nacio de un defecto real remite al expediente que la abrio—, y `_templates/` no
+puede llevar codigos instanciados: copiados a otro repositorio, el texto seguiria afirmando una
+historia que alli no ocurrio. Se aplico el mismo criterio que ya rige para los archivos agnosticos:
+**se conserva el hecho y se pierde el numero**. Donde el original dice «lo fija `<codigo>`», la
+plantilla dice «exige su `D-XXX`»; donde dice «lo abrio `<codigo>`», dice «esta regla nacio de un
+defecto real».
+
+**Verificacion.** Los dos controles de agnosticismo, corridos sobre el ambito completo del Paso 1b
+con la carpeta nueva ya escrita. Se usa `git grep --no-index` a proposito en el primero: los
+archivos todavia no estan versionados, y `git grep` a secas devolveria cero por no verlos, no por
+estar limpios.
+
+```
+$ git grep --no-index -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" -- .claude CLAUDE.md _phases _methodology _templates _workflow
+exit=1
+
+$ grep -rnE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' _templates/000_preproject/
+exit=1
+```
+
+Las dos devuelven cero lineas: ni un dato propio, ni un codigo instanciado en las diez plantillas.
+
+**Criterio de cierre.** Las diez plantillas existen en `_templates/000_preproject/` y el barrido de
+codigos instanciados sobre esa carpeta sigue en cero, sobre el commit que las contiene.
+
+```
+$ git ls-tree --name-only <hash> _templates/000_preproject/ | wc -l
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' <hash> -- _templates/000_preproject
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre.
+
+---
+
+### D-117 - El archivo de etapa de `000_preproject` se realinea con el andamiaje que la propia etapa construyo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pidio revisar el archivo de etapa de `000_preproject`, escrito al principio
+  de la etapa y por tanto antes de que existieran tres de las carpetas del andamiaje y dos de los
+  cinco agentes. Su sospecha —«las condiciones de salida estan incompletas o tal vez sobra alguna»—
+  se confirmo, y era mas concreta de lo que parecia: la seccion afirmaba que sus cinco primeras
+  casillas eran «el espejo de los cinco entregables», y no lo eran.
+- **Decision:** se realinea el archivo en cinco frentes, sin tocar su estructura de ocho secciones:
+  (1) la condicion de salida pasa de ocho casillas a **diez**, agrupadas por procedencia —cinco de
+  espejo, dos que la etapa se exige a si misma, una a la auditoria, dos de lecciones globales—;
+  (2) entra la casilla que faltaba, la de `project.md` completo, definida como «ningun control del
+  cierre se queda `SIN COMPROBAR` por un valor que falte ahi»; (3) entra la casilla de copiabilidad
+  del metodo, que exige el control de fuga en cero; (4) `_templates/`, `_workflow/` y `.gitignore`
+  entran en el arbol de artefactos y en la tabla de preguntas del primer entregable, que pasa de
+  seis carpetas a ocho; (5) «los tres agentes» pasa a «los cinco», con los dos de Gate exigidos como
+  **montados**, no como ejecutados.
+- **Por que:** un archivo de etapa que describe un andamiaje mas pequeno que el real no falla
+  ruidosamente — deja pasar una salida de etapa con piezas sin comprobar, y nadie lo nota porque las
+  casillas que existen se marcan todas. Las dos casillas nuevas cubren precisamente los dos huecos
+  que se hicieron visibles al plantear la copia del andamiaje a otro repositorio: un `project.md`
+  incompleto deja al cierre siguiente sin controles, y un metodo con datos propios dentro no se puede
+  copiar. Se escriben como opuestas a proposito —una exige que **todos** los datos esten en
+  `project.md`, la otra que **ningun otro archivo** los tenga—, porque cada una sin la otra no sirve.
+- **Alternativas descartadas:** (a) **dejar ocho casillas y corregir solo la frase del espejo**:
+  mas quirurgico, pero conserva los dos huecos reales y deja `project.md` como el unico entregable
+  sin condicion que lo verifique. (b) **exigir los cinco agentes como ejecutados y no solo montados**:
+  obligaria a emitir un dictamen de Gate sobre etapas que en `000_preproject` no han corrido, que es
+  imposible por construccion. (c) **exigir solo los tres agentes del ciclo**, dejando los de Gate
+  fuera de la condicion de salida: lo propuso `manager` y el usuario eligio los cinco; la tension que
+  se senalo —que un proyecto que solo llegue al prototipo tendria que montar igualmente el juez del
+  segundo Gate— se resuelve exigiendo que **existan**, no que hayan dictaminado.
+
+**Dos hallazgos de la revision que no cambian el archivo, y conviene que queden escritos.**
+
+El primero: el enganche de uso de `_workflow/` **ya existe**, y no en el archivo que lo esperaba. La
+deuda registrada por su ausencia decia que el enganche «toca un archivo de etapa»; lo tocan seis, uno
+por cada etapa posterior, todos con la formula «que se lee ahora y no despues». La unica etapa que no
+lo cita es esta, y es correcto que no lo haga: `_workflow/` reparte el trabajo de construir un
+producto, y esta etapa no construye producto. Lo que faltaba no era el uso, sino **la razon escrita de
+por que es la unica que no lo usa**, y esa razon entra ahora en la seccion de artefactos.
+
+El segundo: `_templates/` estaba en el mismo caso hasta esta sesion, pero con el signo contrario. Su
+ausencia era correcta mientras la etapa no tuviera plantillas propias; desde que las tiene, la
+ausencia paso a ser desfase. Entra por eso, no por simetria con el anterior.
+
+**Verificacion.** Corrida contra `HEAD` (`acb3359`), antes de tocar el archivo.
+
+```
+$ grep -rn '_workflow' _phases/ | grep -c .
+19
+
+$ grep -rln '_workflow' _phases/
+_phases/005_discovery.md
+_phases/010_prototype.md
+_phases/020_baseline.md
+_phases/025_wslt.md
+_phases/030_growth.md
+_phases/040_evol.md
+
+$ grep -n '_templates\|_workflow' _phases/000_preproject.md
+exit=1
+
+$ sed -n '/^## Carpetas propias/,/^## /p' project.md | grep -c '^| `'
+10
+
+$ ls .claude/agents/ | wc -l
+5
+```
+
+Diez carpetas declaradas en el registro del proyecto frente a las seis del arbol de la etapa; cinco
+agentes frente a los tres que la condicion de salida nombraba; y cero menciones a las dos carpetas
+que las otras seis etapas si citan.
+
+**Criterio de cierre.** El archivo tiene diez casillas de salida y cinco entregables, y sigue en cero
+codigos instanciados y en cero datos propios.
+
+```
+$ git show <hash>:_phases/000_preproject.md | grep -c '^- \[ \] '
+$ git show <hash>:_phases/000_preproject.md | grep -c '^### [0-9]\. '
+$ git grep -nE "<nombre del proyecto>|<carpeta raiz>|<host del remoto>" <hash> -- _phases/000_preproject.md
+```
+
+Las dos primeras tienen que devolver `10` y `5`; la tercera, cero lineas.
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre.

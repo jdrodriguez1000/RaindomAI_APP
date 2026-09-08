@@ -46,6 +46,8 @@
 | [L-035](#l-035---una-regla-que-nombra-un-archivo-se-cumple-en-ese-archivo-y-se-incumple-en-el-de-al-lado) | Una regla que nombra un archivo se cumple en ese archivo y se incumple en el de al lado | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-036](#l-036---una-condicion-de-parada-que-no-se-puede-cumplir-se-convierte-en-una-excepcion-redactada-cada-vez) | Una condicion de parada que no se puede cumplir se convierte en una excepcion redactada cada vez | 2026-09-07 | 000_preproject | Sin evaluar |
 | [L-037](#l-037---un-criterio-que-cita-el-texto-que-comprueba-se-acierta-a-si-mismo) | Un criterio que cita el texto que comprueba se acierta a si mismo | 2026-09-07 | 000_preproject | Sin evaluar |
+| [L-038](#l-038---un-patron-con-b-escrito-por-un-script-llega-al-archivo-como-caracter-de-control) | Un patron con `\b` escrito por un script llega al archivo como caracter de control | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-039](#l-039---un-archivo-escrito-al-principio-de-su-etapa-describe-un-andamiaje-que-la-etapa-aun-no-habia-construido) | Un archivo escrito al principio de su etapa describe un andamiaje que la etapa aun no habia construido | 2026-09-08 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1431,3 +1433,58 @@ lineas — que es exactamente lo que la auditoria necesita poder leer.
   cierre:**`, el encabezado—. Y se corre **antes** de publicarlo, no despues: la cifra esperada se
   escribe habiendola visto salir. Lo mismo vale para cualquier archivo que documente sus propios
   barridos, que en este repositorio son casi todos.
+
+---
+
+### L-038 - Un patron con `\b` escrito por un script llega al archivo como caracter de control
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al registrar una decision cuyo criterio de cierre publica un `grep -E` con limites de
+  palabra, la entrada se escribio con un script de Python en vez de a mano.
+- **Que ocurrio:** el patron llego al archivo con **`0x08` en lugar de `\b`**, en las dos ordenes
+  publicadas. El texto se ve identico en pantalla; `cat -A` lo delata como `^H`. Es el mismo defecto
+  que ya tiene deuda registrada en `techdebt.md`, pero por un vector distinto: alli lo introducia
+  copiar y pegar una orden ya publicada, aqui lo introduce **la herramienta que escribe**, que
+  interpreta la secuencia antes de que llegue al disco. Se detecto porque la orden publicada se
+  reejecuto antes de darla por buena, y se corrigio en el acto — la entrada no estaba commiteada.
+- **Leccion:** cualquier capa que interprete secuencias de escape —un lenguaje de script, una shell,
+  un formateador— puede corromper un patron **en silencio** entre que se escribe y que se guarda. El
+  riesgo no esta en el patron: esta en el numero de capas que atraviesa.
+- **Como aplicarla:** cuando una orden que se va a **publicar** lleve `\b`, `\d`, `\s` o cualquier
+  escape, escribirla con la herramienta de edicion directa y no via script; y comprobar el resultado
+  con `cat -A` o un conteo de bytes de control **antes** de dar la entrada por escrita, nunca solo
+  releyendola en pantalla. Un caracter de control invisible pasa cualquier revision visual.
+
+---
+
+### L-039 - Un archivo escrito al principio de su etapa describe un andamiaje que la etapa aun no habia construido
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | usuario |
+
+- **Contexto:** el archivo de etapa de `000_preproject` se escribio pronto, cuando la etapa llevaba
+  poco recorrido. Despues la etapa siguio construyendo: nacieron tres carpetas del andamiaje y dos
+  agentes mas, cada uno con su decision registrada.
+- **Que ocurrio:** el archivo nunca se volvio a leer entero. Seguia enumerando seis carpetas donde ya
+  habia ocho, tres agentes donde ya habia cinco, y su condicion de salida afirmaba ser «el espejo de
+  los cinco entregables» con una casilla desplazada y una ausente. **Ningun control lo detecto**, y no
+  por descuido: los controles del cierre comprueban que el arbol coincida con el registro del
+  proyecto y que los archivos agnosticos no filtren datos propios; ninguno compara **un archivo de
+  etapa con lo que la etapa ha ido produciendo**. El archivo era coherente consigo mismo y falso
+  respecto del repositorio.
+- **Leccion:** un archivo que describe una etapa **desde dentro de esa etapa** envejece al ritmo del
+  trabajo que describe, y es el unico documento del que nadie sospecha, porque se leyo al principio y
+  «ya estaba escrito». Es el caso peor de una carpeta declarada que nadie abre: aqui si se abre, pero
+  para consultar una seccion suelta —que autoriza, que prohibe— y nunca para contrastarlo entero.
+- **Como aplicarla:** **al cerrar una etapa, releer su archivo de etapa completo contra lo que la
+  etapa produjo**, antes de dar la condicion de salida por cumplida — y muy especialmente cuando la
+  etapa haya creado carpetas o agentes que el archivo no nombraba el dia que se escribio. La pregunta
+  util no es «¿el archivo esta bien?» sino **«¿cuantas cosas nombra, y cuantas hay?»**, que se
+  contesta contando, no leyendo. Vale para cualquier etapa, y con mas motivo para la primera: es la
+  unica cuyo objeto es construir el sistema que despues comprueba a las demas.
