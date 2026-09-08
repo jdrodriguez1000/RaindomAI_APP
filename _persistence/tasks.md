@@ -131,13 +131,19 @@
 | [T-120](#t-120---anclar-por-nota-fechada-el-recuento-19-de-d-117-f-080) | Anclar por nota fechada el recuento `19` de `D-117` (`F-080`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-121](#t-121---restaurar-la-prosa-que-el-paso-7c-bis-borro-en-d-117-y-quitarle-al-paso-la-capacidad-de-borrarla-f-081) | Restaurar la prosa que el Paso 7c-bis borro en `D-117`, y quitarle al paso la capacidad de borrarla (`F-081`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-122](#t-122---exigir-en-protocol-close-que-la-descripcion-por-archivo-cite-su-recuento-con-la-orden-que-lo-devuelve-f-082) | Exigir en `protocol-close` que la descripcion por archivo cite su recuento con la orden que lo devuelve (`F-082`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-123](#t-123---escribir-la-plantilla-del-acta-de-cierre-de-etapa-en-_templates-d-121) | Escribir la plantilla del acta de cierre de etapa en `_templates/` (`D-121`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-124](#t-124---crear-el-agente-phase_exit_auditor-y-su-skill-protocol-phase-exit-d-122) | Crear el agente `phase_exit_auditor` y su skill `protocol-phase-exit` (`D-122`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-125](#t-125---subir-de-cinco-a-seis-los-agentes-que-exige-la-casilla-2-de-_phases000_preprojectmd-d-122) | Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-123](#t-123---escribir-la-plantilla-del-acta-de-cierre-de-etapa-en-_templates-d-121) | Escribir la plantilla del acta de cierre de etapa en `_templates/` (`D-121`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-124](#t-124---crear-el-agente-phase_exit_auditor-y-su-skill-protocol-phase-exit-d-122) | Crear el agente `phase_exit_auditor` y su skill `protocol-phase-exit` (`D-122`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-125](#t-125---subir-de-cinco-a-seis-los-agentes-que-exige-la-casilla-2-de-_phases000_preprojectmd-d-122) | Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-126](#t-126---exigir-el-acta-de-la-etapa-anterior-en-las-entradas-de-_phases005_discoverymd-d-121) | Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`) | No implementada | Media | No bloqueante | `000_preproject` |
 | [T-127](#t-127---decidir-quien-escribe-y-commitea-en-el-repositorio-de-lecciones-globales-d-123) | Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`) | No implementada | Alta | Bloqueante | `000_preproject` |
 | [T-128](#t-128---hacer-la-cosecha-de-las-lecciones-de-la-etapa-preparatoria-d-123) | Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
 | [T-129](#t-129---hacer-y-registrar-la-consulta-de-arranque-a-las-lecciones-globales-d-123) | Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-130](#t-130---fijar-por-nota-fechada-las-cifras-de-ordenes-distintas-de-s-029-f-083) | Fijar por nota fechada las cifras de ordenes distintas de `S-029` (`F-083`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-131](#t-131---suprimir-del-paso-2d-de-protocol-close-la-cifra-de-ordenes-distintas-f-083) | Suprimir del Paso 2d de `protocol-close` la cifra de ordenes distintas (`F-083`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-132](#t-132---fijar-por-nota-fechada-el-barrido-del-paso-2e-de-s-029-f-084) | Fijar por nota fechada el barrido del Paso 2e de `S-029` (`F-084`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-133](#t-133---anadir-al-paso-2e-de-protocol-close-los-dos-contrastes-de-la-tabla-f-084) | Anadir al Paso 2e de `protocol-close` los dos contrastes de la tabla (`F-084`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-134](#t-134---completar-la-serie-sc--del-ejemplo-de-trazabilidad-f-085) | Completar la serie `SC-` del ejemplo de trazabilidad (`F-085`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-135](#t-135---publicar-la-salida-del-control-de-prosa-borrada-en-la-nota-de-cierre-f-086) | Publicar la salida del CONTROL DE PROSA BORRADA en la NOTA DE CIERRE (`F-086`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -5274,7 +5280,7 @@ $ git show c1fb41e:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento si
 ### T-123 - Escribir la plantilla del acta de cierre de etapa en `_templates/` (`D-121`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -5295,12 +5301,30 @@ $ git ls-tree --name-only <hash> _templates/ | grep -c 'phase_exit'
 $ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' <hash> -- _templates/000_preproject
 ```
 
+> 📌 **Nota del 2026-09-08.** La tarea queda `Implementada`: la plantilla es
+> `_templates/phase_exit_record.md`, y su nombre y su ubicacion se deciden en `D-128`.
+>
+> ⚠️ **El ambito de la segunda orden del criterio esta mal escrito, y no se reescribe.** Dice
+> `_templates/000_preproject`, que es la carpeta de plantillas de la etapa preparatoria — no la
+> plantilla nueva. Corrida asi no comprueba nada de lo que la tarea pedia. El ambito que si responde
+> a «la plantilla pasa los dos barridos de agnosticismo» es el archivo nuevo, y esa es la forma que
+> `D-128` publica en su propio criterio de cierre. Corrida sobre el arbol antes de commitear:
+>
+> ```
+> $ grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' _templates/phase_exit_record.md ; echo "exit=$?"
+> exit=1
+> $ grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" _templates/phase_exit_record.md ; echo "exit=$?"
+> exit=1
+> $ ls _templates/ | grep -c 'phase_exit'
+> 1
+> ```
+
 ---
 
 ### T-124 - Crear el agente `phase_exit_auditor` y su skill `protocol-phase-exit` (`D-122`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -5326,12 +5350,40 @@ $ git ls-tree --name-only <hash> .claude/agents/ | grep -c 'phase_exit_auditor'
 $ git ls-tree -r --name-only <hash> .claude/skills/protocol-phase-exit/ | grep -c 'SKILL.md'
 ```
 
+> 📌 **Nota del 2026-09-08.** Hechos los dos archivos:
+> `.claude/agents/phase_exit_auditor.md` y `.claude/skills/protocol-phase-exit/SKILL.md`. El agente
+> delega el procedimiento entero en la skill, como los dos de Gate. Corrido sobre el arbol antes de
+> commitear:
+>
+> ```
+> $ ls .claude/agents/ | grep -c 'phase_exit_auditor'
+> 1
+> $ ls .claude/skills/protocol-phase-exit/ | grep -c 'SKILL.md'
+> 1
+> $ grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' .claude/agents/phase_exit_auditor.md .claude/skills/protocol-phase-exit/SKILL.md ; echo "exit=$?"
+> exit=1
+> ```
+>
+> **`A-016` queda resuelto en esta tarea, y CONFIRMADO**, con la acotacion escrita en su ficha: la
+> mitad mecanica —localizar la seccion, extraer las casillas, contrastar el recuento— es uniforme en
+> las siete etapas y se recorrio con el mismo procedimiento sobre dos de ellas; la mitad de
+> verificacion no lo es, porque una parte de las casillas pide un **juicio** y ninguna orden puede
+> resolverlo. La forma de `D-122` sobrevive porque `NO COMPROBABLE` ya es un resultado de primera
+> clase del acta, y esa regla es la misma para todas las etapas.
+>
+> ⚠️ **Y un cambio fuera del alcance literal de la tarea, que se hizo porque el agente lo vuelve
+> real:** la fila de `_audit/` en `project.md` enumeraba lo que esa carpeta contiene y no nombraba las
+> actas. Se le anade la subcarpeta por etapa, con la misma salvedad que ya llevaban los dictamenes de
+> Gate: no son auditorias de sesion y no entran en el tablero ni en `findings.md`.
+>
+> **El modelo del agente es `sonnet`**, por indicacion del usuario; el criterio esta en `D-129`.
+
 ---
 
 ### T-125 - Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -5352,6 +5404,40 @@ $ git ls-tree -r --name-only <hash> .claude/skills/protocol-phase-exit/ | grep -
 ```
 $ git show <hash>:_phases/000_preproject.md | grep -c 'Los seis agentes existen'
 ```
+
+> 📌 **Nota del 2026-09-08.** Hecho. La casilla 2 pasa a exigir seis agentes y nombra a
+> `phase_exit_auditor` con su papel; el entregable 2 de la seccion 8 —que es **el espejo de esa misma
+> casilla**, segun la tabla de procedencias de la propia condicion de salida— se actualiza en la misma
+> pasada, porque un espejo que dice cinco frente a una casilla que dice seis deja de serlo. Corrido
+> sobre el arbol antes de commitear:
+>
+> ```
+> $ grep -c 'Los seis agentes existen' _phases/000_preproject.md
+> 1
+> $ git grep -n 'cinco agentes' -- .claude CLAUDE.md _phases _methodology _templates _workflow ; echo "exit=$?"
+> exit=1
+> ```
+>
+> ⚠️ **Las tres menciones a «cinco» que siguen vivas en el archivo de etapa hablan de otra cosa** —de
+> los cinco **pasos** del ciclo y de los cinco **entregables** de la seccion 8—, y esas no cambian:
+> el entregable de los agentes sigue siendo uno solo.
+>
+> 🚨 **El recuento de papeles de la frontera no cuadra con el criterio escrito arriba, y no se
+> reescribe.** El criterio pide «los cuatro papeles», pero la casilla ya nombraba cuatro **antes** de
+> este cambio —quien construye, quien registra, quien audita, quien dictamina— y ahora nombra cinco,
+> con «quien certifica una casilla sin firmarla». El sexto agente trae una frontera nueva: emitir la
+> revision tecnica de un acta **sin** poner la segunda firma. Escribir cuatro para que la cifra
+> cuadrara habria dejado fuera justo lo que la tarea existia para anadir. La mitad mecanica del
+> criterio —el `grep`— si se cumple exacta.
+>
+> ⚠️ **Y dos cambios fuera del alcance literal de la casilla, hechos porque el registro del agente lo
+> pedia:** la tabla «Reparto de autoridad» de `project.md` enumera a los agentes con frontera de
+> evaluacion y no lo listaba; se le anade su fila, y la misma fila a la plantilla de la que ese
+> archivo sale. Sin eso, la casilla 5 —«`project.md` esta completo»— quedaria coja el dia que se
+> verifique.
+>
+> **`A-015` recibe su nota:** el sexto agente **no** cae bajo ese supuesto, porque lo que aquel pone
+> en duda es exigir un juez que puede no convocarse nunca, y toda etapa tiene condicion de salida.
 
 ---
 
@@ -5463,3 +5549,213 @@ $ git show <hash>:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep
 ```
 $ git show <hash>:_persistence/decisions.md | grep -c 'NO MIRADOS'
 ```
+
+---
+
+### T-130 - Fijar por nota fechada las cifras de ordenes distintas de `S-029` (`F-083`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-030 |
+
+- **Que:** la seccion 7 de `_audit/S-029.md` publica `35` ordenes distintas donde la orden devuelve
+  `27`, y un bloque `uniq -d` de tres lineas donde la orden devuelve diez. El informe **no se
+  reescribe**: se le anade una nota fechada con las ordenes ancladas y su salida entera.
+- **Que se comprobo antes de aceptar el hallazgo**, sobre `HEAD`:
+
+```
+$ git diff -U0 c1fb41e^ c1fb41e -- _persistence _audit ':(exclude)_audit/S-029.md' | grep -E '^\+\$ ' | sed 's/^+//' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+37
+$ git diff -U0 c1fb41e^ c1fb41e -- _persistence _audit ':(exclude)_audit/S-029.md' | grep -E '^\+\$ ' | sed 's/^+//' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+27
+```
+
+- La cifra de LINEAS —`37`— era correcta; la accesoria, no. `37 − 10 = 27`.
+- **Criterio de cierre:** `_audit/S-029.md` lleva la nota fechada de `F-083` y su prosa anterior sigue
+  entera.
+
+```
+$ git show <hash>:_audit/S-029.md | grep -c 'Nota del 2026-09-08 (`F-083`)'
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-131 - Suprimir del Paso 2d de `protocol-close` la cifra de ordenes distintas (`F-083`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-030 |
+
+- **Que:** el Paso 2d pasa a publicar **una sola cifra**, la de lineas devueltas. Se suprime el
+  recuento de ordenes distintas de la skill y de la plantilla de la seccion 7 del informe, y se anade
+  que la salida de `uniq -d` se pega entera. Su decision es `D-124`.
+- 🔑 **Por que se suprime y no se vigila:** es la tercera vez que esa cifra sale falsa, y las dos
+  correcciones anteriores fueron reglas escritas que ya estaban vivas cuando se escribio la tercera.
+- **Criterio de cierre:** el Paso 2d declara su cifra unica y la supresion.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la UNICA cifra del paso'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La cifra de ORDENES DISTINTAS ya no se publica'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### T-132 - Fijar por nota fechada el barrido del Paso 2e de `S-029` (`F-084`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-030 |
+
+- **Que:** la seccion 8 de `_audit/S-029.md` publica nueve filas donde el commit lleva once archivos,
+  y `0` para dos archivos donde el barrido devuelve `1` y `5`. El informe **no se reescribe**: nota
+  fechada con el barrido anclado y su salida entera.
+- **Que se comprobo antes de aceptar el hallazgo**, sobre `HEAD`:
+
+```
+$ for f in $(git diff --name-only c1fb41e^ c1fb41e); do echo "$f head=$(git show c1fb41e^:"$f" 2>/dev/null | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]') commit=$(git show c1fb41e:"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"; done
+.claude/skills/protocol-close/SKILL.md head=0 commit=0
+CLAUDE.md head=0 commit=0
+_audit/S-027.md head=0 commit=0
+_audit/S-029.md head=0 commit=0
+_audit/findings.md head=1 commit=1
+_audit/index.md head=0 commit=0
+_persistence/assumptions.md head=4 commit=4
+_persistence/decisions.md head=7 commit=7
+_persistence/lessons.md head=0 commit=0
+_persistence/progress.md head=0 commit=0
+_persistence/tasks.md head=5 commit=5
+```
+
+- 🔑 **La conclusion de fondo del informe se sostiene** —`head` y `commit` coinciden en los once, asi
+  que la sesion no anadio ninguna linea nueva—; lo que no se sostiene es la evidencia con que la
+  sostuvo.
+- **Criterio de cierre:** `_audit/S-029.md` lleva la nota fechada de `F-084` y su prosa anterior sigue
+  entera.
+
+```
+$ git show <hash>:_audit/S-029.md | grep -c 'Nota del 2026-09-08 (`F-084`)'
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-133 - Anadir al Paso 2e de `protocol-close` los dos contrastes de la tabla (`F-084`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-030 |
+
+- **Que:** el Paso 2e gana dos contrastes obligatorios que se publican con la tabla aunque salga
+  limpia: cuantas filas tiene que tener, y el total sin pasar por la tabla. Su decision es `D-125`.
+- **Que los dos detectan sobre el commit que abrio el hallazgo:**
+
+```
+$ git diff --name-only --diff-filter=d c1fb41e^ c1fb41e | wc -l
+11
+$ for f in $(git diff --name-only --diff-filter=d c1fb41e^ c1fb41e); do git show c1fb41e:"$f"; done | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'
+17
+```
+
+- `11` contra las nueve filas publicadas y `17` contra la suma `11` de la columna: los dos fallan
+  solos, sin que nadie tenga que leer la tabla.
+- **Criterio de cierre:** el Paso 2e declara los dos contrastes y la plantilla de la seccion 8 los
+  exige.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos contrastes de la tabla'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DOS CONTRASTES de la tabla'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### T-134 - Completar la serie `SC-` del ejemplo de trazabilidad (`F-085`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-030 |
+
+- **Que:** la fila del ejemplo de `_templates/020_baseline/045_traceability.md` pasa de `SC-007` a
+  `SC-004`, con lo que las dos series quedan completas desde el primero. Su decision es `D-126`, que
+  ademas fija que el ambito de la regla es la **union** de los seis, no cada archivo por separado.
+- **Que se comprobo antes de aceptar el hallazgo**, sobre `HEAD`:
+
+```
+$ git grep -nE '\bSC-007\b' HEAD -- _templates
+HEAD:_templates/020_baseline/045_traceability.md:200:| `SC-007` | `FT-004` Exportar historico mensual | — | **NO — feature huerfana** |
+```
+
+- **Criterio de cierre:** las dos series salen completas desde el primero sobre los seis, sin huecos.
+
+```
+$ git grep -hIoE '\b(FT|SC)-[0-9]+\b' <hash> -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort -u | tr '\n' ' '
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver
+`FT-001 FT-002 FT-003 FT-004 SC-001 SC-002 SC-003 SC-004`.
+
+---
+
+### T-135 - Publicar la salida del CONTROL DE PROSA BORRADA en la NOTA DE CIERRE (`F-086`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-030 |
+
+- **Que:** el Paso 7c-bis publica la orden del CONTROL DE PROSA BORRADA y su salida entera dentro de
+  la NOTA DE CIERRE del informe, junto al CENSO y al CONTROL, tambien cuando sale limpia. Su decision
+  es `D-127`.
+- **Que se comprobo antes de aceptar el hallazgo**, sobre `HEAD`:
+
+```
+$ git grep -n 'PROSA BORRADA' HEAD -- _audit _persistence | wc -l
+34
+```
+
+- Las treinta y cuatro menciones son descriptivas; ninguna publica lo que el control devolvio al
+  correrse.
+- **Criterio de cierre:** el Paso 7c-bis exige publicar la salida y la plantilla de la seccion 7 la
+  pide dentro de la NOTA DE CIERRE.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Su orden y su salida se publican en la NOTA DE CIERRE'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.

@@ -207,10 +207,12 @@ La etapa termina cuando **las diez son ciertas**, y vienen de cuatro sitios dist
 
 - [ ] **1 · La estructura minima existe:** las carpetas y los archivos de la seccion 5, cada carpeta
       declarada en `project.md`, y el control de carpetas del cierre sin diferencias sin justificar.
-- [ ] **2 · Los cinco agentes existen y su reparto esta escrito:** `session-starter`,
-      `session-closer` y `report_auditor` —los del ciclo de la jornada—, mas `gate1_auditor` y
-      `gate2_auditor` —los del juicio de un Gate—, cada uno con su protocolo y con su frontera
-      —quien construye, quien registra, quien audita, quien dictamina— enunciada donde se aplica.
+- [ ] **2 · Los seis agentes existen y su reparto esta escrito:** `session-starter`,
+      `session-closer` y `report_auditor` —los del ciclo de la jornada—, `gate1_auditor` y
+      `gate2_auditor` —los del juicio de un Gate— y `phase_exit_auditor` —el que verifica la
+      condicion de salida de una etapa—, cada uno con su protocolo y con su frontera —quien
+      construye, quien registra, quien audita, quien dictamina, quien certifica una casilla sin
+      firmarla— enunciada donde se aplica.
 - [ ] **3 · `_persistence/` esta operativo:** cada archivo con su indice, sus convenciones y sus
       estados validos escritos dentro, e indice y detalle cuadrando.
 - [ ] **4 · `_audit/` esta operativo:** tablero y registro de hallazgos, con al menos una auditoria
@@ -318,7 +320,7 @@ proyecto arranca perfectamente sin saber con que criterio construye, que se hace
 que forma se escribe un artefacto ni quien hace cada cosa — y descubre que las necesitaba cuando ya
 hay decisiones tomadas que contradicen las respuestas.
 
-### 2. La forma de trabajo entre los cinco agentes
+### 2. La forma de trabajo entre los seis agentes
 
 Tres llevan el **ciclo de la jornada**: `session-starter` abre y **solo lee**; `session-closer`
 cierra, commitea y sube; `report_auditor` audita el commit cerrado y **no corrige ni decide**.
@@ -326,16 +328,31 @@ cierra, commitea y sube; `report_auditor` audita el commit cerrado y **no corrig
 Dos llevan el **juicio de un Gate**: `gate1_auditor` y `gate2_auditor` contrastan la evidencia de una
 etapa contra los criterios del metodo y emiten un **dictamen tecnico**, no una decision.
 
-Los cinco arrancan en frio, y esa es toda su utilidad: ninguno vio la conversacion, asi que ninguno
+Uno verifica **la condicion de salida de una etapa**: `phase_exit_auditor` lee las casillas del
+archivo de la etapa que se cierra, las comprueba una por una con su orden y su salida cruda, y firma
+la **revision tecnica** del acta — nunca la aprobacion, que es del patrocinador.
+
+Los seis arrancan en frio, y esa es toda su utilidad: ninguno vio la conversacion, asi que ninguno
 puede confirmar la version de `manager` en vez de la evidencia.
 
-🚨 **Lo que la etapa entrega no son cinco archivos de agente: es la frontera entre ellos, escrita
+🚨 **Lo que la etapa entrega no son seis archivos de agente: es la frontera entre ellos, escrita
 donde se aplica.** Quien construye no evalua, quien revisa no reescribe, quien audita no cierra su
-propio trabajo, y quien dictamina no decide la inversion. Sin esa frontera, los cinco agentes son
-cinco formas de decir lo mismo.
+propio trabajo, quien dictamina no decide la inversion, y quien certifica una casilla no firma el
+cierre. Sin esa frontera, los seis agentes son seis formas de decir lo mismo.
 
 ⚠️ **Los dos de Gate se montan aqui y se ejecutan en otra parte**, cuando cierre la etapa cuya
 evidencia juzgan. Que existan no adopta ni esa etapa ni ese Gate: las dos cosas exigen su `D-XXX`.
+
+🔑 **El sexto es el unico de los tres jueces que se ejecuta aqui, y esa asimetria es deliberada.**
+Los dos de Gate juzgan la evidencia de un producto, y en esta etapa no hay producto que juzgar; la
+condicion de salida, en cambio, la tiene esta etapa como todas las demas. Montar un juez que nunca
+se convoca es andamio sin probar — y este se prueba en la etapa que lo construye, que es la unica
+forma barata de descubrir que no servia.
+
+⚠️ **Y hay que decir lo incomodo:** este agente **certifica la etapa que lo creo**. La independencia
+que da arrancar en frio sigue en pie —no vio ninguna sesion y solo lee archivos—, pero el criterio
+con el que se le mide lo escribio quien va a ser medido. Por eso la segunda firma no es una
+formalidad: es la unica parte del acta que no sale de este repositorio.
 
 ### 3. La memoria del proyecto, en los archivos de `_persistence/`
 

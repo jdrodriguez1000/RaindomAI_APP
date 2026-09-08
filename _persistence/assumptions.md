@@ -25,7 +25,7 @@
 | [A-013](#a-013---cada-cita-que-se-quito-de-los-archivos-agnosticos-tiene-su-procedencia-recuperable-en-el-registro) | Cada cita que se quito de los archivos agnosticos tiene su procedencia recuperable en el registro | 2026-09-07 | Abierto |
 | [A-014](#a-014---las-plantillas-del-andamiaje-bastan-para-arrancar-un-proyecto-desde-cero) | Las plantillas del andamiaje bastan para arrancar un proyecto desde cero | 2026-09-08 | Abierto |
 | [A-015](#a-015---todo-proyecto-que-use-este-metodo-querra-los-dos-gates-montados-desde-la-etapa-preparatoria) | Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria | 2026-09-08 | Abierto |
-| [A-016](#a-016---la-condicion-de-salida-de-las-siete-etapas-tiene-forma-bastante-uniforme-como-para-que-un-solo-agente-la-lea) | La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea | 2026-09-08 | Abierto |
+| [A-016](#a-016---la-condicion-de-salida-de-las-siete-etapas-tiene-forma-bastante-uniforme-como-para-que-un-solo-agente-la-lea) | La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea | 2026-09-08 | Confirmado |
 | [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Abierto |
 
 ---
@@ -886,13 +886,28 @@ agnosticas — las dos cosas se comprobaron con sus barridos. Lo que esta sin co
 refutarse, para que el dia que se materialice haya algo escrito con lo que contrastarla. Si el
 supuesto aguanta, la recomendacion estaba de mas y eso tambien es informacion.
 
+📌 **Nota del 2026-09-08 (`T-125`).** La casilla de la que habla este supuesto pasa de exigir cinco
+agentes a exigir **seis**: se le suma `phase_exit_auditor`. El enunciado de arriba **no se reescribe**
+—describe la decision tal como se tomo, sobre cinco—, pero conviene decir donde queda el sexto:
+
+⛔ **El sexto NO cae bajo este supuesto, y no es una exencion de conveniencia.** Lo que este supuesto
+pone en duda es exigir un juez **que puede no convocarse nunca**: los dos de Gate juzgan la evidencia
+de una etapa que un proyecto quiza no adopte. `phase_exit_auditor` no tiene ese problema — **toda
+etapa tiene condicion de salida, empezando por la preparatoria**, asi que su destinatario existe en
+cualquier proyecto por definicion, y se ejecuta en la misma etapa que lo monta.
+
+⚠️ **Y por eso la refutacion de arriba sigue valiendo tal cual esta escrita.** Habla de «montar los
+dos auditores» percibido como trabajo sin destinatario; si ese dia llega, lo que la casilla tendra
+que distinguir es entre agentes **con destinatario seguro** —los tres del ciclo y el del cierre de
+etapa— y agentes **de Gate**. La linea de corte no se mueve por haber sumado uno del primer grupo.
+
 ---
 
 ### A-016 - La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea
 | Campo | Valor |
 |---|---|
 | Fecha | 2026-09-08 |
-| Estado | Abierto |
+| Estado | Confirmado |
 | Origen | manager |
 | Dueño | `manager` |
 
@@ -916,6 +931,59 @@ supuesto aguanta, la recomendacion estaba de mas y eso tambien es informacion.
   refuta en la misma tarea que lo necesita.
 - ⚠️ **Lo que este supuesto NO pone en duda:** que el acta deba existir, ni que la firme un agente
   independiente. Eso lo zanjan `D-121` y `D-122`. Lo que esta sin comprobar es si **uno solo** basta.
+
+📌 **Resuelto el 2026-09-08 al escribir `protocol-phase-exit` (`T-124`): CONFIRMADO, con una
+acotacion que hay que decir.** Se recorrieron con el **mismo procedimiento** las condiciones de
+salida de dos etapas distintas —la preparatoria y una posterior—, y ninguna de las dos pidio
+instrucciones propias.
+
+**La mitad mecanica sale limpia y es uniforme en las siete**: la seccion se llama igual, las casillas
+se escriben igual, y el numero que cada etapa declara se puede contrastar con el que devuelve la
+orden.
+
+```
+$ for f in _phases/000_preproject.md _phases/020_baseline.md; do echo "===== $f"; grep -n '^## 6\. Condicion de salida' "$f"; sed -n '/^## 6\. Condicion de salida/,/^## 7\./p' "$f" | grep -oE 'las (diez|nueve|ocho|siete|seis|cinco) son ciertas'; sed -n '/^## 6\. Condicion de salida/,/^## 7\./p' "$f" | grep -cE '^- \[ \]'; done
+===== _phases/000_preproject.md
+195:## 6. Condicion de salida
+las diez son ciertas
+10
+===== _phases/020_baseline.md
+326:## 6. Condicion de salida
+las nueve son ciertas
+9
+```
+
+Y la misma extraccion recorre las **siete** sin cambiar una letra:
+
+```
+$ for f in _phases/*.md; do echo -n "$f: "; sed -n '/^## 6\. Condicion de salida/,/^## 7\./p' "$f" | grep -cE '^- \[ \]'; done
+_phases/000_preproject.md: 10
+_phases/005_discovery.md: 7
+_phases/010_prototype.md: 7
+_phases/020_baseline.md: 9
+_phases/025_wslt.md: 8
+_phases/030_growth.md: 8
+_phases/040_evol.md: 6
+```
+
+⚠️ **Y la acotacion, que es justo lo que el supuesto avisaba:** ninguna casilla lleva escrita la orden
+que la satisface, y **una parte de ellas no la puede llevar**. Las que preguntan por un **hecho**
+—«existe el archivo», «ningun registro queda en ese estado», «el barrido devuelve cero lineas»— se
+resuelven derivando la orden del propio enunciado. Las que preguntan por un **juicio** —si un actor
+es «alcanzable», si una necesidad esta enunciada «sin nombrar una pantalla»— no tienen orden posible,
+ni hoy ni nunca.
+
+🔑 **Eso no tumba la forma de un solo agente, y conviene decir por que no:** el acta ya tiene
+`NO COMPROBABLE` como resultado de primera clase, con su razon escrita. El agente deriva la orden
+donde la hay y marca `NO COMPROBABLE` donde no la hay — y esa regla es **la misma para todas las
+etapas**, que es exactamente lo que el supuesto necesitaba. Lo que se descarta es la lectura ingenua
+de que todas las casillas fueran verificables; lo que se confirma es que **ninguna etapa necesita
+instrucciones que otra no necesite**.
+
+⛔ **El riesgo que queda abierto, y esta escrito en el protocolo:** que el agente **invente** una
+orden que se parezca al juicio y le ponga cifra. Un `grep` que cuenta apariciones de una palabra no
+comprueba un juicio, y una cifra puesta a un juicio se lee luego como si alguien lo hubiera
+verificado. `protocol-phase-exit` lo prohibe de forma explicita en su Paso 4.
 
 ---
 

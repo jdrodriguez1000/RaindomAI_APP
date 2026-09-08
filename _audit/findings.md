@@ -94,10 +94,10 @@
 | [F-080](#f-080---el-bloque-de-verificacion-de-d-117-publica-19-donde-su-propia-orden-devuelve-20-sobre-el-commit-que-declara) | El bloque de verificacion de `D-117` publica `19` donde su propia orden devuelve `20` sobre el commit que declara | R-028 | Media | Implementado |
 | [F-081](#f-081---el-paso-7c-bis-vuelve-a-borrar-prosa-ahora-en-d-116-y-d-117-que-el-propio-paso-prohibe-literalmente) | El Paso 7c-bis vuelve a borrar prosa, ahora en `D-116` y `D-117`, que el propio paso prohibe literalmente | R-028 | Media | Implementado |
 | [F-082](#f-082---la-seccion-1-del-informe-describe-_phases000_preprojectmd-con-dos-hunks-y-numera-mal-las-dos-primeras-secciones-que-toco) | La seccion 1 del informe describe `_phases/000_preproject.md` con «dos hunks» y numera mal las dos primeras secciones que toco | R-028 | Baja | Implementado |
-| [F-083](#f-083---el-recuento-de-ordenes-distintas-del-paso-2d-publica-35-donde-la-orden-devuelve-27-y-su-bloque-uniq--d-publica-3-lineas-donde-devuelve-10) | El recuento de ordenes distintas del Paso 2d publica `35` donde la orden devuelve `27`, y su bloque `uniq -d` publica 3 lineas donde devuelve 10 | R-029 | Media | Abierto |
-| [F-084](#f-084---la-tabla-del-paso-2e-publica-0-caracteres-de-control-para-_auditfindingsmd-y-_persistencetasksmd-donde-el-barrido-devuelve-1-y-5) | La tabla del Paso 2e publica `0` caracteres de control para `_audit/findings.md` y `_persistence/tasks.md`, donde el barrido devuelve `1` y `5` | R-029 | Media | Abierto |
-| [F-085](#f-085---la-regla-que-este-commit-escribe-en-claudemd-la-serie-empieza-por-el-primero-y-no-se-salta-ninguno-la-incumple-el-propio-commit-en-_templates) | La regla que este commit escribe en `CLAUDE.md` («la serie empieza por el primero y no se salta ninguno») la incumple el propio commit, en `_templates/` | R-029 | Media | Abierto |
-| [F-086](#f-086---el-control-de-prosa-borrada-nace-obligatorio-y-no-deja-ninguna-salida-en-el-repositorio-su-primera-ejecucion-no-es-auditable) | El CONTROL DE PROSA BORRADA nace obligatorio y no deja ninguna salida en el repositorio: su primera ejecucion no es auditable | R-029 | Baja | Abierto |
+| [F-083](#f-083---el-recuento-de-ordenes-distintas-del-paso-2d-publica-35-donde-la-orden-devuelve-27-y-su-bloque-uniq--d-publica-3-lineas-donde-devuelve-10) | El recuento de ordenes distintas del Paso 2d publica `35` donde la orden devuelve `27`, y su bloque `uniq -d` publica 3 lineas donde devuelve 10 | R-029 | Media | Aceptado — pendiente |
+| [F-084](#f-084---la-tabla-del-paso-2e-publica-0-caracteres-de-control-para-_auditfindingsmd-y-_persistencetasksmd-donde-el-barrido-devuelve-1-y-5) | La tabla del Paso 2e publica `0` caracteres de control para `_audit/findings.md` y `_persistence/tasks.md`, donde el barrido devuelve `1` y `5` | R-029 | Media | Aceptado — pendiente |
+| [F-085](#f-085---la-regla-que-este-commit-escribe-en-claudemd-la-serie-empieza-por-el-primero-y-no-se-salta-ninguno-la-incumple-el-propio-commit-en-_templates) | La regla que este commit escribe en `CLAUDE.md` («la serie empieza por el primero y no se salta ninguno») la incumple el propio commit, en `_templates/` | R-029 | Media | Aceptado — pendiente |
+| [F-086](#f-086---el-control-de-prosa-borrada-nace-obligatorio-y-no-deja-ninguna-salida-en-el-repositorio-su-primera-ejecucion-no-es-auditable) | El CONTROL DE PROSA BORRADA nace obligatorio y no deja ninguna salida en el repositorio: su primera ejecucion no es auditable | R-029 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -4003,8 +4003,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-029 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-130`, `T-131` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 7 de `_audit/S-029.md` publica «Recuento de LINEAS devueltas: 37.
@@ -4030,8 +4030,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-029 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-132`, `T-133` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 8 de `_audit/S-029.md` escribe `_audit/findings.md head=0 staged=0`
@@ -4054,8 +4054,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-029 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-134` |
 | Cerrado en | |
 
 - **Que se observo:** `c1fb41e` anade a `CLAUDE.md` «la serie tiene que empezar por el primero y no
@@ -4078,8 +4078,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-029 |
 | Fecha | 2026-09-08 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-135` |
 | Cerrado en | |
 
 - **Que se observo:** el control nuevo del Paso 7c-bis (`D-119`) se declara obligatorio y manda su

@@ -53,6 +53,7 @@
 | [S-027](#s-027---se-aceptan-f-074-y-f-075-t-110-t-111-un-codigo-instanciado-pasa-a-ser-dato-propio-d-113-a-d-115-claudemd-y-claude-quedan-agnosticos) | Se aceptan `F-074` y `F-075` (`T-110`, `T-111`); un codigo instanciado pasa a ser dato propio (`D-113` a `D-115`); `CLAUDE.md` y `.claude/` quedan agnosticos | 2026-09-07 | `000_preproject` |
 | [S-028](#s-028---nace-_templates000_preproject-d-116-y-se-realinea-_phases000_preprojectmd-con-el-andamiaje-real-d-117) | Nace `_templates/000_preproject/` (`D-116`) y se realinea `_phases/000_preproject.md` con el andamiaje real (`D-117`) | 2026-09-08 | `000_preproject` |
 | [S-029](#s-029---se-aceptan-f-076-a-f-082-t-116-a-t-122-nace-el-acta-de-cierre-de-etapa-d-121-a-d-123) | Se aceptan `F-076` a `F-082` (`T-116` a `T-122`); nace el acta de cierre de etapa, con `phase_exit_auditor` y la cosecha antes de la firma (`D-121` a `D-123`) | 2026-09-08 | `000_preproject` |
+| [S-030](#s-030---se-aceptan-f-083-a-f-086-t-130-a-t-135-nace-el-acta-de-cierre-de-etapa-y-el-sexto-agente-phase_exit_auditor-t-123-a-t-125) | Se aceptan `F-083` a `F-086` (`T-130` a `T-135`); se construye el acta de cierre de etapa y el sexto agente `phase_exit_auditor` (`T-123` a `T-125`) | 2026-09-08 | `000_preproject` |
 
 ---
 
@@ -78,96 +79,94 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-08 (S-029) |
+| Ultima actualizacion | 2026-09-08 (S-030) |
 | Salud | En marcha |
-| Avance de la etapa | Se evaluaron los siete hallazgos abiertos de `R-027` y `R-028` (`F-076` a `F-082`): los siete se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-116` a `T-122`). Cinco de los siete se corrigen por nota fechada en el propio commit (cifras que no salian de ninguna orden, un total sumado en prosa, prosa borrada por el Paso 7c-bis en `D-117`), y dos amplian reglas hacia adelante: `CLAUDE.md` gana el criterio de «serie consecutiva de un ejemplo trabajado» para distinguir una serie de una cita (`D-118`), y `protocol-close` gana la exigencia de que todo recuento por archivo en la seccion 1 vaya con su orden (`D-120`). El Paso 7c-bis, que ya habia reincidido borrando prosa (`F-081`, reincidencia exacta de `F-062`), gana un control mecanico —CONTROL DE PROSA BORRADA— que compara la prosa fuera de los bloques de codigo antes y despues del anclaje y se detiene si desaparece algo (`D-119`). Aparte de los hallazgos, el usuario pregunto si no faltaria un archivo que certificara el cierre de una etapa: no existia (`L-041`). Nace el **acta de cierre de etapa**, generica y con dos firmas —la tecnica de un agente nuevo, `phase_exit_auditor`, que arranca en frio y verifica una por una las casillas de salida de la etapa que se le pase, y la del usuario como patrocinador— y enganchada como entrada obligatoria de la etapa siguiente (`D-121`, `D-122`). Se fija ademas que la cosecha de lecciones globales va **antes** de la firma, no despues, porque la casilla de lecciones la exige ya hecha; y se deja declarado un hueco sin resolver: quien escribe y commitea en el repositorio de lecciones, hoy fuera del alcance de todos los protocolos existentes (`D-123`, `T-127`, bloqueante de la cosecha). Nacen `A-016` (si un solo agente generico basta para las siete etapas) y `A-017` (si los cuatro filtros de promocion estan escritos y son aplicables tal cual en el archivo global). Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) del cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`). |
+| Avance de la etapa | Se evaluaron los cuatro hallazgos abiertos de `R-029` (`F-083` a `F-086`): los cuatro se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-130` a `T-135`). Los dos primeros se corrigen por nota fechada en `_audit/S-029.md`, sin reescribir su prosa (`F-083`: el recuento de ordenes distintas del Paso 2d publicaba `35` donde la orden devuelve `27`, y su `uniq -d` publicaba tres lineas donde son diez; `F-084`: la tabla del Paso 2e publicaba `0` para dos archivos donde el barrido devuelve `1` y `5`). Las dos correcciones de fondo amplian `protocol-close`: el Paso 2d suprime la cifra de ordenes distintas — es la tercera vez que sale falsa y ninguna otra parte del protocolo la consume (`D-124`; `L-042`) —, y el Paso 2e gana dos contrastes obligatorios que se publican con la tabla aunque salga limpia (`D-125`). `F-085` completa la serie `SC-` del ejemplo de trazabilidad de `_templates/020_baseline/045_traceability.md` (de `SC-007` a `SC-004`) y fija que el ambito de la regla de series es la union de los seis archivos/carpetas agnosticos, no cada uno por separado (`D-126`). `F-086` hace que el Paso 7c-bis publique la salida del CONTROL DE PROSA BORRADA en la NOTA DE CIERRE, tambien cuando sale limpia — su primera ejecucion no habia dejado ningun rastro auditable (`D-127`). Aparte de los hallazgos, se construye el acta de cierre de etapa completa: nace la plantilla `_templates/phase_exit_record.md` (`D-128`, `T-123`), nace el agente `phase_exit_auditor` con su skill `protocol-phase-exit`, corriendo con Sonnet (`D-129`, `T-124`), y `_phases/000_preproject.md` sube su casilla 2 de cinco a seis agentes (`T-125`). `A-016` (si un agente generico basta para las siete etapas) queda `Confirmado`, con la acotacion de que la mitad mecanica es uniforme y la de juicio se resuelve con `NO COMPROBABLE` (`L-043`). Nace tambien `L-044`: una premisa cuantificada sobre el propio repositorio se comprueba con una orden, no se asume. Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) del cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`). |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`); `T-127` bloquea la cosecha de lecciones globales de esta etapa hasta que se decida quien escribe en ese repositorio |
 
 ---
 
 ## 2. Ultimo realizado
 
-Se evaluaron, verificados contra `HEAD` antes de tratarlos, los cuatro hallazgos de `R-027`
-(`F-076` a `F-079`) y los tres de `R-028` (`F-080` a `F-082`). Los siete se sostuvieron contra la
-evidencia y se aceptan:
+Se evaluaron, verificados contra `HEAD` antes de tratarlos, los cuatro hallazgos abiertos de `R-029`
+(`F-083` a `F-086`). Los cuatro se sostuvieron contra la evidencia y se aceptan:
 
-- `F-076` (cifras de volumen de `T-115` que no salian de ninguna orden): nota fechada en `T-115`
-  con la orden real —52 lineas en cuatro archivos, no 54 en tres— (`T-116`).
-- `F-077` (`A-013`/`D-114` publicaban `113` en una orden que devuelve `121` sobre su commit): nota
-  fechada en los dos con la orden anclada (`T-117`).
-- `F-078` (la NOTA DE CIERRE de `S-027` sumaba `3` en prosa sobre el `21` del CONTROL): nota fechada
-  en `_audit/S-027.md` con la orden que devuelve el total entero (`T-118`).
-- `F-079` (la excepcion de codigos agnosticos de `CLAUDE.md` no cubria la guia de metodo): se
-  amplia de «el primer numero de una serie» a «la serie consecutiva de un ejemplo trabajado», con un
-  criterio de distincion frente a una cita —de donde sale el contenido que va detras— (`D-118`,
-  `T-119`).
-- `F-080` (el bloque de verificacion de `D-117` publicaba `19` donde su orden devuelve `20`): nota
-  fechada con la orden anclada y su desglose (`T-120`).
-- `F-081` (el Paso 7c-bis volvio a borrar prosa, esta vez en `D-117` — reincidencia exacta de
-  `F-062`, ya cerrado como `Implementado`): se restaura la prosa perdida por nota fechada, y el paso
-  gana un **control mecanico** —CONTROL DE PROSA BORRADA— que compara la prosa fuera de los bloques
-  de codigo antes y despues del anclaje y se detiene si desaparece algo (`D-119`, `T-121`). Nace
-  `L-040`: una prohibicion que ya reincidio no se arregla escribiendola mejor, se arregla con un
-  control que la detecte.
-- `F-082` (la seccion 1 de un informe describia un archivo con «dos hunks» cuando eran seis/diecisiete,
-  y numeraba mal dos secciones): `protocol-close` exige de ahora en adelante que todo recuento por
-  archivo en la seccion 1 vaya con la orden que lo produce, y que las secciones se citen por su
-  numero real derivado (`D-120`, `T-122`).
+- `F-083` (la seccion 7 de `_audit/S-029.md` publicaba `35` ordenes distintas donde la orden
+  devuelve `27`, y su bloque `uniq -d` publicaba tres lineas donde son diez): nota fechada en
+  `_audit/S-029.md`, sin reescribir su prosa (`T-130`). De fondo, el Paso 2d de `protocol-close`
+  **suprime** la cifra de ordenes distintas — es la tercera vez que sale falsa y ninguna otra parte
+  del protocolo la consume (`D-124`, `T-131`; nace `L-042`: un dato que sale falso una y otra vez y
+  que nadie usa no se vigila mejor, se quita).
+- `F-084` (la tabla del Paso 2e de `S-029` publicaba `0` caracteres de control para dos archivos
+  donde el barrido devuelve `1` y `5`): nota fechada con el barrido anclado (`T-132`). De fondo, el
+  Paso 2e gana **dos contrastes obligatorios** que se publican con la tabla aunque salga limpia:
+  cuantas filas tiene que tener y el total sin pasar por ella (`D-125`, `T-133`).
+- `F-085` (la regla de `CLAUDE.md` sobre series consecutivas la incumplia el propio commit que la
+  escribio, en el ejemplo de trazabilidad): la fila pasa de `SC-007` a `SC-004`, y se fija que el
+  ambito de la regla es la **union** de los seis archivos/carpetas agnosticos, no cada uno por
+  separado (`D-126`, `T-134`).
+- `F-086` (el CONTROL DE PROSA BORRADA nacio obligatorio y su primera ejecucion no dejo ninguna
+  salida auditable en el repositorio): el Paso 7c-bis publica ahora la orden y la salida entera del
+  control dentro de la NOTA DE CIERRE, tambien cuando sale limpia (`D-127`, `T-135`).
 
-Los siete quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna de las
-siete correcciones reescribe un informe o una entrada ya commiteada: todas van por nota fechada
+Los cuatro quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna de las
+cuatro correcciones reescribe un informe o una entrada ya commiteada: todas van por nota fechada
 (`D-019`).
 
-Aparte de los hallazgos, el usuario observo que no existe ningun archivo que certifique el cierre de
-una etapa, y pregunto si haria falta como puerta de la siguiente. El criterio de salida ya existia
-—cada archivo de etapa declara sus casillas—, pero **el sitio donde el resultado queda y las firmas
-que lo cierran** no (`L-041`). Nace el **acta de cierre de etapa**, con tres decisiones:
+Aparte de los hallazgos, se construyo el acta de cierre de etapa completa, siguiendo el orden que
+`D-121`/`D-122` fijaron en `S-029`:
 
-1. **`D-121`** — el acta nace generica (plantilla en `_templates/`, acta concreta en la subcarpeta de
-   `_audit/` de cada etapa), con **dos firmas que no se sustituyen**: la revision tecnica de un agente
-   que arranca en frio, y la aprobacion del usuario como patrocinador; y **enganchada** como entrada
-   obligatoria de la etapa siguiente.
-2. **`D-122`** — nace **un solo agente generico**, `phase_exit_auditor`, con su skill
-   `protocol-phase-exit`, que lee las casillas de la etapa que se le pase en vez de llevarlas dentro.
-   El orden es `manager` commitea → el agente audita ese commit y dictamina → el usuario firma. Nace
-   `A-016`: que la forma de las siete condiciones de salida sea lo bastante uniforme para un solo
-   agente es un supuesto que se valida al escribir el protocolo.
-3. **`D-123`** — la **cosecha de lecciones va antes de la firma**, no despues, porque la casilla de
-   lecciones la exige ya hecha. Se deja declarado un hueco sin resolver a proposito: **quien escribe y
-   commitea en el repositorio de lecciones globales** no esta cubierto por ningun protocolo existente
-   (`T-127`, bloqueante de la cosecha). Nace `A-017`: que los cuatro filtros de promocion esten
-   escritos y sean aplicables tal cual en el archivo global.
+1. **`T-123`** — nace la plantilla generica `_templates/phase_exit_record.md`, en la raiz de
+   `_templates/` y no dentro de la carpeta de ninguna etapa (`D-128`: el `git ls-tree` no recursivo
+   del criterio de `D-121` exige exactamente esa ubicacion).
+2. **`T-124`** — nace el agente `phase_exit_auditor` y su skill `protocol-phase-exit`. Al recorrer
+   con el mismo procedimiento las condiciones de salida de dos etapas distintas, `A-016` queda
+   **Confirmado**: la mitad mecanica —localizar la seccion, extraer las casillas, contrastar el
+   recuento— es uniforme en las siete; la mitad de verificacion no, porque una parte de las casillas
+   pide un juicio y no un hecho, y para eso el acta usa `NO COMPROBABLE` como resultado de primera
+   clase (`L-043`). El agente corre con `model: sonnet`, por indicacion del usuario, con el criterio
+   de reparto de modelos escrito por primera vez (`D-129`) — criterio que al comprobarse desmintio
+   la premisa con la que se iba a titular la decision, y de ahi nace `L-044`.
+3. **`T-125`** — `_phases/000_preproject.md` sube su casilla 2 de cinco a seis agentes, nombrando a
+   `phase_exit_auditor` con su frontera propia («quien certifica una casilla sin firmarla»); se
+   propaga a `project.md` y a su plantilla, y `A-015` recibe la nota de que el sexto agente no cae
+   bajo el supuesto que aquel pone en duda.
 
 Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El Paso 2c
 muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/` y
 `temporal/`).
 
 - **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037`, `T-038` y `T-112` siguen
-  `No implementada`. `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin
-  adoptar en `project.md`. `DT-002` a `DT-006` siguen `No implementada` y
-  `Propuesta (pendiente del usuario)`. `A-006` a `A-009`, `A-011` a `A-017` quedan abiertos; `A-010`
-  sigue `Refutado`. `T-123` a `T-129` —todo lo que produce el acta de cierre de etapa— quedan
-  `No implementada`, y `T-127` es bloqueante de la cosecha (no de la sesion). La autorreferencia del
-  criterio de cierre de `D-088` (senalada desde `S-022`) sigue sin resolver.
+  `No implementada`. `T-126` a `T-129` —completar el enganche del acta y hacer la primera cosecha—
+  quedan `No implementada`; `T-127` sigue bloqueante de la cosecha. `010_prototype`, `020_baseline`,
+  `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en `project.md`. `DT-002` a `DT-006`
+  siguen `No implementada` y `Propuesta (pendiente del usuario)`. `A-006` a `A-009`, `A-011` a
+  `A-015` y `A-017` quedan abiertos; `A-010` sigue `Refutado`; `A-016` queda `Confirmado`. La
+  autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`) sigue sin resolver.
 
 ---
 
 ## 3. Siguiente paso
 
-Construir el acta de cierre de etapa, en el orden que sus propias tareas fijan: primero `T-123`
-(plantilla generica en `_templates/`) y `T-124` (el agente `phase_exit_auditor` y su skill
-`protocol-phase-exit`, resolviendo de paso `A-016` al recorrer con el mismo procedimiento dos etapas
-distintas); solo despues `T-125` (subir la casilla 2 de `_phases/000_preproject.md` de cinco a seis
-agentes) y `T-126` (exigir el acta anterior en las entradas de `_phases/005_discovery.md`). Antes de
-la primera cosecha real, resolver `T-127` (quien escribe y commitea en el repositorio de lecciones
-globales) y comprobar `A-017` (los cuatro filtros de promocion, abriendo el archivo global por su
-indice).
+Cerrar el enganche del acta y hacer operativo el ciclo de cosecha: `T-126` (exigir el acta de la
+etapa anterior en las entradas de `_phases/005_discovery.md`); antes de la primera cosecha real,
+`T-127` (quien escribe y commitea en el repositorio de lecciones globales — bloqueante), `T-128`
+(hacer la cosecha de las lecciones de `000_preproject`) y `T-129` (hacer y registrar la consulta de
+arranque a las lecciones globales), y de paso comprobar `A-017` (los cuatro filtros de promocion,
+abriendo el archivo global por su indice).
 
-Y lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que los siete hallazgos
-de `R-027`/`R-028` quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de `T-116` a
-`T-120` reproducen sus ordenes, que el CONTROL DE PROSA BORRADA quedo descrito en `protocol-close` y
-no volvio a perder prosa al anclar esta misma sesion, y que las nueve ordenes con `<hash>` de
-`D-118` a `D-123` quedaron ancladas por el Paso 7c-bis.
+Con el acta y el agente ya construidos, queda por usarlos por primera vez: cuando `manager` declare
+`000_preproject` lista y la deje commiteada y subida, lanzar `phase_exit_auditor` sobre su condicion
+de salida — es el primer uso real de `protocol-phase-exit`, y la primera comprobacion de si `A-016`
+aguanta fuera de las dos etapas con las que se valido al escribirlo.
+
+Y lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que los cuatro
+hallazgos de `R-029` quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de
+`T-130` y `T-132` reproducen sus ordenes sobre `_audit/S-029.md` sin haber tocado su prosa anterior,
+que el Paso 2d ya no publica la cifra de ordenes distintas y el Paso 2e publica los dos contrastes
+nuevos, que la serie `FT-`/`SC-` del ejemplo de trazabilidad esta completa desde el primero, y que
+las ordenes con `<hash>` de `D-124` a `D-129` (mas las de `T-130` a `T-135` que las repiten) quedaron
+ancladas por el Paso 7c-bis.
 
 Sigue pendiente `T-112` (anadir el barrido de codigos instanciados como segundo control del Paso 1b)
 y decidir si `_methodology/` entra alguna vez en la condicion de parada del Paso 1b —hoy bloqueado
@@ -186,11 +185,11 @@ Es decision del usuario si `DT-002` se confirma ya como pagada, si se autoriza `
 `A-006` (los codigos `FT-`/`SC-` declarados) se valida o se retira, si `A-007` (que habra un humano
 disponible para el despliegue del esqueleto) se confirma cuando la etapa se adopte, si `A-012` (la
 lectura de «usuarios reales» en `_workflow/ai_levels.md` §6) se confirma o se corrige antes de que
-`040_evol` se adopte, y si `A-015` (los cinco/seis agentes exigidos, con los dos de Gate montados) se
-mantiene o se acota. `A-013` sigue sin comprobar, por muestreo. Sigue tambien sin resolver la
-autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`). Y sigue vigente lo que
-`D-099` dejo escrito: si el Paso 7c-bis vuelve a tocar prosa fuera de su bloque de codigo, no hay una
-tercera vuelta — ahora tiene, ademas, un control que lo detecta antes del commit (`D-119`).
+`040_evol` se adopte, y si `A-015` (los agentes exigidos, con los dos de Gate montados) se mantiene o
+se acota. `A-013` sigue sin comprobar, por muestreo. Sigue tambien sin resolver la autorreferencia
+del criterio de cierre de `D-088` (senalada desde `S-022`). Y sigue vigente lo que `D-099` dejo
+escrito: si el Paso 7c-bis vuelve a tocar prosa fuera de su bloque de codigo, no hay una tercera
+vuelta — el control que lo detecta (`D-119`) es el mismo que esta sesion obligo a hacer audible.
 
 ---
 
@@ -1325,6 +1324,41 @@ _workflow/025_wslt.md
   `030_growth` y `040_evol` siguen sin adoptar en `project.md`. `DT-002` a `DT-006` siguen
   `Propuesta (pendiente del usuario)`. `A-006` a `A-009`, `A-011` a `A-017` quedan abiertos; `A-010`
   sigue `Refutado`. La autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
+
+---
+
+### S-030 - Se aceptan F-083 a F-086 (T-130 a T-135); se construye el acta de cierre de etapa y el sexto agente `phase_exit_auditor` (T-123 a T-125)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | `000_preproject` |
+| Tareas | T-123, T-124, T-125, T-130, T-131, T-132, T-133, T-134, T-135 |
+
+- **Que se hizo:** se evaluaron, verificados contra `HEAD`, los cuatro hallazgos abiertos de `R-029`
+  (`F-083` a `F-086`); los cuatro se aceptan y quedan `Aceptado — pendiente` con su `T-XXX`. `F-083`
+  y `F-084` se corrigen por nota fechada en `_audit/S-029.md` sin reescribir su prosa (`D-019`), y de
+  fondo suprimen la cifra de ordenes distintas del Paso 2d — tercera vez que sale falsa, ninguna otra
+  parte del protocolo la consume (`D-124`; `L-042`) — y anaden dos contrastes obligatorios a la tabla
+  del Paso 2e (`D-125`). `F-085` completa la serie `SC-` del ejemplo de trazabilidad y fija que el
+  ambito de la regla de series es la union de los seis archivos/carpetas agnosticos (`D-126`). `F-086`
+  hace que el Paso 7c-bis publique la salida del CONTROL DE PROSA BORRADA en la NOTA DE CIERRE,
+  tambien cuando sale limpia (`D-127`). Aparte de los hallazgos, se construye el acta de cierre de
+  etapa completa que `S-029` habia dejado decidida: nace `_templates/phase_exit_record.md`, en la
+  raiz de `_templates/` por el `git ls-tree` no recursivo del criterio de `D-121` (`D-128`, `T-123`);
+  nace el agente `phase_exit_auditor` con su skill `protocol-phase-exit`, corriendo con `sonnet`
+  (`D-129`, `T-124`); y `_phases/000_preproject.md` sube su casilla 2 de cinco a seis agentes
+  (`T-125`). Al recorrer con el mismo procedimiento dos etapas distintas, `A-016` queda **Confirmado**
+  con acotacion: la mitad mecanica es uniforme en las siete, la de juicio se resuelve con
+  `NO COMPROBABLE` (`L-043`). Nace `L-044`: una premisa cuantificada sobre el propio repositorio se
+  comprueba con una orden, no se asume — cazada al escribir el criterio de cierre de `D-129`. Los
+  controles de fuga (1b, 1c) y de indices (2b) del cierre salen limpios; el Paso 2c repite las dos
+  diferencias ya documentadas.
+- **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037`, `T-038` y `T-112` siguen
+  `No implementada`. `T-126` a `T-129` quedan `No implementada`, `T-127` bloqueante de la cosecha.
+  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en
+  `project.md`. `DT-002` a `DT-006` siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009`,
+  `A-011` a `A-015` y `A-017` quedan abiertos; `A-010` `Refutado`; `A-016` pasa a `Confirmado`. La
+  autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
 
 ---
 

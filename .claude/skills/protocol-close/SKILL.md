@@ -311,31 +311,28 @@ el paso se corrio, se documentaron cinco lineas de varias decenas, y la que fall
 que no se pegaron. **Un control que se documenta sobre una parte de su propia salida no es el
 control** — es una muestra, y elegida por quien se examina.
 
-🚨 **El recuento que se publica es el de lineas que devolvio la orden, no el de ordenes
-distintas.** Una misma orden citada en dos archivos sale dos veces, y las dos lineas van pegadas:
-deduplicar es seleccionar, y seleccionar es justo lo que el parrafo anterior prohibe. Si ademas
-interesa cuantas ordenes distintas hay, ese numero se da **aparte y con ese nombre**, nunca como
-recuento de la salida. Dos cifras con dos nombres se contrastan; una cifra con el nombre de la otra
-no reproduce, y quien la reejecute no puede saber si se equivoco el informe o cambio el repositorio.
-
-🚨 **Y si se da esa segunda cifra, va con SU orden y su salida cruda — no se estima.** Ya paso:
-un informe publico «Ordenes distintas, aparte: 41 — no hubo repeticion; `sort -u` sobre la
-misma lista tambien devuelve 41», y `sort -u` devolvia 31. La cifra principal estaba bien; la
-accesoria se escribio sin correrla, y es justamente la que nadie recomprueba.
+🚨 **Este paso publica UNA cifra, y es el recuento de lineas que devolvio la orden.** Una misma
+orden citada en dos archivos sale dos veces, y las dos lineas van pegadas: deduplicar es
+seleccionar, y seleccionar es justo lo que el parrafo anterior prohibe.
 
 ```bash
-# la principal: LINEAS devueltas
+# la UNICA cifra del paso: LINEAS devueltas
 git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md" \
   | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
-
-# la accesoria: ORDENES DISTINTAS — misma tuberia, con `sort -u` antes de contar
-git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md" \
-  | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
 ```
 
-⚠️ **Que las dos cifras difieran NO es un defecto.** `decisions.md` y `tasks.md` publican la misma
-orden a proposito, y por eso sale dos veces. Lo unico que falla es afirmar que no se repite sin
-haberlo contado.
+⛔ **La cifra de ORDENES DISTINTAS ya no se publica, y no es una simplificacion de estilo: se
+suprime porque salio falsa las tres veces que se escribio.** La primera publico «41 — no hubo
+repeticion» donde `sort -u` devolvia 31; la segunda publico 27 donde eran 22; la tercera publico 35
+donde eran 27, y adjunto ademas un `uniq -d` de tres lineas donde la orden devuelve diez. Las tres
+veces la cifra **principal** estaba bien. Es siempre la accesoria la que se estima, porque es la que
+nadie usa para nada — y por eso tampoco nadie la recomprueba.
+
+🔑 **Lo que se arregla suprimiendola es que deja de haber donde equivocarse.** Se pidio dos veces
+que fuera con su orden y su salida cruda, y las dos veces se volvio a escribir a mano: una cifra que
+ningun control consume no se gana la tercera regla que la vigile. Si alguna vez hace falta saber
+cuantas ordenes distintas hay, se corre `sort -u | wc -l` en el momento y se pega su salida entera
+como cualquier otra evidencia — pero no forma parte de este paso.
 
 🚨 **Y la orden se publica en la forma que reproduce contra el commit, que no es la que se corrio.**
 El paso corre sobre el area de staging, cuando el informe todavia no existe; una vez commiteado, esa
@@ -383,12 +380,17 @@ y que se pegan con su salida:
 B='git diff -U0 <hash>^ <hash> -- _persistence _audit ":(exclude)_audit/S-XXX.md"'
 # la lista, numerada por la propia orden
 eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | cat -n
-# el recuento de LINEAS y, aparte, el de ordenes distintas
+# el recuento de LINEAS — la unica cifra del paso
 eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
-eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
 # cuales se repiten
 eval "$B" | grep -E '^\+\$ ' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort | uniq -d
 ```
+
+⛔ **La salida de `uniq -d` se pega ENTERA, y sin nombrar a mano cuales son.** Ya paso: un informe
+pego tres lineas de las diez que la orden devuelve y escribio al lado que los pares repetidos eran
+«3/4, 18/20 y 19/21» — los tres que se veian. Los siete que faltaban llevaban `<hash>`, que es justo
+la clase que el Paso 7c-bis va a tocar. Una salida recortada y presentada como cruda es peor que no
+publicarla: la primera se contrasta, la segunda se cree.
 
 🔑 **Y el bloque de reejecucion usa esos numeros, no unos propios.** Cada salida se rotula
 con la posicion que le dio `cat -n`; una posicion sin salida es un hueco visible, que es
@@ -471,6 +473,37 @@ for f in $(git diff --cached --name-only --diff-filter=d); do
   echo "$f head=$(git show HEAD:"$f" 2>/dev/null | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]') staged=$(git show :"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"
 done
 ```
+
+### Los dos contrastes de la tabla (obligatorios, y se publican con ella)
+
+🚨 **Este paso volvio a fallar con la orden bien escrita: la tabla se transcribio a mano.** Un
+informe publico nueve filas donde el commit llevaba once archivos, y escribio `0` en dos de ellas
+donde el barrido devuelve `1` y `5`. La conclusion de fondo era cierta —no se anadio ninguna linea
+nueva—, pero la evidencia que la sostenia era falsa en dos filas de once. Y un barrido que devuelve
+`0` donde hay seis ocurrencias deja de servir para lo unico que existe: ver la **proxima**.
+
+⛔ **La defensa no es leer con mas cuidado, porque eso ya se pidio.** Son dos cifras que salen de
+**dos ordenes independientes de la tabla**, y que la tabla tiene que cuadrar. Se pegan las dos con su
+salida, siempre, aunque la tabla salga limpia.
+
+```bash
+# contraste 1 — cuantas FILAS tiene que tener la tabla
+git diff --cached --name-only --diff-filter=d | wc -l
+
+# contraste 2 — el TOTAL, sin pasar por la tabla
+for f in $(git diff --cached --name-only --diff-filter=d); do git show :"$f"; done \
+  | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'
+```
+
+| Que se contrasta | Contra que | Si no cuadra |
+|---|---|---|
+| numero de filas de la tabla | la salida del contraste 1 | 🚨 faltan archivos: la tabla no es el barrido, es un recuerdo de el |
+| suma de la columna `staged` | la salida del contraste 2 | 🚨 alguna fila esta mal transcrita: **detente** y vuelve a pegar la salida, no la retoques |
+
+🔑 **Por que estos dos y no una regla mas.** Ninguno mira lo que la tabla dice: los dos preguntan lo
+mismo por otro camino y comparan el resultado. Sobre el caso que abrio esto, el primero habria dado
+`11` contra las 9 filas publicadas, y el segundo `17` contra la suma `11` de la columna. Los dos
+fallan, y fallan solos.
 
 🚨 **El ambito es «los archivos que el commit toca», y esa palabra es el paso entero.** Enumerar a
 mano los archivos que uno recuerda haber editado no es un barrido: una vez se contaron siete casos en
@@ -986,7 +1019,8 @@ estamos, el supuesto en el que nos apoyamos sin confirmar>
 ## 7. Evidencia del Paso 2d
 <la lista COMPLETA que devolvio la primera orden del Paso 2d, con la orden literal, su recuento y
 todas sus lineas — nunca una seleccion, y sin deduplicar>
-<el recuento es el de LINEAS devueltas; si se da el de ordenes distintas, va aparte y con ese nombre>
+<el recuento es el de LINEAS devueltas, y es el UNICO que esta seccion publica: el de ordenes
+distintas ya no forma parte del paso>
 <la orden se escribe en su forma anclada al commit y con el propio informe excluido
 (`":(exclude)_audit/S-XXX.md"`), o se dice al lado cual es esa equivalencia>
 <y debajo, el resultado de reejecutar cada una: la que reproduce y la que no>
@@ -995,11 +1029,12 @@ equivalencia anclada al commit>
 <si la lista salio vacia, se publica igual: la orden y su salida vacia>
 <y si se anota de que archivo sale cada orden, esa procedencia se DERIVA del diff, nunca se
 escribe a mano: se pega la orden que la produce y su salida cruda>
-<y si se da el recuento de ordenes distintas, va con SU PROPIA orden (`| sort -u | wc -l`) y su
-salida cruda: la cifra accesoria no se estima>
+<y la salida de `uniq -d` se pega ENTERA, sin nombrar a mano cuales son los pares repetidos>
 <NOTA DE CIERRE, la escribe el Paso 7c despues del commit: el hash, cuantas ordenes iban con
 `<hash>` y en que archivos quedaron ancladas por el 7c-bis, con el barrido de todos los archivos y su
 salida — que tiene que salir vacia —, y la frase que dice que no queda ninguna sin anclar>
+<y dentro de esa misma nota, la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis, entera y con su
+orden, tambien cuando sale limpia: sin ella, «no se borro prosa» y «nadie lo comprobo» se leen igual>
 
 ## 8. Evidencia del Paso 2e
 <la orden del barrido de caracteres de control sobre los archivos que el commit toca, y su salida
@@ -1007,6 +1042,8 @@ cruda — tambien cuando sale vacia>
 <si sale alguna linea, se dice de cada archivo si la cifra es NUEVA o HEREDADA, derivandolo del
 barrido contra HEAD, y para las nuevas se publica la linea con `cat -A` para que el `^H` se vea>
 <una cifra heredada no se omite: heredada no es inexistente>
+<y los DOS CONTRASTES de la tabla, con su orden y su salida, aunque la tabla salga limpia: cuantas
+filas tiene que tener, y el total sin pasar por la tabla. La tabla tiene que cuadrar con los dos>
 ```
 
 ### Los tres veredictos de la seccion 0, y nada mas
@@ -1506,6 +1543,19 @@ entonces la misma frontera que la regla ya enunciaba — pero medida, no confiad
 fue exactamente ese: al sustituir tres ordenes por sus formas ancladas, la linea de prosa que iba
 pegada debajo del bloque se fue con ellas, y era el enunciado del criterio — la mitad que permite
 juzgar si la salida cumple.
+
+🚨 **Su orden y su salida se publican en la NOTA DE CIERRE del informe, junto al CENSO y al
+CONTROL, tambien cuando sale limpia.** Nacio obligatorio y su primera ejecucion no dejo ni una
+linea en el repositorio: las once menciones que quedaron eran **descriptivas** —que el control
+existe, que se escribio, que `grep -c` sobre la skill devuelve `1`—, y ninguna publicaba lo que el
+control devolvio. Que aquella vez no se borrara prosa lo comprobo la auditoria a mano, no el
+control; y un control cuya ejecucion no deja rastro vuelve a depender de que alguien lo corra, que
+es exactamente de lo que veniamos. `PI-5` de `CLAUDE.md` lo dice para cualquier producto de
+documentacion: la orden ejecutada literal y su salida cruda.
+
+🔑 **Lo que se publica es la salida entera, incluidas las dos lineas `== … ==`.** Son justamente lo
+que distingue «el control salio limpio» de «el control no se corrio»: sin ellas, una salida vacia y
+una ejecucion que no ocurrio se leen igual.
 
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 

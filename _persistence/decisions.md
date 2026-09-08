@@ -132,6 +132,12 @@
 | [D-121](#d-121---una-etapa-no-cierra-sola-nace-el-acta-de-cierre-de-etapa-con-dos-firmas-y-como-puerta-de-la-siguiente) | Una etapa no cierra sola: nace el acta de cierre de etapa, con dos firmas y como puerta de la siguiente | 2026-09-08 | Vigente | usuario |
 | [D-122](#d-122---un-solo-agente-generico-verifica-el-acta-y-el-orden-es-commit-dictamen-y-firma) | Un solo agente generico verifica el acta, y el orden es commit, dictamen y firma | 2026-09-08 | Vigente | usuario |
 | [D-123](#d-123---la-cosecha-va-antes-de-la-firma-y-quien-escribe-en-el-repositorio-de-lecciones-esta-sin-decidir) | La cosecha va antes de la firma, y quien escribe en el repositorio de lecciones esta sin decidir | 2026-09-08 | Vigente | usuario |
+| [D-124](#d-124---una-cifra-que-ningun-control-consume-no-se-vigila-se-suprime) | Una cifra que ningun control consume no se vigila: se suprime | 2026-09-08 | Vigente | report_auditor |
+| [D-125](#d-125---un-barrido-no-se-defiende-con-una-regla-de-lectura-sino-con-otra-orden-que-lo-contraste) | Un barrido no se defiende con una regla de lectura, sino con otra orden que lo contraste | 2026-09-08 | Vigente | report_auditor |
+| [D-126](#d-126---la-serie-del-ejemplo-de-trazabilidad-se-completa-y-el-ambito-de-la-regla-es-la-union-de-los-seis) | La serie del ejemplo de trazabilidad se completa, y el ambito de la regla es la union de los seis | 2026-09-08 | Vigente | report_auditor |
+| [D-127](#d-127---un-control-obligatorio-que-no-deja-salida-publica-su-salida-tambien-cuando-sale-limpia) | Un control obligatorio que no deja salida publica su salida, tambien cuando sale limpia | 2026-09-08 | Vigente | report_auditor |
+| [D-128](#d-128---el-acta-de-cierre-de-etapa-se-llama-phase_exit_recordmd-y-vive-en-la-raiz-de-_templates) | El acta de cierre de etapa se llama `phase_exit_record.md` y vive en la raiz de `_templates/` | 2026-09-08 | Vigente | manager |
+| [D-129](#d-129---phase_exit_auditor-corre-con-sonnet-el-nivel-que-el-repositorio-ya-da-a-quien-solo-ejecuta-un-procedimiento) | `phase_exit_auditor` corre con Sonnet, el nivel que el repositorio ya da a quien solo ejecuta un procedimiento | 2026-09-08 | Vigente | usuario |
 
 ---
 
@@ -7906,3 +7912,331 @@ $ git show c1fb41e:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Decidir qui
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-124 - Una cifra que ningun control consume no se vigila: se suprime
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-083` es la tercera vez que la cifra accesoria del Paso 2d —el recuento de
+  **ordenes distintas**— sale falsa. Las tres veces la cifra **principal** (lineas devueltas) estaba
+  bien. Comprobado contra `HEAD` antes de aceptar el hallazgo:
+
+  ```
+  $ git diff -U0 c1fb41e^ c1fb41e -- _persistence _audit ':(exclude)_audit/S-029.md' | grep -E '^\+\$ ' | sed 's/^+//' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+  37
+  $ git diff -U0 c1fb41e^ c1fb41e -- _persistence _audit ':(exclude)_audit/S-029.md' | grep -E '^\+\$ ' | sed 's/^+//' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | sort -u | wc -l
+  27
+  ```
+
+  El informe publico `35`. Y su bloque `uniq -d` publico tres lineas donde la orden devuelve diez.
+- **Lo que ya se habia intentado dos veces:** pedirlo por escrito. `F-068` produjo «va aparte y con
+  ese nombre»; `F-072` produjo «va con SU orden y su salida cruda — no se estima». Las dos reglas
+  estaban vivas en `protocol-close` cuando se escribio la tercera cifra falsa.
+- **Decision:** el Paso 2d publica **una sola cifra**, la de lineas devueltas. El recuento de ordenes
+  distintas **se suprime del paso**, en la skill y en la plantilla de la seccion 7 del informe. Y la
+  salida de `uniq -d`, que si se conserva, se pega **entera**: nombrar a mano cuales son los pares
+  repetidos es lo que produjo la salida truncada.
+- **Por que suprimir y no vigilar mejor, que es el punto entero:** ninguna otra parte del protocolo
+  consume esa cifra. Una cifra que nadie usa es una cifra que nadie recomprueba, y por eso es
+  siempre la que se estima. Suprimirla no pierde informacion —quien la necesite corre
+  `sort -u | wc -l` y pega su salida como cualquier otra evidencia—; lo que quita es el sitio donde
+  equivocarse. Es `PI-2` aplicado a un control: la tercera regla que vigila lo mismo es la senal de
+  que sobra lo vigilado, no de que falte vigilancia.
+- **Alternativas descartadas:** (a) **una tercera regla** que exigiera pegar la salida de `sort -u`:
+  es literalmente lo que dicen las dos que ya hay. (b) **un control mecanico** que recalculara la
+  cifra y la comparara: coste real para defender un numero que nadie lee. (c) **dejarlo como esta y
+  confiar en la auditoria**: funciona —lo ha cazado tres veces— pero el coste lo paga el auditor
+  cada pasada, y mientras tanto el informe afirma algo falso.
+- **Reversible a criterio** — se edita una skill; no se borra registro, no se toca nada commiteado y
+  volver atras es reescribir el parrafo. Clasificacion declarada como criterio, no leida de una
+  tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 2d de `protocol-close` ya no menciona el recuento de ordenes
+  distintas como parte del paso, y la plantilla de la seccion 7 tampoco.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la UNICA cifra del paso'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La cifra de ORDENES DISTINTAS ya no se publica'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### D-125 - Un barrido no se defiende con una regla de lectura, sino con otra orden que lo contraste
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-084`. La tabla del Paso 2e de `S-029` publica **nueve** filas donde el commit
+  lleva **once** archivos, y escribe `0` para dos archivos donde el barrido devuelve `1` y `5`.
+  Comprobado contra `HEAD` antes de aceptar:
+
+  ```
+  $ for f in $(git diff --name-only c1fb41e^ c1fb41e); do echo "$f head=$(git show c1fb41e^:"$f" 2>/dev/null | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]') commit=$(git show c1fb41e:"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')"; done
+  .claude/skills/protocol-close/SKILL.md head=0 commit=0
+  CLAUDE.md head=0 commit=0
+  _audit/S-027.md head=0 commit=0
+  _audit/S-029.md head=0 commit=0
+  _audit/findings.md head=1 commit=1
+  _audit/index.md head=0 commit=0
+  _persistence/assumptions.md head=4 commit=4
+  _persistence/decisions.md head=7 commit=7
+  _persistence/lessons.md head=0 commit=0
+  _persistence/progress.md head=0 commit=0
+  _persistence/tasks.md head=5 commit=5
+  ```
+- **Que descarta esta comprobacion:** que la culpa fuera de la orden. Las seis lineas que la tabla no
+  ve llevan el mismo `0x08` que las de `assumptions.md` y `decisions.md`, que si salieron. La orden
+  escrita funciona; los numeros se transcribieron a mano.
+- ⚠️ **Y lo que NO se puede determinar:** que devolvio la orden en el entorno del cierre. Eso no
+  consta en ningun sitio y no se reconstruye contra el repositorio. Lo comprobable es que la salida
+  publicada no reproduce, y eso es todo lo que la nota fechada afirma.
+- **Decision:** el Paso 2e gana **dos contrastes obligatorios**, que se publican con la tabla aunque
+  salga limpia:
+  1. `git diff --cached --name-only --diff-filter=d | wc -l` — cuantas **filas** tiene que tener.
+  2. el **total** de lineas con caracteres de control sobre todos los archivos a la vez, sin pasar
+     por la tabla; la suma de la columna tiene que dar eso.
+- **Por que estos dos y no una regla mas:** ninguno mira lo que la tabla dice. Los dos preguntan lo
+  mismo por otro camino y comparan. Sobre el commit que abrio el hallazgo fallan solos, y las dos
+  cifras estan comprobadas:
+
+  ```
+  $ git diff --name-only --diff-filter=d c1fb41e^ c1fb41e | wc -l
+  11
+  $ for f in $(git diff --name-only --diff-filter=d c1fb41e^ c1fb41e); do git show c1fb41e:"$f"; done | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'
+  17
+  ```
+
+  `11` contra las nueve filas publicadas; `17` contra la suma `11` de la columna.
+- **Alternativas descartadas:** (a) **repetir la regla de pegar en vez de teclear**: ya estaba
+  escrita, y el paso entero existe porque una regla de lectura no basto. (b) **redirigir la salida a
+  un archivo y pegarla con `cat`**: el Paso 7c ya prohibe `cat` en los barridos, y ademas no impide
+  transcribir. (c) **exigir solo el recuento de filas**: habria cazado las dos filas ausentes, pero
+  no el `0` mal escrito; hacen falta los dos.
+- **Reversible a criterio** — se edita una skill. Clasificacion declarada como criterio, no leida de
+  una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 2e de `protocol-close` declara los dos contrastes, y la plantilla
+  de la seccion 8 del informe los exige.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos contrastes de la tabla'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DOS CONTRASTES de la tabla'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### D-126 - La serie del ejemplo de trazabilidad se completa, y el ambito de la regla es la union de los seis
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-085`. `CLAUDE.md` pide que la serie de un ejemplo trabajado empiece por el primero
+  y no se salte ninguno, y el commit que escribio esa regla contenia un numero suelto en el ambito
+  del que la regla habla. Comprobado contra `HEAD` antes de aceptar:
+
+  ```
+  $ git grep -hIoE '\b(FT|SC)-[0-9]+\b' HEAD -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort | uniq -c
+       10 FT-001
+        2 FT-002
+        1 FT-003
+        1 FT-004
+        7 SC-001
+        3 SC-002
+        2 SC-003
+        1 SC-007
+  $ git grep -nE '\bSC-007\b' HEAD -- _templates
+  HEAD:_templates/020_baseline/045_traceability.md:200:| `SC-007` | `FT-004` Exportar historico mensual | — | **NO — feature huerfana** |
+  ```
+- **Decision, en dos mitades:**
+  1. La fila del ejemplo pasa de `SC-007` a `SC-004`. Con eso las dos series quedan completas desde
+     el primero: `FT-001` a `FT-004` y `SC-001` a `SC-004`.
+  2. **El ambito de la regla es la union de los seis archivos y carpetas agnosticos**, no cada
+     archivo por separado. Es el ambito con el que el hallazgo se levanto y el que el barrido del
+     Paso 1b va a usar.
+- **Por que no se amplia la excepcion en vez de renumerar, que era la otra salida:** el salto no
+  ensena nada. Lo que hace huerfana a esa fila es la columna `N-XXX` vacia y la palabra escrita al
+  final, no el numero; con `SC-004` la fila dice exactamente lo mismo. Y ampliar la excepcion tendria
+  un coste concreto: el barrido binario que `T-112` tiene que escribir dejaria de poder ser binario,
+  que es justo lo que la regla nueva vino a permitir.
+- 🔑 **Y la segunda mitad no es un detalle:** sin ella, «la serie no se salta ninguno» no tiene
+  respuesta unica. Leida por archivo, el ejemplo de trazabilidad necesitaria tres filas mas para
+  llegar hasta `SC-004`; leida sobre la union, esta completa. La union es la lectura operativa
+  porque es la que un solo barrido puede resolver.
+- **Alternativas descartadas:** (a) **ampliar la excepcion de `CLAUDE.md`** para admitir el numero
+  suelto cuando el ejemplo lo necesita: cuesta un criterio nuevo en prosa y rompe el barrido binario.
+  (b) **anadir las filas `SC-002` y `SC-003` al ejemplo**: engorda un ejemplo cuya gracia es tener
+  dos filas —una sana y una huerfana— para resolver un problema de numeracion.
+- **Reversible a criterio** — se cambia un codigo en una fila de una plantilla que ningun archivo
+  referencia. Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** las dos series salen completas desde el primero sobre los seis, sin huecos.
+
+```
+$ git grep -hIoE '\b(FT|SC)-[0-9]+\b' <hash> -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort -u | tr '\n' ' '
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver
+`FT-001 FT-002 FT-003 FT-004 SC-001 SC-002 SC-003 SC-004`.
+
+---
+
+### D-127 - Un control obligatorio que no deja salida publica su salida, tambien cuando sale limpia
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-086`. El CONTROL DE PROSA BORRADA nacio obligatorio en el Paso 7c-bis y su primera
+  ejecucion no dejo ni una linea en el repositorio. Comprobado contra `HEAD` antes de aceptar:
+
+  ```
+  $ git grep -n 'PROSA BORRADA' HEAD -- _audit _persistence | wc -l
+  34
+  ```
+
+  Todas las menciones son **descriptivas** —que el control existe, que se escribio, que `grep -c`
+  sobre la skill devuelve `1`—; ninguna publica lo que el control devolvio al correrse.
+- **Por que importa:** los otros dos controles del mismo tramo, el CENSO y el CONTROL de la NOTA DE
+  CIERRE, si publican su orden y su salida, y por eso `R-029` pudo reejecutarlos. Este no. Que aquella
+  vez no se borrara prosa lo comprobo la auditoria a mano; el control nacio precisamente para dejar de
+  depender de que alguien mire.
+- **Decision:** el Paso 7c-bis publica la orden del CONTROL DE PROSA BORRADA y su **salida entera**
+  dentro de la NOTA DE CIERRE del informe, junto al CENSO y al CONTROL, tambien cuando sale limpia —
+  incluidas las dos lineas `== … ==`, que son lo unico que distingue «salio limpio» de «no se corrio».
+- **Alternativas descartadas:** (a) **publicarla solo cuando detecte algo**: una salida ausente y una
+  ejecucion que no ocurrio se leerian igual, que es exactamente el defecto. (b) **dejar constancia en
+  el reporte de pantalla**: el reporte no se commitea, y la auditoria arranca en frio.
+- **Reversible a criterio** — se edita una skill; lo unico que cambia es que el informe lleve unas
+  lineas mas. Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 7c-bis exige publicar la salida del control, y la plantilla de la
+  seccion 7 del informe la pide dentro de la NOTA DE CIERRE.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Su orden y su salida se publican en la NOTA DE CIERRE'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis'
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### D-128 - El acta de cierre de etapa se llama `phase_exit_record.md` y vive en la raiz de `_templates/`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `T-123` pide escribir la plantilla del acta de cierre de etapa, y el usuario pide
+  ademas darle **el nombre correcto**. Habia dos cosas que decidir: como se llama y donde vive.
+- **Decision, y sus dos mitades:**
+  1. **Se llama `phase_exit_record.md`.** El nombre va en ingles, como todo nombre de archivo de este
+     repositorio. `record` y no `act`: en ingles `act` no significa «acta», y `record` es lo que ya
+     usa `_templates/025_wslt/005_skeleton_record.md` para un artefacto de la misma familia.
+  2. **Vive en la raiz de `_templates/`, no dentro de la carpeta de ninguna etapa.** Es la primera
+     plantilla que se guarda ahi, y por eso la decision hace falta: el resto se agrupa por etapa
+     porque pertenece a una. Esta es la misma para todas.
+- **Por que la ubicacion no es cosmetica:** `D-121` escribio su criterio de cierre como
+  `git ls-tree --name-only <hash> _templates/ | grep -c 'phase_exit'`, y ese `ls-tree` **no es
+  recursivo**: solo ve los hijos directos de `_templates/`, que hoy son nueve carpetas. Una plantilla
+  guardada dentro de la carpeta de una etapa devolveria `0` — el criterio no se cumpliria, y por la
+  razon correcta: estaria diciendo que el acta pertenece a una etapa.
+- **Alternativas descartadas:** (a) **`_templates/phase_exit/005_record.md`**, una carpeta propia:
+  satisface igual el criterio y conserva la forma «carpeta + `NNN_`», pero introduce una carpeta que
+  no es una etapa en un arbol donde toda carpeta lo es. (b) **`_templates/000_preproject/`**: es la
+  etapa que la construye, no la unica que la usa; alli la copiaria mal la etapa siguiente.
+  (c) **`phase_exit_certificate.md`**: preciso, pero mas largo y sin precedente en el arbol.
+- **Reversible a criterio** — se crea un archivo nuevo; renombrarlo mas adelante cuesta un `git mv` y
+  tocar los dos criterios de cierre que lo nombran. Clasificacion declarada como criterio, no leida
+  de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el archivo existe en la raiz de `_templates/` y pasa los dos barridos de
+  agnosticismo.
+
+```
+$ git ls-tree --name-only <hash> _templates/ | grep -c 'phase_exit'
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' <hash> -- _templates/phase_exit_record.md ; echo "exit=$?"
+$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" <hash> -- _templates/phase_exit_record.md ; echo "exit=$?"
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda y la
+tercera, ninguna linea y `exit=1`.
+
+---
+
+### D-129 - `phase_exit_auditor` corre con Sonnet, el nivel que el repositorio ya da a quien solo ejecuta un procedimiento
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** al crear el agente (`T-124`), el usuario indica que corra con **Sonnet**. El campo es
+  una linea de frontmatter y el `git diff` la muestra, pero no muestra el criterio — y el criterio es
+  lo que hace falta el dia que alguien se pregunte por que este agente no corre como los de Gate.
+- **Que dice el reparto que ya existia**, comprobado antes de decidir:
+
+  ```
+  $ grep -H '^model:' .claude/agents/*.md
+  .claude/agents/gate1_auditor.md:model: opus
+  .claude/agents/gate2_auditor.md:model: opus
+  .claude/agents/phase_exit_auditor.md:model: sonnet
+  .claude/agents/report_auditor.md:model: opus
+  .claude/agents/session-closer.md:model: sonnet
+  .claude/agents/session-starter.md:model: haiku
+  ```
+
+  El repositorio **ya escalaba el modelo al trabajo**, y no era una decision registrada: quien solo
+  lee y reporta va con Haiku, quien ejecuta un procedimiento largo y determinista va con Sonnet, y
+  quien emite un juicio sobre evidencia va con Opus.
+- **Decision:** `phase_exit_auditor` declara `model: sonnet`. Ningun otro agente se toca.
+- **Por que Sonnet encaja aqui, que es lo que hace defendible la eleccion:** este agente esta del
+  lado del procedimiento, no del lado del juicio. Localiza una seccion con un patron fijo, extrae la
+  lista con una orden, deriva una orden por casilla y pega salidas — es la misma clase de trabajo que
+  el cierre de sesion, que ya corre con Sonnet. Los tres de Opus hacen otra cosa: contrastan **prosa
+  contra evidencia** y deciden si una afirmacion se sostiene, que es donde un modelo mas capaz se
+  nota.
+- ⚠️ **Y no es una equivalencia limpia, conviene decirlo:** a este agente le queda un juicio, y es
+  decidir si un enunciado pide un hecho o pide un juicio. La frontera esta escrita en el protocolo con
+  sus ejemplos, pero escrita no es lo mismo que trivial.
+- ⚠️ **Y el riesgo que asume, dicho sin adornos:** la conducta que mas caro sale en este agente es
+  **inventar una orden que se parezca al enunciado** y darla por verificacion — precisamente el fallo
+  que un modelo mas pequeño comete antes. El protocolo lo prohibe de forma explicita y el acta obliga
+  a pegar la salida cruda de cada casilla, asi que el defecto seria visible; pero visible no es
+  imposible.
+- **Como se sabra si fue mala eleccion:** la primera acta que produzca. Si alguna casilla llega con
+  una orden que no responde a su enunciado, o con un `CUMPLE` cuya salida no lo sostiene, esta
+  decision se revisa — y esa revision es barata, porque cambiar el modelo es una linea.
+- **Alternativas descartadas:** (a) **`opus`, como los tres que emiten juicio**: era lo que habria
+  salido por inercia —«es un auditor, luego va con los auditores»—, y esa inercia agrupa por el
+  nombre del papel en vez de por la clase de trabajo. (b) **dejar el campo sin declarar** y heredar el
+  modelo por defecto: haria que el agente cambiara de modelo sin que nadie tocara el archivo, que es
+  lo contrario de un registro.
+- **Reversible a criterio** — es una linea de frontmatter y volver atras cuesta lo mismo que ponerla.
+  Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el archivo del agente declara `model: sonnet`, y el reparto de los seis es
+  el que esta escrito arriba.
+
+```
+$ git show <hash>:.claude/agents/phase_exit_auditor.md | grep -c '^model: sonnet'
+$ git grep -h '^model:' <hash> -- .claude/agents/ | sort | uniq -c
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda, un
+`model: haiku`, tres `model: opus` y dos `model: sonnet`.

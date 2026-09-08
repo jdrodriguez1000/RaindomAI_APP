@@ -50,6 +50,9 @@
 | [L-039](#l-039---un-archivo-escrito-al-principio-de-su-etapa-describe-un-andamiaje-que-la-etapa-aun-no-habia-construido) | Un archivo escrito al principio de su etapa describe un andamiaje que la etapa aun no habia construido | 2026-09-08 | 000_preproject | Sin evaluar |
 | [L-040](#l-040---una-prohibicion-que-ya-reincidio-no-se-arregla-escribiendola-mejor) | Una prohibicion que ya reincidio no se arregla escribiendola mejor | 2026-09-08 | 000_preproject | Sin evaluar |
 | [L-041](#l-041---un-criterio-sin-artefacto-donde-firmarse-no-falla-hasta-que-alguien-intenta-usarlo) | Un criterio sin artefacto donde firmarse no falla hasta que alguien intenta usarlo | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-042](#l-042---el-dato-que-siempre-sale-falso-suele-ser-el-que-nadie-usa-y-entonces-la-correccion-es-quitarlo) | El dato que siempre sale falso suele ser el que nadie usa, y entonces la correccion es quitarlo | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-043](#l-043---una-condicion-escrita-en-prosa-se-recorre-mecanicamente-pero-no-se-verifica-entera-y-eso-pide-un-tercer-valor) | Una condicion escrita en prosa se recorre mecanicamente, pero no se verifica entera — y eso pide un tercer valor | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-044](#l-044---lo-que-crees-saber-de-tu-propio-repositorio-se-comprueba-con-una-orden-sobre-todo-cuando-parece-obvio) | Lo que crees saber de tu propio repositorio se comprueba con una orden, sobre todo cuando parece obvio | 2026-09-08 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1569,3 +1572,108 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
   se escribe **en la misma pasada** donde queda su resultado y quien lo firma. Y la pregunta que lo
   destapa, que conviene hacerse en voz alta: *«cuando esto se cumpla, ¿en que archivo se ve, y quien
   lo firma?»*. Si la respuesta es «se sabra», no hay artefacto.
+
+---
+
+### L-042 - El dato que siempre sale falso suele ser el que nadie usa, y entonces la correccion es quitarlo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | report_auditor |
+
+- **Contexto:** un paso del cierre publicaba dos cifras sobre la misma lista: una **principal** —el
+  numero de lineas que devolvia la orden— y una **accesoria** —cuantas de esas lineas eran ordenes
+  distintas—. Tres auditorias distintas abrieron el mismo hallazgo: la accesoria era falsa. Las tres
+  veces la principal estaba bien.
+- **Que ocurrio:** las dos primeras correcciones fueron reglas escritas, y las dos eran razonables —
+  «va aparte y con ese nombre», «va con SU orden y su salida cruda, no se estima». Las dos seguian
+  vivas, literales y sin tocar, el dia que se escribio la tercera cifra falsa.
+- **Lo que la tercera vez dejo ver, y las dos primeras no:** no era una cifra dificil de calcular. Era
+  una cifra que **ninguna otra parte del protocolo consumia**. Nadie la leia, nadie la comparaba con
+  nada, ningun control dependia de ella — y por eso era exactamente la que se escribia a ojo mientras
+  la principal, que si se usaba, salia siempre bien.
+- **Leccion:** **cuando un dato sale falso una y otra vez, hay que mirar quien lo consume antes de
+  reforzar la regla que lo vigila.** Si no lo consume nadie, no es un problema de disciplina: es un
+  dato que existe por inercia, y la correccion que funciona es **suprimirlo**. Un dato que no se
+  publica no se puede publicar mal.
+- 🔑 **Y esto no contradice a `L-040`, lo completa.** Aquella dice que una prohibicion reincidente
+  se cierra con un control ejecutable en vez de con mas texto. Esta anade el paso previo: antes de
+  elegir el control, preguntar si lo vigilado hace falta. Un control cuesta escribirlo, correrlo y
+  mantenerlo cada sesion; suprimir cuesta una vez y quita el fallo entero, no lo detecta.
+- ⚠️ **Y el limite, porque es facil pasarse:** esto vale para lo **accesorio**, no para lo incomodo.
+  La pregunta es «¿quien lee esto?», no «¿me molesta calcularlo?». Si algo lo consume —un control,
+  una decision, una casilla de salida—, sigue haciendo falta y se defiende con un contraste mecanico.
+- **Como aplicarla:** al aceptar el tercer hallazgo sobre la misma cifra, listar que la usa. Si la
+  lista sale vacia, la correccion es la supresion, con su decision y sus alternativas escritas —
+  incluida la de vigilarla mejor, para que conste que se considero.
+
+---
+
+### L-043 - Una condicion escrita en prosa se recorre mecanicamente, pero no se verifica entera — y eso pide un tercer valor
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** se iba a construir un agente generico que verificara la condicion de salida de
+  cualquier etapa leyendola del archivo de esa etapa. Habia un supuesto abierto detras: que las
+  condiciones fueran lo bastante uniformes para que un solo procedimiento las recorriera.
+- **Que ocurrio al comprobarlo:** el supuesto se parte limpiamente en dos mitades, y solo una
+  aguanta. **Localizar la seccion, extraer las casillas y contrastar su recuento** funciona identico
+  en las siete etapas, sin cambiar una letra de la orden. **Verificar cada casilla, no.** Una parte de
+  ellas pregunta por un hecho —«existe el archivo», «el barrido devuelve cero lineas»— y de ahi sale
+  una orden; otra parte pregunta por un juicio —si un actor es «alcanzable», si un enunciado nombra o
+  no una pantalla— y esas **no tienen orden posible, ni hoy ni nunca**.
+- **Leccion:** **que una condicion se pueda recorrer con una orden no significa que se pueda
+  comprobar con una orden, y confundir las dos cosas produce el peor de los resultados.** Si el
+  procedimiento solo admite «cumple» y «no cumple», las casillas de juicio se van a resolver
+  inventando una orden que se les parezca — un `grep` que cuenta apariciones de una palabra— y esa
+  cifra se leera despues como si alguien hubiera verificado el juicio.
+- 🔑 **La salida no es reescribir las casillas para que sean todas mecanicas.** Muchas no lo pueden
+  ser sin dejar de decir lo que importan: «alcanzable» no tiene sustituto contable. La salida es
+  **un tercer valor de primera clase** —`NO COMPROBABLE`, con su razon escrita— que sea una respuesta
+  legitima y no una rendicion. Con el, un procedimiento generico basta; sin el, hacen falta
+  instrucciones por etapa o mentiras por casilla.
+- ⚠️ **Y el tercer valor solo funciona si esta prohibido redondearlo.** `NO COMPROBABLE` que se
+  redondea a `CUMPLE` da exactamente el mismo verde que una verificacion, y entonces vuelve a ser
+  peor que no tenerlo.
+- **Como aplicarla:** al escribir un procedimiento que verifique una lista de condiciones en prosa,
+  clasificar primero cada una en **hecho** o **juicio**, y dar al procedimiento los tres valores desde
+  el principio — con la prohibicion explicita de fabricar una orden para un juicio. La pregunta que lo
+  destapa: *«¿que orden devolveria un numero distinto si esto fuera falso?»*. Si no hay ninguna, es
+  juicio.
+
+---
+
+### L-044 - Lo que crees saber de tu propio repositorio se comprueba con una orden, sobre todo cuando parece obvio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-08 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** al registrar por que un agente nuevo corria con un modelo distinto, `manager` escribio
+  la decision apoyandose en una premisa que le parecia evidente: que todos los agentes anteriores
+  usaban el mismo modelo, y que el nuevo seria la primera excepcion.
+- **Que ocurrio:** era falso. Corrida la orden —`grep -H '^model:' .claude/agents/*.md`— aparecieron
+  **tres modelos distintos** ya en uso. La decision entera estaba construida sobre un contraste que no
+  existia, empezando por su titulo.
+- **Como se detecto, que es la parte util:** no por releerla. Se detecto porque el criterio de cierre
+  de esa misma decision **exigia pegar la salida de la orden**, y al correrla para pegarla salio otra
+  cosa. La regla de «toda afirmacion con su orden y su salida cruda» se escribio pensando en el
+  auditor; aqui cazo un error **antes** de que llegara a existir en el commit.
+- **Leccion:** **una premisa sobre el estado del propio repositorio no es conocimiento, es memoria — y
+  la memoria de un repositorio que se edita a diario esta desactualizada por defecto.** El riesgo es
+  peor cuanto mas obvia parece la premisa, porque lo obvio es justo lo que nadie corre.
+- 🔑 **Y hay un patron que lo hace evidente:** las premisas peligrosas son las que empiezan por «los
+  cinco», «todos los», «el unico que», «siempre se ha». Un cuantificador sobre el propio repositorio
+  es una orden esperando a ser escrita.
+- ⚠️ **Lo que salvo el caso no fue el cuidado, fue el orden de trabajo.** El criterio de cierre se
+  escribio **antes** de dar la decision por terminada, y correrlo fue lo que rompio la premisa. Si el
+  bloque de verificacion se hubiera dejado para el final —o para el cierre—, la decision falsa ya
+  estaria commiteada y habria que corregirla por nota fechada.
+- **Como aplicarla:** cualquier afirmacion cuantificada sobre el repositorio va con su orden **en la
+  misma pasada en que se escribe**, no al revisar. Y si la orden devuelve algo distinto de lo
+  esperado, lo que se reescribe es la afirmacion — incluido su titulo, si hace falta.

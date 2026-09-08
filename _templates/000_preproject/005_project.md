@@ -70,6 +70,7 @@ consulta, como lo seria una documentacion en linea.
 | **`report_auditor`** (agente) | audita un commit ya cerrado, verifica y recomienda | **no construye, no corrige, no decide** |
 | **`gate1_auditor`** (agente) | emite el **dictamen tecnico** del Gate 1 sobre la evidencia del prototipo | **no construye, no corrige, y no decide si se construye el MVP** |
 | **`gate2_auditor`** (agente) | emite el **dictamen tecnico** del Gate 2 sobre la evidencia del crecimiento | **no construye, no corrige, y no decide si se sigue invirtiendo** |
+| **`phase_exit_auditor`** (agente) | emite la **revision tecnica** del acta de cierre de una etapa: verifica sus casillas de salida una por una | **no construye, no corrige, y no decide si la etapa esta cerrada** |
 
 🚨 **Un Gate necesita dos firmas, y ninguna sustituye a la otra.** `gate1_auditor` dice si la
 evidencia satisface los criterios, uno por uno, y ahi termina su papel; **quien decide si se

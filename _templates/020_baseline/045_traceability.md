@@ -197,7 +197,7 @@ la señala.
 | `SC-XXX` | Feature | `N-XXX` | ¿La `N-XXX` esta en el alcance? |
 |---|---|---|---|
 | `SC-001` | `FT-001` Solicitar recogida | `N-001` Un cliente no tiene forma de solicitar una recogida sin llamar por telefono | SI |
-| `SC-007` | `FT-004` Exportar historico mensual | — | **NO — feature huerfana** |
+| `SC-004` | `FT-004` Exportar historico mensual | — | **NO — feature huerfana** |
 
 📌 **La segunda fila es lo que este archivo existe para encontrar.** «Exportar historico» funcionaria
 perfectamente; nadie se quejaria nunca de ella. Y es alcance que entro sin que nadie lo decidiera.
