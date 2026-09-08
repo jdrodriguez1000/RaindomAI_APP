@@ -5105,9 +5105,13 @@ $ git grep -ohIE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' 79e88a2^ --
   orden anclada y su salida.
 
 ```
-$ git show <hash>:_persistence/assumptions.md | grep -c 'Nota del 2026-09-08 (`F-077`)'
-$ git show <hash>:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-077`)'
+$ git show c1fb41e:_persistence/assumptions.md | grep -c 'Nota del 2026-09-08 (`F-077`)'
+1
+$ git show c1fb41e:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-077`)'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `c1fb41e`.** Las dos reproducen: devuelven `1`.
 
 ---
 
@@ -5133,8 +5137,11 @@ $ git show <hash>:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-0
   devuelve el total entero y su salida.
 
 ```
-$ git show <hash>:_audit/S-027.md | grep -c 'Nota del 2026-09-08 (`F-078`)'
+$ git show c1fb41e:_audit/S-027.md | grep -c 'Nota del 2026-09-08 (`F-078`)'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ---
 
@@ -5160,8 +5167,11 @@ $ git show <hash>:_audit/S-027.md | grep -c 'Nota del 2026-09-08 (`F-078`)'
   criterio de distincion.
 
 ```
-$ git show <hash>:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado'
+$ git show c1fb41e:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ---
 
@@ -5186,8 +5196,11 @@ $ git show <hash>:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado
   salida.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-080`)'
+$ git show c1fb41e:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-080`)'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ---
 
@@ -5217,9 +5230,13 @@ $ git show <hash>:_persistence/decisions.md | grep -c 'Nota del 2026-09-08 (`F-0
   `protocol-close` describe el control que detecta el borrado, no solo su prohibicion.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -c 'la tercera, cero lineas'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE PROSA BORRADA'
+$ git show c1fb41e:_persistence/decisions.md | grep -c 'la tercera, cero lineas'
+1
+$ git show c1fb41e:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE PROSA BORRADA'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `c1fb41e`.** Las dos reproducen: devuelven `1`.
 
 ---
 
@@ -5246,8 +5263,11 @@ $ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE P
   real de seccion.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento sin la orden que lo devuelve'
+$ git show c1fb41e:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento sin la orden que lo devuelve'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ---
 

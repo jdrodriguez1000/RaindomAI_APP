@@ -7641,9 +7641,14 @@ $ git grep -hIoE '\b(T|D|F|L|A|C|DT|S|R|N|I|H|FT|SC|LG|TC)-[0-9]+\b' d23e5a6 -- 
   el primero, sin saltos.
 
 ```
-$ git show <hash>:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado'
-$ git grep -hIoE '\bT-[0-9]{3}\b' <hash> -- _methodology | sort -u | tr '\n' ' '
+$ git show c1fb41e:CLAUDE.md | grep -c 'serie consecutiva de un ejemplo trabajado'
+1
+$ git grep -hIoE '\bT-[0-9]{3}\b' c1fb41e -- _methodology | sort -u | tr '\n' ' '
+T-001 T-002 T-003 T-004 T-005 T-006 T-007 T-008
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `c1fb41e`.** Las dos reproducen: la primera devuelve `1`;
+la segunda, la serie `T-001` a `T-008` sin huecos.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda, la
@@ -7688,8 +7693,11 @@ serie `T-001` a `T-008` sin huecos.
   sesion —que anadio prosa a cinco entradas y no borro ninguna linea.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE PROSA BORRADA'
+$ git show c1fb41e:.claude/skills/protocol-close/SKILL.md | grep -c 'CONTROL DE PROSA BORRADA'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
@@ -7730,8 +7738,11 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
   real de seccion.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento sin la orden que lo devuelve'
+$ git show c1fb41e:.claude/skills/protocol-close/SKILL.md | grep -c 'recuento sin la orden que lo devuelve'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
@@ -7887,8 +7898,11 @@ existe** — lo producira `T-124`. Las dos tienen que devolver `1`.
   hueco del repositorio de lecciones tiene su tarea abierta.
 
 ```
-$ git show <hash>:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Decidir quien escribe y commitea en el repositorio de lecciones globales'
+$ git show c1fb41e:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Decidir quien escribe y commitea en el repositorio de lecciones globales'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `c1fb41e`.** Reproduce: devuelve `1`.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
