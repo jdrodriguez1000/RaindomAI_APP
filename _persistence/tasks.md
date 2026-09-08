@@ -5579,8 +5579,11 @@ $ git diff -U0 c1fb41e^ c1fb41e -- _persistence _audit ':(exclude)_audit/S-029.m
   entera.
 
 ```
-$ git show <hash>:_audit/S-029.md | grep -c 'Nota del 2026-09-08 (`F-083`)'
+$ git show 9b3f9ee:_audit/S-029.md | grep -c 'Nota del 2026-09-08 (`F-083`)'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `9b3f9ee`.** Reproduce lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
@@ -5605,9 +5608,13 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 - **Criterio de cierre:** el Paso 2d declara su cifra unica y la supresion.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la UNICA cifra del paso'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La cifra de ORDENES DISTINTAS ya no se publica'
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'la UNICA cifra del paso'
+1
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'La cifra de ORDENES DISTINTAS ya no se publica'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
@@ -5651,8 +5658,11 @@ _persistence/tasks.md head=5 commit=5
   entera.
 
 ```
-$ git show <hash>:_audit/S-029.md | grep -c 'Nota del 2026-09-08 (`F-084`)'
+$ git show 9b3f9ee:_audit/S-029.md | grep -c 'Nota del 2026-09-08 (`F-084`)'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `9b3f9ee`.** Reproduce lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
@@ -5686,9 +5696,13 @@ $ for f in $(git diff --name-only --diff-filter=d c1fb41e^ c1fb41e); do git show
   exige.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos contrastes de la tabla'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DOS CONTRASTES de la tabla'
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos contrastes de la tabla'
+1
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'DOS CONTRASTES de la tabla'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
@@ -5718,8 +5732,11 @@ HEAD:_templates/020_baseline/045_traceability.md:200:| `SC-007` | `FT-004` Expor
 - **Criterio de cierre:** las dos series salen completas desde el primero sobre los seis, sin huecos.
 
 ```
-$ git grep -hIoE '\b(FT|SC)-[0-9]+\b' <hash> -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort -u | tr '\n' ' '
+$ git grep -hIoE '\b(FT|SC)-[0-9]+\b' 9b3f9ee -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort -u | tr '\n' ' '
+FT-001 FT-002 FT-003 FT-004 SC-001 SC-002 SC-003 SC-004
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `9b3f9ee`.** Reproduce lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver
@@ -5753,9 +5770,13 @@ $ git grep -n 'PROSA BORRADA' HEAD -- _audit _persistence | wc -l
   pide dentro de la NOTA DE CIERRE.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Su orden y su salida se publican en la NOTA DE CIERRE'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis'
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'Su orden y su salida se publican en la NOTA DE CIERRE'
+1
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.

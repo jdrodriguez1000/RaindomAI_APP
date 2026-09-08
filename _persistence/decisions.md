@@ -7959,9 +7959,13 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
   distintas como parte del paso, y la plantilla de la seccion 7 tampoco.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la UNICA cifra del paso'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La cifra de ORDENES DISTINTAS ya no se publica'
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'la UNICA cifra del paso'
+1
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'La cifra de ORDENES DISTINTAS ya no se publica'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
@@ -8027,9 +8031,13 @@ existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
   de la seccion 8 del informe los exige.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos contrastes de la tabla'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DOS CONTRASTES de la tabla'
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'Los dos contrastes de la tabla'
+1
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'DOS CONTRASTES de la tabla'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
@@ -8084,8 +8092,11 @@ existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
 - **Criterio de cierre:** las dos series salen completas desde el primero sobre los seis, sin huecos.
 
 ```
-$ git grep -hIoE '\b(FT|SC)-[0-9]+\b' <hash> -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort -u | tr '\n' ' '
+$ git grep -hIoE '\b(FT|SC)-[0-9]+\b' 9b3f9ee -- .claude CLAUDE.md _phases _methodology _templates _workflow | sort -u | tr '\n' ' '
+FT-001 FT-002 FT-003 FT-004 SC-001 SC-002 SC-003 SC-004
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `9b3f9ee`.** Reproduce lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver
@@ -8126,9 +8137,13 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver
   seccion 7 del informe la pide dentro de la NOTA DE CIERRE.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Su orden y su salida se publican en la NOTA DE CIERRE'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis'
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'Su orden y su salida se publican en la NOTA DE CIERRE'
+1
+$ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
@@ -8168,10 +8183,15 @@ existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
   agnosticismo.
 
 ```
-$ git ls-tree --name-only <hash> _templates/ | grep -c 'phase_exit'
-$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' <hash> -- _templates/phase_exit_record.md ; echo "exit=$?"
-$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" <hash> -- _templates/phase_exit_record.md ; echo "exit=$?"
+$ git ls-tree --name-only 9b3f9ee _templates/ | grep -c 'phase_exit'
+1
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H)-[0-9]{2,3}\b' 9b3f9ee -- _templates/phase_exit_record.md ; echo "exit=$?"
+exit=1
+$ git grep -nE "RaindomAI|RaidomAI|Proyectos_TripleS|github\.com" 9b3f9ee -- _templates/phase_exit_record.md ; echo "exit=$?"
+exit=1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las tres reproducen lo publicado arriba.
 
 ⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda y la
@@ -8233,9 +8253,15 @@ tercera, ninguna linea y `exit=1`.
   el que esta escrito arriba.
 
 ```
-$ git show <hash>:.claude/agents/phase_exit_auditor.md | grep -c '^model: sonnet'
-$ git grep -h '^model:' <hash> -- .claude/agents/ | sort | uniq -c
+$ git show 9b3f9ee:.claude/agents/phase_exit_auditor.md | grep -c '^model: sonnet'
+1
+$ git grep -h '^model:' 9b3f9ee -- .claude/agents/ | sort | uniq -c
+      1 model: haiku
+      3 model: opus
+      2 model: sonnet
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9b3f9ee`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda, un
