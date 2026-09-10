@@ -98,10 +98,12 @@
 | [F-084](#f-084---la-tabla-del-paso-2e-publica-0-caracteres-de-control-para-_auditfindingsmd-y-_persistencetasksmd-donde-el-barrido-devuelve-1-y-5) | La tabla del Paso 2e publica `0` caracteres de control para `_audit/findings.md` y `_persistence/tasks.md`, donde el barrido devuelve `1` y `5` | R-029 | Media | Implementado |
 | [F-085](#f-085---la-regla-que-este-commit-escribe-en-claudemd-la-serie-empieza-por-el-primero-y-no-se-salta-ninguno-la-incumple-el-propio-commit-en-_templates) | La regla que este commit escribe en `CLAUDE.md` («la serie empieza por el primero y no se salta ninguno») la incumple el propio commit, en `_templates/` | R-029 | Media | Implementado |
 | [F-086](#f-086---el-control-de-prosa-borrada-nace-obligatorio-y-no-deja-ninguna-salida-en-el-repositorio-su-primera-ejecucion-no-es-auditable) | El CONTROL DE PROSA BORRADA nace obligatorio y no deja ninguna salida en el repositorio: su primera ejecucion no es auditable | R-029 | Baja | Implementado |
-| [F-087](#f-087---la-seccion-4-del-informe-publica-trece-supuestos-abiertos-donde-su-propia-orden-devuelve-quince-y-su-propia-enumeracion-suma-quince) | La seccion 4 del informe publica «trece» supuestos abiertos donde su propia orden devuelve quince, y su propia enumeracion suma quince | R-030 | Media | Aceptado — pendiente |
-| [F-088](#f-088---la-nota-de-cierre-afirma-las-6-restantes-y-su-desglose-enumera-cinco) | La NOTA DE CIERRE afirma «las 6 restantes» y su desglose enumera cinco | R-030 | Baja | Aceptado — pendiente |
-| [F-089](#f-089---la-plantilla-005_projectmd-no-recibe-la-actualizacion-de-la-fila-_audit-que-si-recibe-projectmd-y-el-informe-la-describe-como-el-mismo-cambio) | La plantilla `005_project.md` no recibe la actualizacion de la fila `_audit/` que si recibe `project.md`, y el informe la describe como «el mismo cambio» | R-030 | Media | Aceptado — pendiente |
-| [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Aceptado — pendiente |
+| [F-087](#f-087---la-seccion-4-del-informe-publica-trece-supuestos-abiertos-donde-su-propia-orden-devuelve-quince-y-su-propia-enumeracion-suma-quince) | La seccion 4 del informe publica «trece» supuestos abiertos donde su propia orden devuelve quince, y su propia enumeracion suma quince | R-030 | Media | Implementado |
+| [F-088](#f-088---la-nota-de-cierre-afirma-las-6-restantes-y-su-desglose-enumera-cinco) | La NOTA DE CIERRE afirma «las 6 restantes» y su desglose enumera cinco | R-030 | Baja | Implementado |
+| [F-089](#f-089---la-plantilla-005_projectmd-no-recibe-la-actualizacion-de-la-fila-_audit-que-si-recibe-projectmd-y-el-informe-la-describe-como-el-mismo-cambio) | La plantilla `005_project.md` no recibe la actualizacion de la fila `_audit/` que si recibe `project.md`, y el informe la describe como «el mismo cambio» | R-030 | Media | Implementado |
+| [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Implementado |
+| [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Abierto |
+| [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Abierto |
 
 ---
 
@@ -4105,9 +4107,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-136`, `T-137` |
-| Cerrado en | |
+| Cerrado en | `30ce070` (verificado en `R-031`) |
 
 - **Que se observo:** la seccion 4 de `_audit/S-030.md` escribe la orden y afirma que «devuelve
   trece filas: `A-001` a `A-009`, `A-011` a `A-015` y `A-017`». La enumeracion son 9 + 5 + 1 = quince
@@ -4130,9 +4132,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-138`, `T-139` |
-| Cerrado en | |
+| Cerrado en | `30ce070` (verificado en `R-031`) |
 
 - **Que se observo:** la NOTA DE CIERRE de `_audit/S-030.md` escribe «las 6 restantes de las 21 …
   (`D-126`: 1; `D-128`: 3; `T-134`: 1)», que suma cinco. La sexta existe y esta en `D-129`
@@ -4151,9 +4153,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-140` |
-| Cerrado en | |
+| Cerrado en | `30ce070` (verificado en `R-031`) |
 
 - **Que se observo:** `project.md` recibe dos cambios en `9b3f9ee` —la fila de `phase_exit_auditor` y
   la fila de `_audit/`, que pasa a nombrar las actas de cierre de etapa—; `_templates/000_preproject/005_project.md`
@@ -4175,9 +4177,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-141` |
-| Cerrado en | |
+| Cerrado en | `30ce070` (verificado en `R-031`) |
 
 - **Que se observo:** la tabla de la seccion 8 de `_audit/S-030.md` publica catorce archivos y su
   contraste 1 devuelve `14`; el commit lleva diecisiete. Los tres que faltan —`_persistence/progress.md`,
@@ -4192,3 +4194,53 @@ git log -1 --format=%h -- _audit/S-XXX.md
 - **Que lo corregiria:** repetir el barrido y sus dos contrastes despues del commit, anclados
   (`git diff --name-only --diff-filter=d <hash>^ <hash>`), y publicar esa segunda salida en la NOTA
   DE CIERRE junto al CENSO y al CONTROL.
+
+---
+
+### F-091 - La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente
+| Campo | Valor |
+|---|---|
+| Auditoria | R-031 |
+| Fecha | 2026-09-10 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la lista del Paso 2d en `_audit/S-031.md` tiene 21 lineas, de las que 19 llevan
+  `<hash>` (`grep -cE '^ +[0-9]+\s+\+\$ '` devuelve `21`; filtrando por `<hash>`, `19`). El informe
+  escribe dos cifras que no salen de ninguna orden: la seccion 7 (linea 280) dice «las 20 lineas 1 a
+  20 llevan `<hash>` literal» —falso por una: la linea 15 usa el hash historico `9b3f9ee`—, y la NOTA
+  DE CIERRE (linea 305) dice «Las 14 restantes de las 21 lineas» —falso por doce: `21 - 19 = 2`—,
+  contradiciendose con la frase siguiente de la misma oracion, que si reparte bien (`19 + 1 + 1`).
+  Evidencia completa en `_audit/R-031.md`, seccion 2.
+- **Por que importa:** la afirmacion de fondo se sostiene (las 19 estan ancladas y reproducen), pero
+  es reincidencia del defecto de `F-087` y `F-088`, en el mismo commit que estrena `D-131`, la
+  decision que lo prohibe. Una regla que se incumple en el commit que la escribe no se puede dar por
+  vigente sin comprobarlo.
+- **Que lo corregiria:** derivar las dos cifras con la orden sobre el bloque ya publicado y pegar su
+  salida, en vez de teclearlas.
+
+---
+
+### F-092 - La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce»
+| Campo | Valor |
+|---|---|
+| Auditoria | R-031 |
+| Fecha | 2026-09-10 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 4 de `_audit/S-031.md` publica bien la salida cruda de su orden
+  (`14`) y a continuacion escribe que «`A-006` a `A-009`, `A-011` a `A-015` (nueve codigos) mas
+  `A-004` y `A-005` … completan los catorce». Son `4 + 5 + 2 = 11`; faltan `A-001`, `A-002` y
+  `A-003`. La lista real, derivada, es `A-001 A-002 A-003 A-004 A-005 A-006 A-007 A-008 A-009 A-011
+  A-012 A-013 A-014 A-015`. Evidencia completa en `_audit/R-031.md`, seccion 2.
+- **Por que importa:** el parrafo dice literalmente que no transcribe la lista «para no volver a
+  cometer el error que `F-087` acaba de corregir», y transcribe una parcial declarandola completa.
+  `A-003` —el supuesto que la propia seccion destaca como el que dejaria «el ciclo entero del producto
+  en duda»— queda fuera del recuento.
+- **Que lo corregiria:** derivar tambien la lista de codigos con la misma orden
+  (`... | grep -oE 'A-[0-9]+' | sort -u`) y pegarla, o suprimir el verbo «completan».
