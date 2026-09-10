@@ -889,6 +889,30 @@ este informe, los archivos y `git`. No escribas como si compartiera contexto:
 - 🚨 **Escribe el informe completo, sin resumir.** Lo que se ahorre aqui es exactamente lo que el
   auditor tendra que reconstruir, y lo reconstruira adivinando.
 
+### 🚨 Ninguna cifra del informe se teclea. **Ninguna, y en ninguna seccion**
+
+Toda cifra y toda enumeracion que el informe presente como completa **se deriva con una orden y se
+pega su salida**. No hay seccion exenta: vale para la prosa de cualquier seccion, para la NOTA DE
+CIERRE, y para las notas fechadas que se anadan despues.
+
+⚠️ **Esta regla nacio generica a proposito, y esa es toda su utilidad.** Versiones anteriores la
+escribieron **para un sitio concreto** —una para la seccion de supuestos, otra para el desglose de la
+NOTA DE CIERRE—, y las dos veces el mismo defecto reaparecio **un sitio mas alla**: en la prosa de
+otra seccion, y en una lista que la propia regla anterior autorizaba a escribir a mano. Una regla que
+nombra el lugar solo protege ese lugar.
+
+🔑 **Y por eso una lista tampoco se salva por ser lista.** Una enumeracion de codigos declarada
+completa es una cifra escrita en palabras: si dice «completan los catorce», tiene que salir de la
+orden igual que el `14`. Escribir la lista a mano solo vale **declarandola parcial** — «entre ellos»,
+«los que tocan lo de hoy» —, nunca con un verbo que afirme completitud.
+
+⛔ **No hay control mecanico que cubra esto, y se midio.** Un barrido de numeros en la prosa de un
+informe real marca del orden de 130 lineas, casi todas legitimas: no es un control, es ruido. Lo
+unico que separa la cifra buena de la falsa es pegarla desde su orden — por eso la regla es de
+redaccion y no de barrido.
+
+🔑 **La duda se resuelve siempre igual:** si dudas entre pegar la salida y resumirla, pega la salida.
+
 ### 🚨 Las dos listas del informe se **generan**; escribirlas de memoria es como se quedan cortas
 
 Las secciones 1 y 2 llevan cada una una enumeracion, y **una enumeracion sin salvedad se lee como
@@ -1046,9 +1070,12 @@ entradas YA EXISTENTES que el commit edita, con su codigo (`L-XXX (nace)`, `L-XX
 ## 4. Supuestos vigentes y riesgos
 <`A-XXX` abiertos, que se apoya en ellos, y que pasa si resultan falsos>
 <si se publica la orden que los enumera, debajo va SU SALIDA CRUDA: esta seccion no escribe a mano
-un recuento — ni «devuelve trece filas» ni «son N» — al lado de la orden que lo desmiente. La lista
-de codigos si se escribe; la cifra sale de la orden o no sale>
-<🚨 Cuatro veces ha salido falso un recuento tecleado junto a su propia orden. Si dudas entre pegar
+un recuento — ni «devuelve trece filas» ni «son N» — al lado de la orden que lo desmiente>
+<y la LISTA de codigos tampoco se teclea si se presenta como completa: se deriva con la misma orden
+(`... | grep -oE 'A-[0-9]+' | sort -u`) y se pega. Escrita a mano solo vale declarandola parcial —
+«entre ellos», «los que tocan lo de hoy» —, nunca con un verbo que afirme completitud>
+<🚨 Cinco veces ha salido falso un recuento tecleado junto a su propia orden, y una de ellas fue una
+lista que una version anterior de esta misma linea autorizaba a escribir a mano. Si dudas entre pegar
 la salida y resumirla, pega la salida>
 
 ## 5. Siguiente tarea propuesta

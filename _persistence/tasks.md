@@ -151,8 +151,11 @@
 | [T-140](#t-140---llevar-a-la-plantilla-de-project-la-fila-_audit-con-las-actas-de-cierre-de-etapa-f-089) | Llevar a la plantilla de `project` la fila `_audit/` con las actas de cierre de etapa (`F-089`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-141](#t-141---anadir-al-paso-2e-la-segunda-pasada-anclada-despues-del-commit-f-090) | Anadir al Paso 2e la segunda pasada anclada despues del commit (`F-090`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-142](#t-142---escribir-la-skill-protocol-harvest-que-ejecuta-la-cosecha-d-133) | Escribir la skill `protocol-harvest`, que ejecuta la cosecha (`D-133`) | Implementada | Alta | Bloqueante | `000_preproject` |
-| [T-143](#t-143---hacer-que-el-arranque-mire-tambien-los-supuestos-abiertos-lg-52-d-134) | Hacer que el arranque mire tambien los supuestos abiertos (`LG-52`, `D-134`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-143](#t-143---hacer-que-el-arranque-mire-tambien-los-supuestos-abiertos-lg-52-d-134) | Hacer que el arranque mire tambien los supuestos abiertos (`LG-52`, `D-134`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-144](#t-144---dar-dueño-y-sitio-a-evaluacion-y-observabilidad-lg-54-d-134) | Dar dueño y sitio a evaluacion y observabilidad (`LG-54`, `D-134`) | No implementada | Media | No bloqueante | `005_discovery` |
+| [T-145](#t-145---fijar-por-nota-fechada-las-dos-cifras-del-paso-2d-de-s-031-f-091) | Fijar por nota fechada las dos cifras del Paso 2d de `S-031` (`F-091`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-146](#t-146---fijar-por-nota-fechada-la-lista-de-supuestos-de-la-seccion-4-de-s-031-f-092) | Fijar por nota fechada la lista de supuestos de la seccion 4 de `S-031` (`F-092`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-147](#t-147---generalizar-a-todo-el-informe-la-regla-de-que-ninguna-cifra-se-teclea-f-091-f-092) | Generalizar a todo el informe la regla de que ninguna cifra se teclea (`F-091`, `F-092`) | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -6105,7 +6108,7 @@ existe.** Las ancla el Paso 7c-bis del cierre. Las tres tienen que devolver `1`.
 ### T-143 - Hacer que el arranque mire tambien los supuestos abiertos (`LG-52`, `D-134`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -6137,8 +6140,31 @@ $ grep -n 'assumptions' .claude/skills/protocol-start/SKILL.md
 - ⚠️ **Y hay un limite que la tarea no puede cruzar:** el arranque es de **solo lectura**. Reportar
   un supuesto cuyo disparador se cumplio es reporte; decidir que se hace con el, no.
 - **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-134`.
+- **Que se hizo (S-032):** `assumptions.md` sale de la tabla de lectura a demanda del Paso 2 y entra
+  como quinto archivo obligatorio del Paso 1b —indice **y cuerpo de los `Abierto`**, que es donde
+  vive el disparador (`D-136`)—; el reporte gana un bloque fijo «Supuestos que tocan mirar», y la
+  regla del bloqueo pasa a buscar tambien en `assumptions.md`. La `description` del frontmatter se
+  actualizo para no seguir diciendo «a demanda».
+- 🔑 **El bloque del reporte es obligatorio aunque diga «ninguno»**, por la misma razon que el de
+  «Auditoria»: sin salida visible, saltarse la lectura no se distingue de haberla hecho.
 - **Criterio de cierre:** el protocolo de inicio declara que los supuestos abiertos entran en el
   reporte de bloqueos.
+
+```
+$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c 'Supuestos que tocan mirar'
+2
+$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c '^| `_persistence/assumptions.md` |'
+0
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `0`.
+
+⚠️ **La segunda orden busca la FILA de la tabla, no la frase que la describia.** El primer
+criterio que se escribio para esta tarea buscaba `haya tareas apoyadas en supuestos sin confirmar` y
+devolvia `1` con la tarea ya hecha: esa frase sigue viva **a proposito**, citada en la nota que
+explica por que la fila se movio. Un criterio que no distingue el texto corregido de su explicacion
+no comprueba nada.
 
 ---
 
@@ -6166,3 +6192,117 @@ $ grep -n 'assumptions' .claude/skills/protocol-start/SKILL.md
 - **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-134`.
 - **Criterio de cierre:** existe un `D-XXX` que nombra dueño y sitio de la evaluacion y de la
   observabilidad, cada uno con un artefacto que exista.
+
+---
+
+### T-145 - Fijar por nota fechada las dos cifras del Paso 2d de `S-031` (`F-091`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-032 |
+
+- **Que:** la seccion 7 de `_audit/S-031.md` afirma que «las 20 lineas 1 a 20 llevan `<hash>`» y su
+  NOTA DE CIERRE que «las 14 restantes de las 21» no lo llevaban. El informe **no se reescribe**: se
+  le anade una nota fechada con las dos cifras derivadas por orden y su salida.
+- **Que se comprobo antes de aceptar el hallazgo**, contra `HEAD` (`9bcc92f`), sobre el commit de
+  anclaje del informe:
+
+```
+$ git show eca7304:_audit/S-031.md | sed -n '/^## 7. Evidencia del Paso 2d/,/^> ## NOTA DE CIERRE/p' | grep -cE '^ +[0-9]+\s+\+\$ '
+21
+$ git show eca7304:_audit/S-031.md | sed -n '/^## 7. Evidencia del Paso 2d/,/^> ## NOTA DE CIERRE/p' | grep -E '^ +[0-9]+\s+\+\$ ' | grep -v '<hash>'
+    15	+$ git diff --name-only --diff-filter=d 9b3f9ee^ 9b3f9ee | wc -l
+    21	+$ grep -n 'assumptions' .claude/skills/protocol-start/SKILL.md
+```
+
+- De las lineas 1 a 20, las que llevan `<hash>` son **19**, no 20: la 15 lleva el hash historico
+  `9b3f9ee`. Y las restantes de las 21 son **2**, no 14 — el reparto correcto (`19 + 1 + 1`) es el
+  que la propia frase describe en palabras a continuacion.
+- 🔑 **La afirmacion de fondo se sostiene:** las 19 estaban ancladas y el barrido salia vacio. Lo que
+  fallo son las cifras, no el anclaje — y la nota lo dice para que nadie cierre de mas.
+- **Criterio de cierre:** `_audit/S-031.md` lleva la nota fechada de `F-091` y su prosa anterior
+  sigue entera.
+
+```
+$ git show <hash>:_audit/S-031.md | grep -c 'Nota del 2026-09-10 (`F-091`)'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-146 - Fijar por nota fechada la lista de supuestos de la seccion 4 de `S-031` (`F-092`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-032 |
+
+- **Que:** la seccion 4 de `_audit/S-031.md` publica bien su cifra (`14`, salida cruda) y a
+  continuacion enumera once codigos afirmando que «completan los catorce». El informe **no se
+  reescribe**: se le anade una nota fechada con la lista derivada por orden y su salida.
+- **Que se comprobo antes de aceptar el hallazgo**, sobre el commit sustantivo del informe:
+
+```
+$ git show 30ce070:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | grep -E 'Abierto' | grep -oE 'A-[0-9]+' | sort -u | tr '\n' ' '
+A-001 A-002 A-003 A-004 A-005 A-006 A-007 A-008 A-009 A-011 A-012 A-013 A-014 A-015
+```
+
+- Faltaban `A-001`, `A-002` y `A-003`. La cifra era correcta; la lista, incompleta y declarada
+  completa.
+- ⚠️ **`A-003` es el supuesto que el propio parrafo destaca dos lineas mas abajo** como el que
+  dejaria el ciclo entero del producto en duda: quedo nombrado en la prosa y fuera del recuento.
+- **Criterio de cierre:** `_audit/S-031.md` lleva la nota fechada de `F-092` y su prosa anterior
+  sigue entera.
+
+```
+$ git show <hash>:_audit/S-031.md | grep -c 'Nota del 2026-09-10 (`F-092`)'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-147 - Generalizar a todo el informe la regla de que ninguna cifra se teclea (`F-091`, `F-092`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-032 |
+
+- **Que:** la plantilla del informe (Paso 6b de `protocol-close`) gana un bloque encabezado que
+  prohibe teclear cifras y enumeraciones completas **en cualquier seccion**, y la linea de la seccion
+  4 que decia «la lista de codigos si se escribe» se corrige, porque es la que autorizo `F-092`. Su
+  decision es `D-135`.
+- 🔑 **Por que generica y no una tercera regla de sitio:** las dos reglas anteriores nombraban su
+  seccion, y el defecto reaparecio en las dos secciones contiguas. La forma que ya fallo dos veces no
+  se repite una tercera (`L-047`).
+- ⛔ **Se descarto un control mecanico, y se midio antes de descartarlo:** un barrido de numeros en la
+  prosa marca del orden de 130 lineas en un solo informe, casi todas legitimas. La evidencia esta en
+  `D-135`.
+- **Criterio de cierre:** la plantilla lleva la regla sin nombrar seccion, y la autorizacion anterior
+  ya no esta.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Ninguna, y en ninguna seccion'
+1
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos si se escribe; la cifra sale de la orden o no sale'
+0
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.

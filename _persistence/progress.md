@@ -55,6 +55,7 @@
 | [S-029](#s-029---se-aceptan-f-076-a-f-082-t-116-a-t-122-nace-el-acta-de-cierre-de-etapa-d-121-a-d-123) | Se aceptan `F-076` a `F-082` (`T-116` a `T-122`); nace el acta de cierre de etapa, con `phase_exit_auditor` y la cosecha antes de la firma (`D-121` a `D-123`) | 2026-09-08 | `000_preproject` |
 | [S-030](#s-030---se-aceptan-f-083-a-f-086-t-130-a-t-135-nace-el-acta-de-cierre-de-etapa-y-el-sexto-agente-phase_exit_auditor-t-123-a-t-125) | Se aceptan `F-083` a `F-086` (`T-130` a `T-135`); se construye el acta de cierre de etapa y el sexto agente `phase_exit_auditor` (`T-123` a `T-125`) | 2026-09-08 | `000_preproject` |
 | [S-031](#s-031---se-aceptan-f-087-a-f-090-t-136-a-t-141-nace-la-skill-protocol-harvest-t-142-y-se-cierra-el-enganche-del-acta-t-126-t-127-t-129) | Se aceptan `F-087` a `F-090` (`T-136` a `T-141`); nace la skill `protocol-harvest` (`T-142`) y se cierra el enganche del acta (`T-126`, `T-127`, `T-129`) | 2026-09-10 | `000_preproject` |
+| [S-032](#s-032---se-aceptan-f-091-y-f-092-t-145-a-t-147-el-arranque-lee-los-supuestos-abiertos-t-143-d-136) | Se aceptan `F-091` y `F-092` (`T-145` a `T-147`); el arranque lee los supuestos abiertos (`T-143`, `D-136`) | 2026-09-10 | `000_preproject` |
 
 ---
 
@@ -80,95 +81,82 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-10 (S-031) |
+| Ultima actualizacion | 2026-09-10 (S-032) |
 | Salud | En marcha |
-| Avance de la etapa | Se evaluaron los cuatro hallazgos abiertos de `R-030` (`F-087` a `F-090`): los cuatro se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-136` a `T-141`). `F-087` y `F-088` se corrigen por nota fechada en `_audit/S-030.md`, sin reescribir su prosa (`F-087`: la seccion 4 afirmaba «trece» supuestos abiertos donde la orden devuelve quince y la propia enumeracion suma quince; `F-088`: la NOTA DE CIERRE afirmaba «las 6 restantes» con un desglose que sumaba cinco, faltaba `D-129`). Las correcciones de fondo amplian de nuevo `protocol-close`: la seccion 4 del informe deja de aceptar un recuento tecleado y exige la salida cruda de su orden (`D-130`), y todo desglose de la NOTA DE CIERRE se deriva con una orden sobre el commit de anclaje o no se publica (`D-131`). `F-089` lleva a la plantilla de `project` la fila `_audit/` con las actas de cierre de etapa, que `project.md` ya tenia y la plantilla no. `F-090` desnuda que el Paso 2e mide el area de staging previa al commit, no «los archivos que el commit toca»: gana una segunda pasada obligatoria, anclada, que se publica en la NOTA DE CIERRE aunque salga limpia (`D-132`; `L-045`). Aparte de los hallazgos: `D-133` decide que la cosecha la ejecuta `manager` con la skill propia `protocol-harvest` (nace en esta sesion, `T-142`), con puerta antes de escribir en el repositorio de lecciones; se cierra el enganche del acta —`T-126` (la entrada 3 de `005_discovery.md` exige el acta de la etapa anterior levantada y firmada), `T-127` (decidido por `D-133`) y `T-129` (consulta de arranque a las lecciones globales, `D-134`: dos bloques recorridos —D y E, 17 lecciones—, ocho declarados `NO MIRADOS`, produce `T-143` y `T-144`)—, y `A-017` queda `Confirmado`. Nace tambien `L-046`: un cambio en el registro y el mismo cambio en su plantilla son dos cambios, y se cuentan (de ahi sale `F-089`). Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`). |
+| Avance de la etapa | Se evaluaron, contra `HEAD`, los dos hallazgos abiertos de `R-031` (`F-091`, `F-092`): los dos se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-145` a `T-147`). `F-091` (la seccion 7 de `_audit/S-031.md` afirmaba «las 20 lineas 1 a 20 llevan `<hash>`» y la NOTA DE CIERRE «las 14 restantes de las 21», cuando son 19 y 2) y `F-092` (la seccion 4 enumeraba once codigos de supuesto afirmando que «completan los catorce», faltaban `A-001` a `A-003`) se corrigen por nota fechada en `_audit/S-031.md`, sin reescribir su prosa (`T-145`, `T-146`). De fondo, la regla contra los recuentos tecleados se generaliza a **todo** el informe, en cualquier seccion, no solo donde el defecto acaba de aparecer (`D-135`, `T-147`; nace `L-047`: una regla que nombra el sitio solo protege ese sitio). Aparte de los hallazgos: se implemento `T-143` (el arranque tambien lee los supuestos abiertos cuyo disparador ya se cumplio, `D-136`: se lee el indice **y el cuerpo** de los `Abierto`, no una columna nueva); al escribir su criterio de cierre broto `L-048` (un `grep` de una frase no distingue el defecto de su propia cita explicativa, porque el primer criterio encontraba la frase vieja citada en la nota que explicaba el cambio). El disparador de `A-013` se cumplio por primera vez, a favor del supuesto, sin que eso lo cierre. Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`). |
 | Bloqueos activos | El alcance y el objetivo del proyecto no estan definidos (`T-001`, etapa `005_discovery`, con entrada obligatoria explicita en `_phases/005_discovery.md`: sin acceso al patrocinador la etapa no puede empezar, `A-004`); las etapas posteriores a `005_discovery` no estan declaradas (`T-002`, idem); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar y de el depende el ciclo entero del producto (`T-003`, con una primera comprobacion parcial en `S-011`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-Se evaluaron, verificados contra `HEAD` antes de tratarlos, los cuatro hallazgos abiertos de `R-030`
-(`F-087` a `F-090`). Los cuatro se sostuvieron contra la evidencia y se aceptan:
+Se evaluaron, verificados contra `HEAD` antes de tratarlos, los dos hallazgos abiertos de `R-031`
+(`F-091`, `F-092`). Los dos se sostuvieron contra la evidencia y se aceptan:
 
-- `F-087` (la seccion 4 de `_audit/S-030.md` afirmaba «trece» supuestos abiertos donde la orden
-  devuelve quince y la propia enumeracion suma quince): nota fechada en `_audit/S-030.md`, sin
-  reescribir su prosa (`T-136`). De fondo, la plantilla de la seccion 4 de `protocol-close` deja de
-  aceptar un recuento tecleado: si se publica la orden, debajo va su salida cruda (`D-130`, `T-137`).
-- `F-088` (la NOTA DE CIERRE de `S-030` afirmaba «las 6 restantes» con un desglose que sumaba cinco,
-  faltaba `D-129`): nota fechada con el desglose derivado sobre el commit de anclaje (`T-138`). De
-  fondo, todo desglose que explique una cifra en la NOTA DE CIERRE se deriva con una orden o no se
-  publica (`D-131`, `T-139`).
-- `F-089` (la plantilla `_templates/000_preproject/005_project.md` no recibio la actualizacion de la
-  fila `_audit/` con las actas de cierre de etapa que si recibio `project.md`): la plantilla se
-  corrige (`T-140`); nace `L-046` (un cambio en el registro y el mismo cambio en su plantilla son dos
-  cambios, y se cuentan).
-- `F-090` (el Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging
-  previa al commit; tres archivos que el cierre escribe despues —`progress.md`, el informe y el
-  tablero— quedaban fuera): el Paso 2e gana una **segunda pasada obligatoria**, anclada al commit, que
-  se publica en la NOTA DE CIERRE tambien cuando sale limpia (`D-132`, `T-141`; nace `L-045`: un
-  contraste solo prueba lo que su ambito alcanza, y el ambito no se comprueba a si mismo).
+- `F-091` (la seccion 7 de `_audit/S-031.md` afirmaba «las 20 lineas 1 a 20 llevan `<hash>`» y la
+  NOTA DE CIERRE «las 14 restantes de las 21», cuando de las lineas 1 a 20 las que llevan `<hash>`
+  son 19 —la 15 lleva el hash historico `9b3f9ee`— y las restantes son 2, no 14): nota fechada en
+  `_audit/S-031.md`, sin reescribir su prosa (`T-145`).
+- `F-092` (la seccion 4 enumeraba once codigos de supuesto afirmando que «completan los catorce»;
+  faltaban `A-001`, `A-002` y `A-003`, este ultimo el que el propio parrafo destaca como el que
+  dejaria el ciclo del producto en duda): nota fechada en `_audit/S-031.md`, con la lista completa
+  derivada por orden (`T-146`).
 
-Los cuatro quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna de las
-cuatro correcciones reescribe un informe o una entrada ya commiteada: todas van por nota fechada
-(`D-019`).
+De fondo, `T-147` generaliza la regla contra los recuentos tecleados a **todo** el informe, en
+cualquier seccion (`D-135`): las dos reglas anteriores se habian escrito cada una para el sitio donde
+el defecto acababa de aparecer, y el mismo commit que las estreno lo incumplio un sitio mas alla —una
+cifra en la prosa de otra seccion, y una lista que la primera regla autorizaba expresamente a
+escribir a mano. Nace `L-047`: una regla que nombra el sitio solo protege ese sitio.
 
-Aparte de los hallazgos, se cerro el enganche del acta y se decidio quien cosecha:
+Los dos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna de las dos
+correcciones reescribe un informe ya commiteado: las dos van por nota fechada (`D-019`).
 
-1. **`D-133`/`T-142`** — la cosecha la ejecuta `manager`, con una skill propia (`protocol-harvest`),
-   nunca un agente nuevo (arranca en frio y no puede aplicar el filtro 2 sobre la etapa que cosecha) y
-   nunca a mano. La escritura en el repositorio de lecciones lleva **puerta**: clasificar y redactar
-   las `LG-NN` candidatas es automatico; escribir, commitear y subir en el repositorio externo espera
-   la aprobacion del usuario, una por una. La skill nace en esta misma sesion, con nueve pasos, uso
-   exclusivo de `manager` y la puerta como su Paso 5.
-2. **`T-126`** — `_phases/005_discovery.md` gana una tercera entrada obligatoria: el acta de cierre
-   de la etapa anterior, **levantada y firmada**. Un acta con casillas incumplidas no habilita nada
-   salvo excepcion deliberada con su `D-XXX`.
-3. **`T-129`/`D-134`** — se hizo y registro la consulta de arranque a las lecciones globales: dos
-   bloques por su indice (D — decisiones y arquitectura, E — corte del trabajo), 17 lecciones, y los
-   **ocho** bloques restantes declarados `NO MIRADOS`, no limpios. Produjo `T-143` (el arranque no
-   mira los supuestos abiertos, `LG-52`) y `T-144` (evaluacion y observabilidad sin dueño ni sitio,
-   `LG-54`); confirmo `T-037` sin abrirla de nuevo (`LG-38`); registro una practica ya adoptada y una
-   grieta conocida sin tarea (`LG-51`, `LG-53`); y aplazo once lecciones que exigen producto, con su
-   razon. De paso, `A-017` (los cuatro filtros de promocion estan escritos y son aplicables) queda
-   `Confirmado` — los filtros existen, son cuatro y enuncian su criterio; que sean aplicables sin
-   interpretacion solo lo comprobara la primera cosecha real (`T-128`).
+Aparte de los hallazgos, se implemento `T-143` (`D-134`, `LG-52`): el arranque ahora lee tambien
+`_persistence/assumptions.md` —el indice **y el cuerpo** de los `Abierto`, que es donde vive el
+disparador— como quinto archivo obligatorio del Paso 1b, con un bloque fijo «Supuestos que tocan
+mirar» en su reporte (`D-136`: se descarta anadir una columna al indice porque el disparador es
+prosa, no un valor de conjunto cerrado). Al escribir su criterio de cierre broto `L-048`: el primer
+`grep` buscaba la frase vieja de la tabla movida y la encontraba **citada** en la nota que explicaba
+el cambio — un criterio de texto no distingue el defecto de su propia explicacion.
+
+El disparador de `A-013` (procedencia recuperable de una cita quitada de los archivos agnosticos) se
+cumplio por primera vez al buscar el origen de las dos reglas sin cita de `D-135`/`D-136`, y salio a
+favor del supuesto — sin que eso lo confirme: el supuesto habla de **cada** codigo quitado, y su
+validacion sigue siendo el barrido entero.
 
 Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El Paso 2c
 muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/` y
 `temporal/`).
 
 - **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037`, `T-038` y `T-112` siguen
-  `No implementada`. `T-128` (la primera cosecha real) sigue `No implementada`, ya sin bloqueo: la
-  skill que la ejecuta existe. `T-143` y `T-144`, nacidas esta sesion, siguen `No implementada`.
-  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en
-  `project.md`. `DT-002` a `DT-006` siguen `No implementada` y `Propuesta (pendiente del usuario)`.
-  `A-006` a `A-009` y `A-011` a `A-015` quedan abiertos; `A-010` sigue `Refutado`; `A-016` y `A-017`
-  quedan `Confirmado`. La autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`)
-  sigue sin resolver.
+  `No implementada`. `T-128` (la primera cosecha real) sigue `No implementada`, sin bloqueo. `T-144`
+  sigue `No implementada`. `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol`
+  siguen sin adoptar en `project.md`. `DT-002` a `DT-006` siguen `No implementada` y
+  `Propuesta (pendiente del usuario)`. `A-006` a `A-009` y `A-011`, `A-012`, `A-014`, `A-015` quedan
+  abiertos; `A-013` sigue `Abierto` con su disparador ya activado una vez, sin confirmar; `A-010`
+  sigue `Refutado`; `A-016` y `A-017` quedan `Confirmado`. La autorreferencia del criterio de cierre
+  de `D-088` (senalada desde `S-022`) sigue sin resolver.
 
 ---
 
 ## 3. Siguiente paso
 
-Hacer la primera cosecha real de `000_preproject` con la skill nueva: `T-128`, cuando la etapa se
-vaya a cerrar de verdad (nunca antes: `_phases/000_preproject.md` exige que la cosecha corra **antes**
-de la firma del patrocinador). Antes de esa cosecha conviene resolver `T-143` (el arranque tambien
-mira los supuestos abiertos, no solo las tareas) para que el propio arranque de la sesion que cosecha
-no repita el sesgo que `LG-52` señalo esta sesion.
+Hacer la primera cosecha real de `000_preproject` con la skill `protocol-harvest`: `T-128`, cuando la
+etapa se vaya a cerrar de verdad (nunca antes: `_phases/000_preproject.md` exige que la cosecha corra
+**antes** de la firma del patrocinador). Con `T-143` ya implementada, el arranque de esa sesion ya
+reporta los supuestos con disparador cumplido — la precondicion que `S-031` dejo pendiente para no
+repetir el sesgo que `LG-52` señalo.
 
-Con el acta, el agente y ahora la cosecha construidos, sigue pendiente usarlos por primera vez:
-cuando `manager` declare `000_preproject` lista y la deje commiteada y subida, lanzar
-`phase_exit_auditor` sobre su condicion de salida — el primer uso real de `protocol-phase-exit`.
+Con el acta, el agente y la cosecha construidos, sigue pendiente usarlos por primera vez: cuando
+`manager` declare `000_preproject` lista y la deje commiteada y subida, lanzar `phase_exit_auditor`
+sobre su condicion de salida — el primer uso real de `protocol-phase-exit`.
 
-Y lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que los cuatro
-hallazgos de `R-030` quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de
-`T-136` y `T-138` reproducen sus ordenes sobre `_audit/S-030.md` sin haber tocado su prosa anterior,
-que la seccion 4 del informe ya no acepta un recuento tecleado y la NOTA DE CIERRE deriva sus
-desgloses, que la plantilla de `project` ya nombra las actas de cierre de etapa, que el Paso 2e
-publica su segunda pasada anclada, y que las ordenes con `<hash>` de `D-130` a `D-134` (mas las de
-`T-126`, `T-127`, `T-129` y `T-136` a `T-142` que las repiten) quedaron ancladas por el Paso 7c-bis.
+Y lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que `F-091` y `F-092`
+quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de `T-145` y `T-146`
+reproducen sus ordenes sobre `_audit/S-031.md` sin haber tocado su prosa anterior, que la regla de
+`D-135` quedo escrita sin nombrar seccion, que `T-143`/`D-136` dejaron el arranque leyendo el cuerpo
+de los supuestos `Abierto`, y que las ordenes con `<hash>` de `D-135`, `D-136`, `T-143`, `T-145` a
+`T-147` quedaron ancladas por el Paso 7c-bis.
 
 Sigue pendiente `T-112` (anadir el barrido de codigos instanciados como segundo control del Paso 1b)
 y decidir si `_methodology/` entra alguna vez en la condicion de parada del Paso 1b —hoy bloqueado
@@ -188,10 +176,10 @@ Es decision del usuario si `DT-002` se confirma ya como pagada, si se autoriza `
 disponible para el despliegue del esqueleto) se confirma cuando la etapa se adopte, si `A-012` (la
 lectura de «usuarios reales» en `_workflow/ai_levels.md` §6) se confirma o se corrige antes de que
 `040_evol` se adopte, y si `A-015` (los agentes exigidos, con los dos de Gate montados) se mantiene o
-se acota. `A-013` sigue sin comprobar, por muestreo. Sigue tambien sin resolver la autorreferencia
-del criterio de cierre de `D-088` (senalada desde `S-022`). Y sigue vigente lo que `D-099` dejo
-escrito: si el Paso 7c-bis vuelve a tocar prosa fuera de su bloque de codigo, no hay una tercera
-vuelta — el control que lo detecta (`D-119`) es el mismo que esta sesion obligo a hacer audible.
+se acota. `A-013` sigue sin comprobar de fondo, por muestreo, aunque su primer caso real salio bien.
+Sigue tambien sin resolver la autorreferencia del criterio de cierre de `D-088` (senalada desde
+`S-022`). Y sigue vigente lo que `D-099` dejo escrito: si el Paso 7c-bis vuelve a tocar prosa fuera de
+su bloque de codigo, no hay una tercera vuelta.
 
 ---
 
@@ -1416,6 +1404,52 @@ _workflow/025_wslt.md
   siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009` y `A-011` a `A-015` quedan abiertos;
   `A-010` sigue `Refutado`; `A-016` y `A-017` quedan `Confirmado`. La autorreferencia del criterio de
   cierre de `D-088` sigue sin resolver.
+
+---
+
+### S-032 - Se aceptan `F-091` y `F-092` (`T-145` a `T-147`); el arranque lee los supuestos abiertos (`T-143`, `D-136`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | `000_preproject` |
+| Tareas | T-143, T-145, T-146, T-147 |
+
+- **Que se hizo:** `manager` evaluo los dos hallazgos abiertos por `R-031` sobre `S-031`
+  (`F-091`, `F-092`), los verifico contra `HEAD` (`9bcc92f`) y los acepto los dos. `F-091` (la
+  seccion 7 de `_audit/S-031.md` afirmaba «las 20 lineas 1 a 20 llevan `<hash>`» y la NOTA DE CIERRE
+  «las 14 restantes de las 21»; de las 20, 19 llevan `<hash>` —la 15 lleva el hash historico
+  `9b3f9ee`— y las restantes son 2, no 14) y `F-092` (la seccion 4 enumeraba once codigos de supuesto
+  afirmando que «completan los catorce»; faltaban `A-001`, `A-002` y `A-003`) se corrigen por nota
+  fechada en `_audit/S-031.md`, sin reescribir su prosa (`T-145`, `T-146`). De fondo, `T-147`
+  generaliza la regla contra los recuentos tecleados a **todo** el informe, en cualquier seccion, no
+  solo la del ultimo caso (`D-135`): las dos reglas nacidas en `S-031` se habian escrito cada una
+  para su sitio, y el mismo commit que las estreno las incumplio un sitio mas alla —una cifra en la
+  prosa de otra seccion, y una lista que la primera regla autorizaba expresamente a escribir a mano—.
+  Nace `L-047`: una regla que nombra el sitio solo protege ese sitio.
+
+  Aparte de los hallazgos, se implemento `T-143` (`D-134`, `LG-52`): el Paso 1b de `protocol-start`
+  gana a `_persistence/assumptions.md` como quinto archivo obligatorio —indice y **cuerpo de los
+  `Abierto`**, que es donde vive el disparador, no una columna nueva del indice (`D-136`)—, y el
+  reporte gana un bloque fijo «Supuestos que tocan mirar», obligatorio aunque diga «ninguno». Al
+  escribir su criterio de cierre broto `L-048`: el primer `grep` buscaba la frase que la fila movida
+  llevaba antes, y la encontraba **citada** en la nota que explicaba por que se habia movido — un
+  criterio de texto no distingue el defecto corregido de su propia explicacion.
+
+  El disparador de `A-013` se activo por primera vez, al buscar el origen de `D-135` y `D-136` por su
+  enunciado en `decisions.md`: las dos se encontraron. El supuesto no se cierra —habla de **cada**
+  codigo quitado— pero el primer caso real salio a su favor.
+
+  Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El
+  Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas en `project.md`
+  (`010_prototype/` y `temporal/`).
+- **Que quedo abierto:** `T-001`, `T-002`, `T-003`, `T-037`, `T-038` y `T-112` siguen
+  `No implementada`. `T-128` (la primera cosecha real) sigue `No implementada`, sin bloqueo, y corre
+  solo cuando `000_preproject` se vaya a cerrar de verdad. `T-144` sigue `No implementada`.
+  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin adoptar en
+  `project.md`. `DT-002` a `DT-006` siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009` y
+  `A-011`, `A-012`, `A-014`, `A-015` quedan abiertos; `A-013` sigue `Abierto`, con su disparador
+  activado una vez sin confirmar el supuesto; `A-010` sigue `Refutado`; `A-016` y `A-017` quedan
+  `Confirmado`. La autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
 
 ---
 

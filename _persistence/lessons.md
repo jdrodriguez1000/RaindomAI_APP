@@ -55,6 +55,8 @@
 | [L-044](#l-044---lo-que-crees-saber-de-tu-propio-repositorio-se-comprueba-con-una-orden-sobre-todo-cuando-parece-obvio) | Lo que crees saber de tu propio repositorio se comprueba con una orden, sobre todo cuando parece obvio | 2026-09-08 | 000_preproject | Sin evaluar |
 | [L-045](#l-045---un-contraste-solo-prueba-lo-que-su-ambito-alcanza-y-el-ambito-no-se-comprueba-a-si-mismo) | Un contraste solo prueba lo que su ambito alcanza, y el ambito no se comprueba a si mismo | 2026-09-10 | 000_preproject | Sin evaluar |
 | [L-046](#l-046---un-cambio-en-el-registro-y-el-mismo-cambio-en-su-plantilla-son-dos-cambios-y-se-cuentan) | Un cambio en el registro y el mismo cambio en su plantilla son dos cambios, y se cuentan | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-047](#l-047---una-regla-que-nombra-el-sitio-solo-protege-ese-sitio) | Una regla que nombra el sitio solo protege ese sitio | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-048](#l-048---un-criterio-que-busca-una-frase-no-distingue-el-texto-corregido-de-su-cita) | Un criterio que busca una frase no distingue el texto corregido de su cita | 2026-09-10 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1744,3 +1746,62 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
 - **Como aplicarla:** cuando un cambio toca un archivo que tiene plantilla, la evidencia son **dos**
   ordenes con la misma cadena, una por archivo. Si las dos no devuelven lo mismo, el cambio esta a
   medias — y decirlo «el mismo cambio» lo oculta.
+
+---
+
+### L-047 - Una regla que nombra el sitio solo protege ese sitio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** un mismo defecto —una cifra tecleada al lado de la orden que la desmiente— aparecio
+  cinco veces en informes sucesivos. Cada vez se corrigio con una regla nueva, y cada regla se
+  escribio **para la seccion donde el defecto acababa de aparecer**: una para la seccion de
+  supuestos, otra para el desglose de la nota de cierre.
+- **Que ocurrio:** el commit que estreno las dos reglas las incumplio las dos, y no donde miraban:
+  una cifra en la prosa de **otra** seccion, y una lista que la primera regla **autorizaba
+  expresamente** a escribir a mano. Las reglas funcionaron: lo que fallo es que su alcance era el
+  lugar del ultimo caso, no la forma del defecto.
+- **Leccion:** **una regla redactada alrededor del sitio donde algo fallo deja intacto el sitio de al
+  lado, y ahi es exactamente donde vuelve a fallar.** Peor: al nombrar un lugar, la regla insinua que
+  los demas estan permitidos — la lista tecleada de la quinta ocurrencia no se colo pese a la regla,
+  se colo **amparada** por ella.
+- 🔑 **La senal que lo delata:** la regla se puede enunciar nombrando una seccion, un archivo o un
+  paso. Si al quitarle el complemento de lugar la frase sigue siendo verdadera y util, el lugar
+  sobraba y estaba haciendo dano.
+- **Como aplicarla:** al corregir una reincidencia, escribir la regla **sin lugar** y comprobar dos
+  cosas: que ninguna regla anterior autorice como excepcion lo que la nueva prohibe, y que la forma
+  del defecto —no su ultimo domicilio— sea lo que queda descrito.
+- ⚠️ **Y esto no pide un control mecanico automatico.** Cuando se midio uno para este defecto marcaba
+  del orden de 130 lineas legitimas en un solo archivo: hay defectos cuya unica defensa es la forma
+  de redactar, y confundirlos con los que se barren produce ruido que despues nadie mira.
+
+---
+
+### L-048 - Un criterio que busca una frase no distingue el texto corregido de su cita
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** una tarea movia una fila de una tabla a otro sitio de un protocolo. Su criterio de
+  cierre buscaba, con `grep -c`, la frase que esa fila contenia, y esperaba `0`.
+- **Que ocurrio:** la tarea quedo bien hecha y el criterio devolvio `1`. El motivo es que el mismo
+  cambio anadia una nota explicando **por que** la fila se habia movido, y esa nota **citaba la frase
+  entre comillas**. El criterio no estaba viendo la fila: estaba viendo su explicacion.
+- **Leccion:** **un `grep` de una frase no sabe si lo que encuentra es el defecto o el texto que
+  cuenta como se corrigio.** Y este repositorio corrige casi siempre citando lo corregido —notas
+  fechadas, decisiones con alternativas descartadas, reglas que explican de que fallo nacieron—, asi
+  que la colision no es rara: es la forma normal de trabajar aqui.
+- 🔑 **La senal que lo delata:** el criterio busca **prosa**. Si la cadena buscada es una frase que
+  alguien podria citar al explicar el cambio, el criterio esta mal apuntado.
+- **Como aplicarla:** anclar el criterio a la **forma estructural** de lo que cambia, no a su
+  redaccion — la fila de una tabla por su patron de fila (`^| ...`), un encabezado por su nivel, un
+  campo por su clave. Y cuando se espera un `0`, comprobarlo **antes** de dar la tarea por hecha: un
+  criterio que falla con el trabajo bien hecho se corrige entonces, o se convierte en una discusion
+  con la auditoria siguiente.
+- ⚠️ **La direccion contraria es peor y menos visible:** un criterio que espera `1` y encuentra su
+  propia cita **pasa**, con el trabajo sin hacer. Aqui salto a la vista porque esperaba `0`.

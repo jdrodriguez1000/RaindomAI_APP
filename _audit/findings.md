@@ -102,8 +102,8 @@
 | [F-088](#f-088---la-nota-de-cierre-afirma-las-6-restantes-y-su-desglose-enumera-cinco) | La NOTA DE CIERRE afirma «las 6 restantes» y su desglose enumera cinco | R-030 | Baja | Implementado |
 | [F-089](#f-089---la-plantilla-005_projectmd-no-recibe-la-actualizacion-de-la-fila-_audit-que-si-recibe-projectmd-y-el-informe-la-describe-como-el-mismo-cambio) | La plantilla `005_project.md` no recibe la actualizacion de la fila `_audit/` que si recibe `project.md`, y el informe la describe como «el mismo cambio» | R-030 | Media | Implementado |
 | [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Implementado |
-| [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Abierto |
-| [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Abierto |
+| [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Aceptado — pendiente |
+| [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Aceptado — pendiente |
 
 ---
 
@@ -4203,8 +4203,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-031 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-145` (nota fechada) y `T-147` (`D-135`, regla generica) |
 | Cerrado en | |
 
 - **Que se observo:** la lista del Paso 2d en `_audit/S-031.md` tiene 21 lineas, de las que 19 llevan
@@ -4229,8 +4229,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-031 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-146` (nota fechada) y `T-147` (`D-135`, regla generica) |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 4 de `_audit/S-031.md` publica bien la salida cruda de su orden

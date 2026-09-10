@@ -822,6 +822,24 @@ $ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '(T|D
   fuera lo correcto. Eso lo zanja `D-113` con su barrido. Lo que esta sin comprobar es el
   **coste**: si la trazabilidad se conservo entera o si se perdio en algunos casos.
 
+> 📌 **Nota del 2026-09-10 (`S-032`).** El disparador se cumplio por primera vez, y **a favor
+> del supuesto**: al corregir dos hallazgos hubo que preguntarse de donde salian dos reglas de
+> `protocol-close` que no llevan cita —la que exige salida cruda en la seccion de supuestos del
+> informe y la que obliga a derivar los desgloses de la nota de cierre—, y las dos se encontraron en
+> `decisions.md` **buscando por su enunciado**, que es el camino que el supuesto da por bueno:
+>
+> ```
+> $ git show 9bcc92f:_persistence/decisions.md | grep -nE '^### D-[0-9]+ .*(no teclea recuentos|desglose que explica una cifra)'
+> 8277:### D-130 - La seccion 4 del informe no teclea recuentos: pega la salida de su orden
+> 8326:### D-131 - Un desglose que explica una cifra se deriva con una orden, o no se publica
+> ```
+>
+> ⚠️ **El estado NO cambia, y el motivo importa.** Dos reglas encontradas no validan el
+> muestreo: el supuesto habla de **cada** codigo quitado, y su forma de validarse sigue siendo el
+> barrido entero descrito arriba. Lo que esta nota aporta es que **el primer caso real salio bien**,
+> no que el supuesto este confirmado — y anotarlo como confirmacion seria justo el error que este
+> archivo existe para no cometer.
+
 ---
 
 ### A-014 - Las plantillas del andamiaje bastan para arrancar un proyecto desde cero

@@ -143,6 +143,8 @@
 | [D-132](#d-132---un-barrido-que-no-puede-incluirse-a-si-mismo-se-repite-anclado-despues-del-commit) | Un barrido que no puede incluirse a si mismo se repite anclado despues del commit | 2026-09-10 | Vigente | report_auditor |
 | [D-133](#d-133---la-cosecha-la-ejecuta-manager-bajo-un-protocolo-propio-y-la-escritura-en-el-repositorio-de-lecciones-tiene-una-puerta) | La cosecha la ejecuta `manager` bajo un protocolo propio, y la escritura en el repositorio de lecciones tiene una puerta | 2026-09-10 | Vigente | usuario |
 | [D-134](#d-134---consulta-de-arranque-a-las-lecciones-globales-dos-bloques-recorridos-ocho-declarados-no-mirados) | Consulta de arranque a las lecciones globales: dos bloques recorridos, ocho declarados NO MIRADOS | 2026-09-10 | Vigente | manager |
+| [D-135](#d-135---ninguna-cifra-ni-lista-completa-del-informe-se-teclea-en-ninguna-seccion) | Ninguna cifra ni lista completa del informe se teclea, en ninguna seccion | 2026-09-10 | Vigente | report_auditor |
+| [D-136](#d-136---el-arranque-lee-los-supuestos-abiertos-por-su-cuerpo-no-por-una-columna-nueva-del-indice) | El arranque lee los supuestos abiertos por su cuerpo, no por una columna nueva del indice | 2026-09-10 | Vigente | manager |
 
 ---
 
@@ -8608,3 +8610,121 @@ publicarlo.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-135 - Ninguna cifra ni lista completa del informe se teclea, en ninguna seccion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-091` y `F-092`. La sesion anterior estreno dos reglas contra los recuentos
+  tecleados —una para la seccion de supuestos, otra para el desglose de la NOTA DE CIERRE— y el
+  mismo commit que las escribio incumplio las dos, **un sitio mas alla de donde cada una miraba**:
+  una cifra en la prosa de otra seccion, y una lista que la primera regla autorizaba expresamente a
+  escribir a mano. Verificado contra `HEAD` antes de aceptar los dos hallazgos:
+
+  ```
+  $ git rev-parse --short HEAD
+  9bcc92f
+  $ git show HEAD:_audit/S-031.md | sed -n '/^## 7. Evidencia del Paso 2d/,/^> ## NOTA DE CIERRE/p' | grep -E '^ +[0-9]+\s+\+\$ ' | grep -v '<hash>'
+      15	+$ git diff --name-only --diff-filter=d 9b3f9ee^ 9b3f9ee | wc -l
+      21	+$ grep -n 'assumptions' .claude/skills/protocol-start/SKILL.md
+  $ git show HEAD:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | grep -E 'Abierto' | grep -oE 'A-[0-9]+' | sort -u | tr '\n' ' '
+  A-001 A-002 A-003 A-004 A-005 A-006 A-007 A-008 A-009 A-011 A-012 A-013 A-014 A-015
+  ```
+
+  El informe publicaba «las 20 lineas 1 a 20 llevan `<hash>`» (son 19: la 15 lleva hash historico),
+  «las 14 restantes de las 21» (son 2) y once codigos declarados «los catorce» (faltan `A-001`,
+  `A-002`, `A-003`).
+- **Por que importa mas que las tres cifras:** el defecto ya iba por la quinta ocurrencia y **cada
+  regla nueva se habia escrito para el sitio donde acababa de aparecer**. Una regla que nombra el
+  lugar solo protege ese lugar, asi que la sexta ocurrencia estaba garantizada en el sitio de al
+  lado. Lo que hacia falta no era una regla mas, sino la misma regla sin lugar.
+- **Decision:** toda cifra y toda enumeracion que el informe presente como **completa** se deriva con
+  una orden y se pega su salida, en **cualquier** seccion, en la NOTA DE CIERRE y en las notas
+  fechadas posteriores. Una lista escrita a mano solo vale **declarandola parcial**; con un verbo que
+  afirme completitud, se deriva. Se corrige ademas la linea de la seccion 4 que decia «la lista de
+  codigos si se escribe», porque es la que autorizo `F-092`.
+- **Alternativas descartadas:** (a) **una tercera regla de sitio** —para la prosa de la seccion 7—:
+  es exactamente la forma que ya fallo cuatro veces. (b) **un control mecanico en el cierre** que
+  marque numeros en la prosa: se midio antes de descartarlo, y marca del orden de 130 lineas en un
+  solo informe, casi todas legitimas — no es un control, es ruido:
+
+  ````
+  $ git show 9bcc92f:_audit/S-031.md | awk '/^```/{c=!c; next} !c' | grep -nE '(^|[^`A-Za-z0-9-])([0-9]+|un[oa]|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|dieciseis|veinte|veintiuna)([^`A-Za-z0-9-]|$)' | grep -vE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | wc -l
+  129
+  ````
+
+  (c) **prohibir las enumeraciones**: se pierde lo unico que hace recorrible la cifra sin rehacerla.
+- **Reversible a criterio** — edicion de skill y dos notas fechadas, nada que no se pueda revertir
+  con un commit. Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue
+  abierta).
+- **Criterio de cierre:** la plantilla del informe lleva la regla escrita sin nombrar seccion, y la
+  linea de la seccion 4 ya no autoriza la lista tecleada.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Ninguna, y en ninguna seccion'
+1
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos si se escribe; la cifra sale de la orden o no sale'
+0
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.
+
+---
+
+### D-136 - El arranque lee los supuestos abiertos por su cuerpo, no por una columna nueva del indice
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** `T-143` (`D-134`, `LG-52`) manda que el arranque reporte tambien los supuestos
+  abiertos cuyo disparador ya se cumplio. Al implementarlo aparece una bifurcacion que la tarea no
+  resolvia: **de donde sale el disparador**. El indice de `assumptions.md` no lo lleva:
+
+  ```
+  $ sed -n '/^## Indice/,/^---/p' _persistence/assumptions.md | sed -n '3p'
+  | Codigo | Supuesto | Fecha | Estado |
+  $ sed -n '/^## Indice/,/^---/p' _persistence/assumptions.md | grep -c 'Abierto'
+  14
+  ```
+
+  El disparador vive en el cuerpo de cada entrada, bajo `**Disparador:**`.
+- **Decision:** el Paso 1b lee **el indice y el cuerpo de los `Abierto`**. No se anade columna al
+  indice.
+- **Por que, y no por comodidad:** la comparacion natural es con `tasks.md`, cuyo indice trae estado,
+  importancia y urgencia justo para que el arranque no abra cuerpos. Pero ahi los tres campos son
+  **valores de un conjunto cerrado**, y el disparador es **prosa**: una columna con el no ahorraria
+  el juicio —«¿ese momento ya ocurrio?»— que es la parte cara. Se pagaria el coste de la columna sin
+  cobrar su beneficio.
+- **Alternativas descartadas:** (a) **columna `Disparador` en el indice** mas su plantilla: obliga a
+  reescribir a mano catorce filas y a tocar dos archivos mas, y deja el juicio donde estaba
+  (`PI-3`). (b) **reportar todos los abiertos sin mirar disparador**: es mecanico y no pide juicio,
+  pero con catorce abiertos y un tope de cinco elementos el bloque se vuelve ruido fijo — y lo que
+  `LG-52` pedia no es una lista mas larga, es la lista **que toca hoy**.
+- ⚠️ **Lo que esta decision NO hace es mover la linea de solo lectura.** Reportar que un disparador
+  se cumplio es reporte; decidir que se hace con el supuesto sigue siendo de `manager`. Esta escrito
+  en el propio Paso 1b.
+- 🔑 **Y los supuestos sin disparador escrito entran igual en el reporte**, dichos como tales: son
+  justo los que las convenciones del archivo describen como los que se quedan abiertos para siempre,
+  y por definicion nunca los va a traer un disparador cumplido.
+- **Reversible a criterio** — edicion de una skill, sin datos migrados ni nada que rehacer si se
+  vuelve atras. Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** el Paso 1b declara la lectura del cuerpo de los abiertos, y el indice de
+  `assumptions.md` sigue con sus cuatro columnas.
+
+```
+$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c 'el cuerpo de los que estan `Abierto`'
+1
+$ git show <hash>:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | sed -n '3p'
+| Codigo | Supuesto | Fecha | Estado |
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre.
