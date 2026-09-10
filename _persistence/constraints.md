@@ -18,6 +18,7 @@
 | [C-006](#c-006---los-principios-de-ingenieria-y-las-reglas-de-operacion-son-vinculantes) | Los principios de ingenieria y las reglas de operacion son vinculantes | Proceso | Vigente |
 | [C-007](#c-007---las-fuentes-de-la-guia-de-metodo-no-se-editan) | Las fuentes de la guia de metodo no se editan | Proceso | Vigente |
 | [C-008](#c-008---el-repositorio-no-tiene-un-final-de-linea-unico-y-no-se-normaliza) | El repositorio no tiene un final de linea unico, y no se normaliza | Entorno | Vigente |
+| [C-009](#c-009---el-inventario-de-acciones-irreversibles-del-proyecto) | El inventario de acciones irreversibles del proyecto | Proceso | Vigente |
 
 ---
 
@@ -197,3 +198,64 @@ encargo no es una decision: adoptarla exigiria su `D-XXX`, y hoy no existe.
   que uno coincide por casualidad en un sitio que no era; ese si escribe.
 - **Complementa a `C-004`**, que fija el entorno; esto fija una consecuencia suya que `C-004` no
   nombraba.
+
+---
+
+### C-009 - El inventario de acciones irreversibles del proyecto
+| Campo | Valor |
+|---|---|
+| Tipo | Proceso |
+| Estado | Vigente |
+| Origen | usuario |
+
+**Que obliga:** antes de ejecutar una accion de la primera tabla, **se pide permiso al usuario**.
+Las de la segunda se ejecutan y se revisan despues. La clasificacion se lee **de aqui**, no se
+improvisa en la respuesta.
+
+🔑 **Por que existe una lista y no un criterio:** un criterio se aplica el dia que hace falta, con
+prisa y con el trabajo a medio hacer — que es justo cuando peor se juzga. La lista se escribe antes
+de necesitarla. Hasta hoy, cada clasificacion se declaraba a mano en la propia respuesta, que es una
+regla sin mecanismo: funciona mientras alguien se acuerde.
+
+#### Irreversible — permiso antes
+
+| Accion | Por que no se deshace |
+|---|---|
+| `git push` al remoto | el historial publicado ya lo pudo clonar cualquiera; un `push --force` posterior no lo retira de donde ya esta |
+| Escribir en el repositorio de lecciones globales | vive fuera de este repositorio y lo comparten otros proyectos: una entrada mala la heredan todos. Por eso su protocolo lleva puerta explicita |
+| Desplegar a la plataforma | lo publicado queda accesible desde fuera, y puede quedar cacheado o indexado aunque se retire despues |
+| Gastar en la plataforma de despliegue | el consumo facturado no se revierte borrando lo que lo causo |
+| Datos que registre una persona usuaria | son dato personal: sobreviven al proyecto y su borrado no es cosa nuestra sola |
+| Peticiones a la fuente oficial de datos | salen de nuestra maquina hacia un tercero: quedan en **su** registro, y el volumen puede afectar al trato que nos den |
+| Borrar o reescribir una entrada del registro | el registro existe para decir lo que paso; reescribirlo no corrige el pasado, lo falsifica. La salida siempre es la nota fechada |
+| Reescribir el historial ya publicado | `rebase`, `amend` o `--force` sobre lo que ya esta en el remoto rompen lo que otros tengan clonado |
+
+#### Reversible — se hace y se revisa despues
+
+| Accion | Por que se deshace |
+|---|---|
+| Escribir o editar codigo y archivos del arbol | mientras no este commiteado, `git checkout` lo devuelve; commiteado y sin subir, tambien |
+| Un commit local | se revierte, se enmienda o se descarta sin que nadie mas lo haya visto |
+| Editar una skill, un archivo de etapa o una plantilla | un commit lo revierte entero, y no toca ningun dato |
+| Anadir una entrada nueva al registro | lo que se anade se puede anotar despues; lo irreversible es **quitar**, no poner |
+| Crear o borrar una rama local | no ha salido de esta maquina |
+| Correr un control, un barrido o un test | son de solo lectura sobre el arbol |
+
+⚠️ **Las dos tablas importan, y la segunda no es relleno.** Una lista que solo enumera peligros se
+lee como una lista de prohibiciones, y entonces se deja de consultar y todo empieza a parecer
+delicado. Saber que algo **si** se deshace es lo que permite trabajar sin pedir permiso cada vez.
+
+🚨 **Lo que no este en ninguna de las dos se clasifica a criterio, y se dice.** El inventario no
+pretende ser completo: pretende que lo conocido no se decida improvisando. Ante una accion que no
+aparece aqui, se declara la clasificacion en la propia respuesta —«lo clasifico como reversible a
+criterio, porque…»— y, si se repite, **se anade a la tabla que le toque**. Un criterio declarado como
+criterio se puede discutir; uno disfrazado de tabla, no.
+
+⛔ **Esta entrada no decide permisos ni frenos, solo clasifica.** Como se pide el permiso, quien lo
+da y que pasa si no llega es otra cosa, y viene despues de tener la lista, no antes.
+
+- **Que la origina:** `T-037`, y una leccion global que pide escribir el inventario **antes** de
+  necesitarlo. Su decision es `D-141`.
+- **Se levanta cuando:** no se levanta por si sola; crece. Si una accion cambia de naturaleza
+  —porque cambia la plataforma, la fuente o el trato con los datos— se mueve de tabla **con su
+  `D-XXX`**, nunca en silencio.

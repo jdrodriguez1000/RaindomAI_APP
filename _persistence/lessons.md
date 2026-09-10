@@ -57,6 +57,9 @@
 | [L-046](#l-046---un-cambio-en-el-registro-y-el-mismo-cambio-en-su-plantilla-son-dos-cambios-y-se-cuentan) | Un cambio en el registro y el mismo cambio en su plantilla son dos cambios, y se cuentan | 2026-09-10 | 000_preproject | Sin evaluar |
 | [L-047](#l-047---una-regla-que-nombra-el-sitio-solo-protege-ese-sitio) | Una regla que nombra el sitio solo protege ese sitio | 2026-09-10 | 000_preproject | Sin evaluar |
 | [L-048](#l-048---un-criterio-que-busca-una-frase-no-distingue-el-texto-corregido-de-su-cita) | Un criterio que busca una frase no distingue el texto corregido de su cita | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-049](#l-049---medir-un-control-y-descartarlo-prueba-que-ese-ambito-no-sirve-no-que-no-exista-uno-que-si) | Medir un control y descartarlo prueba que ESE ambito no sirve, no que no exista uno que si | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-050](#l-050---un-control-que-enumera-casos-caduca-solo-uno-que-reconoce-la-forma-no) | Un control que enumera casos caduca solo; uno que reconoce la forma, no | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-051](#l-051---una-tarea-escrita-para-mas-adelante-describe-el-repositorio-del-dia-que-se-escribio) | Una tarea escrita para «mas adelante» describe el repositorio del dia que se escribio | 2026-09-10 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1778,6 +1781,17 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
   del orden de 130 lineas legitimas en un solo archivo: hay defectos cuya unica defensa es la forma
   de redactar, y confundirlos con los que se barren produce ruido que despues nadie mira.
 
+> 📌 **Nota del 2026-09-10 (`F-093`, `D-137`).** La viñeta de arriba **no se reescribe**, pero su
+> ultima frase quedo desmentida por los hechos: la regla generica que esta leccion pedia se escribio,
+> y el mismo commit que la estreno volvio a incumplirla. Existe un ambito de control que si funciona
+> —la prosa que sigue a un bloque de salida cruda—, y devuelve del orden de diez lineas por informe
+> en vez de 130. Lo que se habia medido y descartado era **otro** barrido, el de todos los numeros de
+> la prosa. `D-137` lo adopta y `L-049` recoge la leccion de fondo.
+>
+> 🔑 **Lo que la nota no cambia:** el cuerpo de la leccion se sostiene entero. Una regla que nombra
+> el sitio sigue protegiendo solo ese sitio, y quitarle el lugar sigue siendo lo correcto. Lo que se
+> demostro falso es que la regla **bastara** por si sola.
+
 ---
 
 ### L-048 - Un criterio que busca una frase no distingue el texto corregido de su cita
@@ -1805,3 +1819,99 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
   con la auditoria siguiente.
 - ⚠️ **La direccion contraria es peor y menos visible:** un criterio que espera `1` y encuentra su
   propia cita **pasa**, con el trabajo sin hacer. Aqui salto a la vista porque esperaba `0`.
+
+---
+
+### L-049 - Medir un control y descartarlo prueba que ESE ambito no sirve, no que no exista uno que si
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** un defecto reincidente —una cifra tecleada al lado de la orden que la desmiente— se
+  intento atajar tres veces seguidas reescribiendo la regla que lo prohibia. La segunda vez se
+  planteo ademas un control mecanico, se **midio** antes de adoptarlo, y se descarto con razon: un
+  barrido de numeros en la prosa de un informe marcaba 129 lineas, casi todas legitimas.
+- **Que ocurrio:** la regla reescrita fallo otra vez, en el commit que la estrenaba. Al volver sobre
+  el control descartado resulto que **lo que sobraba era el ambito, no la idea**: acotado a la prosa
+  que sigue a un bloque de salida cruda —los tres renglones de despues—, el mismo barrido devuelve
+  del orden de diez lineas por informe y atrapa los dos defectos que habian motivado las reglas.
+- **Leccion:** **una medicion que descarta un control descarta el control que se midio, y solo ese.**
+  Escrita en el registro como «no hay control mecanico que cubra esto», la conclusion se lee despues
+  como si el espacio de ambitos posibles se hubiera agotado — y nadie vuelve a mirar. El coste de esa
+  frase de mas fueron dos reincidencias.
+- 🔑 **La senal que lo delata:** la conclusion descartada esta enunciada **sin su ambito**. «Se midio
+  y es ruido» oculta cual era el barrido; «un barrido de TODOS los numeros de la prosa es ruido» deja
+  a la vista el adjetivo que se puede estrechar.
+- **Como aplicarla:** al descartar un control por ruidoso, registrar **el ambito exacto que se midio**
+  junto a la cifra, y enunciar el descarte acotado a el. Y cuando el defecto reincida pese a la regla
+  de redaccion, el primer sitio donde mirar es el control descartado: casi siempre existe un recorte
+  del ambito que separa la senal del ruido.
+- ⚠️ **Y el criterio de exito de un control asi no es que salga vacio.** Este devuelve unas diez
+  lineas legitimas por informe a proposito; lo que lo hace util es que **agrupa** las cifras que
+  hablan de lo mismo, que en el archivo estan a decenas de lineas unas de otras. Un control cuya
+  respuesta correcta no es cero necesita su condicion de parada escrita, o se lee como una alarma
+  rota y se acaba ignorando.
+
+---
+
+### L-050 - Un control que enumera casos caduca solo; uno que reconoce la forma, no
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** un control buscaba una fuga citando **la lista de prefijos de codigo que existian el
+  dia que se escribio**. Con el tiempo nacieron diez prefijos mas, y ninguno se anadio a la lista:
+  nadie recuerda tocar un control cuando lo que cambia es otra cosa.
+- **Que ocurrio:** el control devolvia cero, y ese cero se leia como «limpio». Inyectando dos citas
+  reales en el archivo que vigilaba, **siguio devolviendo cero**. Llevaba ciego un tiempo
+  indeterminado sin que nada lo delatara, porque un instrumento ciego y uno limpio dan la misma
+  salida.
+- **Leccion:** **un control que enumera los casos que conoce se degrada cada vez que nace un caso
+  nuevo, y se degrada en silencio.** Su mantenimiento depende de que alguien, mientras hace otra
+  cosa, se acuerde de el — y el dia que no se acuerde es exactamente el dia que el control hacia
+  falta. Reconocer la **forma** de lo que se busca (`[A-Z]{1,2}-[0-9]+` en vez de dieciocho prefijos)
+  no necesita mantenimiento: los casos nuevos entran solos.
+- 🔑 **La senal que lo delata:** el control lleva dentro una lista, y esa lista es una copia de algo
+  que vive en otro sitio y crece por su cuenta. Si al nacer una entrada nueva en el original hay que
+  ir a tocar el control, el control ya esta caducando.
+- **Como aplicarla:** buscar por forma y **declarar las excepciones una a una**, en vez de enumerar
+  lo incluido. La lista de excepciones es corta, estable y se justifica; la de casos incluidos es
+  larga, crece y nadie la mantiene. Y cuando la forma produzca ruido legitimo, medirlo antes de
+  decidir: aqui eran 14 lineas, todas de una misma serie, que se excluyo declarandola.
+- ⚠️ **Un control no se da por bueno porque devuelva cero: se da por bueno cuando se ha visto
+  fallar.** La unica prueba que vale es inyectar la fuga que deberia detectar, comprobar que la ve, y
+  deshacer. Cuesta dos ordenes y es la diferencia entre un control y la creencia de tener uno.
+
+---
+
+### L-051 - Una tarea escrita para «mas adelante» describe el repositorio del dia que se escribio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** una tarea pedia **anadir** un control a un protocolo. Al ir a implementarla, cinco
+  sesiones despues, el control ya existia — y no lo habia hecho nadie entretanto: **existia ya el dia
+  que la tarea se escribio**, en el commit de esa misma sesion, en un paso contiguo al que la tarea
+  nombraba.
+- **Que ocurrio:** no se perdio trabajo, porque al implementarla lo primero fue mirar el estado real
+  y aparecio el control. Pero durante cinco sesiones el registro de tareas afirmo que faltaba algo
+  que estaba hecho, y eso es lo que el arranque lee cada manana para decidir por donde seguir.
+- **Leccion:** **una tarea no es una descripcion del trabajo pendiente: es una foto de lo que su
+  autor creia el dia que la escribio.** Cuanto mas tarda en ejecutarse, mas probable es que describa
+  un repositorio que ya no existe — y su enunciado se lee con la misma autoridad el primer dia que el
+  quincuagesimo.
+- 🔑 **La senal que lo delata:** la tarea dice «anadir», «crear» o «escribir» algo, y han pasado
+  sesiones desde que se registro. Ese verbo es una afirmacion sobre el presente, y nadie la ha vuelto
+  a comprobar.
+- **Como aplicarla:** al abrir una tarea vieja, **verificar su premisa contra `HEAD` antes de
+  ejecutarla**, con su orden y su salida — exactamente igual que se hace con un hallazgo de
+  auditoria, y por el mismo motivo. Si la premisa cayo, la tarea no se borra: se cierra dejando
+  escrito **que se encontro en su lugar**, que casi siempre es un trabajo distinto y mas pequeño.
+- ⚠️ **Y conviene mirar el paso de al lado, no solo el que la tarea nombra.** Aqui el control estaba
+  en el paso contiguo con otro numero: buscando solo donde la tarea decia, no habria aparecido.

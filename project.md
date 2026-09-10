@@ -104,8 +104,8 @@ hallazgos, el registro diria lo que quisieramos que dijera.
 
 | Campo | Valor |
 |---|---|
-| Etapas declaradas | `000_preproject`, `005_discovery` |
-| Etapas posteriores a `005_discovery` | **no registradas** |
+| Etapas declaradas | `000_preproject`, `005_discovery`, `010_prototype`, `020_baseline`, `025_wslt`, `030_growth`, `040_evol` |
+| Secuencia adoptada | `000_preproject` → `005_discovery` → `010_prototype` → **[Gate 1]** → `020_baseline` → `025_wslt` → `030_growth` → **[Gate 2]** → `040_evol` |
 
 `000_preproject` es la etapa en la que no se construye producto: se monta la forma de trabajar
 —protocolos, persistencia, canal con la auditoria—. Es deliberado que tenga nombre propio y no un
@@ -115,21 +115,23 @@ avanza cuando lo que avanza es el andamio.
 `005_discovery` es la etapa siguiente: la que define **alcance y objetivo** del proyecto, trabajo que
 `000_preproject` tiene expresamente prohibido. Lo fija `D-024`, por decision del usuario.
 
-🚨 **Lo que viene despues de `005_discovery` sigue sin decidir, y este archivo no lo va a inventar.**
-El brief del cliente (`_brief/client_brief.md`, §22) **propone** una secuencia —Idea → Definicion del
-producto → Especificacion → Diseño → Desarrollo asistido por IA → Pruebas → Iteracion—, pero **un
-encargo no es una decision**: lo que el equipo adopte tiene que quedar como `D-XXX` en
-`decisions.md`, y hoy no lo esta. Hasta entonces, la respuesta correcta a «que etapas tiene el
-proyecto» son *«las dos declaradas, y nada mas»*.
+📌 **Las etapas posteriores quedaron adoptadas el 2026-09-10 por `D-142`, por decision del usuario.**
+Hasta entonces esta tabla declaraba dos etapas y decia que lo demas seguia sin decidir. Lo adoptado
+es la secuencia del **metodo VERTICAL** —la que describe la guia de metodo en su ciclo completo—, y
+cada etapa tiene ya su archivo en `_phases/`.
 
-⚠️ **Que `005_discovery` este declarada no cierra la tarea de declarar las etapas posteriores.** Se
-nombro la inmediata para que las tareas de alcance tuvieran donde ir; la **secuencia completa** sigue
-siendo trabajo pendiente, y su tarea vive ahora en `005_discovery`.
+⚠️ **Se descarto la secuencia del brief del cliente** (`_brief/client_brief.md`, §22: Idea →
+Definicion del producto → Especificacion → Diseño → Desarrollo asistido por IA → Pruebas →
+Iteracion). No por ser peor, sino porque **un encargo no es una decision** y porque adoptarla habria
+obligado a escribir siete archivos de etapa nuevos y a decidir que pasaba con los Gates y con los
+siete ya escritos. El porque completo vive en `D-142`, no aqui.
 
 🚨 **Que `_methodology/000_method.md` describa un ciclo completo no declara ninguna de sus
 etapas.** Ese archivo es la **guia de metodo**: dice que etapas existen en el metodo y que pregunta
-responde cada una. Lo que este proyecto ha adoptado es lo que diga la tabla de arriba, y hoy son dos.
-Adoptar cualquier otra exige su `D-XXX` y su archivo en `_phases/`. **Una guia no es un acta.**
+responde cada una. Lo que este proyecto ha adoptado es lo que diga la tabla de arriba —hoy, las
+siete—, y lo adoptado lo fija una decision, no la guia. Adoptar cualquier otra exigiria su `D-XXX` y
+su archivo en `_phases/`. **Una guia no es un acta**, aunque esta vez el acta diga lo mismo que la
+guia.
 
 ### Un Gate no es una etapa
 
@@ -152,8 +154,9 @@ evidencia juzga.
 
 📌 **El Gate 2 se monto en `S-023`, por peticion del usuario** (`D-094`). Hasta entonces este
 archivo decia que no se adelantaba; se adelanto porque se pidio, y el porque vive en esa decision, no
-aqui. **Adoptar un Gate no adopta su etapa:** las etapas declaradas siguen siendo las dos de la
-tabla de arriba, y `030_growth` no esta entre ellas.
+aqui. **Adoptar un Gate no adopta su etapa**, y durante quince sesiones fue asi: el Gate 2 existia
+mientras `030_growth` no estaba declarada. Desde `D-142` las dos cosas coinciden, pero **siguen
+siendo independientes** — montar un Gate no declara nada, y declarar una etapa no monta su Gate.
 
 🔑 **Lo que el segundo comparte con el primero, ahora que existe:** la forma —agente y skill—, el
 vocabulario del dictamen —`CRITERIOS SATISFECHOS`, `CRITERIOS NO SATISFECHOS`, `NO AUDITABLE`—, la

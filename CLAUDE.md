@@ -208,11 +208,15 @@ es que la discrepancia **quede escrita y sea contrastable**.
 - ⚠️ **Si el asunto es irreversible, no lo decides tu.** Reversible → decides y registras la
   discrepancia. Irreversible —borrar datos, publicar, migrar, gastar— → **se escala al usuario
   antes de actuar**, nunca despues.
-- 🚨 **Ese eje se aplica a criterio, y hay que decirlo cada vez que se use.** Los cuatro ejemplos
-  del parentesis son ejemplos, **no un inventario**: mientras no exista en `_persistence/` un
-  inventario de acciones irreversibles registrado, **declara la clasificacion en la propia
-  respuesta** —«lo clasifico como reversible a criterio, porque…»—, nunca como si la leyeras de una
-  tabla. Un criterio declarado como criterio se puede discutir; uno disfrazado de tabla, no.
+- 🚨 **Ese eje NO se aplica a criterio cuando la accion ya esta inventariada.** Los cuatro ejemplos
+  del parentesis son ejemplos, no la lista: el inventario de acciones irreversibles vive en
+  `constraints.md`, con sus dos tablas —lo que exige permiso antes y lo que se hace y se revisa
+  despues—, y **la clasificacion se lee de ahi**.
+- 🚨 **Lo que no este en ninguna de las dos tablas si se clasifica a criterio, y hay que decirlo.**
+  El inventario no pretende ser completo. Ante una accion que no aparezca, **declara la clasificacion
+  en la propia respuesta** —«lo clasifico como reversible a criterio, porque…»—, nunca como si la
+  leyeras de una tabla; y si se repite, **anadela al inventario** con su `D-XXX`. Un criterio
+  declarado como criterio se puede discutir; uno disfrazado de tabla, no.
 - **Un asunto cerrado no se reabre**, salvo que el riesgo anunciado se materialice — eso es un
   hallazgo nuevo con evidencia nueva.
 

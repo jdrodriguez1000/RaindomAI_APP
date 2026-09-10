@@ -10,8 +10,8 @@
 | Codigo | Tarea | Estado | Importancia | Urgencia | Etapa |
 |---|---|---|---|---|---|
 | [T-001](#t-001---definir-alcance-y-objetivo-del-proyecto) | Definir alcance y objetivo del proyecto | No implementada | Alta | Bloqueante | `005_discovery` |
-| [T-002](#t-002---declarar-las-etapas-posteriores-a-000_preproject) | Declarar las etapas posteriores a `000_preproject` | No implementada | Media | No bloqueante | `005_discovery` |
-| [T-003](#t-003---verificar-si-el-historico-de-la-fuente-oficial-es-obtenible-a-003) | Verificar si el historico de la fuente oficial es obtenible (`A-003`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-002](#t-002---declarar-las-etapas-posteriores-a-000_preproject) | Declarar las etapas posteriores a `000_preproject` | Implementada | Media | No bloqueante | `005_discovery` |
+| [T-003](#t-003---verificar-si-el-historico-de-la-fuente-oficial-es-obtenible-a-003) | Verificar si el historico de la fuente oficial es obtenible (`A-003`) | Suspendida | Alta | Bloqueante | `000_preproject` |
 | [T-004](#t-004---acotar-el-enunciado-del-bloque-de-verificacion-de-d-016-f-001) | Acotar el enunciado del bloque de verificacion de `D-016` (`F-001`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-005](#t-005---corregir-los-dos-identificadores-auditor-vivos-f-002) | Corregir los dos identificadores `auditor` vivos (`F-002`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-006](#t-006---devolver-dt-001-a-propuesta-pendiente-del-usuario-f-003) | Devolver `DT-001` a `Propuesta (pendiente del usuario)` (`F-003`) | Implementada | Media | No bloqueante | `000_preproject` |
@@ -45,8 +45,8 @@
 | [T-034](#t-034---corregir-la-cita-cruzada-l-013-de-dt-002-f-026) | Corregir la cita cruzada `L-013` de `DT-002` (`F-026`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-035](#t-035---anclar-el-bloque-de-verificacion-de-t-032-que-no-se-reproduce-sobre-su-commit-f-027) | Anclar el bloque de verificacion de `T-032`, que no se reproduce sobre su commit (`F-027`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-036](#t-036---completar-en-s-010-la-viñeta-de-decisionsmd-que-omite-dos-ediciones-f-028) | Completar en `S-010` la viñeta de `decisions.md`, que omite dos ediciones (`F-028`) | Implementada | Baja | No bloqueante | `000_preproject` |
-| [T-037](#t-037---escribir-el-inventario-de-acciones-irreversibles-del-proyecto-lg-38) | Escribir el inventario de acciones irreversibles del proyecto (`LG-38`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-038](#t-038---igualar-el-barrido-de-fuga-de-protocol-audit-con-el-de-protocol-close) | Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close` | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-037](#t-037---escribir-el-inventario-de-acciones-irreversibles-del-proyecto-lg-38) | Escribir el inventario de acciones irreversibles del proyecto (`LG-38`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-038](#t-038---igualar-el-barrido-de-fuga-de-protocol-audit-con-el-de-protocol-close) | Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close` | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-039](#t-039---normalizar-a-no-implementada-el-estado-pendiente-de-t-037-y-t-038-f-029) | Normalizar a `No implementada` el estado `Pendiente` de `T-037` y `T-038` (`F-029`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-040](#t-040---dar-a-t-038-el-registro-que-la-respalda-f-030) | Dar a `T-038` el registro que la respalda (`F-030`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-041](#t-041---anotar-el-recuento-de-quince-lecciones-que-no-se-reproduce-en-sus-cuatro-sitios-f-031) | Anotar el recuento de «quince lecciones» que no se reproduce, en sus cuatro sitios (`F-031`) | Implementada | Media | No bloqueante | `000_preproject` |
@@ -120,7 +120,7 @@
 | [T-109](#t-109---fijar-las-tres-cifras-de-la-frase-de-cierre-de-s-025-y-prohibir-recontar-a-mano-f-073) | Fijar las tres cifras de la frase de cierre de `S-025`, y prohibir recontar a mano (`F-073`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-110](#t-110---corregir-por-nota-fechada-las-cifras-de-la-nota-de-cierre-de-s-026-y-prohibir-la-aritmetica-de-prosa-f-074) | Corregir por nota fechada las cifras de la nota de cierre de `S-026`, y prohibir la aritmetica de prosa (`F-074`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-111](#t-111---restaurar-el-enunciado-original-del-criterio-de-cierre-de-t-105-f-075) | Restaurar el enunciado original del criterio de cierre de `T-105` (`F-075`) | Implementada | Media | No bloqueante | `000_preproject` |
-| [T-112](#t-112---anadir-al-paso-1b-el-barrido-de-codigos-instanciados-d-113) | Anadir al Paso 1b el barrido de codigos instanciados (`D-113`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-112](#t-112---anadir-al-paso-1b-el-barrido-de-codigos-instanciados-d-113) | Anadir al Paso 1b el barrido de codigos instanciados (`D-113`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-113](#t-113---decidir-que-se-hace-con-las-55-citas-historicas-de-claude-y-claudemd-d-113) | Decidir que se hace con las 55 citas historicas de `.claude/` y `CLAUDE.md` (`D-113`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-114](#t-114---quitar-de-claudemd-las-citas-del-registro-d-114) | Quitar de `CLAUDE.md` las citas del registro (`D-114`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-115](#t-115---aplicar-la-misma-ruta-a-claude-54-citas-en-tres-archivos-d-114) | Aplicar la misma ruta a `.claude/`: 54 citas en tres archivos (`D-114`) | Implementada | Media | No bloqueante | `000_preproject` |
@@ -156,6 +156,10 @@
 | [T-145](#t-145---fijar-por-nota-fechada-las-dos-cifras-del-paso-2d-de-s-031-f-091) | Fijar por nota fechada las dos cifras del Paso 2d de `S-031` (`F-091`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-146](#t-146---fijar-por-nota-fechada-la-lista-de-supuestos-de-la-seccion-4-de-s-031-f-092) | Fijar por nota fechada la lista de supuestos de la seccion 4 de `S-031` (`F-092`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-147](#t-147---generalizar-a-todo-el-informe-la-regla-de-que-ninguna-cifra-se-teclea-f-091-f-092) | Generalizar a todo el informe la regla de que ninguna cifra se teclea (`F-091`, `F-092`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-148](#t-148---fijar-por-nota-fechada-el-recuento-de-la-seccion-8-de-s-032-f-093) | Fijar por nota fechada el recuento de la seccion 8 de `S-032` (`F-093`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-149](#t-149---anadir-al-paso-6b-el-control-de-cifra-adyacente-f-093-d-137) | Anadir al Paso 6b el CONTROL DE CIFRA ADYACENTE (`F-093`, `D-137`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-150](#t-150---fijar-por-nota-fechada-el-veredicto-de-la-seccion-0-de-s-032-f-094) | Fijar por nota fechada el veredicto de la seccion 0 de `S-032` (`F-094`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-151](#t-151---quitar-implementado-de-los-veredictos-de-la-seccion-0-f-094-d-138) | Quitar `Implementado` de los veredictos de la seccion 0 (`F-094`, `D-138`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -271,12 +275,23 @@ Plantilla:
 Por decision del usuario (`D-024`, `D-025`) pasa a **`005_discovery`**. No cambia nada de su
 contenido: cambia cuando se hace.
 
+
+📌 **Nota del 2026-09-10 (`S-033`, `D-143`).** **Se aplaza**, por decision del usuario, que prioriza
+extraer del andamiaje un esqueleto reutilizable. Sigue `No implementada` y **no pasa a `Suspendida`
+a proposito**: pertenece a una etapa que no ha empezado, y ese estado afirmaria una pausa que nadie
+decidio. Lo que la aparta del dia a dia es su campo `Etapa`, que el arranque ahora lee para separarla.
+
+**Se retoma cuando** `A-004` quede confirmado —hay acceso al patrocinador y a personas del proceso
+real— **y** `005_discovery` este activa. Las dos condiciones, no una.
+
+⚠️ **Aplazar no es cancelar.** Sigue siendo la tarea que define el alcance del proyecto, y nada de lo
+decidido hoy la sustituye.
 ---
 
 ### T-002 - Declarar las etapas posteriores a `000_preproject`
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `005_discovery` |
@@ -298,12 +313,41 @@ se reescribe**; leelo asi: lo que cierra esta tarea es **la secuencia completa**
 posteriores, decidida y registrada, no haber nombrado la inmediata para que las tareas de alcance
 tuvieran donde ir.
 
+📌 **Nota de cierre del 2026-09-10 (`S-033`, `D-142`).** La tarea queda `Implementada`, y cierra por
+el criterio que la nota de arriba reformulo —la **secuencia completa**—, no por el literal de 2026-09-01,
+que ya se cumplia sin que la tarea estuviera hecha.
+
+**Lo adoptado, por decision del usuario:** la secuencia del metodo VERTICAL. Las siete etapas quedan
+declaradas en la tabla «Etapas» de `project.md` con su secuencia y sus dos Gates. **Se descarto** la
+del brief (§22), no por peor sino porque obligaba a escribir siete archivos de etapa nuevos y a
+decidir que pasaba con los Gates y con los siete ya escritos. El porque completo vive en `D-142`.
+
+🚨 **Declarar la secuencia no autoriza el trabajo de ninguna etapa.** La etapa activa sigue siendo la
+que diga `progress.md`, y entrar en una nueva sigue exigiendo su condicion de entrada y las dos
+firmas. Esta tarea dice cual es el camino, no que se haya andado.
+
+**Criterio de cierre, corrido.**
+
+```
+$ grep -c '^| Secuencia adoptada |' project.md
+1
+$ grep -c 'no registradas' project.md
+0
+$ sed -n '/^| Etapas declaradas/p' project.md | grep -oE '`[0-9]{3}_[a-z]+`' | wc -l
+7
+```
+
+⚠️ **El primer criterio se apunto mal en su primera version** —acotaba con `sed` de `## Etapas` a la
+primera linea en blanco, que es la que sigue al propio encabezado, y devolvia cero con la fila
+escrita—. Se corrigio antes de publicarlo. Es el mismo defecto que `L-048` describe: un criterio que
+falla con el trabajo bien hecho se arregla al correrlo, no se discute despues con la auditoria.
+
 ---
 
 ### T-003 - Verificar si el historico de la fuente oficial es obtenible (`A-003`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Suspendida |
 | Importancia | Alta |
 | Urgencia | Bloqueante |
 | Etapa | `000_preproject` |
@@ -317,6 +361,17 @@ tuvieran donde ir.
 - **Criterio de cierre:** `A-003` pasa a `Confirmado` (y se traslada a `decisions.md` o
   `constraints.md`) o a `Refutado`, segun lo que se encuentre.
 
+
+📌 **Nota del 2026-09-10 (`S-033`, `D-143`).** **Pasa a `Suspendida`**, por decision del usuario.
+A diferencia de las otras dos que se aplazan hoy, esta pertenece a la etapa **activa** y podia
+hacerse: que no se haga es una pausa deliberada, y ese es exactamente el significado del estado.
+
+**Razon de la suspension** (que el protocolo exige registrar): el trabajo inmediato es extraer del
+andamiaje un esqueleto reutilizable, y verificar la fuente de datos de este producto no contribuye a
+el. No hay nada tecnico que lo impida — la comprobacion parcial de `S-011` sigue en pie.
+
+**Se retoma cuando** se aborde el diseño tecnico de obtencion de datos, que es el disparador ya
+escrito en el supuesto que esta tarea verifica.
 ---
 
 ### T-004 - Acotar el enunciado del bloque de verificacion de `D-016` (`F-001`)
@@ -1719,7 +1774,7 @@ $ git show 51354ef -- _persistence/decisions.md | grep -c "^+📌 \*\*Nota del 2
 ### T-037 - Escribir el inventario de acciones irreversibles del proyecto (`LG-38`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -1767,12 +1822,42 @@ inventario.
 cierre las commitee, y el bloque diria lo contrario que su enunciado. Es `L-010`, y es el defecto
 que `F-027` acaba de señalar por quinta vez.
 
+📌 **Nota de cierre del 2026-09-10 (`S-033`, `D-141`).** La tarea queda `Implementada`. La forma la
+eligio el usuario, como esta ficha pedia: **una entrada de `constraints.md`**, no un archivo propio.
+El motivo del descarte no fue semantico sino de coste — un archivo nuevo ampliaba la decision de los
+siete archivos de persistencia y obligaba a editar el bucle de coherencia en los dos protocolos,
+incluido el de la auditoria, que necesita puerta.
+
+**El contenido salio de esta ficha**, que ya enumeraba lo irreversible de este producto, y de la
+leccion global que la origino. Las dos tablas —irreversible y reversible— estan escritas, y la
+segunda tambien, por lo que la propia ficha advertia: una lista que solo enumera peligros se lee como
+prohibiciones y deja de consultarse.
+
+**Lo que sigue sin decidir, y esta ficha ya lo separaba:** permisos y frenos. Tener la lista no dice
+como se pide el permiso, quien lo da ni que pasa si no llega.
+
+**Criterio de cierre, corrido.** Existe el inventario con sus dos tablas, y `CLAUDE.md` ya no
+sostiene solo el criterio: su parrafo cita el inventario en vez de suponer que no existe.
+
+```
+$ grep -c '^#### Irreversible — permiso antes' _persistence/constraints.md
+1
+$ grep -c '^#### Reversible — se hace y se revisa despues' _persistence/constraints.md
+1
+$ grep -c 'mientras no exista en `_persistence/` un' CLAUDE.md
+0
+```
+
+⚠️ **El barrido anclado de arriba no se rehace, y no se puede.** Afirmaba que el inventario no
+existia el dia que se escribio, y su ancla lo mantiene reproducible; repetirlo hoy devolveria otra
+cifra por el motivo correcto — que la tarea esta hecha.
+
 ---
 
 ### T-038 - Igualar el barrido de fuga de `protocol-audit` con el de `protocol-close`
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -1814,6 +1899,36 @@ Faltan `_templates` y `_workflow` en el de `protocol-audit`.
 ⚠️ **El patron se ancla a `^git grep -nE` a proposito.** Sin el `^`, la orden recoge tambien una
 mencion en prosa de `protocol-close` (linea 462) que no es un control, y el bloque deja de
 reproducirse — que es `L-006`: un bloque de verificacion declara su ambito dentro del enunciado.
+
+📌 **Nota de cierre del 2026-09-10 (`S-033`, `D-140`).** La tarea queda `Implementada`, y con **mas
+alcance del que pedia**. Lo escrito arriba se cumple —los dos barridos de fuga citan hoy la misma
+lista de seis carpetas— y ademas `protocol-audit` gana un control **(d)** de codigos instanciados,
+que no tenia en ninguna forma: sin el, igualar solo el barrido de datos dejaba al auditor ciego a la
+fuga que motivo `D-113` y `D-139`. Su patron es el de `D-139`, por forma y no por lista.
+
+🚨 **La puerta que la tarea exigia se abrio.** El usuario autorizo la edicion de `protocol-audit` en
+esta sesion, y en la misma consulta ratifico la fila que `D-138` habia anadido a esa skill. Por eso
+el `Origen` de `D-140` es `usuario` y no `manager`.
+
+**No habia fuga viva:** los dos ambitos devuelven cero sobre el commit anterior. Lo que se corrigio
+es el instrumento, no una contaminacion.
+
+```
+$ git grep -nE "RaindomAI|Company_TripleS|github.com/jdrodriguez1000" 0647d82 -- .claude CLAUDE.md _phases _methodology | wc -l
+0
+$ git grep -nE "RaindomAI|Company_TripleS|github.com/jdrodriguez1000" 0647d82 -- .claude CLAUDE.md _phases _methodology _templates _workflow | wc -l
+0
+```
+
+**Criterio de cierre, corrido:** al deduplicar, los barridos de los dos protocolos quedan en una sola
+linea cada uno — es decir, son el mismo comando.
+
+```
+$ grep -hoE '^git grep -nE .* -- .*$' .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-audit/SKILL.md | sed 's/.*-- //' | sort -u
+.claude CLAUDE.md _phases _methodology _templates _workflow
+$ grep -hoE '^git grep -noE .*$' .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-audit/SKILL.md | sed 's/<hash> //' | sort -u
+git grep -noE '\b[A-Z]{1,2}-[0-9]+\b' -- _phases _workflow | grep -vE ':PI-[0-9]+$'
+```
 
 ---
 
@@ -4896,7 +5011,7 @@ arriba.
 ### T-112 - Anadir al Paso 1b el barrido de codigos instanciados (`D-113`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -4917,6 +5032,53 @@ arriba.
 - **Se escribe a mano** por la primera excepcion de este archivo; su decision es `D-113`.
 - **Criterio de cierre:** el Paso 1b publica los dos barridos, y el que detiene el paso esta acotado a
   `_phases/` y `_workflow/`.
+
+📌 **Nota de cierre del 2026-09-10 (`S-033`, `D-139`).** La tarea queda `Implementada`, pero **su
+premisa era falsa y el trabajo que se hizo es otro**. Lo escrito arriba no se reescribe; esto es lo
+que se encontro al abrirla.
+
+**1. El control ya existia.** No habia que anadirlo: nacio como Paso 1c en `S-022`, y estaba ya
+presente en el commit de `S-027`, la sesion que escribio esta tarea. La tarea decia «anadir al Paso
+1b» y el control vivia en el paso contiguo, con otro numero — buscando solo donde ella decia, no
+habria aparecido (`L-051`).
+
+```
+$ git log --oneline -S'El control de codigos instanciados' -- .claude/skills/protocol-close/SKILL.md
+97bb948 S-022: acepta F-055 a F-058 (T-084 a T-090); nace el Paso 1c de protocol-close y _workflow/030_growth.md (D-091)
+$ git show 79e88a2:.claude/skills/protocol-close/SKILL.md | grep -n "git grep -noE"
+144:git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow
+```
+
+**2. Lo que si hacia falta era otra cosa: el control estaba ciego.** Enumeraba ocho prefijos de los
+dieciocho en uso, y devolvia **cero con la fuga dentro**. Se comprobo inyectandola, no razonandola:
+
+```
+$ printf '\nCita de prueba: LG-38 y R-010.\n' >> _phases/010_prototype.md
+$ git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow | wc -l
+0
+$ git grep -noE '\b[A-Z]{1,2}-[0-9]+\b' -- _phases _workflow | grep -vE ':PI-[0-9]+$'
+_phases/010_prototype.md:430:LG-38
+_phases/010_prototype.md:430:R-010
+$ git checkout _phases/010_prototype.md
+```
+
+**3. Lo que se hizo:** el patron pasa a reconocer los codigos **por su forma**, con `PI-` como unica
+exclusion declarada. Su decision es `D-139`. La ampliacion a dieciseis prefijos que esta tarea pedia
+**se descarto**: habria repetido el mismo defecto mas tarde, dejando fuera `PI` y `VS`. La leccion de
+fondo es `L-050`.
+
+**Criterio de cierre, reformulado y corrido.** El de arriba —«el Paso 1b publica los dos barridos»—
+ya se cumplia el dia que se escribio, asi que no distingue el trabajo hecho del no hecho. El que si
+lo distingue es este: el patron reconoce por forma y ya no enumera prefijos, en los dos protocolos.
+
+```
+$ for f in protocol-close protocol-audit; do grep -cF "git grep -noE '\b[A-Z]{1,2}-[0-9]+\b'" .claude/skills/$f/SKILL.md; done
+1
+1
+$ for f in protocol-close protocol-audit; do grep -cF '(T|D|F|L|A|C|DT|S)-' .claude/skills/$f/SKILL.md; done
+0
+0
+```
 
 ---
 
@@ -6195,6 +6357,13 @@ no comprueba nada.
 - **Criterio de cierre:** existe un `D-XXX` que nombra dueño y sitio de la evaluacion y de la
   observabilidad, cada uno con un artefacto que exista.
 
+
+📌 **Nota del 2026-09-10 (`S-033`, `D-143`).** **Se aplaza**, por decision del usuario. Sigue
+`No implementada` y no pasa a `Suspendida`, por lo mismo que la tarea de alcance: pertenece a una
+etapa no iniciada, y nadie ha pausado nada.
+
+**Se retoma cuando** `005_discovery` este activa. La exigencia que la origina —declarar evaluacion,
+observabilidad y seguridad el dia 1— es de esa etapa, y adelantarla no la haria util antes.
 ---
 
 ### T-145 - Fijar por nota fechada las dos cifras del Paso 2d de `S-031` (`F-091`)
@@ -6314,3 +6483,134 @@ $ git show a6279c7:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos 
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.
+
+---
+
+### T-148 - Fijar por nota fechada el recuento de la seccion 8 de `S-032` (`F-093`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-033 |
+
+- **Que:** `_audit/S-032.md` recibe una nota fechada que da la cifra correcta —17, no 16— derivada
+  con una orden sobre el commit que la publico. **La prosa de arriba no se reescribe**: es lo que se
+  publico y asi se queda.
+- 🔑 **Por que la nota y no la correccion en sitio:** el informe ya esta auditado; cambiarle la prosa
+  deja a `R-032` describiendo un estado que ya no existe. La nota corrige sin reescribir, que es como
+  este repositorio corrige lo publicado.
+- **Lo que la nota no cambia:** la afirmacion de fondo de esa seccion se sostiene entera —las
+  ocurrencias son heredadas, `added=0` en los nueve archivos—. Lo que fallo es la cifra tecleada, no
+  la medicion.
+- **Criterio de cierre:** la nota existe en `S-032.md` citando `F-093`, y publica la cifra derivada
+  con su orden.
+
+```
+$ git show <hash>:_audit/S-032.md | grep -c 'Nota del 2026-09-10 (`F-093`)'
+$ git show <hash>:_audit/S-032.md | grep -A3 'Nota del 2026-09-10 (`F-093`)' | grep -c 'suman \*\*17\*\*'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### T-149 - Anadir al Paso 6b el CONTROL DE CIFRA ADYACENTE (`F-093`, `D-137`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-033 |
+
+- **Que:** el Paso 6b de `protocol-close` gana un control obligatorio antes del `git add` que lista
+  la prosa con digito situada en los tres renglones siguientes al cierre de un bloque de salida
+  cruda. Su decision es `D-137`.
+- 🔑 **Por que un control y no otra regla de redaccion:** `D-135` ya se escribio bien —generica, sin
+  nombrar sitio— y el commit que la estreno la incumplio igual. Es la tercera vez consecutiva que
+  reescribir el enunciado no cambia el comportamiento; lo que faltaba era que algo lo comprobara
+  antes de commitear (`L-048`).
+- ⛔ **La respuesta correcta no es cero, y eso es parte del control.** Un informe sano devuelve del
+  orden de diez lineas. La condicion de parada es que cada linea que salga tenga su cifra en el
+  bloque que la precede.
+- **Se midio antes de adoptarlo:** 12, 11 y 10 lineas sobre tres informes reales, frente a las 129
+  del barrido generico que `D-135` descarto; y atrapa los dos defectos que motivaron ambas
+  decisiones. La evidencia esta en `D-137`.
+- **Criterio de cierre:** el Paso 6b lleva el control escrito con su condicion de parada.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 🚨 CONTROL DE CIFRA ADYACENTE'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La respuesta correcta NO es cero'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### T-150 - Fijar por nota fechada el veredicto de la seccion 0 de `S-032` (`F-094`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-033 |
+
+- **Que:** `_audit/S-032.md` recibe una nota fechada que dice que `Implementado` no era la palabra
+  de `manager` en esa columna, y cual si lo era. **La tabla y el parrafo de arriba no se reescriben.**
+- 🔑 **Un matiz que la nota tiene que decir, porque si no confunde:** la discrepancia literal que
+  `R-032` midio ya no aparece contra `HEAD`. `findings.md` dice hoy `Implementado` porque la propia
+  `R-032` cerro los dos hallazgos, no porque nadie corrigiera la tabla. El defecto de vocabulario
+  sigue igual en el texto, y por eso el hallazgo se acepta.
+- **Alcance:** `_audit/S-031.md` uso la misma palabra en sus cuatro filas y **se deja como esta**;
+  `D-138` rige hacia adelante.
+- **Criterio de cierre:** la nota existe en `S-032.md` citando `F-094` y nombra el veredicto correcto.
+
+```
+$ git show <hash>:_audit/S-032.md | grep -c 'Nota del 2026-09-10 (`F-094`)'
+$ git show <hash>:_audit/S-032.md | sed -n '/Nota del 2026-09-10 (`F-094`)/,/^## 1\./p' | grep -c 'Aceptado — corregido en este commit'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### T-151 - Quitar `Implementado` de los veredictos de la seccion 0 (`F-094`, `D-138`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-033 |
+
+- **Que:** en `protocol-close`, los tres veredictos de la seccion 0, la tabla de lo que el auditor
+  comprueba, la plantilla del informe y el aviso que los acompana pasan a decir **`Aceptado —
+  corregido en este commit`** donde decian `Implementado`; y se anade el parrafo que explica por que
+  ese estado no es de `manager`. En `protocol-audit`, la tabla de senales gana una fila: usar
+  `Implementado` en la columna `Veredicto` es hallazgo. Su decision es `D-138`.
+- 🔑 **Por que tocar tambien al auditor:** una regla que solo vive en el lado del auditado depende de
+  que el auditado se acuerde. La fila en `protocol-audit` es lo que hace que la proxima infraccion se
+  vea aunque nadie la recuerde.
+- ⚠️ **`Implementado` sigue existiendo, y en el mismo archivo:** es el estado que la auditoria
+  escribe en `findings.md` cuando verifica una correccion sobre un commit posterior. Lo que se quita
+  es su uso por `manager` en el informe.
+- **Criterio de cierre:** la plantilla del Paso 6b ya no ofrece `Implementado` como veredicto, y
+  `protocol-audit` lo marca como hallazgo.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^| `Aceptado — corregido en este commit`'
+$ git show <hash>:.claude/skills/protocol-audit/SKILL.md | grep -c 'la seccion 0 usa `Implementado` en su columna'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `1`.

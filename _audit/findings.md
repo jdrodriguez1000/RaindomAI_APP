@@ -104,8 +104,8 @@
 | [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Implementado |
 | [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Implementado |
 | [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Implementado |
-| [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Abierto |
-| [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Abierto |
+| [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Aceptado — pendiente |
+| [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -4255,8 +4255,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-032 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-148` (nota fechada), `T-149` (`D-137`, el control mecanico) |
 | Cerrado en | |
 
 - **Que se observo:** la frase que cierra la comparacion `head`/`staged` de la seccion 8 teclea una
@@ -4289,8 +4289,8 @@ $ git show a6279c7:_audit/S-032.md | grep -n 'ocurrencias'
 | Auditoria | R-032 |
 | Fecha | 2026-09-10 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-150` (nota fechada), `T-151` (`D-138`, el vocabulario) |
 | Cerrado en | |
 
 - **Que se observo:** el mismo commit publica dos estados distintos para los mismos dos hallazgos:

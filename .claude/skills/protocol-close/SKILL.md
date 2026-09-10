@@ -141,11 +141,23 @@ numero detras citado dentro de un archivo que tiene que poder copiarse tal cual.
 proyecto, cita entradas que alli no existen.
 
 ```bash
-git grep -noE '\b(T|D|F|L|A|C|DT|S)-[0-9]{2,3}\b' -- _phases _workflow
+git grep -noE '\b[A-Z]{1,2}-[0-9]+\b' -- _phases _workflow | grep -vE ':PI-[0-9]+$'
 ```
 
-🔑 **La respuesta correcta es CERO lineas** (`exit 1`). Si devuelve alguna, se reporta como hallazgo
-propio en el informe con su archivo y su linea, igual que en 1b: no se arregla en silencio.
+🔑 **La respuesta correcta es CERO lineas**. Si devuelve alguna, se reporta como hallazgo propio en
+el informe con su archivo y su linea, igual que en 1b: no se arregla en silencio.
+
+🚨 **El patron NO enumera prefijos, y esa es la parte que importa.** Una version anterior listaba los
+ocho que existian el dia que se escribio, y quedo ciega a los diez que nacieron despues: con dos
+citas reales inyectadas en un archivo de etapa devolvia cero. Un control que hay que ampliar cada vez
+que nace un codigo nuevo esta roto por diseño — el dia que falle sera justo el dia en que nadie se
+acuerde de ampliarlo.
+
+⚠️ **`PI-` es la unica exclusion, y se declara porque no es una entrada del registro.** Los
+principios de ingenieria viven en `CLAUDE.md`, son parte del metodo y viajan a cualquier proyecto:
+citarlos en un archivo de etapa es correcto. Cualquier otra sigla con numero **es** una entrada de un
+registro, y ahi no puede estar. Si algun dia nace otra serie del metodo con esta forma, se anade aqui
+**declarandola**, nunca ensanchando el patron.
 
 🚨 **El ambito son dos carpetas, no las seis del Paso 1b, y la diferencia no es un descuido.** En
 `.claude/`, `_methodology/`, `_templates/` y `CLAUDE.md` un codigo con numero es **legitimo**: los
@@ -906,10 +918,13 @@ completa es una cifra escrita en palabras: si dice «completan los catorce», ti
 orden igual que el `14`. Escribir la lista a mano solo vale **declarandola parcial** — «entre ellos»,
 «los que tocan lo de hoy» —, nunca con un verbo que afirme completitud.
 
-⛔ **No hay control mecanico que cubra esto, y se midio.** Un barrido de numeros en la prosa de un
-informe real marca del orden de 130 lineas, casi todas legitimas: no es un control, es ruido. Lo
-unico que separa la cifra buena de la falsa es pegarla desde su orden — por eso la regla es de
-redaccion y no de barrido.
+⛔ **Un barrido de TODOS los numeros de la prosa no sirve, y se midio:** marca del orden de 130
+lineas en un informe real, casi todas legitimas. No es un control, es ruido.
+
+🔑 **Pero el ambito estrecho si sirve, y va mas abajo.** Lo que separa la cifra buena de la falsa es
+pegarla desde su orden, asi que la franja donde el defecto vive es **la prosa pegada a una salida
+cruda**. Ese recorte es el CONTROL DE CIFRA ADYACENTE del final de este paso: obligatorio, y no
+sustituye a esta regla — la comprueba.
 
 🔑 **La duda se resuelve siempre igual:** si dudas entre pegar la salida y resumirla, pega la salida.
 
@@ -1042,7 +1057,7 @@ nota fechada de la jornada.** Una sola fuente, derivada una vez.
 
 | Hallazgo | Veredicto | Evidencia / Razon |
 |---|---|---|
-| F-NNN — <resumen> | Implementado | `T-NNN`, en este commit |
+| F-NNN — <resumen> | Aceptado — corregido en este commit | `T-NNN`, en este commit |
 | F-NNN — <resumen> | Aceptado — pendiente | `T-NNN`, `No implementada` |
 | F-NNN — <resumen> | No se implementa | `D-NNN` |
 
@@ -1129,15 +1144,31 @@ Quien cubre esa brecha es la SEGUNDA PASADA anclada, que va en la NOTA DE CIERRE
 
 | Veredicto | Cuando |
 |---|---|
-| `Implementado` | hecho, y esta en este commit |
+| `Aceptado — corregido en este commit` | de acuerdo, y la correccion esta en este commit — **con su `T-XXX`** |
 | `Aceptado — pendiente` | de acuerdo, pero aun no hecho — **con su `T-XXX`** |
 | `No se implementa` | rechazado — **con su `D-XXX`** |
+
+⛔ **`Implementado` no es uno de los tres, y no es un sinonimo del primero.** Es el estado que
+`CLAUDE.md` y `project.md` reservan a la auditoria: un hallazgo pasa a `Implementado` cuando **una
+auditoria posterior verifica la correccion sobre un commit posterior**, nunca cuando a `manager` le
+parece resuelto. Escribirlo aqui hace que el informe declare cerrado lo que solo el auditor puede
+cerrar.
+
+🔑 **Y el problema no es de precision, es de quien lee.** La seccion 0 es lo primero que se abre
+para saber en que quedo un hallazgo. Quien lea `Implementado` ahi y no abra `findings.md` concluira
+que esta cerrado — y `findings.md`, que es el registro autoritativo, dira otra cosa en el mismo
+commit. Esta regla nacio de un defecto real: dos informes seguidos publicaron `Implementado` para
+seis hallazgos que su propio `findings.md` dejaba en `Aceptado — pendiente`.
+
+⚠️ **Los dos primeros veredictos dicen lo mismo salvo en una cosa: donde esta la correccion.**
+`corregido en este commit` afirma un hecho que el diff prueba; `pendiente` remite a una tarea
+abierta. Ninguno de los dos afirma el estado del hallazgo, que no es de `manager`.
 
 ### 🚨 Esa tabla se audita fila a fila. Cada veredicto exige algo comprobable
 
 | Veredicto | Lo que el auditor va a comprobar | Si no esta |
 |---|---|---|
-| `Implementado` | que la correccion **aparezca en el diff de este commit** | es un hallazgo, y el original **sigue abierto** |
+| `Aceptado — corregido en este commit` | que la correccion **aparezca en el diff de este commit** | es un hallazgo, y el original **sigue abierto** |
 | `Aceptado — pendiente` | que cite su `T-XXX`, y que esa tarea **exista y siga abierta** | el hallazgo no se da por recogido |
 | `No se implementa` | que cite su `D-XXX` | un rechazo sin decision registrada **no es auditable** |
 
@@ -1165,7 +1196,7 @@ git rev-parse --short HEAD          # el de la izquierda de la tabla
 git log -1 --format='%h %s' HEAD    # el asunto dice si es una auditoria, y de que commit
 ```
 
-⚠️ **No marques `Implementado` lo que el diff no muestre.** Si estas de acuerdo pero no esta hecho,
+⚠️ **No marques `Aceptado — corregido en este commit` lo que el diff no muestre.** Si estas de acuerdo pero no esta hecho,
 su veredicto es `Aceptado — pendiente` con su tarea abierta. Marcarlo hecho no lo adelanta: lo
 convierte en un hallazgo nuevo y deja el original abierto igual.
 
@@ -1255,6 +1286,38 @@ linea de instruccion entre parrafos de instrucciones no desentona.
 ⛔ **Y despues del commit ya no se borra:** el informe estaria auditado, y quitarle lineas cambia lo
 que la auditoria describio. Entonces la salida es la nota fechada, como siempre. Por eso este
 control va **aqui**, antes del `git add`, y no en el Paso 7b.
+
+### 🚨 CONTROL DE CIFRA ADYACENTE (obligatorio, antes del `git add`)
+
+La regla de arriba es de redaccion, y una regla de redaccion sola **ya fallo tres veces seguidas**:
+se enuncio mejor, se generalizo a todo el informe, y el mismo defecto reaparecio en el commit que la
+estrenaba. Lo que faltaba no era el enunciado, era que **nada la comprobara antes de commitear**.
+
+Este control no barre todos los numeros del informe —eso se midio y es ruido—. Barre solo la
+franja donde el defecto aparece siempre: **la prosa que sigue a un bloque de salida cruda**, que es
+justo donde se teclea la cifra que ese bloque acababa de dar.
+
+```bash
+awk '
+  /^```/ { infence = !infence; if (!infence) { since=0; armed=1 } ; next }
+  infence { next }
+  armed { since++; if (since<=3 && $0 ~ /[0-9]/ && $0 !~ /^[[:space:]]*$/) print FILENAME":"NR": "$0; if (since>3) armed=0 }
+' _audit/S-XXX.md
+```
+
+⛔ **La respuesta correcta NO es cero.** Un informe sano devuelve del orden de diez lineas, y casi
+todas son legitimas. **La condicion de parada es esta: cada linea que salga se lee contra el bloque
+que la precede, y su cifra tiene que salir de esa salida.** Si no sale de ahi, se deriva con una
+orden y se pega; no se ajusta a mano.
+
+🔑 **Lo que hace util a un control tan corto es que agrupa las cifras que hablan de lo mismo.** Las
+tres lineas que se contradecian en un informe real —«las 16 ocurrencias», «las 17 ocurrencias
+preexistentes» y «Diecisiete, y la suma … es diecisiete»— salen **una debajo de otra** en su salida,
+a veinte y cuarenta lineas de distancia en el archivo. Leyendo el informe de corrido no se ven
+juntas nunca; en esta salida la contradiccion es la primera cosa que se nota.
+
+⚠️ **La salida se publica en la NOTA DE CIERRE, tambien cuando no obliga a corregir nada.** Un
+control cuyo resultado no se publica no se distingue de un control que no se corrio.
 
 ---
 

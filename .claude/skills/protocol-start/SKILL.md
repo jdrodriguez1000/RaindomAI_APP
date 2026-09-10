@@ -363,6 +363,9 @@ En espanol, sin relleno:
 1. <codigo> <tarea> — <importancia/urgencia> — <por que es la siguiente>
 2. ...
 
+## Tareas de etapas no iniciadas        <-- omitir solo si no hay ninguna
+- <`T-XXX` <tarea> — etapa `<cual>` — se retoma cuando <disparador>>
+
 ## Supuestos que tocan mirar        <-- OBLIGATORIO, nunca se omite
 - <`A-XXX` <supuesto> — disparador: <cual> — <cumplido | sin disparador escrito> | «ninguno»>
 
@@ -390,6 +393,26 @@ Reglas del reporte:
 - 🔑 **Las siguientes tareas se ordenan por urgencia y despues por importancia**, no por orden de
   aparicion en el archivo: primero las `Bloqueante`, y dentro de ellas `Alta` antes que `Media` y
   `Baja`. Esos campos existen para decidir el orden del dia; usalos.
+- 🚨 **Una tarea de una etapa que no ha empezado NO es una siguiente tarea, y va en su propio
+  bloque.** Se reconoce por su campo `Etapa`: si no es la etapa activa que declara `progress.md`, va
+  a «Tareas de etapas no iniciadas» con su etapa y su disparador, **nunca numerada entre las
+  siguientes**.
+
+  ```bash
+  # etapa activa
+  grep -iE '^\| Etapa ' _persistence/progress.md | tail -1
+  # pendientes, con su etapa, para separarlas
+  grep -E '^\| \[T-' _persistence/tasks.md | grep -E '\| No implementada \|' \
+    | awk -F'|' '{gsub(/^ +| +$/,"",$2); gsub(/^ +| +$/,"",$7); print $7"  "$2}' | sort
+  ```
+
+- 🔑 **Por que separarlas y no solo mencionarlo:** mezcladas con las de la etapa activa, compiten por
+  el dia y se proponen como trabajo que todavia no toca — y quien lea el reporte no tiene forma de
+  saberlo sin abrir cada ficha. Separadas, el aplazamiento **se ve** sin que nadie tenga que
+  recordarlo.
+- ⚠️ **Que esten aparte no las esconde: el bloque se publica.** Una tarea de otra etapa sigue siendo
+  trabajo real del proyecto, y desaparecerla del reporte seria el defecto contrario. Se omite el
+  bloque entero **solo** si no hay ninguna.
 - 🔻 **Un bloqueo vigente es OBLIGATORIO si existe, y va el primero de «Siguientes tareas».**
   Buscalo en `progress.md`, en `tasks.md`, en `techdebt.md` **y en `assumptions.md`**: un supuesto
   abierto cuyo disparador ya se cumplio bloquea igual que una tarea, y no esta en las otras tres
