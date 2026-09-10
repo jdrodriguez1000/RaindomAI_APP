@@ -8314,7 +8314,7 @@ existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`
   tecleado.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion no escribe a mano'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion no escribe a mano'
 1
 ```
 
@@ -8365,7 +8365,7 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
   commit de anclaje como ambito.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DERIVA con una orden y se pega su salida, nunca se teclea'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'DERIVA con una orden y se pega su salida, nunca se teclea'
 1
 ```
 
@@ -8419,9 +8419,9 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
   8 dice que mide el area de staging y remite a ella.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'SEGUNDA PASADA, anclada, despues del commit'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'SEGUNDA PASADA, anclada, despues del commit'
 1
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion mide el AREA DE STAGING previa al commit'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion mide el AREA DE STAGING previa al commit'
 1
 ```
 
@@ -8493,7 +8493,7 @@ existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
   ese protocolo existe en el registro.
 
 ```
-$ git show <hash>:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Escribir la skill `protocol-harvest`'
+$ git show 30ce070:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Escribir la skill `protocol-harvest`'
 1
 ```
 
@@ -8597,7 +8597,7 @@ momento es la etapa siguiente y la linea base**, no esta.
   los bloques NO MIRADOS.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -c '^- 🚨 \*\*Bloques NO MIRADOS'
+$ git show 30ce070:_persistence/decisions.md | grep -c '^- 🚨 \*\*Bloques NO MIRADOS'
 1
 ```
 

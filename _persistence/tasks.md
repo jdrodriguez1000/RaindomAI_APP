@@ -5479,7 +5479,7 @@ $ git show <hash>:_phases/000_preproject.md | grep -c 'Los seis agentes existen'
   anterior.
 
 ```
-$ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
+$ git show 30ce070:_phases/005_discovery.md | grep -c 'acta de cierre'
 1
 ```
 
@@ -5523,7 +5523,7 @@ $ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
   de lecciones y bajo que protocolo.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -cE '^### D-[0-9]+ - La cosecha la ejecuta `manager` bajo un protocolo propio'
+$ git show 30ce070:_persistence/decisions.md | grep -cE '^### D-[0-9]+ - La cosecha la ejecuta `manager` bajo un protocolo propio'
 1
 ```
 
@@ -5594,7 +5594,7 @@ $ git show <hash>:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep
   codigos de las lecciones leidas y declarando los bloques `NO MIRADOS`.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -c '^- 🚨 \*\*Bloques NO MIRADOS'
+$ git show 30ce070:_persistence/decisions.md | grep -c '^- 🚨 \*\*Bloques NO MIRADOS'
 1
 ```
 
@@ -5871,7 +5871,7 @@ $ git show b32193d:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' |
   entera.
 
 ```
-$ git show <hash>:_audit/S-030.md | grep -c 'Nota del 2026-09-10 (`F-087`)'
+$ git show 30ce070:_audit/S-030.md | grep -c 'Nota del 2026-09-10 (`F-087`)'
 1
 ```
 
@@ -5898,7 +5898,7 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 - **Criterio de cierre:** la plantilla de la seccion 4 lleva la prohibicion escrita.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion no escribe a mano'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion no escribe a mano'
 1
 ```
 
@@ -5935,7 +5935,7 @@ $ for f in _persistence/decisions.md _persistence/tasks.md; do git show a6f798e:
   entera.
 
 ```
-$ git show <hash>:_audit/S-030.md | grep -c 'Nota del 2026-09-10 (`F-088`)'
+$ git show 30ce070:_audit/S-030.md | grep -c 'Nota del 2026-09-10 (`F-088`)'
 1
 ```
 
@@ -5962,7 +5962,7 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 - **Criterio de cierre:** la plantilla de la NOTA DE CIERRE lleva la exigencia escrita.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DERIVA con una orden y se pega su salida, nunca se teclea'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'DERIVA con una orden y se pega su salida, nunca se teclea'
 1
 ```
 
@@ -5999,7 +5999,7 @@ $ git show b32193d:_templates/000_preproject/005_project.md | grep -c 'actas de 
 - **Criterio de cierre:** la plantilla nombra las actas de cierre de etapa en su fila `_audit/`.
 
 ```
-$ git show <hash>:_templates/000_preproject/005_project.md | grep -c 'actas de cierre de esa etapa'
+$ git show 30ce070:_templates/000_preproject/005_project.md | grep -c 'actas de cierre de esa etapa'
 1
 ```
 
@@ -6035,9 +6035,9 @@ $ git diff --name-only --diff-filter=d 9b3f9ee^ 9b3f9ee | wc -l
   8 declara su ambito real.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'SEGUNDA PASADA, anclada, despues del commit'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'SEGUNDA PASADA, anclada, despues del commit'
 1
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion mide el AREA DE STAGING previa al commit'
+$ git show 30ce070:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion mide el AREA DE STAGING previa al commit'
 1
 ```
 
@@ -6089,11 +6089,11 @@ existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
 - **Criterio de cierre:** la skill existe, declara su uso exclusivo y lleva escrita la puerta.
 
 ```
-$ git show <hash>:.claude/skills/protocol-harvest/SKILL.md | grep -c 'Uso exclusivo de manager'
+$ git show 30ce070:.claude/skills/protocol-harvest/SKILL.md | grep -c 'Uso exclusivo de manager'
 1
-$ git show <hash>:.claude/skills/protocol-harvest/SKILL.md | grep -c 'LA PUERTA'
+$ git show 30ce070:.claude/skills/protocol-harvest/SKILL.md | grep -c 'LA PUERTA'
 1
-$ git show <hash>:CLAUDE.md | grep -c 'protocol-harvest'
+$ git show 30ce070:CLAUDE.md | grep -c 'protocol-harvest'
 1
 ```
 
