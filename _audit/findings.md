@@ -104,8 +104,11 @@
 | [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Implementado |
 | [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Implementado |
 | [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Implementado |
-| [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Aceptado — pendiente |
-| [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Aceptado — pendiente |
+| [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Implementado |
+| [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Implementado |
+| [F-095](#f-095---projectmd-afirma-tres-veces-que-020_baseline-no-esta-adoptada-en-el-mismo-commit-que-la-declara) | `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara | R-033 | Media | Abierto |
+| [F-096](#f-096---el-bloque-de-verificacion-de-la-seccion-2-de-s-033-publica-dos-salidas-que-no-reproducen) | El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen | R-033 | Media | Abierto |
+| [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Abierto |
 
 ---
 
@@ -4255,9 +4258,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-032 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-148` (nota fechada), `T-149` (`D-137`, el control mecanico) |
-| Cerrado en | |
+| Cerrado en | `91a59c8` (verificado en `R-033`) |
 
 - **Que se observo:** la frase que cierra la comparacion `head`/`staged` de la seccion 8 teclea una
   cifra que sus propios operandos desmienten en la misma linea:
@@ -4289,9 +4292,9 @@ $ git show a6279c7:_audit/S-032.md | grep -n 'ocurrencias'
 | Auditoria | R-032 |
 | Fecha | 2026-09-10 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-150` (nota fechada), `T-151` (`D-138`, el vocabulario) |
-| Cerrado en | |
+| Cerrado en | `91a59c8` (verificado en `R-033`) |
 
 - **Que se observo:** el mismo commit publica dos estados distintos para los mismos dos hallazgos:
 
@@ -4314,3 +4317,115 @@ Aceptado — pendiente
 - **Que lo corregiria:** que la columna `Veredicto` de la seccion 0 use vocabulario que `manager` si
   puede escribir (`Aceptado — corregido en este commit`, o `Aceptado — pendiente`), y que la
   plantilla del Paso 6b de `protocol-close` lo fije.
+
+---
+
+### F-095 - `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara
+| Campo | Valor |
+|---|---|
+| Auditoria | R-033 |
+| Fecha | 2026-09-10 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-142` declara las siete etapas en la tabla «Etapas» de `project.md`, y unas
+  ciento cincuenta lineas mas abajo el mismo archivo sigue afirmando lo contrario sobre
+  `020_baseline`:
+
+```
+$ git show 91a59c8:project.md | grep -n 'la etapa no esta adoptada'
+250:| `FT-XXX` | el artefacto de features de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | feature |
+251:| `SC-XXX` | el artefacto de escenarios de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | scenario |
+
+$ git show 91a59c8:project.md | sed -n '267,269p'
+`N-XXX` (`D-034`) e `I-XXX` (`D-038`). **Declararlos no adopta `020_baseline`**: la etapa sigue sin
+declarar en la tabla «Etapas», y por eso la columna «Archivo» de esas dos filas dice «ruta por
+declarar» en vez de inventarse una.
+
+$ git show 91a59c8:project.md | sed -n '/^| Etapas declaradas/p'
+| Etapas declaradas | `000_preproject`, `005_discovery`, `010_prototype`, `020_baseline`, `025_wslt`, `030_growth`, `040_evol` |
+```
+
+- **Por que importa:** `project.md` es el unico archivo del proyecto que guarda datos propios, y es
+  donde se resuelve «que etapas existen». Un archivo que se contradice consigo mismo obliga a decidir
+  cual de sus dos mitades miente, y esa respuesta no esta escrita. Ademas la razon que esas notas dan
+  para dejar la columna «Archivo» sin ruta —«la etapa no esta adoptada»— dejo de ser cierta en este
+  commit. Evidencia completa en `_audit/R-033.md`, seccion 2.
+- **Que lo corregiria:** actualizar las dos filas de la tabla «Codigos» y la nota que las explica
+  para que digan lo que ahora es cierto —la etapa esta declarada; la ruta del artefacto sigue sin
+  fijarse— y, si esa ruta se decide, escribirla con su `D-XXX`.
+
+---
+
+### F-096 - El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen
+| Campo | Valor |
+|---|---|
+| Auditoria | R-033 |
+| Fecha | 2026-09-10 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la primera salida esta podada —el comando devuelve cuatro filas y el informe
+  publica tres, sin la de `T-039`, que el `grep` recoge por su titulo aunque su estado sea
+  `Implementada`—, y la segunda publica `151` donde la orden da `152`:
+
+```
+$ git show 91a59c8:_persistence/tasks.md > /tmp/t.md
+$ sed -n '/^## Indice/,/^---/p' /tmp/t.md | grep -c "No implementada"
+4
+$ grep -n "^### T-" /tmp/t.md | wc -l
+152
+$ for h in 91a59c8^ 91a59c8 f3ae6b6; do echo "$h: $(git show $h:_persistence/tasks.md | grep -c '^### T-')"; done
+91a59c8^: 148
+91a59c8: 152
+f3ae6b6: 152
+```
+
+  `151` no corresponde a ningun estado del archivo. Evidencia completa en `_audit/R-033.md`,
+  seccion 2.
+- **Por que importa:** las conclusiones de fondo del bloque son correctas, y eso hace el defecto
+  dificil de ver. Una salida cruda recortada a mano deja de ser evidencia y pasa a ser una afirmacion
+  con formato de evidencia; quien reejecute la orden vera una fila de mas y no sabra si el informe
+  oculto una tarea o si el filtro es demasiado ancho.
+- **Que lo corregiria:** una nota fechada en `_audit/S-033.md` con las dos salidas derivadas, sin
+  reescribir la prosa; y que el filtro por estado acote la columna (`grep -E '\| No implementada \|'`)
+  en vez del texto libre de la fila.
+
+---
+
+### F-097 - La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria
+| Campo | Valor |
+|---|---|
+| Auditoria | R-033 |
+| Fecha | 2026-09-10 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el Paso 6b, en la version que el propio commit deja escrita, exige correr el
+  control antes del `git add` y publicar su salida «tambien cuando no obliga a corregir nada». El
+  informe no la publica: las seis apariciones de «CIFRA ADYACENTE» son prosa o la cadena dentro de
+  ordenes de criterios de cierre. Corrido ahora sobre el informe, el control devuelve trece lineas:
+
+```
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | sed -n '1319,1320p'
+⚠️ **La salida se publica en la NOTA DE CIERRE, tambien cuando no obliga a corregir nada.** Un
+control cuyo resultado no se publica no se distingue de un control que no se corrio.
+
+$ git show f3ae6b6:_audit/S-033.md | grep -c -i 'cifra adyacente'
+6
+```
+
+  Evidencia completa —incluida la salida del control corrida sobre el informe— en
+  `_audit/R-033.md`, seccion 2.
+- **Por que importa:** el control nace en este commit porque una regla de redaccion sola ya fallo
+  tres veces seguidas. Estrenarlo sin publicar su salida repite el patron que `D-137` vino a romper,
+  y no es teorico: la cifra de `F-096` es una cifra pegada a una salida cruda que no reproduce.
+- **Que lo corregiria:** una nota fechada en `_audit/S-033.md` con la salida del control corrida
+  sobre el informe; y valorar si el Paso 6b necesita una condicion comprobable desde fuera, porque
+  hoy depende de que el cierre se acuerde de correrlo.
