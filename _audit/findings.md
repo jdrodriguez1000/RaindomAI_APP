@@ -102,8 +102,10 @@
 | [F-088](#f-088---la-nota-de-cierre-afirma-las-6-restantes-y-su-desglose-enumera-cinco) | La NOTA DE CIERRE afirma «las 6 restantes» y su desglose enumera cinco | R-030 | Baja | Implementado |
 | [F-089](#f-089---la-plantilla-005_projectmd-no-recibe-la-actualizacion-de-la-fila-_audit-que-si-recibe-projectmd-y-el-informe-la-describe-como-el-mismo-cambio) | La plantilla `005_project.md` no recibe la actualizacion de la fila `_audit/` que si recibe `project.md`, y el informe la describe como «el mismo cambio» | R-030 | Media | Implementado |
 | [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Implementado |
-| [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Aceptado — pendiente |
-| [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Aceptado — pendiente |
+| [F-091](#f-091---la-seccion-7-y-la-nota-de-cierre-de-s-031-publican-dos-recuentos-tecleados-que-su-propia-lista-de-21-lineas-desmiente) | La seccion 7 y la NOTA DE CIERRE de `S-031` publican dos recuentos tecleados que su propia lista de 21 lineas desmiente | R-031 | Media | Implementado |
+| [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Implementado |
+| [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Abierto |
+| [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Abierto |
 
 ---
 
@@ -4203,9 +4205,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-031 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-145` (nota fechada) y `T-147` (`D-135`, regla generica) |
-| Cerrado en | |
+| Cerrado en | `a6279c7` (verificado en `R-032`) |
 
 - **Que se observo:** la lista del Paso 2d en `_audit/S-031.md` tiene 21 lineas, de las que 19 llevan
   `<hash>` (`grep -cE '^ +[0-9]+\s+\+\$ '` devuelve `21`; filtrando por `<hash>`, `19`). El informe
@@ -4229,9 +4231,9 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-031 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-146` (nota fechada) y `T-147` (`D-135`, regla generica) |
-| Cerrado en | |
+| Cerrado en | `a6279c7` (verificado en `R-032`) |
 
 - **Que se observo:** la seccion 4 de `_audit/S-031.md` publica bien la salida cruda de su orden
   (`14`) y a continuacion escribe que «`A-006` a `A-009`, `A-011` a `A-015` (nueve codigos) mas
@@ -4244,3 +4246,71 @@ git log -1 --format=%h -- _audit/S-XXX.md
   en duda»— queda fuera del recuento.
 - **Que lo corregiria:** derivar tambien la lista de codigos con la misma orden
   (`... | grep -oE 'A-[0-9]+' | sort -u`) y pegarla, o suprimir el verbo «completan».
+
+---
+
+### F-093 - La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17
+| Campo | Valor |
+|---|---|
+| Auditoria | R-032 |
+| Fecha | 2026-09-10 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la frase que cierra la comparacion `head`/`staged` de la seccion 8 teclea una
+  cifra que sus propios operandos desmienten en la misma linea:
+
+```
+$ git show a6279c7:_audit/S-032.md | grep -n 'ocurrencias'
+348:`head` y `staged` coinciden en los nueve archivos: las 16 ocurrencias (1+4+7+5+... = las de la tabla
+372:ocurrencias preexistentes (ver DT-003 a DT-006, propuestas de deuda tecnica sobre este mismo defecto,
+```
+
+  `1+4+7+5 = 17`, el contraste 2 de esa misma seccion publica `17` con salida cruda, y la linea 372
+  del propio informe dice «las 17 ocurrencias preexistentes». Evidencia completa en `_audit/R-032.md`,
+  seccion 2.
+- **Por que importa:** es la sexta ocurrencia del mismo defecto (`F-068`, `F-072`, `F-083`, `F-084`,
+  `F-087`/`F-088`, `F-091`/`F-092`) y ocurre **en el commit que estrena `D-135`**, la regla escrita
+  para que ninguna cifra se teclee «en ninguna seccion». Una regla incumplida en el commit que la
+  escribe no se puede dar por vigente sin comprobarlo — es la tercera vez consecutiva que pasa.
+- **Que lo corregiria:** una nota fechada en `_audit/S-032.md` con la cifra derivada, sin reescribir
+  la prosa; y decidir si lo que falla sigue siendo el enunciado de la regla o el hecho de que nada la
+  comprueba antes de commitear. `D-135` descarto el barrido generico de numeros por ruidoso, pero un
+  contraste acotado a las cifras que aparecen **al lado de una salida cruda** es mucho mas estrecho
+  que el que se midio.
+
+---
+
+### F-094 - La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-032 |
+| Fecha | 2026-09-10 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el mismo commit publica dos estados distintos para los mismos dos hallazgos:
+
+```
+$ git show a6279c7:_audit/S-032.md | sed -n '/^## 0\./,/^## 1\./p' | grep -E '^\| F-09' | awk -F'|' '{gsub(/^ +| +$/,"",$3); print $3}'
+Implementado
+Implementado
+
+$ git show a6279c7:_audit/findings.md | grep -E '^\| \[F-09[12]\]' | awk -F'|' '{gsub(/^ +| +$/,"",$6); print $6}'
+Aceptado — pendiente
+Aceptado — pendiente
+```
+
+  `findings.md` esta bien; lo que desencaja es el informe, que usa en su columna `Veredicto` la
+  palabra reservada a la auditoria. Evidencia completa en `_audit/R-032.md`, seccion 2.
+- **Por que importa:** la seccion 0 es lo primero que se lee para saber en que quedo un hallazgo.
+  Quien la lea sin abrir `findings.md` concluira que los dos estan cerrados por quien no puede
+  cerrarlos. `S-031` uso el mismo vocabulario para sus cuatro hallazgos, asi que es patron y no
+  desliz.
+- **Que lo corregiria:** que la columna `Veredicto` de la seccion 0 use vocabulario que `manager` si
+  puede escribir (`Aceptado — corregido en este commit`, o `Aceptado — pendiente`), y que la
+  plantilla del Paso 6b de `protocol-close` lo fije.
