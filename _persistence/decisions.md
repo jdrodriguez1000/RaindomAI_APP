@@ -8832,12 +8832,14 @@ Las ancla el Paso 7c-bis del cierre.
   parada dice explicitamente que la respuesta correcta no es cero.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 🚨 CONTROL DE CIFRA ADYACENTE'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La respuesta correcta NO es cero'
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -c '^### 🚨 CONTROL DE CIFRA ADYACENTE'
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -c 'La respuesta correcta NO es cero'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -8892,12 +8894,14 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
   `protocol-audit` lo marca como hallazgo.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^| `Aceptado — corregido en este commit`'
-$ git show <hash>:.claude/skills/protocol-audit/SKILL.md | grep -c 'la seccion 0 usa `Implementado` en su columna'
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -c '^| `Aceptado — corregido en este commit`'
+$ git show 91a59c8:.claude/skills/protocol-audit/SKILL.md | grep -c 'la seccion 0 usa `Implementado` en su columna'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -8982,8 +8986,8 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `1`.
   prefijos.
 
 ```
-$ for f in protocol-close protocol-audit; do git show <hash>:.claude/skills/$f/SKILL.md | grep -cF "git grep -noE '\b[A-Z]{1,2}-[0-9]+\b'"; done
-$ for f in protocol-close protocol-audit; do git show <hash>:.claude/skills/$f/SKILL.md | grep -cF '(T|D|F|L|A|C|DT|S)-'; done
+$ for f in protocol-close protocol-audit; do git show 91a59c8:.claude/skills/$f/SKILL.md | grep -cF "git grep -noE '\b[A-Z]{1,2}-[0-9]+\b'"; done
+$ for f in protocol-close protocol-audit; do git show 91a59c8:.claude/skills/$f/SKILL.md | grep -cF '(T|D|F|L|A|C|DT|S)-'; done
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
@@ -8994,6 +8998,9 @@ Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1` y `1`; la
 primera version de este bloque intento expresarlo como expresion regular y **no se reproducia**: los
 escapes de la orden y los del patron buscado se pisaban. Con `grep -F` la cadena se compara tal cual,
 que es lo unico que aqui hace falta.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos ordenes reproducen lo publicado
+arriba (cada una sobre los dos protocolos).
 
 ---
 
@@ -9042,13 +9049,15 @@ que es lo unico que aqui hace falta.
   linea cada uno.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md > /tmp/c.md; git show <hash>:.claude/skills/protocol-audit/SKILL.md > /tmp/a.md
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md > /tmp/c.md; git show 91a59c8:.claude/skills/protocol-audit/SKILL.md > /tmp/a.md
 $ grep -hoE '^git grep -nE .* -- .*$' /tmp/c.md /tmp/a.md | sed 's/.*-- //' | sort -u | wc -l
 $ grep -hoE '^git grep -noE .*$' /tmp/c.md /tmp/a.md | sed 's/<hash> //' | sort -u | wc -l
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -9092,13 +9101,15 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
   indice, y `CLAUDE.md` ya no dice que el inventario no exista.
 
 ```
-$ git show <hash>:_persistence/constraints.md | grep -c '^#### Irreversible — permiso antes'
-$ git show <hash>:_persistence/constraints.md | grep -c '^#### Reversible — se hace y se revisa despues'
-$ git show <hash>:CLAUDE.md | grep -c 'mientras no exista en `_persistence/` un'
+$ git show 91a59c8:_persistence/constraints.md | grep -c '^#### Irreversible — permiso antes'
+$ git show 91a59c8:_persistence/constraints.md | grep -c '^#### Reversible — se hace y se revisa despues'
+$ git show 91a59c8:CLAUDE.md | grep -c 'mientras no exista en `_persistence/` un'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `0`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las tres reproducen lo publicado arriba.
 
 ---
 
@@ -9158,13 +9169,15 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `0`.
   adoptada, y ya no dice que lo posterior este sin registrar.
 
 ```
-$ git show <hash>:project.md | grep -c '^| Secuencia adoptada |'
-$ git show <hash>:project.md | grep -c 'no registradas'
-$ git show <hash>:project.md | sed -n '/^| Etapas declaradas/p' | grep -oE '`[0-9]{3}_[a-z]+`' | wc -l
+$ git show 91a59c8:project.md | grep -c '^| Secuencia adoptada |'
+$ git show 91a59c8:project.md | grep -c 'no registradas'
+$ git show 91a59c8:project.md | sed -n '/^| Etapas declaradas/p' | grep -oE '`[0-9]{3}_[a-z]+`' | wc -l
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `0` y `7`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las tres reproducen lo publicado arriba.
 
 ---
 
@@ -9228,10 +9241,12 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `0` y `7`.
   su etapa, y el arranque tiene escrito el bloque que separa las etapas no iniciadas.
 
 ```
-$ git show <hash>:_persistence/tasks.md | grep -cE '^\| \[T-003\].*\| Suspendida \|'
-$ git show <hash>:_persistence/tasks.md | grep -cE '^\| \[T-(001|144)\].*\| No implementada \|'
-$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c 'Tareas de etapas no iniciadas'
+$ git show 91a59c8:_persistence/tasks.md | grep -cE '^\| \[T-003\].*\| Suspendida \|'
+$ git show 91a59c8:_persistence/tasks.md | grep -cE '^\| \[T-(001|144)\].*\| No implementada \|'
+$ git show 91a59c8:.claude/skills/protocol-start/SKILL.md | grep -c 'Tareas de etapas no iniciadas'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `2` y `2`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las tres reproducen lo publicado arriba.

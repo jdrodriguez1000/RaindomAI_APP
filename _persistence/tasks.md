@@ -6509,12 +6509,14 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.
   con su orden.
 
 ```
-$ git show <hash>:_audit/S-032.md | grep -c 'Nota del 2026-09-10 (`F-093`)'
-$ git show <hash>:_audit/S-032.md | grep -A3 'Nota del 2026-09-10 (`F-093`)' | grep -c 'suman \*\*17\*\*'
+$ git show 91a59c8:_audit/S-032.md | grep -c 'Nota del 2026-09-10 (`F-093`)'
+$ git show 91a59c8:_audit/S-032.md | grep -A3 'Nota del 2026-09-10 (`F-093`)' | grep -c 'suman \*\*17\*\*'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -6544,12 +6546,14 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
 - **Criterio de cierre:** el Paso 6b lleva el control escrito con su condicion de parada.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 🚨 CONTROL DE CIFRA ADYACENTE'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'La respuesta correcta NO es cero'
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -c '^### 🚨 CONTROL DE CIFRA ADYACENTE'
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -c 'La respuesta correcta NO es cero'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -6574,12 +6578,14 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
 - **Criterio de cierre:** la nota existe en `S-032.md` citando `F-094` y nombra el veredicto correcto.
 
 ```
-$ git show <hash>:_audit/S-032.md | grep -c 'Nota del 2026-09-10 (`F-094`)'
-$ git show <hash>:_audit/S-032.md | sed -n '/Nota del 2026-09-10 (`F-094`)/,/^## 1\./p' | grep -c 'Aceptado — corregido en este commit'
+$ git show 91a59c8:_audit/S-032.md | grep -c 'Nota del 2026-09-10 (`F-094`)'
+$ git show 91a59c8:_audit/S-032.md | sed -n '/Nota del 2026-09-10 (`F-094`)/,/^## 1\./p' | grep -c 'Aceptado — corregido en este commit'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -6608,9 +6614,11 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
   `protocol-audit` lo marca como hallazgo.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^| `Aceptado — corregido en este commit`'
-$ git show <hash>:.claude/skills/protocol-audit/SKILL.md | grep -c 'la seccion 0 usa `Implementado` en su columna'
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -c '^| `Aceptado — corregido en este commit`'
+$ git show 91a59c8:.claude/skills/protocol-audit/SKILL.md | grep -c 'la seccion 0 usa `Implementado` en su columna'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
