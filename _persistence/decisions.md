@@ -8666,11 +8666,13 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
   linea de la seccion 4 ya no autoriza la lista tecleada.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Ninguna, y en ninguna seccion'
+$ git show a6279c7:.claude/skills/protocol-close/SKILL.md | grep -c 'Ninguna, y en ninguna seccion'
 1
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos si se escribe; la cifra sale de la orden o no sale'
+$ git show a6279c7:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos si se escribe; la cifra sale de la orden o no sale'
 0
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `a6279c7`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.
@@ -8720,11 +8722,13 @@ ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.
   `assumptions.md` sigue con sus cuatro columnas.
 
 ```
-$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c 'el cuerpo de los que estan `Abierto`'
+$ git show a6279c7:.claude/skills/protocol-start/SKILL.md | grep -c 'el cuerpo de los que estan `Abierto`'
 1
-$ git show <hash>:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | sed -n '3p'
+$ git show a6279c7:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | sed -n '3p'
 | Codigo | Supuesto | Fecha | Estado |
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `a6279c7`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre.

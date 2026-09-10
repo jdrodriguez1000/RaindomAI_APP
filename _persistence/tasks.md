@@ -6151,11 +6151,13 @@ $ grep -n 'assumptions' .claude/skills/protocol-start/SKILL.md
   reporte de bloqueos.
 
 ```
-$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c 'Supuestos que tocan mirar'
+$ git show a6279c7:.claude/skills/protocol-start/SKILL.md | grep -c 'Supuestos que tocan mirar'
 2
-$ git show <hash>:.claude/skills/protocol-start/SKILL.md | grep -c '^| `_persistence/assumptions.md` |'
+$ git show a6279c7:.claude/skills/protocol-start/SKILL.md | grep -c '^| `_persistence/assumptions.md` |'
 0
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `a6279c7`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `0`.
@@ -6228,9 +6230,11 @@ $ git show eca7304:_audit/S-031.md | sed -n '/^## 7. Evidencia del Paso 2d/,/^> 
   sigue entera.
 
 ```
-$ git show <hash>:_audit/S-031.md | grep -c 'Nota del 2026-09-10 (`F-091`)'
+$ git show a6279c7:_audit/S-031.md | grep -c 'Nota del 2026-09-10 (`F-091`)'
 1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `a6279c7`.** Reproduce lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
@@ -6265,9 +6269,11 @@ A-001 A-002 A-003 A-004 A-005 A-006 A-007 A-008 A-009 A-011 A-012 A-013 A-014 A-
   sigue entera.
 
 ```
-$ git show <hash>:_audit/S-031.md | grep -c 'Nota del 2026-09-10 (`F-092`)'
+$ git show a6279c7:_audit/S-031.md | grep -c 'Nota del 2026-09-10 (`F-092`)'
 1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `a6279c7`.** Reproduce lo publicado arriba.
 
 ⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
 ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
@@ -6298,11 +6304,13 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
   ya no esta.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Ninguna, y en ninguna seccion'
+$ git show a6279c7:.claude/skills/protocol-close/SKILL.md | grep -c 'Ninguna, y en ninguna seccion'
 1
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos si se escribe; la cifra sale de la orden o no sale'
+$ git show a6279c7:.claude/skills/protocol-close/SKILL.md | grep -c 'de codigos si se escribe; la cifra sale de la orden o no sale'
 0
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `a6279c7`.** Las dos reproducen lo publicado arriba.
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `0`.
