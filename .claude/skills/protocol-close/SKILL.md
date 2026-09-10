@@ -515,6 +515,43 @@ exactamente los que la memoria deja fuera. **El diff sabe que archivos se tocaro
 no se corrige: se anota. La diferencia entre las dos cosas es la unica razon de que el paso exista
 aqui y no en la auditoria.
 
+### 🚨 SEGUNDA PASADA, anclada, despues del commit (obligatoria)
+
+⚠️ **`git diff --cached` no es «los archivos que el commit toca»: es lo que hay en staging CUANDO SE
+CORRE.** Y este paso corre antes de que el cierre escriba `progress.md`, el informe y el tablero. Esos
+tres entran en el commit sin haber pasado por el barrido — y `progress.md` es el archivo con **mas**
+riesgo de los tres: el cierre lo reescribe entero y contiene patrones `\b`, el origen exacto del
+`0x08` que este paso persigue. Una vez ocurrio: la tabla publico catorce archivos donde el commit
+llevaba diecisiete, y los dos contrastes cuadraron con ella porque salen del **mismo** staging corto.
+
+⛔ **Por eso los dos contrastes de arriba no bastan.** Los dos preguntan por otro camino, pero
+**dentro del mismo ambito**: no pueden ver lo que el ambito deja fuera. Lo unico que ve la brecha es
+repetir el barrido sobre el commit ya hecho:
+
+```bash
+# 1 — el barrido, anclado al commit
+for f in $(git diff --name-only --diff-filter=d <hash>^ <hash>); do
+  n=$(git show <hash>:"$f" | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]')
+  [ "$n" -gt 0 ] && echo "$f: $n"
+done
+
+# 2 — contraste 1 anclado: cuantos archivos lleva el commit de verdad
+git diff --name-only --diff-filter=d <hash>^ <hash> | wc -l
+
+# 3 — contraste 2 anclado: el total, sin pasar por la tabla
+for f in $(git diff --name-only --diff-filter=d <hash>^ <hash>); do git show <hash>:"$f"; done \
+  | grep -c $'[\x01-\x08\x0b\x0c\x0e-\x1f]'
+```
+
+**Las tres salidas se publican en la NOTA DE CIERRE del informe**, junto al CENSO y al CONTROL, y
+**tambien cuando salen limpias**. Si el recuento del contraste 1 anclado no coincide con el numero de
+filas de la tabla de la seccion 8, **eso no es un error: es lo esperado** — se dice cuantos archivos
+quedaron fuera y cuales, con la salida delante.
+
+🚨 **Si la segunda pasada saca una linea que la primera no vio, no se corrige: se anota.** El commit
+ya existe. Va con su **nota fechada**, como cualquier defecto ya commiteado — y ese es exactamente el
+caso que la primera pasada no podia atrapar.
+
 ⚠️ **Su resultado se publica en el informe, tambien cuando sale vacio.** «Ninguna linea» es un
 resultado, y va con su orden y su salida cruda como cualquier otro — un control sin evidencia
 publicada es indistinguible de un control que no se corrio.
@@ -1008,6 +1045,11 @@ entradas YA EXISTENTES que el commit edita, con su codigo (`L-XXX (nace)`, `L-XX
 
 ## 4. Supuestos vigentes y riesgos
 <`A-XXX` abiertos, que se apoya en ellos, y que pasa si resultan falsos>
+<si se publica la orden que los enumera, debajo va SU SALIDA CRUDA: esta seccion no escribe a mano
+un recuento — ni «devuelve trece filas» ni «son N» — al lado de la orden que lo desmiente. La lista
+de codigos si se escribe; la cifra sale de la orden o no sale>
+<🚨 Cuatro veces ha salido falso un recuento tecleado junto a su propia orden. Si dudas entre pegar
+la salida y resumirla, pega la salida>
 
 ## 5. Siguiente tarea propuesta
 <la primera accion concreta de la proxima sesion, con su codigo, importancia y urgencia>
@@ -1035,6 +1077,13 @@ escribe a mano: se pega la orden que la produce y su salida cruda>
 salida — que tiene que salir vacia —, y la frase que dice que no queda ninguna sin anclar>
 <y dentro de esa misma nota, la salida del CONTROL DE PROSA BORRADA del Paso 7c-bis, entera y con su
 orden, tambien cuando sale limpia: sin ella, «no se borro prosa» y «nadie lo comprobo» se leen igual>
+<y si la nota desglosa las ordenes ancladas por entrada —«`D-XXX`: 1; `T-XXX`: 3»—, ese desglose se
+DERIVA con una orden y se pega su salida, nunca se teclea: un desglose escrito a mano que no suma su
+propia cifra obliga a rehacer justo el trabajo que existe para ahorrar. La orden recorre el commit
+de ANCLAJE, no el sustantivo — es ahi donde el 7c-bis escribio los hashes>
+<y dentro de esa misma nota, la SEGUNDA PASADA anclada del Paso 2e: sus tres ordenes y sus tres
+salidas, tambien cuando salen limpias, y cuantos archivos del commit quedaron fuera de la tabla de
+la seccion 8 — que es lo que esta pasada existe para ver>
 
 ## 8. Evidencia del Paso 2e
 <la orden del barrido de caracteres de control sobre los archivos que el commit toca, y su salida
@@ -1044,6 +1093,9 @@ barrido contra HEAD, y para las nuevas se publica la linea con `cat -A` para que
 <una cifra heredada no se omite: heredada no es inexistente>
 <y los DOS CONTRASTES de la tabla, con su orden y su salida, aunque la tabla salga limpia: cuantas
 filas tiene que tener, y el total sin pasar por la tabla. La tabla tiene que cuadrar con los dos>
+<⚠️ esta seccion mide el AREA DE STAGING previa al commit, no el commit: los archivos que el cierre
+escribe despues —`progress.md`, este informe y el tablero— quedan fuera por construccion, y se dice.
+Quien cubre esa brecha es la SEGUNDA PASADA anclada, que va en la NOTA DE CIERRE de la seccion 7>
 ```
 
 ### Los tres veredictos de la seccion 0, y nada mas

@@ -53,6 +53,8 @@
 | [L-042](#l-042---el-dato-que-siempre-sale-falso-suele-ser-el-que-nadie-usa-y-entonces-la-correccion-es-quitarlo) | El dato que siempre sale falso suele ser el que nadie usa, y entonces la correccion es quitarlo | 2026-09-08 | 000_preproject | Sin evaluar |
 | [L-043](#l-043---una-condicion-escrita-en-prosa-se-recorre-mecanicamente-pero-no-se-verifica-entera-y-eso-pide-un-tercer-valor) | Una condicion escrita en prosa se recorre mecanicamente, pero no se verifica entera — y eso pide un tercer valor | 2026-09-08 | 000_preproject | Sin evaluar |
 | [L-044](#l-044---lo-que-crees-saber-de-tu-propio-repositorio-se-comprueba-con-una-orden-sobre-todo-cuando-parece-obvio) | Lo que crees saber de tu propio repositorio se comprueba con una orden, sobre todo cuando parece obvio | 2026-09-08 | 000_preproject | Sin evaluar |
+| [L-045](#l-045---un-contraste-solo-prueba-lo-que-su-ambito-alcanza-y-el-ambito-no-se-comprueba-a-si-mismo) | Un contraste solo prueba lo que su ambito alcanza, y el ambito no se comprueba a si mismo | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-046](#l-046---un-cambio-en-el-registro-y-el-mismo-cambio-en-su-plantilla-son-dos-cambios-y-se-cuentan) | Un cambio en el registro y el mismo cambio en su plantilla son dos cambios, y se cuentan | 2026-09-10 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -384,6 +386,21 @@ registrarla.
   ambito global** en un archivo que la sesion todavia iba a tocar, y se resolvia fechandolos. Esto es
   sobre **criterios de cierre**, y fecharlos no arregla nada: un criterio existe para poder correrse
   mas tarde. Lo que hay que acotar es el ambito, no la fecha.
+
+> 🕒 **Nota de reincidencia del 2026-09-10.** Volvio a pasar, y en la forma mas pura posible: un
+> criterio de cierre buscaba una frase de prosa en el archivo de decisiones, y **la propia orden
+> contenia esa frase**, asi que se contaba a si misma y devolvia `2` donde el criterio decia `1`.
+> Se detecto por correrla antes de publicarla, no por releerla.
+>
+> 🔑 **Lo que anade sobre el enunciado original:** ahi el ambito era un archivo entero; aqui es **la
+> linea misma**. Un patron que cita texto literal de prosa acaba dentro del archivo que barre en
+> cuanto el bloque se escribe en ese mismo archivo — y los registros de este repositorio son justo
+> eso. La defensa que funciono fue **anclar el patron a la forma de la linea de prosa** (`^- ` mas su
+> marca), que la orden no reproduce.
+>
+> ⚠️ **Y confirma la unica defensa real, que no es escribir mejor el patron:** correr el criterio
+> **antes** de darlo por bueno. Escrito y no corrido, este habria entrado al commit afirmando `1` con
+> la orden devolviendo `2`, y lo habria cazado la auditoria una pasada despues.
 - **Leccion:** un criterio de cierre se escribe sobre **el sitio donde vive el defecto**, nunca sobre
   el repositorio entero. Todo registro que documenta una correccion —el hallazgo, la tarea, la
   auditoria— cita el texto defectuoso para explicarse; incluir ese registro en el ambito garantiza
@@ -1677,3 +1694,53 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
 - **Como aplicarla:** cualquier afirmacion cuantificada sobre el repositorio va con su orden **en la
   misma pasada en que se escribe**, no al revisar. Y si la orden devuelve algo distinto de lo
   esperado, lo que se reescribe es la afirmacion — incluido su titulo, si hace falta.
+
+---
+
+### L-045 - Un contraste solo prueba lo que su ambito alcanza, y el ambito no se comprueba a si mismo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** un paso del cierre barre caracteres de control sobre «los archivos que el commit
+  toca». La sesion anterior le anadio **dos contrastes** precisamente porque la tabla se habia
+  transcrito a mano: uno cuenta cuantas filas debe tener, el otro suma el total por otro camino.
+- **Que ocurrio:** la tabla, sus dos contrastes y su conclusion cuadraron perfectamente entre si — y
+  los tres estaban cortos. El barrido medía el area de staging del momento, y el cierre escribe tres
+  archivos **despues** de ese momento. Los dos contrastes se derivaban del mismo staging, asi que no
+  podian ver lo que faltaba.
+- **Leccion:** **dos ordenes que preguntan lo mismo por caminos distintos siguen sin ver nada si
+  parten del mismo ambito.** Un contraste valida la transcripcion, no la delimitacion. Y el ambito es
+  justo lo que ninguna de las dos ordenes puede cuestionar, porque las dos lo dan por dado.
+- 🔑 **La senal que lo delata:** cuando la frase que declara el ambito y la orden que lo produce usan
+  palabras distintas. «Los archivos que el commit toca» y `git diff --cached` **no** son lo mismo, y
+  la distancia entre las dos frases es exactamente el agujero.
+- **Como aplicarla:** al escribir un control, comprobar que su orden **produce** el ambito que su
+  prosa **declara**. Si no lo produce —porque el ambito aun no esta completo cuando el control
+  corre—, el control se repite mas tarde sobre el ambito real, y esa segunda salida se publica.
+
+---
+
+### L-046 - Un cambio en el registro y el mismo cambio en su plantilla son dos cambios, y se cuentan
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** una sesion actualizo dos filas de `project.md` y describio en su informe que la
+  plantilla de la que ese archivo nace habia recibido «el mismo cambio».
+- **Que ocurrio:** habia recibido uno de los dos. La plantilla quedo describiendo una carpeta que ya
+  no coincide con lo que el repositorio hace — y una plantilla existe para copiarse, asi que el
+  defecto no se queda donde nace: viaja al siguiente proyecto.
+- **Leccion:** **«el mismo cambio» es una afirmacion sobre dos archivos, y se verifica sobre los
+  dos.** La forma barata de hacerlo es la que ya usa el resto del repositorio: la misma cadena
+  buscada en los dos sitios, con sus dos salidas.
+- 🔑 **Por que se cuela con tanta facilidad:** el par registro/plantilla se edita en la misma pasada
+  mental, y al segundo archivo se llega con el primero ya resuelto. La memoria dice «hecho» cuando lo
+  hecho es la mitad.
+- **Como aplicarla:** cuando un cambio toca un archivo que tiene plantilla, la evidencia son **dos**
+  ordenes con la misma cadena, una por archivo. Si las dos no devuelven lo mismo, el cambio esta a
+  medias — y decirlo «el mismo cambio» lo oculta.

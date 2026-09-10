@@ -134,16 +134,25 @@
 | [T-123](#t-123---escribir-la-plantilla-del-acta-de-cierre-de-etapa-en-_templates-d-121) | Escribir la plantilla del acta de cierre de etapa en `_templates/` (`D-121`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-124](#t-124---crear-el-agente-phase_exit_auditor-y-su-skill-protocol-phase-exit-d-122) | Crear el agente `phase_exit_auditor` y su skill `protocol-phase-exit` (`D-122`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-125](#t-125---subir-de-cinco-a-seis-los-agentes-que-exige-la-casilla-2-de-_phases000_preprojectmd-d-122) | Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`) | Implementada | Media | No bloqueante | `000_preproject` |
-| [T-126](#t-126---exigir-el-acta-de-la-etapa-anterior-en-las-entradas-de-_phases005_discoverymd-d-121) | Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`) | No implementada | Media | No bloqueante | `000_preproject` |
-| [T-127](#t-127---decidir-quien-escribe-y-commitea-en-el-repositorio-de-lecciones-globales-d-123) | Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-126](#t-126---exigir-el-acta-de-la-etapa-anterior-en-las-entradas-de-_phases005_discoverymd-d-121) | Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-127](#t-127---decidir-quien-escribe-y-commitea-en-el-repositorio-de-lecciones-globales-d-123) | Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`) | Implementada | Alta | Bloqueante | `000_preproject` |
 | [T-128](#t-128---hacer-la-cosecha-de-las-lecciones-de-la-etapa-preparatoria-d-123) | Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-129](#t-129---hacer-y-registrar-la-consulta-de-arranque-a-las-lecciones-globales-d-123) | Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-129](#t-129---hacer-y-registrar-la-consulta-de-arranque-a-las-lecciones-globales-d-123) | Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-130](#t-130---fijar-por-nota-fechada-las-cifras-de-ordenes-distintas-de-s-029-f-083) | Fijar por nota fechada las cifras de ordenes distintas de `S-029` (`F-083`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-131](#t-131---suprimir-del-paso-2d-de-protocol-close-la-cifra-de-ordenes-distintas-f-083) | Suprimir del Paso 2d de `protocol-close` la cifra de ordenes distintas (`F-083`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-132](#t-132---fijar-por-nota-fechada-el-barrido-del-paso-2e-de-s-029-f-084) | Fijar por nota fechada el barrido del Paso 2e de `S-029` (`F-084`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-133](#t-133---anadir-al-paso-2e-de-protocol-close-los-dos-contrastes-de-la-tabla-f-084) | Anadir al Paso 2e de `protocol-close` los dos contrastes de la tabla (`F-084`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-134](#t-134---completar-la-serie-sc--del-ejemplo-de-trazabilidad-f-085) | Completar la serie `SC-` del ejemplo de trazabilidad (`F-085`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-135](#t-135---publicar-la-salida-del-control-de-prosa-borrada-en-la-nota-de-cierre-f-086) | Publicar la salida del CONTROL DE PROSA BORRADA en la NOTA DE CIERRE (`F-086`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-136](#t-136---fijar-por-nota-fechada-el-recuento-de-supuestos-abiertos-de-s-030-f-087) | Fijar por nota fechada el recuento de supuestos abiertos de `S-030` (`F-087`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-137](#t-137---exigir-en-la-seccion-4-del-informe-la-salida-cruda-en-vez-del-recuento-tecleado-f-087) | Exigir en la seccion 4 del informe la salida cruda en vez del recuento tecleado (`F-087`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-138](#t-138---fijar-por-nota-fechada-el-desglose-de-las-ordenes-ancladas-de-s-030-f-088) | Fijar por nota fechada el desglose de las ordenes ancladas de `S-030` (`F-088`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-139](#t-139---exigir-que-el-desglose-de-la-nota-de-cierre-se-derive-con-una-orden-f-088) | Exigir que el desglose de la NOTA DE CIERRE se derive con una orden (`F-088`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-140](#t-140---llevar-a-la-plantilla-de-project-la-fila-_audit-con-las-actas-de-cierre-de-etapa-f-089) | Llevar a la plantilla de `project` la fila `_audit/` con las actas de cierre de etapa (`F-089`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-141](#t-141---anadir-al-paso-2e-la-segunda-pasada-anclada-despues-del-commit-f-090) | Anadir al Paso 2e la segunda pasada anclada despues del commit (`F-090`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-142](#t-142---escribir-la-skill-protocol-harvest-que-ejecuta-la-cosecha-d-133) | Escribir la skill `protocol-harvest`, que ejecuta la cosecha (`D-133`) | Implementada | Alta | Bloqueante | `000_preproject` |
+| [T-143](#t-143---hacer-que-el-arranque-mire-tambien-los-supuestos-abiertos-lg-52-d-134) | Hacer que el arranque mire tambien los supuestos abiertos (`LG-52`, `D-134`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-144](#t-144---dar-dueño-y-sitio-a-evaluacion-y-observabilidad-lg-54-d-134) | Dar dueño y sitio a evaluacion y observabilidad (`LG-54`, `D-134`) | No implementada | Media | No bloqueante | `005_discovery` |
 
 ---
 
@@ -5444,7 +5453,7 @@ $ git show <hash>:_phases/000_preproject.md | grep -c 'Los seis agentes existen'
 ### T-126 - Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -5459,8 +5468,23 @@ $ git show <hash>:_phases/000_preproject.md | grep -c 'Los seis agentes existen'
 - ⚠️ **Se escribe en generico**, como todo `_phases/`: «el acta de cierre de la etapa anterior», no el
   nombre de esta etapa.
 - **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-121`.
+- **Como quedo (S-031):** entra como **tercera** entrada obligatoria de la seccion «Lo que tiene que
+  existir si o si», junto a la necesidad expresada y al acceso al patrocinador. Exige el acta
+  **levantada y firmada**: son dos firmas distintas y ninguna sustituye a la otra.
+- 🔑 **Lo que se anadio ademas del enunciado, porque el enunciado solo no cierra la puerta:** que un
+  acta con casillas incumplidas —o sin la firma del patrocinador— **no habilita nada**, y que entrar
+  de todas formas es una excepcion deliberada con su `D-XXX`. Sin eso, «existe el acta» se cumpliria
+  con un archivo, que es justo la forma de tener la puerta abierta con la puerta puesta.
 - **Criterio de cierre:** la seccion de entradas de la etapa siguiente cita el acta de cierre de la
   anterior.
+
+```
+$ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 
 ```
 $ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
@@ -5471,7 +5495,7 @@ $ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
 ### T-127 - Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | Bloqueante |
 | Etapa | `000_preproject` |
@@ -5488,8 +5512,23 @@ $ git show <hash>:_phases/005_discovery.md | grep -c 'acta de cierre'
   repositorio estan escritos para operar **dentro** de el. Darle a uno permiso de escritura sobre otro
   repositorio es un cambio de alcance, no una tarea de configuracion.
 - **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-123`.
+- **Como se resolvio (S-031):** lo decide `D-133`. Ejecuta `manager`, bajo una skill propia
+  `protocol-harvest`, y la escritura en el repositorio de lecciones lleva **puerta**: la clasificacion
+  y la redaccion de las `LG-NN` son automaticas, pero no se toca el otro repositorio hasta que el
+  usuario aprueba. Se descartaron el agente dedicado, el paso dentro de `protocol-phase-exit` y el
+  trabajo manual del usuario; las razones estan en `D-133`.
+- ⚠️ **Esto desbloquea la decision, no la cosecha.** La skill todavia no existe: `T-128` sigue
+  esperando a `T-142`.
 - **Criterio de cierre:** existe la decision con su `D-XXX` que nombra quien escribe en el repositorio
   de lecciones y bajo que protocolo.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -cE '^### D-[0-9]+ - La cosecha la ejecuta `manager` bajo un protocolo propio'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 
 ---
 
@@ -5525,7 +5564,7 @@ $ git show <hash>:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep
 ### T-129 - Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -5543,8 +5582,29 @@ $ git show <hash>:_persistence/lessons.md | sed -n '/^## Indice/,/^---/p' | grep
 - 🔑 **Y llega tarde a proposito, sin que eso la invalide.** La casilla pide la consulta «antes de
   definir alcance», y el alcance sigue sin definirse (`T-001`): la ventana **no se ha cerrado**.
 - **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-123`.
+- **Como quedo (S-031):** la consulta es `D-134`. Se recorrieron los dos bloques que la casilla pide
+  —decisiones/arquitectura y corte del trabajo—, 17 lecciones, entrando por el indice del archivo
+  global; los **ocho** bloques restantes quedan declarados `NO MIRADOS`, no limpios.
+- **Lo que produjo, en una linea cada uno:** `LG-52` abrio `T-143` —el arranque reporta bloqueos
+  leyendo media lista—; `LG-54` abrio `T-144` —evaluacion y observabilidad no tienen dueño ni sitio—;
+  `LG-38` confirmo `T-037` sin abrir nada; `LG-51` y `LG-53` quedaron como practica ya adoptada y
+  como grieta conocida; las once restantes se leyeron y se aplazaron con su razon, porque exigen un
+  producto que todavia no existe.
 - **Criterio de cierre:** `decisions.md` contiene la entrada de la consulta de arranque, citando los
   codigos de las lecciones leidas y declarando los bloques `NO MIRADOS`.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -c '^- 🚨 \*\*Bloques NO MIRADOS'
+1
+```
+
+⚠️ **El patron va anclado al guion de la viñeta a proposito.** Sin ancla se encuentra a si mismo
+dentro de esta misma orden y devuelve `2` — el defecto que describe `L-010`: un criterio cuyo ambito
+incluye el sitio donde esta escrito no puede cumplirse nunca. Se detecto al correrlo antes de
+publicarlo.
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 
 ```
 $ git show <hash>:_persistence/decisions.md | grep -c 'NO MIRADOS'
@@ -5780,3 +5840,329 @@ $ git show 9b3f9ee:.claude/skills/protocol-close/SKILL.md | grep -c 'la salida d
 
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### T-136 - Fijar por nota fechada el recuento de supuestos abiertos de `S-030` (`F-087`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-031 |
+
+- **Que:** la seccion 4 de `_audit/S-030.md` afirma que su orden «devuelve trece filas» y enumera
+  quince codigos. El informe **no se reescribe**: se le anade una nota fechada con la orden anclada y
+  su salida. La nota alcanza tambien a la seccion 6 del mismo informe, que repite «los trece
+  supuestos abiertos».
+- **Que se comprobo antes de aceptar el hallazgo**, contra `HEAD`:
+
+```
+$ git show 9b3f9ee:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | grep -cE 'Abierto'
+15
+$ git show b32193d:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | grep -cE 'Abierto'
+15
+```
+
+- La lista de codigos era exacta; la cifra, no. `9 + 5 + 1 = 15`.
+- **Criterio de cierre:** `_audit/S-030.md` lleva la nota fechada de `F-087` y su prosa anterior sigue
+  entera.
+
+```
+$ git show <hash>:_audit/S-030.md | grep -c 'Nota del 2026-09-10 (`F-087`)'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-137 - Exigir en la seccion 4 del informe la salida cruda en vez del recuento tecleado (`F-087`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-031 |
+
+- **Que:** la plantilla de la seccion 4 del informe pasa a exigir que, si se publica la orden que
+  enumera los supuestos abiertos, debajo vaya **su salida cruda**, y prohibe escribir a mano un
+  recuento al lado de la orden que lo desmiente. Su decision es `D-130`.
+- 🔑 **Por que aqui y no en otra regla general:** `D-124` y `D-125` cubrieron los Pasos 2d y 2e; la
+  seccion 4 se quedo fuera y es donde salio la cuarta cifra falsa.
+- **Criterio de cierre:** la plantilla de la seccion 4 lleva la prohibicion escrita.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion no escribe a mano'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-138 - Fijar por nota fechada el desglose de las ordenes ancladas de `S-030` (`F-088`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-031 |
+
+- **Que:** la NOTA DE CIERRE de `_audit/S-030.md` desglosa «las 6 restantes» en un parentesis que
+  suma cinco. El informe **no se reescribe**: se le anade una nota fechada con el desglose derivado
+  por orden y su salida.
+- **Que se comprobo antes de aceptar el hallazgo**, sobre el commit de anclaje:
+
+```
+$ for f in _persistence/decisions.md _persistence/tasks.md; do git show a6f798e:"$f" | awk '/^### /{h=$2} /^\$ .*9b3f9ee/ && !/^\$ git show 9b3f9ee:/{print h}'; done | sort | uniq -c
+      1 D-126
+      3 D-128
+      1 D-129
+      1 T-134
+```
+
+- Faltaba `D-129`. La cifra `6` era correcta; el desglose, incompleto.
+- **Criterio de cierre:** `_audit/S-030.md` lleva la nota fechada de `F-088` y su prosa anterior sigue
+  entera.
+
+```
+$ git show <hash>:_audit/S-030.md | grep -c 'Nota del 2026-09-10 (`F-088`)'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-139 - Exigir que el desglose de la NOTA DE CIERRE se derive con una orden (`F-088`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-031 |
+
+- **Que:** la plantilla de la NOTA DE CIERRE pasa a exigir que todo desglose que explique una cifra
+  se derive con una orden y se pegue su salida, y dice que esa orden recorre el commit de **anclaje**,
+  no el sustantivo. Su decision es `D-131`.
+- 🔑 **Por que el commit de anclaje:** es donde el Paso 7c-bis escribe los hashes. Sobre el commit
+  sustantivo la orden devuelve vacio, porque alli las ordenes todavia llevan `<hash>`.
+- **Criterio de cierre:** la plantilla de la NOTA DE CIERRE lleva la exigencia escrita.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DERIVA con una orden y se pega su salida, nunca se teclea'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-140 - Llevar a la plantilla de `project` la fila `_audit/` con las actas de cierre de etapa (`F-089`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-031 |
+
+- **Que:** la fila `_audit/` de `_templates/000_preproject/005_project.md` pasa a nombrar tambien las
+  actas de cierre de etapa, en la forma generica que esa fila ya usa para los Gates — el cambio que
+  `project.md` recibio y la plantilla no.
+- **Que se comprobo antes de aceptar el hallazgo**, contra `HEAD`:
+
+```
+$ git show b32193d:project.md | grep -c 'actas de cierre de esa etapa'
+1
+$ git show b32193d:_templates/000_preproject/005_project.md | grep -c 'actas de cierre de esa etapa'
+0
+```
+
+- 🔑 **Por que no es cosmetico:** la plantilla existe para copiarse. Un repositorio nuevo se llevaba
+  un `project.md` que no dice donde escribe el agente de cierre de etapa, y alli el control de
+  carpetas del cierre señalaria una carpeta sin razon escrita.
+- **Criterio de cierre:** la plantilla nombra las actas de cierre de etapa en su fila `_audit/`.
+
+```
+$ git show <hash>:_templates/000_preproject/005_project.md | grep -c 'actas de cierre de esa etapa'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### T-141 - Anadir al Paso 2e la segunda pasada anclada despues del commit (`F-090`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-031 |
+
+- **Que:** el Paso 2e gana una segunda pasada obligatoria, anclada al commit, con sus dos contrastes
+  rehechos sobre ese ambito; sus tres salidas se publican en la NOTA DE CIERRE. La plantilla de la
+  seccion 8 dice ahora, explicitamente, que mide el area de staging previa y remite a la segunda
+  pasada. Su decision es `D-132`.
+- **Que se comprobo antes de aceptar el hallazgo**, contra `HEAD`:
+
+```
+$ git diff --name-only --diff-filter=d 9b3f9ee^ 9b3f9ee | wc -l
+17
+```
+
+- La tabla publicada tiene catorce filas y su contraste 1 devuelve `14`. Los tres que faltan
+  —`progress.md`, el informe y el tablero— son los que el cierre escribe **despues** del paso.
+- **Criterio de cierre:** el Paso 2e declara su segunda pasada anclada, y la plantilla de la seccion
+  8 declara su ambito real.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'SEGUNDA PASADA, anclada, despues del commit'
+1
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion mide el AREA DE STAGING previa al commit'
+1
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### T-142 - Escribir la skill `protocol-harvest`, que ejecuta la cosecha (`D-133`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | Bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-031 |
+
+- **Que:** escribir la skill `protocol-harvest`, de uso exclusivo de `manager`, que recorre los cinco
+  pasos de la cosecha declarados en `D-123` y aplica la puerta que fija `D-133`.
+- **Lo que la skill tiene que resolver, y no esta resuelto hoy:**
+  1. como localiza el repositorio de lecciones — por las filas de `project.md`, nunca escrito dentro
+     de la skill, que es copiable a otro proyecto;
+  2. como **lee los cuatro filtros en el archivo global** y no en una copia local;
+  3. que presenta al usuario en la puerta: candidatas, destino de cada una y el texto `LG-NN`
+     propuesto, antes de tocar nada;
+  4. como asigna `LG-NN` correlativo sin reutilizar, y como distingue «enmienda una existente» de
+     «entrada nueva» — el archivo global exige que una enmienda **toque el enunciado**, no que se
+     anada debajo;
+  5. que deja escrito de vuelta en este repositorio: la fila de cada leccion a `Promovida a LG-NN` y
+     el `D-XXX` con la **version nueva del archivo global declarada**.
+- 🚨 **Es bloqueante de `T-128`, no de la sesion.** `D-133` decidio quien y con que puerta; sin la
+  skill, la cosecha sigue sin poder ejecutarse y la casilla 10 de la condicion de salida sigue sin
+  poder marcarse.
+- ⚠️ **La escritura que esta skill habilita es irreversible en la practica:** commiteada y subida al
+  remoto compartido, otros proyectos ya la leen. La puerta de `D-133` es lo unico que se interpone, y
+  por eso la skill no puede tener un camino que la salte.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-133`.
+- **Como quedo (S-031):** la skill existe con nueve pasos —del disparador al reporte—, declara su uso
+  exclusivo de `manager`, y la puerta es su Paso 5, con la prohibicion escrita de tocar el otro
+  repositorio antes de la aprobacion. Los cuatro filtros **no estan dentro**: se leen en el archivo
+  global en el Paso 2, y si lo que dice alli discrepa de la skill, manda el archivo global.
+- **Los dos enganches**, que es donde una pieza nueva se pierde: `CLAUDE.md` nombra la skill en su
+  seccion de lecciones globales, y la casilla de la cosecha de la etapa preparatoria dice quien la
+  ejecuta y con que. `_workflow/` no recibe ninguno, y no es un olvido: esa carpeta no cubre la etapa
+  preparatoria por declaracion propia.
+- ⚠️ **Lo que esta tarea NO hace es cosechar.** La skill existe; correrla es `T-128`, y solo cuando la
+  etapa se vaya a cerrar de verdad.
+- **Criterio de cierre:** la skill existe, declara su uso exclusivo y lleva escrita la puerta.
+
+```
+$ git show <hash>:.claude/skills/protocol-harvest/SKILL.md | grep -c 'Uso exclusivo de manager'
+1
+$ git show <hash>:.claude/skills/protocol-harvest/SKILL.md | grep -c 'LA PUERTA'
+1
+$ git show <hash>:CLAUDE.md | grep -c 'protocol-harvest'
+1
+```
+
+⚠️ **Las tres ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las tres tienen que devolver `1`.
+
+---
+
+### T-143 - Hacer que el arranque mire tambien los supuestos abiertos (`LG-52`, `D-134`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-031 |
+
+- **Que:** el protocolo de inicio de sesion reporta hoy los bloqueos leyendo **solo** el registro de
+  tareas. `LG-52` dice que esa es media lista: *«una tarea es algo que hay que construir; un supuesto
+  es algo que hay que averiguar»*, y que casi ningun supuesto necesita la infraestructura que bloquea
+  las tareas. El arranque pasa a mirar **las dos**, y a reportar los supuestos abiertos cuyo
+  disparador ya se cumplio.
+- **Que se comprobo antes de abrir la tarea**, sobre el arbol de trabajo:
+
+```
+$ grep -n 'assumptions' .claude/skills/protocol-start/SKILL.md
+3:description: ... a demanda decisions.md, constraints.md, assumptions.md, lessons.md y techdebt.md. ...
+155:for f in tasks decisions constraints assumptions lessons techdebt progress; do
+224:| `_persistence/assumptions.md` | haya tareas apoyadas en supuestos sin confirmar, o supuestos que puedan haber caducado |
+287:| `assumptions.md` | `Confirmado` · `Refutado` |
+```
+
+- 🔑 **El cambio es de reporte, no de lectura, y la linea 224 dice por que.** El arranque ya sabe
+  abrir el archivo, pero lo declara de lectura **a demanda** y lo consulta *«haya tareas apoyadas en
+  supuestos»* — es decir, **entrando desde las tareas**. Por ese camino un supuesto que nadie apoya
+  con una tarea no aparece nunca, que es exactamente la mitad de lista que `LG-52` describe.
+- 🔑 **Por que es Alta pese a no bloquear:** esta sesion reporto tres bloqueos leyendo una sola
+  lista, y quince supuestos `Abierto` no entraron en esa foto. Un arranque que ve media lista produce
+  jornadas declaradas bloqueadas con trabajo disponible al lado.
+- ⚠️ **Y hay un limite que la tarea no puede cruzar:** el arranque es de **solo lectura**. Reportar
+  un supuesto cuyo disparador se cumplio es reporte; decidir que se hace con el, no.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-134`.
+- **Criterio de cierre:** el protocolo de inicio declara que los supuestos abiertos entran en el
+  reporte de bloqueos.
+
+---
+
+### T-144 - Dar dueño y sitio a evaluacion y observabilidad (`LG-54`, `D-134`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `005_discovery` |
+| Origen | manager |
+| Sesion | S-031 |
+
+- **Que:** `LG-54` pide que evaluacion, observabilidad y seguridad se declaren **el dia 1**, y precisa
+  que no se **construyen**: se les da **dueño y sitio**, marcados con un artefacto que exista. De las
+  tres, seguridad ya tiene sitio en este repositorio —el control de fuga del cierre y las exclusiones
+  del arbol—; **evaluacion y observabilidad no tienen ni dueño ni sitio.**
+- ⚠️ **Se asigna a la etapa siguiente, no a esta, y no es un aplazamiento comodo.** Dar sitio a la
+  evaluacion de un producto exige saber que producto es, y esta etapa tiene prohibido decidir eso.
+  Lo que si se hace ahora es dejarla escrita con su disparador —`LG-53`—, para que no dependa de que
+  alguien se acuerde.
+- 🚨 **El riesgo que `LG-54` describe es exactamente el de aplazarla sin disparador:** ninguna de las
+  tres duele el primer dia, y las tres se cobran solas cuando ya hay algo que perder, construidas a
+  la carrera sobre un diseño que no las esperaba.
+- **Se escribe a mano** por la segunda excepcion de este archivo; su decision es `D-134`.
+- **Criterio de cierre:** existe un `D-XXX` que nombra dueño y sitio de la evaluacion y de la
+  observabilidad, cada uno con un artefacto que exista.

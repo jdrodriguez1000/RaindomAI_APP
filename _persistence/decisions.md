@@ -138,6 +138,11 @@
 | [D-127](#d-127---un-control-obligatorio-que-no-deja-salida-publica-su-salida-tambien-cuando-sale-limpia) | Un control obligatorio que no deja salida publica su salida, tambien cuando sale limpia | 2026-09-08 | Vigente | report_auditor |
 | [D-128](#d-128---el-acta-de-cierre-de-etapa-se-llama-phase_exit_recordmd-y-vive-en-la-raiz-de-_templates) | El acta de cierre de etapa se llama `phase_exit_record.md` y vive en la raiz de `_templates/` | 2026-09-08 | Vigente | manager |
 | [D-129](#d-129---phase_exit_auditor-corre-con-sonnet-el-nivel-que-el-repositorio-ya-da-a-quien-solo-ejecuta-un-procedimiento) | `phase_exit_auditor` corre con Sonnet, el nivel que el repositorio ya da a quien solo ejecuta un procedimiento | 2026-09-08 | Vigente | usuario |
+| [D-130](#d-130---la-seccion-4-del-informe-no-teclea-recuentos-pega-la-salida-de-su-orden) | La seccion 4 del informe no teclea recuentos: pega la salida de su orden | 2026-09-10 | Vigente | report_auditor |
+| [D-131](#d-131---un-desglose-que-explica-una-cifra-se-deriva-con-una-orden-o-no-se-publica) | Un desglose que explica una cifra se deriva con una orden, o no se publica | 2026-09-10 | Vigente | report_auditor |
+| [D-132](#d-132---un-barrido-que-no-puede-incluirse-a-si-mismo-se-repite-anclado-despues-del-commit) | Un barrido que no puede incluirse a si mismo se repite anclado despues del commit | 2026-09-10 | Vigente | report_auditor |
+| [D-133](#d-133---la-cosecha-la-ejecuta-manager-bajo-un-protocolo-propio-y-la-escritura-en-el-repositorio-de-lecciones-tiene-una-puerta) | La cosecha la ejecuta `manager` bajo un protocolo propio, y la escritura en el repositorio de lecciones tiene una puerta | 2026-09-10 | Vigente | usuario |
+| [D-134](#d-134---consulta-de-arranque-a-las-lecciones-globales-dos-bloques-recorridos-ocho-declarados-no-mirados) | Consulta de arranque a las lecciones globales: dos bloques recorridos, ocho declarados NO MIRADOS | 2026-09-10 | Vigente | manager |
 
 ---
 
@@ -8266,3 +8271,340 @@ $ git grep -h '^model:' 9b3f9ee -- .claude/agents/ | sort | uniq -c
 ⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
 existe.** Las ancla el Paso 7c-bis del cierre. La primera tiene que devolver `1`; la segunda, un
 `model: haiku`, tres `model: opus` y dos `model: sonnet`.
+
+---
+
+### D-130 - La seccion 4 del informe no teclea recuentos: pega la salida de su orden
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-087`. La seccion 4 del informe de la sesion anterior escribe su orden y afirma
+  debajo que «devuelve trece filas», seguido de una enumeracion que suma quince. Comprobado contra
+  `HEAD` (`b32193d`) antes de aceptar el hallazgo:
+
+  ```
+  $ git show 9b3f9ee:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | grep -cE 'Abierto'
+  15
+  $ git show b32193d:_persistence/assumptions.md | sed -n '/^## Indice/,/^---/p' | grep -cE 'Abierto'
+  15
+  ```
+
+  La lista de codigos era exacta; lo falso era la cifra, y se autodesmentia contra su propia
+  enumeracion en la misma frase.
+- **Por que no basta con lo ya hecho:** `D-124` suprimio la cifra accesoria del Paso 2d y `D-125`
+  blindo la tabla del Paso 2e con dos contrastes. Ninguna de las dos alcanza a la seccion 4, que
+  siguio publicando un recuento sin contraste — y esta es la cuarta vez que un recuento tecleado al
+  lado de la orden que lo desmiente sale falso.
+- **Decision:** cuando la seccion 4 publique la orden que enumera los supuestos abiertos, debajo va
+  **su salida cruda**. La lista de codigos se sigue escribiendo; la cifra sale de la orden o no sale.
+- **Por que esta forma y no otra regla de cuidado:** el defecto no es de atencion, es de que existe
+  un sitio donde el numero se puede teclear. Quitar ese sitio es lo mismo que hizo `D-124`, aplicado
+  a la seccion que se quedo fuera.
+- **Alternativas descartadas:** (a) **suprimir la cifra entera**, como en el Paso 2d: aqui si la
+  consume alguien —la seccion 6 la vuelve a citar—, y sin cifra la enumeracion no se puede
+  contrastar consigo misma. (b) **un control mecanico** que recalcule: coste desproporcionado para
+  una orden que ya esta escrita y solo hay que ejecutar.
+- **Reversible a criterio** — se edita una skill y se anade una nota fechada; no se borra registro ni
+  se reescribe nada commiteado. Clasificacion declarada como criterio, no leida de una tabla
+  (`T-037` sigue abierta).
+- **Criterio de cierre:** la plantilla de la seccion 4 exige la salida cruda y prohibe el recuento
+  tecleado.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion no escribe a mano'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-131 - Un desglose que explica una cifra se deriva con una orden, o no se publica
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-088`. La NOTA DE CIERRE de la sesion anterior escribe «las 6 restantes» y las
+  desglosa en un parentesis que suma cinco. La cifra `6` es correcta; el desglose que la explica esta
+  incompleto. Derivado con una orden, sobre el commit de **anclaje** —que es donde el Paso 7c-bis
+  escribio los hashes, no en el sustantivo—:
+
+  ```
+  $ for f in _persistence/decisions.md _persistence/tasks.md; do git show a6f798e:"$f" | awk '/^### /{h=$2} /^\$ .*9b3f9ee/ && !/^\$ git show 9b3f9ee:/{print h}'; done | sort | uniq -c
+        1 D-126
+        3 D-128
+        1 D-129
+        1 T-134
+  $ for f in _persistence/decisions.md _persistence/tasks.md; do git show a6f798e:"$f" | grep -cE '^\$ .*9b3f9ee'; done
+  12
+  9
+  ```
+
+  Faltaba `D-129`. `12 + 9 = 21`, menos las 15 que el CONTROL detecta, son 6.
+- **Por que importa mas que la cifra:** el desglose existe para que «las 21, sin excepcion, se
+  anclaron» sea recorrible sin rehacer el trabajo. Uno que no suma su propia cifra obliga a
+  rehacerlo entero — y entonces cuesta lo mismo que si no se hubiera escrito.
+- **Decision:** todo desglose que explique una cifra en la NOTA DE CIERRE se **deriva con una orden**
+  y se pega su salida. Si no hay orden que lo derive, no se publica el desglose: se publica la cifra
+  con la orden que la produce.
+- **Por que se extiende aqui y no se deja en la seccion 7:** la plantilla de la seccion 7 ya exigia
+  derivar la procedencia por archivo, y ese requisito funciono. Lo que fallo esta una seccion mas
+  abajo, donde la misma clase de dato se seguia tecleando.
+- **Alternativas descartadas:** (a) **corregir solo el parentesis** de la sesion anterior: arregla el
+  caso y deja viva la forma que lo produjo. (b) **prohibir los desgloses**: se pierde lo unico que
+  hace recorrible la afirmacion de fondo.
+- **Reversible a criterio** — edicion de skill y nota fechada. Clasificacion declarada como criterio,
+  no leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** la plantilla de la NOTA DE CIERRE exige derivar el desglose y nombra el
+  commit de anclaje como ambito.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'DERIVA con una orden y se pega su salida, nunca se teclea'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-132 - Un barrido que no puede incluirse a si mismo se repite anclado despues del commit
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-090`. El Paso 2e declara como ambito «los archivos que el commit toca» y lo mide
+  con `git diff --cached`, que es lo que hay en staging **cuando se corre** — y corre antes de que el
+  cierre escriba `progress.md`, el informe y el tablero. Comprobado contra `HEAD` (`b32193d`):
+
+  ```
+  $ git diff --name-only --diff-filter=d 9b3f9ee^ 9b3f9ee | wc -l
+  17
+  ```
+
+  La tabla publicada tiene catorce filas y su contraste 1 devuelve `14`. Los tres que faltan son
+  exactamente los que el cierre escribe despues del paso.
+- **Por que los dos contrastes de `D-125` no lo ven, que es el nucleo:** los dos se derivan del mismo
+  `git diff --cached`. Preguntan por otro camino, pero **dentro del mismo ambito**: la tabla y sus
+  contrastes cuadran entre si estando los tres cortos. Un contraste solo prueba lo que su ambito
+  alcanza.
+- **Decision:** el Paso 2e gana una **segunda pasada obligatoria**, anclada al commit
+  (`git diff --name-only --diff-filter=d <hash>^ <hash>`), con sus dos contrastes rehechos sobre ese
+  ambito. Sus tres salidas se publican en la NOTA DE CIERRE, tambien cuando salen limpias. Si saca
+  una linea que la primera pasada no vio, **no se corrige: se anota** con su nota fechada — el commit
+  ya existe.
+- **Por que no se mueve el paso al final en vez de duplicarlo:** la primera pasada existe para
+  **corregir antes del `git add`**, y eso solo se puede hacer antes. Moverla la convertiria en una
+  anotacion. Las dos pasadas responden preguntas distintas: la primera evita el defecto, la segunda
+  garantiza que el ambito declarado es el medido.
+- **Alternativas descartadas:** (a) **reordenar el cierre** para que `progress.md`, el informe y el
+  tablero se escriban antes del Paso 2e: el informe cita el hash del commit, que aun no existe —es el
+  mismo huevo-y-gallina que el Paso 7c-bis ya resuelve corriendo despues. (b) **acotar la prosa** del
+  paso para que diga «el area de staging» en vez de «los archivos que el commit toca»: hace el texto
+  cierto y deja el archivo con mas riesgo —`progress.md`, que el cierre reescribe entero y lleva
+  patrones de limite de palabra— sin barrer nunca. (c) **dejarlo a la auditoria**: lo caza, pero una
+  pasada despues, y el coste lo paga entero el auditor.
+- **Reversible a criterio** — se edita una skill; el paso nuevo solo anade lectura y publicacion, no
+  borra ni reescribe nada. Clasificacion declarada como criterio, no leida de una tabla (`T-037`
+  sigue abierta).
+- **Criterio de cierre:** el Paso 2e declara su segunda pasada anclada, y la plantilla de la seccion
+  8 dice que mide el area de staging y remite a ella.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'SEGUNDA PASADA, anclada, despues del commit'
+1
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'esta seccion mide el AREA DE STAGING previa al commit'
+1
+```
+
+⚠️ **Las dos ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no
+existe.** Las ancla el Paso 7c-bis del cierre. Las dos tienen que devolver `1`.
+
+---
+
+### D-133 - La cosecha la ejecuta `manager` bajo un protocolo propio, y la escritura en el repositorio de lecciones tiene una puerta
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-123` declaro un hueco antes de tropezar con el: el paso 4 de la cosecha **escribe y
+  commitea en un repositorio distinto de este**, y ningun protocolo del andamiaje lo cubre. `T-127`
+  quedo abierta y bloqueante de la cosecha. Sin resolverla, la casilla 10 de la condicion de salida
+  de la etapa preparatoria no se puede satisfacer, y la etapa no cierra.
+- **Lo que el propio archivo global ya exigia**, y que acota el abanico antes de elegir:
+
+  ```
+  $ cd <repositorio de lecciones globales> && grep -n 'una persona decidiendo' global_lessons.md
+  372:  con una persona decidiendo.
+  ```
+
+  Su seccion de promocion cierra el «cuando» con «Deliberado, **con una persona decidiendo**». Un
+  paso totalmente automatico contradice el archivo que pretende alimentar.
+- **Decision, en tres partes:**
+  1. **Quien:** `manager`. No un agente nuevo, y no el usuario a mano.
+  2. **Bajo que protocolo:** una skill propia, `protocol-harvest`, de uso exclusivo de `manager`, que
+     recorre los cinco pasos de `D-123` y **lee los cuatro filtros en el archivo global**, nunca una
+     copia local.
+  3. **Con que puerta:** la clasificacion y la redaccion de las `LG-NN` propuestas son automaticas;
+     **escribir en el repositorio de lecciones no lo es.** `manager` presenta las candidatas con su
+     destino y su texto, y no toca el otro repositorio hasta que el usuario lo aprueba. Aprobado eso,
+     el escribir, commitear y pushear van seguidos, sin una segunda puerta.
+- 🚨 **Por que la puerta va antes de escribir y no antes del push:** el original lo comparten todos
+  los proyectos, y su remoto es privado pero compartido. Un commit local es reversible, pero para
+  entonces el archivo ya se edito sin que nadie lo viera — y el valor de este archivo esta en que
+  cada entrada paso por un filtro humano. La puerta protege el filtro, no el push.
+- 🔑 **Por que `manager` y no un agente nuevo, que era la alternativa mas natural:** `T-127` ya tenia
+  escrita la asimetria — todos los agentes de este repositorio estan escritos para operar **dentro**
+  de el, y darle a uno permiso de escritura sobre otro repositorio es un cambio de alcance, no una
+  tarea de configuracion. Ademas un agente arranca en frio: no vio la etapa cuyas lecciones esta
+  cosechando, que es justo el contexto que el filtro 2 —«¿describe la FORMA del fallo, no la
+  anecdota?»— necesita para no promover anecdotas.
+- ⚠️ **Y no lo hace `phase_exit_auditor`, aunque la casilla sea suya.** Ese agente verifica la casilla
+  10; si ademas la rellenara, estaria dando por buena su propia entrega. Es «Revision independiente»
+  y «quien implementa no evalua», y no admite excepcion por comodidad.
+- **Alternativas descartadas:** (a) **un agente `lessons_harvester` dedicado** con acceso al
+  repositorio externo: el cambio de alcance descrito arriba, y el arranque en frio contra el filtro 2.
+  (b) **el usuario a mano**: protege el original al maximo, pero convierte cada cierre de etapa en
+  trabajo de redaccion manual y deja el paso sin evidencia automatica en este registro. La puerta de
+  la parte 3 da casi toda esa proteccion sin ese coste. (c) **un paso dentro de
+  `protocol-phase-exit`**: rompe la separacion de roles, arriba. (d) **sin puerta, todo automatico**:
+  contradice el «con una persona decidiendo» del propio archivo global.
+- ⚠️ **Reversible a criterio** — lo que se decide aqui es quien ejecuta y con que puerta; no se
+  escribe todavia nada en el repositorio de lecciones. **La escritura que este protocolo habilitara
+  si es irreversible en la practica** —commiteada y subida, otros proyectos ya la leen—, y por eso
+  lleva puerta. Clasificacion declarada como criterio, no leida de una tabla (`T-037` sigue abierta).
+- **Lo que esta decision NO resuelve, y queda con tarea:** la skill `protocol-harvest` todavia no
+  existe **en el momento de escribir esta decision**. Mientras no exista, `T-128` sigue sin poder
+  ejecutarse. Va en `T-142`.
+- 📌 **Resuelto en la misma sesion:** `T-142` se implemento despues de escribir esto, y la skill ya
+  existe. La frase de arriba se conserva porque describe el estado en que se tomo la decision — no se
+  reescribe para aparentar que la skill estaba lista cuando se decidio.
+- **Criterio de cierre:** la decision nombra quien escribe y bajo que protocolo, y la tarea que crea
+  ese protocolo existe en el registro.
+
+```
+$ git show <hash>:_persistence/tasks.md | grep -cE '^### T-[0-9]+ - Escribir la skill `protocol-harvest`'
+1
+```
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
+
+---
+
+### D-134 - Consulta de arranque a las lecciones globales: dos bloques recorridos, ocho declarados NO MIRADOS
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-10 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** la casilla de consulta de arranque de la condicion de salida de esta etapa exige leer
+  **por su indice** los bloques de decisiones/arquitectura y de corte del trabajo del archivo de
+  lecciones globales, **antes de definir alcance**, y dejar aqui lo que produjeron citando el codigo
+  de cada leccion. El alcance sigue sin definirse, asi que la ventana no se ha cerrado.
+- **Como se entro, que es parte de la regla:** por el indice, no volcando el archivo. El propio
+  archivo global lo prohibe: leido de corrido no queda ninguna leccion.
+
+  ```
+  $ cd <repositorio de lecciones globales> && sed -n '/^## 3\. /,/^## /p' global_lessons.md | head -30
+  ```
+
+  Ese indice fija los bloques y sus rangos; de ahi salen los dos que la casilla pide.
+
+- **Que se leyo — dos bloques, 17 lecciones:**
+
+  ```
+  $ cd <repositorio de lecciones globales> && grep -nE '^\| \*\*LG-(3[89]|4[0-9]|5[0-4])\*\*' global_lessons.md | wc -l
+  17
+  ```
+
+  | Bloque | Codigos | Responde a |
+  |---|---|---|
+  | **D** · Decisiones y arquitectura | `LG-38`–`LG-45` | ¿que se decide ahora y que se aplaza? |
+  | **E** · Como se corta el trabajo | `LG-46`–`LG-54` | ¿en que trozos se construye? |
+
+- 🚨 **Bloques NO MIRADOS —no limpios—, ocho:** **A** (`LG-01`–`LG-15`, evidencia y verificacion),
+  **B** (`LG-16`–`LG-25`, pruebas), **C** (`LG-26`–`LG-37`, documentos y traspaso), **F**
+  (`LG-55`–`LG-64`, medir y experimentar), **G** (`LG-65`–`LG-77`, errores y seguridad), **H**
+  (`LG-78`–`LG-85`, agentes), **I** (`LG-86`–`LG-95`, modelos de lenguaje) y **J** (`LG-96`–`LG-98`,
+  el metodo como objeto auditable). Ninguno se recorrio en esta consulta y **de ninguno se afirma
+  nada**.
+- ⚠️ **Y esa declaracion no es una formalidad: A, C y H son los que mas cerca estan del trabajo de
+  esta etapa.** El archivo global dice que A y B son los que mas veces han mordido. No se recorrieron
+  porque la casilla pide otros dos, y ampliar la consulta por iniciativa propia la habria convertido
+  en una lectura del archivo entero — que es justo lo que su regla prohibe.
+
+### Lo que la consulta produjo
+
+**1. `LG-52` — muerde hoy, y contradice como se estaba reportando el trabajo.** Dice que la lista de
+pendientes no es la lista de trabajo disponible: *«una tarea es algo que hay que construir; un
+supuesto es algo que hay que averiguar. Casi ningun supuesto necesita la infraestructura que bloquea
+las tareas»*, y remata con *«antes de declarar un dia bloqueado, mirar las dos listas»*. Este
+repositorio tiene quince supuestos `Abierto` y el arranque de sesion **no los mira**: reporta
+bloqueos leyendo solo las tareas. Va en `T-143`.
+
+**2. `LG-54` — el unico que pide algo el dia 1 y hoy no tiene dueño.** Evaluacion, observabilidad y
+seguridad *«se declaran el dia 1, cuando no hay nada que medir»*, y precisa que no se **construyen**:
+se les da **dueño y sitio**, marcados con un artefacto que existe. De las tres, seguridad tiene sitio
+—el control de fuga del cierre y las exclusiones del repositorio—; evaluacion y observabilidad no
+tienen ni dueño ni sitio. Va en `T-144`.
+
+**3. `LG-38` — confirma una tarea abierta en vez de abrir otra.** *«Existe la lista de lo
+irreversible del proyecto, escrita antes de necesitarla»* es exactamente `T-037`, que ya la cita y
+sigue `No implementada`. La consulta no la cambia; le sube el precio: esta sesion clasifico
+reversibilidad **a criterio** en cuatro decisiones, y cada una repite que lo hace asi porque esa
+lista no existe.
+
+**4. `LG-51` y `LG-53` — practica ya adoptada, y una grieta.** `LG-51` —sin criterio de cierre
+escrito un paso se abandona— ya se cumple: toda tarea y toda decision llevan el suyo. `LG-53`
+—*«una tarea aplazada espera; una tarea armada tiene disparador»*— se cumple **a medias**: la cosecha
+tiene disparador escrito (el cierre de la etapa), pero el registro de tareas no distingue por su
+formato una cosa de la otra. No se abre tarea: se anota como grieta conocida, porque el coste de
+cambiar el formato del registro entero supera hoy al del problema.
+
+**5. `LG-39`, `LG-40`, `LG-41`, `LG-43`, `LG-44`, `LG-45`, `LG-46`, `LG-47`, `LG-48`, `LG-49`,
+`LG-50` — leidas y aplazadas, con su razon.** Las once hablan de decisiones que exigen producto:
+puertas de una via, esqueleto que pone a prueba la arquitectura, MVP definido antes de cortar slices,
+desplegar frente a publicar. Este proyecto no tiene alcance definido, asi que aplicarlas ahora seria
+decidir sobre un producto que no existe — lo que esta etapa tiene expresamente prohibido. **Su
+momento es la etapa siguiente y la linea base**, no esta.
+
+- 🔑 **Una tension que la consulta destapa y que NO se resuelve aqui:** `LG-42` recomienda *«una
+  decision por archivo, media pagina»*, y este proyecto lleva todas sus decisiones en un solo
+  archivo. La leccion tiene razon en el sintoma que persigue —un documento grande nadie lo
+  actualiza—, pero el registro de aqui no es un documento de arquitectura: es un registro con indice,
+  anclas y codigos, y se lee por busqueda, no de corrido. **No se cambia nada**, y se deja escrito
+  para que la proxima cosecha lo mire con datos en vez de con impresion.
+- **Alternativas descartadas:** (a) **recorrer los diez bloques** ya que se abria el archivo: es
+  exactamente lo que su regla prohibe, y lo que convierte una consulta en un volcado del que no queda
+  nada. (b) **aplicar las once aplazadas igualmente**, adelantando decisiones de arquitectura: seria
+  elegir solucion antes de conocer el problema, y ademas lo prohibe esta etapa.
+- **Reversible a criterio** — se escribe una entrada de registro y se abren dos tareas; no se toca el
+  archivo global, que en esta direccion **solo se lee**. Clasificacion declarada como criterio, no
+  leida de una tabla (`T-037` sigue abierta).
+- **Criterio de cierre:** existe esta entrada, cita el codigo de cada leccion consultada y declara
+  los bloques NO MIRADOS.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -c '^- 🚨 \*\*Bloques NO MIRADOS'
+1
+```
+
+⚠️ **El patron va anclado al guion de la viñeta a proposito.** Sin ancla se encuentra a si mismo
+dentro de esta misma orden y devuelve `2` — el defecto que describe `L-010`: un criterio cuyo ambito
+incluye el sitio donde esta escrito no puede cumplirse nunca. Se detecto al correrlo antes de
+publicarlo.
+
+⚠️ **La orden se escribe con `<hash>` a proposito: el commit de esta sesion todavia no existe.** La
+ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.

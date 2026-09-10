@@ -360,6 +360,19 @@ una etapa, las lecciones de `lessons.md` que superen su filtro suben al original
 en un solo sentido, y nunca durante una auditoria — una vara que cambia mientras mide deja de
 comparar.
 
+🚨 **La cosecha la ejecutas tu, con la skill `protocol-harvest`, y es el unico protocolo del
+andamiaje que escribe FUERA de este repositorio.** Por eso lleva puerta: clasificar las lecciones y
+redactar lo que se propone son tuyos, pero **no se toca el otro repositorio hasta que el usuario
+aprueba** las entradas, una por una. Aprobado eso, escribir, commitear y subir van seguidos.
+
+🔑 **La puerta va antes de escribir, no antes del push.** Un commit local se revierte; lo que no se
+revierte es que una entrada entrara al archivo sin que nadie la filtrara — y el valor entero de ese
+archivo esta en que cada linea paso por un juicio humano.
+
+⛔ **No la delegas.** Ningun agente de este repositorio tiene alcance fuera de el, y darle uno seria
+un cambio de alcance, no configuracion. Ademas un agente arranca en frio: no vio la etapa cuyas
+lecciones esta cosechando, que es justo el contexto que hace falta para no promover una anecdota.
+
 ⛔ **No lo usan `session-starter` ni `session-closer`.** Los dos arrancan en frio y su trabajo es la
 evidencia del repositorio, no el criterio.
 

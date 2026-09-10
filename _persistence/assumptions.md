@@ -26,7 +26,7 @@
 | [A-014](#a-014---las-plantillas-del-andamiaje-bastan-para-arrancar-un-proyecto-desde-cero) | Las plantillas del andamiaje bastan para arrancar un proyecto desde cero | 2026-09-08 | Abierto |
 | [A-015](#a-015---todo-proyecto-que-use-este-metodo-querra-los-dos-gates-montados-desde-la-etapa-preparatoria) | Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria | 2026-09-08 | Abierto |
 | [A-016](#a-016---la-condicion-de-salida-de-las-siete-etapas-tiene-forma-bastante-uniforme-como-para-que-un-solo-agente-la-lea) | La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea | 2026-09-08 | Confirmado |
-| [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Abierto |
+| [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Confirmado |
 
 ---
 
@@ -991,7 +991,7 @@ verificado. `protocol-phase-exit` lo prohibe de forma explicita en su Paso 4.
 | Campo | Valor |
 |---|---|
 | Fecha | 2026-09-08 |
-| Estado | Abierto |
+| Estado | Confirmado |
 | Origen | manager |
 | Dueño | `manager` |
 
@@ -1013,3 +1013,27 @@ verificado. `protocol-phase-exit` lo prohibe de forma explicita en su Paso 4.
 - ⚠️ **Y va con el hueco que `D-123` declara:** aunque los filtros esten perfectos, sigue sin decidirse
   **quien escribe y commitea** en ese repositorio (`T-127`). Los dos problemas son independientes y
   los dos bloquean la misma casilla.
+
+> 📌 **Confirmado el 2026-09-10 (`T-129`).** La consulta de arranque abrio el archivo global por su
+> indice y localizo la seccion de promocion. Los filtros estan escritos, son **cuatro**, y cada uno
+> enuncia que descarta:
+>
+> ```
+> $ cd <repositorio de lecciones globales> && sed -n '/^| # | Filtro | Qué descarta |/,/^$/p' global_lessons.md | grep -cE '^\| [0-9] \|'
+> 4
+> ```
+>
+> La seccion ademas fija el **cuando** —«en la cosecha, no sobre la marcha», «nunca durante una
+> auditoria», «con una persona decidiendo»— y las reglas de la promocion: codigo correlativo nunca
+> reutilizado, cita del origen, y que una enmienda toca el enunciado en vez de anadirse debajo.
+>
+> ⚠️ **Lo que queda acotado, y no se afirma:** que los cuatro sean aplicables **sin interpretacion**
+> no se puede comprobar leyendolos — se comprueba aplicandolos, y eso ocurre en la primera cosecha
+> (`T-128`). Lo confirmado es que existen, que son cuatro y que enuncian su criterio. El filtro 4
+> —«¿anade algo que aqui no este ya?»— es el que mas juicio pide, porque su tercera salida no es ni
+> si ni no: es enmendar una entrada existente.
+>
+> 🔑 **El otro problema que `D-123` declaraba junto a este ya no esta abierto:** quien escribe y
+> commitea en ese repositorio lo fija `D-133`. Los dos bloqueaban la misma casilla y los dos estan
+> resueltos; lo que falta para la cosecha es su momento.
+

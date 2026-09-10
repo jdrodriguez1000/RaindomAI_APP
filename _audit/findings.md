@@ -98,10 +98,10 @@
 | [F-084](#f-084---la-tabla-del-paso-2e-publica-0-caracteres-de-control-para-_auditfindingsmd-y-_persistencetasksmd-donde-el-barrido-devuelve-1-y-5) | La tabla del Paso 2e publica `0` caracteres de control para `_audit/findings.md` y `_persistence/tasks.md`, donde el barrido devuelve `1` y `5` | R-029 | Media | Implementado |
 | [F-085](#f-085---la-regla-que-este-commit-escribe-en-claudemd-la-serie-empieza-por-el-primero-y-no-se-salta-ninguno-la-incumple-el-propio-commit-en-_templates) | La regla que este commit escribe en `CLAUDE.md` («la serie empieza por el primero y no se salta ninguno») la incumple el propio commit, en `_templates/` | R-029 | Media | Implementado |
 | [F-086](#f-086---el-control-de-prosa-borrada-nace-obligatorio-y-no-deja-ninguna-salida-en-el-repositorio-su-primera-ejecucion-no-es-auditable) | El CONTROL DE PROSA BORRADA nace obligatorio y no deja ninguna salida en el repositorio: su primera ejecucion no es auditable | R-029 | Baja | Implementado |
-| [F-087](#f-087---la-seccion-4-del-informe-publica-trece-supuestos-abiertos-donde-su-propia-orden-devuelve-quince-y-su-propia-enumeracion-suma-quince) | La seccion 4 del informe publica «trece» supuestos abiertos donde su propia orden devuelve quince, y su propia enumeracion suma quince | R-030 | Media | Abierto |
-| [F-088](#f-088---la-nota-de-cierre-afirma-las-6-restantes-y-su-desglose-enumera-cinco) | La NOTA DE CIERRE afirma «las 6 restantes» y su desglose enumera cinco | R-030 | Baja | Abierto |
-| [F-089](#f-089---la-plantilla-005_projectmd-no-recibe-la-actualizacion-de-la-fila-_audit-que-si-recibe-projectmd-y-el-informe-la-describe-como-el-mismo-cambio) | La plantilla `005_project.md` no recibe la actualizacion de la fila `_audit/` que si recibe `project.md`, y el informe la describe como «el mismo cambio» | R-030 | Media | Abierto |
-| [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Abierto |
+| [F-087](#f-087---la-seccion-4-del-informe-publica-trece-supuestos-abiertos-donde-su-propia-orden-devuelve-quince-y-su-propia-enumeracion-suma-quince) | La seccion 4 del informe publica «trece» supuestos abiertos donde su propia orden devuelve quince, y su propia enumeracion suma quince | R-030 | Media | Aceptado — pendiente |
+| [F-088](#f-088---la-nota-de-cierre-afirma-las-6-restantes-y-su-desglose-enumera-cinco) | La NOTA DE CIERRE afirma «las 6 restantes» y su desglose enumera cinco | R-030 | Baja | Aceptado — pendiente |
+| [F-089](#f-089---la-plantilla-005_projectmd-no-recibe-la-actualizacion-de-la-fila-_audit-que-si-recibe-projectmd-y-el-informe-la-describe-como-el-mismo-cambio) | La plantilla `005_project.md` no recibe la actualizacion de la fila `_audit/` que si recibe `project.md`, y el informe la describe como «el mismo cambio» | R-030 | Media | Aceptado — pendiente |
+| [F-090](#f-090---el-paso-2e-declara-como-ambito-los-archivos-que-el-commit-toca-y-mide-el-area-de-staging-previa-tres-archivos-del-commit-quedan-fuera-y-los-dos-contrastes-nuevos-tampoco-los-ven) | El Paso 2e declara como ambito «los archivos que el commit toca» y mide el area de staging previa: tres archivos del commit quedan fuera, y los dos contrastes nuevos tampoco los ven | R-030 | Media | Aceptado — pendiente |
 
 ---
 
@@ -4105,8 +4105,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-136`, `T-137` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 4 de `_audit/S-030.md` escribe la orden y afirma que «devuelve
@@ -4130,8 +4130,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-138`, `T-139` |
 | Cerrado en | |
 
 - **Que se observo:** la NOTA DE CIERRE de `_audit/S-030.md` escribe «las 6 restantes de las 21 …
@@ -4151,8 +4151,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-140` |
 | Cerrado en | |
 
 - **Que se observo:** `project.md` recibe dos cambios en `9b3f9ee` —la fila de `phase_exit_auditor` y
@@ -4175,8 +4175,8 @@ git log -1 --format=%h -- _audit/S-XXX.md
 | Auditoria | R-030 |
 | Fecha | 2026-09-08 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-141` |
 | Cerrado en | |
 
 - **Que se observo:** la tabla de la seccion 8 de `_audit/S-030.md` publica catorce archivos y su
