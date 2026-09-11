@@ -152,6 +152,11 @@
 | [D-141](#d-141---el-inventario-de-acciones-irreversibles-vive-como-una-restriccion-no-como-archivo-propio) | El inventario de acciones irreversibles vive como una restriccion, no como archivo propio | 2026-09-10 | Vigente | usuario |
 | [D-142](#d-142---el-proyecto-adopta-la-secuencia-de-etapas-del-metodo-vertical) | El proyecto adopta la secuencia de etapas del metodo VERTICAL | 2026-09-10 | Vigente | usuario |
 | [D-143](#d-143---se-aplazan-t-001-t-003-y-t-144-y-el-arranque-separa-lo-que-pertenece-a-una-etapa-no-iniciada) | Se aplazan `T-001`, `T-003` y `T-144`, y el arranque separa lo que pertenece a una etapa no iniciada | 2026-09-10 | Vigente | usuario |
+| [D-144](#d-144---la-nota-de-cierre-lleva-rotulos-fijos-y-un-control-comprueba-que-esten-antes-del-commit-de-anclaje) | La NOTA DE CIERRE lleva rotulos fijos, y un control comprueba que esten antes del commit de anclaje | 2026-09-11 | Vigente | report_auditor |
+| [D-145](#d-145---el-esqueleto-de-arranque-es-un-repositorio-propio-con-remoto-privado) | El esqueleto de arranque es un repositorio propio con remoto privado | 2026-09-11 | Vigente | usuario |
+| [D-146](#d-146---el-andamiaje-viaja-en-un-solo-sentido-el-proyecto-escribe-el-esqueleto-recibe) | El andamiaje viaja en un solo sentido: el proyecto escribe, el esqueleto recibe | 2026-09-11 | Vigente | usuario |
+| [D-147](#d-147---la-ubicacion-del-esqueleto-se-registra-en-projectmd-no-como-restriccion) | La ubicacion del esqueleto se registra en `project.md`, no como restriccion | 2026-09-11 | Vigente | usuario |
+| [D-148](#d-148---el-cierre-detecta-el-desfase-con-el-esqueleto-e-informa-no-frena) | El cierre detecta el desfase con el esqueleto e informa, no frena | 2026-09-11 | Vigente | usuario |
 
 ---
 
@@ -9250,3 +9255,257 @@ $ git show 91a59c8:.claude/skills/protocol-start/SKILL.md | grep -c 'Tareas de e
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `2` y `2`.
 
 📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las tres reproducen lo publicado arriba.
+
+### D-144 - La NOTA DE CIERRE lleva rotulos fijos, y un control comprueba que esten antes del commit de anclaje
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-097`. El CONTROL DE CIFRA ADYACENTE nacio en la sesion anterior precisamente
+  porque «una regla de redaccion sola ya fallo tres veces». Se escribio bien, se pudo correr y
+  funcionaba — y su estreno **no publico la salida**, que es lo unico que distingue desde fuera un
+  control que paso de uno que nadie corrio. El propio enunciado del control lo advertia, en la misma
+  pagina.
+- **Que se observo, y es lo que decide la forma de la correccion:** el paso que fallo era el cuarto
+  de cuatro con la misma obligacion. Los otros tres —el barrido de anclaje del Paso 2d, el CONTROL DE
+  PROSA BORRADA del 7c-bis y la SEGUNDA PASADA del Paso 2e— dependen de lo mismo: que quien cierra se
+  acuerde de pegar la salida.
+
+```
+$ git show 91a59c8:.claude/skills/protocol-close/SKILL.md | grep -niE 'en la NOTA DE CIERRE'
+558:**Las tres salidas se publican en la NOTA DE CIERRE del informe**, junto al CENSO y al CONTROL, y
+1070:sale del area de staging, y la version anclada la pega el Paso 7c en la nota de cierre de ESTA
+1140:Quien cubre esa brecha es la SEGUNDA PASADA anclada, que va en la NOTA DE CIERRE de la seccion 7>
+1319:⚠️ **La salida se publica en la NOTA DE CIERRE, tambien cuando no obliga a corregir nada.** Un
+1689:🚨 **Su orden y su salida se publican en la NOTA DE CIERRE del informe, junto al CENSO y al
+```
+
+Cinco lineas, cuatro obligaciones: la 1070 no es una, es la explicacion de por que una orden del Paso
+2d se ancla ahi.
+
+- **Decision:** los cuatro bloques de la NOTA DE CIERRE se **rotulan** con una cadena literal fija
+  —`**BARRIDO DE ANCLAJE — salida:**`, `**CONTROL DE PROSA BORRADA — salida:**`, `**SEGUNDA PASADA
+  anclada del Paso 2e — salida:**` y `**CONTROL DE CIFRA ADYACENTE — salida:**`—, y nace el **Paso
+  7c-ter**, que busca las cuatro cadenas en el informe y **no deja commitear el anclaje** si falta
+  alguna.
+- 🚨 **El sufijo ` — salida:` no es adorno, y esto lo enseño probar el control antes de darlo por
+  bueno.** La primera version buscaba el nombre a secas —`**CONTROL DE CIFRA ADYACENTE**`— y **pasaba
+  sobre el propio informe que motivo el hallazgo**: la seccion 0 de ese informe menciona el control en
+  negrita al contar que nacio, y esa mencion satisfacia la busqueda. Un control de presencia que una
+  frase de prosa puede satisfacer no comprueba nada, y habria fallado exactamente igual que la regla
+  que viene a sustituir.
+- 🔑 **Por que un rotulo y no una comprobacion del contenido.** Lo que un control externo puede
+  comprobar sin volver a hacer el trabajo es la **presencia**, no la correccion. Juzgar si la salida
+  es la buena es de la auditoria, y duplicarlo aqui solo produciria un segundo juez peor informado.
+- 🔑 **Por que en el 7c-ter y no en el Paso 7b, que es donde el hallazgo lo sugeria.** La NOTA DE
+  CIERRE **no existe todavia** cuando corre el 7b: la escribe el 7c, despues del commit sustantivo.
+  El ultimo instante en que la nota aun se puede completar sin dejar una nota fechada es justo antes
+  del commit de anclaje.
+- ⚠️ **Se acepta a sabiendas que este control enumera casos, y eso caduca.** Contradice en parte lo
+  aprendido sobre los controles que reconocen la forma en vez de listar casos, y por eso el paso lo
+  dice en su propio texto: un quinto paso con la misma obligacion tiene que anadir su rotulo. No se
+  encontro una forma reconocible —«toda salida obligatoria»— que un `grep` pueda ver: lo que hace
+  obligatoria a una salida esta en la prosa del paso que la exige, no en el informe.
+- ⛔ **Lo que este control NO hace, y se dice para que nadie lo suponga:** no comprueba que la salida
+  pegada bajo un rotulo sea la de este informe. Un rotulo con la salida de la sesion anterior debajo
+  lo pasa sin una queja. Contra eso lo que hay es el anclaje de las ordenes, no esto.
+- ⚠️ **Y no habria evitado el otro hallazgo de la misma pasada.** `F-096` son dos cifras **dentro**
+  de un bloque de salida cruda; el CONTROL DE CIFRA ADYACENTE barre la prosa que sigue al bloque, y
+  una salida podada cae fuera de su alcance por construccion. Publicarla no la habria detectado.
+- **Alternativas descartadas:** (a) **solo reforzar el enunciado del Paso 6b**, que es lo que ya se
+  hizo tres veces y fallo las tres. (b) **exigirlo en el Paso 7b**: llega antes de que la nota
+  exista. (c) **un control que compare la salida pegada contra una reejecucion**: obliga al cierre a
+  rehacer el trabajo del auditor, y con un informe que cambia entre el commit sustantivo y el de
+  anclaje la comparacion daria falsos positivos.
+- **Reversible a criterio** — segun la tabla de `C-009`, editar una skill es reversible.
+- **Criterio de cierre:** el Paso 7c-ter existe en `protocol-close` con su condicion de parada, la
+  plantilla de la seccion 7 exige los cuatro rotulos con su sufijo, y el control **distingue los dos
+  casos** — la prueba de los dos casos vive en `T-155`.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-ter'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la NOTA DE CIERRE'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'el Paso 7c-ter los busca por esa'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -coF '— salida:**'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1`, `1` y `5` — la ultima cuenta
+LINEAS con el sufijo, no ocurrencias.
+
+
+### D-145 - El esqueleto de arranque es un repositorio propio con remoto privado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** existe un intento de esqueleto de arranque en disco, con la estructura correcta y sin
+  un solo dato de ningun producto, pero **no es un repositorio**: no tiene historial, ni remoto, ni
+  forma de clonarse. Se le encontro ocho archivos por detras de este proyecto y nadie sabia desde
+  cuando.
+- **Decision:** el esqueleto pasa a ser un **repositorio git propio con remoto privado**, la misma
+  figura que ya tiene el repositorio de lecciones globales.
+- 🔑 **Por que un remoto y no una carpeta bien mantenida.** El esqueleto existe para que un proyecto
+  nuevo empiece con un `git clone`. Sin remoto no se clona: se copia con el explorador, y una copia
+  no deja constancia de que version salio. Con historial, la pregunta «¿de que version del andamiaje
+  partio este proyecto?» tiene respuesta; sin el, no la tiene ninguna.
+- ⚠️ **Publicar es irreversible, y por eso se mira antes de hacerlo.** Segun la primera tabla de
+  `C-009`, lo que sube a un remoto ya se pudo clonar. Lo que subiria aqui es el andamiaje, y esta
+  comprobado que no lleva datos de ningun producto:
+
+```
+$ cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS
+$ grep -rniE "raidom|raindom|Proyectos_TripleS|github.com|vercel" --include=*.md .
+(sin salida)
+```
+
+- **Privado, no publico:** es metodo de trabajo interno y no hay ninguna ventaja en abrirlo. La misma
+  eleccion que se hizo para las lecciones globales.
+- **Alternativas descartadas:** (a) **dejarlo como carpeta local** — es el estado actual, y es el que
+  produjo el desfase que esta decision viene a cerrar; (b) **hacerlo publico** — expone el metodo sin
+  ganar nada a cambio.
+- **Irreversible — permiso antes**, leido de la primera tabla de `C-009`: el push al remoto nuevo. El
+  usuario lo autorizo al aprobar esta decision; la creacion del repositorio local no lo necesita.
+- **Criterio de cierre:** el esqueleto es un repositorio con al menos un commit y un remoto
+  configurado. Se verifica cuando `T-157` se ejecute; hoy la orden devuelve lo contrario.
+
+```
+$ (cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneline -1) || echo "(sin git)"
+(sin git)
+```
+
+---
+
+### D-146 - El andamiaje viaja en un solo sentido: el proyecto escribe, el esqueleto recibe
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** con el esqueleto convertido en original (`D-145`), hace falta escribir **en que
+  direccion viaja una mejora** y **quien manda cuando los dos difieren**. Sin esa respuesta escrita,
+  la pregunta se decide improvisando cada vez.
+- **Decision:** **un solo sentido.** El andamiaje se escribe y se audita **aqui**, dentro de un
+  proyecto real, y de aqui **se promueve** al esqueleto. El esqueleto no se edita por su cuenta.
+- 🔑 **Por que ese sentido y no el contrario.** El andamiaje no mejora en el vacio: mejora cuando una
+  auditoria encuentra un fallo sobre un cierre concreto. En el esqueleto no corre ningun cierre y no
+  hay ningun auditor, asi que una mejora escrita alli seria **una mejora que nadie ha ejercitado ni
+  ha revisado**. Es la misma forma que ya tiene la cosecha de lecciones, y por el mismo motivo.
+- 🔑 **Quien manda cuando difieren, y por que la pregunta se disuelve.** Las seis areas agnosticas
+  tienen prohibido llevar datos de ningun proyecto, asi que **un proyecto nunca puede tener una
+  version legitimamente distinta**. Toda diferencia es de un solo tipo: **una promocion pendiente**,
+  nunca «cual de las dos vale». Dicho corto: el esqueleto manda para arrancar; el proyecto manda para
+  lo nuevo.
+- ⚠️ **Ese razonamiento descansa en una premisa, y por eso se registra como supuesto**, no como
+  hecho: ver `A-018`. Si algun dia aparece una diferencia que no se puede promover, la premisa cayo.
+- **Como se promueve:** con una skill propia, con la **misma forma que la cosecha de lecciones** — la
+  ejecuta `manager`, **nunca un agente** (ninguno tiene alcance fuera de este repositorio), y **nada
+  se escribe alli hasta que el usuario aprueba** los archivos que suben, uno por uno. La puerta va
+  antes de escribir, no antes del push.
+- **Cuando, y aqui se desacoplan dos cosas que se confunden:**
+
+  | | Cuando | Coste |
+  |---|---|---|
+  | **detectar** el desfase | cada cierre, automatico | segundos (`D-148`) |
+  | **promover** al esqueleto | cuando el usuario lo pida, por lotes | una puerta manual |
+
+- 🔑 **Por que no se promueve cada sesion.** Seria caro y ruidoso. Detectar es casi gratis y hace que
+  el desfase nunca sea una sorpresa; ver que hay tres archivos por promover no obliga a promoverlos
+  hoy.
+- **Alternativas descartadas:** (a) **el esqueleto es el original y los proyectos solo leen** —
+  obliga a escribir las mejoras donde nada las ejercita ni las audita; (b) **bidireccional, se
+  fusiona cuando haga falta** — sin un sentido declarado, «¿cual vale?» se decide improvisando, que
+  es justo lo que este registro existe para impedir; (c) **promover en cada cierre** — convierte una
+  mejora de dos lineas en una puerta manual por sesion.
+- **Reversible a criterio** — segun la tabla de `C-009`, editar archivos del registro es reversible;
+  esta decision no escribe todavia fuera.
+- **Criterio de cierre:** existe la skill de promocion con su puerta, y `manager` es su unico
+  ejecutor. Lo implementa `T-160`.
+
+---
+
+### D-147 - La ubicacion del esqueleto se registra en `project.md`, no como restriccion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** hoy **nada en este repositorio nombra el esqueleto**. No existe para el. Mientras no
+  este escrito, el control de `D-148` no sabe contra que comparar y la promocion de `D-146` no sabe
+  donde escribir.
+- **Decision:** su ubicacion se registra como **dos filas en `project.md`** —ruta absoluta y
+  remoto—, no como una entrada de `constraints.md`.
+- 🔑 **Por que ahi y no como restriccion.** Una restriccion es un limite que ya no se negocia; esto
+  es una **ubicacion**. Y `project.md` es el unico archivo del proyecto que guarda datos propios,
+  justamente para que si algo se mueve se cambie en un sitio. Es el precedente exacto de las
+  lecciones globales, que viven ahi en tres filas y no como restriccion.
+- ⚠️ **Va con una nota, porque hay un dato que se pierde si no se escribe:** **este proyecto no salio
+  del esqueleto; el esqueleto salio de este proyecto.** Es el unico que estara en esa situacion, y
+  por eso no lleva la fila «version de la que partio» que si llevaran los siguientes. Sin la nota,
+  dentro de un ano alguien buscara ese dato y no sabra si falta o si nunca existio.
+- ⚠️ **Las filas no se pueden rellenar todavia**, y no es un olvido: el remoto no existe hasta que
+  `T-157` cree el repositorio. Por eso el registro es esta decision y la escritura es `T-162`.
+- **Alternativas descartadas:** (a) **una entrada en `constraints.md`** — confunde una ubicacion con
+  un limite, y duplica el sitio donde vive un dato propio; (b) **no registrarlo y pasar la ruta a
+  mano** — es un dato que se usa en cada cierre, y escribirlo a mano cada vez es exactamente como se
+  cuela una ruta equivocada.
+- **Reversible a criterio** — anadir filas a `project.md` es editar un archivo del arbol.
+- **Criterio de cierre:** `project.md` nombra el esqueleto con su ruta y su remoto, y lleva la nota
+  del caso invertido. Lo implementa `T-162`.
+
+---
+
+### D-148 - El cierre detecta el desfase con el esqueleto e informa, no frena
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-146` separa detectar de promover. Detectar necesita un control, y hay que decidir
+  **que hace ese control cuando encuentra algo**.
+- **Decision:** el cierre corre un barrido sobre las seis areas agnosticas contra el esqueleto y
+  **publica su salida en el informe**. **No detiene el cierre.**
+
+```bash
+diff -rq --strip-trailing-cr "<esqueleto>/.claude"      .claude
+diff -rq --strip-trailing-cr "<esqueleto>/_phases"      _phases
+diff -rq --strip-trailing-cr "<esqueleto>/_methodology" _methodology
+diff -rq --strip-trailing-cr "<esqueleto>/_templates"   _templates
+diff -rq --strip-trailing-cr "<esqueleto>/_workflow"    _workflow
+diff -q  --strip-trailing-cr "<esqueleto>/CLAUDE.md"    CLAUDE.md
+```
+
+- 🚨 **Informa, no frena — y esto es lo contrario del control que nacio el mismo dia.** El Paso
+  7c-ter **detiene** el cierre porque su salida correcta es vacia. Este no: **su salida normal es una
+  lista de archivos**, y eso esta bien — significa «hay cosas por promover». Hacerlo condicion de
+  parada lo haria gritar en cada sesion que mejore el andamiaje, o sea casi todas, y **un control que
+  salta siempre se aprende a ignorar** — con el se ignora el dia que importa.
+- ⚠️ **Si la ruta del esqueleto no existe en esta maquina, la salida es `SIN COMPROBAR`, nunca
+  silencio.** La tercera fila de siempre: «no pude comprobarlo» no es «esta bien».
+- 🚨 **El `--strip-trailing-cr` no es cosmetica, y se apoya en `C-008`:** este repositorio no tiene
+  un final de linea unico y no se normaliza. Sin esa opcion, un archivo que solo difiere en CRLF
+  aparece como enteramente distinto — medido, uno de ellos salta de 34 lineas reales a 776. Un
+  control que exagera se ignora igual que uno que grita. Comprobado que la opcion funciona con `-rq`:
+
+```
+$ printf 'linea uno\nlinea dos\n' > a/x.md ; printf 'linea uno\r\nlinea dos\r\n' > b/x.md
+$ diff -rq --strip-trailing-cr a b
+(sin salida)
+```
+
+- **Alternativas descartadas:** (a) **comprobarlo solo al promover** — deja el desfase invisible
+  entre promocion y promocion, que es exactamente como el esqueleto llego a estar ocho archivos por
+  detras sin que nadie lo notara; (b) **que sea condicion de parada** — ver arriba; (c) **comparar
+  hash a hash en vez de `diff`** — dice que difieren pero no que, y obliga a un segundo comando para
+  saber si importa.
+- **Reversible a criterio** — segun la tabla de `C-009`, editar una skill es reversible, y el control
+  es de solo lectura sobre los dos arboles.
+- **Criterio de cierre:** el cierre lleva el barrido con su condicion de `SIN COMPROBAR`, y su salida
+  va al informe. Lo implementa `T-161`.

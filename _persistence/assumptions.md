@@ -27,6 +27,7 @@
 | [A-015](#a-015---todo-proyecto-que-use-este-metodo-querra-los-dos-gates-montados-desde-la-etapa-preparatoria) | Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria | 2026-09-08 | Abierto |
 | [A-016](#a-016---la-condicion-de-salida-de-las-siete-etapas-tiene-forma-bastante-uniforme-como-para-que-un-solo-agente-la-lea) | La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea | 2026-09-08 | Confirmado |
 | [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Confirmado |
+| [A-018](#a-018---toda-diferencia-entre-las-areas-agnosticas-del-proyecto-y-las-del-esqueleto-es-una-promocion-pendiente) | Toda diferencia entre las areas agnosticas del proyecto y las del esqueleto es una promocion pendiente | 2026-09-11 | Abierto |
 
 ---
 
@@ -871,6 +872,12 @@ $ git diff <hash>^ <hash> -- .claude CLAUDE.md | grep -E '^-' | grep -ohE '(T|D
 agnosticas — las dos cosas se comprobaron con sus barridos. Lo que esta sin comprobar es si el
 **inventario** esta completo, y eso solo lo dice el uso.
 
+📌 **Nota del 2026-09-11 (`T-156`, `D-145`): su disparador deja de ser hipotetico.** El esqueleto de
+arranque pasa a ser un repositorio propio, y el primer proyecto que se clone de el es exactamente el
+disparador que este supuesto describe. **Ojo con confundir dos cosas:** montar el esqueleto **no**
+verifica nada — el esqueleto se construye copiando de aqui, asi que no puede descubrir lo que aqui
+falta. Lo que verifica es **arrancar un proyecto desde el esqueleto y correrle un cierre completo**.
+
 ---
 
 ### A-015 - Todo proyecto que use este metodo querra los dos Gates montados desde la etapa preparatoria
@@ -1055,3 +1062,35 @@ verificado. `protocol-phase-exit` lo prohibe de forma explicita en su Paso 4.
 > commitea en ese repositorio lo fija `D-133`. Los dos bloqueaban la misma casilla y los dos estan
 > resueltos; lo que falta para la cosecha es su momento.
 
+
+---
+
+### A-018 - Toda diferencia entre las areas agnosticas del proyecto y las del esqueleto es una promocion pendiente
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | manager |
+
+- **Supuesto:** que cuando el barrido de `D-148` encuentre una diferencia entre una de las seis areas
+  agnosticas de este repositorio y la del esqueleto, esa diferencia sera **siempre** algo que este
+  proyecto escribio y que el esqueleto todavia no tiene — nunca una version legitimamente distinta
+  que haya que conciliar.
+- **Sobre que se construye encima:** sobre esto descansa la mitad util de `D-146`. Si el supuesto es
+  cierto, «quien manda» no es una pregunta y la promocion es mecanica. Si es falso, hace falta un
+  arbitro que hoy no existe, y el barrido de `D-148` pasa de informar a plantear un problema cada vez
+  que salta.
+- 🔑 **De donde sale la confianza, y por que aun asi es un supuesto.** Se apoya en una regla escrita:
+  las seis areas tienen prohibido llevar datos de ningun proyecto, y hay dos controles que lo barren
+  en cada cierre. De ahi se sigue que un proyecto no puede necesitar una version propia. Pero es una
+  deduccion sobre una regla, no una observacion: **el caso todavia no ha ocurrido ni una vez**, y
+  hasta que el esqueleto exista no puede ocurrir.
+- **Como se refuta:** la primera diferencia que el barrido devuelva y que **no se pueda promover tal
+  cual** — porque el esqueleto la necesite escrita de otra forma, o porque este proyecto dependa de
+  algo que a un proyecto generico le sobre. Un solo caso lo refuta.
+- **Disparador:** cada vez que el barrido de `D-148` devuelva lineas y se vaya a promover. **No hace
+  falta un momento aparte:** la promocion misma es la comprobacion, y por eso este supuesto no puede
+  quedarse olvidado mientras el mecanismo se use.
+- ⚠️ **Lo que este supuesto NO afirma:** que el esqueleto vaya a estar siempre al dia. Un desfase es
+  normal y esperado; lo que se supone es que **cerrarlo nunca exigira una negociacion**.

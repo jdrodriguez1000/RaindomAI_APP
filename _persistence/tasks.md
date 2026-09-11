@@ -160,6 +160,18 @@
 | [T-149](#t-149---anadir-al-paso-6b-el-control-de-cifra-adyacente-f-093-d-137) | Anadir al Paso 6b el CONTROL DE CIFRA ADYACENTE (`F-093`, `D-137`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-150](#t-150---fijar-por-nota-fechada-el-veredicto-de-la-seccion-0-de-s-032-f-094) | Fijar por nota fechada el veredicto de la seccion 0 de `S-032` (`F-094`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-151](#t-151---quitar-implementado-de-los-veredictos-de-la-seccion-0-f-094-d-138) | Quitar `Implementado` de los veredictos de la seccion 0 (`F-094`, `D-138`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-152](#t-152---corregir-en-projectmd-la-razon-caduca-de-las-filas-ft-xxx-y-sc-xxx-f-095) | Corregir en `project.md` la razon caduca de las filas `FT-XXX` y `SC-XXX` (`F-095`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-153](#t-153---fijar-por-nota-fechada-las-dos-salidas-de-la-seccion-2-de-s-033-f-096) | Fijar por nota fechada las dos salidas de la seccion 2 de `S-033` (`F-096`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-154](#t-154---publicar-por-nota-fechada-la-salida-del-control-de-cifra-adyacente-de-s-033-f-097) | Publicar por nota fechada la salida del CONTROL DE CIFRA ADYACENTE de `S-033` (`F-097`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-155](#t-155---rotular-la-nota-de-cierre-y-dar-al-cierre-el-paso-7c-ter-f-097-d-144) | Rotular la NOTA DE CIERRE y dar al cierre el Paso 7c-ter (`F-097`, `D-144`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-156](#t-156---construir-el-esqueleto-reutilizable-de-arranque-de-proyecto-d-143) | Construir el esqueleto reutilizable de arranque de proyecto (`D-143`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-157](#t-157---crear-el-repositorio-del-esqueleto-y-commitear-su-estado-actual-d-145) | Crear el repositorio del esqueleto y commitear su estado actual (`D-145`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-158](#t-158---sincronizar-las-seis-areas-agnosticas-del-esqueleto-d-146) | Sincronizar las seis areas agnosticas del esqueleto (`D-146`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-159](#t-159---registrar-en-projectmd-la-ubicacion-del-esqueleto-d-147) | Registrar en `project.md` la ubicacion del esqueleto (`D-147`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-160](#t-160---anadir-al-cierre-el-barrido-de-desfase-con-el-esqueleto-d-148) | Anadir al cierre el barrido de desfase con el esqueleto (`D-148`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-161](#t-161---escribir-la-skill-de-promocion-al-esqueleto-con-su-puerta-d-146) | Escribir la skill de promocion al esqueleto, con su puerta (`D-146`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-162](#t-162---escribir-la-guia-de-arranque-del-esqueleto) | Escribir la guia de arranque del esqueleto | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-163](#t-163---resolver-los-dos-huecos-menores-del-esqueleto-brief-y-temporal) | Resolver los dos huecos menores del esqueleto: brief y `temporal/` | No implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -6622,3 +6634,402 @@ $ git show 91a59c8:.claude/skills/protocol-audit/SKILL.md | grep -c 'la seccion 
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `1`.
 
 📌 **Ancladas por el Paso 7c-bis al commit `91a59c8`.** Las dos reproducen lo publicado arriba.
+
+
+---
+
+### T-152 - Corregir en `project.md` la razon caduca de las filas `FT-XXX` y `SC-XXX` (`F-095`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-034 |
+
+- **Que:** las dos filas de la tabla «Codigos» y la nota que las explica decian que la columna
+  «Archivo» quedaba sin ruta **porque `020_baseline` no estaba adoptada**. `D-142` la declaro el
+  2026-09-10, en el mismo commit, asi que esa razon dejo de ser cierta. Las filas pasan a decir «la
+  etapa esta declarada, no iniciada», y la nota recibe debajo una **nota fechada** que explica que
+  caduco y que sigue en pie.
+- 🔑 **Por que la razon importa y no solo el hueco:** el hueco es el mismo —la ruta sigue sin
+  fijarse—, pero un archivo que justifica un hueco con un motivo falso obliga al que lo lee a decidir
+  cual de sus dos mitades vale, y esa respuesta no esta escrita en ningun sitio. `project.md` es el
+  unico archivo con datos propios: es justo donde no puede haber dos versiones.
+- ⚠️ **La ruta NO se inventa aqui.** Decidir donde viven los artefactos de features y escenarios es
+  una decision de la etapa que los produce, y esa etapa no ha empezado. Se escribira con su `D-XXX`
+  en la pasada en que se decida.
+- ⚠️ **La prosa original de la nota se conserva**, en pasado: la nota fechada va debajo, no encima.
+- **Criterio de cierre:** ninguna de las dos filas justifica el hueco con la etapa sin adoptar, y la
+  nota fechada esta.
+
+```
+$ git show <hash>:project.md | grep -cE '^\| `(FT|SC)-XXX`.*la etapa no esta adoptada'
+$ git show <hash>:project.md | grep -cE '^\| `(FT|SC)-XXX`.*la etapa esta declarada, no iniciada'
+$ git show <hash>:project.md | grep -c 'Nota del 2026-09-11 (`F-095`, `T-152`)'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `0`, `2` y `1`.
+
+---
+
+### T-153 - Fijar por nota fechada las dos salidas de la seccion 2 de `S-033` (`F-096`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-034 |
+
+- **Que:** `_audit/S-033.md` recibe una nota fechada al final de su seccion 2 con las dos salidas
+  derivadas: la primera orden devuelve **cuatro** filas y el informe publico tres —la de mas es
+  `T-039`, que el `grep` recoge porque «No implementada» aparece en su titulo—, y la segunda devuelve
+  **152** donde el informe publico `151`. **La prosa de arriba no se reescribe.**
+- **Y ademas se publica la orden que el enunciado decia estar corriendo:** filtrar por la **columna**
+  de estado en vez de por el texto libre de la fila. Esa devuelve las tres reales, sin podar nada a
+  mano.
+- 🔑 **Por que la salida podada es peor que no publicarla:** quien la reejecute para contrastar ve
+  una fila de mas y tiene que averiguar por su cuenta si el informe escondio una tarea o si el filtro
+  es demasiado ancho. Una salida cruda recortada a mano deja de ser evidencia y pasa a ser una
+  afirmacion con formato de evidencia.
+- **Lo que la nota no cambia:** las dos conclusiones de fondo se sostienen enteras — las tareas
+  realmente abiertas son `T-001`, `T-128` y `T-144`, y sigue sin existir una `T-XXX` para el trabajo
+  que `D-143` prioriza.
+- **Criterio de cierre:** la nota existe citando `F-096`, y lleva las dos salidas derivadas ancladas
+  al commit que las publico.
+
+```
+$ git show <hash>:_audit/S-033.md | grep -c 'Nota del 2026-09-11 (`F-096`, `T-153`)'
+$ git show <hash>:_audit/S-033.md | grep -c '^91a59c8: 152'
+$ git show <hash>:_audit/S-033.md | grep -c '^91a59c8^: 148'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `1`.
+
+---
+
+### T-154 - Publicar por nota fechada la salida del CONTROL DE CIFRA ADYACENTE de `S-033` (`F-097`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-034 |
+
+- **Que:** `_audit/S-033.md` recibe una nota fechada al final de su seccion 7 con la salida que la
+  NOTA DE CIERRE debio publicar y no publico: el control corrido sobre la version del informe que
+  entro en el commit sustantivo, con su orden, sus **trece** lineas y la lectura de su condicion de
+  parada linea por linea. **El control pasa:** ninguna de las trece teclea una cifra que su bloque no
+  diera.
+- 🔑 **Trece lineas es exactamente lo que su enunciado predice** — «un informe sano devuelve del
+  orden de diez». El control era ejecutable y no fallaba; lo que falto fue publicarlo, y sin la
+  salida «paso» y «nadie lo corrio» se leen igual.
+- ⚠️ **La nota dice tambien lo que el control NO habria visto**, para que nadie le atribuya un
+  alcance que no tiene: las dos cifras de `F-096` estan **dentro** de un bloque de salida cruda, y
+  este control barre la prosa que sigue al bloque. Una salida podada cae fuera de su alcance por
+  construccion.
+- **Lo que esta tarea no hace:** dar mecanismo para que no vuelva a pasar. Eso es `T-155`.
+- **Criterio de cierre:** la nota existe citando `F-097`, y publica la salida entera con su orden.
+
+```
+$ git show <hash>:_audit/S-033.md | grep -c 'Nota del 2026-09-11 (`F-097`, `T-154`)'
+$ git show <hash>:_audit/S-033.md | grep -c 'contraste 2). Cuadra.'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `2` — dos, porque la linea aparece una
+vez en la seccion 8 del informe original y otra dentro de la salida cruda que la nota pega.
+
+---
+
+### T-155 - Rotular la NOTA DE CIERRE y dar al cierre el Paso 7c-ter (`F-097`, `D-144`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-034 |
+
+- **Que:** en `protocol-close`, la plantilla de la seccion 7 gana la cuarta obligacion —la salida del
+  CONTROL DE CIFRA ADYACENTE— y exige que los cuatro bloques vayan **rotulados** con una cadena
+  literal fija; el Paso 6b gana el puntero que dice quien comprueba esa publicacion; y nace el **Paso
+  7c-ter**, que busca los cuatro rotulos en el informe y **no deja commitear el anclaje** si falta
+  alguno. Su decision es `D-144`.
+- 🔑 **Por que un rotulo:** lo que un control externo puede comprobar sin rehacer el trabajo es la
+  **presencia**. Juzgar si la salida es la correcta es de la auditoria.
+- 🔑 **Por que en el 7c-ter y no en el Paso 7b, que es donde el hallazgo lo sugeria:** la NOTA DE
+  CIERRE no existe cuando corre el 7b — la escribe el 7c, despues del commit sustantivo.
+- ⚠️ **El control enumera cuatro casos, y el propio paso lo declara:** un quinto paso con la misma
+  obligacion tiene que anadir su rotulo en la misma pasada en que nazca.
+- 🚨 **El rotulo lleva el sufijo ` — salida:`, y esa parte la encontro la prueba, no el diseño.** La
+  primera version buscaba `**CONTROL DE CIFRA ADYACENTE**` a secas y **pasaba sobre el informe que
+  motivo el hallazgo**, porque su seccion 0 menciona el control en negrita al contar que nacio.
+- ⚠️ **Rige hacia adelante.** Los informes ya publicados no llevan los rotulos y **no se reescriben**;
+  el control empieza a aplicar en el proximo cierre.
+- **Criterio de cierre:** el Paso 7c-ter existe con su condicion de parada, la plantilla exige los
+  cuatro rotulos, y el control **distingue el caso que falla del que pasa**.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-ter'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la NOTA DE CIERRE'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'el 7c-ter no deja commitear el anclaje sin ella'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `1`.
+
+**Prueba de los dos casos** (`PI-5`: un control que no puede fallar no es evidencia). El primer caso
+es un informe real que no lleva los rotulos —`_audit/S-033.md`, el de la sesion anterior—; el segundo
+es un archivo que solo los lleva a ellos:
+
+```
+$ ROTULOS=("**BARRIDO DE ANCLAJE — salida:**" "**CONTROL DE PROSA BORRADA — salida:**" "**SEGUNDA PASADA anclada del Paso 2e — salida:**" "**CONTROL DE CIFRA ADYACENTE — salida:**")
+
+$ for m in "${ROTULOS[@]}"; do grep -qF "$m" _audit/S-033.md || echo "FALTA en la NOTA DE CIERRE: $m"; done
+FALTA en la NOTA DE CIERRE: **BARRIDO DE ANCLAJE — salida:**
+FALTA en la NOTA DE CIERRE: **CONTROL DE PROSA BORRADA — salida:**
+FALTA en la NOTA DE CIERRE: **SEGUNDA PASADA anclada del Paso 2e — salida:**
+FALTA en la NOTA DE CIERRE: **CONTROL DE CIFRA ADYACENTE — salida:**
+
+$ printf '%s\n' "${ROTULOS[@]}" > /tmp/ok.md
+$ for m in "${ROTULOS[@]}"; do grep -qF "$m" /tmp/ok.md || echo "FALTA en la NOTA DE CIERRE: $m"; done
+(sin salida)
+```
+
+⚠️ **El primer caso es tambien la constancia de que el control rige hacia adelante:** los informes ya
+publicados no llevan los rotulos y **no se reescriben** para llevarlos.
+
+
+---
+
+### T-156 - Construir el esqueleto reutilizable de arranque de proyecto (`D-143`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | Bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** dejar listo un **repositorio independiente** que sirva de punto de partida para cualquier
+  proyecto de desarrollo de software: la estructura de carpetas, los protocolos, los agentes y las
+  plantillas del andamiaje, **sin un solo dato de ningun producto**. Existe ya un intento en
+  `C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS`, con la estructura correcta pero con
+  el contenido por detras de este repositorio.
+- **Por que:** `D-143` lo declara prioridad inmediata y aplaza tres tareas por el. Este proyecto
+  construyo el andamiaje, y mientras el andamiaje solo viva aqui **cada proyecto nuevo lo volvera a
+  escribir** — o, peor, lo copiara a mano y lo dejara desfasarse sin que nadie lo note.
+- 🔑 **El esqueleto no es una carpeta: es un original.** El mismo argumento que saco las lecciones
+  globales fuera de este repositorio. Un original y muchas lecturas; nunca muchos originales.
+- **Estado de partida, medido el 2026-09-11** contra `HEAD` de este repositorio:
+
+```
+$ S=C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS
+$ R=C:/Users/USUARIO/Documents/Company_TripleS/Proyectos_TripleS/RaidomAI_App
+$ for d in .claude _phases _methodology _templates _workflow; do diff -rq "$S/$d" "$R/$d"; done; diff -q "$S/CLAUDE.md" "$R/CLAUDE.md"
+Files .../SDAI_TripleS/.claude/skills/protocol-audit/SKILL.md and .../RaidomAI_App/.claude/skills/protocol-audit/SKILL.md differ
+Files .../SDAI_TripleS/.claude/skills/protocol-close/SKILL.md and .../RaidomAI_App/.claude/skills/protocol-close/SKILL.md differ
+Only in .../RaidomAI_App/.claude/skills: protocol-harvest
+Files .../SDAI_TripleS/.claude/skills/protocol-start/SKILL.md and .../RaidomAI_App/.claude/skills/protocol-start/SKILL.md differ
+Files .../SDAI_TripleS/_phases/000_preproject.md and .../RaidomAI_App/_phases/000_preproject.md differ
+Files .../SDAI_TripleS/_phases/005_discovery.md and .../RaidomAI_App/_phases/005_discovery.md differ
+Files .../SDAI_TripleS/_templates/000_preproject/005_project.md and .../RaidomAI_App/_templates/000_preproject/005_project.md differ
+Files .../SDAI_TripleS/CLAUDE.md and .../RaidomAI_App/CLAUDE.md differ
+
+$ (cd "$S" && git log --oneline -1) || echo "(sin git)"
+(sin git)
+```
+
+- ⚠️ **El desfase va en una sola direccion, y eso es lo que lo hace barato de cerrar.** Las lineas
+  que solo tiene el esqueleto son versiones anteriores de los mismos parrafos, ya sustituidas aqui;
+  no hay nada alli que este repositorio no tenga.
+- 🔑 **Lo que el intento ya resuelve bien, y conviene no romper:** los diez archivos de instancia
+  —`project.md`, los siete de `_persistence/` y los dos de `_audit/`— son **identicos, linea a linea,
+  a su plantilla de `_templates/000_preproject/`**, sin rellenar. Esa es exactamente la forma que
+  tiene que tener un esqueleto.
+- 🚨 **Lo que le falta no es sobre todo contenido, es mecanismo.** Copiar siete archivos al dia lo
+  cierra; lo que deja el problema resuelto es **como se sincronizan los dos de aqui en adelante** y
+  **quien manda cuando discrepan**. Sin eso, el esqueleto vuelve a quedarse atras a las pocas
+  sesiones, que es el estado en que se le encontro.
+- ✅ **Las cuatro decisiones que esta tarea tenia pendientes quedaron tomadas el 2026-09-11**, por
+  decision del usuario: `D-145` (repositorio propio con remoto privado), `D-146` (el andamiaje viaja
+  en un solo sentido: el proyecto escribe, el esqueleto recibe), `D-147` (la ubicacion se registra en
+  `project.md`) y `D-148` (el cierre detecta el desfase e informa, no frena).
+- **Esta tarea es el paraguas; el trabajo esta repartido en siete, y el orden importa:**
+
+  | Orden | Tarea | Depende de |
+  |---|---|---|
+  | 1 | `T-157` — crear el repositorio y commitear el estado **actual** | — |
+  | 2 | `T-158` — sincronizar las seis areas agnosticas | `T-157` |
+  | 3 | `T-159` — registrar la ubicacion en `project.md` | `T-157` (hace falta el remoto) |
+  | 4 | `T-160` — el barrido de desfase en el cierre | `T-159` |
+  | 5 | `T-161` — la skill de promocion, con puerta | `T-157` |
+  | 6 | `T-162` — la guia de arranque | `T-158` |
+  | 7 | `T-163` — los dos huecos menores | — |
+
+- 🚨 **El paso 1 va antes del 2 y no es ceremonia.** Si se sincroniza primero y se crea el
+  repositorio despues, el primer commit dira que el esqueleto siempre estuvo al dia — y se pierde la
+  unica prueba de que este mecanismo hacia falta.
+- **Criterio de cierre:** el esqueleto es un repositorio con historial y remoto; sus seis areas
+  agnosticas coinciden con las de este repositorio sin una linea de diferencia; lleva su guia de
+  arranque; y existe el `D-XXX` que fija como se mantienen sincronizados los dos.
+
+
+---
+
+### T-157 - Crear el repositorio del esqueleto y commitear su estado actual (`D-145`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | Bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** `git init` en la carpeta del esqueleto, commit inicial **con el contenido tal como esta
+  hoy** —desfasado y todo—, remoto privado y push.
+- 🚨 **Sin sincronizar nada antes.** Ese commit es la foto del punto de partida; si se arregla
+  primero, el historial afirma que el esqueleto nunca estuvo por detras.
+- ⚠️ **El push es irreversible** (primera tabla de `C-009`). Autorizado por el usuario al aprobar
+  `D-145`; el `git init` y el commit local no lo necesitan.
+- **Bloquea a `T-158` y `T-159`**, y por ellas al resto.
+- **Criterio de cierre:** el esqueleto tiene al menos un commit y un remoto configurado, y
+  `git status -sb` no dice `ahead`.
+
+---
+
+### T-158 - Sincronizar las seis areas agnosticas del esqueleto (`D-146`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** llevar al esqueleto los siete archivos que estan por detras —`CLAUDE.md`, las tres skills
+  `protocol-audit`, `protocol-close` y `protocol-start`, `_phases/000_preproject.md`,
+  `_phases/005_discovery.md` y `_templates/000_preproject/005_project.md`— y la skill
+  **`protocol-harvest` entera**, que alli no existe.
+- ⚠️ **El desfase va en un solo sentido:** lo que solo tiene el esqueleto son versiones anteriores de
+  los mismos parrafos, ya sustituidas aqui. No hay nada alli que rescatar.
+- ⚠️ **Cuidado con los finales de linea** (`C-008`): un archivo esta en CRLF aqui y en LF alli. La
+  sincronizacion no debe convertir el archivo entero por accidente.
+- **Criterio de cierre:** el barrido de `D-148` sobre las seis areas devuelve vacio.
+
+---
+
+### T-159 - Registrar en `project.md` la ubicacion del esqueleto (`D-147`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** dos filas en `project.md` —ruta absoluta del esqueleto y su remoto— junto a las tres de
+  lecciones globales, mas la nota que deja escrito que **este proyecto no salio del esqueleto: el
+  esqueleto salio de este proyecto**, y que por eso es el unico sin fila de «version de la que
+  partio».
+- ⚠️ **Depende de `T-157`:** el remoto no existe hasta entonces, y una fila con un hueco es peor que
+  no tenerla.
+- **Criterio de cierre:** `project.md` nombra el esqueleto con su ruta y su remoto, y lleva la nota.
+
+---
+
+### T-160 - Anadir al cierre el barrido de desfase con el esqueleto (`D-148`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** un paso en `protocol-close` que corre `diff -rq --strip-trailing-cr` sobre las seis areas
+  agnosticas contra el esqueleto y **publica su salida en el informe**.
+- 🚨 **Informa, no frena.** Su salida normal es una lista de archivos por promover; hacerlo condicion
+  de parada lo haria saltar casi cada sesion y se acabaria ignorando.
+- ⚠️ **Si la ruta no existe en la maquina, `SIN COMPROBAR`, nunca silencio.**
+- ⚠️ **Depende de `T-159`:** el paso lee la ruta de `project.md`, no la lleva escrita dentro — es una
+  skill copiable.
+- **Criterio de cierre:** el paso existe con sus tres resultados posibles, y se prueba **en sus dos
+  casos** (esqueleto desfasado y esqueleto al dia), como pide `L-053`.
+
+---
+
+### T-161 - Escribir la skill de promocion al esqueleto, con su puerta (`D-146`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** la skill que lleva al esqueleto lo que este proyecto haya escrito en las seis areas
+  agnosticas, con la **misma forma que la cosecha de lecciones**: la ejecuta `manager`, **nunca un
+  agente**, y no se escribe nada fuera hasta que el usuario aprueba los archivos que suben, uno por
+  uno.
+- 🔑 **Por que no la puede delegar:** ningun agente de este repositorio tiene alcance fuera de el, y
+  darselo seria un cambio de alcance, no configuracion.
+- **Criterio de cierre:** la skill existe, declara a `manager` como unico ejecutor, y su puerta va
+  **antes de escribir**, no antes del push.
+
+---
+
+### T-162 - Escribir la guia de arranque del esqueleto
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-034 |
+
+- **Que:** el `README` que hoy no existe: que se rellena y en que orden, que archivos son huecos y
+  cuales no se tocan, y cual es el primer cierre de sesion de un proyecto nuevo.
+- 🔑 **Los huecos ya estan puestos** en la plantilla de `project.md` —`<NOMBRE>`, `<ruta absoluta>`,
+  `<url del remoto>`, las tres filas de lecciones globales—. Lo que falta es la pagina que diga
+  «rellena estos y solo estos».
+- **Criterio de cierre:** el esqueleto lleva su guia, y nombra los diez archivos de instancia que hay
+  que rellenar.
+
+---
+
+### T-163 - Resolver los dos huecos menores del esqueleto: brief y `temporal/`
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-034 |
+
+- **Que:** dos cosas pequenas que aparecieron al medir el esqueleto y que no encajan en ninguna otra
+  tarea:
+  1. **`_brief/client_brief.md` esta vacio y no tiene plantilla** en `_templates/`, a diferencia de
+     los diez archivos de instancia. O se le escribe una, o se declara que es un hueco deliberado.
+  2. **`temporal/` esta en `.gitignore` y git no versiona carpetas vacias**, asi que al clonar el
+     esqueleto **no aparecera** — y `project.md` la declara como area de trabajo del usuario. Hay que
+     decidir si la crea la guia de arranque o si se acepta que no exista hasta que alguien la use.
+- **Criterio de cierre:** las dos quedan resueltas o declaradas por escrito, con su `D-XXX` si la
+  respuesta es «se acepta asi».

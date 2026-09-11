@@ -60,6 +60,9 @@
 | [L-049](#l-049---medir-un-control-y-descartarlo-prueba-que-ese-ambito-no-sirve-no-que-no-exista-uno-que-si) | Medir un control y descartarlo prueba que ESE ambito no sirve, no que no exista uno que si | 2026-09-10 | 000_preproject | Sin evaluar |
 | [L-050](#l-050---un-control-que-enumera-casos-caduca-solo-uno-que-reconoce-la-forma-no) | Un control que enumera casos caduca solo; uno que reconoce la forma, no | 2026-09-10 | 000_preproject | Sin evaluar |
 | [L-051](#l-051---una-tarea-escrita-para-mas-adelante-describe-el-repositorio-del-dia-que-se-escribio) | Una tarea escrita para «mas adelante» describe el repositorio del dia que se escribio | 2026-09-10 | 000_preproject | Sin evaluar |
+| [L-052](#l-052---un-filtro-por-estado-que-busca-texto-libre-recoge-filas-por-su-titulo) | Un filtro por estado que busca texto libre recoge filas por su titulo | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-053](#l-053---un-control-de-presencia-se-prueba-contra-el-artefacto-que-lo-motivo-o-no-esta-probado) | Un control de presencia se prueba contra el artefacto que lo motivo, o no esta probado | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-054](#l-054---un-original-sin-mecanismo-de-deteccion-deja-de-ser-original-en-silencio) | Un original sin mecanismo de deteccion deja de ser original en silencio | 2026-09-11 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -1915,3 +1918,90 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
   escrito **que se encontro en su lugar**, que casi siempre es un trabajo distinto y mas pequeño.
 - ⚠️ **Y conviene mirar el paso de al lado, no solo el que la tarea nombra.** Aqui el control estaba
   en el paso contiguo con otro numero: buscando solo donde la tarea decia, no habria aparecido.
+
+
+---
+
+### L-052 - Un filtro por estado que busca texto libre recoge filas por su titulo
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** un informe publico «las tareas abiertas segun el indice», derivadas con un `grep` del
+  nombre del estado sobre las filas de una tabla. El estado es una **columna**; el `grep` miraba la
+  **fila entera**.
+- **Que ocurrio:** una tarea cuyo titulo contiene el nombre del estado —una tarea que precisamente
+  trataba sobre normalizar ese estado— salio en el resultado aunque su estado real era el contrario.
+  El informe publico la salida **recortada a mano**, con esa fila quitada. La conclusion era correcta;
+  la evidencia dejo de serlo.
+- **Leccion:** en una tabla de markdown, **filtrar por una columna se hace acotando la columna**
+  —delimitadores incluidos—, nunca buscando su valor como texto suelto. Un registro que se describe a
+  si mismo tiene siempre filas cuyo **titulo** habla de estados, codigos y ficheros: son las que
+  convierten un filtro ancho en un falso positivo, y son justo las que mas se citan.
+- 🔑 **La senal que lo delata:** la salida trae una fila cuyo estado, leido en la columna, no es el
+  que se estaba pidiendo. Si aparece, el filtro esta mirando el sitio equivocado.
+- **Como aplicarla:** el filtro incluye los delimitadores de la columna en el patron; y si aun asi
+  sobra una fila, **la salida se publica entera con la explicacion al lado**, nunca podada. Podarla
+  no arregla el filtro: esconde que estaba mal, y quien reejecute la orden vera la fila de mas sin
+  saber si el informe escondio algo.
+- ⛔ **Y lo mas caro no fue el filtro, fue el recorte.** Un filtro ancho se corrige en un minuto; una
+  salida cruda editada a mano deja de ser evidencia y pasa a ser una afirmacion con formato de
+  evidencia — que es peor que no publicarla, porque parece comprobada.
+
+
+---
+
+### L-053 - Un control de presencia se prueba contra el artefacto que lo motivo, o no esta probado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** se escribio un control que comprueba que un informe lleve publicadas ciertas salidas
+  obligatorias. Buscaba el nombre de cada una en negrita: si la cadena esta, la salida esta.
+- **Que ocurrio:** al probarlo **sobre el informe que habia motivado el hallazgo** —el que
+  precisamente no publicaba una de esas salidas— el control **paso**. La cadena aparecia, pero en una
+  frase de prosa de otra seccion, contando que ese control acababa de nacer. El control habria dado
+  por bueno exactamente el defecto que existia para impedir.
+- **Leccion:** un control de presencia hay que probarlo **contra el caso real que lo motivo**, no
+  contra un ejemplo inventado. El ejemplo se construye con la forma que el control espera y por eso
+  siempre pasa; el caso real trae el ruido que hace fallar la busqueda.
+- 🔑 **La senal que lo delata:** la cadena que el control busca es tambien una cadena que la prosa
+  usa para hablar del control. En cuanto un control busca su propio nombre, tiene este problema.
+- **Como aplicarla:** dos pruebas, siempre. Una con el artefacto que **debe fallar** y otra con uno
+  que **debe pasar**, y las dos salidas se publican. Si solo se corre la segunda, lo unico
+  demostrado es que el comando se ejecuta.
+- ⛔ **Y la solucion no es afinar la busqueda a ojo, es cambiar la cadena.** Aqui se le anadio al
+  rotulo un sufijo que ninguna frase de prosa escribiria. Un rotulo que solo un rotulo puede
+  satisfacer es lo unico que convierte «esta la cadena» en «esta la salida».
+
+---
+
+### L-054 - Un original sin mecanismo de deteccion deja de ser original en silencio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** existia un esqueleto de arranque —la estructura de carpetas y protocolos con la que
+  empezar cualquier proyecto— en una carpeta del disco, con la intencion correcta y bien construido.
+- **Que ocurrio:** al medirlo contra el proyecto estaba **ocho archivos por detras**, uno de ellos un
+  protocolo entero que alli no existia. Nadie lo habia notado, y no habia forma de notarlo: sin
+  repositorio no habia historial, y sin control no habia nada que comparase. El desfase no se produjo
+  por descuido — se produjo porque **nada podia verlo**.
+- **Leccion:** declarar que algo es «el original» no lo mantiene siendo el original. Lo que lo
+  mantiene son dos cosas: que sea **clonable** —para que las copias sean copias y no versiones— y que
+  algo **compare** cada cierto tiempo. Sin las dos, un original se degrada a «la version mas antigua»
+  sin que se emita ninguna senal.
+- 🔑 **La senal que lo delata, y es incomoda:** que el original **no se haya tocado en semanas**
+  mientras el sitio donde de verdad se trabaja cambia todos los dias. Eso no es estabilidad; casi
+  siempre es desfase.
+- **Como aplicarla:** cuando se declare un artefacto como fuente unica —un esqueleto, un archivo de
+  lecciones, una plantilla compartida—, en la **misma pasada** se decide como se detecta su desfase.
+  No en la siguiente: la deteccion es parte de declararlo original, no una mejora posterior.
+- ⚠️ **Y el control que detecta no tiene por que frenar.** Aqui el desfase es el estado **normal**
+  entre promociones. Un control que informa se lee; uno que bloquea en cada sesion se desactiva.

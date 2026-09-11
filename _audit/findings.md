@@ -106,9 +106,9 @@
 | [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Implementado |
 | [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Implementado |
 | [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Implementado |
-| [F-095](#f-095---projectmd-afirma-tres-veces-que-020_baseline-no-esta-adoptada-en-el-mismo-commit-que-la-declara) | `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara | R-033 | Media | Abierto |
-| [F-096](#f-096---el-bloque-de-verificacion-de-la-seccion-2-de-s-033-publica-dos-salidas-que-no-reproducen) | El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen | R-033 | Media | Abierto |
-| [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Abierto |
+| [F-095](#f-095---projectmd-afirma-tres-veces-que-020_baseline-no-esta-adoptada-en-el-mismo-commit-que-la-declara) | `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara | R-033 | Media | Aceptado — pendiente |
+| [F-096](#f-096---el-bloque-de-verificacion-de-la-seccion-2-de-s-033-publica-dos-salidas-que-no-reproducen) | El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen | R-033 | Media | Aceptado — pendiente |
+| [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Aceptado — pendiente |
 
 ---
 
@@ -4326,8 +4326,8 @@ Aceptado — pendiente
 | Auditoria | R-033 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-152` |
 | Cerrado en | |
 
 - **Que se observo:** `D-142` declara las siete etapas en la tabla «Etapas» de `project.md`, y unas
@@ -4365,8 +4365,8 @@ $ git show 91a59c8:project.md | sed -n '/^| Etapas declaradas/p'
 | Auditoria | R-033 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-153` |
 | Cerrado en | |
 
 - **Que se observo:** la primera salida esta podada —el comando devuelve cuatro filas y el informe
@@ -4403,8 +4403,8 @@ f3ae6b6: 152
 | Auditoria | R-033 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-154` (nota fechada), `T-155` (`D-144`, el control mecanico) |
 | Cerrado en | |
 
 - **Que se observo:** el Paso 6b, en la version que el propio commit deja escrita, exige correr el

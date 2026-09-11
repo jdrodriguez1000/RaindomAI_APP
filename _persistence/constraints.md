@@ -223,6 +223,7 @@ regla sin mecanismo: funciona mientras alguien se acuerde.
 |---|---|
 | `git push` al remoto | el historial publicado ya lo pudo clonar cualquiera; un `push --force` posterior no lo retira de donde ya esta |
 | Escribir en el repositorio de lecciones globales | vive fuera de este repositorio y lo comparten otros proyectos: una entrada mala la heredan todos. Por eso su protocolo lleva puerta explicita |
+| Escribir en el repositorio del esqueleto de arranque | igual que el anterior: vive fuera y de el partiran todos los proyectos nuevos, asi que un error se hereda hacia adelante. Su promocion lleva la misma puerta (`D-145`, `D-146`) |
 | Desplegar a la plataforma | lo publicado queda accesible desde fuera, y puede quedar cacheado o indexado aunque se retire despues |
 | Gastar en la plataforma de despliegue | el consumo facturado no se revierte borrando lo que lo causo |
 | Datos que registre una persona usuaria | son dato personal: sobreviven al proyecto y su borrado no es cosa nuestra sola |
@@ -256,6 +257,11 @@ da y que pasa si no llega es otra cosa, y viene despues de tener la lista, no an
 
 - **Que la origina:** `T-037`, y una leccion global que pide escribir el inventario **antes** de
   necesitarlo. Su decision es `D-141`.
+
+📌 **Nota del 2026-09-11 (`D-145`): la primera tabla crece por primera vez, y por la via prevista.**
+La entrada decia que el inventario «no se levanta por si solo; crece». Al adoptarse el esqueleto de
+arranque aparece un segundo repositorio externo con la misma naturaleza que el de lecciones, y entra
+en la tabla con su `D-XXX` en la misma pasada en que nacio — no despues.
 - **Se levanta cuando:** no se levanta por si sola; crece. Si una accion cambia de naturaleza
   —porque cambia la plataforma, la fuente o el trato con los datos— se mueve de tabla **con su
   `D-XXX`**, nunca en silencio.

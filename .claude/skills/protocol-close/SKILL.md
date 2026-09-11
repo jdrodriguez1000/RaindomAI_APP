@@ -1126,6 +1126,14 @@ de ANCLAJE, no el sustantivo — es ahi donde el 7c-bis escribio los hashes>
 <y dentro de esa misma nota, la SEGUNDA PASADA anclada del Paso 2e: sus tres ordenes y sus tres
 salidas, tambien cuando salen limpias, y cuantos archivos del commit quedaron fuera de la tabla de
 la seccion 8 — que es lo que esta pasada existe para ver>
+<y dentro de esa misma nota, la salida del CONTROL DE CIFRA ADYACENTE del Paso 6b, entera y con su
+orden, tambien cuando no obliga a corregir nada, con la lectura linea por linea de su condicion de
+parada>
+<🚨 los cuatro bloques van ROTULADOS con su nombre literal —`**BARRIDO DE ANCLAJE — salida:**`,
+`**CONTROL DE PROSA BORRADA — salida:**`, `**SEGUNDA PASADA anclada del Paso 2e — salida:**` y
+`**CONTROL DE CIFRA ADYACENTE — salida:**`—, y no es cosmetica: el Paso 7c-ter los busca por esa
+cadena exacta antes de dejar commitear el anclaje. El rotulo lleva el sufijo ` — salida:` justo para
+que no lo pueda satisfacer una mencion suelta del control en la prosa del informe>
 
 ## 8. Evidencia del Paso 2e
 <la orden del barrido de caracteres de control sobre los archivos que el commit toca, y su salida
@@ -1318,6 +1326,12 @@ juntas nunca; en esta salida la contradiccion es la primera cosa que se nota.
 
 ⚠️ **La salida se publica en la NOTA DE CIERRE, tambien cuando no obliga a corregir nada.** Un
 control cuyo resultado no se publica no se distingue de un control que no se corrio.
+
+🚨 **Y esa publicacion la comprueba el Paso 7c-ter, no tu memoria.** Este control nacio porque una
+regla de redaccion sola ya habia fallado tres veces, y su estreno repitio el patron: se escribio, se
+corrio, y **no se publico** — desde fuera no habia forma de distinguirlo de uno que nadie corrio.
+Guarda su salida al correrlo aqui: la vas a pegar en la NOTA DE CIERRE bajo el rotulo literal
+`**CONTROL DE CIFRA ADYACENTE — salida:**`, y el 7c-ter no deja commitear el anclaje sin ella.
 
 ---
 
@@ -1698,6 +1712,45 @@ documentacion: la orden ejecutada literal y su salida cruda.
 🔑 **Lo que se publica es la salida entera, incluidas las dos lineas `== … ==`.** Son justamente lo
 que distingue «el control salio limpio» de «el control no se corrio»: sin ellas, una salida vacia y
 una ejecucion que no ocurrio se leen igual.
+
+### 7c-ter — Que la NOTA DE CIERRE lleve las cuatro salidas (obligatorio, antes de commitear el anclaje)
+
+Cuatro pasos distintos terminan diciendo «y su salida se publica en la NOTA DE CIERRE»: el barrido de
+anclaje del Paso 2d, el CONTROL DE PROSA BORRADA del 7c-bis, la SEGUNDA PASADA anclada del Paso 2e y
+el CONTROL DE CIFRA ADYACENTE del Paso 6b. **Las cuatro son reglas de redaccion, y una regla de
+redaccion sola ya fallo:** el ultimo de los cuatro se estreno escrito, corrido y sin publicar.
+
+Este paso no juzga el contenido de las cuatro salidas —eso lo hace la auditoria—. Comprueba lo unico
+que se puede comprobar desde fuera: **que estan**.
+
+```bash
+for m in "**BARRIDO DE ANCLAJE — salida:**" "**CONTROL DE PROSA BORRADA — salida:**" "**SEGUNDA PASADA anclada del Paso 2e — salida:**" "**CONTROL DE CIFRA ADYACENTE — salida:**"; do
+  grep -qF "$m" _audit/S-XXX.md || echo "FALTA en la NOTA DE CIERRE: $m"
+done
+```
+
+| Que sale | Que significa | Que haces |
+|---|---|---|
+| nada | los cuatro rotulos estan | sigue: commitea el anclaje |
+| alguna linea `FALTA…` | **la NOTA DE CIERRE no lleva esa salida** | 🚨 **detente**: corre el control que falta, pega su orden y su salida cruda bajo su rotulo, y vuelve a correr esto. No commitees el anclaje hasta que salga vacio |
+| el comando falla | **no lo comprobaste** | sigue, y a **Sin resolver** con 🚨 `SIN COMPROBAR` |
+
+⚠️ **Aqui la salida vacia SI es la correcta**, al reves que en el CONTROL DE CIFRA ADYACENTE. No es
+una incoherencia: aquel busca lineas para leerlas, este busca ausencias.
+
+🔑 **Por que va aqui y no en el Paso 7b.** La NOTA DE CIERRE no existe todavia cuando corre el 7b:
+la escribe el 7c, despues del commit sustantivo. El ultimo momento en que aun se puede anadir algo
+sin dejar una nota fechada es justo antes del commit de anclaje, y ese momento es este.
+
+⚠️ **Este control enumera casos, y eso caduca.** Reconoce cuatro rotulos porque hoy hay cuatro
+obligaciones; **un quinto paso que exija publicar su salida en la NOTA DE CIERRE tiene que anadir su
+rotulo a esta lista en la misma pasada en que nazca**, o este control seguira devolviendo vacio
+mientras la nota se queda coja. Un control que no cubre lo nuevo es peor que ninguno, porque
+tranquiliza.
+
+⛔ **Y no comprueba que la salida sea la de este informe.** Un rotulo con la salida de la sesion
+anterior pegada debajo pasa este control sin una queja. Lo que impide eso es el anclaje de las
+ordenes, no esto.
 
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 

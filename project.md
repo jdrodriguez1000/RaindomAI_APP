@@ -247,8 +247,8 @@ envejece sin que nadie la revise y acaba tapando justo lo que el control existe 
 | `R-XXX` | `_audit/R-XXX.md` | auditoria de una sesion |
 | `N-XXX` | `005_discovery/005_needs.md`, el artefacto de necesidades de `005_discovery` (`D-045`) | necesidad |
 | `I-XXX` | `005_discovery/015_stakeholders.md`, el artefacto de interesados de `005_discovery` (`D-038`, ruta por `D-045`) | interesado |
-| `FT-XXX` | el artefacto de features de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | feature |
-| `SC-XXX` | el artefacto de escenarios de `020_baseline` (ruta por declarar: la etapa no esta adoptada) | scenario |
+| `FT-XXX` | el artefacto de features de `020_baseline` (ruta por declarar: la etapa esta declarada, no iniciada) | feature |
+| `SC-XXX` | el artefacto de escenarios de `020_baseline` (ruta por declarar: la etapa esta declarada, no iniciada) | scenario |
 
 🚨 **Ningun codigo se reutiliza, en ningun archivo.** Un id retirado queda retirado; la entrada que
 lo llevaba conserva su texto para que se entienda que se creia y por que dejo de valer.
@@ -264,9 +264,16 @@ archivo antes que en esta tabla es un desfase, no una novedad.
 🚨 **`FT-XXX` y `SC-XXX` entraron por esa ultima frase, no porque haya producto** (`D-075`,
 hallazgo `F-040`). Las plantillas de `_templates/020_baseline/` los escriben en sus ejemplos desde
 `S-017`, y un codigo citado antes de declararse es un desfase — el mismo argumento que metio
-`N-XXX` (`D-034`) e `I-XXX` (`D-038`). **Declararlos no adopta `020_baseline`**: la etapa sigue sin
-declarar en la tabla «Etapas», y por eso la columna «Archivo» de esas dos filas dice «ruta por
-declarar» en vez de inventarse una.
+`N-XXX` (`D-034`) e `I-XXX` (`D-038`). **Declararlos no adoptaba `020_baseline`**: cuando entraron, la
+etapa no estaba en la tabla «Etapas», y por eso la columna «Archivo» de esas dos filas dice «ruta
+por declarar» en vez de inventarse una.
+
+⚠️ **Nota del 2026-09-11 (`F-095`, `T-152`): esa razon caduco, y la columna sigue igual.** `D-142`
+declaro `020_baseline` en la tabla «Etapas» el 2026-09-10, asi que «la etapa no esta adoptada» dejo
+de ser cierto en ese mismo commit. Lo que no cambio es el hueco: **la ruta de esos dos artefactos
+sigue sin fijarse**, ahora porque la etapa esta declarada pero **no iniciada** y no hay producto que
+la llene. Se escribira con su `D-XXX` en la pasada en que se decida, y hasta entonces la columna dice
+«ruta por declarar» por ese motivo, no por el anterior.
 
 📌 **Hay una propuesta escrita, y esta en `_methodology/000_method.md` (§46):** `N-`
 necesidad, `FT-` feature, `SC-` scenario, `VS-` vertical slice, `T-` task, `TC-` caso de prueba,

@@ -57,6 +57,7 @@
 | [S-031](#s-031---se-aceptan-f-087-a-f-090-t-136-a-t-141-nace-la-skill-protocol-harvest-t-142-y-se-cierra-el-enganche-del-acta-t-126-t-127-t-129) | Se aceptan `F-087` a `F-090` (`T-136` a `T-141`); nace la skill `protocol-harvest` (`T-142`) y se cierra el enganche del acta (`T-126`, `T-127`, `T-129`) | 2026-09-10 | `000_preproject` |
 | [S-032](#s-032---se-aceptan-f-091-y-f-092-t-145-a-t-147-el-arranque-lee-los-supuestos-abiertos-t-143-d-136) | Se aceptan `F-091` y `F-092` (`T-145` a `T-147`); el arranque lee los supuestos abiertos (`T-143`, `D-136`) | 2026-09-10 | `000_preproject` |
 | [S-033](#s-033---se-aceptan-f-093-y-f-094-t-148-a-t-151-se-adopta-la-secuencia-de-etapas-d-142-y-se-aplazan-t-001-t-003-y-t-144-d-143) | Se aceptan `F-093` y `F-094` (`T-148` a `T-151`); se adopta la secuencia de etapas (`D-142`) y se aplazan `T-001`, `T-003` y `T-144` (`D-143`) | 2026-09-10 | `000_preproject` |
+| [S-034](#s-034---se-aceptan-f-095-a-f-097-t-152-a-t-155-y-nace-el-paso-7c-ter-d-144-el-esqueleto-de-arranque-pasa-a-ser-repositorio-propio-d-145-a-d-148-t-156-a-t-163) | Se aceptan `F-095` a `F-097` (`T-152` a `T-155`), nace el Paso 7c-ter (`D-144`); el esqueleto de arranque pasa a ser repositorio propio (`D-145` a `D-148`, `T-156` a `T-163`) | 2026-09-11 | `000_preproject` |
 
 ---
 
@@ -82,107 +83,95 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-10 (S-033) |
+| Ultima actualizacion | 2026-09-11 (S-034) |
 | Salud | En marcha |
-| Avance de la etapa | Se evaluaron, contra `HEAD`, los dos hallazgos abiertos de `R-032` (`F-093`, `F-094`): los dos se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-148` a `T-151`). `F-093` (la seccion 8 de `_audit/S-032.md` publicaba «16 ocurrencias» donde sus propios operandos, el Contraste 2 de la misma seccion y su propio parrafo de cierre dan 17) y `F-094` (la seccion 0 publicaba `Implementado` para `F-091`/`F-092`, un estado que `CLAUDE.md` y `project.md` reservan a la auditoria) se corrigen por nota fechada en `_audit/S-032.md`, sin reescribir su prosa (`T-148`, `T-150`). De fondo nacen dos controles mecanicos en `protocol-close`: el CONTROL DE CIFRA ADYACENTE del Paso 6b, acotado a la prosa pegada a un bloque de salida cruda (`D-137`, `T-149`; devuelve del orden de diez lineas por informe y atrapa los dos defectos reales, frente a las ~130 del barrido generico ya descartado); y el veredicto `Aceptado — corregido en este commit` sustituye a `Implementado` en la seccion 0, que deja de ofrecerse como opcion (`D-138`, `T-151`; `protocol-audit` gana la senal de que usarlo es hallazgo). Fuera de los hallazgos: `T-112` se cierra reformulada —su premisa era falsa, el control ya existia desde `S-022` y estaba ciego a diez de dieciocho prefijos en uso; pasa a reconocer codigos por forma en vez de por lista (`D-139`, `L-050`, `L-051`); `T-038` se cierra con mas alcance del pedido —los dos protocolos quedan con el mismo barrido de fuga en las mismas seis carpetas, y `protocol-audit` gana su propio control de codigos instanciados (`D-140`, con puerta del usuario por tocar la skill de quien audita); `T-037` se cierra escribiendo el inventario de acciones irreversibles como `C-009` de `constraints.md`, con sus dos tablas (`D-141`); `T-002` se cierra adoptando la secuencia completa de etapas del metodo VERTICAL —siete etapas y sus dos Gates— en `project.md` (`D-142`); y por decision del usuario se aplazan `T-001` y `T-144` (etapa no iniciada, siguen `No implementada`) y se suspende `T-003` (etapa activa, pausa deliberada) para priorizar extraer del andamiaje un esqueleto reutilizable (`D-143`); `protocol-start` gana el bloque «Tareas de etapas no iniciadas» para que esas dos no compitan con las de la etapa activa. Nacen `L-049` (medir y descartar un control prueba que ESE ambito no sirve, no que no exista uno que si). Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`). |
-| Bloqueos activos | El alcance y el objetivo del proyecto siguen sin definir (`T-001`, aplazada por `D-143`; se retoma cuando `A-004` quede confirmado **y** `005_discovery` este activa); `A-003` — si el historico de la fuente oficial es obtenible — sigue sin verificar, `T-003` queda `Suspendida` por decision del usuario (`D-143`) y de `A-003` depende el ciclo entero del producto cuando se retome; no existe todavia una tarea con codigo para el nuevo trabajo inmediato que `D-143` declara como prioridad —«extraer del andamiaje un esqueleto reutilizable»— y eso se senala en el informe de esta sesion |
+| Avance de la etapa | Se evaluaron, contra `HEAD` (`ffb4130`), los tres hallazgos abiertos de `R-033` (`F-095`, `F-096`, `F-097`): los tres se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-152` a `T-155`). `F-095` (`project.md` seguia justificando el hueco de `FT-XXX`/`SC-XXX` con «la etapa no esta adoptada» cuando `D-142` ya la habia declarado en el mismo commit) se corrige de fondo en `project.md`, con nota fechada explicando que caduco (`T-152`). `F-096` (las dos salidas crudas de la seccion 2 de `_audit/S-033.md` no reproducian: la primera por un filtro de texto libre que recogia `T-039` por su titulo, la segunda por un recuento desfasado) y `F-097` (la NOTA DE CIERRE de `S-033` no publico la salida del CONTROL DE CIFRA ADYACENTE) se corrigen por nota fechada en `_audit/S-033.md`, sin reescribir su prosa (`T-153`, `T-154`). De `F-097` nace ademas un mecanismo, no solo una correccion puntual: los cuatro bloques obligatorios de la NOTA DE CIERRE pasan a llevar un rotulo literal fijo, y nace el Paso 7c-ter en `protocol-close`, que impide commitear el anclaje si falta alguno (`D-144`, `T-155`; probado en sus dos casos, `L-053`). Fuera de los hallazgos, el usuario toma cuatro decisiones sobre la prioridad que `D-143` habia dejado señalada sin tarea: el esqueleto de arranque —hoy una carpeta suelta en disco, ocho archivos por detras de este proyecto— pasa a ser un repositorio propio con remoto privado (`D-145`); el andamiaje viaja en un solo sentido, este proyecto escribe y el esqueleto recibe, con una skill de promocion con puerta de usuario (`D-146`); su ubicacion se registrara en `project.md`, no como restriccion (`D-147`); y el cierre ganara un barrido que detecta el desfase con el esqueleto e informa, sin frenar la sesion (`D-148`). El trabajo queda repartido en ocho tareas nuevas, `T-156` (paraguas) a `T-163`, todas `No implementada`. Nacen `A-018` (toda diferencia con el esqueleto es una promocion pendiente, nunca una version legitima distinta) y tres lecciones: `L-052` (un filtro por estado que busca texto libre recoge filas por su titulo), `L-053` (un control de presencia se prueba contra el artefacto que lo motivo) y `L-054` (un original sin mecanismo de deteccion deja de ser original en silencio). Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`). |
+| Bloqueos activos | El alcance y el objetivo del proyecto siguen sin definir (`T-001`, aplazada por `D-143`; se retoma cuando `A-004` quede confirmado **y** `005_discovery` este activa); `A-003` sigue sin verificar y `T-003` sigue `Suspendida` (`D-143`); el esqueleto de arranque tiene ahora ocho tareas con codigo (`T-156` a `T-163`) pero **cero implementadas**: no existe todavia el repositorio, asi que `D-146`/`D-147`/`D-148` estan decididas y no construidas |
 
 ---
 
 ## 2. Ultimo realizado
 
-Se evaluaron, verificados contra `HEAD` antes de tratarlos, los dos hallazgos abiertos de `R-032`
-(`F-093`, `F-094`). Los dos se sostuvieron contra la evidencia y se aceptan:
+Se evaluaron, verificados contra `HEAD` (`ffb4130`) antes de tratarlos, los tres hallazgos abiertos
+de `R-033`. Los tres se sostuvieron contra la evidencia y se aceptan:
 
-- `F-093` (la seccion 8 de `_audit/S-032.md` publicaba «16 ocurrencias» donde sus propios operandos
-  entre parentesis suman 17, el Contraste 2 de la misma seccion lo confirma y el parrafo de cierre,
-  cuatro bloques mas abajo, ya decia «17»): nota fechada en `_audit/S-032.md`, sin reescribir su
-  prosa (`T-148`).
-- `F-094` (la seccion 0 publicaba `Implementado` para `F-091` y `F-092`, cuando `findings.md` los
-  dejaba en `Aceptado — pendiente` en el mismo commit; ese estado es de la auditoria, no de
-  `manager`): nota fechada en `_audit/S-032.md` (`T-150`).
+- `F-095` (`project.md` justificaba el hueco de las filas `FT-XXX`/`SC-XXX` con «la etapa no esta
+  adoptada», cuando `D-142` habia declarado `020_baseline` en la tabla «Etapas» en ese mismo commit):
+  se corrige de fondo la razon —pasa a «la etapa esta declarada, no iniciada»— y queda una nota
+  fechada explicando que caduco (`T-152`).
+- `F-096` (las dos salidas crudas de la seccion 2 de `_audit/S-033.md` no reproducian: la primera
+  porque el filtro buscaba texto libre en la fila y recogia `T-039` por su titulo, no por su estado;
+  la segunda porque el recuento de entradas de `tasks.md` habia cambiado): nota fechada en
+  `_audit/S-033.md` con las salidas derivadas y la orden correcta —filtrando por columna—, sin
+  reescribir la prosa original (`T-153`). Nace `L-052`.
+- `F-097` (la NOTA DE CIERRE de `S-033` no publico la salida del CONTROL DE CIFRA ADYACENTE que el
+  Paso 6b declara obligatoria): nota fechada con la salida completa, trece lineas, corridas sobre el
+  informe tal como entro en su commit (`T-154`). De fondo nace un mecanismo para que el defecto deje
+  de depender de la memoria de quien cierra: los cuatro bloques obligatorios de la NOTA DE CIERRE
+  pasan a llevar un rotulo literal fijo, y nace el **Paso 7c-ter**, que busca los cuatro rotulos y no
+  deja commitear el anclaje si falta alguno (`D-144`, `T-155`). El rotulo lleva un sufijo —
+  ` — salida:`— que una mencion suelta del control en prosa no puede satisfacer; sin el, la primera
+  version del control pasaba sobre el propio informe que motivo el hallazgo, y de ahi nace `L-053`.
 
-De fondo nacen dos controles mecanicos en `protocol-close`, porque las dos reglas de redaccion que
-motivaron estos hallazgos ya se habian reescrito antes y volvieron a fallar en el mismo commit que
-las estrenaba:
+Los tres hallazgos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna
+correccion reescribe un informe ya commiteado: las tres van por nota fechada.
 
-- **CONTROL DE CIFRA ADYACENTE** en el Paso 6b (`D-137`, `T-149`): barre la prosa pegada a los tres
-  renglones que siguen al cierre de un bloque de salida cruda. Su respuesta correcta no es cero —
-  devuelve del orden de diez lineas por informe—, y atrapa los dos defectos reales sobre los que se
-  midio, frente a las ~130 lineas de ruido que dio el barrido generico ya descartado.
-- El veredicto `Aceptado — corregido en este commit` sustituye a `Implementado` en la seccion 0 del
-  informe, que deja de ofrecerse como opcion (`D-138`, `T-151`); `protocol-audit` gana la senal de
-  que usar `Implementado` ahi es hallazgo, para que la regla no dependa solo del lado auditado.
+Fuera de los hallazgos, el usuario tomo cuatro decisiones sobre la prioridad que `D-143` habia
+dejado señalada sin tarea la sesion anterior — extraer del andamiaje un esqueleto reutilizable:
 
-Los dos hallazgos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna
-correccion reescribe un informe ya commiteado: las dos van por nota fechada.
+- **`D-145`** — el esqueleto pasa de ser una carpeta suelta en disco (encontrada ocho archivos por
+  detras de este proyecto, sin git) a ser un **repositorio propio con remoto privado**, la misma
+  figura que ya tiene el repositorio de lecciones globales.
+- **`D-146`** — el andamiaje viaja **en un solo sentido**: este proyecto escribe y audita, el
+  esqueleto recibe. La promocion se hara con una skill propia, con la misma forma que la cosecha de
+  lecciones —la ejecuta `manager`, nunca un agente, y con puerta del usuario antes de escribir—.
+  Detectar el desfase y promoverlo quedan desacoplados: detectar es automatico y barato; promover es
+  manual y por lotes.
+- **`D-147`** — su ubicacion se registra como dos filas en `project.md` (ruta y remoto), no como
+  restriccion, con una nota que deja escrito que este proyecto **no** salio del esqueleto: el
+  esqueleto salio de este proyecto.
+- **`D-148`** — el cierre gana un barrido (`diff -rq --strip-trailing-cr`) sobre las seis areas
+  agnosticas contra el esqueleto, que **informa y no frena** —su salida normal es una lista de
+  archivos por promover, y un control que salta siempre se aprende a ignorar—.
 
-Fuera de los hallazgos, se cerraron cuatro tareas viejas y se tomaron dos decisiones de alcance del
-usuario:
+El trabajo queda repartido en ocho tareas nuevas, con orden de dependencia: `T-156` (paraguas) y
+`T-157` a `T-163` (crear el repositorio, sincronizar las seis areas, registrar la ubicacion, el
+barrido de desfase, la skill de promocion, la guia de arranque y dos huecos menores). Todas
+`No implementada`; ninguna se empezo esta sesion.
 
-- **`T-112` se cierra reformulada.** Su premisa —que habia que anadir el barrido de codigos
-  instanciados— era falsa: el control ya existia desde `S-022`, cinco sesiones antes de que la tarea
-  se escribiera. Lo que si hacia falta era otra cosa: el patron enumeraba ocho prefijos de dieciocho
-  en uso y devolvia cero con dos citas reales inyectadas de prueba. Pasa a reconocer codigos por
-  **forma** (`\b[A-Z]{1,2}-[0-9]+\b`, con `PI-` como unica exclusion declarada), en vez de por lista
-  (`D-139`). Nacen `L-050` (un control que enumera casos caduca solo) y `L-051` (una tarea vieja
-  describe el repositorio del dia que se escribio, no el de hoy).
-- **`T-038` se cierra con mas alcance del pedido.** Los barridos de fuga de `protocol-close` y
-  `protocol-audit` quedan citando las mismas seis carpetas, y `protocol-audit` gana ademas su propio
-  control de codigos instanciados —que no tenia en ninguna forma— con el mismo patron de `D-139`
-  (`D-140`). La edicion de `protocol-audit` llevo puerta explicita del usuario, por ser la skill del
-  agente que audita a `manager`.
-- **`T-037` se cierra.** El inventario de acciones irreversibles del proyecto nace como `C-009` de
-  `constraints.md`, con sus dos tablas —irreversible/permiso antes, reversible/se revisa despues—, en
-  vez de un octavo archivo de persistencia (`D-141`). `CLAUDE.md` deja de decir que el inventario no
-  existe.
-- **`T-002` se cierra.** Se adopta la secuencia completa de etapas del metodo VERTICAL —siete etapas
-  y sus dos Gates— en la tabla «Etapas» de `project.md` (`D-142`). Se descarta la secuencia del brief
-  del cliente, no por peor sino porque los siete archivos de etapa ya estaban escritos y adoptarla
-  habria exigido reescribirlos y decidir que pasaba con los Gates. Declarar la secuencia **no**
-  autoriza el trabajo de ninguna etapa: la activa sigue siendo la que diga esta seccion.
-- **Se aplazan `T-001` y `T-144`, y se suspende `T-003`** (`D-143`, decision del usuario, que
-  prioriza extraer del andamiaje un esqueleto reutilizable). Las dos primeras pertenecen a una etapa
-  no iniciada y siguen `No implementada` —no `Suspendida`, porque nadie las ha pausado, simplemente
-  no les toca—; `T-003` pertenece a la etapa activa y podia hacerse hoy, asi que su pausa si es
-  `Suspendida`. `protocol-start` gana el bloque «Tareas de etapas no iniciadas» para que el arranque
-  no las proponga mezcladas con las de hoy.
-
-Nace tambien `L-049`: medir un control y descartarlo prueba que **ese** ambito no sirve, no que no
-exista uno que si — la leccion de fondo detras de `D-137`.
+Nace `A-018`: que toda diferencia que el barrido de `D-148` encuentre sea siempre una promocion
+pendiente y nunca una version legitimamente distinta —se apoya en que las seis areas tienen
+prohibido llevar datos de proyecto, pero el caso todavia no ha ocurrido ni una vez—. Y nace `L-054`:
+declarar algo «el original» no lo mantiene siendo el original si nada lo compara.
 
 Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El Paso 2c
 muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/` y
 `temporal/`).
 
-- **Que quedo abierto:** `T-001` y `T-144` siguen `No implementada` (aplazadas, etapa no iniciada).
-  `T-003` queda `Suspendida`. `T-128` (la primera cosecha real) sigue `No implementada`, sin bloqueo.
-  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen sin **iniciarse**
-  aunque ya esten declaradas: declarar la secuencia no las adopta como trabajo en curso. `DT-002` a
-  `DT-006` siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009` y `A-011` a `A-015` quedan
-  abiertos (salvo `A-013`, sin cambios de estado, y `A-010` `Refutado`); `A-016`/`A-017` siguen
-  `Confirmado`. La autorreferencia del criterio de cierre de `D-088` (senalada desde `S-022`) sigue
-  sin resolver. **No existe todavia una tarea con codigo** para el trabajo que `D-143` declara como
-  prioridad inmediata —extraer del andamiaje un esqueleto reutilizable—; queda senalado en el informe
-  de esta sesion para que se le asigne una `T-XXX` cuando se concrete.
+- **Que quedo abierto:** `T-156` a `T-163` (el esqueleto) siguen `No implementada`, ninguna
+  bloqueada salvo `T-156`/`T-157` que son `Bloqueante`. `T-001` y `T-144` siguen `No implementada`
+  (aplazadas, etapa no iniciada). `T-003` sigue `Suspendida`. `T-128` (la primera cosecha real) sigue
+  `No implementada`, sin bloqueo. `DT-002` a `DT-006` siguen `Propuesta (pendiente del usuario)`.
+  `A-006` a `A-009`, `A-011` a `A-015` y ahora `A-018` quedan abiertos; `A-016`/`A-017` siguen
+  `Confirmado`, `A-010` `Refutado`. La autorreferencia del criterio de cierre de `D-088` sigue sin
+  resolver.
 
 ---
 
 ## 3. Siguiente paso
 
-Lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que `F-093` y `F-094`
-quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de `T-148` y `T-150`
-reproducen sus ordenes sobre `_audit/S-032.md` sin haber tocado su prosa anterior, que el CONTROL DE
-CIFRA ADYACENTE (`D-137`) y el nuevo vocabulario de veredictos (`D-138`) quedaron escritos en
-`protocol-close` y `protocol-audit`, que `D-139`/`D-140` dejaron el patron por forma en los dos
-protocolos sin enumerar prefijos, que `C-009` (`D-141`) existe con sus dos tablas, que `project.md`
-declara las siete etapas (`D-142`), y que `T-003` quedo `Suspendida` mientras `T-001`/`T-144` siguen
-`No implementada` con el bloque nuevo de `protocol-start` (`D-143`).
+Lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que `F-095`, `F-096` y
+`F-097` quedaron `Aceptado — pendiente` con su `T-XXX`, que la correccion de `F-095` esta en
+`project.md` con su nota fechada, que las notas fechadas de `T-153` y `T-154` reproducen sus ordenes
+sobre `_audit/S-033.md` sin tocar la prosa anterior, que el Paso 7c-ter (`D-144`) existe en
+`protocol-close` con su condicion de parada y distingue el caso que falla del que pasa, y que
+`D-145` a `D-148` quedaron escritas con sus criterios de cierre — todos remiten a las tareas
+`T-157` a `T-161`, que hoy siguen sin empezar.
 
-El trabajo inmediato que el usuario prioriza hoy es **extraer del andamiaje un esqueleto reutilizable
-para arrancar cualquier proyecto** (`D-143`). Esa prioridad no tiene todavia una tarea con codigo que
-la concrete: es el primer asunto a resolver con el usuario antes de seguir, y esta sesion lo deja
-senalado en «Sin resolver» de su informe en vez de inventar un alcance.
+El siguiente trabajo de fondo es **empezar el esqueleto de arranque**, en el orden que fija `T-156`:
+primero `T-157` —crear el repositorio y commitear su estado actual, desfasado y todo, antes de tocar
+nada— porque sincronizar antes perderia la unica prueba de que el mecanismo hacia falta. `T-157`
+bloquea a `T-158` y `T-159`, y por ellas al resto.
 
 Sigue pendiente la primera cosecha real de `000_preproject` con `protocol-harvest` (`T-128`), pero
 solo cuando la etapa se vaya a cerrar de verdad (`_phases/000_preproject.md` exige que corra **antes**
@@ -191,16 +180,14 @@ condicion de salida.
 
 `T-001` se retoma cuando `A-004` quede confirmado —hay acceso al patrocinador— **y** `005_discovery`
 este activa. `T-003` se retoma cuando se aborde el diseño tecnico de obtencion de datos. `T-144` se
-retoma cuando `005_discovery` este activa. Para abrir `010_prototype`, `020_baseline`, `025_wslt`,
-`030_growth` o `040_evol` de verdad ya estan sus archivos de etapa y repartos declarados; falta que
-`manager` las inicie con su condicion de entrada cuando toque.
+retoma cuando `005_discovery` este activa.
 
 Es decision del usuario si `DT-002` a `DT-006` se confirman, si `A-006` (los codigos `FT-`/`SC-`
 declarados) se valida o se retira, si `A-007` se confirma cuando la etapa se adopte, si `A-012` se
 confirma o se corrige antes de que `040_evol` se adopte, y si `A-015` se mantiene o se acota. `A-013`
-sigue sin comprobar de fondo, por muestreo. Sigue tambien sin resolver la autorreferencia del
-criterio de cierre de `D-088`. Y sigue vigente lo que `D-099` dejo escrito: si el Paso 7c-bis vuelve a
-tocar prosa fuera de su bloque de codigo, no hay una tercera vuelta.
+sigue sin comprobar de fondo, por muestreo. `A-018` no tiene un momento de comprobacion aparte: se
+confirma o se refuta la primera vez que el barrido de `D-148` devuelva algo y se promueva. Sigue
+tambien sin resolver la autorreferencia del criterio de cierre de `D-088`.
 
 ---
 
@@ -1530,6 +1517,94 @@ _workflow/025_wslt.md
   La autorreferencia del criterio de cierre de `D-088` sigue sin resolver. No existe todavia una
   `T-XXX` para el trabajo que `D-143` declara como prioridad inmediata —extraer un esqueleto
   reutilizable—; queda señalado en el informe de esta sesion.
+
+---
+
+### S-034 - Se aceptan `F-095` a `F-097` (`T-152` a `T-155`) y nace el Paso 7c-ter (`D-144`); el esqueleto de arranque pasa a ser repositorio propio (`D-145` a `D-148`, `T-156` a `T-163`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | `000_preproject` |
+| Tareas | T-152, T-153, T-154, T-155, T-156, T-157, T-158, T-159, T-160, T-161, T-162, T-163 |
+
+- **Que se hizo:** `manager` evaluo los tres hallazgos abiertos por `R-033` sobre `S-033` (`F-095`,
+  `F-096`, `F-097`), los verifico contra `HEAD` (`ffb4130`) y los acepto los tres.
+
+  `F-095` (`project.md` seguia diciendo que la razon del hueco en `FT-XXX`/`SC-XXX` era «la etapa no
+  esta adoptada», cuando `D-142` habia declarado `020_baseline` en la tabla «Etapas» en el mismo
+  commit que esa frase describia): se corrige la razon de fondo a «la etapa esta declarada, no
+  iniciada», con nota fechada explicando que caduco y que el hueco de la ruta sigue en pie por otro
+  motivo (`T-152`).
+
+  `F-096` (las dos salidas crudas de la seccion 2 de `_audit/S-033.md` no reproducian: la orden
+  publicada filtraba texto libre en la fila y recogia `T-039` por su titulo aunque su estado real
+  era `Implementada`; la segunda publicaba `151` donde la orden devuelve `152`): nota fechada en
+  `_audit/S-033.md` con las dos salidas derivadas, mas la orden correcta —filtrando por la columna de
+  estado, sin podar nada a mano—, sin reescribir la prosa original (`T-153`). Nace `L-052`: un filtro
+  por estado que busca texto libre recoge filas por su titulo.
+
+  `F-097` (la NOTA DE CIERRE de `S-033` no publico la salida del CONTROL DE CIFRA ADYACENTE que el
+  Paso 6b declara obligatoria): nota fechada en `_audit/S-033.md` con la salida completa —trece
+  lineas, corridas sobre el informe tal como entro en su commit sustantivo— y la lectura de su
+  condicion de parada linea por linea; el control pasa (`T-154`). De fondo nace un mecanismo, porque
+  una regla de redaccion sola ya habia fallado tres veces: los cuatro bloques obligatorios de la NOTA
+  DE CIERRE pasan a llevar un rotulo literal fijo, y nace el **Paso 7c-ter** en `protocol-close`, que
+  busca los cuatro rotulos y no deja commitear el anclaje si falta alguno (`D-144`, `T-155`). El
+  rotulo lleva el sufijo ` — salida:` porque la primera version, sin el, pasaba sobre el propio
+  informe que motivo el hallazgo —su seccion 0 menciona el nombre del control en prosa al contar que
+  nacio—; de ahi nace `L-053`: un control de presencia se prueba contra el artefacto que lo motivo, o
+  no esta probado. `T-155` queda probada en sus dos casos.
+
+  Los tres hallazgos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`.
+  Ninguna correccion reescribe un informe ya commiteado: las tres van por nota fechada.
+
+  Fuera de los hallazgos, el usuario tomo cuatro decisiones sobre la prioridad que `D-143` habia
+  dejado señalada sin tarea la sesion anterior: extraer del andamiaje un esqueleto reutilizable. Se
+  encontro un intento ya existente en disco, con la estructura correcta pero ocho archivos por detras
+  de este proyecto y sin ningun repositorio git.
+
+  - **`D-145`** — el esqueleto pasa a ser un **repositorio propio con remoto privado**, la misma
+    figura que ya tiene el repositorio de lecciones globales. Sin remoto no hay forma de clonarlo, y
+    sin clonarlo cada proyecto nuevo lo copiaria a mano sin dejar constancia de la version de origen.
+  - **`D-146`** — el andamiaje viaja **en un solo sentido**: el proyecto escribe y audita, el
+    esqueleto recibe. Una mejora nace de una auditoria sobre un cierre real, y en el esqueleto no
+    corre ningun cierre. La promocion sera una skill propia con la misma forma que la cosecha de
+    lecciones —la ejecuta `manager`, nunca un agente, con puerta del usuario antes de escribir—, y
+    detectar el desfase queda desacoplado de promoverlo: detectar es automatico en cada cierre,
+    promover es manual y por lotes.
+  - **`D-147`** — su ubicacion se registra como dos filas en `project.md`, no como restriccion, con
+    una nota que deja escrito el caso invertido: este proyecto no salio del esqueleto, el esqueleto
+    salio de este proyecto.
+  - **`D-148`** — el cierre gana un barrido (`diff -rq --strip-trailing-cr`, probada la opcion contra
+    un caso sintetico de CRLF) sobre las seis areas agnosticas contra el esqueleto, que **informa y
+    no frena**: su salida normal es una lista de archivos por promover, y forzarlo a detener el
+    cierre lo haria saltar casi cada sesion hasta que se ignore.
+
+  El trabajo queda repartido en ocho tareas nuevas con orden de dependencia declarado: `T-156`
+  (paraguas) y, en orden, `T-157` (crear el repositorio con el estado actual, desfasado, antes de
+  sincronizar nada), `T-158` (sincronizar las seis areas), `T-159` (registrar la ubicacion en
+  `project.md`), `T-160` (el barrido de `D-148` en el cierre), `T-161` (la skill de promocion),
+  `T-162` (la guia de arranque) y `T-163` (dos huecos menores: `_brief/` sin plantilla y `temporal/`
+  sin versionar). Ninguna se empezo esta sesion.
+
+  Nace `A-018`: que toda diferencia que el barrido de `D-148` encuentre sea siempre una promocion
+  pendiente y nunca una version legitimamente distinta que haya que conciliar —se apoya en que las
+  seis areas tienen prohibido llevar datos de proyecto, pero es una deduccion sobre una regla, no una
+  observacion: el caso todavia no ha ocurrido ni una vez, porque el esqueleto todavia no existe como
+  repositorio. Y nace `L-054`: un original sin mecanismo de deteccion deja de ser original en
+  silencio — la leccion de fondo detras de encontrar el esqueleto ocho archivos por detras sin que
+  nadie lo notara.
+
+  Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El Paso
+  2c muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/`
+  y `temporal/`).
+- **Que quedo abierto:** `T-156` a `T-163` siguen `No implementada` (`T-156` y `T-157` son
+  `Bloqueante`; el resto, `No bloqueante`). `T-001` y `T-144` siguen `No implementada` (aplazadas).
+  `T-003` sigue `Suspendida`. `T-128` (la primera cosecha real) sigue `No implementada`, sin bloqueo.
+  `010_prototype`, `020_baseline`, `025_wslt`, `030_growth` y `040_evol` siguen declaradas y no
+  iniciadas. `DT-002` a `DT-006` siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009`,
+  `A-011` a `A-015` y ahora `A-018` quedan abiertos; `A-010` sigue `Refutado`, `A-016`/`A-017` siguen
+  `Confirmado`. La autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
 
 ---
 
