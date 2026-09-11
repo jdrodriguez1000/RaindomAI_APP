@@ -106,9 +106,11 @@
 | [F-092](#f-092---la-seccion-4-del-informe-enumera-once-codigos-de-supuesto-y-afirma-que-completan-los-catorce) | La seccion 4 del informe enumera once codigos de supuesto y afirma que «completan los catorce» | R-031 | Media | Implementado |
 | [F-093](#f-093---la-seccion-8-del-informe-de-s-032-publica-16-ocurrencias-donde-su-propia-suma-y-su-propio-contraste-dan-17) | La seccion 8 del informe de `S-032` publica «16 ocurrencias» donde su propia suma y su propio contraste dan 17 | R-032 | Media | Implementado |
 | [F-094](#f-094---la-seccion-0-del-informe-de-s-032-publica-implementado-para-f-091-y-f-092-que-findingsmd-deja-en-aceptado--pendiente) | La seccion 0 del informe de `S-032` publica `Implementado` para `F-091` y `F-092`, que `findings.md` deja en `Aceptado — pendiente` | R-032 | Baja | Implementado |
-| [F-095](#f-095---projectmd-afirma-tres-veces-que-020_baseline-no-esta-adoptada-en-el-mismo-commit-que-la-declara) | `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara | R-033 | Media | Aceptado — pendiente |
-| [F-096](#f-096---el-bloque-de-verificacion-de-la-seccion-2-de-s-033-publica-dos-salidas-que-no-reproducen) | El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen | R-033 | Media | Aceptado — pendiente |
-| [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Aceptado — pendiente |
+| [F-095](#f-095---projectmd-afirma-tres-veces-que-020_baseline-no-esta-adoptada-en-el-mismo-commit-que-la-declara) | `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara | R-033 | Media | Implementado |
+| [F-096](#f-096---el-bloque-de-verificacion-de-la-seccion-2-de-s-033-publica-dos-salidas-que-no-reproducen) | El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen | R-033 | Media | Implementado |
+| [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Implementado |
+| [F-098](#f-098---la-seccion-1-publica-una-orden-que-no-es-la-que-produjo-la-salida-pegada) | La seccion 1 del informe de `S-034` publica una orden que no es la que produjo la salida pegada | R-034 | Media | Abierto |
+| [F-099](#f-099---la-seccion-1-describe-el-cambio-de-findingsmd-con-un-fragmento-roto-y-una-etiqueta-falsa) | La seccion 1 del informe de `S-034` describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa | R-034 | Baja | Abierto |
 
 ---
 
@@ -4326,9 +4328,9 @@ Aceptado — pendiente
 | Auditoria | R-033 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-152` |
-| Cerrado en | |
+| Cerrado en | `R-034` (commit `2cef150`) |
 
 - **Que se observo:** `D-142` declara las siete etapas en la tabla «Etapas» de `project.md`, y unas
   ciento cincuenta lineas mas abajo el mismo archivo sigue afirmando lo contrario sobre
@@ -4365,9 +4367,9 @@ $ git show 91a59c8:project.md | sed -n '/^| Etapas declaradas/p'
 | Auditoria | R-033 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-153` |
-| Cerrado en | |
+| Cerrado en | `R-034` (commit `2cef150`) |
 
 - **Que se observo:** la primera salida esta podada —el comando devuelve cuatro filas y el informe
   publica tres, sin la de `T-039`, que el `grep` recoge por su titulo aunque su estado sea
@@ -4403,9 +4405,9 @@ f3ae6b6: 152
 | Auditoria | R-033 |
 | Fecha | 2026-09-10 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-154` (nota fechada), `T-155` (`D-144`, el control mecanico) |
-| Cerrado en | |
+| Cerrado en | `R-034` (commit `2cef150`) |
 
 - **Que se observo:** el Paso 6b, en la version que el propio commit deja escrita, exige correr el
   control antes del `git add` y publicar su salida «tambien cuando no obliga a corregir nada». El
@@ -4429,3 +4431,100 @@ $ git show f3ae6b6:_audit/S-033.md | grep -c -i 'cifra adyacente'
 - **Que lo corregiria:** una nota fechada en `_audit/S-033.md` con la salida del control corrida
   sobre el informe; y valorar si el Paso 6b necesita una condicion comprobable desde fuera, porque
   hoy depende de que el cierre se acuerde de correrlo.
+
+---
+
+### F-098 - La seccion 1 publica una orden que no es la que produjo la salida pegada
+| Campo | Valor |
+|---|---|
+| Auditoria | R-034 |
+| Fecha | 2026-09-11 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 1 de `_audit/S-034.md` abre con `$ git show --stat --name-only 2cef150`
+  y pega debajo los doce nombres de archivo a secas. Esa orden no devuelve eso: devuelve ademas ocho
+  lineas de cabecera del commit.
+
+```
+$ git show --stat --name-only 2cef150 | head -9
+commit 2cef150aec49e66bb78a955175da27cc0be1406a
+Author: Triple S <110043648+jdrodriguez1000@users.noreply.github.com>
+Date:   Fri Sep 11 06:55:41 2026 -0500
+
+    S-034: se aceptan F-095 a F-097 (T-152 a T-155) y nace el Paso 7c-ter (D-144); el esqueleto de arranque pasa a ser repositorio propio (D-145 a D-148, T-156 a T-163)
+
+    Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+    Claude-Session: https://claude.ai/code/session_...
+
+.claude/skills/protocol-close/SKILL.md
+```
+
+  La orden que si produce lo publicado lleva `--format=`, es la que `protocol-close` prescribe, y es
+  la que usaron los cuatro informes anteriores:
+
+```
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -n 'show --stat --name-only --format='
+941:git show --stat --name-only --format= <commit>          # seccion 1: archivos tocados
+1067:<`git show --stat --name-only --format= <commit>`>
+1436:| **Seccion 1** del informe, nota de cierre | la lista de archivos anclada al commit | `git show --stat --name-only --format= <hash>` |
+
+$ for s in 030 031 032 033 034; do echo "S-$s: $(grep -m1 -oE 'git show --stat[^`|]*' _audit/S-$s.md)"; done
+S-030: git show --stat --name-only --format= 9b3f9ee
+S-031: git show --stat --name-only --format= 30ce070
+S-032: git show --stat --name-only --format= a6279c7
+S-033: git show --stat --name-only --format= 91a59c8
+S-034: git show --stat --name-only 2cef150
+```
+
+- **Por que importa:** es la misma clase de defecto que `F-096` abrio la sesion anterior y que esta
+  misma sesion acepto y corrigio, escribiendo en `T-153` que «una salida cruda recortada a mano deja
+  de ser evidencia y pasa a ser una afirmacion con formato de evidencia». Aqui la salida es correcta
+  y la orden no; el efecto para quien reejecuta es el mismo. Y es una regresion: los cuatro informes
+  anteriores llevaban la orden buena. El fondo no se ve afectado —los doce archivos son los
+  correctos, verificado en `R-034`, seccion 1(f)—, y por eso es Media y no Alta.
+- **Que lo corregiria:** una nota fechada en `_audit/S-034.md` con la orden completa y su salida, sin
+  reescribir la prosa; y valorar si el Paso 7c debe fijar esa orden por cadena literal comprobable,
+  como `D-144` acaba de hacer con los rotulos.
+
+---
+
+### F-099 - La seccion 1 describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa
+| Campo | Valor |
+|---|---|
+| Auditoria | R-034 |
+| Fecha | 2026-09-11 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git show 3e34c27:_audit/S-034.md | sed -n '52,54p'
+- **`_audit/findings.md`** — `F-095` (nace) no; **`F-095`, `F-096`, `F-097` (notas anadidas)**: las
+  tres filas de la tabla pasan de `Abierto` a `Aceptado — pendiente`, y las tres entradas de detalle
+  ganan su `Registrado en`.
+```
+
+  Dos defectos en la misma linea. «`F-095` (nace) no;» es un residuo de edicion sin significado —y
+  afirma, hasta que la niega, que `F-095` nace en esta sesion, cuando nacio en `R-033`—. Y «(notas
+  anadidas)» es falso: en `findings.md` no se anadio ninguna nota. Lo que ocurrio esta bien dicho en
+  la frase que sigue, y el diff lo confirma:
+
+```
+$ git diff 2cef150^ 2cef150 -- _audit/findings.md | grep -cE '^\+.*Nota del'
+0
+$ git diff 2cef150^ 2cef150 -- _audit/findings.md | grep -cE '^\+\| Estado \| Aceptado — pendiente \|'
+3
+```
+
+- **Por que importa:** la seccion 1 es el mapa que usa la auditoria siguiente para saber que mirar en
+  cada archivo. Una etiqueta que dice «notas anadidas» donde hubo cambios de estado manda a buscar lo
+  que no esta, y un «(nace) no» obliga al lector a decidir cual de las dos mitades de la frase vale.
+  Es Baja porque la descripcion correcta esta en la misma vineta, dos palabras despues.
+- **Que lo corregiria:** una nota fechada que fije la descripcion correcta —tres filas de `Abierto` a
+  `Aceptado — pendiente` y tres `Registrado en`, ninguna nota—, sin reescribir la prosa publicada.
