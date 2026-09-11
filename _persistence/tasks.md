@@ -165,13 +165,18 @@
 | [T-154](#t-154---publicar-por-nota-fechada-la-salida-del-control-de-cifra-adyacente-de-s-033-f-097) | Publicar por nota fechada la salida del CONTROL DE CIFRA ADYACENTE de `S-033` (`F-097`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-155](#t-155---rotular-la-nota-de-cierre-y-dar-al-cierre-el-paso-7c-ter-f-097-d-144) | Rotular la NOTA DE CIERRE y dar al cierre el Paso 7c-ter (`F-097`, `D-144`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-156](#t-156---construir-el-esqueleto-reutilizable-de-arranque-de-proyecto-d-143) | Construir el esqueleto reutilizable de arranque de proyecto (`D-143`) | No implementada | Alta | Bloqueante | `000_preproject` |
-| [T-157](#t-157---crear-el-repositorio-del-esqueleto-y-commitear-su-estado-actual-d-145) | Crear el repositorio del esqueleto y commitear su estado actual (`D-145`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-157](#t-157---crear-el-repositorio-del-esqueleto-y-commitear-su-estado-actual-d-145) | Crear el repositorio del esqueleto y commitear su estado actual (`D-145`) | Implementada | Alta | Bloqueante | `000_preproject` |
 | [T-158](#t-158---sincronizar-las-seis-areas-agnosticas-del-esqueleto-d-146) | Sincronizar las seis areas agnosticas del esqueleto (`D-146`) | No implementada | Alta | No bloqueante | `000_preproject` |
 | [T-159](#t-159---registrar-en-projectmd-la-ubicacion-del-esqueleto-d-147) | Registrar en `project.md` la ubicacion del esqueleto (`D-147`) | No implementada | Alta | No bloqueante | `000_preproject` |
 | [T-160](#t-160---anadir-al-cierre-el-barrido-de-desfase-con-el-esqueleto-d-148) | Anadir al cierre el barrido de desfase con el esqueleto (`D-148`) | No implementada | Alta | No bloqueante | `000_preproject` |
 | [T-161](#t-161---escribir-la-skill-de-promocion-al-esqueleto-con-su-puerta-d-146) | Escribir la skill de promocion al esqueleto, con su puerta (`D-146`) | No implementada | Alta | No bloqueante | `000_preproject` |
 | [T-162](#t-162---escribir-la-guia-de-arranque-del-esqueleto) | Escribir la guia de arranque del esqueleto | No implementada | Media | No bloqueante | `000_preproject` |
 | [T-163](#t-163---resolver-los-dos-huecos-menores-del-esqueleto-brief-y-temporal) | Resolver los dos huecos menores del esqueleto: brief y `temporal/` | No implementada | Baja | No bloqueante | `000_preproject` |
+| [T-164](#t-164---fijar-por-nota-fechada-la-orden-de-la-seccion-1-de-s-034-f-098) | Fijar por nota fechada la orden de la seccion 1 de `S-034` (`F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-165](#t-165---fijar-por-nota-fechada-la-descripcion-de-la-vineta-de-findingsmd-en-s-034-f-099) | Fijar por nota fechada la descripcion de la vineta de `findings.md` en `S-034` (`F-099`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-166](#t-166---escribir-el-paso-7c-quater-la-orden-de-la-seccion-1-por-cadena-literal-d-149-f-098) | Escribir el Paso 7c-quater: la orden de la seccion 1 por cadena literal (`D-149`, `F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-167](#t-167---anadir-a-la-plantilla-de-projectmd-las-dos-filas-del-esqueleto-de-origen-d-150) | Anadir a la plantilla de `project.md` las dos filas del esqueleto de origen (`D-150`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-168](#t-168---corregir-las-tres-citas-cruzadas-de-d-146-d-147-y-d-148) | Corregir las tres citas cruzadas de `D-146`, `D-147` y `D-148` | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -6898,7 +6903,7 @@ $ (cd "$S" && git log --oneline -1) || echo "(sin git)"
 ### T-157 - Crear el repositorio del esqueleto y commitear su estado actual (`D-145`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | Bloqueante |
 | Etapa | `000_preproject` |
@@ -6916,6 +6921,61 @@ $ (cd "$S" && git log --oneline -1) || echo "(sin git)"
   `git status -sb` no dice `ahead`.
 
 ---
+
+**Verificacion — ejecutado el 2026-09-11:**
+
+```
+$ cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git init -b main
+Initialized empty Git repository in C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS/.git/
+
+$ git add -A && git status --short | wc -l
+80
+
+$ git log --oneline -1
+fa7da56 Estado de partida del esqueleto, tal como estaba antes de sincronizar
+
+$ gh repo create SDAI_TripleS --private --source=. --remote=origin --push
+https://github.com/jdrodriguez1000/SDAI_TripleS
+branch 'main' set up to track 'origin/main'.
+ * [new branch]      HEAD -> main
+
+$ git status -sb
+## main...origin/main
+
+$ gh repo view jdrodriguez1000/SDAI_TripleS --json name,visibility,defaultBranchRef,url
+{"defaultBranchRef":{"name":"main"},"name":"SDAI_TripleS","url":"https://github.com/jdrodriguez1000/SDAI_TripleS","visibility":"PRIVATE"}
+```
+
+- ✅ **Los 80 archivos entran y `temporal/` no**, gracias al `.gitignore` que el esqueleto ya traia.
+- ✅ **El commit recoge el desfase**, sin sincronizar nada: siete archivos por detras y
+  `protocol-harvest` ausente. Esa es la prueba de que el mecanismo hacia falta.
+- **Barrido de fuga previo al push, sobre el arbol entero del esqueleto:**
+
+```
+$ grep -rniE "raidom|raindom|Proyectos_TripleS|github\.com|vercel|jdrodriguez" C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS --include=*.md
+(sin salida)
+```
+
+- ⚠️ **Un segundo patron, por codigos instanciados, si devolvio lineas — y no son fuga.** Son las
+  series de ejemplo trabajado de `_methodology/` (`T-001`…`T-008`, y la tabla de formas
+  `N-001`/`F-001`/`S-001`/`VS-001`/`TC-001`), que empiezan por el primero y las escribe el propio
+  archivo. `CLAUDE.md` las permite explicitamente. Comprobado leyendo su contexto:
+
+```
+$ sed -n '458,465p' .../SDAI_TripleS/_methodology/sources/005_vertical.md
+Se recomienda utilizar identificadores unicos.
+Ejemplo:
+N-001   Necesidad
+F-001   Feature
+S-001   Scenario
+VS-001  Vertical Slice
+T-001   Task
+TC-001  Test Case
+```
+
+- 🔑 **El nombre `SDAI_TripleS` es heredado y se conserva**: la regla de nombres en ingles rige hacia
+  adelante y no obliga a renombrar lo que ya existe; ademas carpeta y repositorio coinciden, que es
+  lo que menos confunde al clonar.
 
 ### T-158 - Sincronizar las seis areas agnosticas del esqueleto (`D-146`)
 | Campo | Valor |
@@ -7017,8 +7077,13 @@ $ (cd "$S" && git log --oneline -1) || echo "(sin git)"
 - 🔑 **Los huecos ya estan puestos** en la plantilla de `project.md` —`<NOMBRE>`, `<ruta absoluta>`,
   `<url del remoto>`, las tres filas de lecciones globales—. Lo que falta es la pagina que diga
   «rellena estos y solo estos».
+- ➕ **Alcance anadido el 2026-09-11 por `D-150`:** la guia lleva ademas el **procedimiento de
+  arranque completo** —clone, anotar el hash, borrar `.git`, `git init`, remoto propio— y dice
+  explicitamente **lo que un clone no trae** y una copia si: `temporal/` y cualquier archivo
+  ignorado.
 - **Criterio de cierre:** el esqueleto lleva su guia, y nombra los diez archivos de instancia que hay
-  que rellenar.
+  que rellenar. Con `D-150`: lleva tambien el procedimiento de arranque y la advertencia de lo que el
+  clone no trae.
 
 ---
 
@@ -7039,5 +7104,203 @@ $ (cd "$S" && git log --oneline -1) || echo "(sin git)"
   2. **`temporal/` esta en `.gitignore` y git no versiona carpetas vacias**, asi que al clonar el
      esqueleto **no aparecera** — y `project.md` la declara como area de trabajo del usuario. Hay que
      decidir si la crea la guia de arranque o si se acepta que no exista hasta que alguien la use.
+
+- ✅ **El punto 2 deja de ser un razonamiento y pasa a ser un hecho medido el 2026-09-11**, con el
+  esqueleto ya publicado (`T-157`). Se clono a una carpeta desechable:
+
+```
+$ git clone -q https://github.com/jdrodriguez1000/SDAI_TripleS.git <carpeta desechable>
+$ ls -a <carpeta desechable>
+.  ..  .claude  .git  .gitignore  CLAUDE.md  _audit  _brief  _methodology  _persistence  _phases  _templates  _workflow  project.md
+$ ls -d <carpeta desechable>/temporal || echo "NO existe temporal/ en el clone"
+NO existe temporal/ en el clone
+```
+
+- 🔑 **Por que se midio en vez de razonarlo:** que git no versione carpetas vacias es cierto, pero la
+  conclusion «entonces al primer proyecto le faltara una carpeta que `project.md` le promete» es una
+  cadena de dos pasos, y esas se comprueban. Ahora la decision de `T-163` se toma sobre una salida.
 - **Criterio de cierre:** las dos quedan resueltas o declaradas por escrito, con su `D-XXX` si la
   respuesta es «se acepta asi».
+
+---
+
+### T-164 - Fijar por nota fechada la orden de la seccion 1 de `S-034` (`F-098`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-035 |
+
+- **Que:** `_audit/S-034.md` recibe una nota fechada al final de su seccion 1 con la orden que de
+  verdad produce la lista publicada —`git show --stat --name-only --format= 2cef150`, la que
+  prescribe el Paso 7c de `protocol-close`— y con lo que devuelve de mas la orden que se publico, sin
+  `--format=`: ocho lineas de cabecera del commit. **La prosa de arriba no se reescribe.**
+- **Lo que la nota no cambia:** los doce archivos de la lista son los correctos. El defecto era de
+  reproducibilidad, no de fondo.
+- 🔑 **Por que una orden equivocada vale lo mismo que una salida podada:** quien reejecuta para
+  contrastar obtiene algo distinto de lo pegado, y tiene que averiguar por su cuenta si el informe
+  escondio algo. Es la misma clase de defecto que `F-096`, por el otro extremo de la pareja
+  orden/salida.
+- ⚠️ **Y es una regresion, no un descuido aislado:** los cuatro informes anteriores (`S-030` a
+  `S-033`) llevaban la orden con `--format=`.
+- **Criterio de cierre:** la nota existe citando `F-098`, y publica la orden completa anclada al
+  commit que la lista describe.
+
+```
+$ git show <hash>:_audit/S-034.md | grep -c 'Nota del 2026-09-11 (`F-098`, `T-164`)'
+$ git show <hash>:_audit/S-034.md | grep -c 'git show --stat --name-only --format= 2cef150'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### T-165 - Fijar por nota fechada la descripcion de la vineta de `findings.md` en `S-034` (`F-099`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-035 |
+
+- **Que:** `_audit/S-034.md` recibe una segunda nota fechada al final de su seccion 1 que fija la
+  descripcion correcta de la vineta de `_audit/findings.md`: tres filas que pasan de `Abierto` a
+  `Aceptado — pendiente`, tres entradas de detalle que ganan su `Registrado en`, y **ninguna nota
+  anadida**. **La prosa de arriba no se reescribe.**
+- **Los dos defectos que corrige:** el residuo de edicion «`F-095` (nace) no;» —que ademas insinua
+  que `F-095` nace en esta sesion, cuando nacio en `R-033`— y la etiqueta «(notas anadidas)», que es
+  falsa.
+- 🔑 **Por que una etiqueta de una vineta merece nota:** la seccion 1 es el mapa que usa la auditoria
+  siguiente para decidir que mirar en cada archivo. «Notas anadidas» manda a buscar lo que no esta.
+- **Criterio de cierre:** la nota existe citando `F-099`, y publica las tres cifras (`0` notas, `3`
+  cambios de estado, `3` `Registrado en`) ancladas al commit que describe.
+
+```
+$ git show <hash>:_audit/S-034.md | grep -c 'Nota del 2026-09-11 (`F-099`, `T-165`)'
+$ git show <hash>:_audit/S-034.md | grep -c '\*\*Ninguna nota anadida\.\*\*'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### T-166 - Escribir el Paso 7c-quater: la orden de la seccion 1 por cadena literal (`D-149`, `F-098`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-035 |
+
+- **Que:** `.claude/skills/protocol-close/SKILL.md` gana el **Paso 7c-quater**, entre el 7c-ter y el
+  7d. Corre antes del commit de anclaje y comprueba con `grep -qF` que la seccion 1 del informe
+  publique la orden que la tabla del Paso 7c prescribe. Salida vacia = correcto; una linea `FALTA…`
+  detiene el cierre; el comando que falla va a `SIN COMPROBAR`.
+- **Por que el mecanismo y no el registro:** la correccion sobre `_audit/S-034.md` es `T-164`, y es
+  una nota fechada. Esta tarea es la otra mitad —la que impide que vuelva a pasar—, y va donde vive
+  el procedimiento.
+- **Donde va, y por que no dentro del 7c-ter:** aquel comprueba la NOTA DE CIERRE y enumera cuatro
+  rotulos; este mira la seccion 1. Meterlo dentro obligaria a que un control que habla de la nota
+  hablara tambien de otra seccion, y el propio 7c-ter avisa de lo que le pasa a un control que
+  enumera casos.
+- ⛔ **Y por eso NO se anade a la lista de rotulos del 7c-ter:** su salida no se publica en la NOTA
+  DE CIERRE. Igual que el 7c-ter, es un control de paso, no una obligacion de redaccion.
+- **Lo que este paso deliberadamente no cubre:** la prosa de la seccion 1. `F-099` se queda sin
+  mecanismo a proposito (`D-149`).
+- **Criterio de cierre:** el paso existe en la skill, con su `grep -qF` y su tabla de tres filas.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-quater'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la seccion 1'
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### T-167 - Anadir a la plantilla de `project.md` las dos filas del esqueleto de origen (`D-150`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-035 |
+
+- **Que:** `_templates/000_preproject/005_project.md` gana dos filas con sus huecos: **esqueleto de
+  origen** (el remoto del que se clono) y **version de la que partio** (el hash que devuelve
+  `git log -1 --format=%H` sobre el clone, antes de borrar `.git`).
+- ⚠️ **Van en la plantilla, no en el `project.md` de este proyecto.** Este es el unico que no salio
+  del esqueleto —el esqueleto salio de el—, y por eso `D-147` ya dejo escrito que no lleva la fila de
+  «version de la que partio». Rellenarlas aqui seria inventar una procedencia.
+- ⚠️ **Huecos, nunca datos:** `_templates/` tiene prohibido llevar un dato propio, y una plantilla que
+  alguien rellena en su sitio deja de ser plantilla.
+- **Criterio de cierre:** la plantilla lleva las dos filas con sus huecos, y el barrido de fuga del
+  Paso 1b sobre `_templates/` sigue devolviendo vacio.
+
+---
+
+### T-168 - Corregir las tres citas cruzadas de `D-146`, `D-147` y `D-148`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-035 |
+
+- **Que:** los criterios de cierre de las tres decisiones nombraban la tarea equivocada. No es un
+  error suelto sino un **desplazamiento**: cada una cita la tarea de otra, y las tres tareas si citan
+  bien su decision. La numeracion de una version anterior de la tabla de reparto sobrevivio a la
+  renumeracion.
+
+  | Decision | Decia | Es | Que es lo que decia |
+  |---|---|---|---|
+  | `D-146` (skill de promocion) | `T-160` | `T-161` | el barrido de desfase del cierre |
+  | `D-147` (ubicacion en `project.md`) | `T-162` | `T-159` | la guia de arranque |
+  | `D-148` (barrido de desfase) | `T-161` | `T-160` | la skill de promocion |
+
+- **Por que importa:** un criterio de cierre dice quien lo cumple. Con la cita cruzada, cerrar `T-160`
+  parecia cerrar `D-146` sin haber escrito la skill de promocion, y `D-147` quedaba esperando a una
+  guia de arranque que no la implementa. Las tres se habrian dado por cumplidas con el trabajo de otra.
+- **Como se corrige:** sustituyendo la cita y dejando **nota fechada** en cada decision, siguiendo el
+  precedente de `T-034`. La prosa de la decision no cambia — solo la remision.
+- 🔑 **Lo encontro leer el bloque entero de corrido para responder una pregunta sobre el esqueleto**,
+  no un control. No hay patron que lo detecte: las dos mitades son codigos validos y existentes, y
+  solo el significado dice cual toca.
+- **Criterio de cierre:** cada decision cita la tarea que de verdad la implementa, y lleva su nota.
+
+**Verificacion — las tres citas antes y despues:**
+
+```
+$ git show 2cef150:_persistence/decisions.md | grep -n 'Lo implementa `T-1[56][0-9]`'
+9428:  ejecutor. Lo implementa `T-160`.
+9460:  del caso invertido. Lo implementa `T-162`.
+9511:  va al informe. Lo implementa `T-161`.
+
+$ git show <hash>:_persistence/decisions.md | grep -n 'Lo implementa `T-1[56][0-9]`'
+9447:  ejecutor. Lo implementa `T-161`.
+9483:  del caso invertido. Lo implementa `T-159`.
+9538:  va al informe. Lo implementa `T-160`.
+9587:  tres filas y su `SIN COMPROBAR`. Lo implementa `T-166`.
+```
+
+⚠️ **La cuarta linea de la salida de despues es `D-149`, nacida hoy, y su cita es correcta.** Sale
+porque el patron es por forma, no por decision.
+
+📌 **Corregido por el Paso 2d del cierre de `S-035`:** la orden de «despues» se corrio sobre el arbol
+mientras `decisions.md` seguia creciendo, y sus numeros de linea (`9431`/`9467`/`9522`/`9571`) ya no
+reproducian al cerrar. Se anclan la orden y los numeros al commit de la sesion; el ancla la rellena el
+Paso 7c-bis.

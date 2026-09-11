@@ -157,6 +157,8 @@
 | [D-146](#d-146---el-andamiaje-viaja-en-un-solo-sentido-el-proyecto-escribe-el-esqueleto-recibe) | El andamiaje viaja en un solo sentido: el proyecto escribe, el esqueleto recibe | 2026-09-11 | Vigente | usuario |
 | [D-147](#d-147---la-ubicacion-del-esqueleto-se-registra-en-projectmd-no-como-restriccion) | La ubicacion del esqueleto se registra en `project.md`, no como restriccion | 2026-09-11 | Vigente | usuario |
 | [D-148](#d-148---el-cierre-detecta-el-desfase-con-el-esqueleto-e-informa-no-frena) | El cierre detecta el desfase con el esqueleto e informa, no frena | 2026-09-11 | Vigente | usuario |
+| [D-149](#d-149---la-orden-de-la-seccion-1-se-comprueba-por-cadena-literal-antes-del-commit-de-anclaje) | La orden de la seccion 1 se comprueba por cadena literal, antes del commit de anclaje | 2026-09-11 | Vigente | report_auditor |
+| [D-150](#d-150---un-proyecto-nuevo-arranca-por-clone-anota-el-hash-y-parte-con-historial-limpio) | Un proyecto nuevo arranca por clone, anota el hash y parte con historial limpio | 2026-09-11 | Vigente | usuario |
 
 ---
 
@@ -9379,6 +9381,22 @@ $ (cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneli
 (sin git)
 ```
 
+✅ **Nota del 2026-09-11 (`T-157`): el criterio de cierre se cumple.** La orden de arriba **no se
+reescribe** —describia el estado del dia en que se tomo la decision—; esta es la misma orden
+ejecutada despues de crear el repositorio:
+
+```
+$ (cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneline -1) || echo "(sin git)"
+fa7da56 Estado de partida del esqueleto, tal como estaba antes de sincronizar
+
+$ gh repo view jdrodriguez1000/SDAI_TripleS --json name,visibility,defaultBranchRef,url
+{"defaultBranchRef":{"name":"main"},"name":"SDAI_TripleS","url":"https://github.com/jdrodriguez1000/SDAI_TripleS","visibility":"PRIVATE"}
+```
+
+⚠️ **El push se ejecuto el 2026-09-11 con autorizacion expresa del usuario en la conversacion**, no
+solo por la que esta decision registraba. Es una accion irreversible de la primera tabla de `C-009`,
+y el barrido de fuga previo —repetido ese mismo dia sobre el arbol entero— salio limpio.
+
 ---
 
 ### D-146 - El andamiaje viaja en un solo sentido: el proyecto escribe, el esqueleto recibe
@@ -9426,7 +9444,11 @@ $ (cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneli
 - **Reversible a criterio** — segun la tabla de `C-009`, editar archivos del registro es reversible;
   esta decision no escribe todavia fuera.
 - **Criterio de cierre:** existe la skill de promocion con su puerta, y `manager` es su unico
-  ejecutor. Lo implementa `T-160`.
+  ejecutor. Lo implementa `T-161`.
+
+⚠️ **Nota del 2026-09-11 (`T-168`): la cita decia `T-160`, que es el barrido de desfase del
+cierre.** La skill de promocion con su puerta es `T-161`. Corregida la remision; la decision no
+cambia.
 
 ---
 
@@ -9458,7 +9480,11 @@ $ (cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneli
   cuela una ruta equivocada.
 - **Reversible a criterio** — anadir filas a `project.md` es editar un archivo del arbol.
 - **Criterio de cierre:** `project.md` nombra el esqueleto con su ruta y su remoto, y lleva la nota
-  del caso invertido. Lo implementa `T-162`.
+  del caso invertido. Lo implementa `T-159`.
+
+⚠️ **Nota del 2026-09-11 (`T-168`): la cita decia `T-162`, que es la guia de arranque del
+esqueleto.** Registrar la ubicacion en `project.md` es `T-159`. Corregida la remision; la decision no
+cambia.
 
 ---
 
@@ -9509,4 +9535,115 @@ $ diff -rq --strip-trailing-cr a b
 - **Reversible a criterio** — segun la tabla de `C-009`, editar una skill es reversible, y el control
   es de solo lectura sobre los dos arboles.
 - **Criterio de cierre:** el cierre lleva el barrido con su condicion de `SIN COMPROBAR`, y su salida
-  va al informe. Lo implementa `T-161`.
+  va al informe. Lo implementa `T-160`.
+
+⚠️ **Nota del 2026-09-11 (`T-168`): la cita decia `T-161`, que es la skill de promocion.** El
+barrido de desfase del cierre es `T-160`. Corregida la remision; la decision no cambia.
+
+---
+
+### D-149 - La orden de la seccion 1 se comprueba por cadena literal, antes del commit de anclaje
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-098` encontro que la seccion 1 del informe anterior publicaba
+  `git show --stat --name-only <hash>` —sin `--format=`— con la salida de la orden **con** `--format=`
+  pegada debajo. Los archivos listados eran correctos; lo que no reproducia era el bloque. El auditor
+  recomendo «valorar si el Paso 7c debe fijar esa orden por cadena literal comprobable».
+- **Decision:** nace el **Paso 7c-quater** en `protocol-close`, que corre antes del commit de anclaje
+  y comprueba con `grep -qF` que la seccion 1 publique la orden prescrita. Su salida correcta es
+  vacia, y una linea `FALTA…` **detiene el cierre**.
+- **Lo que la decision NO hace, y es la mitad importante:** no se escribe ningun control para
+  `F-099`. Ese defecto es prosa —un residuo de edicion y una etiqueta que describe un cambio que no
+  ocurrio— y ningun patron la distingue de la prosa buena. Se corrige por nota fechada (`T-165`) y se
+  deja a la auditoria, que es quien sabe leer.
+- 🔑 **Por que este si y aquel no:** la orden esta **prescrita literalmente** en tres lineas de
+  `SKILL.md`, asi que comprobarla es igualdad de cadenas y no criterio. Un control que prometiera
+  cazar la etiqueta mala tendria que juzgar significado, y **un control que tranquiliza sin cubrir es
+  peor que ninguno** — lo dice el propio Paso 7c-ter de sus casos enumerados.
+- ⚠️ **Lo que inclina la balanza no es el fallo, es la reincidencia.** Ocho hallazgos han caido sobre
+  la seccion 1 en treinta y cuatro sesiones, y uno de ellos (`F-019`) ya produjo un endurecimiento
+  —`T-025`, que movio el aviso de la prosa explicativa a la plantilla del informe—. Aun asi volvio a
+  fallar. Una plantilla se copia a mano; una cadena literal se comprueba.
+
+```
+$ grep -nE '^\| \[F-0[0-9]{2}\]' _audit/findings.md | grep -icE 'seccion 1'
+8
+```
+
+- **Alternativas descartadas:** (a) **anadir el rotulo a la lista del Paso 7c-ter** — aquel comprueba
+  la NOTA DE CIERRE y solo existe cuando hay anclaje; la seccion 1 se escribe en el 7c y tiene que
+  poder fallar ahi, por su cuenta; (b) **reforzar el aviso en prosa** — ya se hizo en `T-025` y esto
+  es su reincidencia; (c) **generar la seccion 1 por script** en vez de comprobarla — cambia el modo
+  de escribir el informe entero por un defecto de una linea, contra `PI-3`; (d) **no tocar nada y
+  registrar la discrepancia** — defendible por `PI-2`, pero deja sin mecanismo el unico de los dos
+  defectos que si tiene uno barato.
+- **Reversible a criterio** — segun la tabla de `C-009`, editar una skill es reversible, y el control
+  es de solo lectura sobre un archivo del propio commit.
+- **Criterio de cierre:** `protocol-close` lleva el Paso 7c-quater, con su `grep -qF`, su tabla de
+  tres filas y su `SIN COMPROBAR`. Lo implementa `T-166`.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-quater'
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c "grep -qF 'git show --stat --name-only --format='"
+```
+
+⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
+Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+---
+
+### D-150 - Un proyecto nuevo arranca por clone, anota el hash y parte con historial limpio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-145` decide que el esqueleto sea clonable y `T-162` encarga la guia de arranque,
+  pero **nadie habia decidido que pasa con el historial y el remoto del esqueleto** una vez clonado.
+  La pregunta la abrio el usuario al describir su forma de arrancar: crear una carpeta vacia y llevar
+  dentro el esqueleto entero.
+- **Decision:** un proyecto nuevo arranca asi, y en este orden:
+
+```bash
+git clone <remoto del esqueleto> <carpeta del proyecto>
+cd <carpeta del proyecto>
+git log -1 --format=%H          # este hash se anota en project.md
+rm -rf .git
+git init
+git remote add origin <remoto del proyecto>
+```
+
+  Y `project.md` gana **dos filas**: el remoto del esqueleto del que salio, y **el hash de la version
+  de la que partio** — la fila que `D-147` ya anticipaba para todos los proyectos menos este.
+- 🚨 **Lo que esto impide, y es la razon principal:** copiar la carpeta con el explorador arrastra
+  `.git/` **con el remoto del esqueleto dentro**, y entonces el primer `git push` del proyecto nuevo
+  sube al esqueleto. Eso rompe `D-146` por el peor sitio —el sentido unico— y un push es
+  **irreversible** segun la primera tabla de `C-009`. Hoy no puede ocurrir porque el esqueleto aun no
+  es repositorio; `T-157` es justo la tarea que lo vuelve posible.
+- 🔑 **Por que se borra el historial en vez de conservarlo.** El dato que hace falta no es el
+  historial: es **de que version se partio**, y eso cabe en un hash. Escrito en `project.md`, ese dato
+  sobrevive a cualquier cosa que le pase al repositorio y se lee sin `git log`. Conservar el historial
+  entero para guardar un hash mezcla los commits del andamiaje con los del producto y hace que el
+  primer commit del proyecto no sea su primera sesion.
+- ⚠️ **El clone no sobra aunque se borre `.git` a los diez segundos.** Es lo unico que produce el
+  hash. Copiar y anotar el hash «mirando» no es lo mismo: nadie puede comprobar despues que sea el
+  que era.
+- ⚠️ **Y hay dos cosas que un clone no trae, a diferencia de una copia:** `temporal/`, que esta en
+  `.gitignore` y no existe como carpeta versionada, y cualquier archivo ignorado. La guia de arranque
+  tiene que decirlo, o el primer proyecto clonado descubrira el hueco por su cuenta (`T-163`).
+- **Alternativas descartadas:** (a) **clone conservando el historial** (`git remote set-url` al remoto
+  nuevo) — la trazabilidad seria `git log`, pero deja commits de andamiaje delante de los del producto
+  y el arranque del proyecto deja de ser su primer commit; (b) **copiar la carpeta sin `.git`** — sin
+  riesgo de push cruzado, pero pierde la constancia de que version salio, que es exactamente lo que
+  `D-145` dice que el remoto existe para dar; (c) **copiar la carpeta entera** — la forma que abrio la
+  pregunta; es la unica que puede empujar al esqueleto por accidente.
+- **Reversible a criterio** — la decision escribe en el registro y encarga trabajo; no ejecuta nada
+  fuera de este repositorio.
+- **Criterio de cierre:** la plantilla de `project.md` lleva las dos filas nuevas con sus huecos
+  (`T-167`), y la guia de arranque del esqueleto lleva el procedimiento completo, incluido lo que un
+  clone no trae (`T-162`).

@@ -63,6 +63,7 @@
 | [L-052](#l-052---un-filtro-por-estado-que-busca-texto-libre-recoge-filas-por-su-titulo) | Un filtro por estado que busca texto libre recoge filas por su titulo | 2026-09-11 | 000_preproject | Sin evaluar |
 | [L-053](#l-053---un-control-de-presencia-se-prueba-contra-el-artefacto-que-lo-motivo-o-no-esta-probado) | Un control de presencia se prueba contra el artefacto que lo motivo, o no esta probado | 2026-09-11 | 000_preproject | Sin evaluar |
 | [L-054](#l-054---un-original-sin-mecanismo-de-deteccion-deja-de-ser-original-en-silencio) | Un original sin mecanismo de deteccion deja de ser original en silencio | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-055](#l-055---un-aviso-movido-a-la-plantilla-sigue-copiandose-a-mano) | Un aviso movido a la plantilla sigue copiandose a mano | 2026-09-11 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -2005,3 +2006,29 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
   No en la siguiente: la deteccion es parte de declararlo original, no una mejora posterior.
 - ⚠️ **Y el control que detecta no tiene por que frenar.** Aqui el desfase es el estado **normal**
   entre promociones. Un control que informa se lee; uno que bloquea en cada sesion se desactiva.
+
+---
+
+### L-055 - Un aviso movido a la plantilla sigue copiandose a mano
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** una seccion del informe de cierre publica una lista y la orden que la produce. Hace
+  veintisiete sesiones un hallazgo encontro que la lista no cuadraba con su orden, y la correccion
+  fue **mover el aviso**: de un parrafo explicativo del protocolo a la plantilla del informe, «donde
+  no se puede escribir la seccion sin verlo».
+- **Que ocurrio:** volvio a fallar, por el otro extremo de la pareja. Esta vez la lista era correcta
+  y la orden no: se publico sin una opcion, y esa variante devuelve ocho lineas de cabecera que no
+  estaban pegadas debajo. La plantilla se habia visto; lo que no se habia comprobado es la copia.
+- **Leccion:** mover un aviso a un sitio mas visible **reduce** la probabilidad del fallo, no la
+  elimina — porque el acto que falla sigue siendo el mismo, copiar a mano. Solo cambia a comprobable
+  cuando lo que la plantilla prescribe se vuelve una **cadena literal** que algo busca despues.
+- 🔑 **El criterio para saber si toca mecanismo, y no es «cuantas veces fallo»:** si lo prescrito es
+  una cadena fija, comprobarlo es igualdad de cadenas y cuesta un `grep` — entonces se comprueba. Si
+  es prosa, ningun patron la distingue de la prosa buena, y un control ahi tranquiliza sin cubrir.
+- ⚠️ **De ahi que dos defectos de la misma seccion, el mismo dia, se traten distinto.** No es
+  incoherencia: es que uno se puede comprobar y el otro no. Escribir mecanismo para el segundo
+  «por simetria» habria sido la peor de las dos opciones.

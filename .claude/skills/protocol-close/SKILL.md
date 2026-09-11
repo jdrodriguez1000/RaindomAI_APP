@@ -1752,6 +1752,39 @@ tranquiliza.
 anterior pegada debajo pasa este control sin una queja. Lo que impide eso es el anclaje de las
 ordenes, no esto.
 
+### 7c-quater — Que la seccion 1 publique la orden prescrita, no una variante (obligatorio, antes de commitear el anclaje)
+
+La lista de archivos de la seccion 1 la produce **una** orden, y la tabla del Paso 7c la fija literal.
+Copiarla a mano sale mal de vez en cuando, y siempre por el mismo sitio: **perder `--format=`**. Sin
+esa opcion la orden devuelve ademas ocho lineas de cabecera del commit, asi que la salida pegada
+debajo deja de ser la que esa orden produce — aunque los archivos listados sean los correctos.
+
+```bash
+grep -qF 'git show --stat --name-only --format=' _audit/S-XXX.md ||
+  echo "FALTA en la seccion 1: la orden prescrita por el Paso 7c (sin --format= la salida no reproduce)"
+```
+
+| Que sale | Que significa | Que haces |
+|---|---|---|
+| nada | la seccion 1 publica la orden prescrita | sigue: commitea el anclaje |
+| la linea `FALTA…` | **el bloque de la seccion 1 no reproduce** | 🚨 **detente**: corrige la orden publicada a la de la tabla del Paso 7c, comprueba que su salida es la pegada, y vuelve a correr esto. No commitees el anclaje hasta que salga vacio |
+| el comando falla | **no lo comprobaste** | sigue, y a **Sin resolver** con 🚨 `SIN COMPROBAR` |
+
+🔑 **Por que esto se puede comprobar y otras cosas de la seccion 1 no.** La orden esta **prescrita
+literalmente** en esta misma skill, asi que comprobarla es igualdad de cadenas, no criterio. Lo demas
+que suele fallar en esa seccion —una etiqueta mal elegida, un residuo de edicion, una vineta que
+describe un cambio que no ocurrio— es prosa, y ningun `grep` la distingue de la buena. **Este paso no
+lo intenta**: un control que promete cazar prosa tranquiliza sin cubrir, y eso es peor que no tenerlo.
+
+⚠️ **Esta regla nacio de un defecto real, y de una reincidencia.** El aviso ya existia en prosa y la
+plantilla del informe ya se endurecio una vez por esta misma seccion; aun asi, un cierre posterior
+publico la orden sin `--format=`. **Un aviso se lee una vez; una cadena literal se comprueba en cada
+cierre.**
+
+⛔ **Y no comprueba que la salida pegada sea la de este commit.** Una orden correcta con la lista de
+la sesion anterior debajo pasa este control sin una queja. Lo que impide eso es el anclaje del Paso
+7c, no esto.
+
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 
 **El commit ya existe, asi que la fecha ya se puede comprobar en vez de suponer.** Es el control que
