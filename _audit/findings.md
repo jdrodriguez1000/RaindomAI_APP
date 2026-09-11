@@ -109,8 +109,10 @@
 | [F-095](#f-095---projectmd-afirma-tres-veces-que-020_baseline-no-esta-adoptada-en-el-mismo-commit-que-la-declara) | `project.md` afirma tres veces que `020_baseline` no esta adoptada, en el mismo commit que la declara | R-033 | Media | Implementado |
 | [F-096](#f-096---el-bloque-de-verificacion-de-la-seccion-2-de-s-033-publica-dos-salidas-que-no-reproducen) | El bloque de verificacion de la seccion 2 de `S-033` publica dos salidas que no reproducen | R-033 | Media | Implementado |
 | [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Implementado |
-| [F-098](#f-098---la-seccion-1-publica-una-orden-que-no-es-la-que-produjo-la-salida-pegada) | La seccion 1 del informe de `S-034` publica una orden que no es la que produjo la salida pegada | R-034 | Media | Aceptado — pendiente |
-| [F-099](#f-099---la-seccion-1-describe-el-cambio-de-findingsmd-con-un-fragmento-roto-y-una-etiqueta-falsa) | La seccion 1 del informe de `S-034` describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa | R-034 | Baja | Aceptado — pendiente |
+| [F-098](#f-098---la-seccion-1-publica-una-orden-que-no-es-la-que-produjo-la-salida-pegada) | La seccion 1 del informe de `S-034` publica una orden que no es la que produjo la salida pegada | R-034 | Media | Implementado |
+| [F-099](#f-099---la-seccion-1-describe-el-cambio-de-findingsmd-con-un-fragmento-roto-y-una-etiqueta-falsa) | La seccion 1 del informe de `S-034` describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa | R-034 | Baja | Implementado |
+| [F-100](#f-100---la-bitacora-de-s-035-afirma-que-projectmd-gana-dos-filas-nuevas-y-el-commit-no-toca-projectmd) | La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md` | R-035 | Media | Abierto |
+| [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Abierto |
 
 ---
 
@@ -4440,9 +4442,9 @@ $ git show f3ae6b6:_audit/S-033.md | grep -c -i 'cifra adyacente'
 | Auditoria | R-034 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-164` |
-| Cerrado en | |
+| Cerrado en | `R-035` (commit `cce48e0`) |
 
 - **Que se observo:** la seccion 1 de `_audit/S-034.md` abre con `$ git show --stat --name-only 2cef150`
   y pega debajo los doce nombres de archivo a secas. Esa orden no devuelve eso: devuelve ademas ocho
@@ -4497,9 +4499,9 @@ S-034: git show --stat --name-only 2cef150
 | Auditoria | R-034 |
 | Fecha | 2026-09-11 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-165` |
-| Cerrado en | |
+| Cerrado en | `R-035` (commit `cce48e0`) |
 
 - **Que se observo:**
 
@@ -4528,3 +4530,96 @@ $ git diff 2cef150^ 2cef150 -- _audit/findings.md | grep -cE '^\+\| Estado \| Ac
   Es Baja porque la descripcion correcta esta en la misma vineta, dos palabras despues.
 - **Que lo corregiria:** una nota fechada que fije la descripcion correcta —tres filas de `Abierto` a
   `Aceptado — pendiente` y tres `Registrado en`, ninguna nota—, sin reescribir la prosa publicada.
+
+---
+
+### F-100 - La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-035 |
+| Fecha | 2026-09-11 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la entrada `S-035` de la bitacora de `_persistence/progress.md` escribe, en
+  presente y como hecho de la sesion, que `project.md` gana dos filas. El commit no toca `project.md`,
+  y esas filas no existen ni en `project.md` ni en su plantilla.
+
+```
+$ git show cce48e0:_persistence/progress.md | grep -n 'gana dos filas nuevas'
+1648:  irreversible. `project.md` gana dos filas nuevas (esqueleto de origen y version de partida), y nace
+$ git show --stat --name-only --format= cce48e0 | grep -c 'project.md'
+0
+$ git diff --stat cce48e0^ cce48e0 -- project.md
+$ git show cce48e0:project.md | grep -ciE 'esqueleto de origen|version de partida'
+0
+$ git grep -ciE 'esqueleto de origen|version de partida' cce48e0 -- _templates/000_preproject
+```
+
+  Lo que `D-150` decide es que el `project.md` **de un proyecto nuevo** llevara esas dos filas, y
+  `T-167` —`No implementada`— es la tarea que las llevara a la plantilla:
+
+```
+$ git show cce48e0:_persistence/tasks.md | sed -n '/^### T-167 /,/^| Estado/p' | tail -1
+| Estado | No implementada |
+```
+
+- **Por que importa:** la bitacora es la parte permanente de `progress.md` —`Estado general` y
+  `Ultimo realizado` se reescriben en el cierre siguiente—, y es la que lee `session-starter` y la que
+  leera la auditoria de dentro de diez sesiones. Los otros dos sitios del mismo archivo lo dicen bien
+  («nace `T-167` para llevar esas dos filas a la plantilla de `project.md`»), asi que el registro se
+  contradice consigo mismo y el que sobrevive es el que miente. Es Media y no Alta porque el trabajo
+  real esta bien registrado en `D-150` y en `T-167`: lo que falla es la cronica, no la decision.
+- **Que lo corregiria:** una nota fechada en la entrada `S-035` de la bitacora que fije la
+  formulacion correcta —`project.md` no cambio en esta sesion; `D-150` prescribe dos filas para el
+  `project.md` de un proyecto nuevo y `T-167` las llevara a la plantilla—, sin reescribir la prosa ya
+  commiteada. ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-101 - El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-035 |
+| Fecha | 2026-09-11 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el bloque de verificacion de `T-157` publica el primer barrido de fuga con su
+  patron completo y su salida, y afirma a continuacion el resultado de un **segundo** barrido —«por
+  codigos instanciados»— sin publicar ni el patron ni el ambito ni la salida. En su lugar pega un
+  `sed` de ocho lineas de un archivo, que es el contexto de una de las coincidencias, no el barrido.
+
+```
+$ git show cce48e0:_persistence/tasks.md | sed -n '/^### T-157 /,/^### T-158 /p' | grep -n '^\$ \|Un segundo patron'
+26:$ cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git init -b main
+29:$ git add -A && git status --short | wc -l
+32:$ git log --oneline -1
+35:$ gh repo create SDAI_TripleS --private --source=. --remote=origin --push
+40:$ git status -sb
+43:$ gh repo view jdrodriguez1000/SDAI_TripleS --json name,visibility,defaultBranchRef,url
+53:$ grep -rniE "raidom|raindom|Proyectos_TripleS|github\.com|vercel|jdrodriguez" C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS --include=*.md
+57:- ⚠️ **Un segundo patron, por codigos instanciados, si devolvio lineas — y no son fuga.** Son las
+63:$ sed -n '458,465p' .../SDAI_TripleS/_methodology/sources/005_vertical.md
+```
+
+  Las lineas 53 y 63 son las dos unicas ordenes del bloque posteriores al push: la primera es el
+  barrido de datos propios, con su patron; la segunda es el `sed` de contexto. **No hay ninguna orden
+  publicada que corresponda al «segundo patron».**
+
+- **Por que importa:** `CLAUDE.md` lo prohibe de forma literal —«si el registro afirma un resultado
+  […] ese resultado va con **el patron y el ambito** con que se obtuvo»—, y da la razon: un resultado
+  sin su orden hay que **rehacerlo entero** para contrastarlo. Aqui el resultado afirmado no es
+  menor: es que la fuga de codigos instanciados del esqueleto que se acaba de publicar como
+  repositorio son series de ejemplo legitimas. Quien quiera comprobarlo hoy tiene que inventar el
+  patron, y el patron es justo lo que decide el resultado —el control equivalente de este repositorio
+  acota a dos carpetas y excluye `PI-`, y ninguna de esas dos cosas se sabe del barrido que se corrio.
+  Es Media y no Alta porque la conclusion es plausible y el defecto es de evidencia, no de fondo.
+- **Que lo corregiria:** una nota fechada en `T-157` con el patron, el ambito y la salida cruda del
+  segundo barrido, tal como se corrio —o, si ya no se puede reconstruir lo que se corrio entonces,
+  decirlo asi y publicar el barrido de hoy con su fecha—, sin reescribir la prosa ya commiteada.
+  ⚠️ Es una recomendacion, no una orden.
