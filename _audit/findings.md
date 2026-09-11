@@ -111,8 +111,10 @@
 | [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Implementado |
 | [F-098](#f-098---la-seccion-1-publica-una-orden-que-no-es-la-que-produjo-la-salida-pegada) | La seccion 1 del informe de `S-034` publica una orden que no es la que produjo la salida pegada | R-034 | Media | Implementado |
 | [F-099](#f-099---la-seccion-1-describe-el-cambio-de-findingsmd-con-un-fragmento-roto-y-una-etiqueta-falsa) | La seccion 1 del informe de `S-034` describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa | R-034 | Baja | Implementado |
-| [F-100](#f-100---la-bitacora-de-s-035-afirma-que-projectmd-gana-dos-filas-nuevas-y-el-commit-no-toca-projectmd) | La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md` | R-035 | Media | Aceptado — pendiente |
-| [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Aceptado — pendiente |
+| [F-100](#f-100---la-bitacora-de-s-035-afirma-que-projectmd-gana-dos-filas-nuevas-y-el-commit-no-toca-projectmd) | La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md` | R-035 | Media | Implementado |
+| [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Implementado |
+| [F-102](#f-102---la-tabla-de-reejecucion-del-paso-2d-de-s-036-atribuye-salidas-a-las-ordenes-equivocadas) | La tabla de reejecucion del Paso 2d de `S-036` atribuye salidas a las ordenes equivocadas | R-036 | Media | Abierto |
+| [F-103](#f-103---el-bloque-de-a-018-en-assumptionsmd-publica-una-orden-que-ya-no-reproduce-y-queda-sin-corregir-y-sin-tarea) | El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea | R-036 | Media | Abierto |
 
 ---
 
@@ -4539,9 +4541,9 @@ $ git diff 2cef150^ 2cef150 -- _audit/findings.md | grep -cE '^\+\| Estado \| Ac
 | Auditoria | R-035 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-169` |
-| Cerrado en | |
+| Cerrado en | `R-036` (commit `6fb6d39`) |
 
 - **Que se observo:** la entrada `S-035` de la bitacora de `_persistence/progress.md` escribe, en
   presente y como hecho de la sesion, que `project.md` gana dos filas. El commit no toca `project.md`,
@@ -4585,9 +4587,9 @@ $ git show cce48e0:_persistence/tasks.md | sed -n '/^### T-167 /,/^| Estado/p' |
 | Auditoria | R-035 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-170` |
-| Cerrado en | |
+| Cerrado en | `R-036` (commit `6fb6d39`) |
 
 - **Que se observo:** el bloque de verificacion de `T-157` publica el primer barrido de fuga con su
   patron completo y su salida, y afirma a continuacion el resultado de un **segundo** barrido —«por
@@ -4622,4 +4624,139 @@ $ git show cce48e0:_persistence/tasks.md | sed -n '/^### T-157 /,/^### T-158 /p'
 - **Que lo corregiria:** una nota fechada en `T-157` con el patron, el ambito y la salida cruda del
   segundo barrido, tal como se corrio —o, si ya no se puede reconstruir lo que se corrio entonces,
   decirlo asi y publicar el barrido de hoy con su fecha—, sin reescribir la prosa ya commiteada.
+  ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-102 - La tabla de reejecucion del Paso 2d de `S-036` atribuye salidas a las ordenes equivocadas
+| Campo | Valor |
+|---|---|
+| Auditoria | R-036 |
+| Fecha | 2026-09-11 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 7 de `_audit/S-036.md` publica las 54 ordenes del Paso 2d numeradas
+  con `cat -n` y, debajo, una tabla que dice reejecutarlas «por numero». A partir de la fila 32 la nota
+  pegada corresponde a otra orden de la lista. Extracto de las dos cosas, enfrentadas:
+
+```
+$ git show 6fb6d39:_audit/S-036.md | sed -n '/^     1\t/,/^    54\t/p' | sed -n '32,35p;43,44p;47,48p'
+    32	+$ ESQ="C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS"
+    33	+$ test -d "$ESQ" && echo SI || echo NO
+    34	+$ diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+    35	+$ grep -nE "^## Paso 2f |^## 9\. Evidencia|^Desfase con el esqueleto" .claude/skills/protocol-close/SKILL.md
+    43	+$ grep -c 'No lo delegas en ningun agente' .claude/skills/protocol-promote/SKILL.md
+    44	+$ grep -nE '^## Paso [0-9]+ —' .claude/skills/protocol-promote/SKILL.md
+    47	+$ grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|vercel|supabase|Company_" .claude/skills/protocol-promote/SKILL.md
+    48	+$ git grep -n "unico protocolo del\|unico del andamiaje que" -- CLAUDE.md .claude/
+
+$ git show 6fb6d39:_audit/S-036.md | grep -E '^\| (32|33|34|35|43|44|47|48) \|'
+| 32 | Si | `SI` |
+| 33 | 🚨 NO | Publicaba «sin salida»; hoy difiere (`T-161` volvio a tocar `CLAUDE.md`). **Corregido con nota fechada**, bajo el bloque de `T-159` (misma causa que la 19) |
+| 34 | Si | lineas 616/1224/1970 |
+| 35 | Si | mismos dos `No such file or directory`, `exit=2` |
+| 43 | Si | vacio |
+| 44 | Si | vacio |
+| 47 | Si | `0` |
+| 48 | Si | `1` |
+```
+
+  Lo que esas ordenes devuelven de verdad sobre el commit auditado:
+
+```
+$ P=.claude/skills/protocol-promote/SKILL.md
+
+$ git show 6fb6d39:$P | grep -c 'No lo delegas en ningun agente'          # orden 43
+1
+
+$ git show 6fb6d39:$P | grep -cE '^## Paso [0-9]+ —'                      # orden 44
+9
+
+$ git show 6fb6d39:$P | grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_"; echo "exit=$?"     # orden 47
+exit=1
+
+$ git grep -n "unico protocolo del\|unico del andamiaje que" 6fb6d39 -- CLAUDE.md .claude/; echo "exit=$?"                          # orden 48
+exit=1
+
+$ git show 6fb6d39:.claude/skills/protocol-close/SKILL.md | grep -nE "^## Paso 2f |^## 9\. Evidencia|^Desfase con el esqueleto" | cut -d: -f1 | tr '\n' '/'     # orden 35
+616/1224/1970/
+```
+
+  `SI` es la salida de la 33, no de la 32 (una asignacion); «hoy difiere por `CLAUDE.md`» describe la
+  34, no la 33 (un `test -d`); `616/1224/1970` es la 35, no la 34; «mismas 9 lineas `## Paso N —`» es
+  la 44, no la 41; `vacio` no es la salida de la 43 (`1`) ni de la 44 (nueve lineas); `0` no es la de
+  la 47 (sin salida); `1` no es la de la 48 (sin salida — y el registro publica «(sin salida)» para esa
+  orden en el bloque de `T-161`). Las filas 36, 37, 38, 40 y 41 arrastran el mismo desplazamiento.
+- **Por que importa:** esa tabla **es** la evidencia del Paso 2d, el control que certifica que toda
+  orden publicada en el commit sigue reproduciendo. Con el mapa roto, un lector no puede saber que
+  orden se reejecuto y cual no, y una fila marcada `Si` no prueba nada sobre la orden que numera. El
+  fondo si se sostiene —las seis ordenes que no reproducian estan identificadas por su contenido y
+  corregidas con nota fechada en `tasks.md`, verificadas una por una en `R-036`—, y por eso es Media y
+  no Alta: lo roto es la trazabilidad de la tabla, no la conclusion.
+- **Que lo corregiria:** una nota fechada en la seccion 7 de `_audit/S-036.md` que declare el
+  desplazamiento a partir de la fila 32 y publique la correspondencia correcta —o, si reconstruirla
+  entera no sale a cuenta, que acote que filas son fiables y cuales no—, sin reescribir la tabla ya
+  commiteada. Hacia adelante, que el Paso 2d pegue en cada fila **la orden literal** y no solo su
+  numero: un numero se desplaza en silencio, una cadena no. ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-103 - El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea
+| Campo | Valor |
+|---|---|
+| Auditoria | R-036 |
+| Fecha | 2026-09-11 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota del 2026-09-11 bajo `A-018` publica `5 3 7 4 1 0 1` como desfase con el
+  esqueleto para siete archivos. Corrida hoy devuelve otra cosa, porque `T-158` sincronizo el esqueleto
+  mas tarde en la misma jornada:
+
+```
+$ git show 6fb6d39:_persistence/assumptions.md | sed -n '1108,1115p'
+' "$(diff --strip-trailing-cr "$ESQ/$f" "$f" | grep -c '^<')" "$f"; done
+  5  CLAUDE.md
+  3  .claude/skills/protocol-audit/SKILL.md
+  7  .claude/skills/protocol-close/SKILL.md
+  4  .claude/skills/protocol-start/SKILL.md
+  1  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  1  _templates/000_preproject/005_project.md
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(diff --strip-trailing-cr "$ESQ/$f" "$f" | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  0  _templates/000_preproject/005_project.md
+```
+
+  El informe lo declara en su seccion 6 y explica por que el cierre no lo toco: `assumptions.md` no es
+  suyo. Pero el commit no deja ninguna `T-XXX` que lo recoja:
+
+```
+$ git show 6fb6d39:_persistence/tasks.md | sed -n '/^## Indice/,/^---$/p' | grep -ci "assumptions"
+0
+```
+
+- **Por que importa:** ese bloque sostiene el primer ejercicio del disparador de `A-018`, que es el
+  argumento entero de por que el supuesto sigue `Abierto` y no confirmado — y hoy sus siete cifras son
+  falsas contra el arbol. Los cinco casos gemelos de `tasks.md` si llevan su nota fechada, asi que el
+  registro queda desigual: el mismo defecto corregido en un archivo y no en el otro, y lo unico que lo
+  recuerda es un parrafo de un informe de sesion. Sin `T-XXX`, el unico mecanismo que lo devuelve a la
+  superficie es que alguien vuelva a leer `S-036.md`. Es Media y no Alta porque la conclusion del
+  bloque —ninguna de las 21 lineas exigia conciliacion— no depende de las cifras desfasadas, y el
+  supuesto sigue correctamente `Abierto`.
+- **Que lo corregiria:** una nota fechada de `manager` bajo ese bloque de `A-018`, con la misma forma
+  que las cinco de `tasks.md`: que la orden se corrio antes de `T-158`, que el esqueleto paso de
+  `fa7da56` a `1748f0a` dentro de la jornada, y la salida de hoy — sin reescribir el bloque. Y su
+  `T-XXX`, para que el pendiente viva en el registro y no en un informe.
   ⚠️ Es una recomendacion, no una orden.
