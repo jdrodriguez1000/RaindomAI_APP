@@ -9325,16 +9325,17 @@ Cinco lineas, cuatro obligaciones: la 1070 no es una, es la explicacion de por q
   casos** — la prueba de los dos casos vive en `T-155`.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-ter'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la NOTA DE CIERRE'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'el Paso 7c-ter los busca por esa'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -coF '— salida:**'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-ter'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la NOTA DE CIERRE'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -c 'el Paso 7c-ter los busca por esa'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -coF '— salida:**'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1`, `1` y `5` — la ultima cuenta
 LINEAS con el sufijo, no ocurrencias.
 
+📌 **Ancladas por el Paso 7c-bis al commit `2cef150`.** Las cuatro reproducen lo publicado arriba.
 
 ### D-145 - El esqueleto de arranque es un repositorio propio con remoto privado
 | Campo | Valor |

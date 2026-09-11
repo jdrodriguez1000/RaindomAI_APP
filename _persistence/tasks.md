@@ -6665,13 +6665,15 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `2` y `1`.
   nota fechada esta.
 
 ```
-$ git show <hash>:project.md | grep -cE '^\| `(FT|SC)-XXX`.*la etapa no esta adoptada'
-$ git show <hash>:project.md | grep -cE '^\| `(FT|SC)-XXX`.*la etapa esta declarada, no iniciada'
-$ git show <hash>:project.md | grep -c 'Nota del 2026-09-11 (`F-095`, `T-152`)'
+$ git show 2cef150:project.md | grep -cE '^\| `(FT|SC)-XXX`.*la etapa no esta adoptada'
+$ git show 2cef150:project.md | grep -cE '^\| `(FT|SC)-XXX`.*la etapa esta declarada, no iniciada'
+$ git show 2cef150:project.md | grep -c 'Nota del 2026-09-11 (`F-095`, `T-152`)'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `0`, `2` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `2cef150`.** Las tres reproducen lo publicado arriba.
 
 ---
 
@@ -6703,13 +6705,15 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `0`, `2` y `1`.
   al commit que las publico.
 
 ```
-$ git show <hash>:_audit/S-033.md | grep -c 'Nota del 2026-09-11 (`F-096`, `T-153`)'
-$ git show <hash>:_audit/S-033.md | grep -c '^91a59c8: 152'
-$ git show <hash>:_audit/S-033.md | grep -c '^91a59c8^: 148'
+$ git show 2cef150:_audit/S-033.md | grep -c 'Nota del 2026-09-11 (`F-096`, `T-153`)'
+$ git show 2cef150:_audit/S-033.md | grep -c '^91a59c8: 152'
+$ git show 2cef150:_audit/S-033.md | grep -c '^91a59c8^: 148'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `2cef150`.** Las tres reproducen lo publicado arriba.
 
 ---
 
@@ -6739,13 +6743,15 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `1`.
 - **Criterio de cierre:** la nota existe citando `F-097`, y publica la salida entera con su orden.
 
 ```
-$ git show <hash>:_audit/S-033.md | grep -c 'Nota del 2026-09-11 (`F-097`, `T-154`)'
-$ git show <hash>:_audit/S-033.md | grep -c 'contraste 2). Cuadra.'
+$ git show 2cef150:_audit/S-033.md | grep -c 'Nota del 2026-09-11 (`F-097`, `T-154`)'
+$ git show 2cef150:_audit/S-033.md | grep -c 'contraste 2). Cuadra.'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `2` — dos, porque la linea aparece una
 vez en la seccion 8 del informe original y otra dentro de la salida cruda que la nota pega.
+
+📌 **Ancladas por el Paso 7c-bis al commit `2cef150`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -6779,13 +6785,15 @@ vez en la seccion 8 del informe original y otra dentro de la salida cruda que la
   cuatro rotulos, y el control **distingue el caso que falla del que pasa**.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-ter'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la NOTA DE CIERRE'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'el 7c-ter no deja commitear el anclaje sin ella'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-ter'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la NOTA DE CIERRE'
+$ git show 2cef150:.claude/skills/protocol-close/SKILL.md | grep -c 'el 7c-ter no deja commitear el anclaje sin ella'
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1`, `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `2cef150`.** Las tres reproducen lo publicado arriba.
 
 **Prueba de los dos casos** (`PI-5`: un control que no puede fallar no es evidencia). El primer caso
 es un informe real que no lleva los rotulos —`_audit/S-033.md`, el de la sesion anterior—; el segundo
