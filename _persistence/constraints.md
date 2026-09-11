@@ -19,6 +19,7 @@
 | [C-007](#c-007---las-fuentes-de-la-guia-de-metodo-no-se-editan) | Las fuentes de la guia de metodo no se editan | Proceso | Vigente |
 | [C-008](#c-008---el-repositorio-no-tiene-un-final-de-linea-unico-y-no-se-normaliza) | El repositorio no tiene un final de linea unico, y no se normaliza | Entorno | Vigente |
 | [C-009](#c-009---el-inventario-de-acciones-irreversibles-del-proyecto) | El inventario de acciones irreversibles del proyecto | Proceso | Vigente |
+| [C-010](#c-010---la-barra-invertida-se-pierde-al-escribir-por-shell-y-no-se-puede-confiar-en-ella) | La barra invertida se pierde al escribir por shell, y no se puede confiar en ella | Entorno | Vigente |
 
 ---
 
@@ -265,3 +266,34 @@ en la tabla con su `D-XXX` en la misma pasada en que nacio — no despues.
 - **Se levanta cuando:** no se levanta por si sola; crece. Si una accion cambia de naturaleza
   —porque cambia la plataforma, la fuente o el trato con los datos— se mueve de tabla **con su
   `D-XXX`**, nunca en silencio.
+
+---
+
+### C-010 - La barra invertida se pierde al escribir por shell, y no se puede confiar en ella
+| Campo | Valor |
+|---|---|
+| Tipo | Entorno |
+| Origen | manager |
+| Estado | Vigente |
+
+- **Restriccion:** al escribir texto en un archivo **pasando por el shell**, las barras invertidas
+  pueden desaparecer por el camino. No es una hipotesis: ocurrio, y ocurrio **tambien dentro de un
+  heredoc citado**, que en teoria no interpreta nada.
+- **El modo de fallo es silencioso, y eso es lo que la vuelve restriccion y no anecdota.** Un `\b` no
+  provoca un error: queda como un **caracter de retroceso real** (`0x08`) dentro del archivo, que **no
+  se ve en pantalla**. Un `\n` queda como un salto de linea de verdad, que parte una orden en dos.
+- **Y lo peor no es el archivo: es el control.** `grep -E` acepta un retroceso en su patron sin
+  quejarse — simplemente deja de coincidir con nada. Un control averiado asi **sigue devolviendo cero**,
+  o sea informa exactamente lo mismo que un control que pasa.
+- **Implicacion — dos reglas, y la segunda es la que de verdad protege:**
+  1. **no meter barras invertidas en el codigo que escribe**: se construyen aparte —con el codigo de
+     caracter— o se lee el texto de un archivo en vez de incrustarlo;
+  2. **una orden publicada no esta verificada hasta que se copia de vuelta del archivo y se corre.**
+     Comprobar lo que se pretendia escribir no sirve: hay que comprobar **lo que quedo escrito**.
+- **Alcance medido:** las seis areas agnosticas estan limpias —cero ocurrencias—, asi que **ningun
+  control vivo esta averiado**. Las ocurrencias estan en el registro historico, y su efecto es que
+  aquellos bloques de verificacion no reproducen. El barrido y su cifra viven en `L-057`.
+- **Complementa a `C-008`**, y por el mismo eje: las dos son consecuencias del entorno de escritura que
+  obligan a **medir el archivo antes de construir un patron**, no a confiar en lo que se teclea.
+- **Se levanta cuando:** no se levanta. Es una propiedad del entorno, no una decision nuestra; lo que
+  se puede hacer es no depender de ella, que es lo que dicen las dos reglas de arriba.

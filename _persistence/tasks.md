@@ -166,10 +166,10 @@
 | [T-155](#t-155---rotular-la-nota-de-cierre-y-dar-al-cierre-el-paso-7c-ter-f-097-d-144) | Rotular la NOTA DE CIERRE y dar al cierre el Paso 7c-ter (`F-097`, `D-144`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-156](#t-156---construir-el-esqueleto-reutilizable-de-arranque-de-proyecto-d-143) | Construir el esqueleto reutilizable de arranque de proyecto (`D-143`) | No implementada | Alta | Bloqueante | `000_preproject` |
 | [T-157](#t-157---crear-el-repositorio-del-esqueleto-y-commitear-su-estado-actual-d-145) | Crear el repositorio del esqueleto y commitear su estado actual (`D-145`) | Implementada | Alta | Bloqueante | `000_preproject` |
-| [T-158](#t-158---sincronizar-las-seis-areas-agnosticas-del-esqueleto-d-146) | Sincronizar las seis areas agnosticas del esqueleto (`D-146`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-159](#t-159---registrar-en-projectmd-la-ubicacion-del-esqueleto-d-147) | Registrar en `project.md` la ubicacion del esqueleto (`D-147`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-160](#t-160---anadir-al-cierre-el-barrido-de-desfase-con-el-esqueleto-d-148) | Anadir al cierre el barrido de desfase con el esqueleto (`D-148`) | No implementada | Alta | No bloqueante | `000_preproject` |
-| [T-161](#t-161---escribir-la-skill-de-promocion-al-esqueleto-con-su-puerta-d-146) | Escribir la skill de promocion al esqueleto, con su puerta (`D-146`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-158](#t-158---sincronizar-las-seis-areas-agnosticas-del-esqueleto-d-146) | Sincronizar las seis areas agnosticas del esqueleto (`D-146`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-159](#t-159---registrar-en-projectmd-la-ubicacion-del-esqueleto-d-147) | Registrar en `project.md` la ubicacion del esqueleto (`D-147`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-160](#t-160---anadir-al-cierre-el-barrido-de-desfase-con-el-esqueleto-d-148) | Anadir al cierre el barrido de desfase con el esqueleto (`D-148`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-161](#t-161---escribir-la-skill-de-promocion-al-esqueleto-con-su-puerta-d-146) | Escribir la skill de promocion al esqueleto, con su puerta (`D-146`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-162](#t-162---escribir-la-guia-de-arranque-del-esqueleto) | Escribir la guia de arranque del esqueleto | No implementada | Media | No bloqueante | `000_preproject` |
 | [T-163](#t-163---resolver-los-dos-huecos-menores-del-esqueleto-brief-y-temporal) | Resolver los dos huecos menores del esqueleto: brief y `temporal/` | No implementada | Baja | No bloqueante | `000_preproject` |
 | [T-164](#t-164---fijar-por-nota-fechada-la-orden-de-la-seccion-1-de-s-034-f-098) | Fijar por nota fechada la orden de la seccion 1 de `S-034` (`F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
@@ -177,6 +177,9 @@
 | [T-166](#t-166---escribir-el-paso-7c-quater-la-orden-de-la-seccion-1-por-cadena-literal-d-149-f-098) | Escribir el Paso 7c-quater: la orden de la seccion 1 por cadena literal (`D-149`, `F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-167](#t-167---anadir-a-la-plantilla-de-projectmd-las-dos-filas-del-esqueleto-de-origen-d-150) | Anadir a la plantilla de `project.md` las dos filas del esqueleto de origen (`D-150`) | No implementada | Media | No bloqueante | `000_preproject` |
 | [T-168](#t-168---corregir-las-tres-citas-cruzadas-de-d-146-d-147-y-d-148) | Corregir las tres citas cruzadas de `D-146`, `D-147` y `D-148` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-169](#t-169---fijar-por-nota-fechada-la-frase-de-la-bitacora-de-s-035-sobre-projectmd-f-100) | Fijar por nota fechada la frase de la bitacora de `S-035` sobre `project.md` (`F-100`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-170](#t-170---rehacer-y-publicar-el-segundo-barrido-de-t-157-con-su-patron-y-su-ambito-f-101) | Rehacer y publicar el segundo barrido de `T-157`, con su patron y su ambito (`F-101`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-171](#t-171---corregir-la-cuarta-cita-cruzada-en-el-cuerpo-de-d-147) | Corregir la cuarta cita cruzada, en el cuerpo de `D-147` | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -6973,14 +6976,95 @@ T-001   Task
 TC-001  Test Case
 ```
 
+📌 **Nota del 2026-09-11 (`T-170`, hallazgo `F-101`).** El bullet de arriba **no se reescribe**, y le
+falta lo unico que lo hacia auditable: **la orden del segundo barrido nunca se escribio, y no se
+puede reconstruir.** Lo que se publico arriba es el barrido de fuga (sin salida) y un `sed` de
+contexto; del patron de codigos instanciados solo quedo la conclusion. Asi que el barrido **se rehace
+hoy**, y se publica entero. No es el mismo comando de entonces —ese se perdio—, pero si recae sobre
+**el mismo arbol**: el esqueleto sigue en el commit de partida, sin sincronizar nada.
+
+**Ambito:** arbol entero del esqueleto (`C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS`),
+solo `*.md`. **Patron:** un codigo instanciado es una letra o par de letras del registro seguido de
+guion y **tres digitos**; la forma generica (`T-XXX`, `F-NNN`) no coincide por construccion.
+
+```
+$ cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneline -1
+fa7da56 Estado de partida del esqueleto, tal como estaba antes de sincronizar
+
+$ grep -rnoE "\b(T|D|F|A|C|L|S|DT|R|H|N|VS|TC)-[0-9]{3}\b" . --include=*.md | wc -l
+53
+
+$ grep -rcE "\b(T|D|F|A|C|L|S|DT|R|H|N|VS|TC)-[0-9]{3}\b" . --include=*.md | grep -v ":0$" | sort
+./CLAUDE.md:4
+./_methodology/000_method.md:13
+./_methodology/sources/005_vertical.md:20
+./_templates/005_discovery/005_needs.md:5
+./_templates/005_discovery/010_actors.md:2
+./_templates/005_discovery/020_hypothesis.md:1
+./_templates/020_baseline/015_features.md:1
+./_templates/020_baseline/045_traceability.md:1
+
+$ grep -rhoE "\b(T|D|F|A|C|L|S|DT|R|H|N|VS|TC)-[0-9]{3}\b" . --include=*.md | sort -u | tr '\n' ' '
+F-001 N-001 N-002 N-003 S-001 T-001 T-002 T-003 T-004 T-005 T-006 T-007 T-008 TC-001 VS-001
+```
+
+- ✅ **La conclusion de entonces se sostiene:** las quince formas distintas son **series que empiezan
+  por el primero** y que escribe el propio archivo —`N-001`…`N-003`, `T-001`…`T-008`, y un primero
+  suelto de cada forma (`F-001`, `S-001`, `VS-001`, `TC-001`)—. Ninguna remite a una entrada del
+  registro, que es lo que `CLAUDE.md` prohibe.
+- ⚠️ **Pero el ambito que el bullet declaraba era estrecho.** Decia «las series de ejemplo trabajado
+  de `_methodology/`», y el barrido devuelve lineas tambien en `_templates/` (cinco archivos) y en
+  `CLAUDE.md`. Son igual de licitas —series de ejemplo escritas por el propio archivo—, pero no
+  estaban nombradas.
+- 🔑 **El conteo no cuadra consigo mismo a proposito:** 53 coincidencias en 47 lineas (la suma de la
+  tabla de arriba), porque `wc -l` sobre `-o` cuenta coincidencias y `grep -c` cuenta lineas. Las seis
+  de diferencia estan en cuatro lineas que llevan mas de un codigo:
+
+```
+$ grep -rnoE "\b(T|D|F|A|C|L|S|DT|R|H|N|VS|TC)-[0-9]{3}\b" . --include=*.md \
+    | awk -F: '{print $1":"$2}' | uniq -c | awk '$1>1'
+      2 ./CLAUDE.md:252
+      4 ./_methodology/000_method.md:810
+      2 ./_templates/005_discovery/005_needs.md:45
+      2 ./_templates/005_discovery/005_needs.md:71
+```
+
 - 🔑 **El nombre `SDAI_TripleS` es heredado y se conserva**: la regla de nombres en ingles rige hacia
   adelante y no obliga a renombrar lo que ya existe; ademas carpeta y repositorio coinciden, que es
   lo que menos confunde al clonar.
 
+📌 **Nota del 2026-09-11, dentro de la misma sesion (`T-158`).** El bloque de arriba **no se
+reescribe**, y su primera orden deja de reproducir **en esta misma jornada**: `T-158`, hecha despues,
+sincronizo el esqueleto y lo movio de `fa7da56` a `1748f0a`. La propia nota ya lo anticipaba («si ya
+se hubiera sincronizado, el barrido de hoy mediria otra cosa y habria que decirlo»), y esto es decirlo:
+
+```
+$ cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && git log --oneline -1
+1748f0a Sincroniza las seis areas agnosticas con el proyecto de origen
+```
+
+La conclusion del bloque no cambia —las quince formas seguian siendo series de ejemplo, no citas—,
+pero la orden de arriba, corrida hoy, ya no devuelve `fa7da56`: describe el arbol **antes** de
+`T-158`, no el estado actual del esqueleto. Las demas ordenes del bloque (conteos y listas de
+codigos) devuelven las mismas cifras corridas hoy sobre el esqueleto ya sincronizado —`53`, la misma
+lista de ocho archivos y las mismas quince formas—, porque los archivos que miden (`_methodology/`,
+`_templates/`, `CLAUDE.md`) resultaron identicos entre el proyecto y el esqueleto en esos puntos.
+La unica diferencia real, aparte del hash, esta en el ultimo bloque: las lineas repetidas de
+`CLAUDE.md` se movieron de `252` a `256`, porque `T-158` sincronizo un `CLAUDE.md` mas largo que el
+que existia cuando se escribio esta nota:
+
+```
+$ cd C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS && grep -rnoE "\b(T|D|F|A|C|L|S|DT|R|H|N|VS|TC)-[0-9]{3}\b" . --include=*.md | awk -F: '{print $1":"$2}' | uniq -c | awk '$1>1'
+      2 ./CLAUDE.md:256
+      4 ./_methodology/000_method.md:810
+      2 ./_templates/005_discovery/005_needs.md:45
+      2 ./_templates/005_discovery/005_needs.md:71
+```
+
 ### T-158 - Sincronizar las seis areas agnosticas del esqueleto (`D-146`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -6999,10 +7083,129 @@ TC-001  Test Case
 
 ---
 
+**Verificacion — ejecutado el 2026-09-11. Commit del esqueleto: `1748f0a`.**
+
+**Antes — el barrido de `D-148` sobre las seis areas:**
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"
+$ for d in .claude _phases _methodology _templates _workflow; do diff -rq --strip-trailing-cr "$ESQ/$d" "$d"; done; diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+Files .../SDAI_TripleS/.claude/skills/protocol-audit/SKILL.md and .claude/skills/protocol-audit/SKILL.md differ
+Files .../SDAI_TripleS/.claude/skills/protocol-close/SKILL.md and .claude/skills/protocol-close/SKILL.md differ
+Only in .claude/skills: protocol-harvest
+Files .../SDAI_TripleS/.claude/skills/protocol-start/SKILL.md and .claude/skills/protocol-start/SKILL.md differ
+Files .../SDAI_TripleS/_phases/000_preproject.md and _phases/000_preproject.md differ
+Files .../SDAI_TripleS/_phases/005_discovery.md and _phases/005_discovery.md differ
+Files .../SDAI_TripleS/_templates/000_preproject/005_project.md and _templates/000_preproject/005_project.md differ
+Files .../SDAI_TripleS/CLAUDE.md and CLAUDE.md differ
+```
+
+- ✅ **Ocho diferencias, exactamente las que la ficha predijo:** siete archivos por detras y
+  `protocol-harvest` ausente. `_methodology/` y `_workflow/` ya estaban identicos.
+
+**Despues — el mismo barrido, que es el criterio de cierre:**
+
+```
+$ for d in .claude _phases _methodology _templates _workflow; do diff -rq --strip-trailing-cr "$ESQ/$d" "$d"; done; diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+(sin salida)
+```
+
+📌 **Nota del 2026-09-11, dentro de la misma sesion.** El bloque de arriba **no se reescribe**, y su
+orden deja de reproducir «sin salida» **mas tarde en esta misma jornada**: `T-160` anadio el Paso 2f
+a `protocol-close` y `T-161` creo `protocol-promote` y volvio a tocar `CLAUDE.md`, asi que la misma
+orden, corrida hoy, ya no esta vacia — devuelve las mismas cuatro lineas que reporta el Paso 2f de
+este cierre (`protocol-close`, `protocol-harvest`, `protocol-promote` nuevo y `CLAUDE.md`). No es una
+regresion: es el criterio de cierre de `T-158` cumplido **en su momento**, sobre el estado que
+entonces existia, y el desfase nuevo es trabajo posterior de la misma sesion, no del esqueleto.
+
+**El commit que lo recoge, en el esqueleto:**
+
+```
+$ cd "$ESQ" && git log --oneline -2
+1748f0a Sincroniza las seis areas agnosticas con el proyecto de origen
+fa7da56 Estado de partida del esqueleto, tal como estaba antes de sincronizar
+
+$ git show --stat --name-only --format= 1748f0a
+.claude/skills/protocol-audit/SKILL.md
+.claude/skills/protocol-close/SKILL.md
+.claude/skills/protocol-harvest/SKILL.md
+.claude/skills/protocol-start/SKILL.md
+CLAUDE.md
+_phases/000_preproject.md
+_phases/005_discovery.md
+_templates/000_preproject/005_project.md
+
+$ git status -sb
+## main...origin/main
+```
+
+**Que el esqueleto quedo agnostico — cuatro barridos sobre su arbol, ya sincronizado:**
+
+```
+$ cd "$ESQ"
+$ grep -rnE "RaindomAI|Raidom|Proyectos_TripleS|github\.com" .claude CLAUDE.md _phases _methodology _templates _workflow
+(sin salida)
+
+$ grep -rnoE '\b[A-Z]{1,2}-[0-9]+\b' _phases _workflow | grep -vE ':PI-[0-9]+$'
+(sin salida)
+
+$ grep -rnE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|vercel|supabase|Company_" .claude CLAUDE.md _phases _methodology _templates _workflow
+(sin salida)
+
+$ grep -rnE '[A-Za-z]:[/\]|https?://|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' .claude CLAUDE.md _phases _methodology _templates _workflow
+.claude/skills/protocol-audit/SKILL.md:346:Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+.claude/skills/protocol-close/SKILL.md:1361:Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+.claude/skills/protocol-gate1/SKILL.md:434:Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+.claude/skills/protocol-gate2/SKILL.md:575:Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+```
+
+- ✅ **Los dos controles del cierre (1b y 1c) devuelven cero** sobre el esqueleto, y tambien el
+  barrido ensanchado que se corrio **por iniciativa propia** porque el usuario pidio que el esqueleto
+  sirva para arrancar cualquier proyecto.
+- ⚠️ **El cuarto devuelve cuatro lineas, y son correctas:** la linea de atribucion del commit. No es
+  un dato de ningun proyecto y viaja igual a todos. Se publica en vez de excluirse del patron, porque
+  un patron que se estrecha para dar cero deja de comprobar.
+
+**Lo que `C-008` obligaba a vigilar, y que por poco se cuela:**
+
+```
+$ f=".claude/skills/protocol-audit/SKILL.md"
+$ for p in "$f" "$ESQ/$f"; do printf '%s  CR=%s  LF=%s\n' "$p" "$(tr -dc '\r' < "$p" | wc -c)" "$(tr -dc '\n' < "$p" | wc -c)"; done
+.claude/skills/protocol-audit/SKILL.md  CR=402  LF=402
+.../SDAI_TripleS/.claude/skills/protocol-audit/SKILL.md  CR=0  LF=374
+```
+
+⚠️ **Esas dos lineas son el estado ANTES de copiar.** La misma orden despues devuelve `CR=0 LF=402`
+en el destino: sigue en LF, y ya lleva las lineas del origen.
+
+- 🔑 **Un solo archivo estaba en CRLF aqui y LF alli**, justo el que la ficha avisaba. Se copio
+  **convirtiendo a LF** —el final que el destino ya tenia— en vez de byte a byte: una copia cruda
+  habria convertido el archivo entero, y su `diff` habria pasado de 40 lineas a 778.
+- ⚠️ **Como se encontro, y conviene decirlo porque la primera medicion fue mala:** se uso
+  `grep -c $'\r'`, que en este entorno devuelve el numero de lineas del archivo aunque no tenga ni un
+  CR — y dio «CRLF en los dos lados», que era falso. Lo delato que `diff` con y sin
+  `--strip-trailing-cr` daba 778 frente a 40 en ese unico archivo. La medicion fiable es
+  `tr -dc '\r' | wc -c`.
+- ⚠️ **Los dos repositorios tienen `core.autocrlf=true` y ninguno tiene `.gitattributes`**, asi que
+  git normaliza a LF al commitear de todos modos. La conversion manual importa para el **arbol de
+  trabajo**, que es sobre lo que corre el barrido de `D-148`, no para el objeto commiteado.
+
+**Lo que quedo fuera de alcance, y no se toco:**
+
+- ⚠️ El barrido estricto —sin `--strip-trailing-cr`— sigue devolviendo ese mismo archivo, y **es
+  correcto que lo haga**: `C-008` dice que este repositorio no normaliza finales de linea, y la opcion
+  existe en `D-148` precisamente para eso. El criterio de cierre es el barrido **con** la opcion.
+- ⚠️ **El `CLAUDE.md` promovido remite a `constraints.md` para la clasificacion de acciones
+  irreversibles**, y en un proyecto recien clonado ese archivo estara vacio. Degrada bien —el bullet
+  siguiente cubre el caso de lo que no este en ninguna tabla—, pero es una arista del arranque. Se
+  reporto al usuario antes de promover y se decidio promover igual.
+
+---
+
 ### T-159 - Registrar en `project.md` la ubicacion del esqueleto (`D-147`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -7017,12 +7220,62 @@ TC-001  Test Case
   no tenerla.
 - **Criterio de cierre:** `project.md` nombra el esqueleto con su ruta y su remoto, y lleva la nota.
 
+
+---
+
+**Verificacion — ejecutado el 2026-09-11:**
+
+```
+$ grep -nE "Esqueleto de arranque" project.md
+41:| Esqueleto de arranque — repositorio | `C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS` |
+42:| Esqueleto de arranque — remoto | `https://github.com/jdrodriguez1000/SDAI_TripleS.git` (privado) |
+64:📌 **Las dos filas de «Esqueleto de arranque» son la ubicacion que ni `CLAUDE.md` ni las skills pueden
+
+$ grep -c "el esqueleto salio de este proyecto" project.md
+1
+```
+
+- ✅ **Las dos filas y la nota del caso invertido estan**, junto a las tres de lecciones globales y con
+  el mismo razonamiento: el dato vive en el unico archivo del proyecto que guarda datos propios.
+
+**Que la ruta sirve tal como quedo escrita**, que era el riesgo real de la tabla —`T-160` la va a pegar
+en un comando `bash` y lleva barras invertidas:
+
+```
+$ ESQ="C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS"
+$ test -d "$ESQ" && echo SI || echo NO
+SI
+$ diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+(sin salida)
+```
+
+📌 **Nota del 2026-09-11, dentro de la misma sesion.** La ultima orden **no reescribe**, y deja de
+reproducir «sin salida» **mas tarde en esta misma jornada**: `T-161` volvio a tocar `CLAUDE.md`
+despues de este punto (la correccion sobre «uno de los dos protocolos»), asi que la misma orden,
+corrida hoy, si devuelve diferencia. Lo que esta verificado —que la ruta con barras invertidas
+resuelve sin convertirse— sigue siendo cierto; lo que ya no es cierto es que en este instante
+`CLAUDE.md` estuviera igual en los dos repositorios, porque volvio a cambiar aqui despues.
+
+- 🔑 **Se midio en vez de razonarse.** En Git Bash, una barra invertida entre comillas dobles seguida
+  de un caracter no especial es literal, asi que la ruta resuelve sin convertirla. `T-160` puede pegar
+  la fila tal cual; no hace falta una segunda forma de la ruta ni un paso de traduccion.
+- ⚠️ **Se conserva la forma con barras invertidas** para no romper la simetria con las otras dos rutas
+  absolutas de la tabla. `project.md` ya declara que las absolutas son la excepcion y que la forma
+  canonica —relativa y con `/`— es para citar archivos **dentro** del proyecto.
+
+**Lo que esta edicion arrastro, y habria quedado falso si no se toca:**
+
+- ⚠️ La tabla tenia debajo una frase que decia «**las dos** rutas absolutas de arriba son excepciones
+  declaradas», y enumeraba cuales: este repositorio y el de lecciones. Con la fila nueva son **tres**.
+  Se actualizo el numero y la enumeracion. No es una nota fechada porque no es un bloque de evidencia
+  ya commiteado: es prosa de `project.md` que describe el estado actual, y el estado cambio.
+
 ---
 
 ### T-160 - Anadir al cierre el barrido de desfase con el esqueleto (`D-148`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -7039,12 +7292,106 @@ TC-001  Test Case
 - **Criterio de cierre:** el paso existe con sus tres resultados posibles, y se prueba **en sus dos
   casos** (esqueleto desfasado y esqueleto al dia), como pide `L-053`.
 
+
+---
+
+**Verificacion — ejecutado el 2026-09-11.**
+
+**Que el paso existe, y donde:**
+
+```
+$ grep -nE "^## Paso 2f |^## 9\. Evidencia|^Desfase con el esqueleto" .claude/skills/protocol-close/SKILL.md
+616:## Paso 2f — El desfase con el esqueleto de arranque (antes del `git add`)
+1224:## 9. Evidencia del Paso 2f
+1970:Desfase con el esqueleto (2f) — <al dia, sin salida | <N> archivos por promover: <la lista entera> | 🚨 SIN COMPROBAR — <el motivo>>
+```
+
+**Los TRES resultados, probados uno por uno** —`L-053` pide dos casos y aqui hay tres, porque el
+`SIN COMPROBAR` es el que mas facilmente se queda sin probar. Se monto un esqueleto **desechable** en
+el area temporal, porque el real esta al dia y el caso «desfasado» no se puede provocar sin ensuciarlo:
+
+```
+===== CASO 1: al dia, y con un archivo de la copia pasado a CRLF =====
+(sin salida)
+
+===== CASO 2: desfasado =====
+Files <ESQ>/.claude/skills/protocol-close/SKILL.md and .claude/skills/protocol-close/SKILL.md differ
+Only in .claude/skills: protocol-harvest
+Files <ESQ>/_phases/000_preproject.md and _phases/000_preproject.md differ
+Only in <ESQ>/_workflow: inventado
+
+===== CASO 3: ruta ausente =====
+SIN COMPROBAR - la ruta del esqueleto no existe en esta maquina: C:/ruta/que/no/existe
+```
+
+- ✅ **El caso 1 sale vacio con un archivo en CRLF dentro**, que es la prueba de que la opcion
+  `--strip-trailing-cr` hace lo que el paso afirma. Probado tambien el contraste: **sin** la opcion ese
+  mismo archivo aparece como distinto.
+- ✅ **El caso 2 provoco tres desfases distintos a proposito** —un archivo editado, una carpeta que solo
+  esta aqui, y una carpeta que solo esta en el esqueleto—, y el paso **distingue las dos direcciones de
+  `Only in`**, que es lo que su segunda tabla promete. La cuarta linea es la propia skill, que cambio
+  al escribir este paso.
+- ✅ **El caso 3 devuelve la linea de `SIN COMPROBAR`**, no ruido.
+
+**Lo que la prueba del caso 3 cambio en el paso, y es el motivo de probarlo:**
+
+```
+$ ESQ="C:/ruta/que/no/existe/SDAI_TripleS"
+$ for d in .claude _phases; do diff -rq --strip-trailing-cr "$ESQ/$d" "$d"; echo "  exit=$?"; done
+diff: C:/ruta/que/no/existe/SDAI_TripleS/.claude: No such file or directory
+  exit=2
+diff: C:/ruta/que/no/existe/SDAI_TripleS/_phases: No such file or directory
+  exit=2
+```
+
+- 🚨 **La primera version del paso no llevaba guarda, y no producia un `SIN COMPROBAR`: producia seis
+  lineas de `No such file or directory`.** Eso no se distingue a simple vista de un desfase — justo la
+  confusion que el tercer resultado existe para evitar. Se le anadio el `if [ ! -d "$ESQ" ]`, y la
+  razon quedo escrita junto al comando. **Lo encontro la prueba, no la relectura.**
+
+**Que el paso no rompe el caracter copiable de la skill** (es una de las seis areas):
+
+```
+$ git grep -nE "RaindomAI|Raidom|Proyectos_TripleS|github\.com" -- .claude CLAUDE.md _phases _methodology _templates _workflow
+(sin salida)
+
+$ sed -n '/^## Paso 2f /,/^## Paso 3 /p' .claude/skills/protocol-close/SKILL.md | grep -noE '\b[A-Z]{1,2}-[0-9]+\b'
+(sin salida)
+```
+
+- 🔑 **El Paso 2f no cita ni una decision por su codigo**, aunque `.claude/` lo permitiria: la ruta la
+  lee de `project.md` entre `<angulos>`, y las razones van enunciadas —«la restriccion que lo declara»,
+  «su decision»— en vez de remitidas. Asi el paso viaja a otro proyecto sin apuntar a entradas que alli
+  no existen.
+
+**El barrido real, ya con el paso escrito:**
+
+```
+$ ESQ="C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS"
+$ if [ ! -d "$ESQ" ]; then echo "SIN COMPROBAR - ..."; else for d in .claude _phases _methodology _templates _workflow; do diff -rq --strip-trailing-cr "$ESQ/$d" "$d"; done; diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md; fi
+Files .../SDAI_TripleS/.claude/skills/protocol-close/SKILL.md and .claude/skills/protocol-close/SKILL.md differ
+```
+
+- 🔑 **Una linea, y es la correcta: el propio paso naciendo.** `protocol-close` cambio al escribirlo, asi
+  que el esqueleto queda una promocion por detras — y el paso lo detecta. **No se promueve hoy**:
+  detectar y promover estan separados, y promover lleva la puerta del usuario.
+- ⚠️ **Los desechables del area temporal se borraron al terminar**, asi que los casos 1 y 2 **no son
+  reproducibles tal cual**: habria que volver a montarlos. Se publican sus salidas y como se
+  construyeron; el caso 3 y el barrido real si reproducen.
+
+📌 **Nota del 2026-09-11, dentro de la misma sesion.** El «barrido real» de arriba **no se
+reescribe**, y su unica linea deja de ser la unica **mas tarde en esta misma jornada**: `T-161` creo
+`protocol-promote` y volvio a tocar `CLAUDE.md`. Corrida hoy, la misma orden devuelve cuatro lineas
+en vez de una — las mismas que reporta el Paso 2f de este cierre. Sigue siendo correcto que «el
+propio paso naciendo» fue la primera causa detectada; lo que cambio es que aparecieron mas causas
+despues, en la misma sesion, antes de llegar al cierre.
+
 ---
 
 ### T-161 - Escribir la skill de promocion al esqueleto, con su puerta (`D-146`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -7059,6 +7406,92 @@ TC-001  Test Case
   darselo seria un cambio de alcance, no configuracion.
 - **Criterio de cierre:** la skill existe, declara a `manager` como unico ejecutor, y su puerta va
   **antes de escribir**, no antes del push.
+
+
+---
+
+**Verificacion — ejecutado el 2026-09-11.**
+
+**Las tres casillas del criterio de cierre, una por una:**
+
+```
+$ grep -c 'unicamente `manager`' .claude/skills/protocol-promote/SKILL.md
+1
+
+$ grep -c 'No lo delegas en ningun agente' .claude/skills/protocol-promote/SKILL.md
+1
+
+$ grep -nE '^## Paso [0-9]+ —' .claude/skills/protocol-promote/SKILL.md
+58:## Paso 0 — Los datos propios, y el disparador
+95:## Paso 1 — El desfase, medido, no recordado
+128:## Paso 2 — Leer las dos direcciones antes de sobreescribir nada
+160:## Paso 3 — Los controles de agnosticismo, ANTES de la puerta
+189:## Paso 4 — El final de linea, medido por pareja
+217:## Paso 5 — 🚨 LA PUERTA
+241:## Paso 6 — Escribir fuera, commitear y subir
+275:## Paso 7 — El registro de vuelta, en este repositorio
+297:## Paso 8 — Reporte en pantalla
+```
+
+- ✅ **La skill existe** (349 lineas) y **declara a `manager` como unico ejecutor**, en el cuerpo y en
+  su `description`.
+- ✅ **La puerta va antes de escribir, no antes del push**, y eso es **comprobable por el orden de los
+  pasos**: la puerta es el Paso 5 (linea 217) y escribir fuera es el Paso 6 (linea 241). Los dos pasos
+  que podrian tentar a adelantarse —los barridos de agnosticismo y la medicion de finales de linea— van
+  en los Pasos 3 y 4, **delante** de la puerta, para que el usuario apruebe algo ya verificado y no una
+  promesa.
+
+**Que la skill no rompe el caracter copiable de las seis areas** (es una de ellas):
+
+```
+$ git grep -nE "RaindomAI|Raidom|Proyectos_TripleS|github[.]com" -- .claude CLAUDE.md _phases _methodology _templates _workflow
+(sin salida)
+
+$ grep -noE '\b[A-Z]{1,2}-[0-9]+\b' .claude/skills/protocol-promote/SKILL.md
+(sin salida)
+
+$ grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|vercel|supabase|Company_" .claude/skills/protocol-promote/SKILL.md
+(sin salida)
+```
+
+- 🔑 **Ni un codigo instanciado en 349 lineas**, aunque `.claude/` los permitiria. La skill cita las
+  razones enunciandolas —«la premisa del sentido unico», «un supuesto del registro»— en vez de
+  remitirlas por codigo, asi que viaja a otro proyecto sin apuntar a entradas que alli no existen.
+- 🔑 **La ruta del esqueleto la lee de `project.md` entre `<angulos>`**, como el resto del andamiaje, y
+  si esas filas no estan **el protocolo se detiene** en vez de adivinarlas.
+
+**Lo que esta tarea arrastro, y habria quedado falso si no se toca:**
+
+```
+$ git grep -n "unico protocolo del\|unico del andamiaje que" -- CLAUDE.md .claude/
+(sin salida)
+```
+
+- 🚨 **Dos frases afirmaban que la cosecha era EL UNICO protocolo que escribe fuera de este
+  repositorio** —una en `CLAUDE.md` y otra en la propia `protocol-harvest`—. Con esta skill son **dos**,
+  asi que las dos pasan a «uno de los dos», nombrando al otro. No va por nota fechada: es prosa que
+  describe el estado actual del andamiaje, no un bloque de evidencia ya commiteado, y el estado cambio.
+- ⚠️ **Lo que NO se hizo, y se deja dicho:** `CLAUDE.md` sigue **sin una seccion propia sobre el
+  esqueleto y su promocion**, como la que si tienen las lecciones globales. La frase corregida lo
+  menciona de pasada y nada mas. Inventar esa seccion se sale de esta tarea; **queda como hueco
+  señalado**, no como algo hecho.
+
+**El desfase con el esqueleto, despues de escribir la skill:**
+
+```
+Files <ESQ>/.claude/skills/protocol-close/SKILL.md and .claude/skills/protocol-close/SKILL.md differ
+Files <ESQ>/.claude/skills/protocol-harvest/SKILL.md and .claude/skills/protocol-harvest/SKILL.md differ
+Only in .claude/skills: protocol-promote
+Files <ESQ>/CLAUDE.md and CLAUDE.md differ
+```
+
+- 🔑 **Cuatro promociones pendientes, y es lo correcto que las haya.** La skill que acaba de nacer
+  existe para resolver exactamente esta lista — pero **no se usa hoy sobre si misma**: promover lleva la
+  puerta del usuario, y ademas su propio Paso 0 exige que este repositorio este limpio y subido, lo que
+  hoy no se cumple. Se promovera cuando el usuario lo pida, despues de cerrar.
+- ⚠️ **La skill no se ha ejecutado todavia ni una vez.** Lo que esta verificado es que existe, que
+  declara lo que debe y que su puerta esta en el orden correcto. **Que funcione de punta a punta no
+  esta demostrado**, y la primera ejecucion real es la prueba que falta.
 
 ---
 
@@ -7319,3 +7752,156 @@ Paso 7c-bis.
 
 📌 **Anclada por el Paso 7c-bis al commit `cce48e0`.** La unica orden que quedaba por anclar en este
 bloque reproduce exactamente las cuatro lineas publicadas arriba.
+
+---
+
+### T-169 - Fijar por nota fechada la frase de la bitacora de `S-035` sobre `project.md` (`F-100`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-036 |
+
+- **Que:** la entrada de `S-035` en la bitacora de `progress.md` afirma que «`project.md` gana dos
+  filas nuevas (esqueleto de origen y version de partida)». Es falso: el commit de la sesion no toca
+  `project.md`, y el archivo no lleva esas filas.
+- **De donde sale el error:** `D-150` prescribe que el `project.md` de un **proyecto nuevo** las lleve,
+  y `T-167` es la tarea que las llevara a la plantilla. La bitacora confundio «se decidio que las
+  llevara» con «las gano».
+- **Por que importa:** la bitacora es permanente y es lo primero que lee el arranque de la jornada
+  siguiente. Una entrada que afirma un cambio inexistente deja el registro contradiciendose consigo
+  mismo, y manda a buscar en `project.md` algo que no esta.
+- **Como se corrige:** nota fechada en la propia entrada, **sin reescribir la prosa original**,
+  siguiendo el precedente del resto de notas de la bitacora.
+- **Criterio de cierre:** la entrada de `S-035` lleva su nota, y la nota publica las dos ordenes que
+  muestran que ni el commit ni el archivo tienen las filas.
+
+---
+
+**Verificacion — ejecutado el 2026-09-11 sobre `HEAD` (`ce0ac4e`):**
+
+```
+$ git show --name-only --format= cce48e0 | grep -xc "project.md"
+0
+
+$ git show ce0ac4e:project.md | grep -ciE "esqueleto|version de partida"
+0
+```
+
+- ✅ **El commit auditado no toca `project.md`** (`0` coincidencias exactas en su lista de archivos) y
+  **el archivo no lleva las filas** (`0` lineas con «esqueleto» o «version de partida»). El hallazgo se
+  sostiene entero.
+
+---
+
+### T-170 - Rehacer y publicar el segundo barrido de `T-157`, con su patron y su ambito (`F-101`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-036 |
+
+- **Que:** el bloque de verificacion de `T-157` publica la conclusion de un «segundo patron, por
+  codigos instanciados», pero **ninguna orden publicada corresponde a ese patron**: arriba solo estan
+  el barrido de fuga (sin salida) y un `sed` de contexto.
+- **Por que importa:** `CLAUDE.md` lo prohibe literalmente — si el registro afirma un resultado, ese
+  resultado va con su patron y su ambito. Sin la orden, contrastar la afirmacion obliga a rehacer el
+  barrido entero, y entonces el que vale es el del auditor.
+- **Como se corrige:** la orden de entonces **no se puede reconstruir** —nunca se escribio—, asi que no
+  se finge. La nota fechada lo dice, rehace el barrido hoy y lo publica con su patron, su ambito y su
+  salida cruda. El bullet original no se reescribe.
+- 🔑 **El barrido de hoy recae sobre el mismo arbol**, y eso es lo que lo hace valido como sustituto:
+  el esqueleto sigue en `fa7da56`, el commit de partida, porque `T-158` no se ha hecho. Si ya se
+  hubiera sincronizado, el barrido de hoy mediria otra cosa y habria que decirlo.
+- ⚠️ **Lo rehecho ensancha el ambito que el bullet declaraba:** decia «las series de `_methodology/`»,
+  y hay lineas tambien en `_templates/` y en `CLAUDE.md`. Igual de licitas, pero no estaban nombradas.
+- **Criterio de cierre:** el bloque de `T-157` lleva su nota, y la nota publica el patron, el ambito y
+  la salida cruda de un barrido que reproduce.
+
+---
+
+**Verificacion — la nota queda puesta en el bloque de `T-157`:**
+
+```
+$ grep -cE 'T-1[7]0`, hallazgo `F-101' _persistence/tasks.md
+1
+
+$ grep -cE 'T-1[6]9`, hallazgo `F-100' _persistence/progress.md
+1
+```
+
+🔑 **La clase de caracter —`T-1[7]0` en vez de `T-170`— no es adorno: evita que la orden se cuente a
+si misma.** Escrita como cadena literal devolvia `2`, porque la propia linea del bloque de
+verificacion contenia el texto que buscaba. Una orden que se autoincluye no comprueba nada.
+
+⚠️ **Las dos ordenes se corren sobre el arbol de trabajo, no sobre un commit**, porque las notas nacen
+en esta sesion y todavia no hay commit que las contenga. El anclaje lo pone el Paso 7c-bis del cierre.
+
+---
+
+### T-171 - Corregir la cuarta cita cruzada, en el cuerpo de `D-147`
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante | 
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-036 |
+
+- **Que:** el cuerpo de `D-147` dice «la escritura es `T-162`». `T-162` es la guia de arranque del
+  esqueleto; la escritura de las dos filas es `T-159`. Es el mismo desplazamiento que ya se corrigio
+  en esa decision — pero alli habia **dos** remisiones y se arreglo **una**.
+- **Por que importa:** `D-147` quedaba apuntando a una tarea que no la implementa, asi que su criterio
+  de cierre podria darse por cumplido con el trabajo de otra. Es el defecto entero de la familia.
+- 🔑 **Lo que este caso anade a los tres anteriores:** no es una cita nueva, es **la segunda mitad de
+  una ya corregida**. La pasada anterior busco por la forma del criterio de cierre —«Lo implementa
+  `T-XXX`»— y dio por cerrada cada decision al encontrar una. Una decision puede citar su tarea mas de
+  una vez, y con otra redaccion.
+- **Como se corrige:** nota fechada en `D-147`, sin reescribir la prosa. La orden que la encontro va
+  **anclada al commit** donde el defecto existe, para que la nota no se incluya en su propio barrido.
+- **Criterio de cierre:** `D-147` lleva su nota, y la nota publica la orden anclada que alcanza las dos
+  redacciones con su salida cruda.
+
+---
+
+**Verificacion — ejecutado el 2026-09-11 sobre `ce0ac4e`:**
+
+```
+$ git show ce0ac4e:_persistence/decisions.md | sed -n '/^### D-145 /,/^### D-151 /p' \
+    | grep -nE "Lo implementa .T-1[5-7][0-9].|la escritura es .T-1[5-7][0-9]."
+106:  ejecutor. Lo implementa `T-161`.
+135:  `T-157` cree el repositorio. Por eso el registro es esta decision y la escritura es `T-162`.
+142:  del caso invertido. Lo implementa `T-159`.
+197:  va al informe. Lo implementa `T-160`.
+246:  tres filas y su `SIN COMPROBAR`. Lo implementa `T-166`.
+
+$ grep -nE "T-1[7]1" _persistence/decisions.md
+9489:⚠️ **Nota del 2026-09-11 (`T-171`): queda una CUARTA cita cruzada, en el cuerpo.** La vineta de arriba
+```
+
+- ✅ **La linea 135 es la unica incorrecta de las cinco.** `D-147` sale dos veces —135 en el cuerpo y
+  142 en el criterio de cierre, esta ya corregida—, que es justo la forma del defecto.
+- 🔑 **La orden va anclada a `ce0ac4e` a proposito.** Corrida sobre el arbol incluiria el texto de la
+  propia nota, que tambien cita tareas, y el conteo dejaria de significar nada.
+
+📌 **Nota del 2026-09-11, hallada por el Paso 2d del cierre.** La **segunda** orden de arriba (la que
+busca `T-1[7]1` sin ancla, solo para mostrar que la nota existe) publica `9489` como numero de linea,
+y ese numero **ya no reproduce**: otras notas se anadieron a `decisions.md` **despues**, dentro de la
+misma sesion, y desplazaron la nota. Corrida hoy:
+
+```
+$ grep -nE "T-1[7]1" _persistence/decisions.md
+9512:⚠️ **Nota del 2026-09-11 (`T-171`): queda una CUARTA cita cruzada, en el cuerpo.** La vineta de arriba
+```
+
+No es un error de contenido —la nota sigue siendo la misma, solo se movio de linea— y la **primera**
+orden (la anclada a `ce0ac4e`) sigue reproduciendo exacta, verificado arriba. Esto no se corrige a
+mano: es la prueba de que un numero de linea sin ancla, tomado del arbol de trabajo, no sobrevive a
+mas ediciones del mismo archivo en la misma jornada.

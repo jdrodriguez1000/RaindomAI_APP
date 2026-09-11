@@ -159,6 +159,7 @@
 | [D-148](#d-148---el-cierre-detecta-el-desfase-con-el-esqueleto-e-informa-no-frena) | El cierre detecta el desfase con el esqueleto e informa, no frena | 2026-09-11 | Vigente | usuario |
 | [D-149](#d-149---la-orden-de-la-seccion-1-se-comprueba-por-cadena-literal-antes-del-commit-de-anclaje) | La orden de la seccion 1 se comprueba por cadena literal, antes del commit de anclaje | 2026-09-11 | Vigente | report_auditor |
 | [D-150](#d-150---un-proyecto-nuevo-arranca-por-clone-anota-el-hash-y-parte-con-historial-limpio) | Un proyecto nuevo arranca por clone, anota el hash y parte con historial limpio | 2026-09-11 | Vigente | usuario |
+| [D-151](#d-151---los-patrones-mangled-del-registro-no-se-corrigen-en-masa-la-regla-rige-hacia-adelante) | Los patrones mangled del registro no se corrigen en masa: la regla rige hacia adelante | 2026-09-11 | Vigente | manager |
 
 ---
 
@@ -9450,6 +9451,28 @@ y el barrido de fuga previo —repetido ese mismo dia sobre el arbol entero— s
 cierre.** La skill de promocion con su puerta es `T-161`. Corregida la remision; la decision no
 cambia.
 
+✅ **Nota del 2026-09-11 (`T-161`): el criterio de cierre se cumple.** Existe la skill
+`protocol-promote`, declara a `manager` como unico ejecutor, y su puerta va **antes de escribir**:
+
+```
+$ grep -c 'unicamente `manager`' .claude/skills/protocol-promote/SKILL.md
+1
+$ grep -nE '^## Paso 5 |^## Paso 6 ' .claude/skills/protocol-promote/SKILL.md
+217:## Paso 5 — 🚨 LA PUERTA
+241:## Paso 6 — Escribir fuera, commitear y subir
+```
+
+🔑 **Que la puerta este antes de escribir se comprueba por el ORDEN de los pasos, no por una frase que
+lo prometa.** Es la unica forma mecanica de verificarlo: una skill puede afirmar que tiene puerta y
+tenerla despues del `git add`. Tambien van delante de la puerta los dos pasos que mas tentarian a
+adelantarse —los barridos de agnosticismo y la medicion de finales de linea—, para que el usuario
+apruebe algo ya verificado.
+
+⚠️ **Con esto quedan las dos mitades de esta decision, pero la skill NO se ha ejecutado ni una vez.**
+Lo verificado es que existe y que esta bien ordenada; que funcione de punta a punta lo demostrara su
+primera ejecucion real, que sera tambien la primera prueba del supuesto del sentido unico sobre un lote
+que no se promovio a mano.
+
 ---
 
 ### D-147 - La ubicacion del esqueleto se registra en `project.md`, no como restriccion
@@ -9485,6 +9508,46 @@ cambia.
 ⚠️ **Nota del 2026-09-11 (`T-168`): la cita decia `T-162`, que es la guia de arranque del
 esqueleto.** Registrar la ubicacion en `project.md` es `T-159`. Corregida la remision; la decision no
 cambia.
+
+⚠️ **Nota del 2026-09-11 (`T-171`): queda una CUARTA cita cruzada, en el cuerpo.** La vineta de arriba
+dice «la escritura es `T-162`»; la escritura de estas dos filas es **`T-159`**. `T-162` es la guia de
+arranque del esqueleto. Es el mismo desplazamiento que la nota anterior corrigio en el criterio de
+cierre — pero alli se corrigio **una** linea y habia **dos**.
+
+🔑 **Por que la primera pasada no la vio, y es lo util de este caso:** se busco por la forma del
+criterio de cierre («Lo implementa `T-XXX`»), que es donde se esperaba el defecto. El cuerpo de la
+decision cita la misma tarea con otra redaccion, y ningun patron por esa forma la alcanza. La orden
+que alcanza las dos redacciones, **anclada al commit en que se encontro** para que no se incluya a si
+misma (el texto de esta nota tambien cita tareas):
+
+```
+$ git show ce0ac4e:_persistence/decisions.md | sed -n '/^### D-145 /,/^### D-151 /p' \
+    | grep -nE "Lo implementa .T-1[5-7][0-9].|la escritura es .T-1[5-7][0-9]."
+106:  ejecutor. Lo implementa `T-161`.
+135:  `T-157` cree el repositorio. Por eso el registro es esta decision y la escritura es `T-162`.
+142:  del caso invertido. Lo implementa `T-159`.
+197:  va al informe. Lo implementa `T-160`.
+246:  tres filas y su `SIN COMPROBAR`. Lo implementa `T-166`.
+```
+
+- ⚠️ **La linea 135 es la cita mala; las otras cuatro son correctas.** `D-147` aparece dos veces —135
+  (cuerpo, incorrecta) y 142 (criterio de cierre, ya corregida por la nota anterior)—, que es
+  exactamente la forma del defecto: una decision con dos remisiones y solo una arreglada.
+
+⛔ **La prosa de arriba no se reescribe.** Solo esta nota corrige la remision; la decision no cambia.
+
+✅ **Nota del 2026-09-11 (`T-159`): el criterio de cierre se cumple.** `project.md` nombra el esqueleto
+con su ruta y su remoto, y lleva la nota del caso invertido:
+
+```
+$ grep -c "Esqueleto de arranque —" project.md
+2
+$ grep -c "el esqueleto salio de este proyecto" project.md
+1
+```
+
+⚠️ **Las dos ordenes corren sobre el arbol de trabajo, no sobre un commit**, porque las filas nacen en
+esta sesion y todavia no hay commit que las contenga. El anclaje lo pone el Paso 7c-bis del cierre.
 
 ---
 
@@ -9539,6 +9602,21 @@ $ diff -rq --strip-trailing-cr a b
 
 ⚠️ **Nota del 2026-09-11 (`T-168`): la cita decia `T-161`, que es la skill de promocion.** El
 barrido de desfase del cierre es `T-160`. Corregida la remision; la decision no cambia.
+
+✅ **Nota del 2026-09-11 (`T-160`): el criterio de cierre se cumple.** El cierre lleva el barrido como
+**Paso 2f**, con sus tres resultados y su condicion de `SIN COMPROBAR`, y su salida tiene seccion propia
+en el informe:
+
+```
+$ grep -cE "^## Paso 2f |^## 9\. Evidencia del Paso 2f$|^Desfase con el esqueleto \(2f\)" .claude/skills/protocol-close/SKILL.md
+3
+```
+
+🔑 **Lo que la prueba anadio a lo que esta decision prescribia:** el comando de arriba, tal como se
+escribio aqui, **no producia el tercer resultado**. Con una ruta ausente devolvia lineas de
+`No such file or directory` por stderr, indistinguibles de un desfase a simple vista. El paso lleva por
+eso una **guarda** `if [ ! -d "$ESQ" ]` que esta decision no habia previsto. La prosa de arriba no se
+reescribe: lo que prescribia sigue siendo correcto, solo estaba incompleto.
 
 ---
 
@@ -9651,3 +9729,41 @@ git remote add origin <remoto del proyecto>
 - **Criterio de cierre:** la plantilla de `project.md` lleva las dos filas nuevas con sus huecos
   (`T-167`), y la guia de arranque del esqueleto lleva el procedimiento completo, incluido lo que un
   clone no trae (`T-162`).
+
+---
+
+### D-151 - Los patrones mangled del registro no se corrigen en masa: la regla rige hacia adelante
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | manager |
+
+- **Contexto:** al escribir los bloques de verificacion de esta sesion se descubrio que las barras
+  invertidas se pierden al escribir por shell (`C-010`, `L-057`). Al medir el alcance aparecieron **26
+  ocurrencias ya commiteadas** en el registro: patrones publicados en sesiones anteriores cuyo `\b`
+  quedo como caracter de retroceso. Esos bloques **no reproducen**.
+- **Decision:** **no se corrigen en masa.** La regla nueva rige **hacia adelante**; lo ya commiteado se
+  queda como esta, y la deuda se registra.
+- 🔑 **Por que, y no es comodidad.** Reescribir un bloque antiguo para que exhiba el patron que
+  *deberia* haberse ejecutado convierte «evidencia que no reproduce» en **evidencia falsa** — y esta
+  vez sin nadie que lo note. El bloque diria que aquel dia se corrio una orden que aquel dia no se
+  corrio. Es exactamente la linea que este repositorio no cruza: lo que se corrige se corrige **por
+  nota fechada**, no reescribiendo.
+- ⚠️ **Lo que si se puede hacer, y es otra cosa:** si algun dia hace falta el resultado de uno de esos
+  barridos, **se rehace hoy** y se publica con su fecha, diciendo que el de entonces no se pudo
+  reconstruir. Hay precedente de esa forma en esta misma sesion.
+- 🔑 **Y el alcance medido es lo que hace la decision barata.** Las seis areas agnosticas estan
+  limpias: **ningun control vivo esta averiado**. Lo afectado es registro historico, y su unico daño es
+  que aquellas afirmaciones cuestan mas de contrastar. Si el barrido hubiera salido sucio en una skill,
+  esta decision seria la contraria.
+- **Alternativas descartadas:** (a) **corregir las 26** — produce evidencia falsa, ver arriba; (b)
+  **corregirlas anadiendo una nota a cada una** — 26 notas que no aportan nada nuevo sobre lo que ya
+  dice `L-057`, y que enterrarian el registro en ruido; (c) **no registrar nada y dejarlo pasar** — el
+  defecto volveria a descubrirse desde cero dentro de unas sesiones, que es como se descubrio ahora.
+- ⛔ **Lo que esta decision NO autoriza:** dejar pasar un patron mangled **nuevo**. Hacia adelante, la
+  orden publicada se copia de vuelta del archivo y se corre antes de darla por buena (`C-010`). Esta
+  decision habla del pasado, no del presente.
+- **Reversible a criterio** — no se borra ni se reescribe nada; es una decision de **no** actuar.
+- **Criterio de cierre:** la deuda queda registrada con su cifra y su barrido, y ningun bloque antiguo
+  se reescribe. Lo implementa la entrada de deuda tecnica que proponga el cierre.

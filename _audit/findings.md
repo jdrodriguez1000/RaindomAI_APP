@@ -111,8 +111,8 @@
 | [F-097](#f-097---la-nota-de-cierre-no-publica-la-salida-del-control-de-cifra-adyacente-que-el-paso-6b-declara-obligatoria) | La NOTA DE CIERRE no publica la salida del CONTROL DE CIFRA ADYACENTE, que el Paso 6b declara obligatoria | R-033 | Media | Implementado |
 | [F-098](#f-098---la-seccion-1-publica-una-orden-que-no-es-la-que-produjo-la-salida-pegada) | La seccion 1 del informe de `S-034` publica una orden que no es la que produjo la salida pegada | R-034 | Media | Implementado |
 | [F-099](#f-099---la-seccion-1-describe-el-cambio-de-findingsmd-con-un-fragmento-roto-y-una-etiqueta-falsa) | La seccion 1 del informe de `S-034` describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa | R-034 | Baja | Implementado |
-| [F-100](#f-100---la-bitacora-de-s-035-afirma-que-projectmd-gana-dos-filas-nuevas-y-el-commit-no-toca-projectmd) | La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md` | R-035 | Media | Abierto |
-| [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Abierto |
+| [F-100](#f-100---la-bitacora-de-s-035-afirma-que-projectmd-gana-dos-filas-nuevas-y-el-commit-no-toca-projectmd) | La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md` | R-035 | Media | Aceptado — pendiente |
+| [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Aceptado — pendiente |
 
 ---
 
@@ -4539,8 +4539,8 @@ $ git diff 2cef150^ 2cef150 -- _audit/findings.md | grep -cE '^\+\| Estado \| Ac
 | Auditoria | R-035 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-169` |
 | Cerrado en | |
 
 - **Que se observo:** la entrada `S-035` de la bitacora de `_persistence/progress.md` escribe, en
@@ -4585,8 +4585,8 @@ $ git show cce48e0:_persistence/tasks.md | sed -n '/^### T-167 /,/^| Estado/p' |
 | Auditoria | R-035 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-170` |
 | Cerrado en | |
 
 - **Que se observo:** el bloque de verificacion de `T-157` publica el primer barrido de fuga con su

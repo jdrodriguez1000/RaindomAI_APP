@@ -64,6 +64,8 @@
 | [L-053](#l-053---un-control-de-presencia-se-prueba-contra-el-artefacto-que-lo-motivo-o-no-esta-probado) | Un control de presencia se prueba contra el artefacto que lo motivo, o no esta probado | 2026-09-11 | 000_preproject | Sin evaluar |
 | [L-054](#l-054---un-original-sin-mecanismo-de-deteccion-deja-de-ser-original-en-silencio) | Un original sin mecanismo de deteccion deja de ser original en silencio | 2026-09-11 | 000_preproject | Sin evaluar |
 | [L-055](#l-055---un-aviso-movido-a-la-plantilla-sigue-copiandose-a-mano) | Un aviso movido a la plantilla sigue copiandose a mano | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-056](#l-056---una-orden-que-busca-una-cadena-en-el-archivo-donde-vive-se-cuenta-a-si-misma) | Una orden que busca una cadena en el archivo donde vive se cuenta a si misma | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-057](#l-057---una-barra-invertida-se-pierde-al-escribir-y-convierte-un-patron-publicado-en-uno-que-no-reproduce) | Una barra invertida se pierde al escribir, y convierte un patron publicado en uno que no reproduce | 2026-09-11 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -2032,3 +2034,84 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
 - ⚠️ **De ahi que dos defectos de la misma seccion, el mismo dia, se traten distinto.** No es
   incoherencia: es que uno se puede comprobar y el otro no. Escribir mecanismo para el segundo
   «por simetria» habria sido la peor de las dos opciones.
+
+---
+
+### L-056 - Una orden que busca una cadena en el archivo donde vive se cuenta a si misma
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** una nota fechada se comprueba buscando su propio rotulo —`Nota del <fecha>
+  (<tarea>, hallazgo <codigo>)`— con un `grep -c` que se publica en el bloque de verificacion de la
+  tarea. Es el mecanismo habitual aqui, y funciona cuando la nota y el bloque viven en archivos
+  distintos.
+- **Que ocurrio:** esta vez los dos vivian en el mismo archivo. La orden devolvio `2` en vez de `1`,
+  y la segunda coincidencia **era la propia linea de la orden**, que contiene el rotulo como cadena
+  literal. Publicada sin mirar, habria afirmado que la nota esta dos veces.
+- **Leccion:** cuando una orden busca una cadena literal **en el archivo donde la propia orden queda
+  escrita**, se incluye en su resultado. El arreglo es barato y hace la orden mas honesta, no menos:
+  romper la cadena con una clase de caracter de un solo elemento —`T-1[7]0` en vez de `T-170`— que
+  coincide con lo buscado pero no consigo misma.
+- 🔑 **Lo grave no es el `2`: es que el `2` se nota.** Un desfase de uno en un conteo que «deberia dar
+  uno» salta a la vista; el caso peligroso es el conteo que ya era `>1` por razones legitimas, donde
+  la coincidencia parasita se esconde dentro de una cifra plausible.
+- ⚠️ **Donde mas vale la pena mirar, y es una sospecha, no un fallo encontrado:** cualquier barrido
+  cuyo ambito incluya el archivo que publicara su resultado corre el mismo riesgo. Los barridos de fuga
+  de este repositorio se salvan porque su ambito son las seis areas agnosticas y el registro queda
+  fuera por construccion — pero eso es una propiedad del ambito, no una garantia del mecanismo.
+
+---
+
+### L-057 - Una barra invertida se pierde al escribir, y convierte un patron publicado en uno que no reproduce
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** casi todo bloque de verificacion de este repositorio publica un `grep` con su patron, y
+  muchos patrones llevan `\b` para anclar un codigo, o `\r` y `\n` para medir finales de linea. Esos
+  textos se escriben en el archivo pasando por una o varias capas de shell.
+- **Que ocurrio:** al escribir el bloque de una tarea, las barras invertidas **se perdieron por el
+  camino** —incluso dentro de un heredoc citado, que en teoria no interpreta nada—. El resultado no
+  fue un error visible: `\b` quedo como un **caracter de retroceso real** (`0x08`) dentro del archivo,
+  y `\n` como un salto de linea de verdad, que partio una orden en dos. En pantalla el patron parece
+  correcto: el retroceso no se ve.
+- **Leccion:** una orden publicada **no esta verificada hasta que se copia de vuelta del archivo y se
+  corre**. Comprobar lo que se pretendia escribir no sirve; hay que comprobar lo que quedo escrito.
+  Y la via fiable para escribir texto con barras es **no meterlas en el codigo**: construirlas con
+  `chr(92)`, o leer el texto de un archivo en vez de incrustarlo.
+- 🔑 **Por que es peor que un error normal:** un patron roto por esta via **sigue corriendo y sigue
+  devolviendo cero**. `grep -E` acepta un retroceso en el patron sin quejarse: simplemente ya no
+  coincide con nada. Un control asi no avisa de que se averio — informa exactamente lo mismo que un
+  control que pasa.
+- ⚠️ **Ya habia ocurrido antes, y nadie lo habia notado. Medido:**
+
+```
+$ python -c "print(sum(open(f,encoding='utf-8',newline='').read().count(chr(8)) for f in ['_persistence/tasks.md','_persistence/assumptions.md','_audit/findings.md']))"
+26
+```
+
+- 🔑 **Donde importa y donde no, y la diferencia es grande.** Las seis areas agnosticas —donde viven
+  los controles que de verdad se ejecutan cada cierre— estan **limpias**, y no de palabra:
+
+```
+$ python -c "
+import subprocess
+BS=chr(8)
+fs=subprocess.run(['git','ls-files','.claude','CLAUDE.md','_phases','_methodology','_templates','_workflow'],capture_output=True,text=True).stdout.split()
+t=sum(open(f,encoding='utf-8',newline='').read().count(BS) for f in fs)
+print(len(fs),'archivos,',t,'ocurrencias')"
+71 archivos, 0 ocurrencias
+```
+
+  Las 26
+  estan en `_persistence/` y `_audit/`, que son **registro historico**: bloques ya commiteados que
+  describen comprobaciones pasadas. No rompen ningun control vivo; lo que degradan es la
+  reproducibilidad de esa evidencia.
+- ⛔ **Y por eso no se corrigen en masa.** Reescribir un bloque antiguo para que exhiba un patron que
+  aquel dia no se ejecuto convierte «evidencia que no reproduce» en «evidencia falsa». Lo que procede
+  es que la regla **rija hacia adelante**, y que lo viejo quede como deuda registrada.

@@ -38,15 +38,18 @@ la proxima vez que alguien la vea.
 | Lecciones globales — repositorio | `C:\Users\USUARIO\Documents\Company_TripleS\TripleS_Lessons` |
 | Lecciones globales — archivo | `global_lessons.md`, en la raiz de ese repositorio |
 | Lecciones globales — remoto | `https://github.com/jdrodriguez1000/TripleS_Lessons.git` (privado) |
+| Esqueleto de arranque — repositorio | `C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS` |
+| Esqueleto de arranque — remoto | `https://github.com/jdrodriguez1000/SDAI_TripleS.git` (privado) |
 
 🔑 **Forma canonica: relativa y con `/`.** Las rutas relativas de esta tabla se escriben **tal
 como se pegan en un comando**, con separador `/` y desde la raiz de este repositorio. Es la unica
 forma valida, y por una razon concreta: funciona igual en Bash y en PowerShell. Quien copie un valor
 de aqui a un bloque `bash` obtiene una orden que corre; no una que hay que traducir antes.
 
-⚠️ **Las dos rutas absolutas de arriba son excepciones declaradas**, no una segunda forma a elegir:
-existen porque nombran **una ubicacion en esta maquina** —la de este repositorio y la del
-repositorio de lecciones—, no porque sirvan para navegar dentro de ellos. **Para citar un archivo
+⚠️ **Las tres rutas absolutas de arriba son excepciones declaradas**, no una segunda forma a elegir:
+existen porque nombran **una ubicacion en esta maquina** —la de este repositorio, la del
+repositorio de lecciones y la del esqueleto de arranque—, no porque sirvan para navegar dentro de
+ellos. **Para citar un archivo
 del proyecto se usa la relativa.**
 
 📌 **Las tres filas de «Lecciones globales» son la ubicacion que `CLAUDE.md` no puede llevar
@@ -57,6 +60,25 @@ proyecto que guarda datos propios. Si el repositorio de lecciones se mueve, se c
 ⚠️ **Ese repositorio no es una carpeta de este proyecto**, y por eso **no** le toca fila en
 «Carpetas propias» ni la mira el control de carpetas del cierre. Es un recurso externo que se
 consulta, como lo seria una documentacion en linea.
+
+📌 **Las dos filas de «Esqueleto de arranque» son la ubicacion que ni `CLAUDE.md` ni las skills pueden
+llevar dentro**, por la misma razon que las de lecciones globales: los dos mecanismos que usan ese
+dato —el barrido de desfase del cierre y la promocion del andamiaje— viven en archivos que tienen que
+poder copiarse a otro proyecto tal cual. **El donde vive aqui.** Si el esqueleto se mueve, se cambia
+en un sitio.
+
+🚨 **Y va con una nota que no aplicara a ningun otro proyecto: este proyecto NO salio del esqueleto —
+el esqueleto salio de este proyecto.** Todos los proyectos siguientes arrancaran clonandolo y llevaran
+una fila mas, «version del esqueleto de la que partio», con el hash de origen. Este no la lleva, y no
+es un olvido: es el unico que no puede llevarla.
+
+🔑 **Sin esta nota el hueco se lee como un descuido.** Dentro de un ano, alguien que compare este
+`project.md` con el de otro proyecto vera que aqui falta una fila y no tendra forma de saber si falta
+por error o si nunca existio. La nota contesta eso de antemano, que es lo unico que no se puede
+reconstruir despues.
+
+⚠️ **Ese repositorio tampoco es una carpeta de este proyecto**, igual que el de lecciones: **no** le
+toca fila en «Carpetas propias» ni lo mira el control de carpetas del cierre.
 
 ## Reparto de autoridad
 

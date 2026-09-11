@@ -16,6 +16,7 @@
 | [DT-004](#dt-004---siete-lineas-nuevas-de-s-019-repiten-el-defecto-de-dt-003-en-decisionsmd-y-tasksmd) | Siete lineas nuevas de `S-019` repiten el defecto de `DT-003`, en `decisions.md` y `tasks.md` | No implementada | Propuesta (pendiente del usuario) | Media | No bloqueante |
 | [DT-005](#dt-005---una-linea-de-_auditfindingsmd-repite-el-defecto-de-dt-003-en-un-archivo-que-manager-no-escribe) | Una linea de `_audit/findings.md` repite el defecto de `DT-003`, en un archivo que `manager` no escribe | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
 | [DT-006](#dt-006---cuatro-lineas-nuevas-de-s-027-repiten-el-defecto-de-dt-003-en-assumptionsmd) | Cuatro lineas nuevas de `S-027` repiten el defecto de `DT-003`, en `assumptions.md` | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
+| [DT-007](#dt-007---26-ocurrencias-heredadas-del-defecto-de-dt-003-en-tasksmd-assumptionsmd-y-findingsmd-d-151-c-010-l-057) | 26 ocurrencias heredadas del defecto de `DT-003` en `tasks.md`, `assumptions.md` y `findings.md` (`D-151`, `C-010`, `L-057`) | No implementada | Propuesta (pendiente del usuario) | Baja | No bloqueante |
 
 ---
 
@@ -474,3 +475,50 @@ $ git show HEAD:_persistence/assumptions.md | grep -c $'[\x01-\x08\x0b\x0c\x0e-\
 
 📌 **Se registra como `Propuesta (pendiente del usuario)`**, igual que `DT-003`/`DT-004`/`DT-005`:
 decidir cuanto se toca un texto que `manager` ya redacto es un eje del usuario, no del cierre.
+
+---
+
+### DT-007 - 26 ocurrencias heredadas del defecto de `DT-003` en `tasks.md`, `assumptions.md` y `findings.md` (`D-151`, `C-010`, `L-057`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Confirmacion | Propuesta (pendiente del usuario) |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Origen | manager (deteccion: sesion de trabajo, al escribir bloques de verificacion con `\b`) |
+| Fecha | 2026-09-11 |
+
+- **Deuda:** esta sesion midio, no razono, el alcance del defecto que ya documentan `DT-003` a
+  `DT-006` — una barra invertida que se pierde al escribir por shell y queda como caracter de
+  retroceso real `0x08` (`C-010`, `L-057`). El barrido registrado en `D-151` encuentra **26
+  ocurrencias** ya commiteadas, repartidas en `_persistence/tasks.md`, `_persistence/assumptions.md`
+  y `_audit/findings.md`:
+
+```
+$ python -c "print(sum(open(f,encoding='utf-8',newline='').read().count(chr(8)) for f in ['_persistence/tasks.md','_persistence/assumptions.md','_audit/findings.md']))"
+26
+```
+
+- **Relacion con `DT-003`-`DT-006`:** es la misma familia de defecto, no una nueva. La diferencia es
+  el metodo de deteccion: aquellas se encontraron a mano, archivo por archivo; esta cifra sale de un
+  barrido deliberado sobre los tres archivos que la sesion identifico como afectados, y puede
+  solaparse con ocurrencias ya contadas en `DT-003`-`DT-006`. No se ha hecho la reconciliacion
+  linea a linea entre unas y otras.
+- **Por que no se corrige en este cierre — la misma razon que `DT-003`/`DT-006`:** `D-151` decidio
+  explicitamente **no corregir en masa**: reescribir un bloque antiguo para que exhiba el patron que
+  *deberia* haberse ejecutado convierte «evidencia que no reproduce» en «evidencia falsa». La regla
+  rige hacia adelante (`C-010`); lo ya commiteado se queda como esta y se registra como deuda.
+- **Alcance ya medido y acotado:** las seis areas agnosticas del proyecto (`.claude/`, `CLAUDE.md`,
+  `_phases/`, `_methodology/`, `_templates/`, `_workflow/`) estan limpias — **ningun control vivo esta
+  averiado**. Lo afectado es registro historico, y su unico dano es que aquellas afirmaciones cuestan
+  mas de contrastar.
+- **Costo de no pagarla:** los bloques de verificacion senalados no se pueden copiar y ejecutar tal
+  cual: el interprete recibe un caracter de control donde el patron esperaba `\b`.
+- **Como se paga:** nota fechada junto a cada linea afectada, con la forma reejecutable, sin
+  reescribir el bloque original — el mismo mecanismo que `DT-003`. Requiere antes decidir si se paga
+  entrada por entrada o se acepta como deuda permanente de bajo costo, que es lo que decide el
+  usuario al confirmar esta propuesta.
+
+📌 **Se registra como `Propuesta (pendiente del usuario)`**, igual que `DT-003`-`DT-006`: decidir si
+se paga, y con que alcance frente al posible solape con las cuatro deudas anteriores, es un eje del
+usuario, no del cierre.

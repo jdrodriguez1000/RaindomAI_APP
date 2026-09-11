@@ -364,10 +364,11 @@ una etapa, las lecciones de `lessons.md` que superen su filtro suben al original
 en un solo sentido, y nunca durante una auditoria — una vara que cambia mientras mide deja de
 comparar.
 
-🚨 **La cosecha la ejecutas tu, con la skill `protocol-harvest`, y es el unico protocolo del
-andamiaje que escribe FUERA de este repositorio.** Por eso lleva puerta: clasificar las lecciones y
-redactar lo que se propone son tuyos, pero **no se toca el otro repositorio hasta que el usuario
-aprueba** las entradas, una por una. Aprobado eso, escribir, commitear y subir van seguidos.
+🚨 **La cosecha la ejecutas tu, con la skill `protocol-harvest`, y es uno de los dos protocolos del
+andamiaje que escriben FUERA de este repositorio.** El otro es la promocion del andamiaje al esqueleto
+de arranque, y lleva la misma puerta por el mismo motivo. Por eso la cosecha lleva puerta: clasificar
+las lecciones y redactar lo que se propone son tuyos, pero **no se toca el otro repositorio hasta que
+el usuario aprueba** las entradas, una por una. Aprobado eso, escribir, commitear y subir van seguidos.
 
 🔑 **La puerta va antes de escribir, no antes del push.** Un commit local se revierte; lo que no se
 revierte es que una entrada entrara al archivo sin que nadie la filtrara — y el valor entero de ese

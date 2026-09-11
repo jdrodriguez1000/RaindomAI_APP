@@ -59,6 +59,7 @@
 | [S-033](#s-033---se-aceptan-f-093-y-f-094-t-148-a-t-151-se-adopta-la-secuencia-de-etapas-d-142-y-se-aplazan-t-001-t-003-y-t-144-d-143) | Se aceptan `F-093` y `F-094` (`T-148` a `T-151`); se adopta la secuencia de etapas (`D-142`) y se aplazan `T-001`, `T-003` y `T-144` (`D-143`) | 2026-09-10 | `000_preproject` |
 | [S-034](#s-034---se-aceptan-f-095-a-f-097-t-152-a-t-155-y-nace-el-paso-7c-ter-d-144-el-esqueleto-de-arranque-pasa-a-ser-repositorio-propio-d-145-a-d-148-t-156-a-t-163) | Se aceptan `F-095` a `F-097` (`T-152` a `T-155`), nace el Paso 7c-ter (`D-144`); el esqueleto de arranque pasa a ser repositorio propio (`D-145` a `D-148`, `T-156` a `T-163`) | 2026-09-11 | `000_preproject` |
 | [S-035](#s-035---se-aceptan-f-098-y-f-099-t-164-a-t-166-nace-el-paso-7c-quater-d-149-y-l-055-el-esqueleto-se-publica-como-repositorio-t-157-y-nace-la-forma-de-arranque-por-clone-d-150) | Se aceptan `F-098` y `F-099` (`T-164` a `T-166`); nace el Paso 7c-quater (`D-149`) y `L-055`; el esqueleto se publica como repositorio (`T-157`) y nace la forma de arranque por clone (`D-150`) | 2026-09-11 | `000_preproject` |
+| [S-036](#s-036---se-aceptan-f-100-y-f-101-t-169-t-170-se-corrige-la-cuarta-cita-cruzada-t-171-el-esqueleto-queda-sincronizado-y-con-su-barrido-de-cierre-t-158-a-t-161-nace-dt-007-d-151-c-010-l-057) | Se aceptan `F-100` y `F-101` (`T-169`, `T-170`); se corrige la cuarta cita cruzada (`T-171`); el esqueleto queda sincronizado y con su barrido de cierre (`T-158` a `T-161`); nace `DT-007` (`D-151`, `C-010`, `L-057`) | 2026-09-11 | `000_preproject` |
 
 ---
 
@@ -84,86 +85,95 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-11 (S-035) |
+| Ultima actualizacion | 2026-09-11 (S-036) |
 | Salud | En marcha |
-| Avance de la etapa | Se evaluaron, contra `HEAD` (`4f0cc42`, la auditoria `R-034` sobre `S-034` en `2cef150`), los dos hallazgos abiertos de `R-034` (`F-098`, `F-099`): los dos se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-164`, `T-165`). `F-098` (la seccion 1 de `S-034` publicaba `git show --stat --name-only 2cef150`, sin `--format=`, con la salida de la orden **con** `--format=` pegada debajo) y `F-099` (esa misma seccion describia el cambio de `findings.md` con un residuo de edicion y una etiqueta falsa) se corrigen por nota fechada en `_audit/S-034.md`, sin reescribir su prosa. De `F-098` nace ademas un mecanismo: el Paso 7c-quater en `protocol-close`, que corre antes del commit de anclaje y comprueba por cadena literal (`grep -qF`) que la seccion 1 publique la orden prescrita (`D-149`, `T-166`). `F-099` se deja deliberadamente sin mecanismo, por ser prosa que ningun patron distingue de la buena (`D-149`); nace `L-055` sobre por que un aviso movido a la plantilla sigue fallando si lo que prescribe no es una cadena comprobable. Fuera de los hallazgos, se completa `T-157`: el esqueleto de arranque deja de ser una carpeta suelta y pasa a ser el repositorio `SDAI_TripleS`, publicado en GitHub como privado, con el desfase de ocho archivos capturado en su primer commit sin sincronizar nada; el barrido de fuga sobre su arbol entero sale limpio. El usuario decide ademas la forma de arrancar un proyecto nuevo desde el esqueleto: `clone` + anotar el hash de partida en `project.md` + borrar `.git` + `git init` propio, para que un `git push` del proyecto nuevo no pueda terminar en el remoto del esqueleto (`D-150`); nace `T-167` para llevar esas dos filas a la plantilla de `project.md`. Se corrigen ademas, por nota fechada, tres citas cruzadas en los criterios de cierre de `D-146`/`D-147`/`D-148`, que nombraban la tarea de otra decision (`T-168`). Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas (`010_prototype/` y `temporal/`); el Paso 2d encontro una orden que no reproducia (la de «despues» del bloque de `T-168`, corrida sobre el arbol mientras `decisions.md` seguia creciendo) y se corrigio antes del `git add`, anclandola y actualizando sus numeros de linea; el Paso 2e no anade ninguna linea de caracter de control nueva, las tres cifras que aparecen son heredadas de `HEAD`. |
-| Bloqueos activos | El alcance y el objetivo del proyecto siguen sin definir (`T-001`, aplazada por `D-143`; se retoma cuando `A-004` quede confirmado **y** `005_discovery` este activa); `A-003` sigue sin verificar y `T-003` sigue `Suspendida` (`D-143`); el esqueleto de arranque tiene ya su repositorio (`T-157` `Implementada`) pero le siguen faltando la sincronizacion de las seis areas, el registro en `project.md`, el barrido de desfase del cierre, la skill de promocion, la guia de arranque, los dos huecos menores y la plantilla del hash de origen (`T-158` a `T-163`, `T-167`, todas `No implementada`) |
+| Avance de la etapa | Se evaluaron, contra `HEAD` (`ce0ac4e`, la auditoria `R-035` sobre `S-035` en `cce48e0`), los dos hallazgos abiertos de `R-035` (`F-100`, `F-101`): los dos se aceptan y quedan `Aceptado — pendiente` en `_audit/findings.md`, con su `T-XXX` (`T-169`, `T-170`). `F-100` (la bitacora de `S-035` afirmaba que `project.md` ganaba dos filas nuevas, y el commit `cce48e0` no toca ese archivo) y `F-101` (el bloque de verificacion de `T-157` describia un «segundo barrido» sin publicar ni su patron ni su salida) se corrigen por nota fechada, sin reescribir la prosa original; el segundo se rehizo hoy sobre el mismo arbol del esqueleto porque la orden original nunca se habia escrito y no se podia reconstruir. Al leer los criterios de cierre de `D-145` a `D-151` de corrido aparecio una cuarta cita cruzada que la pasada de `T-168` no habia visto —el cuerpo de `D-147` remitia a `T-162` en vez de `T-159`—, y se corrige por nota fechada (`T-171`). Fuera de los hallazgos: se completan `T-158` (sincronizar las seis areas agnosticas del esqueleto, commit `1748f0a` en `SDAI_TripleS`), `T-159` (registrar la ubicacion del esqueleto en `project.md`), `T-160` (el Paso 2f de `protocol-close`, con sus tres resultados probados) y `T-161` (la skill `protocol-promote`, con su puerta antes de escribir). Al medir el alcance de una barra invertida que se pierde al escribir por shell aparecen `C-010` y `L-057`, con **26 ocurrencias heredadas** del mismo defecto que documentan `DT-003` a `DT-006`, ya commiteadas en `tasks.md`, `assumptions.md` y `findings.md`; `D-151` decide no corregirlas en masa —reescribirlas convertiria «evidencia que no reproduce» en «evidencia falsa»— y la deuda se propone como `DT-007`. Nace tambien `L-056` (una orden que busca su propio rotulo en el archivo donde queda escrita se cuenta a si misma) y `A-019` (la skill de promocion existe y esta bien ordenada, pero no se ha ejecutado ni una vez). `CLAUDE.md` se corrige para decir que la cosecha es «uno de los dos» protocolos que escriben fuera del repositorio, nombrando a `protocol-promote`. Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/` y `temporal/`). |
+| Bloqueos activos | El alcance y el objetivo del proyecto siguen sin definir (`T-001`, aplazada por `D-143`; se retoma cuando `A-004` quede confirmado **y** `005_discovery` este activa); `A-003` sigue sin verificar y `T-003` sigue `Suspendida` (`D-143`); del esqueleto de arranque solo quedan `T-156` (construir el esqueleto reutilizable en si — `Bloqueante`), `T-162` (guia de arranque) y `T-163` (dos huecos menores: brief y `temporal/`), y `T-167` (llevar a la plantilla de `project.md` las dos filas de `D-150`), todas `No implementada` |
 
 ---
 
 ## 2. Ultimo realizado
 
-Se evaluaron, verificados contra `HEAD` (`4f0cc42`, la auditoria `R-034` sobre el commit de `S-034`
-`2cef150`) antes de tratarlos, los dos hallazgos abiertos de `R-034`. Los dos se sostuvieron contra
+Se evaluaron, verificados contra `HEAD` (`ce0ac4e`, la auditoria `R-035` sobre el commit de `S-035`
+`cce48e0`) antes de tratarlos, los dos hallazgos abiertos de `R-035`. Los dos se sostuvieron contra
 la evidencia y se aceptan:
 
-- `F-098` (la seccion 1 de `_audit/S-034.md` publicaba `git show --stat --name-only 2cef150` —sin
-  `--format=`— con la salida de la orden **con** `--format=` pegada debajo; los doce archivos
-  listados eran correctos, pero el bloque no reproducia): nota fechada en `_audit/S-034.md` con la
-  orden correcta y lo que devuelve de mas la publicada, sin reescribir la prosa original (`T-164`).
-  De fondo nace un mecanismo: el **Paso 7c-quater** en `protocol-close`, que corre antes del commit
-  de anclaje y comprueba por cadena literal (`grep -qF`) que la seccion 1 publique la orden prescrita
-  por el Paso 7c (`D-149`, `T-166`). Nace `L-055`: mover un aviso a la plantilla reduce el fallo mas
-  no lo elimina; solo se vuelve comprobable cuando lo prescrito es una cadena literal.
-- `F-099` (esa misma seccion describia el cambio de `_audit/findings.md` con un residuo de edicion —
-  «`F-095` (nace) no;»— y una etiqueta falsa —«notas anadidas», cuando no se anadio ninguna—): nota
-  fechada con la descripcion correcta (`T-165`). `D-149` decide **no** escribir mecanismo para este:
-  es prosa, y ningun patron la distingue de la prosa buena.
+- `F-100` (la entrada `S-035` de la bitacora afirmaba que `project.md` ganaba dos filas nuevas —
+  esqueleto de origen y version de partida—, y el commit `cce48e0` no toca `project.md`): nota
+  fechada en la propia entrada, con las dos ordenes que muestran que ni el commit ni el archivo en
+  `HEAD` tienen esas filas, sin reescribir la prosa original (`T-169`).
+- `F-101` (el bloque de verificacion de `T-157` describia un «segundo patron, por codigos
+  instanciados», pero ninguna orden publicada correspondia a ese patron): la orden de entonces no se
+  pudo reconstruir —nunca se escribio—, asi que no se finge. Se rehizo hoy sobre el mismo arbol del
+  esqueleto (sigue en `fa7da56`, sin sincronizar) y se publica entera, con su patron, su ambito y su
+  salida cruda, por nota fechada sin reescribir el bullet original (`T-170`).
 
-Los dos hallazgos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`. Ninguna
-correccion reescribe un informe ya commiteado: las dos van por nota fechada.
+Los dos hallazgos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`.
 
-Fuera de los hallazgos, se completa `T-157`: el esqueleto de arranque deja de ser una carpeta suelta
-en disco y pasa a ser el repositorio `SDAI_TripleS` (`git init`, commit del estado desfasado tal cual
-estaba, `gh repo create --private --push`), publicado en
-`https://github.com/jdrodriguez1000/SDAI_TripleS`. El commit inicial recoge el desfase sin
-sincronizar nada —siete archivos por detras y `protocol-harvest` ausente—, que es la prueba de que el
-mecanismo hacia falta. El barrido de fuga de datos y de codigos instanciados sobre el arbol entero del
-esqueleto sale limpio.
+Al leer de corrido los criterios de cierre de `D-145` a `D-151` aparecio una **cuarta** cita cruzada
+que la pasada anterior (`T-168`) no vio, porque buscaba solo la forma «Lo implementa `T-XXX`»: el
+cuerpo de `D-147` remite a `T-162` (la guia de arranque) donde debia decir `T-159` (la escritura de
+las dos filas). Se corrige por nota fechada, con la orden anclada al commit donde el defecto existe
+para que la nota no se incluya en su propio barrido (`T-171`).
 
-El usuario decide ademas la forma en que un proyecto nuevo arrancara desde el esqueleto (`D-150`):
-`git clone` del esqueleto, anotar el hash de partida (`git log -1 --format=%H`) en `project.md`,
-borrar `.git` y `git init` con remoto propio — nunca copiar la carpeta con el explorador, porque eso
-arrastraria el remoto del esqueleto dentro de `.git/` y el primer `git push` del proyecto nuevo
-subiria alli, rompiendo el sentido unico de `D-146`. Nace `T-167` (anadir a la plantilla de
-`project.md` las dos filas: esqueleto de origen y version de partida). De paso se midio, en vez de
-razonarse, que un clone del esqueleto no trae `temporal/` (confirma el punto 2 de `T-163`).
+Fuera de los hallazgos, se completan las cuatro tareas que `T-157` desbloqueaba:
 
-Se corrigen tambien, por nota fechada, tres citas cruzadas encontradas al leer los criterios de
-cierre de `D-146`, `D-147` y `D-148`: cada una citaba la tarea de otra (`T-168`).
+- `T-158` — las seis areas agnosticas del esqueleto quedan sincronizadas (commit `1748f0a` en
+  `SDAI_TripleS`): los ocho archivos por detras que `T-157` habia dejado sin tocar, mas la
+  correccion de un final de linea (un archivo en CRLF aqui se copia convertido a LF, el que el
+  destino ya tenia). Los cuatro barridos de agnosticismo sobre el esqueleto ya sincronizado salen
+  limpios.
+- `T-159` — `project.md` registra la ubicacion del esqueleto (repositorio y remoto), con la nota del
+  caso invertido («este proyecto no salio del esqueleto: el esqueleto salio de este proyecto»).
+- `T-160` — nace el **Paso 2f** en `protocol-close`: el barrido de desfase con el esqueleto, que
+  informa y no frena, con guarda para el caso de ruta ausente (`SIN COMPROBAR`) y su seccion propia
+  en el informe de auditoria.
+- `T-161` — nace la skill `protocol-promote`: lleva al esqueleto lo que este proyecto escriba en las
+  seis areas, con la misma puerta que `protocol-harvest` y en el mismo orden (los barridos y la
+  medicion de final de linea van antes de la puerta, nunca despues).
+
+Al escribir estos bloques de verificacion con patrones `\b` se descubrio que las barras invertidas se
+pierden al escribir por shell y quedan como caracter de retroceso real (`0x08`), invisible en
+pantalla (`C-010`, `L-057`). El barrido de alcance encuentra **26 ocurrencias heredadas** del mismo
+defecto que ya documentan `DT-003` a `DT-006`, en `tasks.md`, `assumptions.md` y `findings.md`.
+`D-151` decide no corregirlas en masa —reescribir un bloque antiguo para que exhiba el patron que
+debio ejecutarse convertiria «evidencia que no reproduce» en «evidencia falsa»—, y la deuda se
+propone como `DT-007`. Nace tambien `L-056` (una orden que busca su propio rotulo en el archivo
+donde queda escrita se cuenta a si misma) y `A-019` (la skill `protocol-promote` esta bien escrita y
+bien ordenada, pero no se ha ejecutado ni una vez). `CLAUDE.md` se corrige en dos sitios para decir
+que la cosecha es «uno de los dos» protocolos que escriben fuera del repositorio, nombrando al otro.
 
 Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El Paso 2c
 muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/` y
-`temporal/`). El Paso 2d encontro una orden que no reproducia —la de «despues» del bloque de
-verificacion de `T-168`, corrida sobre el arbol mientras `decisions.md` seguia creciendo—, y se
-corrigio antes del `git add`: se anclo la orden y se actualizaron sus numeros de linea, con su nota.
-El Paso 2e no anade ninguna linea nueva de caracter de control: las tres cifras que
-aparecen (`_audit/findings.md`: 1, `_persistence/decisions.md`: 7, `_persistence/tasks.md`: 5) son
-heredadas de `HEAD`, identicas antes y despues de esta sesion.
+`temporal/`).
 
-- **Que quedo abierto:** `T-156`, `T-158` a `T-163` y `T-167` (el esqueleto, salvo `T-157`) siguen
-  `No implementada`; `T-156` sigue `Bloqueante`. `T-001` y `T-144` siguen `No implementada`
-  (aplazadas, etapa no iniciada). `T-003` sigue `Suspendida`. `T-128` (la primera cosecha real) sigue
-  `No implementada`, sin bloqueo. `DT-002` a `DT-006` siguen `Propuesta (pendiente del usuario)`.
-  `A-006` a `A-009`, `A-011` a `A-015` y `A-018` siguen abiertos; `A-016`/`A-017` siguen `Confirmado`,
-  `A-010` `Refutado`. La autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
+- **Que quedo abierto:** de la familia del esqueleto solo quedan `T-156` (la tarea paraguas, sigue
+  `Bloqueante`), `T-162` (guia de arranque) y `T-163` (dos huecos menores: brief y `temporal/`), y
+  `T-167` (llevar a la plantilla de `project.md` las dos filas de `D-150`), todas `No implementada`.
+  `T-001` y `T-144` siguen `No implementada` (aplazadas, etapa no iniciada). `T-003` sigue
+  `Suspendida`. `T-128` (la primera cosecha real) sigue `No implementada`, sin bloqueo. `DT-002` a
+  `DT-007` siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009`, `A-011` a `A-015`, `A-018` y
+  `A-019` siguen abiertos; `A-016`/`A-017` siguen `Confirmado`, `A-010` `Refutado`. La
+  autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
 
 ---
 
 ## 3. Siguiente paso
 
-Lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que `F-098` y `F-099`
-quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de `T-164` y `T-165` reproducen
-sus ordenes sobre `_audit/S-034.md` sin tocar la prosa anterior, que el Paso 7c-quater (`D-149`)
-existe en `protocol-close` con su `grep -qF` y su tabla de tres filas, que `T-157` esta de verdad
-`Implementada` (el repositorio `SDAI_TripleS` existe y esta publicado), que `D-150` quedo escrita con
-su criterio de cierre remitiendo a `T-167` y `T-162`, y que las tres notas de `T-168` corrigen de
-verdad las citas de `D-146`/`D-147`/`D-148` sin alterar su prosa.
+Lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que `F-100` y `F-101`
+quedaron `Aceptado — pendiente` con su `T-XXX`, que las notas fechadas de `T-169` y `T-170`
+reproducen sus ordenes sin tocar la prosa anterior, que la nota de `T-171` corrige de verdad la
+cuarta cita cruzada de `D-147` con su orden anclada, que `T-158` a `T-161` estan de verdad
+`Implementada` (el esqueleto sincronizado en `1748f0a`, `project.md` con sus dos filas, el Paso 2f en
+`protocol-close`, la skill `protocol-promote` escrita), y que `DT-007` no duplica sin decirlo el
+alcance ya cubierto por `DT-003` a `DT-006`.
 
-El siguiente trabajo de fondo sigue siendo **el esqueleto de arranque**, ahora que `T-157` esta hecha:
-`T-158` (sincronizar las seis areas agnosticas) y `T-159` (registrar la ubicacion en `project.md`,
-ahora con las dos filas nuevas de `D-150` via `T-167`) son las que `T-157` desbloqueaba. Conviene
-hacer `T-167` junto con `T-159`, porque tocan la misma plantilla.
+El siguiente trabajo de fondo sigue siendo **el esqueleto de arranque**: quedan `T-162` (la guia de
+arranque, que tiene que cubrir lo que un `clone` no trae — `temporal/`, el `.git` propio) y `T-163`
+(los dos huecos menores). Con eso `T-156` quedaria lista para cerrarse. La primera **promocion**
+real con `protocol-promote` (sobre las cuatro diferencias que esta misma sesion dejo pendientes:
+`protocol-close`, `protocol-harvest`, `protocol-promote` nueva y `CLAUDE.md`) es la primera prueba
+del supuesto `A-019` — y solo puede pedirla el usuario, con el repositorio limpio y subido.
 
 Sigue pendiente la primera cosecha real de `000_preproject` con `protocol-harvest` (`T-128`), pero
 solo cuando la etapa se vaya a cerrar de verdad (`_phases/000_preproject.md` exige que corra **antes**
@@ -174,13 +184,14 @@ condicion de salida.
 este activa. `T-003` se retoma cuando se aborde el diseño tecnico de obtencion de datos. `T-144` se
 retoma cuando `005_discovery` este activa.
 
-Es decision del usuario si `DT-002` a `DT-006` se confirman, si `A-006` (los codigos `FT-`/`SC-`
+Es decision del usuario si `DT-002` a `DT-007` se confirman, si `A-006` (los codigos `FT-`/`SC-`
 declarados) se valida o se retira, si `A-007` se confirma cuando la etapa se adopte, si `A-012` se
 confirma o se corrige antes de que `040_evol` se adopte, y si `A-015` se mantiene o se acota. `A-013`
-sigue sin comprobar de fondo, por muestreo. `A-018` no tiene un momento de comprobacion aparte: se
-confirma o se refuta la primera vez que el barrido de `D-148` devuelva algo y se promueva (`D-148`
-sigue `No implementada`, asi que ese momento aun no llego). Sigue tambien sin resolver la
-autorreferencia del criterio de cierre de `D-088`.
+sigue sin comprobar de fondo, por muestreo. `A-018` se confirma o se refuta la primera vez que el
+barrido del Paso 2f devuelva algo y se promueva de verdad (ahora que `T-160` esta hecha, ese momento
+ya puede llegar). `A-019` se refuta con la primera ejecucion real de `protocol-promote` que no haga
+lo que la skill dice. Sigue tambien sin resolver la autorreferencia del criterio de cierre de
+`D-088`.
 
 ---
 
@@ -1649,6 +1660,20 @@ _workflow/025_wslt.md
   `T-167` para llevarlas a la plantilla. De paso se **midio**, en vez de razonarse, que un clone del
   esqueleto no trae `temporal/`.
 
+  📌 **Nota del 2026-09-11 (`T-169`, hallazgo `F-100`).** El parrafo de arriba **no se reescribe**, y
+  una de sus frases es falsa: **`project.md` no gana ninguna fila en este commit.** Lo que `D-150`
+  prescribe es que el `project.md` de un **proyecto nuevo** lleve esas dos filas —esqueleto de origen
+  y version de partida—, y llevarlas a la plantilla es justo lo que quedo pendiente en `T-167`
+  (`No implementada`). El commit no toca el archivo, y el archivo tampoco las tiene en `HEAD`:
+
+```
+$ git show --name-only --format= cce48e0 | grep -xc "project.md"
+0
+
+$ git show ce0ac4e:project.md | grep -ciE "esqueleto|version de partida"
+0
+```
+
   Se corrigen tambien, por nota fechada, **tres citas cruzadas** encontradas al leer de corrido los
   criterios de cierre de `D-146`, `D-147` y `D-148`: cada una citaba la tarea de otra, por un
   desplazamiento que sobrevivio a una renumeracion (`T-168`). No lo encontro ningun control: las dos
@@ -1668,6 +1693,82 @@ _workflow/025_wslt.md
   iniciadas. `DT-002` a `DT-006` siguen `Propuesta (pendiente del usuario)`. `A-006` a `A-009`,
   `A-011` a `A-015` y `A-018` siguen abiertos; `A-010` sigue `Refutado`, `A-016`/`A-017` siguen
   `Confirmado`. La autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
+
+---
+
+### S-036 - Se aceptan `F-100` y `F-101` (`T-169`, `T-170`); se corrige la cuarta cita cruzada (`T-171`); el esqueleto queda sincronizado y con su barrido de cierre (`T-158` a `T-161`); nace `DT-007` (`D-151`, `C-010`, `L-057`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | `000_preproject` |
+| Tareas | T-158, T-159, T-160, T-161, T-169, T-170, T-171 |
+
+- **Que se hizo:** `manager` evaluo los dos hallazgos abiertos por `R-035` sobre `S-035` (`F-100`,
+  `F-101`), verificados contra `HEAD` (`ce0ac4e`, la auditoria `R-035`) sobre el estado que dejo el
+  commit auditado (`cce48e0`), y los acepto los dos.
+
+  `F-100` (la entrada `S-035` afirmaba que `project.md` ganaba dos filas nuevas, y el commit
+  `cce48e0` no toca ese archivo): nota fechada en la propia entrada de arriba, con las dos ordenes
+  que muestran que ni el commit ni `project.md` en `HEAD` tienen esas filas, sin reescribir la prosa
+  original (`T-169`).
+
+  `F-101` (el bloque de verificacion de `T-157` describia un «segundo barrido, por codigos
+  instanciados», pero solo quedaban publicados el barrido de fuga y un `sed` de contexto — la orden
+  del segundo nunca se escribio): como no se podia reconstruir la orden de entonces, se rehizo hoy
+  sobre el mismo arbol del esqueleto (sigue en `fa7da56`, sin sincronizar todavia en ese momento) y
+  se publico entera, con su patron, su ambito y su salida cruda, por nota fechada sin tocar el bullet
+  original (`T-170`).
+
+  Los dos hallazgos quedan `Aceptado — pendiente` en `_audit/findings.md`, citando su `T-XXX`.
+
+  Al leer de corrido los criterios de cierre de `D-145` a `D-151` aparecio una **cuarta** cita
+  cruzada que la pasada de `T-168` no vio: buscaba solo la forma «Lo implementa `T-XXX`», y el cuerpo
+  de `D-147` remite a `T-162` (la guia de arranque) donde debia decir `T-159` (la escritura de las
+  dos filas). Se corrigio por nota fechada, con la orden anclada al commit `ce0ac4e` para que la
+  propia nota —que tambien cita tareas— no se incluyera en su barrido (`T-171`).
+
+  Fuera de los hallazgos se completan las cuatro tareas que `T-157` desbloqueaba:
+
+  - `T-158` — las seis areas agnosticas del esqueleto quedan sincronizadas (commit `1748f0a` en
+    `SDAI_TripleS`): los ocho archivos por detras de `T-157`, mas la correccion de un final de linea
+    (un archivo en CRLF aqui se copio convertido a LF, el que el destino ya tenia — medido con
+    `tr -dc | wc -c`, no con `grep -c $'\r'`, que en este entorno da un falso positivo). Los cuatro
+    barridos de agnosticismo sobre el esqueleto ya sincronizado salen limpios.
+  - `T-159` — `project.md` registra la ubicacion del esqueleto (repositorio y remoto), con la nota
+    del caso invertido.
+  - `T-160` — nace el **Paso 2f** en `protocol-close`: el barrido de desfase con el esqueleto,
+    probado en sus tres resultados (al dia, desfasado, ruta ausente). La primera version sin guarda
+    no producia `SIN COMPROBAR` ante una ruta ausente, sino seis lineas de `No such file or
+    directory` indistinguibles de un desfase — lo encontro la prueba del tercer caso, no la
+    relectura.
+  - `T-161` — nace la skill `protocol-promote`: lleva al esqueleto lo que este proyecto escriba en
+    las seis areas, con la misma puerta y el mismo orden que `protocol-harvest` (los barridos y la
+    medicion de final de linea van antes de la puerta). No se ha ejecutado todavia.
+
+  Al escribir estos bloques con patrones `\b` se descubrio que las barras invertidas se pierden al
+  escribir por shell y quedan como caracter de retroceso real (`0x08`), invisible en pantalla —
+  incluso dentro de un heredoc citado (`C-010`, `L-057`). El barrido de alcance encuentra **26
+  ocurrencias heredadas** del mismo defecto que ya documentan `DT-003` a `DT-006`, en `tasks.md`,
+  `assumptions.md` y `findings.md`. `D-151` decide no corregirlas en masa —convertiria «evidencia que
+  no reproduce» en «evidencia falsa»—, y la deuda se propone como `DT-007`. Nace tambien `L-056`
+  (una orden que busca su propio rotulo en el archivo donde queda escrita se cuenta a si misma, visto
+  al comprobar la nota de `T-170`) y `A-019` (la skill `protocol-promote` esta bien escrita y bien
+  ordenada, pero no se ha ejecutado ni una vez). `CLAUDE.md` se corrige en dos sitios —el suyo propio
+  y el de `protocol-harvest`— para decir que la cosecha es «uno de los dos» protocolos que escriben
+  fuera del repositorio, nombrando al otro.
+
+  Los controles de fuga (Pasos 1b y 1c) y de indices (Paso 2b) de este cierre salen limpios. El Paso
+  2c muestra las mismas dos diferencias ya conocidas y documentadas en `project.md` (`010_prototype/`
+  y `temporal/`).
+- **Que quedo abierto:** de la familia del esqueleto quedan `T-156` (tarea paraguas, `Bloqueante`),
+  `T-162` (guia de arranque), `T-163` (dos huecos menores) y `T-167` (llevar a la plantilla de
+  `project.md` las dos filas de `D-150`), todas `No implementada`. `T-001` y `T-144` siguen `No
+  implementada` (aplazadas). `T-003` sigue `Suspendida`. `T-128` (la primera cosecha real) sigue `No
+  implementada`, sin bloqueo. `DT-002` a `DT-007` siguen `Propuesta (pendiente del usuario)`. `A-006`
+  a `A-009`, `A-011` a `A-015`, `A-018` y `A-019` siguen abiertos; `A-010` sigue `Refutado`,
+  `A-016`/`A-017` siguen `Confirmado`. La autorreferencia del criterio de cierre de `D-088` sigue sin
+  resolver. La primera ejecucion real de `protocol-promote` sigue pendiente de que el usuario la
+  pida.
 
 ---
 

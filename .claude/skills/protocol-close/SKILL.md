@@ -613,6 +613,80 @@ tienen que caber en una fila y decidirse sin abrir la entrada.
 
 ---
 
+## Paso 2f — El desfase con el esqueleto de arranque (antes del `git add`)
+
+Los Pasos 2b a 2e comprueban este repositorio contra si mismo. Este lo compara **contra el esqueleto
+de arranque**: las seis areas que tienen que poder copiarse tal cual a otro proyecto, frente a la
+copia que vive en el repositorio del esqueleto.
+
+```bash
+ESQ="<ruta absoluta del esqueleto de arranque>"
+if [ ! -d "$ESQ" ]; then
+  echo "SIN COMPROBAR - la ruta del esqueleto no existe en esta maquina: $ESQ"
+else
+  for d in .claude _phases _methodology _templates _workflow; do
+    diff -rq --strip-trailing-cr "$ESQ/$d" "$d"
+  done
+  diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+fi
+```
+
+La ruta sale de `project.md`, como todo lo que aqui va entre `<angulos>`.
+
+🚨 **La guarda `if [ ! -d ... ]` es parte del paso, no un adorno defensivo.** Sin ella, una ruta que no
+existe no produce un `SIN COMPROBAR`: produce **seis lineas de `diff: ... No such file or directory`**
+por stderr, con salida `2`. Eso no se distingue a simple vista de un desfase, y es justo la confusion
+que el tercer resultado existe para evitar. **Medido, no supuesto.**
+
+🚨 **INFORMA, NO FRENA. Su salida normal es una lista de archivos, y eso esta bien.** Significa «hay
+cosas por promover», no «algo va mal». **No es condicion de parada**, y eso lo separa del Paso 7c-ter,
+que si detiene el cierre porque alli la salida correcta es vacia.
+
+⚠️ **Por que no frena, y conviene que este escrito junto al paso y no solo en su decision:** este
+control saltaria en casi toda sesion que mejore el andamiaje, o sea casi todas. **Un control que salta
+siempre se aprende a ignorar** — y con el se ignora el dia que importa.
+
+**Tres resultados, no dos:**
+
+| Lo que ves | Que significa | Que haces |
+|---|---|---|
+| **sin salida** | el esqueleto esta al dia | dilo, y publica la orden con su salida vacia |
+| **`Files ... differ`** / **`Only in ...`** | hay promociones pendientes | publica la lista **entera**, sin seleccionar |
+| la ruta no existe en esta maquina, o `project.md` no la declara | no se pudo comprobar | `🚨 SIN COMPROBAR — <el motivo>` |
+
+🚨 **`SIN COMPROBAR` nunca es silencio.** «No pude comprobarlo» no es «esta bien», y una linea
+`SIN COMPROBAR` repetida sesion tras sesion es la unica forma de que el hueco se note. Es la misma
+regla del Paso 0.
+
+⚠️ **Las dos direcciones de `Only in` dicen cosas distintas, y la segunda es la interesante:**
+
+| Lo que ves | Que significa |
+|---|---|
+| `Only in` el arbol de **este** proyecto | algo nacio aqui y el esqueleto no lo tiene todavia: promocion pendiente, lo normal |
+| `Only in` el arbol del **esqueleto** | algo existe alli y aqui no. **Eso no deberia pasar**: el andamiaje viaja en un solo sentido, asi que o se borro aqui sin registrarlo, o alguien edito el esqueleto por su cuenta |
+
+🚨 **El `--strip-trailing-cr` no es cosmetica, y quitarlo rompe el paso.** Cuando los dos arboles no
+comparten final de linea, un archivo que solo difiere en eso aparece como **enteramente distinto**
+—medido, uno salto de 40 lineas de diferencia real a 778—. Un control que exagera se ignora igual que
+uno que grita.
+
+⚠️ **Y por eso mismo el paso NO usa la version estricta, ni la anade «por completitud».** Si un
+archivo difiere solo en el final de linea, este paso tiene que decir **que estan al dia**, porque su
+contenido lo esta. Donde se gestiona el final de linea es en la restriccion que lo declara, no aqui.
+
+⛔ **Este paso no promueve nada.** Detectar y promover estan separados a proposito: detectar es casi
+gratis y corre siempre; promover lleva puerta manual y lo pide el usuario. Ver que hay tres archivos
+por promover **no obliga a promoverlos hoy**.
+
+📌 **Por que existe este paso:** el esqueleto es un original, y un original sin mecanismo de deteccion
+**deja de ser original en silencio**. No es hipotetico: el esqueleto llego a estar ocho archivos por
+detras sin que nadie lo notara, y se descubrio de casualidad. El desfase no duele el dia que ocurre;
+duele cuando un proyecto nuevo arranca de una copia vieja y hereda un defecto que aqui ya estaba
+corregido. Un metodo cuyo disparador es «alguien lo nota» falla en silencio, y no hay forma de saber
+cuantas veces no se activo.
+
+---
+
 ## Paso 3 — `_persistence/progress.md` (obligatorio)
 
 Es el archivo principal: da la vision general, **no detalla tareas**. Actualizalo **siempre**, en
@@ -1146,6 +1220,17 @@ filas tiene que tener, y el total sin pasar por la tabla. La tabla tiene que cua
 <⚠️ esta seccion mide el AREA DE STAGING previa al commit, no el commit: los archivos que el cierre
 escribe despues —`progress.md`, este informe y el tablero— quedan fuera por construccion, y se dice.
 Quien cubre esa brecha es la SEGUNDA PASADA anclada, que va en la NOTA DE CIERRE de la seccion 7>
+
+## 9. Evidencia del Paso 2f
+<la orden del barrido de desfase con el esqueleto y su salida cruda — tambien cuando sale vacia>
+<si devuelve lineas, van TODAS, sin seleccionar y sin resumir «y tres mas»: la lista es la noticia>
+<⚠️ una salida con lineas NO es un fallo del cierre: son promociones pendientes, y se dice asi. El
+paso informa, no frena>
+<si la ruta del esqueleto no existe en la maquina o `project.md` no la declara, la seccion dice
+`🚨 SIN COMPROBAR — <el motivo>`, nunca se omite ni se deja en blanco>
+<si alguna linea es `Only in` el arbol DEL ESQUELETO, se senala aparte: eso contradice el sentido unico
+del andamiaje y es un hallazgo, no una promocion pendiente>
+<el recuento de lineas se DERIVA de la propia salida, no se teclea>
 ```
 
 ### Los tres veredictos de la seccion 0, y nada mas
@@ -1882,6 +1967,7 @@ Fuga de datos propios (1b) — <cero lineas | 🚨 <las lineas> | 🚨 SIN COMPR
 Codigos instanciados en `_phases/` y `_workflow/` (1c) — <cero lineas | 🚨 <las lineas, con archivo y numero de linea>>
 Indices de `_persistence/` (2b) — <al dia | corregidos | 🚨 SIN COMPROBAR — <que fallo>>
 Carpetas declaradas (2c) — <coinciden | <las diferencias y su razon> | 🚨 SIN COMPROBAR — <por que>>
+Desfase con el esqueleto (2f) — <al dia, sin salida | <N> archivos por promover: <la lista entera> | 🚨 SIN COMPROBAR — <el motivo>>
 Huecos de plantilla en el informe (6b) — <cero lineas | 🚨 <las lineas, borradas antes del `git add`>>
 Criterios de cierre anclados (7c-bis) — <N ordenes de M, en <las D-XXX nuevas> | ninguna decision nueva | 🚨 <las que no coinciden, con las dos salidas> | <las no anclables, y por que>>
 Fecha de la sesion contra el commit (7d) — <coinciden: AAAA-MM-DD | 🚨 <la escrita y la del commit, y donde se corrigio> | 🚨 SIN COMPROBAR>

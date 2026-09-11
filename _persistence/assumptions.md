@@ -28,6 +28,7 @@
 | [A-016](#a-016---la-condicion-de-salida-de-las-siete-etapas-tiene-forma-bastante-uniforme-como-para-que-un-solo-agente-la-lea) | La condicion de salida de las siete etapas tiene forma bastante uniforme como para que un solo agente la lea | 2026-09-08 | Confirmado |
 | [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Confirmado |
 | [A-018](#a-018---toda-diferencia-entre-las-areas-agnosticas-del-proyecto-y-las-del-esqueleto-es-una-promocion-pendiente) | Toda diferencia entre las areas agnosticas del proyecto y las del esqueleto es una promocion pendiente | 2026-09-11 | Abierto |
+| [A-019](#a-019---la-skill-de-promocion-funciona-de-punta-a-punta-nunca-se-ha-ejecutado) | La skill de promocion funciona de punta a punta: nunca se ha ejecutado | 2026-09-11 | Abierto |
 
 ---
 
@@ -1094,3 +1095,60 @@ verificado. `protocol-phase-exit` lo prohibe de forma explicita en su Paso 4.
   quedarse olvidado mientras el mecanismo se use.
 - ⚠️ **Lo que este supuesto NO afirma:** que el esqueleto vaya a estar siempre al dia. Un desfase es
   normal y esperado; lo que se supone es que **cerrarlo nunca exigira una negociacion**.
+
+📌 **Nota del 2026-09-11 (`T-158`) — primer ejercicio del disparador, y NO lo confirma.** El barrido
+de `D-148` devolvio ocho diferencias (siete archivos por detras y `protocol-harvest` ausente), y se
+inspeccionaron **una por una las 21 lineas que solo existen en el esqueleto**. Las 21 son versiones
+anteriores de parrafos ya sustituidos aqui: ninguna exige conciliacion, ninguna le sobra a un proyecto
+generico. El supuesto **sigue `Abierto`** porque su disparador es recurrente — un caso no confirma un
+universal, y el archivo ya dice que uno solo lo refutaria.
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md     .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md     .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md     _phases/005_discovery.md _templates/000_preproject/005_project.md; do     printf '%3d  %s
+' "$(diff --strip-trailing-cr "$ESQ/$f" "$f" | grep -c '^<')" "$f"; done
+  5  CLAUDE.md
+  3  .claude/skills/protocol-audit/SKILL.md
+  7  .claude/skills/protocol-close/SKILL.md
+  4  .claude/skills/protocol-start/SKILL.md
+  1  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  1  _templates/000_preproject/005_project.md
+```
+
+🔑 **Dos de esas lineas son regresiones ya corregidas aqui, y eso refuerza el sentido de `D-146`:**
+el patron del Paso 1b del esqueleto no cubre `_templates` ni `_workflow`, y su Paso 1c enumera
+prefijos — los dos defectos que una auditoria encontro **en este repositorio**, que es el unico sitio
+donde corre un cierre. Promover al reves habria llevado alla la version ciega.
+
+---
+
+### A-019 - La skill de promocion funciona de punta a punta: nunca se ha ejecutado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | manager |
+
+- **Supuesto:** que `protocol-promote` lleva al esqueleto lo que debe, con los finales de linea
+  correctos, sin tocar lo que el usuario no aprobo, y dejando el registro de vuelta que prescribe. Lo
+  que esta **verificado** es otra cosa: que la skill existe, que declara a `manager` como unico
+  ejecutor, y que su puerta va antes de escribir — comprobado por el orden de los pasos.
+- **Sobre que se construye encima:** sobre esto descansa que el mecanismo del esqueleto sea **un
+  mecanismo** y no un documento. El cierre ya detecta el desfase en cada sesion; si la promocion no
+  funciona, lo que queda es un detector que informa de algo que nadie puede cerrar, y el esqueleto
+  vuelve a quedarse atras — exactamente el problema que el esqueleto existe para resolver.
+- 🔑 **De donde sale la confianza, y por que aun asi es un supuesto.** Sus nueve pasos no son
+  invencion: son lo que se hizo **a mano** al sincronizar el esqueleto, con los tres tropiezos de
+  aquella vez convertidos en pasos obligatorios. Pero una skill no es el procedimiento que la inspiro:
+  es un texto que alguien tiene que ejecutar, y **no se ha ejecutado ni una vez**.
+- **Como se refuta:** la primera ejecucion real que no haga lo que la skill dice — un final de linea
+  convertido de mas, un archivo no aprobado que sube, una puerta que no para, un registro de vuelta que
+  no puede citar los dos hashes. Un solo caso lo refuta.
+- **Disparador:** la primera vez que el usuario pida promover. **No hace falta un momento aparte**, y
+  ya hay lote esperando: cuatro promociones pendientes que esta misma sesion dejo abiertas.
+- ⚠️ **Lo que este supuesto NO afirma:** que la skill este completa. Puede funcionar y descubrirse
+  igualmente que le falta un paso — eso seria una leccion, no una refutacion.
+- 🔑 **Y por que se registra en vez de probarla hoy:** su propio Paso 0 exige que este repositorio este
+  **limpio y subido**, y durante una sesion de trabajo no lo esta. Probarla hoy habria obligado a
+  saltarse el primer disparador de la skill que se estaba probando.
