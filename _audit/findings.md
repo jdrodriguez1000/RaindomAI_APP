@@ -113,8 +113,8 @@
 | [F-099](#f-099---la-seccion-1-describe-el-cambio-de-findingsmd-con-un-fragmento-roto-y-una-etiqueta-falsa) | La seccion 1 del informe de `S-034` describe el cambio de `findings.md` con un fragmento roto y una etiqueta falsa | R-034 | Baja | Implementado |
 | [F-100](#f-100---la-bitacora-de-s-035-afirma-que-projectmd-gana-dos-filas-nuevas-y-el-commit-no-toca-projectmd) | La bitacora de `S-035` afirma que `project.md` gana dos filas nuevas, y el commit no toca `project.md` | R-035 | Media | Implementado |
 | [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Implementado |
-| [F-102](#f-102---la-tabla-de-reejecucion-del-paso-2d-de-s-036-atribuye-salidas-a-las-ordenes-equivocadas) | La tabla de reejecucion del Paso 2d de `S-036` atribuye salidas a las ordenes equivocadas | R-036 | Media | Abierto |
-| [F-103](#f-103---el-bloque-de-a-018-en-assumptionsmd-publica-una-orden-que-ya-no-reproduce-y-queda-sin-corregir-y-sin-tarea) | El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea | R-036 | Media | Abierto |
+| [F-102](#f-102---la-tabla-de-reejecucion-del-paso-2d-de-s-036-atribuye-salidas-a-las-ordenes-equivocadas) | La tabla de reejecucion del Paso 2d de `S-036` atribuye salidas a las ordenes equivocadas | R-036 | Media | Aceptado — pendiente |
+| [F-103](#f-103---el-bloque-de-a-018-en-assumptionsmd-publica-una-orden-que-ya-no-reproduce-y-queda-sin-corregir-y-sin-tarea) | El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea | R-036 | Media | Aceptado — pendiente |
 
 ---
 
@@ -4702,6 +4702,17 @@ $ git show 6fb6d39:.claude/skills/protocol-close/SKILL.md | grep -nE "^## Paso 2
   commiteada. Hacia adelante, que el Paso 2d pegue en cada fila **la orden literal** y no solo su
   numero: un numero se desplaza en silencio, una cadena no. ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-11 (`S-037`) — ACEPTADO, en sus dos mitades.** Verificado contra
+`HEAD` (`c8c359c`) antes de evaluarlo: las ordenes 43, 44, 47 y 48 devuelven `1`, nueve lineas, nada
+y nada, y ninguna de las cuatro coincide con lo que su fila publica. El hallazgo se sostiene entero.
+La mitad correctiva la implementa **`T-172`** — nota fechada en la seccion 7 de `_audit/S-036.md`
+con la correspondencia reconstruida **entera**, fila por fila, sin reescribir la tabla. La mitad
+hacia adelante la implementan **`D-152`** y **`T-174`**: el Paso 2d exige ya la orden literal en cada
+fila.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`, que `Implementado` lo escribe
+la auditoria siguiente sobre un commit posterior.
+
 ---
 
 ### F-103 - El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea
@@ -4760,3 +4771,12 @@ $ git show 6fb6d39:_persistence/tasks.md | sed -n '/^## Indice/,/^---$/p' | grep
   `fa7da56` a `1748f0a` dentro de la jornada, y la salida de hoy — sin reescribir el bloque. Y su
   `T-XXX`, para que el pendiente viva en el registro y no en un informe.
   ⚠️ Es una recomendacion, no una orden.
+
+🕐 **Tratamiento del 2026-09-11 (`S-037`) — ACEPTADO.** Verificado contra `HEAD` (`c8c359c`)
+antes de evaluarlo: la orden del bloque devuelve hoy `4 0 0 0 0 0 0` frente al `5 3 7 4 1 0 1`
+publicado, y el indice de `tasks.md` no tenia ninguna tarea que lo recogiera. Lo implementa
+**`T-173`**: nota fechada bajo el bloque de `A-018`, sin reescribirlo, con la salida de hoy y con la
+declaracion de que la orden mide un estado vivo — el esqueleto vive en otro repositorio y ningun
+commit de este lo fija.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.

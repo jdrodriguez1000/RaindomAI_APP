@@ -66,6 +66,8 @@
 | [L-055](#l-055---un-aviso-movido-a-la-plantilla-sigue-copiandose-a-mano) | Un aviso movido a la plantilla sigue copiandose a mano | 2026-09-11 | 000_preproject | Sin evaluar |
 | [L-056](#l-056---una-orden-que-busca-una-cadena-en-el-archivo-donde-vive-se-cuenta-a-si-misma) | Una orden que busca una cadena en el archivo donde vive se cuenta a si misma | 2026-09-11 | 000_preproject | Sin evaluar |
 | [L-057](#l-057---una-barra-invertida-se-pierde-al-escribir-y-convierte-un-patron-publicado-en-uno-que-no-reproduce) | Una barra invertida se pierde al escribir, y convierte un patron publicado en uno que no reproduce | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-058](#l-058---un-control-se-puede-correr-entero-y-quedar-inservible-por-como-se-rotula-su-evidencia) | Un control se puede correr entero y quedar inservible por como se rotula su evidencia | 2026-09-11 | 000_preproject | Sin evaluar |
+| [L-059](#l-059---dos-artefactos-acoplados-en-repositorios-distintos-no-se-publican-a-la-vez-manda-el-que-se-lee) | Dos artefactos acoplados en repositorios distintos no se publican a la vez: manda el que se lee | 2026-09-11 | 000_preproject | Sin evaluar |
 
 ---
 
@@ -2115,3 +2117,64 @@ print(len(fs),'archivos,',t,'ocurrencias')"
 - ⛔ **Y por eso no se corrigen en masa.** Reescribir un bloque antiguo para que exhiba un patron que
   aquel dia no se ejecuto convierte «evidencia que no reproduce» en «evidencia falsa». Lo que procede
   es que la regla **rija hacia adelante**, y que lo viejo quede como deuda registrada.
+
+---
+
+### L-058 - Un control se puede correr entero y quedar inservible por como se rotula su evidencia
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** el Paso 2d del cierre reejecuta todas las ordenes que la jornada publico y deja una
+  tabla con una fila por orden. La lista se numera con `cat -n` —automatico— y la tabla se rotula con
+  esos numeros, a mano.
+- **Que ocurrio:** el paso se corrio **entero y bien**. Las seis ordenes que no reproducian se
+  detectaron, se identificaron y se corrigieron con su nota fechada. Y aun asi el resultado quedo
+  inservible: la columna de numeros de la tabla se desplazo en un tramo de dieciseis filas, asi que
+  cada nota describia **otra** orden que la que decia describir. Una fila marcada `Si` dejo de probar
+  nada.
+- **Leccion:** un control tiene dos mitades —**correrlo** y **rotular lo que devolvio**— y la segunda
+  falla sola. Publicar la evidencia con un identificador **que no se parece a nada** —un numero, una
+  posicion, un indice— la deja sin forma de contrastarse: nada chilla cuando se copia con una unidad
+  de diferencia. Un identificador **que se lee** —la orden literal, un trozo discriminante de la
+  cadena— hace visible la discrepancia sin ejecutar nada.
+- 🔑 **Y el fondo se sostenia, que es lo que lo hace peligroso.** No hubo negligencia: quien corrio el
+  paso hizo el trabajo y saco las conclusiones correctas. Lo que se perdio fue la **trazabilidad**, y
+  esa perdida no se nota desde dentro — se nota cuando alguien intenta reproducir, una sesion despues.
+- ⚠️ **La leccion no es «revisa mejor».** Revisar a mano 54 filas numeradas a mano es la misma tarea
+  que ya fallo. Lo que la quita de raiz es cambiar el identificador, que es lo que decide `D-152`.
+- 🔑 **Aplicable fuera de este paso:** vale para cualquier tabla de resultados que enlace con una lista
+  por posicion — una matriz de pruebas, un listado de casos, un inventario numerado.
+
+---
+
+### L-059 - Dos artefactos acoplados en repositorios distintos no se publican a la vez: manda el que se lee
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Etapa | 000_preproject |
+| Origen | manager |
+
+- **Contexto:** una guia de arranque manda rellenar unas filas de un archivo que vive en **otro**
+  repositorio. Los dos estan listos aqui; alli, solo uno puede llegar hoy, porque el otro viaja por un
+  canal con puerta y con su propio orden.
+- **Que ocurrio:** la tentacion era publicar la guia ya y dejar que la plantilla llegara despues — dos
+  dias de desfase, nada grave. Medido, era grave: la guia mandaria rellenar tres filas que el archivo
+  de destino no tiene, y quien clonase en esa ventana encontraria **la unica pagina que explica como
+  empezar contradiciendo al archivo que manda rellenar**.
+- **Leccion:** cuando dos artefactos acoplados no pueden publicarse a la vez, el orden **no lo decide
+  cual esta listo antes**, sino cual se lee primero: **el que se lee va ultimo**. Una referencia que
+  apunta a algo que todavia no existe falla en el primer uso; una cosa que existe y que todavia nadie
+  referencia no molesta a nadie.
+- 🔑 **Por que el primer uso pesa tanto mas que los siguientes.** Un documento de arranque solo se lee
+  una vez por proyecto, y es la vez en que el lector aun no sabe distinguir un error del documento de
+  un error suyo. Si falla ahi, no se corrige despues: se deja de leer, y entonces da igual lo bueno
+  que fuera el resto.
+- ⚠️ **La leccion no es «publicalo todo junto».** A veces no se puede, y forzarlo es lo que lleva a
+  editar el repositorio de destino a mano — que rompe el sentido unico por el sitio exacto que la
+  regla protege. Lo que se hace es **esperar**, y dejar escrito por que.
+- 🔑 **Aplicable fuera de este caso:** vale para documentacion que referencia una API sin desplegar,
+  para un README que cita un script que aun no existe, y para cualquier enlace entre dos cosas que se
+  publican por canales distintos.

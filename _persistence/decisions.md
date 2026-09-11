@@ -160,6 +160,9 @@
 | [D-149](#d-149---la-orden-de-la-seccion-1-se-comprueba-por-cadena-literal-antes-del-commit-de-anclaje) | La orden de la seccion 1 se comprueba por cadena literal, antes del commit de anclaje | 2026-09-11 | Vigente | report_auditor |
 | [D-150](#d-150---un-proyecto-nuevo-arranca-por-clone-anota-el-hash-y-parte-con-historial-limpio) | Un proyecto nuevo arranca por clone, anota el hash y parte con historial limpio | 2026-09-11 | Vigente | usuario |
 | [D-151](#d-151---los-patrones-mangled-del-registro-no-se-corrigen-en-masa-la-regla-rige-hacia-adelante) | Los patrones mangled del registro no se corrigen en masa: la regla rige hacia adelante | 2026-09-11 | Vigente | manager |
+| [D-152](#d-152---cada-fila-de-la-reejecucion-del-paso-2d-lleva-la-orden-literal-no-solo-su-numero) | Cada fila de la reejecucion del Paso 2d lleva la orden literal, no solo su numero | 2026-09-11 | Vigente | report_auditor |
+| [D-153](#d-153---la-guia-de-arranque-se-publica-despues-de-promover-la-plantilla-no-antes) | La guia de arranque se publica DESPUES de promover la plantilla, no antes | 2026-09-11 | Vigente | usuario |
+| [D-154](#d-154---_outbound-donde-espera-lo-redactado-aqui-que-se-publica-en-otro-repositorio) | `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio | 2026-09-11 | Vigente | usuario |
 
 ---
 
@@ -9767,3 +9770,118 @@ git remote add origin <remoto del proyecto>
 - **Reversible a criterio** — no se borra ni se reescribe nada; es una decision de **no** actuar.
 - **Criterio de cierre:** la deuda queda registrada con su cifra y su barrido, y ningun bloque antiguo
   se reescribe. Lo implementa la entrada de deuda tecnica que proponga el cierre.
+
+---
+
+### D-152 - Cada fila de la reejecucion del Paso 2d lleva la orden literal, no solo su numero
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** el Paso 2d ya exige numerar la lista con `cat -n` y rotular cada salida con **la
+  posicion que le dio la orden, no una propia**. Esta vez se cumplio la letra y fallo igual: la tabla
+  de reejecucion de una sesion rotulo 54 filas a mano y **desplazo la columna entre la fila 32 y la
+  48**. Las notas eran ciertas; la orden que cada una decia describir, no. Una fila marcada `Si` dejo
+  de probar nada sobre la orden que numeraba.
+- **Decision:** hacia adelante, **cada fila de la tabla de reejecucion lleva la orden literal** junto
+  a su numero. El numero se conserva —sigue siendo lo que enlaza con la lista de `cat -n`—, pero deja
+  de ser el unico identificador.
+- 🔑 **Por que esto y no otro control.** El defecto es de **transcripcion**, no de metodo: un numero
+  copiado con una posicion de diferencia se propaga y nada chilla, porque un numero no se parece a
+  nada. Una cadena si: si la fila dice `grep -c 'No lo delegas...'` y la lista pone otra cosa en esa
+  posicion, la discrepancia se ve **leyendo**, sin correr nada. Se paga con una tabla mas ancha.
+- ⚠️ **Y no exige la orden entera cuando es larga.** Basta con que la cadena sea **discriminante**
+  dentro de la lista de esa sesion — el trozo que la distingue de sus vecinas. Una orden truncada
+  hasta volverse ambigua no cumple la regla: no distingue, que es lo unico que se le pide.
+- **Alternativas descartadas:** (a) **dejarlo como esta y confiar en releer** — es exactamente lo que
+  fallo, y el propio paso ya advertia del riesgo; (b) **generar la tabla con un script** — mas caro que
+  el defecto, y el juicio de «reproduce / no reproduce» no es automatizable: hay filas cuya respuesta
+  es «no, y por diseño»; (c) **sustituir el numero por la cadena** — se pierde el enlace con la lista
+  numerada, que es lo que permite ver un hueco.
+- **Reversible a criterio** — es una regla de redaccion en una skill; se revierte editandola.
+- **Criterio de cierre:** el Paso 2d de `protocol-close` exige la orden literal en cada fila, y la
+  exigencia se lee en el archivo. Lo implementa `T-174`.
+
+---
+
+### D-153 - La guia de arranque se publica DESPUES de promover la plantilla, no antes
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `T-162` escribe la guia de arranque **en el repositorio del esqueleto**, y su seccion
+  de rellenado manda completar las tres filas de «Esqueleto de arranque» de `project.md`. Esas filas
+  las acaba de anadir `T-167` **a la plantilla de este repositorio**, y el esqueleto todavia tiene la
+  version anterior. Medido antes de decidir:
+
+```
+$ grep -c '^| Esqueleto de arranque' <ruta del esqueleto>/project.md
+0
+```
+
+- **Decision:** la guia **no se publica hoy**. El orden es: cerrar la sesion con `T-167` commiteado y
+  subido → correr la promocion del andamiaje, que lleva la plantilla al esqueleto → y solo entonces
+  escribir la guia alli. `T-162` cierra en la sesion siguiente.
+- 🔑 **Por que ese orden y no el contrario.** Publicada hoy, la guia mandaria rellenar tres filas que
+  el `project.md` del esqueleto no tiene. Quien clone en esa ventana no encuentra un detalle menor:
+  encuentra que **la unica pagina que explica como arrancar contradice al archivo que manda
+  rellenar**. Una guia que falla en su primer uso no se corrige despues — se deja de leer.
+- ⚠️ **Y el arreglo rapido no estaba disponible, que es lo que fuerza el orden.** `_templates/` es una
+  de las seis areas agnosticas, y el andamiaje viaja en un solo sentido: no se puede editar alla para
+  que cuadre. Tiene que llegar por promocion, y la promocion exige este repositorio limpio y subido —
+  o sea, exige el cierre primero.
+- **Alternativas descartadas:** (a) **publicar la guia ya** y asumir la ventana de incoherencia — es
+  lo que se descarta, por lo de arriba; (b) **editar el `project.md` del esqueleto a mano** para que
+  cuadre — rompe el sentido unico por el sitio exacto que la regla existe para proteger, y deja el
+  esqueleto con una version que aqui no esta en ningun commit; (c) **quitar de la guia la seccion de
+  esas tres filas** y anadirla despues — deja la guia incompleta justo en el dato que solo se puede
+  anotar durante el arranque (el hash, que se pierde al borrar `.git`).
+- ⚠️ **El coste real de esperar es una sesion, y esta contado:** la guia ya esta redactada y
+  verificada; lo que falta es la puerta y el orden.
+- **Reversible a criterio** — es una decision de **cuando** publicar, no de que. Nada se escribe fuera.
+- **Criterio de cierre:** el `project.md` del esqueleto lleva sus tres filas, y solo despues aparece
+  la guia en su raiz. Lo implementan la promocion y `T-162`.
+
+---
+
+### D-154 - `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-153` deja la guia de arranque redactada y verificada, pero sin publicar hasta la
+  sesion siguiente. Ese texto **no tenia donde vivir**: escribir fuera lleva puerta, la conversacion
+  se pierde al cerrarla, y ninguna de las nueve carpetas propias servia. `_templates/` guarda **solo
+  plantillas en blanco** y esto es contenido relleno; `temporal/` esta fuera del repositorio y los
+  protocolos tienen prohibido tocarla.
+- **Decision:** nace `_outbound/`, declarada en `project.md`. Guarda **lo redactado aqui cuyo destino
+  es otro repositorio**, esperando su puerta: un archivo por pieza.
+- 🚨 **No es un cajon de borradores.** Lo que entra ya esta terminado y verificado; lo unico que le
+  falta es el permiso. Un borrador a medias no entra — para eso esta el trabajo en curso.
+- 🚨 **Y se vacia.** Publicada la pieza fuera, su archivo se borra **en la misma pasada**. Una carpeta
+  de salida que acumula deja de decir que hay pendiente, que es lo unico que se le pide.
+- 🔑 **Por que una carpeta y no un apano.** El problema no es de esta guia: aparece cada vez que este
+  repositorio redacta algo para el esqueleto o para las lecciones globales, y las dos cosas van a
+  repetirse. Sin sitio declarado, el texto acaba en la conversacion —y se pierde— o en una carpeta
+  que dice guardar otra cosa —y envejece mintiendo.
+- ⚠️ **Lo que `_outbound/` NO es:** no es un segundo original. Lo que se publique fuera manda desde el
+  momento en que se publica; el archivo de aqui es una copia en transito, y por eso se borra. Dos
+  originales es exactamente lo que el esqueleto y las lecciones globales existen para evitar.
+- ⛔ **Y no autoriza a escribir fuera.** La puerta sigue siendo la de `C-009`: el usuario aprueba antes
+  de tocar otro repositorio. `_outbound/` solo decide **donde espera** lo que aun no se ha aprobado.
+- **Alternativas descartadas:** (a) **aparcarlo en `_templates/000_preproject/`** — rompe la
+  definicion de esa carpeta, que es «solo plantillas en blanco», y una carpeta que incumple su propia
+  descripcion deja de poder comprobarse; (b) **no guardarlo y rehacer la guia en la sesion siguiente**
+  — tira trabajo ya verificado y no garantiza que salga igual, que es justo lo que «persistencia
+  total» existe para impedir; (c) **dejarlo en el area de trabajo del usuario** — esta fuera del
+  repositorio, su contenido desaparece sin aviso y los protocolos no pueden leerla.
+- **Reversible a criterio** — es una carpeta nueva y una fila en `project.md`; un commit lo revierte
+  entero y no toca ningun dato.
+- **Criterio de cierre:** `_outbound/` existe, esta declarada en «Carpetas propias» de `project.md`, y
+  el control de carpetas del cierre no la senala.

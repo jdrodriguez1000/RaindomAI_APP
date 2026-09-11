@@ -29,6 +29,7 @@
 | [A-017](#a-017---los-cuatro-filtros-de-promocion-estan-escritos-en-el-archivo-global-y-son-aplicables-tal-cual) | Los cuatro filtros de promocion estan escritos en el archivo global y son aplicables tal cual | 2026-09-08 | Confirmado |
 | [A-018](#a-018---toda-diferencia-entre-las-areas-agnosticas-del-proyecto-y-las-del-esqueleto-es-una-promocion-pendiente) | Toda diferencia entre las areas agnosticas del proyecto y las del esqueleto es una promocion pendiente | 2026-09-11 | Abierto |
 | [A-019](#a-019---la-skill-de-promocion-funciona-de-punta-a-punta-nunca-se-ha-ejecutado) | La skill de promocion funciona de punta a punta: nunca se ha ejecutado | 2026-09-11 | Abierto |
+| [A-020](#a-020---la-guia-de-arranque-basta-para-arrancar-a-quien-no-escribio-el-andamiaje) | La guia de arranque basta para arrancar a quien no escribio el andamiaje | 2026-09-11 | Abierto |
 
 ---
 
@@ -1115,6 +1116,49 @@ $ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE
   1  _templates/000_preproject/005_project.md
 ```
 
+📌 **Nota del 2026-09-11 (`T-173`, hallazgo `F-103`) — las siete cifras del bloque de arriba ya no
+reproducen, y no por un error: por el mismo mecanismo intrasesion que `L-057` describe.** El bloque
+se corrio **antes** de `T-158`, la tarea que sincronizo el esqueleto dentro de la misma jornada. El
+esqueleto paso de `fa7da56` a `1748f0a`, y con el las siete diferencias que el bloque media. El
+bloque original **no se reescribe**: publicaba lo que era cierto cuando se corrio.
+
+Corrido hoy, la misma orden:
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(diff --strip-trailing-cr "$ESQ/$f" "$f" | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  0  _templates/000_preproject/005_project.md
+```
+
+⚠️ **Esta orden mide un estado vivo y no se puede anclar: el objeto medido —el esqueleto— vive en
+otro repositorio, y ningun commit de este lo fija.** Se declara asi en su propia linea en lugar de
+fingir un ancla que no existe. La cifra de hoy vale para hoy.
+
+⚠️ **Y esa declaracion es criterio, no regla: hoy ninguna regla del repositorio la exige.** La
+seccion 5 de `R-036` recomienda escribirla —toda orden publicada va anclada, o declara en su linea
+que mide un estado vivo—, y esa recomendacion sigue **sin evaluar**. Se dice aqui para que no se lea
+como el cumplimiento de una norma vigente.
+
+🔑 **Lo que el desfase NO cambia es la conclusion del ejercicio.** Las 21 lineas que solo existian en
+el esqueleto se leyeron **una por una** cuando el bloque se corrio, y ese examen es lo que sostiene
+el parrafo de arriba: ninguna exigia conciliacion. `T-158` no refuto ese examen — lo aplico, que es
+por lo que hoy seis de los siete archivos dan `0`. Y `A-018` sigue **`Abierto`** por donde ya decia:
+su disparador es recurrente, y un caso no confirma un universal.
+
+⚠️ **La unica diferencia viva, `4 CLAUDE.md`, no es un contraejemplo pendiente:** son las ediciones
+que `T-160` y `T-161` hicieron **despues** de sincronizar, y su sitio es la promocion siguiente. Es
+justo el desfase que el Paso 2f del cierre existe para detectar.
+
+🕒 **Por que esta nota llega una sesion tarde.** El cierre de `S-036` detecto el desfase y lo dejo
+escrito en la seccion 6 de su informe, pero no pudo corregirlo: `assumptions.md` no es del cierre,
+es de `manager`. `R-036` lo levanto como `F-103` precisamente porque un pendiente que solo vive en
+un informe de sesion no vuelve a la superficie solo.
+
 🔑 **Dos de esas lineas son regresiones ya corregidas aqui, y eso refuerza el sentido de `D-146`:**
 el patron del Paso 1b del esqueleto no cubre `_templates` ni `_workflow`, y su Paso 1c enumera
 prefijos — los dos defectos que una auditoria encontro **en este repositorio**, que es el unico sitio
@@ -1152,3 +1196,39 @@ donde corre un cierre. Promover al reves habria llevado alla la version ciega.
 - 🔑 **Y por que se registra en vez de probarla hoy:** su propio Paso 0 exige que este repositorio este
   **limpio y subido**, y durante una sesion de trabajo no lo esta. Probarla hoy habria obligado a
   saltarse el primer disparador de la skill que se estaba probando.
+
+---
+
+### A-020 - La guia de arranque basta para arrancar a quien no escribio el andamiaje
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-11 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | manager |
+
+- **Supuesto:** que la guia redactada en `_outbound/skeleton_readme.md` lleva **todo** lo que hace
+  falta para arrancar un proyecto desde el esqueleto, y **en el orden en que hace falta**. Lo que esta
+  **verificado** es otra cosa, y es menos: que no lleva ningun dato propio de este proyecto, que no
+  cita ningun codigo instanciado, y que los diez archivos de instancia y sus diez plantillas existen
+  en el esqueleto tal como los nombra.
+- **Sobre que se construye encima:** sobre esto descansa que el esqueleto sea **utilizable por otro** y
+  no solo por quien lo construyo. Sin guia, el esqueleto es una carpeta que hay que descifrar; con una
+  guia incompleta es peor, porque quien la siga creera que ya termino.
+- 🔑 **De donde sale la confianza, y por que aun asi es un supuesto.** Su contenido no es invencion:
+  el procedimiento de arranque sale de una decision ya tomada, la lista de los diez archivos sale de
+  medir el esqueleto, y lo que un clone no trae se comprobo clonando a una carpeta desechable. Pero
+  **ningun proyecto ha arrancado siguiendola**, y quien la escribio ya sabia todo lo que la guia
+  explica — que es justo la posicion desde la que no se ve lo que falta.
+- **Como se refuta:** el primer arranque real que se atasque en algo que la guia no dice, o que la
+  diga en un orden que no funciona. El caso mas probable esta identificado: el hash se anota **antes**
+  de `rm -rf .git` y despues ya no existe. Si alguien lo pierde siguiendo la guia al pie de la letra,
+  el supuesto esta refutado por el sitio que mas cuesta.
+- **Disparador:** el primer proyecto que arranque del esqueleto. **Y no hay forma de adelantarlo desde
+  aqui:** este proyecto no salio del esqueleto — el esqueleto salio de este proyecto, asi que no puede
+  probar su propia guia de arranque.
+- ⚠️ **Lo que este supuesto NO afirma:** que la guia este bien escrita o sea agradable de leer. Afirma
+  que es **suficiente**. Una guia clara a la que le falte un paso lo incumple igual que una confusa.
+- ⚠️ **Y se registra ahora, no cuando se publique**, porque el trabajo que lo asume ya esta hecho: la
+  guia esta redactada y su publicacion ya esta decidida y ordenada. Esperar al momento de publicar
+  seria registrarlo despues de construir encima.

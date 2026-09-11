@@ -220,6 +220,7 @@ cada mencion legitima de la palabra. **Un control que devuelve ruido acaba apaga
 | `_templates/` | **Con que forma** se escribe cada artefacto: una subcarpeta por **etapa o gate** que tenga artefactos con plantilla, y dentro una plantilla por artefacto. Guarda solo plantillas en blanco; lo relleno vive en la carpeta de su etapa —o, para un gate, en `_audit/`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `_workflow/` | **Quien hace cada cosa y con cuanto sistema**: `team.md`, el reparto del trabajo entre Humano, Software e IA; `ai_levels.md`, los niveles de sistema de IA y la rubrica para elegir uno; y **un archivo por etapa** que aplica los dos a sus actividades, con el mismo nombre que la etapa. Aplica a todas las etapas declaradas salvo `000_preproject`. Agnostica — no lleva dentro ningun dato de este proyecto, y el Paso 1b lo comprueba |
 | `010_prototype/` | **Los entregables de la etapa `010_prototype`**: los cinco artefactos de registro en su raiz, y el codigo descartable del prototipo en una subcarpeta suya. Se archiva o se borra al cerrar su Gate — **no se muda a ninguna carpeta de producto** |
+| `_outbound/` | **Lo redactado aqui cuyo destino es OTRO repositorio**, esperando su puerta. Un archivo por pieza; se borra cuando la pieza se publica fuera |
 | `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
 
 🚨 **Esta tabla se contrasta contra el arbol en cada cierre de sesion** (Paso 2c de `protocol-close`):
@@ -244,6 +245,13 @@ no todas de golpe.
   iran** los entregables antes de que haya el primero, que es cuando esa decision cuesta cero. Lo
   fija `D-061`. La diferencia desaparece sola el dia que se escriba el primer artefacto — y si ese
   dia no desaparece, **el control estara señalando algo real**.
+
+📌 **`_outbound/` no es una tercera excepcion: existe en el arbol y esta declarada, asi que el
+control no la senala.** Se escribe aqui porque es la unica carpeta cuyo contenido **esta destinado a
+salir**: lo que guarda es texto ya redactado y ya verificado que espera la puerta de `C-009` para
+escribirse en otro repositorio. **No es un cajon de borradores** — lo que no este listo para publicar
+no entra—, y **se vacia**: publicada la pieza, su archivo se borra en la misma pasada. Una carpeta de
+salida que acumula deja de decir que hay pendiente.
 
 ⛔ **Lo que esta segunda razon no autoriza es declarar carpetas «por si acaso».** Vale para una
 carpeta cuya etapa esta escrita y cuyo contenido esta enumerado; una fila para algo que aun no se

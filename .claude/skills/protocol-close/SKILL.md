@@ -409,6 +409,27 @@ con la posicion que le dio `cat -n`; una posicion sin salida es un hueco visible
 exactamente lo que no fue visible la vez que esto fallo. Si una posicion repite a otra, se dice **de cual** y
 la orden repetida tiene que estar en la salida de `uniq -d`.
 
+🚨 **Y cada fila de ese bloque lleva LA ORDEN LITERAL, no solo su numero.** La regla de arriba se
+cumplio una vez al pie de la letra y el control fallo igual: una tabla de 54 filas se rotulo a mano y
+la columna quedo **desplazada** en un tramo entero. Las notas eran ciertas; la orden que cada una
+decia describir, no. Y una fila marcada `Si` que numera la orden equivocada **no prueba nada**: el
+control entero se convierte en decorado sin que nadie lo note.
+
+🔑 **Por que la cadena y no otro control.** Un numero copiado con una posicion de diferencia no se
+parece a nada, asi que se propaga en silencio. Una cadena si: si la fila dice `grep -c '<algo>'` y la
+lista pone otra cosa en esa posicion, la discrepancia **se ve leyendo**, sin correr nada. El numero
+se conserva —es lo que enlaza con la lista de `cat -n` y lo que hace visible un hueco—, pero deja de
+ser el unico identificador.
+
+⚠️ **No hace falta la orden entera cuando es larga: hace falta que sea DISCRIMINANTE.** El trozo que
+la distingue de sus vecinas en la lista de esa sesion, y nada mas. Una orden truncada hasta volverse
+ambigua no cumple la regla, porque no distingue — que es lo unico que se le pide.
+
+| # | Orden | Reproduce | Nota |
+|---|---|---|---|
+| 12 | `grep -c 'unicamente <rol>' <archivo>` | Si | `1` |
+| 13 | `grep -nE '^## Paso [0-9]+' <archivo>` | Si | mismas 9 lineas |
+
 ⚠️ **El recuento no es estable entre entornos, y por eso no basta con la cifra.** La misma orden
 sobre el mismo commit puede devolver numeros distintos segun como expanda el patron cada shell; los
 falsos positivos conocidos son parte de esa diferencia. Una lista se compara linea a linea; un numero

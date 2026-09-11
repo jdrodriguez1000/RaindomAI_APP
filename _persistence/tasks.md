@@ -175,11 +175,14 @@
 | [T-164](#t-164---fijar-por-nota-fechada-la-orden-de-la-seccion-1-de-s-034-f-098) | Fijar por nota fechada la orden de la seccion 1 de `S-034` (`F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-165](#t-165---fijar-por-nota-fechada-la-descripcion-de-la-vineta-de-findingsmd-en-s-034-f-099) | Fijar por nota fechada la descripcion de la vineta de `findings.md` en `S-034` (`F-099`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-166](#t-166---escribir-el-paso-7c-quater-la-orden-de-la-seccion-1-por-cadena-literal-d-149-f-098) | Escribir el Paso 7c-quater: la orden de la seccion 1 por cadena literal (`D-149`, `F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
-| [T-167](#t-167---anadir-a-la-plantilla-de-projectmd-las-dos-filas-del-esqueleto-de-origen-d-150) | Anadir a la plantilla de `project.md` las dos filas del esqueleto de origen (`D-150`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-167](#t-167---anadir-a-la-plantilla-de-projectmd-las-dos-filas-del-esqueleto-de-origen-d-150) | Anadir a la plantilla de `project.md` las dos filas del esqueleto de origen (`D-150`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-168](#t-168---corregir-las-tres-citas-cruzadas-de-d-146-d-147-y-d-148) | Corregir las tres citas cruzadas de `D-146`, `D-147` y `D-148` | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-169](#t-169---fijar-por-nota-fechada-la-frase-de-la-bitacora-de-s-035-sobre-projectmd-f-100) | Fijar por nota fechada la frase de la bitacora de `S-035` sobre `project.md` (`F-100`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-170](#t-170---rehacer-y-publicar-el-segundo-barrido-de-t-157-con-su-patron-y-su-ambito-f-101) | Rehacer y publicar el segundo barrido de `T-157`, con su patron y su ambito (`F-101`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-171](#t-171---corregir-la-cuarta-cita-cruzada-en-el-cuerpo-de-d-147) | Corregir la cuarta cita cruzada, en el cuerpo de `D-147` | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-172](#t-172---fijar-por-nota-fechada-la-correspondencia-de-la-tabla-de-reejecucion-de-s-036-f-102) | Fijar por nota fechada la correspondencia de la tabla de reejecucion de `S-036` (`F-102`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-173](#t-173---fijar-por-nota-fechada-el-bloque-desfasado-de-a-018-f-103) | Fijar por nota fechada el bloque desfasado de `A-018` (`F-103`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-174](#t-174---exigir-en-el-paso-2d-que-cada-fila-de-la-reejecucion-lleve-la-orden-literal-d-152-f-102) | Exigir en el Paso 2d que cada fila de la reejecucion lleve la orden literal (`D-152`, `F-102`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -7676,7 +7679,7 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
 ### T-167 - Anadir a la plantilla de `project.md` las dos filas del esqueleto de origen (`D-150`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -7693,6 +7696,27 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
   alguien rellena en su sitio deja de ser plantilla.
 - **Criterio de cierre:** la plantilla lleva las dos filas con sus huecos, y el barrido de fuga del
   Paso 1b sobre `_templates/` sigue devolviendo vacio.
+
+---
+
+**Verificacion — ejecutado el 2026-09-11 (cierre de S-037):**
+
+```
+$ grep -c '^| Esqueleto de arranque' _templates/000_preproject/005_project.md
+3
+
+$ grep -n '^| Esqueleto de arranque' _templates/000_preproject/005_project.md
+44:| Esqueleto de arranque — repositorio | `<ruta absoluta del esqueleto en esta maquina; un guion si no esta clonado aqui>` |
+45:| Esqueleto de arranque — remoto | `<url del remoto del esqueleto>` |
+46:| Esqueleto de arranque — version de partida | `<hash completo del commit del que salio este proyecto>` |
+
+$ git grep -nE "RaidomAI_App|Proyectos_TripleS|github.com" -- _templates/000_preproject/005_project.md; echo "exit=$?"
+exit=1
+```
+
+- ✅ **La plantilla lleva las tres filas con sus huecos en blanco** (una mas que la tarea decia —
+  «esqueleto de origen» se abrio en repositorio y remoto por separado, siguiendo la misma forma que
+  «Lecciones globales»—, y el barrido de fuga del Paso 1b sobre este archivo sigue vacio.
 
 ---
 
@@ -7905,3 +7929,185 @@ No es un error de contenido —la nota sigue siendo la misma, solo se movio de l
 orden (la anclada a `ce0ac4e`) sigue reproduciendo exacta, verificado arriba. Esto no se corrige a
 mano: es la prueba de que un numero de linea sin ancla, tomado del arbol de trabajo, no sobrevive a
 mas ediciones del mismo archivo en la misma jornada.
+
+---
+
+### T-172 - Fijar por nota fechada la correspondencia de la tabla de reejecucion de `S-036` (`F-102`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-037 |
+
+- **Que:** la tabla «Reejecucion, linea por linea» de la seccion 7 de `_audit/S-036.md` rotula cada
+  fila con el numero que le dio `cat -n`, y **entre la fila 32 y la 48 ese numero no corresponde a la
+  orden que la nota describe**. Cuatro contrastes directos lo fijan: las filas 43, 44, 47 y 48
+  publican «vacio», «vacio», `0` y `1`, y las ordenes 43, 44, 47 y 48 devuelven `1`, nueve lineas,
+  nada y nada.
+- **Por que importa:** esa tabla **es** la evidencia del Paso 2d, el control que certifica que toda
+  orden publicada en el commit sigue reproduciendo. Con el mapa roto, una fila marcada `Si` no prueba
+  nada sobre la orden que numera, y el control entero pasa a ser decorado.
+- 🔑 **El fondo si se sostiene, y por eso es Media.** Las seis ordenes que no reproducian estan
+  identificadas **por su contenido** y cada una tiene su nota fechada donde le toca. Lo roto era la
+  trazabilidad de la tabla, no la conclusion del paso.
+- **Como se corrige:** nota fechada en la propia seccion 7, **sin reescribir la tabla ya commiteada**,
+  que publica la correspondencia real fila por fila y las cuatro ordenes ancladas que la fijan.
+- **Criterio de cierre:** la seccion 7 de `_audit/S-036.md` lleva su nota, la nota publica la
+  correspondencia entera, y sus cuatro ordenes reproducen.
+
+---
+
+**Verificacion — ejecutado el 2026-09-11:**
+
+```
+$ grep -c 'T-172`, hallazgo `F-102' _audit/S-036.md
+1
+
+$ git show 6fb6d39:.claude/skills/protocol-promote/SKILL.md | grep -c 'No lo delegas en ningun agente'
+1
+
+$ git show 6fb6d39:.claude/skills/protocol-promote/SKILL.md | grep -cE '^## Paso [0-9]+ —'
+9
+
+$ git show 6fb6d39:.claude/skills/protocol-promote/SKILL.md | grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_"; echo "exit=$?"
+exit=1
+
+$ git grep -n "unico protocolo del" 6fb6d39 -- CLAUDE.md .claude/; echo "exit=$?"
+exit=1
+```
+
+- ✅ **La nota esta puesta**, y las cuatro ordenes ancladas al commit auditado devuelven `1`, `9`,
+  nada y nada — ninguna de las cuatro coincide con lo que su fila publica. El hallazgo se sostiene
+  entero y la correspondencia queda fijada.
+
+---
+
+### T-173 - Fijar por nota fechada el bloque desfasado de `A-018` (`F-103`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-037 |
+
+- **Que:** el bloque de la nota del 2026-09-11 bajo `A-018` publica `5 3 7 4 1 0 1` como desfase con
+  el esqueleto para siete archivos. Corrido hoy da `4 0 0 0 0 0 0`: la orden se corrio **antes** de
+  `T-158`, que sincronizo el esqueleto mas tarde dentro de la misma jornada.
+- **Por que quedo sin corregir:** el cierre de `S-036` lo detecto y lo dejo escrito en la seccion 6 de
+  su informe, pero `assumptions.md` **no es del cierre**. Los cinco casos gemelos de `tasks.md` si se
+  corrigieron, asi que el registro quedaba desigual — el mismo defecto arreglado en un archivo y no en
+  el otro.
+- **Por que importa:** ese bloque sostiene el primer ejercicio del disparador de `A-018`, que es el
+  argumento de por que el supuesto sigue `Abierto`. Y sin `T-XXX`, el unico mecanismo que devolvia el
+  pendiente a la superficie era que alguien releyera un informe de sesion.
+- 🔑 **La conclusion no depende de las cifras, y por eso es Media.** Las 21 lineas se leyeron una por
+  una cuando el bloque se corrio; `T-158` no refuto ese examen, lo aplico. `A-018` sigue `Abierto` por
+  donde ya decia: su disparador es recurrente.
+- **Como se corrige:** nota fechada bajo el bloque, con la misma forma que las cinco de `tasks.md`,
+  **sin reescribir el bloque original** — que publicaba lo que era cierto cuando se corrio.
+- ⚠️ **La orden mide un estado vivo y no se puede anclar:** el esqueleto vive en otro repositorio.
+  La nota lo declara en su propia linea, en lugar de fingir un ancla que no existe. ⚠️ **Eso es
+  criterio, no regla:** ninguna norma vigente lo exige todavia; la seccion 5 de `R-036` recomienda
+  escribirla y esa recomendacion sigue sin evaluar.
+- **Criterio de cierre:** el bloque de `A-018` lleva su nota, y la nota publica la salida de hoy con
+  su orden entera.
+
+---
+
+**Verificacion — ejecutado el 2026-09-11:**
+
+```
+$ grep -c 'T-173`, hallazgo `F-103' _persistence/assumptions.md
+1
+
+$ sed -n '1127p' _persistence/assumptions.md | sed 's/^\$ //' > /tmp/cmd.sh; bash /tmp/cmd.sh
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  0  _templates/000_preproject/005_project.md
+```
+
+- ✅ **La nota esta puesta**, y la orden —copiada de vuelta del archivo antes de correrla, segun
+  `C-010`, que es lo que hace la segunda linea— reproduce la salida que la nota publica.
+- ⚠️ **Esa segunda orden mide un estado vivo** y ademas **depende del numero de linea**: se corrio el
+  2026-09-11, cuando la orden de la nota estaba en la linea 1127 de `assumptions.md`. Ediciones
+  posteriores del archivo la desplazaran. Se declara asi en lugar de fingir un ancla que el objeto
+  medido —un repositorio externo— no admite.
+
+📌 **Nota del 2026-09-11 (cierre de S-037) — la prediccion de arriba se cumplio antes de terminar la
+misma jornada, y ademas el numero de linea ya estaba mal cuando se escribio.** El Paso 2d del cierre
+reejecuta esta orden y no reproduce el bloque de arriba, por dos razones distintas:
+
+```
+$ sed -n '1127p' _persistence/assumptions.md | sed 's/^\$ //' > /tmp/cmd.sh; bash /tmp/cmd.sh; echo "exit=$?"
+/tmp/cmd.sh: line 1: unexpected EOF while looking for matching ``'
+exit=2
+
+$ sed -n '1128p' _persistence/assumptions.md | sed 's/^\$ //' > /tmp/cmd2.sh; bash /tmp/cmd2.sh
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+```
+
+La linea correcta de la orden de `A-018` es **1128**, no 1127 —un desfase que ya existia cuando este
+bloque se escribio, ajeno al defecto que declara—. Y con la linea correcta, la septima cifra ya no es
+`0`: es `3`, porque `T-167` volvio a editar `_templates/000_preproject/005_project.md` (las filas del
+esqueleto de origen) **despues** de que esta verificacion se corriera, dentro de la misma sesion. El
+bloque original no se reescribe. Este defecto es distinto del que `A-018` ya documenta por su cuenta
+(`T-173`): ese mide el desfase con el esqueleto externo; este es que la copia de la orden aqui, en
+`tasks.md`, tenia ademas un numero de linea equivocado desde el principio.
+
+---
+
+### T-174 - Exigir en el Paso 2d que cada fila de la reejecucion lleve la orden literal (`D-152`, `F-102`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-037 |
+
+- **Que:** la mitad hacia adelante de `F-102`. El Paso 2d ya exigia rotular cada salida con la
+  posicion que le dio `cat -n`; eso se cumplio y el control fallo igual, porque el defecto es de
+  **transcripcion**. Se anade la exigencia de la orden literal en cada fila, con su ejemplo de forma.
+- **Por que importa:** un numero copiado con una posicion de diferencia se propaga en silencio; una
+  cadena discriminante hace visible la discrepancia **leyendo**, sin correr nada.
+- ⚠️ **No exige la orden entera:** exige que la cadena **distinga** a esa orden de sus vecinas en la
+  lista de esa sesion. Una orden truncada hasta volverse ambigua no cumple la regla.
+- **Criterio de cierre:** el Paso 2d de `protocol-close` exige la orden literal, y el ejemplo de tabla
+  que lo acompana lleva su columna `Orden`.
+
+---
+
+**Verificacion — ejecutado el 2026-09-11:**
+
+```
+$ grep -c 'lleva LA ORDEN LITERAL' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c '^| # | Orden | Reproduce | Nota |' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" .claude/skills/protocol-close/SKILL.md; echo "exit=$?"
+exit=1
+
+$ grep -noE '[A-Z]{1,2}-[0-9]+' .claude/skills/protocol-close/SKILL.md | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+```
+
+- ✅ **La regla y su ejemplo estan en el archivo**, y los dos barridos de agnosticismo salen vacios:
+  la skill sigue sin un dato propio de este proyecto y sin un codigo instanciado.
