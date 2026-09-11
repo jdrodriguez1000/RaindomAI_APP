@@ -9587,12 +9587,16 @@ $ grep -nE '^\| \[F-0[0-9]{2}\]' _audit/findings.md | grep -icE 'seccion 1'
   tres filas y su `SIN COMPROBAR`. Lo implementa `T-166`.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-quater'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c "grep -qF 'git show --stat --name-only --format='"
+$ git show cce48e0:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-quater'
+1
+$ git show cce48e0:.claude/skills/protocol-close/SKILL.md | grep -c "grep -qF 'git show --stat --name-only --format='"
+1
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `cce48e0`.** Las dos reproducen lo que la entrada anuncia.
 
 ---
 

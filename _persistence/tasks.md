@@ -7150,12 +7150,16 @@ NO existe temporal/ en el clone
   commit que la lista describe.
 
 ```
-$ git show <hash>:_audit/S-034.md | grep -c 'Nota del 2026-09-11 (`F-098`, `T-164`)'
-$ git show <hash>:_audit/S-034.md | grep -c 'git show --stat --name-only --format= 2cef150'
+$ git show cce48e0:_audit/S-034.md | grep -c 'Nota del 2026-09-11 (`F-098`, `T-164`)'
+1
+$ git show cce48e0:_audit/S-034.md | grep -c 'git show --stat --name-only --format= 2cef150'
+1
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `cce48e0`.** Las dos reproducen lo que la entrada anuncia.
 
 ---
 
@@ -7182,12 +7186,16 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
   cambios de estado, `3` `Registrado en`) ancladas al commit que describe.
 
 ```
-$ git show <hash>:_audit/S-034.md | grep -c 'Nota del 2026-09-11 (`F-099`, `T-165`)'
-$ git show <hash>:_audit/S-034.md | grep -c '\*\*Ninguna nota anadida\.\*\*'
+$ git show cce48e0:_audit/S-034.md | grep -c 'Nota del 2026-09-11 (`F-099`, `T-165`)'
+1
+$ git show cce48e0:_audit/S-034.md | grep -c '\*\*Ninguna nota anadida\.\*\*'
+1
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `cce48e0`.** Las dos reproducen lo que la entrada anuncia.
 
 ---
 
@@ -7219,12 +7227,16 @@ Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
 - **Criterio de cierre:** el paso existe en la skill, con su `grep -qF` y su tabla de tres filas.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-quater'
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la seccion 1'
+$ git show cce48e0:.claude/skills/protocol-close/SKILL.md | grep -c '^### 7c-quater'
+1
+$ git show cce48e0:.claude/skills/protocol-close/SKILL.md | grep -c 'FALTA en la seccion 1'
+1
 ```
 
 ⚠️ **Las ordenes se escriben con `<hash>` a proposito: el commit de esta sesion todavia no existe.**
 Las ancla el Paso 7c-bis del cierre. Tienen que devolver `1` y `1`.
+
+📌 **Ancladas por el Paso 7c-bis al commit `cce48e0`.** Las dos reproducen lo que la entrada anuncia.
 
 ---
 
@@ -7290,7 +7302,7 @@ $ git show 2cef150:_persistence/decisions.md | grep -n 'Lo implementa `T-1[56][0
 9460:  del caso invertido. Lo implementa `T-162`.
 9511:  va al informe. Lo implementa `T-161`.
 
-$ git show <hash>:_persistence/decisions.md | grep -n 'Lo implementa `T-1[56][0-9]`'
+$ git show cce48e0:_persistence/decisions.md | grep -n 'Lo implementa `T-1[56][0-9]`'
 9447:  ejecutor. Lo implementa `T-161`.
 9483:  del caso invertido. Lo implementa `T-159`.
 9538:  va al informe. Lo implementa `T-160`.
@@ -7304,3 +7316,6 @@ porque el patron es por forma, no por decision.
 mientras `decisions.md` seguia creciendo, y sus numeros de linea (`9431`/`9467`/`9522`/`9571`) ya no
 reproducian al cerrar. Se anclan la orden y los numeros al commit de la sesion; el ancla la rellena el
 Paso 7c-bis.
+
+📌 **Anclada por el Paso 7c-bis al commit `cce48e0`.** La unica orden que quedaba por anclar en este
+bloque reproduce exactamente las cuatro lineas publicadas arriba.
