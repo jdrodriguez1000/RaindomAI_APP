@@ -187,7 +187,9 @@
 | [T-176](#t-176---fijar-por-nota-fechada-la-septima-cifra-desfasada-bajo-a-018-f-105) | Fijar por nota fechada la septima cifra desfasada bajo `A-018` (`F-105`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-177](#t-177---comparar-fila-y-ficha-de-cada-hallazgo-en-la-regla-y-en-el-cierre-d-155-f-106) | Comparar fila y ficha de cada hallazgo, en la regla y en el cierre (`D-155`, `F-106`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-178](#t-178---hacer-que-el-paso-7c-quater-busque-la-linea-de-orden-con-su-hash-no-la-cadena-suelta-d-156) | Hacer que el Paso 7c-quater busque la linea de orden con su hash, no la cadena suelta (`D-156`) | Implementada | Media | No bloqueante | `000_preproject` |
-| [T-179](#t-179---que-el-cierre-deje-tarea-cuando-no-puede-corregir-una-orden-que-no-reproduce-d-156) | Que el cierre deje tarea cuando no puede corregir una orden que no reproduce (`D-156`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-179](#t-179---que-el-cierre-deje-tarea-cuando-no-puede-corregir-una-orden-que-no-reproduce-d-156) | Que el cierre deje tarea cuando no puede corregir una orden que no reproduce (`D-156`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-180](#t-180---fijar-por-nota-fechada-la-cifra-y-el-parrafo-desfasados-de-la-nota-de-t-176-f-107) | Fijar por nota fechada la cifra y el parrafo desfasados de la nota de `T-176` (`F-107`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-181](#t-181---fijar-por-nota-fechada-la-procedencia-real-de-la-seccion-7-de-s-038-f-108) | Fijar por nota fechada la procedencia real de la seccion 7 de `S-038` (`F-108`) | Implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -199,7 +201,7 @@
 | Estado | `Implementada` / `No implementada` / `Cancelada` / `Suspendida` |
 | Importancia | `Alta` / `Media` / `Baja` |
 | Urgencia | `Bloqueante` / `No bloqueante` |
-| Origen | `usuario` / `manager` / `report_auditor` |
+| Origen | `usuario` / `manager` / `report_auditor` / `session-closer` |
 | Etapa | una de las etapas declaradas en la tabla «Etapas» de `project.md` |
 
 **`Origen` es obligatorio y su valor sale de esta lista.** Que significa cada uno:
@@ -209,6 +211,7 @@
 | `usuario` | una peticion o una decision del usuario |
 | `manager` | iniciativa propia al ejecutar |
 | `report_auditor` | un hallazgo `F-NNN` de una auditoria |
+| `session-closer` | un control del cierre de sesion que detecta un pendiente en un archivo que el cierre no puede editar |
 
 🚨 **Anadir un valor nuevo es una decision, no una improvisacion.** El criterio es uno solo:
 **nombra un origen de demanda que ninguno de los ya existentes cubre**. Un matiz de un origen
@@ -8210,6 +8213,28 @@ $ sed -n '/T-176`, hallazgo `F-105/,/^---$/p' _persistence/assumptions.md | grep
   barrido cuenta las lineas `<`, las que existen solo en el esqueleto. Se dice aqui para no repetir el
   defecto que esta tarea corrige.
 
+📌 **Nota del 2026-09-14 (`T-180`, hallazgo `F-107`) — el criterio de cierre de esta tarea no se
+cumplia en su propio commit.** Nada de arriba se reescribe. La tabla de la verificacion publica `0`
+para `.claude/skills/protocol-close/SKILL.md`, y `T-178` edito esa skill despues, en la misma sesion:
+el aviso de arriba previo las ediciones de `T-177`, que solo anaden lineas, y no la de `T-178`, que
+cambia dos lineas que el esqueleto tiene. La orden, anclada por los dos lados, da `2` en el commit
+que contiene esta tarea:
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(git show e822ae3:"$f" | diff --strip-trailing-cr <(git -C "$ESQ" show 1748f0a:"$f") - | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  2  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+```
+
+⚠️ **La tarea sigue `Implementada`** —su nota esta puesta—, pero la cifra que publico era falsa. La
+correccion, con el contraste contra el commit padre, vive donde se lee la cifra: la nota de `T-180`
+bajo `A-018`.
+
 ---
 
 ### T-177 - Comparar fila y ficha de cada hallazgo, en la regla y en el cierre (`D-155`, `F-106`)
@@ -8346,7 +8371,7 @@ exit=1
 ### T-179 - Que el cierre deje tarea cuando no puede corregir una orden que no reproduce (`D-156`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -8365,3 +8390,130 @@ exit=1
   `protocol-close` antes de la promocion al esqueleto. Lo registra la nota final de `D-156`.
 - **Criterio de cierre:** el Paso 2d prescribe la tarea para ese caso, con su `Origen` decidido, y
   una prueba muestra que un pendiente en un archivo ajeno deja fila en `tasks.md`.
+
+📌 **Nota del 2026-09-14 (`D-158`) — se retoma en la misma fecha en que se aplazo, y se implementa.**
+`F-107` materializo el riesgo que el aplazamiento dejaba abierto, y el usuario decidio retomarla. El
+`Origen` que faltaba lo decidio tambien el usuario: valor nuevo **`session-closer`**. La regla vive en
+el Paso 2d de `protocol-close`, con su eco en el Paso 4 y en la linea de controles del reporte; el
+valor, en la tabla de `tasks.md` y en la de su plantilla. ⚠️ **La «prueba» del criterio no se hizo,
+y no se simula:** exige lanzar un cierre. `D-158` la sustituye por la verificacion de abajo y por el
+supuesto `A-021`, con su disparador en el primer caso real.
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ grep -c 'Origen: session-closer' .claude/skills/protocol-close/SKILL.md
+2
+
+$ grep -c '^Ordenes sin reproducir en archivos ajenos (2d) — ' .claude/skills/protocol-close/SKILL.md
+1
+
+$ grep -c '^| `session-closer` | un control del cierre' _persistence/tasks.md _templates/000_preproject/015_tasks.md
+_persistence/tasks.md:1
+_templates/000_preproject/015_tasks.md:1
+
+$ grep -c '^| Origen | `usuario` / `manager` / `report_auditor` / `session-closer` |' _persistence/tasks.md _templates/000_preproject/015_tasks.md
+_persistence/tasks.md:1
+_templates/000_preproject/015_tasks.md:1
+
+$ grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" .claude/skills/protocol-close/SKILL.md _templates/000_preproject/015_tasks.md; echo "exit=$?"
+exit=1
+
+$ git diff -U0 -- .claude/skills/protocol-close/SKILL.md _templates/000_preproject/015_tasks.md 2>/dev/null | grep '^+[^+]' | grep -noE '\b[A-Z]{1,2}-[0-9]+\b' | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+```
+
+- ✅ **La regla esta en los tres sitios de la skill y el valor en las dos tablas**, sin fuga de datos
+  propios ni codigos instanciados en lo anadido.
+- ⚠️ **Mide el arbol de trabajo antes del commit.** Las ordenes ancladas estan en el criterio de cierre
+  de `D-158`. Una primera version de este bloque se tecleo con `cut -c` y un `grep` que se contaba a si
+  mismo, y no reproducia: se rehizo generandolo con las ordenes (`L-056`).
+
+---
+
+### T-180 - Fijar por nota fechada la cifra y el parrafo desfasados de la nota de `T-176` (`F-107`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-039 |
+
+- **Que:** la nota de `T-176` bajo `A-018` y la verificacion de `T-176` publican `0` para
+  `.claude/skills/protocol-close/SKILL.md`, y su propio commit (`e822ae3`) da `2`: `T-178` edito la
+  skill despues de correr la orden. La nota dice ademas que la seccion 5 de `R-036` «sigue sin
+  evaluar», y `D-156` la evaluo en el mismo commit.
+- **Por que importa:** es la cuarta vez que el registro publica una cifra que su commit no sostiene,
+  y esta vez dentro de la correccion del hallazgo que lo describia.
+- **Como se corrige:** nota fechada bajo `A-018` y nota fechada bajo `T-176`, **sin reescribir nada**.
+  🔑 **La orden de las dos va anclada por los dos lados** —`git show e822ae3:` aqui y
+  `git -C <esqueleto> show 1748f0a:` alli—, no medida en el arbol de trabajo: una correccion que
+  vuelve a medir un estado vivo puede desfasarse igual que la que corrige.
+- ⚠️ **No ataca la causa comun**, que es de traspaso: la lleva `T-179`.
+- **Criterio de cierre:** las dos notas estan en su commit, y sus ordenes, extraidas del archivo por el
+  rango de cada nota, devuelven lo que publican.
+
+```
+$ git show <hash>:_persistence/assumptions.md | grep -c 'T-180`, hallazgo `F-107'
+$ git show <hash>:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 (`T-1[8]0`, hallazgo `F-107'
+```
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ for spec in "_persistence/assumptions.md|T-180\`, hallazgo \`F-107|^### A-019 " "_persistence/tasks.md|T-180\`, hallazgo \`F-107|^### T-177 "; do IFS='|' read -r f a b <<<"$spec"; echo "===== $f"; sed -n "/$a/,/$b/{p;/$b/q}" "$f" > "$TEMP/blk.md"; awk '/^```$/{inb=!inb; next} inb' "$TEMP/blk.md" > "$TEMP/pub.txt"; grep '^\$ ' "$TEMP/pub.txt" | sed 's/^\$ //' > "$TEMP/cmds.sh"; : > "$TEMP/re.txt"; while IFS= read -r l; do { printf '$ %s\n' "$l"; bash -c "$l"; echo; } >> "$TEMP/re.txt"; done < "$TEMP/cmds.sh"; diff <(sed '/^$/d' "$TEMP/pub.txt") <(sed '/^$/d' "$TEMP/re.txt") && echo "REPRODUCE ($(wc -l < "$TEMP/cmds.sh") ordenes)"; done
+===== _persistence/assumptions.md
+REPRODUCE (3 ordenes)
+===== _persistence/tasks.md
+REPRODUCE (1 ordenes)
+```
+
+- ✅ **Las dos notas estan puestas y sus ordenes reproducen**, extraidas por el rango de cada nota y
+  reejecutadas; `diff` entre lo publicado y lo reejecutado sale vacio.
+- 🔑 **Esta vez no hay estado vivo que se mueva debajo:** las cuatro ordenes van ancladas por los dos
+  lados, asi que editar hoy `protocol-close` para `T-179` no las desfasa.
+
+---
+
+### T-181 - Fijar por nota fechada la procedencia real de la seccion 7 de `S-038` (`F-108`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-039 |
+
+- **Que:** el bloque «Procedencia por archivo» de la seccion 7 de `S-038` publica una linea que
+  ninguna orden emite, y la tabla de reejecucion y el parrafo siguiente atribuyen las filas 4, 5 y 10
+  a un archivo que no es el suyo.
+- **Por que importa:** la seccion 7 existe para que la procedencia se pueda reproducir, y publica como
+  salida cruda un texto tecleado.
+- **Como se corrige:** nota fechada en la seccion 7 de `S-038`, antes de la NOTA DE CIERRE, con la
+  orden anclada a `e822ae3` y la atribucion correcta, sin reescribir el bloque.
+- ⚠️ **La mitad hacia adelante del hallazgo no se adopta:** la regla ya existe (`D-157`).
+- **Criterio de cierre:** la nota esta en su commit y sus dos ordenes, extraidas por el rango de la
+  nota, devuelven lo que publica.
+
+```
+$ git show <hash>:_audit/S-038.md | grep -c 'T-181`, hallazgo `F-108'
+```
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ for spec in "_audit/S-038.md|T-181\`, hallazgo \`F-108|^> ## NOTA DE CIERRE"; do IFS='|' read -r f a b <<<"$spec"; echo "===== $f"; sed -n "/$a/,/$b/{p;/$b/q}" "$f" > "$TEMP/blk.md"; awk '/^```$/{inb=!inb; next} inb' "$TEMP/blk.md" > "$TEMP/pub.txt"; grep '^\$ ' "$TEMP/pub.txt" | sed 's/^\$ //' > "$TEMP/cmds.sh"; : > "$TEMP/re.txt"; while IFS= read -r l; do { printf '$ %s\n' "$l"; bash -c "$l"; echo; } >> "$TEMP/re.txt"; done < "$TEMP/cmds.sh"; diff <(sed '/^$/d' "$TEMP/pub.txt") <(sed '/^$/d' "$TEMP/re.txt") && echo "REPRODUCE ($(wc -l < "$TEMP/cmds.sh") ordenes)"; done
+===== _audit/S-038.md
+REPRODUCE (2 ordenes)
+```
+
+- ✅ **La nota esta puesta y sus dos ordenes reproducen.**

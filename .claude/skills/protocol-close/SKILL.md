@@ -335,6 +335,23 @@ una: se vuelve a correr, y su salida tiene que ser la que el bloque publica.
 | una linea, y al reejecutarla da lo mismo que el bloque publica | la orden es reproducible aunque no lleve ancla | sigue, pero **anclala**: `git show <hash>:` cuesta un `git grep` |
 | una linea, y al reejecutarla da **otra cosa** | 🚨 el bloque afirma algo que su commit no sostiene | no se cierra asi. O se corrige el numero, o el bloque va con su **nota fechada** al lado |
 
+🚨 **Y si esa orden vive en un archivo que este protocolo no puede editar, el pendiente se abre como
+tarea — no se queda en el informe.** La tercera fila pide corregir o poner nota, y ninguna de las dos
+cosas cabe en `decisions.md`, `assumptions.md`, `constraints.md`, `lessons.md` ni en los archivos del
+auditor. Entonces se abre una `T-XXX` en `tasks.md`, que si es de este protocolo, con
+**`Origen: session-closer`**, y en su cuerpo van tres cosas: **el archivo**, **la orden literal** y
+**lo que publica frente a lo que da hoy**. El informe la cita por su codigo en la seccion 6.
+
+🔑 **Por que una tarea y no solo el aviso.** Un pendiente escrito solo en el informe de sesion vive en
+un archivo que nadie vuelve a abrir para trabajar: el arranque lee `tasks.md`, no los informes. Este
+defecto se detecto varias veces en este mismo paso, se dejo dicho en el informe cada vez, y cada vez
+acabo en hallazgo de auditoria por la misma razon — **el aviso existia y no tenia dueno**. Detectar ya
+funcionaba; lo que fallaba era el traspaso.
+
+⚠️ **La tarea no corrige nada: registra.** La nota fechada la escribe despues quien si puede editar ese
+archivo. Y si la orden vive en un archivo que este protocolo si edita (`tasks.md`, `progress.md`, el
+informe), no se abre tarea: se corrige o se anota ahi mismo, como dice la tabla.
+
 🚨 **Y la evidencia de este paso publica la lista COMPLETA de su primera orden, nunca una
 seleccion de ella.** Se pega la orden con **su recuento** y **todas** las lineas que devolvio, con el
 resultado de reejecutar cada una. Pegar unas cuantas es lo que dejo pasar el octavo caso del defecto:
@@ -798,7 +815,8 @@ de campos de su entrada. **Las dos se actualizan juntas.**
 `Implementada` · `No implementada` · `Cancelada` · `Suspendida`
 
 Y cada tarea lleva ademas **Importancia** (`Alta` / `Media` / `Baja`) y **Urgencia**
-(`Bloqueante` / `No bloqueante`), mas **Origen** (`usuario` / `manager` / `report_auditor`).
+(`Bloqueante` / `No bloqueante`), mas **Origen** (`usuario` / `manager` / `report_auditor` /
+`session-closer`).
 
 - Mueve a `Implementada` solo lo que la evidencia respalde.
 - Lo que quedo a medias **sigue en `No implementada`**, y su entrada de detalle dice **en que punto
@@ -818,6 +836,10 @@ Y cada tarea lleva ademas **Importancia** (`Alta` / `Media` / `Baja`) y **Urgenc
 **Aqui entra tambien lo que produjeron los Pasos 2b y 2c**: si salieron al dia, no hay nada que
 anotar; si algo fallo, la tarea nueva se anade con su id. Ese es el motivo de que aquellos
 controles vayan arriba y no abajo.
+
+**Y lo que produjo el Paso 2d en un archivo que no es tuyo:** cada orden que no reproduce ahi deja su
+tarea con `Origen: session-closer`. Es el unico valor de `Origen` que pones tu por iniciativa del
+control, y solo para ese caso.
 
 Una tarea que se entiende en una linea **se queda en el indice** y su entrada de detalle es minima.
 No infles el archivo.
@@ -2016,6 +2038,7 @@ Codigos instanciados en `_phases/` y `_workflow/` (1c) — <cero lineas | 🚨 <
 Indices de `_persistence/` (2b) — <al dia | corregidos | 🚨 SIN COMPROBAR — <que fallo>>
 Fila ↔ ficha en `_audit/findings.md` (2b) — <coinciden | 🚨 <las lineas>, a Sin resolver | 🚨 SIN COMPROBAR — <que fallo>>
 Carpetas declaradas (2c) — <coinciden | <las diferencias y su razon> | 🚨 SIN COMPROBAR — <por que>>
+Ordenes sin reproducir en archivos ajenos (2d) — <ninguna | <N> tareas abiertas: <sus T-XXX, con el archivo de cada una>>
 Desfase con el esqueleto (2f) — <al dia, sin salida | <N> archivos por promover: <la lista entera> | 🚨 SIN COMPROBAR — <el motivo>>
 Huecos de plantilla en el informe (6b) — <cero lineas | 🚨 <las lineas, borradas antes del `git add`>>
 Criterios de cierre anclados (7c-bis) — <N ordenes de M, en <las D-XXX nuevas> | ninguna decision nueva | 🚨 <las que no coinciden, con las dos salidas> | <las no anclables, y por que>>

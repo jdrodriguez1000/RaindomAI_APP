@@ -30,6 +30,7 @@
 | [A-018](#a-018---toda-diferencia-entre-las-areas-agnosticas-del-proyecto-y-las-del-esqueleto-es-una-promocion-pendiente) | Toda diferencia entre las areas agnosticas del proyecto y las del esqueleto es una promocion pendiente | 2026-09-11 | Abierto |
 | [A-019](#a-019---la-skill-de-promocion-funciona-de-punta-a-punta-nunca-se-ha-ejecutado) | La skill de promocion funciona de punta a punta: nunca se ha ejecutado | 2026-09-11 | Abierto |
 | [A-020](#a-020---la-guia-de-arranque-basta-para-arrancar-a-quien-no-escribio-el-andamiaje) | La guia de arranque basta para arrancar a quien no escribio el andamiaje | 2026-09-11 | Abierto |
+| [A-021](#a-021---el-cierre-abrira-la-tarea-del-paso-2d-la-primera-vez-que-le-toque-nunca-se-ha-ejercitado) | El cierre abrira la tarea del Paso 2d la primera vez que le toque: nunca se ha ejercitado | 2026-09-14 | Abierto |
 
 ---
 
@@ -1196,6 +1197,49 @@ escrita, que es justo lo que el supuesto afirma.
 que la quitaria de raiz es la recomendacion de la seccion 5 de `R-036` —toda orden publicada va
 anclada, o declara en su linea que mide un estado vivo—, que **sigue sin evaluar**.
 
+📌 **Nota del 2026-09-14 (`T-180`, hallazgo `F-107`) — la nota de arriba repitio el defecto que
+corregia: su tercera cifra ya era falsa en su propio commit, y su ultimo parrafo tambien.** Nada de
+arriba se reescribe. Publica `0` para `.claude/skills/protocol-close/SKILL.md`, y ese mismo commit
+(`e822ae3`) trae la edicion de `T-178` a esa skill, hecha **despues** de correr la orden y dentro de
+la misma sesion. Esta vez la orden va **anclada por los dos lados** —este repositorio en el commit que
+contenia la nota, el esqueleto en el suyo—, asi que devuelve lo mismo cualquier dia y no puede
+desfasarse otra vez:
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(git show e822ae3:"$f" | diff --strip-trailing-cr <(git -C "$ESQ" show 1748f0a:"$f") - | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  2  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(git show e822ae3^:"$f" | diff --strip-trailing-cr <(git -C "$ESQ" show 1748f0a:"$f") - | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+```
+
+🔑 **El padre da `0` y el commit da `2`: la diferencia sale entera de `T-178`, no del esqueleto.** Las
+otras seis cifras de la nota de arriba si eran las de su commit. El `2` tampoco es un contraejemplo de
+`A-018`: es una edicion de `protocol-close` que todavia no se ha promovido, y la promocion es justo lo
+que el supuesto afirma.
+
+⚠️ **Y el ultimo parrafo de la nota de arriba dice que la recomendacion de la seccion 5 de `R-036`
+«sigue sin evaluar».** Ya estaba evaluada en el mismo commit: `D-156` la rechaza como regla nueva, y
+atribuye la causa comun a un fallo de traspaso, no de ancla — el que recoge `T-179`.
+
+```
+$ git show e822ae3:_persistence/decisions.md | grep -n "la regla «anclada o viva» no se adopta"
+167:| [D-156](#d-156---la-seccion-5-de-r-036-la-regla-anclada-o-viva-no-se-adopta-y-el-7c-quater-se-endurece) | La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece | 2026-09-14 | Vigente | report_auditor |
+9969:### D-156 - La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece
+```
+
 ---
 
 ### A-019 - La skill de promocion funciona de punta a punta: nunca se ha ejecutado
@@ -1264,3 +1308,34 @@ anclada, o declara en su linea que mide un estado vivo—, que **sigue sin evalu
 - ⚠️ **Y se registra ahora, no cuando se publique**, porque el trabajo que lo asume ya esta hecho: la
   guia esta redactada y su publicacion ya esta decidida y ordenada. Esperar al momento de publicar
   seria registrarlo despues de construir encima.
+
+---
+
+### A-021 - El cierre abrira la tarea del Paso 2d la primera vez que le toque: nunca se ha ejercitado
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Abierto |
+| Origen | manager |
+| Dueno | manager |
+
+- **Supuesto:** que el agente `session-closer`, al encontrar en el Paso 2d una orden que no reproduce
+  en un archivo que no puede editar, **abrira la `T-XXX` con `Origen: session-closer`** que la regla
+  nueva prescribe, en vez de dejar el aviso solo en el informe como las veces anteriores. Lo que esta
+  **verificado** es menos: que la regla esta escrita en el Paso 2d, en el Paso 4 y en la linea de
+  controles del reporte, que el valor esta en `tasks.md` y en su plantilla, y que no hay fuga ni
+  codigos instanciados.
+- **Sobre que se construye encima:** sobre esto descansa que `F-107` no se repita — que un pendiente
+  detectado por el cierre llegue a `tasks.md`, que es lo que lee el arranque.
+- 🔑 **Por que es un supuesto y no un hecho.** La regla es prosa que sigue un agente, no un control que
+  falle solo. No se puede ejercitar desde aqui sin lanzar un cierre, que commitea y sube. Y la regla
+  anterior —«corrige o pon nota»— tambien estaba escrita, y el cierre la resolvio avisando en el
+  informe porque la nota no le cabia.
+- **Como se refuta:** un cierre posterior cuyo Paso 2d publique un **No** sobre una orden que vive en
+  `decisions.md`, `assumptions.md`, `constraints.md`, `lessons.md` o `_audit/findings.md`, y en cuyo
+  commit no nazca ninguna tarea con `Origen: session-closer` que la cite.
+- **Como se confirma:** el mismo caso, con la tarea nacida en el commit del cierre.
+- **Disparador:** el primer cierre cuya tabla de reejecucion del Paso 2d tenga un **No** en un archivo
+  ajeno. Lo mira `report_auditor` al auditar ese cierre, y el arranque siguiente al leer este registro.
+- ⚠️ **Lo que este supuesto NO afirma:** que el caso vaya a darse pronto. Si pasan varias sesiones sin
+  darse, eso no confirma nada: el supuesto sigue `Abierto`.

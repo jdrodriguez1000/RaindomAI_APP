@@ -165,6 +165,8 @@
 | [D-154](#d-154---_outbound-donde-espera-lo-redactado-aqui-que-se-publica-en-otro-repositorio) | `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio | 2026-09-11 | Vigente | usuario |
 | [D-155](#d-155---el-tratamiento-de-un-hallazgo-actualiza-su-fila-y-su-ficha-y-el-cierre-lo-comprueba) | El tratamiento de un hallazgo actualiza su fila Y su ficha, y el cierre lo comprueba | 2026-09-14 | Vigente | report_auditor |
 | [D-156](#d-156---la-seccion-5-de-r-036-la-regla-anclada-o-viva-no-se-adopta-y-el-7c-quater-se-endurece) | La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece | 2026-09-14 | Vigente | report_auditor |
+| [D-157](#d-157---la-mitad-hacia-adelante-de-f-108-no-se-adopta-la-regla-ya-existe-y-lo-que-fallo-fue-cumplirla) | La mitad hacia adelante de `F-108` no se adopta: la regla ya existe y lo que fallo fue cumplirla | 2026-09-14 | Vigente | report_auditor |
+| [D-158](#d-158---se-retoma-t-179-el-pendiente-que-el-cierre-no-puede-corregir-se-abre-como-tarea-con-origen-session-closer) | Se retoma `T-179`: el pendiente que el cierre no puede corregir se abre como tarea con `Origen: session-closer` | 2026-09-14 | Vigente | usuario |
 
 ---
 
@@ -9863,6 +9865,47 @@ $ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS
 commit de este lo fija. La cifra de hoy vale para hoy — y el `0` que la decision publicaba sigue
 siendo el de hoy, porque la promocion que lo cambia todavia no ha corrido.
 
+📌 **Nota del 2026-09-14 — la promocion sola no cumple el criterio de cierre de esta decision.** El
+criterio pide que «el `project.md` del esqueleto lleve sus tres filas», y ese archivo es el
+`project.md` **de la raiz** del esqueleto, que es un archivo de instancia: no esta en ninguna de las
+seis areas que `protocol-promote` lleva. La promocion subira la **plantilla**
+(`_templates/000_preproject/005_project.md`), y el `project.md` de la raiz seguira con `0` filas. Lo
+mismo vale para `_persistence/` y `_audit/` de la raiz del esqueleto, que ya van por detras de sus
+propias plantillas.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" log -1 --format='%h %ad' --date=short
+1748f0a 2026-09-11
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 1748f0a:project.md | grep -c '^| Esqueleto de arranque'
+0
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" ls-tree --name-only 1748f0a
+.claude
+.gitignore
+CLAUDE.md
+_audit
+_brief
+_methodology
+_persistence
+_phases
+_templates
+_workflow
+project.md
+
+$ git show d35bc91:.claude/skills/protocol-promote/SKILL.md | grep -n 'Solo las seis areas agnosticas'
+41:⛔ **Solo las seis areas agnosticas.** `.claude/`, `CLAUDE.md`, `_phases/`, `_methodology/`,
+```
+
+
+⚠️ **Mide el esqueleto en su commit, no en su arbol**, asi que reproduce mientras exista `1748f0a`. La
+primera orden es la unica viva: dice en que commit estaba el esqueleto al escribir esta nota.
+
+⚠️ **Queda pendiente del usuario, y no se decide aqui:** que hacer con los archivos de instancia de la
+raiz del esqueleto —regenerarlos desde las plantillas, quitarlos, o que la guia de `T-162` mande
+copiarlas—. Lo detecto `manager` al preparar la primera promocion, el 2026-09-14, antes de ejecutarla.
+Hasta que se decida, esta decision no puede cerrarse por su criterio, aunque la promocion se haga.
+
 ---
 
 ### D-154 - `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio
@@ -10054,3 +10097,117 @@ que el punto 1 deja pendiente —que el Paso 2d del cierre abra una `T-XXX` cuan
 reproduce en un archivo que no puede editar— **no se implementa en esta sesion**, para no volver a
 cambiar `protocol-close` antes de la promocion. Queda registrada como `T-179`, sin disenar: el
 `Origen` que llevaria esa tarea es parte de lo que falta decidir.
+
+---
+
+### D-157 - La mitad hacia adelante de `F-108` no se adopta: la regla ya existe y lo que fallo fue cumplirla
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-108` (`R-038`) recomienda dos cosas: una nota fechada en la seccion 7 de `S-038`
+  con la procedencia real, y **«que ningun comentario vaya dentro de un bloque de salida»**. La
+  primera se acepta y la lleva `T-181`. Esta decision evalua la segunda. Verificado contra `HEAD`
+  (`d35bc91`): la linea tecleada sigue en el informe.
+
+```
+$ git show d35bc91:_audit/S-038.md | grep -n 'same file also carries'
+248:b/_audit/findings.md :: same file also carries the git -C log line (see above)
+```
+
+- **Decision:** ⛔ **no se escribe una regla nueva.** El Paso 2d de `protocol-close` ya manda que la
+  procedencia se derive del diff, que no se escriba a mano y que se pegue con su salida cruda. La
+  plantilla del informe dice «sin editar». Una linea que ninguna orden emite, pegada dentro de ese
+  bloque, **incumple una regla escrita**; no revela que falte una.
+
+```
+$ git show d35bc91:.claude/skills/protocol-close/SKILL.md | grep -nE "escribe a mano mirando los bloques|se pega con su salida cruda"
+391:escribe a mano mirando los bloques.** A mano es exactamente donde se equivoca: la orden se busca
+393:la produce, y que se pega con su salida cruda:
+
+$ git show d35bc91:.claude/skills/protocol-close/SKILL.md | grep -nF "<PEGA AQUI, sin editar, la salida cruda de:>"
+1180:<PEGA AQUI, sin editar, la salida cruda de:>
+```
+
+- 🔑 **Por que repetirla no la protege.** Una segunda frase que diga lo mismo con otras palabras no
+  cambia lo que hace quien la incumple: tampoco habria leido esa. Lo que si caza este caso es la
+  reejecucion, y ya la hizo la auditoria: el bloque publicado tiene 19 lineas y la orden anclada da 18.
+
+```
+$ git show d35bc91:_audit/S-038.md | sed -n '/^Procedencia por archivo/,/^Reejecucion/p' | sed -n '/^```$/,/^```$/p' | grep -c '^b/'
+19
+
+$ git diff -U0 e822ae3^ e822ae3 -- _persistence _audit ':(exclude)_audit/S-038.md' | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+18
+```
+- **Alternativas descartadas:** (a) **adoptarla tal cual** como frase nueva en el Paso 2d — duplica la
+  regla y cambia `protocol-close`, lo que `T-179` ya va a hacer por otro motivo en esta misma sesion;
+  mezclar las dos cosas en un cambio hace mas dificil auditar cada una. (b) **un control mecanico que
+  compare el bloque publicado con la salida anclada** — el Paso 7c-bis tiene prohibido tocar prosa y
+  bloques ajenos al criterio de cierre, y un control que solo avisa ya existe: es la auditoria.
+- **Reversible a criterio** — no cambia ningun archivo del andamiaje. Si el defecto reincide pese a la
+  regla, eso es evidencia nueva y se reabre con su hallazgo.
+
+---
+
+### D-158 - Se retoma `T-179`: el pendiente que el cierre no puede corregir se abre como tarea con `Origen: session-closer`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** la nota final de `D-156` aplazo `T-179` para no cambiar `protocol-close` antes de la
+  promocion al esqueleto. `F-107` (`R-038`) es el riesgo que ese aplazamiento dejaba abierto, ya
+  materializado: la cuarta vez que el Paso 2d detecta una orden que no reproduce en un archivo que el
+  cierre no puede editar, lo dice en el informe, y acaba en hallazgo porque el pendiente no tenia tarea.
+  Con eso delante, **el usuario decide retomar `T-179` en esta sesion** (2026-09-14). No es reabrir un
+  asunto cerrado por opinion: es la excepcion que `CLAUDE.md` preve, un riesgo anunciado que se
+  materializa.
+- **Decision 1 — que hace el cierre.** En la tercera fila de la tabla del Paso 2d (la orden da otra
+  cosa), si la orden vive en `decisions.md`, `assumptions.md`, `constraints.md`, `lessons.md` o en los
+  archivos del auditor, el cierre **abre una `T-XXX` en `tasks.md`** con el archivo, la orden literal y
+  lo publicado frente a lo que da, y el informe la cita en la seccion 6. El Paso 4 lo recoge igual que
+  lo que producen los Pasos 2b y 2c, y el reporte gana la linea «Ordenes sin reproducir en archivos
+  ajenos (2d)». Si la orden vive en un archivo del cierre, no hay tarea: se corrige o se anota ahi.
+- **Decision 2 — el `Origen`, la decide el usuario:** valor nuevo **`session-closer`**. Cumple el
+  unico criterio de `tasks.md` para un valor nuevo —nombra un origen de demanda que ninguno cubre—: la
+  tarea no la pide el usuario, no la decide `manager`, que no vio el caso, y no nace de ningun `F-NNN`.
+  Entra en la tabla de `tasks.md` y en la de su plantilla en la misma pasada.
+- ⚠️ **El valor es solo de `tasks.md`.** Los otros cinco registros siguen con tres valores a proposito:
+  el cierre no escribe en ellos, asi que ninguna de sus entradas puede nacer de el.
+- **Alternativas descartadas:** (a) **`Origen: manager`** — el registro diria que `manager` detecto y
+  decidio algo que no vio; (b) **`Origen: report_auditor`** — la convencion exige citar un `F-NNN` y no
+  lo hay; (c) **mantener el aplazamiento hasta la promocion** — es lo que se hizo, y `F-107` es el
+  coste; (d) **dar al cierre permiso para escribir la nota fechada en esos archivos** — rompe la regla
+  de que el porque es de `manager`, y la nota pide contexto que el cierre no tiene; (e) **un control
+  mecanico que compare los `No` de la tabla con las tareas nacidas** — la tabla se rellena a juicio, y
+  la seccion 7 de `S-038` muestra que su atribucion de archivo puede salir mal; se prefiere probar
+  primero la regla simple (`A-021`).
+- ⚠️ **Lo que cambia respecto al criterio de cierre de `T-179`.** Pedia «una prueba» de que un
+  pendiente ajeno deja fila en `tasks.md`. Esa prueba exige lanzar un cierre, que commitea y sube; no se
+  simula. Se sustituye por el bloque de verificacion de `T-179` —la regla esta en los tres sitios, sin
+  fuga— y por el supuesto **`A-021`**, con su disparador en el primer caso real.
+- 🔑 **Ejercicio en seco sobre el ultimo caso.** Con esta regla, las filas **No** de la seccion 7 de
+  `S-038` (2, 4 y 10) habrian dejado dos tareas —la orden en `_audit/findings.md` y la de
+  `_persistence/assumptions.md`— y una nota fechada en `_persistence/tasks.md`, que si es del cierre.
+  La atribucion de archivo sale de la orden anclada de la nota de `T-181`, no de la tabla.
+- ⚠️ **Coste aceptado:** `protocol-close` y la plantilla de `tasks.md` cambian antes de la promocion, y
+  el desfase con el esqueleto crece. Es una promocion pendiente con su decision escrita, lo que `A-018`
+  preve.
+- **Reversible a criterio** — es prosa de una skill y dos filas de tabla.
+- **Criterio de cierre:** la regla esta en el Paso 2d y en el Paso 4, el reporte lleva su linea, y el
+  valor esta en `tasks.md` y en su plantilla.
+
+```
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Origen: session-closer'
+2
+$ git show <hash>:_persistence/tasks.md | grep -c '^| `session-closer` |'
+1
+$ git show <hash>:_templates/000_preproject/015_tasks.md | grep -c '^| `session-closer` |'
+1
+$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^Ordenes sin reproducir en archivos ajenos (2d) — '
+1
+```

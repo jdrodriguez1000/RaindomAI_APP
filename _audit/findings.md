@@ -118,8 +118,8 @@
 | [F-104](#f-104---la-orden-que-sostiene-d-153-usa-un-marcador-en-vez-de-la-ruta-y-no-es-ejecutable) | La orden que sostiene `D-153` usa un marcador en vez de la ruta, y no es ejecutable | R-037 | Baja | Implementado |
 | [F-105](#f-105---la-nota-que-corrige-f-103-vuelve-a-publicar-en-assumptionsmd-una-cifra-que-ya-no-reproducia-en-ese-mismo-commit) | La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit | R-037 | Baja | Implementado |
 | [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Implementado |
-| [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Abierto |
-| [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Abierto |
+| [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Aceptado — pendiente |
+| [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Aceptado — pendiente |
 
 ---
 
@@ -5013,8 +5013,8 @@ salidas en `_audit/R-038.md`, seccion 1g.
 | Auditoria | R-038 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-180` |
 | Cerrado en | |
 
 - **Que se observo:** las tres copias del bucle de desfase con el esqueleto que anade `S-038` (nota
@@ -5050,6 +5050,28 @@ $ git show e822ae3:_persistence/assumptions.md | grep -n 'sigue sin evaluar'
   del commit y la aclaracion de que `D-156` ya evaluo la recomendacion, sin reescribir nada; o
   registrar el pendiente como `T-XXX`/`DT-XXX`. ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-14 (`S-039`) — ACEPTADO.** Verificado contra `HEAD` (`d35bc91`): las copias
+siguen publicando `0`, la nota bajo `A-018` sigue diciendo «sigue sin evaluar», y la orden anclada por
+los dos lados da `2` sobre `e822ae3` y `0` sobre su padre — el desfase sale entero de la sesion.
+
+```
+$ git grep -c '0  .claude/skills/protocol-close/SKILL.md' d35bc91 -- _persistence/assumptions.md _persistence/tasks.md
+d35bc91:_persistence/assumptions.md:2
+d35bc91:_persistence/tasks.md:3
+
+$ git show d35bc91:_persistence/assumptions.md | grep -n 'sigue sin evaluar'
+1197:anclada, o declara en su linea que mide un estado vivo—, que **sigue sin evaluar**.
+```
+
+Lo implementa **`T-180`**: nota fechada bajo `A-018` y nota fechada bajo `T-176`, sin reescribir nada,
+con la orden **anclada por los dos lados** para que la correccion no pueda desfasarse como la nota que
+corrige. Las dos salidas (commit y padre) estan en la nota de `A-018`. La causa comun —el pendiente
+que el cierre detecta y deja sin tarea— la lleva `T-179`, que el usuario decidio retomar en esta misma
+sesion al ver que el riesgo que la aplazaba se habia materializado.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
+
 ---
 
 ### F-108 - El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado
@@ -5058,8 +5080,8 @@ $ git show e822ae3:_persistence/assumptions.md | grep -n 'sigue sin evaluar'
 | Auditoria | R-038 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-181`, `D-157` |
 | Cerrado en | |
 
 - **Que se observo:** el bloque publicado como salida de la orden de procedencia incluye la linea
@@ -5089,3 +5111,26 @@ $ git diff -U0 e822ae3^ e822ae3 -- _persistence _audit ':(exclude)_audit/S-038.m
 - **Que lo corregiria:** una nota fechada en la seccion 7 de `S-038` con la salida anclada real y la
   atribucion correcta de las filas 4, 5 y 10, sin reescribir el bloque; y que ningun comentario vaya
   dentro de un bloque de salida. ⚠️ Es una recomendacion, no una orden.
+
+🕐 **Tratamiento del 2026-09-14 (`S-039`) — ACEPTADO en la correccion; la regla nueva NO se adopta.**
+Verificado contra `HEAD` (`d35bc91`): la linea tecleada sigue en el informe, y la orden anclada agrupa
+las 18 lineas reales por archivo.
+
+```
+$ git show d35bc91:_audit/S-038.md | grep -n 'same file also carries'
+248:b/_audit/findings.md :: same file also carries the git -C log line (see above)
+
+$ git diff -U0 e822ae3^ e822ae3 -- _persistence _audit ':(exclude)_audit/S-038.md' | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | cut -d' ' -f1 | uniq -c
+      3 b/_audit/findings.md
+      2 b/_persistence/assumptions.md
+      1 b/_persistence/decisions.md
+     12 b/_persistence/tasks.md
+```
+
+- **La correccion** la implementa **`T-181`**: nota fechada en la seccion 7 de `S-038` con la orden
+  anclada y la atribucion correcta de las filas 4, 5 y 10, sin reescribir el bloque.
+- **«Que ningun comentario vaya dentro de un bloque de salida»** no se adopta como regla nueva: ya lo
+  es. El Paso 2d manda derivar la procedencia del diff, no escribirla a mano y pegarla con su salida
+  cruda. Lo que fallo fue cumplirla, no escribirla. Lo decide **`D-157`**, con la evidencia.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.

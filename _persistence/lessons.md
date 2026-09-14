@@ -2081,6 +2081,24 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
   de este repositorio se salvan porque su ambito son las seis areas agnosticas y el registro queda
   fuera por construccion — pero eso es una propiedad del ambito, no una garantia del mecanismo.
 
+> 🕒 **Nota de reincidencia del 2026-09-14 (`T-180`, `F-107`).** Volvio a pasar dos veces en la misma
+> tarea, y las dos se cazaron antes de publicar. **La primera, con otra forma:** la verificacion
+> extraia las ordenes de una nota por un rango `sed -n '/inicio/,/fin/p'`, y la ficha de la tarea,
+> escrita en el mismo archivo, contenia la cadena de inicio: el rango **se reabrio** en la ficha y
+> arrastro sus bloques, y el `diff` fallo. Se arreglo cerrando el rango en su primer fin
+> (`{p;/fin/q}`). **La segunda, la forma original:** el criterio de cierre contaba el rotulo de la
+> nota en `tasks.md` y daba `3`. 🔑 **Y la clase de un solo caracter no basto:** con `T-1[8]0` la
+> orden deja de contarse a si misma, pero sigue dando `2`, porque la orden hermana —la que cuenta el
+> mismo rotulo en `assumptions.md`— vive en `tasks.md` con la cadena literal. Lo que dio `1` fue
+> anclar el patron al principio del rotulo (`📌 **Nota del …`), que solo tiene la nota. La leccion se amplia: **el rango tambien se cuenta a si
+> mismo, y romper la cadena no sirve si la cadena vive en mas sitios que la orden.**
+>
+> ⚠️ **Y una tercera vez en la misma jornada (`T-179`)**, ahora con la salida **tecleada** junto a la
+> orden: un `grep -n … tasks.md` que encontraba su propia linea y un `cut -c` que corta por bytes y
+> partia los caracteres acentuados. El bloque no reproducia. 🔑 **Lo que lo arreglo no fue revisar
+> mejor, sino no teclear:** el bloque se genero corriendo las ordenes desde un archivo y pegando lo que
+> devolvieron, y se contrasto con un `diff` antes de darlo por bueno.
+
 ---
 
 ### L-057 - Una barra invertida se pierde al escribir, y convierte un patron publicado en uno que no reproduce
