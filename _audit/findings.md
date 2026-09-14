@@ -124,9 +124,13 @@
 | [F-110](#f-110---la-seccion-7-de-s-040-publica-como-salida-cruda-dos-bloques-que-su-orden-no-produce) | La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce | R-040 | Media | Implementado |
 | [F-111](#f-111---dos-resultados-nuevos-del-registro-se-afirman-sin-su-orden-ni-su-salida) | Dos resultados nuevos del registro se afirman sin su orden ni su salida | R-040 | Baja | Implementado |
 | [F-112](#f-112---el-paso-6-de-protocol-promote-queda-con-dos-pasos-numerados-4) | El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.» | R-040 | Baja | Implementado |
-| [F-113](#f-113---progressmd-publica-tres-veces-8-filas-para-la-tabla-del-paso-2e-que-tiene-10) | `progress.md` publica tres veces «8 filas» para la tabla del Paso 2e, que tiene 10 | R-041 | Media | Aceptado — pendiente |
-| [F-114](#f-114---la-seccion-2-de-s-041-publica-como-salida-de-su-grep-cuatro-filas-y-la-orden-devuelve-cinco) | La seccion 2 de `S-041` publica como salida de su `grep` cuatro filas, y la orden devuelve cinco | R-041 | Baja | Aceptado — pendiente |
-| [F-115](#f-115---dos-comprobaciones-se-declaran-no-anclables-cuando-si-lo-son-y-una-de-ellas-se-afirma-sin-orden-ni-salida) | Dos comprobaciones se declaran «no anclables» cuando si lo son, y una de ellas se afirma sin orden ni salida | R-041 | Baja | Aceptado — pendiente |
+| [F-113](#f-113---progressmd-publica-tres-veces-8-filas-para-la-tabla-del-paso-2e-que-tiene-10) | `progress.md` publica tres veces «8 filas» para la tabla del Paso 2e, que tiene 10 | R-041 | Media | Implementado |
+| [F-114](#f-114---la-seccion-2-de-s-041-publica-como-salida-de-su-grep-cuatro-filas-y-la-orden-devuelve-cinco) | La seccion 2 de `S-041` publica como salida de su `grep` cuatro filas, y la orden devuelve cinco | R-041 | Baja | Implementado |
+| [F-115](#f-115---dos-comprobaciones-se-declaran-no-anclables-cuando-si-lo-son-y-una-de-ellas-se-afirma-sin-orden-ni-salida) | Dos comprobaciones se declaran «no anclables» cuando si lo son, y una de ellas se afirma sin orden ni salida | R-041 | Baja | Implementado |
+| [F-116](#f-116---los-recuentos-de-la-cosecha-26-promueven-23-ya-cubiertas-contradicen-la-tabla-de-d-168-y-la-columna-portabilidad) | Los recuentos de la cosecha («26 promueven, 23 ya cubiertas») contradicen la tabla de `D-168` y la columna `Portabilidad` | R-042 | Media | Abierto |
+| [F-117](#f-117---la-verificacion-contra-head-de-f-113-a-f-115-se-afirma-sin-orden-ni-salida-y-sus-tareas-no-llevan-bloque-de-verificacion) | La verificacion contra `HEAD` de `F-113` a `F-115` se afirma sin orden ni salida, y sus tareas no llevan bloque de verificacion | R-042 | Baja | Abierto |
+| [F-118](#f-118---la-nota-que-cierra-t-156-vuelve-a-declarar-no-anclable-por-naturaleza-una-comprobacion-que-el-mismo-commit-publica-anclada-y-afirma-cero-lineas-sin-orden-ni-salida) | La nota que cierra `T-156` vuelve a declarar «no anclable por naturaleza» una comprobacion que el mismo commit publica anclada, y afirma «cero lineas» sin orden ni salida | R-042 | Baja | Abierto |
+| [F-119](#f-119---la-seccion-7-de-s-042-pega-como-salida-de-una-orden-un-texto-que-la-orden-no-emite-y-lo-remite-a-la-decision-equivocada) | La seccion 7 de `S-042` pega como salida de una orden un texto que la orden no emite, y lo remite a la decision equivocada | R-042 | Baja | Abierto |
 
 ---
 
@@ -5376,9 +5380,9 @@ $ git show a3bb32e:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\
 | Auditoria | R-041 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-187`, `D-167` |
-| Cerrado en | |
+| Cerrado en | `R-042` (commit `9564675`) |
 
 - **Que se observo:** `_persistence/progress.md` en `e332771` dice «con los dos contrastes cuadrando (8
   filas, suma 13)» en el «Avance de la etapa» y dos veces en la entrada `S-041`. La tabla de la seccion
@@ -5405,6 +5409,11 @@ $ git diff --name-only --diff-filter=d a3bb32e e332771 -- ':(exclude)_audit/S-04
   anclado (10), sin reescribirlas; y valorar que el control de cifra adyacente cubra las cifras de
   control que `progress.md` repite. ⚠️ Es una recomendacion, no una orden.
 
+✅ **Verificado por `R-042` sobre `9564675`: Implementado.** La nota de `T-187` esta al final de la
+entrada `S-041` de `progress.md`, sin reescribir las tres menciones, y sus dos ordenes ancladas a
+`e332771` devuelven `95/149/2079` y `10`. La mitad no adoptada queda en `D-167`, con orden y salida, y
+su lectura se sostiene. Ordenes y salidas en `_audit/R-042.md`, secciones 1c, 1d y 1g.
+
 ---
 
 ### F-114 - La seccion 2 de `S-041` publica como salida de su `grep` cuatro filas, y la orden devuelve cinco
@@ -5413,9 +5422,9 @@ $ git diff --name-only --diff-filter=d a3bb32e e332771 -- ':(exclude)_audit/S-04
 | Auditoria | R-041 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-188` |
-| Cerrado en | |
+| Cerrado en | `R-042` (commit `9564675`) |
 
 - **Que se observo:** el bloque de la seccion 2 pega la orden `sed -n '/^## Indice/,/^---/p'
   _persistence/tasks.md | grep "No implementada"` y cuatro filas; la orden devuelve tambien la de
@@ -5440,6 +5449,10 @@ $ git show e332771:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep 
   filtrado en la prosa; o un filtro por columna en la propia orden. ⚠️ Es una recomendacion, no una
   orden.
 
+✅ **Verificado por `R-042` sobre `9564675`: Implementado.** La nota de `T-188` al final de la seccion 2
+de `S-041` pega las cinco filas, y la orden anclada a `e332771` devuelve cinco. No reescribe el bloque
+anterior. Ordenes y salidas en `_audit/R-042.md`, secciones 1c y 1d.
+
 ---
 
 ### F-115 - Dos comprobaciones se declaran «no anclables» cuando si lo son, y una de ellas se afirma sin orden ni salida
@@ -5448,9 +5461,9 @@ $ git show e332771:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep 
 | Auditoria | R-041 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-189` |
-| Cerrado en | |
+| Cerrado en | `R-042` (commit `9564675`) |
 
 - **Que se observo:** (a) la fila 16 de la seccion 7 de `S-041` clasifica `git ls-files _outbound`
   (de `D-165`) como «no anclable a un commit por naturaleza», contra la regla de `protocol-close` para
@@ -5483,3 +5496,145 @@ $ git show 4962db2:_persistence/decisions.md | sed -n '/^### D-159/,/^### D-160/
   de cualquier cosa. `Baja`: defecto de reproducibilidad, no de contenido.
 - **Que lo corregiria:** nota fechada bajo `D-163` con el contraste anclado y su salida, y la forma
   `git ls-tree` para la comprobacion de `D-165`. ⚠️ Es una recomendacion, no una orden.
+
+✅ **Verificado por `R-042` sobre `9564675`: Implementado.** (a) La nota de `T-189` en la seccion 7 de
+`S-041` da `_outbound/.gitkeep` con `git ls-tree` anclado; (b) la nota bajo `D-163` publica los tres
+contrastes por hash de blob, que reproducen. La repeticion de la clase en `T-156` se abre aparte
+(`F-118`). Ordenes y salidas en `_audit/R-042.md`, secciones 1c y 1d.
+
+---
+
+### F-116 - Los recuentos de la cosecha («26 promueven, 23 ya cubiertas») contradicen la tabla de `D-168` y la columna `Portabilidad`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-042 |
+| Fecha | 2026-09-14 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** `D-168`, la seccion 3 de `S-042` y `progress.md` publican que de 59 lecciones
+  «26 promueven (seis nuevas y una enmienda), 23 ya cubiertas, 6 `Solo proyecto`», y `D-168` cuadra
+  «26 + 4 + 23 + 1 + 5 = 59». La tabla de `D-168` y la columna escrita en `lessons.md` dan 21 nuevas,
+  4 a la enmienda (25 promovidas) y 28 ya cubiertas. La orden del criterio solo cuenta el total.
+
+```
+$ git show 9564675:_persistence/lessons.md | grep -E '^\| \[L-' | grep -oE '\| (Promovida a LG-[0-9]+|Ya cubierta por LG-[0-9]+|Solo proyecto) \|$' | sed -E 's/ LG-[0-9]+//' | sort | uniq -c
+     25 | Promovida a |
+      6 | Solo proyecto |
+     28 | Ya cubierta por |
+
+$ git grep -nE '26 promueven|23 ya cubiertas|26 \+ 4 \+ 23' 9564675 -- _persistence _audit | cut -c1-80
+9564675:_audit/S-042.md:119:salen `Solo proyecto` por el filtro 2, y no se podo 
+9564675:_audit/S-042.md:120:lecciones nuevas y una enmienda), 23 ya cubiertas po
+9564675:_persistence/decisions.md:10887:  Contraste: 26 + 4 + 23 + 1 + 5 = **59*
+9564675:_persistence/progress.md:96:| Avance de la etapa | Se evaluan `F-113` a 
+9564675:_persistence/progress.md:136:forma con el protocolo, declarada y resuelt
+9564675:_persistence/progress.md:137:lecciones nuevas, `LG-99` a `LG-104`, y una
+```
+
+  Recuento por fila de la tabla de `D-168`, en `_audit/R-042.md`, seccion 2.
+- **Por que importa:** el registro afirma un resultado falso en tres archivos, uno de ellos lo primero
+  que se lee al abrir sesion; familia de `F-113`, en la sesion que lo corrige. `Media`: la clasificacion
+  leccion a leccion y lo publicado fuera son correctos.
+- **Que lo corregiria:** notas fechadas junto a los tres sitios con los recuentos por destino sacados
+  de la columna por orden, y que el criterio de `D-168` cuente por destino. ⚠️ Es una recomendacion, no
+  una orden.
+
+---
+
+### F-117 - La verificacion contra `HEAD` de `F-113` a `F-115` se afirma sin orden ni salida, y sus tareas no llevan bloque de verificacion
+| Campo | Valor |
+|---|---|
+| Auditoria | R-042 |
+| Fecha | 2026-09-14 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 0 de `S-042` y `progress.md` dicen «verificados contra `HEAD`
+  (`d2ee2aa`)» sin publicar la orden; `T-187` a `T-189` (`Origen: report_auditor`) no tienen ningun
+  bloque, y las fichas `F-113` a `F-115` no tienen bloque de tratamiento, a diferencia del lote anterior.
+
+```
+$ for t in 186 187 188 189; do echo "T-$t fences=$(git show 9564675:_persistence/tasks.md | sed -n "/^### T-$t /,/^---/p" | grep -c '^```')"; done
+T-186 fences=2
+T-187 fences=0
+T-188 fences=0
+T-189 fences=0
+
+$ for f in 112 113 114 115; do echo "F-$f tratamiento=$(git show 9564675:_audit/findings.md | sed -n "/^### F-$f /,/^---$/p" | grep -c 'Tratamiento del')"; done
+F-112 tratamiento=1
+F-113 tratamiento=0
+F-114 tratamiento=0
+F-115 tratamiento=0
+```
+
+  Las notas anclan a `e332771`, y `_audit/S-041.md` cambio entre `e332771` y `d2ee2aa`. Salida completa
+  en `_audit/R-042.md`, seccion 2.
+- **Por que importa:** `CLAUDE.md` exige orden y salida en la verificacion previa y en toda decision con
+  `Origen: report_auditor`; sin ellas es un veredicto. `Baja`: los tres defectos son ciertos y las notas
+  si traen ordenes.
+- **Que lo corregiria:** notas fechadas con las ordenes corridas sobre `d2ee2aa`. ⚠️ Es una
+  recomendacion, no una orden.
+
+---
+
+### F-118 - La nota que cierra `T-156` vuelve a declarar «no anclable por naturaleza» una comprobacion que el mismo commit publica anclada, y afirma «cero lineas» sin orden ni salida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-042 |
+| Fecha | 2026-09-14 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:**
+
+```
+$ git show 9564675:_persistence/tasks.md | sed -n '/^### T-156 /,/^---/p' | grep -nE 'no anclable|cero lineas'
+15:dos vivos —, corrida sobre el arbol de esta sesion: cero lineas.
+```
+
+  Las lineas 13-14 de ese rango dicen «**no anclable por naturaleza**» (partido en dos lineas, por eso
+  el `grep` no las recoge). En el mismo commit `D-166` publica
+  anclado el contraste `d2ee2aa` ↔ `707d572` (`fin del contraste exit=0`), que `R-042` reproduce (1e).
+- **Por que importa:** es la clase que `F-115` corrigio, repetida en la tarea `Bloqueante` que la sesion
+  cierra. `Baja`: el resultado es cierto; falla la reproducibilidad desde la ficha.
+- **Que lo corregiria:** nota fechada bajo `T-156` que remita a la orden anclada de `D-166` o la copie.
+  ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-119 - La seccion 7 de `S-042` pega como salida de una orden un texto que la orden no emite, y lo remite a la decision equivocada
+| Campo | Valor |
+|---|---|
+| Auditoria | R-042 |
+| Fecha | 2026-09-14 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** bajo la orden del item 2 (contraste `c7d0a87` ↔ `a3bb32e`), el bloque de salida
+  lleva una linea resumen entre parentesis que remite a `D-166`; la salida completa esta en la nota de
+  `D-163`, y `D-166` no cita `c7d0a87`.
+
+```
+$ git show 133825a:_audit/S-042.md | grep -n 'salida completa ya publicada en'
+261:(una diferencia de blob en protocol-promote/SKILL.md; salida completa ya publicada en D-166, _persistence/decisions.md)
+
+$ git show 9564675:_persistence/decisions.md | sed -n '/^### D-166/,/^### D-167/p' | grep -c 'c7d0a87'
+0
+
+$ git show 9564675:_persistence/decisions.md | sed -n '/^### D-163/,/^### D-164/p' | grep -c 'ls-tree -r c7d0a87'
+1
+```
+
+- **Por que importa:** familia de `F-108`, `F-110` y `F-114` —un bloque de salida cruda que no es lo que
+  su orden emite—, en la sesion que corrige `F-114`. `Baja`: el hecho resumido es cierto.
+- **Que lo corregiria:** nota fechada al final de la seccion 7 de `S-042` con la salida entera y la
+  referencia a `D-163`. ⚠️ Es una recomendacion, no una orden.
