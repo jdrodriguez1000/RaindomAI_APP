@@ -163,6 +163,8 @@
 | [D-152](#d-152---cada-fila-de-la-reejecucion-del-paso-2d-lleva-la-orden-literal-no-solo-su-numero) | Cada fila de la reejecucion del Paso 2d lleva la orden literal, no solo su numero | 2026-09-11 | Vigente | report_auditor |
 | [D-153](#d-153---la-guia-de-arranque-se-publica-despues-de-promover-la-plantilla-no-antes) | La guia de arranque se publica DESPUES de promover la plantilla, no antes | 2026-09-11 | Vigente | usuario |
 | [D-154](#d-154---_outbound-donde-espera-lo-redactado-aqui-que-se-publica-en-otro-repositorio) | `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio | 2026-09-11 | Vigente | usuario |
+| [D-155](#d-155---el-tratamiento-de-un-hallazgo-actualiza-su-fila-y-su-ficha-y-el-cierre-lo-comprueba) | El tratamiento de un hallazgo actualiza su fila Y su ficha, y el cierre lo comprueba | 2026-09-14 | Vigente | report_auditor |
+| [D-156](#d-156---la-seccion-5-de-r-036-la-regla-anclada-o-viva-no-se-adopta-y-el-7c-quater-se-endurece) | La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece | 2026-09-14 | Vigente | report_auditor |
 
 ---
 
@@ -9846,6 +9848,21 @@ $ grep -c '^| Esqueleto de arranque' <ruta del esqueleto>/project.md
 - **Criterio de cierre:** el `project.md` del esqueleto lleva sus tres filas, y solo despues aparece
   la guia en su raiz. Lo implementan la promocion y `T-162`.
 
+📌 **Nota del 2026-09-14 (`T-175`, hallazgo `F-104`) — la orden del bloque «Contexto» lleva un
+marcador donde va la ruta, y asi escrita no se puede correr.** `<ruta del esqueleto>` no distingue
+entre «se omitio a proposito» y «se pego mal», y `decisions.md` no es un area agnostica: nada
+obligaba a esconder la ruta, que esta declarada en `project.md`. El bloque original **no se
+reescribe**. La misma orden, con la ruta literal:
+
+```
+$ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS/project.md"
+0
+```
+
+⚠️ **Mide un estado vivo y no se puede anclar:** el objeto medido vive en otro repositorio, y ningun
+commit de este lo fija. La cifra de hoy vale para hoy — y el `0` que la decision publicaba sigue
+siendo el de hoy, porque la promocion que lo cambia todavia no ha corrido.
+
 ---
 
 ### D-154 - `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio
@@ -9885,3 +9902,155 @@ $ grep -c '^| Esqueleto de arranque' <ruta del esqueleto>/project.md
   entero y no toca ningun dato.
 - **Criterio de cierre:** `_outbound/` existe, esta declarada en «Carpetas propias» de `project.md`, y
   el control de carpetas del cierre no la senala.
+
+---
+
+### D-155 - El tratamiento de un hallazgo actualiza su fila Y su ficha, y el cierre lo comprueba
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `CLAUDE.md` manda, al evaluar un hallazgo, **«actualiza su fila en
+  `_audit/findings.md`»**. Se cumplio la letra y el registro quedo contradiciendose: una sesion paso
+  dos hallazgos a `Aceptado — pendiente` en el indice y dejo sus fichas diciendo `Abierto`, con
+  `Registrado en` vacio. Las sesiones anteriores si tocaban los dos sitios, por costumbre; la regla
+  escrita solo nombraba uno. Y el control indice ↔ detalle del cierre solo recorre `_persistence/`,
+  asi que nada lo cazo. Verificado contra `HEAD` (`a864dd1`) y contra el commit que lo tenia
+  (`3b20720`), con el barrido que esta decision adopta:
+
+```
+$ diff <(git show 3b20720:_audit/findings.md | awk '/^```/{c=!c; next} !c' | grep -E '^\| \[F-[0-9]+\]' | awk -F'|' '{match($2,/F-[0-9]+/); e=$(NF-1); gsub(/^ +| +$/,"",e); print substr($2,RSTART,RLENGTH)" "e}' | sort) <(git show 3b20720:_audit/findings.md | awk '/^```/{c=!c; next} c{next} /^### F-[0-9]+ /{match($0,/F-[0-9]+/); cur=substr($0,RSTART,RLENGTH); got=0} /^\| Estado \|/ && cur!="" && !got{s=$0; sub(/^\| Estado \| */,"",s); sub(/ *\|$/,"",s); print cur" "s; got=1}' | sort); echo "exit=$?"
+102,103c102,103
+< F-102 Aceptado — pendiente
+< F-103 Aceptado — pendiente
+---
+> F-102 Abierto
+> F-103 Abierto
+exit=1
+
+$ diff <(git show a864dd1:_audit/findings.md | awk '/^```/{c=!c; next} !c' | grep -E '^\| \[F-[0-9]+\]' | awk -F'|' '{match($2,/F-[0-9]+/); e=$(NF-1); gsub(/^ +| +$/,"",e); print substr($2,RSTART,RLENGTH)" "e}' | sort) <(git show a864dd1:_audit/findings.md | awk '/^```/{c=!c; next} c{next} /^### F-[0-9]+ /{match($0,/F-[0-9]+/); cur=substr($0,RSTART,RLENGTH); got=0} /^\| Estado \|/ && cur!="" && !got{s=$0; sub(/^\| Estado \| */,"",s); sub(/ *\|$/,"",s); print cur" "s; got=1}' | sort); echo "exit=$?"
+exit=0
+```
+
+  🔑 **Las dos salidas son las que hacen valer el control:** sobre el commit defectuoso senala
+  exactamente los dos hallazgos, y sobre el siguiente —donde la auditoria ya los corrigio— sale
+  vacio. Un barrido que no hubiera fallado en `3b20720` no probaria nada.
+- **Decision:** dos cambios, uno por mitad del defecto.
+  1. **La regla:** el paso 3 de «Que hacer con una auditoria» en `CLAUDE.md` nombra **los dos sitios**
+     —la fila del indice y la ficha del hallazgo, con sus campos `Estado` y `Registrado en`—.
+  2. **El control:** el Paso 2b de `protocol-close` extiende su comprobacion a `_audit/findings.md`,
+     comparando el estado de cada fila con el de su ficha. ⚠️ **Solo lee.** `findings.md` no es del
+     cierre: una diferencia **no se arregla ahi**, va al reporte y a **Sin resolver**, y la corrige
+     `manager` en la sesion siguiente.
+- 🔑 **Por que las dos y no solo una.** La regla sola repite lo que ya fallo: la costumbre existia y
+  se perdio en una sesion sin que nada sonara. El control solo detecta despues, y deja el defecto
+  entrar en un commit. Juntas, la regla evita el caso comun y el control caza el que se escape.
+- ⚠️ **El control compara `Estado`, no `Registrado en`.** Un `Registrado en` vacio con la ficha en
+  `Abierto` es correcto; con la ficha en otro estado, el propio `Estado` ya delata la mitad olvidada
+  en el caso que abrio esto. Anadir un segundo barrido para el campo es configurabilidad que el
+  defecto no pidio (`PI-2`).
+- **Alternativas descartadas:** (a) **solo la regla en `CLAUDE.md`** — no detecta la reincidencia, y
+  la costumbre que se perdio era exactamente una regla no comprobada; (b) **que el cierre corrija la
+  ficha** — `findings.md` es del auditor y de `manager`, y darle escritura al cierre es un cambio de
+  alcance del agente, no un control; (c) **quitar el `Estado` de la ficha y dejarlo solo en el
+  indice** — reescribe la forma de mas de cien fichas ya auditadas, y el auditor usa la ficha como registro
+  de cierre (`Cerrado en`).
+- **Reversible a criterio** — es texto en `CLAUDE.md` y un barrido de solo lectura en una skill; se
+  revierte editandolos.
+- **Criterio de cierre:** el paso 3 de `CLAUDE.md` nombra fila y ficha, el Paso 2b de
+  `protocol-close` lleva el barrido sobre `_audit/findings.md` y su linea de reporte, y el barrido sale
+  vacio sobre el commit de la sesion que lo introduce. Lo implementa `T-177`.
+
+
+---
+
+### D-156 - La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** la seccion 5 de `R-036` deja cuatro recomendaciones sin hallazgo, y `R-037` pide
+  evaluarlas antes de que el patron se repita: atribuye a la primera la raiz comun de `F-104` y
+  `F-105`. Se evaluan las cuatro, contrastadas contra el repositorio y no contra la opinion.
+
+**1. «Toda orden pegada en el registro va anclada a un commit, o declara en su propia linea que mide un
+estado vivo».** ⛔ **No se adopta como regla nueva.** Tres razones, cada una con su evidencia:
+
+- **La mitad «anclada» ya es regla, y en dos sitios.** `decisions.md` la exige para toda orden, y el
+  Paso 2d del cierre manda anclar la orden sin ancla que reproduce; el Paso 7c-bis ya trata la no
+  anclable como «se deja como esta y se dice»:
+
+```
+$ git show a864dd1:_persistence/decisions.md | grep -n "El ancla no es del bloque «Criterio de cierre»: es de toda orden"
+196:🚨 **El ancla no es del bloque «Criterio de cierre»: es de toda orden que se escriba en este
+
+$ git show a864dd1:.claude/skills/protocol-close/SKILL.md | grep -nE "sigue, pero \*\*anclala\*\*|Si una orden no se puede anclar, se deja como esta y se dice"
+316:| una linea, y al reejecutarla da lo mismo que el bloque publica | la orden es reproducible aunque no lleve ancla | sigue, pero **anclala**: `git show <hash>:` cuesta un `git grep` |
+1747:⚠️ **Si una orden no se puede anclar, se deja como esta y se dice.** Hay ordenes que
+```
+
+- **No habria evitado ninguno de los dos casos que se le atribuyen.** `F-105` es una nota que **ya
+  cumplia** la regla —declaraba en su linea que media un estado vivo— y aun asi fue hallazgo, porque
+  su cifra era falsa **dentro de su propio commit**. `F-104` no es una orden sin ancla: es un
+  marcador donde va la ruta, y ninguna forma anclada existe para un archivo de otro repositorio.
+
+```
+$ git show 3b20720:_persistence/assumptions.md | grep -n "Esta orden mide un estado vivo y no se puede anclar"
+1138:⚠️ **Esta orden mide un estado vivo y no se puede anclar: el objeto medido —el esqueleto— vive en
+
+$ git show a864dd1:_audit/R-037.md | grep -n "esta nota \*\*si declara en su propia"
+404:- 🔑 **Por que es Baja y no Media:** a diferencia de `F-103`, esta nota **si declara en su propia
+
+$ git show 3b20720:_persistence/decisions.md | grep -n "<ruta del esqueleto>/project.md"
+9822:$ grep -c '^| Esqueleto de arranque' <ruta del esqueleto>/project.md
+```
+
+- 🚨 **Y la mitad «viva» abre una salida por la que se escapa justo el defecto.** Una orden sobre el
+  arbol de trabajo que se desfasa dentro de la sesion **si** debia reproducir sobre el commit;
+  permitir que se declare «viva» convierte un defecto que el Paso 2d detecta en uno aceptado por
+  diseno. `F-105` lo muestra: la declaracion estaba y la cifra seguia siendo falsa.
+- 🔑 **Lo que si se sostiene de la recomendacion es el coste**, y queda dicho: el desfase dentro de la
+  jornada se repite. Pero los tres ultimos casos (`F-103`, `F-104`, `F-105`) **los detecto el cierre**
+  y acabaron en hallazgo por otra razon, la misma las tres veces: el pendiente quedo en el informe de
+  sesion, en un archivo que el cierre no puede editar, sin `T-XXX`. Eso es un fallo de traspaso, no de
+  ancla, y pide otra medida. ⚠️ **Esa medida no se decide aqui:** es un diseno nuevo, no la
+  recomendacion evaluada, y queda **pendiente del usuario**.
+- ⚠️ **La practica de declarar el estado vivo en la propia linea se conserva como criterio**, no como
+  regla: es util para quien lee, pero no excusa una diferencia.
+
+**2. `DT-007` y su solape con `DT-003` a `DT-006`.** ✅ **Correcta, sin accion hoy.** `DT-007` sigue
+`Propuesta (pendiente del usuario)`; cuando se confirme, la cifra que se pague sale de **un barrido
+unico** sobre los archivos, no de sumar las cinco entradas.
+
+**3. El titulo de la bitacora de `S-036` omite `L-056`.** ✅ **Correcta, sin accion.** Es un resumen
+incompleto, no una afirmacion falsa, y lo commiteado no se toca.
+
+**4. El Paso 7c-quater pasa en vacio.** ✅ **Aceptada, y se implementa.** El control buscaba la cadena
+`git show --stat --name-only --format=` en **todo** el informe, y el informe la contiene casi siempre
+en otros sitios: prosa, la lista numerada del Paso 2d, `<hash>` sin sustituir. Quitada la orden real,
+el control seguia pasando. El patron nuevo exige una **linea de orden** con el hash del commit; se
+admite en la NOTA DE CIERRE, que es donde la publica un cierre cuya seccion 1 sale del area de staging.
+Lo implementa `T-178`, con su prueba en positivo y en negativo.
+
+- **Alternativas descartadas para la 1:** (a) **adoptarla tal cual** — por las tres razones de
+  arriba; (b) **adoptar solo la mitad «viva»** — es la mitad que abre la salida; (c) **anclar despues
+  del commit todos los bloques de verificacion**, extendiendo el Paso 7c-bis — ese paso tiene
+  prohibido tocar prosa y bloques que no sean criterios de cierre por una razon escrita, y ampliar
+  eso es un cambio de alcance del cierre, no un control.
+- **Alternativas descartadas para la 4:** (a) **restringir la busqueda a la seccion 1** — marca como
+  fallo un cierre legitimo que publica la orden anclada en la NOTA DE CIERRE; (b) **dejarlo y
+  anotarlo** — el control afirma una garantia que no da, que es peor que no tenerlo.
+- **Reversible a criterio** — la 1 no cambia nada; la 4 es un patron de `grep` en una skill.
+- **Criterio de cierre:** el Paso 7c-quater lleva el patron de linea de orden con el hash, pasa sobre
+  los informes anteriores con su propio hash y falla sobre uno al que se le quita la orden anclada. Lo
+  implementa `T-178`.
+
+📌 **Nota del 2026-09-14 — el usuario decide sobre la medida de traspaso: se aplaza.** La medida
+que el punto 1 deja pendiente —que el Paso 2d del cierre abra una `T-XXX` cuando una orden no
+reproduce en un archivo que no puede editar— **no se implementa en esta sesion**, para no volver a
+cambiar `protocol-close` antes de la promocion. Queda registrada como `T-179`, sin disenar: el
+`Origen` que llevaria esa tarea es parte de lo que falta decidir.

@@ -163,6 +163,9 @@ recibida es lo primero que veras al empezar la jornada**.
    - lo rechazas **aunque tenga razon**, por coste o prioridad → **`D-XXX`** + 🚨 **`DT-XXX`**
 3. **Actualiza su fila en `_audit/findings.md`**: de `Abierto` a `Aceptado — pendiente` o a
    `No se implementa`, citando la `T-XXX` o la `D-XXX` donde quedo.
+   🚨 **Y su ficha, en la misma pasada: `Estado` y `Registrado en`.** El hallazgo vive en dos sitios
+   del mismo archivo; tocar uno solo deja el registro afirmando dos estados a la vez. El Paso 2b de
+   `protocol-close` compara los dos en cada cierre.
 
 🚨 **Lo que NO puedes escribir ahi es `Implementado`.** Ese estado significa «corregido **y
 verificado por una auditoria posterior**», y tu no eres esa auditoria. Aunque lo hayas arreglado en

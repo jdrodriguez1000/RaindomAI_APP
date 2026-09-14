@@ -1800,6 +1800,13 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
 > el sitio sigue protegiendo solo ese sitio, y quitarle el lugar sigue siendo lo correcto. Lo que se
 > demostro falso es que la regla **bastara** por si sola.
 
+> 🕒 **Nota de reincidencia del 2026-09-14 (`F-106`, `D-155`).** Volvio a pasar con otro defecto y la
+> misma forma. La regla para tratar un hallazgo decia «actualiza **su fila**» en el registro de
+> hallazgos, y el hallazgo vive en dos sitios del mismo archivo: la fila y la ficha. Una sesion
+> cumplio la letra, toco solo la fila, y el archivo quedo afirmando dos estados del mismo hallazgo.
+> Las sesiones anteriores tocaban los dos sitios por costumbre; la regla escrita solo protegia uno. Se
+> corrigio nombrando los dos y anadiendo un barrido que los compara.
+
 ---
 
 ### L-048 - Un criterio que busca una frase no distingue el texto corregido de su cita
@@ -1982,6 +1989,15 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
 - ⛔ **Y la solucion no es afinar la busqueda a ojo, es cambiar la cadena.** Aqui se le anadio al
   rotulo un sufijo que ninguna frase de prosa escribiria. Un rotulo que solo un rotulo puede
   satisfacer es lo unico que convierte «esta la cadena» en «esta la salida».
+
+> 🕒 **Nota de reincidencia del 2026-09-14 (`D-156`, `T-178`).** Un control anterior a esta leccion
+> tenia el mismo defecto y nadie lo habia probado en negativo. Comprobaba que el informe publicara una
+> orden buscando su cadena en todo el archivo, y la cadena aparece casi siempre en la prosa que explica
+> esa orden. Probado contra un informe al que se le quito la orden de verdad, **seguia pasando**. Se
+> aplico lo que esta leccion dice: la busqueda pasa a exigir una forma que solo una linea de orden
+> tiene (el prefijo de orden y el hash del commit), y se publicaron las dos pruebas. ⚠️ **Lo que
+> anade:** la leccion no solo vale para los controles nuevos; los que ya existian antes de ella
+> tampoco se habian probado en negativo.
 
 ---
 

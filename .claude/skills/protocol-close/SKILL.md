@@ -246,6 +246,25 @@ comprobado sin volver a correrla.** El control solo vale si en medio nadie toca 
 🚨 **La linea del reporte sale siempre**, este al dia o no. Sin ella, un cierre que comprobo y uno
 que no se leen identicos.
 
+### Y la fila contra la ficha en `_audit/findings.md`
+
+Cada hallazgo vive en dos sitios del mismo archivo: su fila del indice y su ficha. Las dos llevan un
+estado, y quien evalua un hallazgo puede cambiar uno y olvidar el otro. Esta comprobacion compara el
+estado de cada fila con el `Estado` de su ficha:
+
+```bash
+diff <(awk '/^```/{c=!c; next} !c' _audit/findings.md | grep -E '^\| \[F-[0-9]+\]' | awk -F'|' '{match($2,/F-[0-9]+/); e=$(NF - 1); gsub(/^ +| +$/,"",e); print substr($2,RSTART,RLENGTH)" "e}' | sort) \
+     <(awk '/^```/{c=!c; next} c{next} /^### F-[0-9]+ /{match($0,/F-[0-9]+/); cur=substr($0,RSTART,RLENGTH); got=0} /^\| Estado \|/ && cur!="" && !got{s=$0; sub(/^\| Estado \| */,"",s); sub(/ *\|$/,"",s); print cur" "s; got=1}' _audit/findings.md | sort)
+```
+
+Sin salida = cada fila y su ficha dicen lo mismo. Una pareja `<` / `>` con el mismo codigo es un
+hallazgo con dos estados; un codigo solo en un lado es una fila sin ficha, o una ficha sin fila.
+
+⛔ **Aqui no se aplica «arreglalo ahora».** `_audit/findings.md` no es tuyo (ver la tabla del
+principio): una diferencia **no se corrige en este cierre**. Va al reporte con sus lineas y a **Sin
+resolver**, y la corrige quien trata los hallazgos, en la sesion siguiente. Si el archivo no existe
+todavia, la linea dice `SIN COMPROBAR` con ese motivo.
+
 ---
 
 ## Paso 2c — Las carpetas del arbol contra las declaradas (antes del `git add`)
@@ -1866,9 +1885,16 @@ esa opcion la orden devuelve ademas ocho lineas de cabecera del commit, asi que 
 debajo deja de ser la que esa orden produce — aunque los archivos listados sean los correctos.
 
 ```bash
-grep -qF 'git show --stat --name-only --format=' _audit/S-XXX.md ||
+grep -qE '^(> )?\$ git show --stat --name-only --format= <hash>$' _audit/S-XXX.md ||
   echo "FALTA en la seccion 1: la orden prescrita por el Paso 7c (sin --format= la salida no reproduce)"
 ```
+
+🚨 **El patron busca una LINEA DE ORDEN con el hash de este commit, no la cadena en cualquier sitio.**
+`<hash>` es el del commit sustantivo, el mismo que el Paso 7c escribe. Una version anterior buscaba
+la cadena suelta, y el informe la contiene casi siempre en otros sitios: en la prosa que explica la
+orden, en la lista numerada del Paso 2d, con `<hash>` sin sustituir. El control pasaba aunque la orden
+de verdad faltara. El `(> )?` admite la NOTA DE CIERRE, que se escribe citada; un cierre cuya seccion
+1 sale del area de staging publica alli la orden anclada, y eso es legitimo.
 
 | Que sale | Que significa | Que haces |
 |---|---|---|
@@ -1889,7 +1915,8 @@ cierre.**
 
 ⛔ **Y no comprueba que la salida pegada sea la de este commit.** Una orden correcta con la lista de
 la sesion anterior debajo pasa este control sin una queja. Lo que impide eso es el anclaje del Paso
-7c, no esto.
+7c, no esto. ⚠️ **Tampoco distingue la seccion 1 de la NOTA DE CIERRE:** las dos son sitios validos
+para la orden anclada, y separarlos no cazaria ningun defecto que se haya visto.
 
 ### 7d — La fecha escrita contra la del commit (obligatorio)
 
@@ -1987,6 +2014,7 @@ retransmite. Un reporte recortado se recorta dos veces.
 Fuga de datos propios (1b) — <cero lineas | 🚨 <las lineas> | 🚨 SIN COMPROBAR — <que falta en project.md>>
 Codigos instanciados en `_phases/` y `_workflow/` (1c) — <cero lineas | 🚨 <las lineas, con archivo y numero de linea>>
 Indices de `_persistence/` (2b) — <al dia | corregidos | 🚨 SIN COMPROBAR — <que fallo>>
+Fila ↔ ficha en `_audit/findings.md` (2b) — <coinciden | 🚨 <las lineas>, a Sin resolver | 🚨 SIN COMPROBAR — <que fallo>>
 Carpetas declaradas (2c) — <coinciden | <las diferencias y su razon> | 🚨 SIN COMPROBAR — <por que>>
 Desfase con el esqueleto (2f) — <al dia, sin salida | <N> archivos por promover: <la lista entera> | 🚨 SIN COMPROBAR — <el motivo>>
 Huecos de plantilla en el informe (6b) — <cero lineas | 🚨 <las lineas, borradas antes del `git add`>>

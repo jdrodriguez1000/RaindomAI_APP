@@ -183,6 +183,11 @@
 | [T-172](#t-172---fijar-por-nota-fechada-la-correspondencia-de-la-tabla-de-reejecucion-de-s-036-f-102) | Fijar por nota fechada la correspondencia de la tabla de reejecucion de `S-036` (`F-102`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-173](#t-173---fijar-por-nota-fechada-el-bloque-desfasado-de-a-018-f-103) | Fijar por nota fechada el bloque desfasado de `A-018` (`F-103`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-174](#t-174---exigir-en-el-paso-2d-que-cada-fila-de-la-reejecucion-lleve-la-orden-literal-d-152-f-102) | Exigir en el Paso 2d que cada fila de la reejecucion lleve la orden literal (`D-152`, `F-102`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-175](#t-175---fijar-por-nota-fechada-la-orden-con-marcador-de-d-153-f-104) | Fijar por nota fechada la orden con marcador de `D-153` (`F-104`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-176](#t-176---fijar-por-nota-fechada-la-septima-cifra-desfasada-bajo-a-018-f-105) | Fijar por nota fechada la septima cifra desfasada bajo `A-018` (`F-105`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-177](#t-177---comparar-fila-y-ficha-de-cada-hallazgo-en-la-regla-y-en-el-cierre-d-155-f-106) | Comparar fila y ficha de cada hallazgo, en la regla y en el cierre (`D-155`, `F-106`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-178](#t-178---hacer-que-el-paso-7c-quater-busque-la-linea-de-orden-con-su-hash-no-la-cadena-suelta-d-156) | Hacer que el Paso 7c-quater busque la linea de orden con su hash, no la cadena suelta (`D-156`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-179](#t-179---que-el-cierre-deje-tarea-cuando-no-puede-corregir-una-orden-que-no-reproduce-d-156) | Que el cierre deje tarea cuando no puede corregir una orden que no reproduce (`D-156`) | No implementada | Media | No bloqueante | `000_preproject` |
 
 ---
 
@@ -8111,3 +8116,252 @@ exit=1
 
 - ✅ **La regla y su ejemplo estan en el archivo**, y los dos barridos de agnosticismo salen vacios:
   la skill sigue sin un dato propio de este proyecto y sin un codigo instanciado.
+
+---
+
+### T-175 - Fijar por nota fechada la orden con marcador de `D-153` (`F-104`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-038 |
+
+- **Que:** el bloque «Contexto» de `D-153` publica la medicion que justifica la decision con
+  `<ruta del esqueleto>` donde va la ruta. Asi escrita la orden falla; con la ruta literal devuelve el
+  `0` publicado.
+- **Por que importa:** una evidencia vale por poder pegarse y correrse. `decisions.md` no es un area
+  agnostica, asi que nada obligaba al marcador.
+- 🔑 **Es Baja porque el dato es cierto** y la conclusion de `D-153` no depende de la orden.
+- **Como se corrige:** nota fechada bajo `D-153`, con la orden y la ruta literal y su salida, **sin
+  reescribir el bloque**. Declara en su linea que mide un estado vivo.
+- **Criterio de cierre:** `D-153` lleva su nota, y la orden de la nota —copiada de vuelta del archivo
+  antes de correrla— devuelve la salida que publica.
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ grep -c 'T-175`, hallazgo `F-104' _persistence/decisions.md
+1
+
+$ grep "SDAI_TripleS/project.md\"$" _persistence/decisions.md | sed 's/^\$ //' > "$TEMP/sc/t175.sh"; bash "$TEMP/sc/t175.sh"
+0
+```
+
+- ✅ **La nota esta puesta**, y su orden, extraida del archivo por su contenido y no por numero de
+  linea, reproduce el `0` que publica.
+- ⚠️ **La segunda orden mide un estado vivo:** el esqueleto vive en otro repositorio. Su `0` cambia en
+  cuanto corra la promocion que `D-153` ordena, y eso es lo esperado.
+
+---
+
+### T-176 - Fijar por nota fechada la septima cifra desfasada bajo `A-018` (`F-105`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-038 |
+
+- **Que:** la nota de `T-173` bajo `A-018` publica `0` para `_templates/000_preproject/005_project.md`,
+  y el mismo commit que la contiene trae la edicion de `T-167` a ese archivo, hecha despues de correr
+  la orden. Hoy la cifra es `3`, con el esqueleto en el mismo commit que entonces.
+- **Por que importa:** esa nota es el unico ejercicio publicado del disparador de `A-018`, y la cifra
+  se lee en `assumptions.md`, no en el informe de sesion donde quedo el aviso.
+- 🔑 **Es Baja porque la nota ya declaraba en su linea que mide un estado vivo**: no afirmaba
+  permanencia. Lo que faltaba era la constancia del desfase donde vive la cifra.
+- **Como se corrige:** segunda nota fechada bajo `A-018`, con la salida de hoy y el commit del
+  esqueleto, **sin reescribir nada**. La nota dice tambien que el `3` es la promocion que `D-153` ya
+  ordena, no un contraejemplo.
+- ⚠️ **No ataca la causa.** La recomendacion de la seccion 5 de `R-036`, que la quitaria de raiz,
+  sigue sin evaluar; esta tarea no la da por evaluada.
+- **Criterio de cierre:** `A-018` lleva su segunda nota, y la orden de la nota —copiada de vuelta del
+  archivo antes de correrla— devuelve la salida que publica.
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ grep -c 'T-176`, hallazgo `F-105' _persistence/assumptions.md
+1
+
+$ sed -n '/T-176`, hallazgo `F-105/,/^---$/p' _persistence/assumptions.md | grep '^\$ ESQ=' | sed 's/^\$ //' > "$TEMP/sc/t176.sh"; bash "$TEMP/sc/t176.sh"
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+```
+
+- ✅ **La nota esta puesta**, y su orden, extraida del archivo **por el rango de la propia nota** y no
+  por numero de linea, reproduce las siete cifras que publica.
+- ⚠️ **Mide un estado vivo**, y la cifra se mueve con cualquier edicion de este lado que cambie o
+  quite una linea que el esqueleto tiene. `T-177` toca `CLAUDE.md` y `protocol-close` en esta misma
+  sesion, y la tabla de arriba **ya salio con esas dos ediciones hechas**: solo anaden lineas, y este
+  barrido cuenta las lineas `<`, las que existen solo en el esqueleto. Se dice aqui para no repetir el
+  defecto que esta tarea corrige.
+
+---
+
+### T-177 - Comparar fila y ficha de cada hallazgo, en la regla y en el cierre (`D-155`, `F-106`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-038 |
+
+- **Que:** la mitad hacia adelante de `F-106`. El paso 3 de «Que hacer con una auditoria» en
+  `CLAUDE.md` pasa a nombrar fila **y** ficha (`Estado` y `Registrado en`), y el Paso 2b de
+  `protocol-close` gana un barrido que compara el estado de cada fila de `_audit/findings.md` con el de
+  su ficha, con su linea en el reporte.
+- **Por que importa:** el registro llego a afirmar dos estados del mismo hallazgo, y ningun control lo
+  cazaba: el de indices solo recorria `_persistence/`.
+- ⚠️ **El barrido solo lee.** `findings.md` no es del cierre: una diferencia va a **Sin resolver** y la
+  corrige quien trata los hallazgos. Lo fija `D-155`.
+- ⚠️ **La mitad hacia atras no hace falta:** la auditoria que abrio el hallazgo ya corrigio las dos
+  fichas afectadas al cerrarlas.
+- **Criterio de cierre:** el paso 3 de `CLAUDE.md` nombra la ficha, el Paso 2b lleva el barrido y su
+  linea de reporte, el barrido sale vacio sobre el archivo actual y **falla** sobre el commit que tenia
+  el defecto, y la skill sigue sin datos propios ni codigos instanciados.
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ grep -c 'Y su ficha, en la misma pasada' CLAUDE.md
+1
+
+$ grep -nE '^### Y la fila contra la ficha|^Fila ↔ ficha en `_audit/findings.md` \(2b\)' .claude/skills/protocol-close/SKILL.md
+249:### Y la fila contra la ficha en `_audit/findings.md`
+2009:Fila ↔ ficha en `_audit/findings.md` (2b) — <coinciden | 🚨 <las lineas>, a Sin resolver | 🚨 SIN COMPROBAR — <que fallo>>
+
+$ sed -n '/^### Y la fila contra la ficha/,/^Sin salida = /p' .claude/skills/protocol-close/SKILL.md | sed -n '/^```bash$/,/^```$/p' | sed '1d;$d' > "$TEMP/sc/t177.sh"; bash "$TEMP/sc/t177.sh"; echo "exit=$?"
+exit=0
+
+$ mkdir -p "$TEMP/sc/neg/_audit"; git show 3b20720:_audit/findings.md > "$TEMP/sc/neg/_audit/findings.md"; (cd "$TEMP/sc/neg" && bash ../t177.sh); echo "exit=$?"
+102,103c102,103
+< F-102 Aceptado — pendiente
+< F-103 Aceptado — pendiente
+---
+> F-102 Abierto
+> F-103 Abierto
+exit=1
+
+$ grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" .claude/skills/protocol-close/SKILL.md CLAUDE.md; echo "exit=$?"
+exit=1
+
+$ grep -noE '[A-Z]{1,2}-[0-9]+' .claude/skills/protocol-close/SKILL.md | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+```
+
+- ✅ **La regla y el control estan en sus archivos**, y el barrido —extraido de la skill tal como
+  quedo escrito— sale vacio sobre el `findings.md` actual y senala exactamente los dos hallazgos
+  sobre `3b20720`. Puede fallar, que es lo que lo hace evidencia.
+- ⚠️ **La primera version del barrido escribia `$(NF-1)`**, y el barrido de codigos instanciados lo
+  senalaba como un codigo. Se reescribio como `$(NF - 1)`, que `awk` lee igual, antes de correr las
+  ordenes de arriba. La copia del barrido en `D-155` conserva la forma original, porque es la que
+  produjo aquellas salidas.
+- ⚠️ **Las ordenes de la skill leen el arbol de trabajo**, no un commit: prueban el estado de hoy. Las
+  ancladas a `3b20720` y `a864dd1` estan en `D-155`.
+
+📌 **Nota del 2026-09-14 (`T-178`, misma sesion) — la segunda orden de arriba ya no reproduce el
+numero de linea.** `T-178` anadio ocho lineas al Paso 7c-quater, que esta antes de la plantilla del
+reporte, **despues** de correr esta verificacion. La linea del reporte paso de la 2009 a la 2017; lo
+que la orden comprueba —que las dos lineas existen— no cambia. El bloque de arriba no se reescribe.
+
+```
+$ grep -nE '^### Y la fila contra la ficha|^Fila ↔ ficha en `_audit/findings.md` \(2b\)' .claude/skills/protocol-close/SKILL.md
+249:### Y la fila contra la ficha en `_audit/findings.md`
+2017:Fila ↔ ficha en `_audit/findings.md` (2b) — <coinciden | 🚨 <las lineas>, a Sin resolver | 🚨 SIN COMPROBAR — <que fallo>>
+```
+
+---
+
+### T-178 - Hacer que el Paso 7c-quater busque la linea de orden con su hash, no la cadena suelta (`D-156`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-038 |
+
+- **Que:** la cuarta recomendacion de la seccion 5 de `R-036`, aceptada en `D-156`. El 7c-quater
+  buscaba `git show --stat --name-only --format=` en todo el informe, y la cadena esta casi siempre en
+  prosa o en la lista del Paso 2d: el control pasaba aunque la orden anclada faltara. El patron nuevo
+  exige una linea de orden —`$ ` o `> $ `— terminada en el hash del commit.
+- **Por que importa:** un control que pasa en vacio afirma una garantia que no da.
+- ⚠️ **Limite conocido, y se dice:** el control comprueba que **alguna** linea de orden lleve el hash;
+  si el informe cita la orden anclada de otra sesion con **ese mismo** hash, tambien pasa. Con el hash
+  propio del commit sustantivo eso no ocurre en la practica, y no se afina mas (`PI-2`).
+- **Criterio de cierre:** el patron nuevo esta en el Paso 7c-quater, pasa sobre los cinco ultimos
+  informes con su propio hash, y **falla** sobre un informe al que se le quita la orden anclada, donde
+  el patron antiguo seguia pasando.
+
+---
+
+**Verificacion — ejecutado el 2026-09-14:**
+
+```
+$ P=$(sed -n '/^### 7c-quater/,/^### 7d/p' .claude/skills/protocol-close/SKILL.md | grep "^grep -qE" | sed -E "s/^grep -qE '(.*)' _audit.*/\1/"); echo "$P"; for s in S-033:91a59c8 S-034:2cef150 S-035:cce48e0 S-036:6fb6d39 S-037:3b20720; do r=${s%%:*}; h=${s##*:}; git show a864dd1:_audit/$r.md | grep -qE "${P/<hash>/$h}" && echo "$r ($h): pasa" || echo "$r ($h): FALTA"; done
+^(> )?\$ git show --stat --name-only --format= <hash>$
+S-033 (91a59c8): pasa
+S-034 (2cef150): pasa
+S-035 (cce48e0): pasa
+S-036 (6fb6d39): pasa
+S-037 (3b20720): pasa
+
+$ P=$(sed -n '/^### 7c-quater/,/^### 7d/p' .claude/skills/protocol-close/SKILL.md | grep "^grep -qE" | sed -E "s/^grep -qE '(.*)' _audit.*/\1/"); git show a864dd1:_audit/S-036.md | sed '/^> ## NOTA DE CIERRE/,$d' > "$TEMP/sc/s036_sin_nota.md"; grep -qE "${P/<hash>/6fb6d39}" "$TEMP/sc/s036_sin_nota.md" && echo "nuevo: pasa" || echo "nuevo: FALTA"; grep -qF 'git show --stat --name-only --format=' "$TEMP/sc/s036_sin_nota.md" && echo "antiguo: pasa" || echo "antiguo: FALTA"
+nuevo: FALTA
+antiguo: pasa
+
+$ grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" .claude/skills/protocol-close/SKILL.md; echo "exit=$?"
+exit=1
+
+$ grep -noE '[A-Z]{1,2}-[0-9]+' .claude/skills/protocol-close/SKILL.md | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+```
+
+- ✅ **El patron, extraido de la skill tal como quedo escrito**, pasa sobre los cinco informes con su
+  hash y detecta el informe sin orden anclada; el patron antiguo, sobre ese mismo informe, pasaba. La
+  skill sigue sin datos propios y sin codigos instanciados.
+- ⚠️ **Las ordenes leen la skill del arbol de trabajo** y los informes anclados a `a864dd1`.
+
+---
+
+### T-179 - Que el cierre deje tarea cuando no puede corregir una orden que no reproduce (`D-156`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | manager |
+| Sesion | S-038 |
+
+- **Que:** disenar e implementar que, cuando el Paso 2d de `protocol-close` encuentre una orden que
+  no reproduce en un archivo que el cierre no puede editar, el pendiente quede como `T-XXX` en
+  `tasks.md` y no solo en el informe de sesion.
+- **Por que importa:** es la causa comun que `D-156` identifica en los tres ultimos hallazgos de esa
+  forma: el cierre los detecto las tres veces, y las tres acabaron en hallazgo porque el pendiente no
+  tenia tarea.
+- ⚠️ **Falta decidir el `Origen`** de las tareas que abriria el cierre: ninguno de los tres valores
+  vigentes lo describe con exactitud, y anadir uno exige su `D-XXX`.
+- **Por que no se hizo hoy:** el usuario la aplazo el 2026-09-14 para no volver a cambiar
+  `protocol-close` antes de la promocion al esqueleto. Lo registra la nota final de `D-156`.
+- **Criterio de cierre:** el Paso 2d prescribe la tarea para ese caso, con su `Origen` decidido, y
+  una prueba muestra que un pendiente en un archivo ajeno deja fila en `tasks.md`.

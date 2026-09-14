@@ -115,9 +115,9 @@
 | [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Implementado |
 | [F-102](#f-102---la-tabla-de-reejecucion-del-paso-2d-de-s-036-atribuye-salidas-a-las-ordenes-equivocadas) | La tabla de reejecucion del Paso 2d de `S-036` atribuye salidas a las ordenes equivocadas | R-036 | Media | Implementado |
 | [F-103](#f-103---el-bloque-de-a-018-en-assumptionsmd-publica-una-orden-que-ya-no-reproduce-y-queda-sin-corregir-y-sin-tarea) | El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea | R-036 | Media | Implementado |
-| [F-104](#f-104---la-orden-que-sostiene-d-153-usa-un-marcador-en-vez-de-la-ruta-y-no-es-ejecutable) | La orden que sostiene `D-153` usa un marcador en vez de la ruta, y no es ejecutable | R-037 | Baja | Abierto |
-| [F-105](#f-105---la-nota-que-corrige-f-103-vuelve-a-publicar-en-assumptionsmd-una-cifra-que-ya-no-reproducia-en-ese-mismo-commit) | La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit | R-037 | Baja | Abierto |
-| [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Abierto |
+| [F-104](#f-104---la-orden-que-sostiene-d-153-usa-un-marcador-en-vez-de-la-ruta-y-no-es-ejecutable) | La orden que sostiene `D-153` usa un marcador en vez de la ruta, y no es ejecutable | R-037 | Baja | Aceptado — pendiente |
+| [F-105](#f-105---la-nota-que-corrige-f-103-vuelve-a-publicar-en-assumptionsmd-una-cifra-que-ya-no-reproducia-en-ese-mismo-commit) | La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit | R-037 | Baja | Aceptado — pendiente |
+| [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Aceptado — pendiente |
 
 ---
 
@@ -4792,8 +4792,8 @@ commit de este lo fija.
 | Auditoria | R-037 |
 | Fecha | 2026-09-11 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-175` |
 | Cerrado en | |
 
 - **Que se observo:** `D-153` publica la medicion que justifica la decision con un marcador donde
@@ -4821,6 +4821,26 @@ $ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS
 - **Que lo corregiria:** una nota fechada bajo `D-153` con la orden escrita con la ruta literal y su
   salida, sin reescribir el bloque original. ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-14 (`S-038`) — ACEPTADO.** Verificado contra `HEAD` (`a864dd1`) antes de
+evaluarlo: la orden con marcador sigue en la linea 9822 de `decisions.md`, y con la ruta literal que
+declara `project.md` devuelve hoy el `0` publicado. El hallazgo se sostiene: el dato es cierto y la
+orden no se puede correr. Lo implementa **`T-175`** — nota fechada bajo `D-153` con la orden y la
+ruta literal, sin reescribir el bloque.
+
+```
+$ git show a864dd1:_persistence/decisions.md | grep -n "<ruta del esqueleto>/project.md"
+9822:$ grep -c '^| Esqueleto de arranque' <ruta del esqueleto>/project.md
+
+$ git show a864dd1:project.md | grep -n '^| Esqueleto'
+41:| Esqueleto de arranque — repositorio | `C:\Users\USUARIO\Documents\Company_TripleS\SDAI_TripleS` |
+42:| Esqueleto de arranque — remoto | `https://github.com/jdrodriguez1000/SDAI_TripleS.git` (privado) |
+
+$ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS/project.md"
+0
+```
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-105 - La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit
@@ -4829,8 +4849,8 @@ $ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS
 | Auditoria | R-037 |
 | Fecha | 2026-09-11 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-176` |
 | Cerrado en | |
 
 - **Que se observo:** la nota del 2026-09-11 bajo `A-018` (`T-173`) publica `4 0 0 0 0 0 0`.
@@ -4863,6 +4883,37 @@ _templates/000_preproject/005_project.md
   cierre — o, mejor, evaluar la recomendacion de la seccion 5 de `R-036`, que es la raiz comun de
   este caso y de `F-104`. ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-14 (`S-038`) — ACEPTADO, en su mitad correctiva.** Verificado antes de
+evaluarlo: la nota de `T-173` sigue en `assumptions.md` de `HEAD` (`a864dd1`) publicando `0` en la
+septima cifra, y la orden devuelve hoy `3`, con el esqueleto en el mismo commit que entonces
+(`1748f0a`) — el desfase sale entero de este lado. Lo implementa **`T-176`**: segunda nota fechada
+bajo `A-018`, con la salida de hoy, sin reescribir nada.
+
+```
+$ git show a864dd1:_persistence/assumptions.md | grep -n "T-173\`, hallazgo \`F-103"
+1119:📌 **Nota del 2026-09-11 (`T-173`, hallazgo `F-103`) — las siete cifras del bloque de arriba ya no
+
+$ git show a864dd1:_persistence/assumptions.md | sed -n '1119,1140p' | grep -n '^  [0-9]  _templates'
+17:  0  _templates/000_preproject/005_project.md
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(diff --strip-trailing-cr "$ESQ/$f" "$f" | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" log -1 --format='%h %ad' --date=short
+1748f0a 2026-09-11
+```
+
+⚠️ **La mitad «mejor» —evaluar la seccion 5 de `R-036`— no se trata aqui.** Es una recomendacion
+sin hallazgo y merece su propia decision; este tratamiento no la da por evaluada.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-106 - El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto`
@@ -4871,8 +4922,8 @@ _templates/000_preproject/005_project.md
 | Auditoria | R-037 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-177` |
 | Cerrado en | |
 
 - **Que se observo:** el indice pasa los dos hallazgos a `Aceptado — pendiente`, y la ficha de
@@ -4916,3 +4967,23 @@ $ git show cce48e0:_audit/findings.md | sed -n '/^### F-098 /,/^- \*\*Que se obs
 - **Que lo corregiria:** que el tratamiento de un hallazgo toque los dos sitios —fila y ficha
   (`Estado` y `Registrado en`)—, y que el cierre lo compruebe con el mismo barrido indice↔detalle que
   ya corre sobre `_persistence/`, extendido a `findings.md`. ⚠️ Es una recomendacion, no una orden.
+
+🕐 **Tratamiento del 2026-09-14 (`S-038`) — ACEPTADO, en su mitad hacia adelante.** Verificado contra
+`HEAD` (`a864dd1`): la mitad hacia atras ya no existe —las fichas de `F-102` y `F-103` dicen
+`Implementado` con su `Registrado en`, que puso la propia auditoria—, y el barrido fila ↔ ficha sale
+vacio en todo el archivo. Sobre `3b20720` el mismo barrido senala exactamente los dos hallazgos, asi
+que puede fallar. La causa es que el paso 3 de `CLAUDE.md` solo nombraba la fila. Lo decide **`D-155`**
+y lo implementa **`T-177`**: el paso 3 nombra fila y ficha, y el Paso 2b del cierre compara las dos,
+de solo lectura. La salida cruda de los dos barridos esta en `D-155`.
+
+```
+$ for c in F-102 F-103; do git show a864dd1:_audit/findings.md | sed -n "/^### $c /,/^- \*\*Que se observo/p" | sed -n '7,9p'; done
+| Estado | Implementado |
+| Registrado en | `T-172` |
+| Cerrado en | `R-037` (commit `3b20720`) |
+| Estado | Implementado |
+| Registrado en | `T-173` |
+| Cerrado en | `R-037` (commit `3b20720`) |
+```
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.

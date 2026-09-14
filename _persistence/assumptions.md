@@ -1164,6 +1164,38 @@ el patron del Paso 1b del esqueleto no cubre `_templates` ni `_workflow`, y su P
 prefijos — los dos defectos que una auditoria encontro **en este repositorio**, que es el unico sitio
 donde corre un cierre. Promover al reves habria llevado alla la version ciega.
 
+📌 **Nota del 2026-09-14 (`T-176`, hallazgo `F-105`) — la septima cifra de la nota de arriba ya era
+falsa en el commit que la contenia.** La nota publica `0` para
+`_templates/000_preproject/005_project.md`, y ese mismo commit trae la edicion de `T-167` a ese
+archivo —las filas del esqueleto de origen—, hecha **despues** de correr la orden y dentro de la misma
+sesion. No es el esqueleto el que cambio: es este lado. La nota de arriba **no se reescribe**. La
+misma orden, corrida hoy:
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in CLAUDE.md .claude/skills/protocol-audit/SKILL.md .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-start/SKILL.md _phases/000_preproject.md _phases/005_discovery.md _templates/000_preproject/005_project.md; do printf '%3d  %s\n' "$(diff --strip-trailing-cr "$ESQ/$f" "$f" | grep -c '^<')" "$f"; done
+  4  CLAUDE.md
+  0  .claude/skills/protocol-audit/SKILL.md
+  0  .claude/skills/protocol-close/SKILL.md
+  0  .claude/skills/protocol-start/SKILL.md
+  0  _phases/000_preproject.md
+  0  _phases/005_discovery.md
+  3  _templates/000_preproject/005_project.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" log -1 --format='%h %ad' --date=short
+1748f0a 2026-09-11
+```
+
+⚠️ **Sigue midiendo un estado vivo, y la cifra de hoy vale para hoy.** El esqueleto sigue en
+`1748f0a`, el mismo commit que la nota de arriba media: el `3` sale entero de este repositorio.
+
+🔑 **El `3` no es un contraejemplo de `A-018`:** son las tres filas que `T-167` anadio a la plantilla
+y que `D-153` ya ordena llevar al esqueleto por promocion. Una promocion pendiente con su decision
+escrita, que es justo lo que el supuesto afirma.
+
+⚠️ **Esta nota no ataca la causa.** Es la segunda vez que una cifra viva se desfasa en este bloque; lo
+que la quitaria de raiz es la recomendacion de la seccion 5 de `R-036` —toda orden publicada va
+anclada, o declara en su linea que mide un estado vivo—, que **sigue sin evaluar**.
+
 ---
 
 ### A-019 - La skill de promocion funciona de punta a punta: nunca se ha ejecutado
