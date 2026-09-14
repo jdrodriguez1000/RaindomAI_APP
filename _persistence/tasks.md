@@ -171,7 +171,7 @@
 | [T-160](#t-160---anadir-al-cierre-el-barrido-de-desfase-con-el-esqueleto-d-148) | Anadir al cierre el barrido de desfase con el esqueleto (`D-148`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-161](#t-161---escribir-la-skill-de-promocion-al-esqueleto-con-su-puerta-d-146) | Escribir la skill de promocion al esqueleto, con su puerta (`D-146`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-162](#t-162---escribir-la-guia-de-arranque-del-esqueleto) | Escribir la guia de arranque del esqueleto | No implementada | Media | No bloqueante | `000_preproject` |
-| [T-163](#t-163---resolver-los-dos-huecos-menores-del-esqueleto-brief-y-temporal) | Resolver los dos huecos menores del esqueleto: brief y `temporal/` | No implementada | Baja | No bloqueante | `000_preproject` |
+| [T-163](#t-163---resolver-los-dos-huecos-menores-del-esqueleto-brief-y-temporal) | Resolver los dos huecos menores del esqueleto: brief y `temporal/` | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-164](#t-164---fijar-por-nota-fechada-la-orden-de-la-seccion-1-de-s-034-f-098) | Fijar por nota fechada la orden de la seccion 1 de `S-034` (`F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-165](#t-165---fijar-por-nota-fechada-la-descripcion-de-la-vineta-de-findingsmd-en-s-034-f-099) | Fijar por nota fechada la descripcion de la vineta de `findings.md` en `S-034` (`F-099`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-166](#t-166---escribir-el-paso-7c-quater-la-orden-de-la-seccion-1-por-cadena-literal-d-149-f-098) | Escribir el Paso 7c-quater: la orden de la seccion 1 por cadena literal (`D-149`, `F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
@@ -190,6 +190,7 @@
 | [T-179](#t-179---que-el-cierre-deje-tarea-cuando-no-puede-corregir-una-orden-que-no-reproduce-d-156) | Que el cierre deje tarea cuando no puede corregir una orden que no reproduce (`D-156`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-180](#t-180---fijar-por-nota-fechada-la-cifra-y-el-parrafo-desfasados-de-la-nota-de-t-176-f-107) | Fijar por nota fechada la cifra y el parrafo desfasados de la nota de `T-176` (`F-107`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-181](#t-181---fijar-por-nota-fechada-la-procedencia-real-de-la-seccion-7-de-s-038-f-108) | Fijar por nota fechada la procedencia real de la seccion 7 de `S-038` (`F-108`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-182](#t-182---que-la-promocion-regenere-las-copias-de-la-raiz-del-esqueleto-desde-su-plantilla-d-162) | Que la promocion regenere las copias de la raiz del esqueleto desde su plantilla (`D-162`) | Implementada | Alta | No bloqueante | `000_preproject` |
 
 ---
 
@@ -7529,12 +7530,21 @@ Files <ESQ>/CLAUDE.md and CLAUDE.md differ
   que rellenar. Con `D-150`: lleva tambien el procedimiento de arranque y la advertencia de lo que el
   clone no trae.
 
+📌 **Nota del 2026-09-14 (`D-161`, `D-162`) — el borrador de `_outbound/` se pone al dia antes de
+publicarlo.** Tres pasajes contradecian lo decidido hoy: la seccion 2 decia que sin `temporal/` «la
+promesa esta rota» (`D-161`: la crea el usuario cuando la necesite, y lo obligatorio es su linea en
+`.gitignore`); la seccion 3 no decia que el brief se deja tal como lo entregue el cliente (`D-161`) ni
+que las copias de la raiz se mantienen iguales a su plantilla (`D-162`); y la seccion 4 decia «entrada
+por entrada» donde la promocion aprueba archivo por archivo. Barridos de datos propios y de codigos
+instanciados sobre el borrador: cero lineas. ⚠️ **Sigue `No implementada`:** la guia se publica desde
+su version commiteada, igual que una promocion, asi que va en la ventana siguiente (`D-160`).
+
 ---
 
 ### T-163 - Resolver los dos huecos menores del esqueleto: brief y `temporal/`
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Baja |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -7565,6 +7575,12 @@ NO existe temporal/ en el clone
   cadena de dos pasos, y esas se comprueban. Ahora la decision de `T-163` se toma sobre una salida.
 - **Criterio de cierre:** las dos quedan resueltas o declaradas por escrito, con su `D-XXX` si la
   respuesta es «se acepta asi».
+
+📌 **Nota del 2026-09-14 (`D-161`) — el usuario resuelve los dos puntos.** El brief **no lleva
+plantilla**: lo escribe el cliente como considere, ordenado o no. `temporal/` **no se crea** en el
+esqueleto: la anade el usuario a mano cuando la necesite, y lo obligatorio —que este en `.gitignore`—
+ya se cumple. Se escribe a mano por la segunda excepcion de este archivo: nace de una decision del
+usuario que el cierre no puede deducir del diff. La evidencia, anclada, esta en `D-161`.
 
 ---
 
@@ -8524,3 +8540,27 @@ REPRODUCE (2 ordenes)
 ```
 
 - ✅ **La nota esta puesta y sus dos ordenes reproducen.**
+
+---
+
+### T-182 - Que la promocion regenere las copias de la raiz del esqueleto desde su plantilla (`D-162`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Alta |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | usuario |
+| Sesion | S-040 |
+
+- **Que:** `protocol-promote` gana el Paso 1b —diez parejas plantilla ↔ copia de la raiz del
+  esqueleto—, su item en la puerta, su paso en la escritura, su comprobacion en el registro de vuelta y
+  su linea en el reporte; y la puerta pide las cifras de lineas sacadas de una orden.
+- **Por que:** el usuario decide que nada del esqueleto puede quedar viejo, y la primera promocion
+  dejo dos copias por detras de su plantilla (`D-162`). Se escribe a mano por la segunda excepcion de
+  este archivo: nace de una decision del usuario que el cierre no puede deducir del diff.
+- **Lo que ya se hizo en el esqueleto, a mano y con puerta:** las dos copias regeneradas en `c7d0a87`.
+- ⚠️ **La skill cambiada no esta en el esqueleto todavia:** sube en el proximo lote, tras cierre y
+  auditoria (`D-160`).
+- **Criterio de cierre:** el de `D-162`; su prueba en negativo y en positivo, con las ordenes y su
+  salida, esta alli y reproduce.

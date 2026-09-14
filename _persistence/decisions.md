@@ -167,6 +167,10 @@
 | [D-156](#d-156---la-seccion-5-de-r-036-la-regla-anclada-o-viva-no-se-adopta-y-el-7c-quater-se-endurece) | La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece | 2026-09-14 | Vigente | report_auditor |
 | [D-157](#d-157---la-mitad-hacia-adelante-de-f-108-no-se-adopta-la-regla-ya-existe-y-lo-que-fallo-fue-cumplirla) | La mitad hacia adelante de `F-108` no se adopta: la regla ya existe y lo que fallo fue cumplirla | 2026-09-14 | Vigente | report_auditor |
 | [D-158](#d-158---se-retoma-t-179-el-pendiente-que-el-cierre-no-puede-corregir-se-abre-como-tarea-con-origen-session-closer) | Se retoma `T-179`: el pendiente que el cierre no puede corregir se abre como tarea con `Origen: session-closer` | 2026-09-14 | Vigente | usuario |
+| [D-159](#d-159---primera-promocion-al-esqueleto-suben-los-seis-candidatos-desde-db0e613-a-841dc53) | Primera promocion al esqueleto: suben los seis candidatos, desde `db0e613` a `841dc53` | 2026-09-14 | Vigente | usuario |
+| [D-160](#d-160---si-hay-andamiaje-por-promover-se-promueve-al-abrir-sesion-antes-de-trabajar-los-hallazgos) | Si hay andamiaje por promover, se promueve al abrir sesion, antes de trabajar los hallazgos | 2026-09-14 | Vigente | usuario |
+| [D-161](#d-161---el-brief-no-lleva-plantilla-y-temporal-no-se-versiona-la-crea-el-usuario-cuando-la-necesite) | El brief no lleva plantilla, y `temporal/` no se versiona: la crea el usuario cuando la necesite | 2026-09-14 | Vigente | usuario |
+| [D-162](#d-162---las-copias-de-la-raiz-del-esqueleto-se-regeneran-desde-su-plantilla-en-cada-promocion) | Las copias de la raiz del esqueleto se regeneran desde su plantilla en cada promocion | 2026-09-14 | Vigente | usuario |
 
 ---
 
@@ -9906,6 +9910,11 @@ raiz del esqueleto —regenerarlos desde las plantillas, quitarlos, o que la gui
 copiarlas—. Lo detecto `manager` al preparar la primera promocion, el 2026-09-14, antes de ejecutarla.
 Hasta que se decida, esta decision no puede cerrarse por su criterio, aunque la promocion se haga.
 
+📌 **Nota del 2026-09-14 (`D-162`) — la mitad del criterio que dependia del `project.md` del esqueleto
+ya se cumple.** El usuario decidio regenerar las copias de la raiz desde su plantilla, y el
+`project.md` del esqueleto lleva sus tres filas desde el commit `c7d0a87` (salida en `D-162`). Queda la
+otra mitad del criterio: que la guia aparezca en su raiz, que es `T-162`.
+
 ---
 
 ### D-154 - `_outbound/`: donde espera lo redactado aqui que se publica en otro repositorio
@@ -10215,3 +10224,260 @@ $ git show 62ff0d2:.claude/skills/protocol-close/SKILL.md | grep -c '^Ordenes si
 📌 **Ancladas por el Paso 7c-bis al commit `62ff0d2`.** Las cuatro reproducen lo publicado arriba.
 
 ---
+
+---
+
+### D-159 - Primera promocion al esqueleto: suben los seis candidatos, desde `db0e613` a `841dc53`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pide la primera promocion real del andamiaje al esqueleto de arranque, con
+  este repositorio en `db0e613` —limpio y subido en las seis areas— y con la auditoria de lo que se
+  promueve ya registrada (`R-039`). Se ejecuta `protocol-promote` completo, con su puerta.
+- **Desfase medido (Paso 1):** seis candidatos —cinco archivos que difieren y uno solo aqui—, y
+  **nada que exista solo en el esqueleto**: `.claude/skills/protocol-close/SKILL.md`,
+  `.claude/skills/protocol-harvest/SKILL.md`, `.claude/skills/protocol-promote/SKILL.md` (nueva),
+  `_templates/000_preproject/005_project.md`, `_templates/000_preproject/015_tasks.md` y `CLAUDE.md`.
+- **Lo que se borro alli (Paso 2), leido linea por linea:** 13 lineas (3, 2, 0, 3, 1, 4). Todas son
+  versiones anteriores de parrafos reescritos aqui: la lista de `Origen` sin `session-closer` (dos
+  veces), dos lineas del patron viejo del 7c-quater, la afirmacion «la cosecha es el unico protocolo que
+  escribe fuera» (en la skill y en `CLAUDE.md`) y el parrafo de rutas absolutas que solo nombraba el
+  repositorio de lecciones. **La premisa de sentido unico se sostuvo.**
+- **Controles (Paso 3):** datos propios en las seis areas y codigos instanciados en `_phases/` y
+  `_workflow/`, cero lineas. Barrido ensanchado sobre los seis candidatos —correos, hosts de codigo,
+  rutas de maquina, nombres—: una sola coincidencia, `Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`
+  en `protocol-close`, firma generica de commit **que el esqueleto ya tenia**. ⚠️ Una primera version de
+  ese barrido uso `-i` con `USUARIO` y coincidio con la palabra «usuario» en decenas de lineas: se
+  repitio sin `-i` antes de la puerta.
+
+```
+$ git grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" db0e613 -- .claude CLAUDE.md _phases _methodology _templates _workflow; echo "exit=$?"
+exit=1
+
+$ git grep -noE '\b[A-Z]{1,2}-[0-9]+\b' db0e613 -- _phases _workflow | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+
+$ git grep -nE 'github\.com|gitlab|bitbucket|gmail|hotmail|outlook\.|@[A-Za-z0-9-]+\.(com|org|net|io)|[A-Za-z]:[\/][Uu]sers|/home/[a-z]|USUARIO|jdrodriguez|[Tt]riple[Ss]|[Rr]aidom|SDAI' db0e613 -- .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-harvest/SKILL.md .claude/skills/protocol-promote/SKILL.md _templates/000_preproject/005_project.md _templates/000_preproject/015_tasks.md CLAUDE.md; echo "exit=$?"
+db0e613:.claude/skills/protocol-close/SKILL.md:1508:Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+exit=0
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 1748f0a:.claude/skills/protocol-close/SKILL.md | grep -c 'noreply@anthropic.com'
+1
+```
+
+- **Final de linea (Paso 4):** todas las parejas LF en los dos lados; copia byte a byte desde el
+  commit de origen (`git show db0e613:<archivo>`), no desde el arbol.
+- **La puerta (Paso 5):** el usuario aprobo **los seis**, uno por uno. No quedo nada sin subir.
+- **Commits:** origen `db0e613` en este repositorio; esqueleto **`841dc53`**, subido, `status -sb` sin
+  `ahead`. El `numstat` del commit del esqueleto coincide con lo presentado en la puerta.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" log --oneline -2
+841dc53 Promocion del andamiaje desde RaidomAI_App (origen db0e613)
+1748f0a Sincroniza las seis areas agnosticas con el proyecto de origen
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show --numstat --format='%h %s' 841dc53
+841dc53 Promocion del andamiaje desde RaidomAI_App (origen db0e613)
+
+161	3	.claude/skills/protocol-close/SKILL.md
+2	2	.claude/skills/protocol-harvest/SKILL.md
+349	0	.claude/skills/protocol-promote/SKILL.md
+8	4	CLAUDE.md
+21	3	_templates/000_preproject/005_project.md
+2	1	_templates/000_preproject/015_tasks.md
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in $(git ls-tree -r --name-only db0e613 -- .claude CLAUDE.md _phases _methodology _templates _workflow); do git show db0e613:"$f" | diff -q --strip-trailing-cr <(git -C "$ESQ" show 841dc53:"$f" 2>/dev/null) - >/dev/null || echo "difiere  $f"; done; for f in $(git -C "$ESQ" ls-tree -r --name-only 841dc53 -- .claude CLAUDE.md _phases _methodology _templates _workflow); do git cat-file -e db0e613:"$f" 2>/dev/null || echo "solo en el esqueleto  $f"; done; echo "fin del contraste"
+fin del contraste
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 841dc53:project.md | grep -c '^| Esqueleto de arranque'
+0
+```
+
+
+- 🔑 **El contraste de arriba es el barrido de despues, anclado por los dos lados:** cada archivo de
+  las seis areas en `db0e613` contra el mismo en `841dc53`, y cada archivo del esqueleto contra su
+  existencia aqui. No sale ninguna linea: **el desfase cerro**. El barrido del Paso 1 sobre los dos
+  arboles, corrido tambien despues de subir, salio vacio.
+- ⚠️ **Lo que la promocion no cerro, y no podia:** el `project.md` de la raiz del esqueleto sigue con
+  `0` filas de «Esqueleto de arranque» (ultima orden de arriba). Es un archivo de instancia, fuera de
+  las seis areas; es la nota fechada bajo `D-153`, que sigue pendiente del usuario.
+- **Reversible a criterio** en lo tecnico —un commit en el esqueleto se revierte—, pero **publicado**:
+  por eso llevo puerta, y la paso.
+
+---
+
+### D-160 - Si hay andamiaje por promover, se promueve al abrir sesion, antes de trabajar los hallazgos
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** tras cerrar `S-039`, `manager` recomendo evaluar primero `F-109` y las recomendaciones
+  de `R-039` y promover despues. El usuario senalo que ese orden es un ciclo sin salida: trabajar
+  hallazgos cambia archivos, eso obliga a cerrar y auditar, y la sesion siguiente vuelve a empezar por
+  los hallazgos. Tenia razon, y la causa era la recomendacion, no las reglas.
+- **Por que el ciclo no estaba en las reglas.** Los disparadores de `protocol-promote` piden limpias
+  **las seis areas**, no todo el repositorio, y que no haya una auditoria **en curso**. Justo despues de
+  registrarse una auditoria las tres condiciones se cumplen, y trabajar hallazgos toca casi siempre
+  `_persistence/` y `_audit/`, que no las rompen. Ademas la promocion es **por lotes**: lo que cambie
+  despues en el andamiaje va en el siguiente, y esperar a que no quede nada pendiente no termina nunca.
+- **Decision:** cuando el desfase con el esqueleto no esta vacio y el usuario quiere promover, **la
+  ventana es al abrir sesion —o justo tras registrarse la auditoria—, antes de tocar nada**. Los
+  hallazgos se trabajan despues en la misma sesion, y el registro de vuelta de la promocion se cierra
+  con ellos.
+- **Alternativas descartadas:** (a) **hallazgos primero, promocion despues** — es el ciclo; (b) **exigir
+  que no queden hallazgos abiertos para promover** — ninguna regla lo pide y lo haria imposible; (c)
+  **promover de oficio en cada cierre** — ya descartado por el propio protocolo: pierde su puerta.
+- ⚠️ **No cambia ningun archivo del andamiaje.** Es un orden de trabajo de `manager`; si llega a hacer
+  falta escrito en `protocol-start` o en `CLAUDE.md`, es otra decision, y subiria en el lote siguiente.
+- **Reversible a criterio.** Se aplico por primera vez en esta misma sesion: `D-159`.
+
+---
+
+### D-161 - El brief no lleva plantilla, y `temporal/` no se versiona: la crea el usuario cuando la necesite
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `T-163` dejaba dos huecos del esqueleto por decidir: `_brief/client_brief.md` sin
+  plantilla, y `temporal/`, que no aparece al clonar porque esta en `.gitignore` y git no versiona
+  carpetas vacias. El usuario los zanja los dos.
+- **Decision 1 — el brief NO lleva plantilla, y es deliberado.** Es un documento que **entrega el
+  cliente**, escrito como el lo considera: puede venir ordenado o no, y traer informacion sin
+  estructura. Una plantilla le impondria una forma que no le corresponde al equipo, y ademas
+  contradiria lo que ya dice la plantilla de `project.md`: `_brief/` es «el encargo del cliente, tal
+  como llego». En el esqueleto queda el archivo vacio como sitio donde depositarlo.
+- **Decision 2 — `temporal/` no se crea en el esqueleto.** La anade el usuario a mano cuando la
+  necesite. Lo unico obligatorio es que **este en `.gitignore`**, y ya lo esta en los dos
+  repositorios, con su motivo escrito encima.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 841dc53:.gitignore | grep -n '^temporal/$'
+5:temporal/
+
+$ git show db0e613:.gitignore | grep -n '^temporal/$'
+5:temporal/
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" ls-tree -r --long 841dc53 -- _brief
+100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391       0	_brief/client_brief.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" ls-tree -r --name-only 841dc53 -- _templates | grep -ci brief
+0
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 841dc53:_templates/000_preproject/005_project.md | grep -n '^| `temporal/` |\|^| `_brief/` |'
+205:| `_brief/` | El encargo del cliente, tal como llego. **Entrada al proyecto, no registro de el** |
+213:| `temporal/` | Area de trabajo del usuario. **Fuera del repositorio**, excluida en `.gitignore` |
+```
+
+
+- **Alternativas descartadas:** (a) **escribir una plantilla del brief** — estructura un documento que
+  no es del equipo; (b) **versionar `temporal/` con un `.gitkeep`** — obliga a excepcionar la regla de
+  `.gitignore` para un archivo, y la carpeta es del usuario, que decide si existe; (c) **que la guia de
+  arranque mande crearla** — innecesario si el usuario la crea cuando la use.
+- ⚠️ **Consecuencia para `T-162`:** la guia de arranque puede decir que `temporal/` no viene en el clone
+  y se crea a mano cuando haga falta, y que el brief se deja tal como lo entregue el cliente. No hace
+  falta cambiar nada del andamiaje.
+- **Reversible a criterio** — no cambia ningun archivo.
+
+---
+
+### D-162 - Las copias de la raiz del esqueleto se regeneran desde su plantilla en cada promocion
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** tras `D-159`, las plantillas de `_templates/` del esqueleto quedaron identicas a las de
+  este repositorio, pero dos de las diez copias de la raiz —los archivos de instancia que el esqueleto
+  trae ya puestos— seguian con la version anterior: `project.md` (26 lineas distintas de su plantilla) y
+  `_persistence/tasks.md` (3). `protocol-promote` no las tocaba: solo lleva las seis areas.
+- **Decision del usuario:** **nada del esqueleto puede quedar viejo.** Por eso, dos cosas:
+  1. **Hoy**, se regeneran las dos copias desde su plantilla, con puerta archivo por archivo. Hecho en
+     el esqueleto: commit **`c7d0a87`**, subido. Las lineas que se borraron eran todas versiones
+     anteriores de la plantilla; las copias no tenian nada propio.
+  2. **Siempre**, `protocol-promote` gana el **Paso 1b**: mide las diez parejas plantilla ↔ copia,
+     regenera en el mismo commit las que no dan `0` —desde la plantilla, nunca desde la instancia de
+     este repositorio—, las presenta en la puerta y comprueba las diez sobre el commit del esqueleto. La
+     excepcion queda escrita junto a la regla de «solo las seis areas».
+- ⚠️ **Un error de la puerta, declarado:** se presento `project.md` como «entran 21, salen 5», contado a
+  mano; el commit da **22 y 4** (primera orden de abajo). El contenido es exactamente la plantilla, asi
+  que lo aprobado no cambia; lo que fallo fue la cifra tecleada. La puerta del Paso 1b pide ahora esas
+  cifras de la salida de la orden, no de una cuenta.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show --numstat --format='%h %s' c7d0a87
+c7d0a87 Regenera las copias de la raiz desde sus plantillas (origen 841dc53)
+
+2	1	_persistence/tasks.md
+22	4	project.md
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for p in 005_project.md:project.md 010_progress.md:_persistence/progress.md 015_tasks.md:_persistence/tasks.md 020_decisions.md:_persistence/decisions.md 025_constraints.md:_persistence/constraints.md 030_assumptions.md:_persistence/assumptions.md 035_lessons.md:_persistence/lessons.md 040_techdebt.md:_persistence/techdebt.md 045_audit_index.md:_audit/index.md 050_audit_findings.md:_audit/findings.md; do t=${p%%:*}; c=${p#*:}; printf '%3d  %s\n' "$(diff --strip-trailing-cr <(git -C "$ESQ" show c7d0a87:_templates/000_preproject/$t) <(git -C "$ESQ" show c7d0a87:$c) | grep -c '^[<>]')" "$c"; done
+  0  project.md
+  0  _persistence/progress.md
+  0  _persistence/tasks.md
+  0  _persistence/decisions.md
+  0  _persistence/constraints.md
+  0  _persistence/assumptions.md
+  0  _persistence/lessons.md
+  0  _persistence/techdebt.md
+  0  _audit/index.md
+  0  _audit/findings.md
+```
+
+
+- **Prueba del Paso 1b, en negativo y en positivo.** La orden se extrae de la propia skill y se corre
+  sobre el esqueleto en `841dc53` (antes de regenerar: debe marcar las dos copias) y en `c7d0a87`
+  (despues: diez ceros). La ultima orden confirma que el `project.md` del esqueleto ya lleva sus tres
+  filas.
+
+```
+$ sed -n '/^## Paso 1b /,/^---$/p' .claude/skills/protocol-promote/SKILL.md | sed -n '/^```bash$/,/^```$/p' | sed '1d;$d' > "$TEMP/p1b.sh"; rm -rf "$TEMP/esq_old"; mkdir -p "$TEMP/esq_old"; git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" archive 841dc53 | tar -x -C "$TEMP/esq_old"; ESQ="$TEMP/esq_old"; source "$TEMP/p1b.sh"
+ 26  project.md
+  0  _persistence/progress.md
+  3  _persistence/tasks.md
+  0  _persistence/decisions.md
+  0  _persistence/constraints.md
+  0  _persistence/assumptions.md
+  0  _persistence/lessons.md
+  0  _persistence/techdebt.md
+  0  _audit/index.md
+  0  _audit/findings.md
+
+$ sed -n '/^## Paso 1b /,/^---$/p' .claude/skills/protocol-promote/SKILL.md | sed -n '/^```bash$/,/^```$/p' | sed '1d;$d' > "$TEMP/p1b.sh"; rm -rf "$TEMP/esq_new"; mkdir -p "$TEMP/esq_new"; git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" archive c7d0a87 | tar -x -C "$TEMP/esq_new"; ESQ="$TEMP/esq_new"; source "$TEMP/p1b.sh"
+  0  project.md
+  0  _persistence/progress.md
+  0  _persistence/tasks.md
+  0  _persistence/decisions.md
+  0  _persistence/constraints.md
+  0  _persistence/assumptions.md
+  0  _persistence/lessons.md
+  0  _persistence/techdebt.md
+  0  _audit/index.md
+  0  _audit/findings.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show c7d0a87:project.md | grep -c '^| Esqueleto de arranque'
+3
+```
+
+
+- **Alternativas descartadas:** (a) **quitar las copias** del esqueleto y que la guia mande copiar las
+  plantillas — era la recomendacion de `manager`; el usuario prefiere que el esqueleto se clone listo y
+  al dia; (b) **dejarlas y avisar en la guia** — el defecto seguiria y volveria en cada promocion; (c)
+  **regenerarlas solo hoy** — se repetiria en la proxima promocion que toque una plantilla.
+- ⚠️ **Lo que cambia de alcance:** `protocol-promote` escribe ahora en el esqueleto fuera de las seis
+  areas, pero **solo** en esas diez copias y **solo** con contenido de su plantilla. Ningun contenido de
+  este repositorio sale por ahi.
+- ⚠️ **El cambio de la skill sube en el proximo lote:** lo de hoy en el esqueleto se hizo a mano con la
+  puerta; la skill que lo hace solo necesita cierre, auditoria y promocion (`D-160`).
+- **Reversible a criterio** — prosa de una skill; lo escrito en el esqueleto es un commit revertible,
+  pero publicado, y por eso llevo puerta.
+- **Criterio de cierre:** la skill lleva el Paso 1b con su orden, su item en la puerta, su paso en la
+  escritura, su comprobacion en el registro de vuelta y su linea en el reporte; y la prueba de arriba
+  marca las dos copias en `841dc53` y da diez ceros en `c7d0a87`.

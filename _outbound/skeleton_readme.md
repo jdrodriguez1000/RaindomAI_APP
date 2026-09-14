@@ -53,19 +53,21 @@ en una carpeta desechable y leelo alli — no lo estimes ni lo copies «de memor
 
 | Que | Por que | Que hacer |
 |---|---|---|
-| `temporal/` | esta en `.gitignore`, y git no versiona carpetas vacias | crearla a mano: `mkdir temporal` |
+| `temporal/` | esta en `.gitignore`, y git no versiona carpetas vacias | nada al arrancar: **creala a mano cuando la necesites** (`mkdir temporal`) |
 | cualquier archivo ignorado | por definicion no esta versionado | nada: no deberia haber ninguno |
 
-⚠️ **Esto no pasa al copiar la carpeta, y por eso sorprende.** El clone es la via correcta y a la vez
-la unica que deja ese hueco. `project.md` promete `temporal/` como area de trabajo del usuario; si no
-existe, la promesa esta rota desde el minuto uno.
+🔑 **Que `temporal/` no venga es a proposito, no un olvido.** Es el area de trabajo del usuario, y la
+crea el cuando le haga falta. Lo que si tiene que estar desde el principio es **su linea en
+`.gitignore`**, y ya viene puesta: sin ella, el `git add -A` del cierre commitearia su contenido
+entero.
 
 ---
 
 ## 3. Rellenar: los diez archivos de instancia
 
-Estos diez **son sus plantillas, copiadas tal cual**. Es lo primero que se toca, y lo unico que se
-rellena:
+Estos diez **son sus plantillas, copiadas tal cual**, y siguen siendolo: cada promocion que actualiza
+una plantilla regenera tambien su copia, asi que lo que clonas nunca va por detras. Es lo primero que
+se toca, y lo unico que se rellena:
 
 | # | Archivo | Su plantilla |
 |---|---|---|
@@ -118,7 +120,8 @@ mueve; esa dice de que version del andamiaje partio el proyecto, y eso ya no cam
 
 ### Y uno que esta vacio a proposito
 
-`_brief/client_brief.md` llega **vacio y sin plantilla**: ahi va el encargo del cliente, que es una
+`_brief/client_brief.md` llega **vacio y sin plantilla**: ahi va el encargo del cliente **tal como lo
+entregue**, ordenado o no, con la informacion como el la haya escrito. No se le da forma: es una
 entrada, no una decision del equipo. Lo que el equipo decida hacer con el vive en
 `_persistence/decisions.md`. Que el brief describa algo no significa que este decidido.
 
@@ -143,8 +146,8 @@ las que diga tu `project.md`, y ninguna otra.
 
 🚨 **Si necesitas cambiar algo de estas seis, cambialo en tu proyecto y promuevelo despues.** Ese es
 el sentido unico: tu proyecto es donde se descubre que algo falta, y este repositorio es donde se
-conserva. La promocion lleva puerta — nada sube aqui sin que una persona lo apruebe, entrada por
-entrada.
+conserva. La promocion lleva puerta — nada sube aqui sin que una persona lo apruebe, archivo por
+archivo.
 
 ---
 

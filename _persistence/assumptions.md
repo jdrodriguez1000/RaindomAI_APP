@@ -1240,6 +1240,12 @@ $ git show e822ae3:_persistence/decisions.md | grep -n "la regla «anclada o viv
 9969:### D-156 - La seccion 5 de `R-036`: la regla «anclada o viva» no se adopta, y el 7c-quater se endurece
 ```
 
+📌 **Nota del 2026-09-14 (`D-159`) — primera comprobacion del supuesto en una promocion real, y se
+sostiene.** El Paso 2 de `protocol-promote` leyo las 13 lineas que la promocion iba a borrar en el
+esqueleto: todas eran versiones anteriores de parrafos reescritos aqui, y no habia nada que existiera
+solo en el esqueleto. Es **una** observacion, no una confirmacion: el supuesto sigue `Abierto` y se
+vuelve a mirar en cada promocion. El detalle, linea por linea y con sus ordenes, esta en `D-159`.
+
 ---
 
 ### A-019 - La skill de promocion funciona de punta a punta: nunca se ha ejecutado
@@ -1272,6 +1278,16 @@ $ git show e822ae3:_persistence/decisions.md | grep -n "la regla «anclada o viv
 - 🔑 **Y por que se registra en vez de probarla hoy:** su propio Paso 0 exige que este repositorio este
   **limpio y subido**, y durante una sesion de trabajo no lo esta. Probarla hoy habria obligado a
   saltarse el primer disparador de la skill que se estaba probando.
+
+📌 **Nota del 2026-09-14 (`D-159`) — primera ejecucion de punta a punta.** La skill se corrio
+entera: disparadores, desfase, lectura de lo que se borra, barridos, finales de linea, puerta archivo
+por archivo, copia desde el commit de origen, commit con el hash de origen, push y registro de vuelta.
+Lo que subio coincide con lo aprobado (el `numstat` del commit `841dc53` es el presentado en la
+puerta) y el contraste anclado de despues no deja desfase. **Un punto debil observado:** el barrido
+ensanchado del Paso 3 no trae patron escrito, y el primero que se improviso dio falsos positivos
+(`-i` con `USUARIO`); se corrigio antes de la puerta. ⚠️ **No se marca `Confirmado` desde aqui:** el
+registro de vuelta todavia no lo ha auditado nadie. Lo confirma o lo refuta la auditoria de la sesion
+que lo commitee.
 
 ---
 
