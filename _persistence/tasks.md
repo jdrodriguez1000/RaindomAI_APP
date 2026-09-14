@@ -8458,9 +8458,13 @@ exit=1
   rango de cada nota, devuelven lo que publican.
 
 ```
-$ git show <hash>:_persistence/assumptions.md | grep -c 'T-180`, hallazgo `F-107'
-$ git show <hash>:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 (`T-1[8]0`, hallazgo `F-107'
+$ git show 62ff0d2:_persistence/assumptions.md | grep -c 'T-180`, hallazgo `F-107'
+1
+$ git show 62ff0d2:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 (`T-1[8]0`, hallazgo `F-107'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `62ff0d2`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -8503,8 +8507,11 @@ REPRODUCE (1 ordenes)
   nota, devuelven lo que publica.
 
 ```
-$ git show <hash>:_audit/S-038.md | grep -c 'T-181`, hallazgo `F-108'
+$ git show 62ff0d2:_audit/S-038.md | grep -c 'T-181`, hallazgo `F-108'
+1
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `62ff0d2`.** La orden reproduce lo publicado arriba.
 
 ---
 

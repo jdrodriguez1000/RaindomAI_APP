@@ -10202,12 +10202,16 @@ $ git diff -U0 e822ae3^ e822ae3 -- _persistence _audit ':(exclude)_audit/S-038.m
   valor esta en `tasks.md` y en su plantilla.
 
 ```
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c 'Origen: session-closer'
+$ git show 62ff0d2:.claude/skills/protocol-close/SKILL.md | grep -c 'Origen: session-closer'
 2
-$ git show <hash>:_persistence/tasks.md | grep -c '^| `session-closer` |'
+$ git show 62ff0d2:_persistence/tasks.md | grep -c '^| `session-closer` |'
 1
-$ git show <hash>:_templates/000_preproject/015_tasks.md | grep -c '^| `session-closer` |'
+$ git show 62ff0d2:_templates/000_preproject/015_tasks.md | grep -c '^| `session-closer` |'
 1
-$ git show <hash>:.claude/skills/protocol-close/SKILL.md | grep -c '^Ordenes sin reproducir en archivos ajenos (2d) — '
+$ git show 62ff0d2:.claude/skills/protocol-close/SKILL.md | grep -c '^Ordenes sin reproducir en archivos ajenos (2d) — '
 1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `62ff0d2`.** Las cuatro reproducen lo publicado arriba.
+
+---
