@@ -8629,8 +8629,11 @@ REPRODUCE (2 ordenes)
   devuelve lo que publica.
 
 ```
-$ git show <hash>:_audit/S-039.md | grep -c 'T-183`, hallazgo `F-109'
+$ git show e332771:_audit/S-039.md | grep -c 'T-183`, hallazgo `F-109'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `e332771`.** La orden reproduce lo publicado arriba.
 
 ---
 
@@ -8658,8 +8661,11 @@ $ git show <hash>:_audit/S-039.md | grep -c 'T-183`, hallazgo `F-109'
   nota, devuelven lo que publica.
 
 ```
-$ git show <hash>:_audit/S-040.md | grep -c 'T-184`, hallazgo `F-110'
+$ git show e332771:_audit/S-040.md | grep -c 'T-184`, hallazgo `F-110'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `e332771`.** La orden reproduce lo publicado arriba.
 
 ---
 
@@ -8684,9 +8690,13 @@ $ git show <hash>:_audit/S-040.md | grep -c 'T-184`, hallazgo `F-110'
   nota, devuelven lo que publican.
 
 ```
-$ git show <hash>:_persistence/decisions.md | grep -c 'T-185`, hallazgo `F-111'
-$ git show <hash>:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 (`T-1[8]5`, hallazgo `F-111'
+$ git show e332771:_persistence/decisions.md | grep -c 'T-185`, hallazgo `F-111'
+1
+$ git show e332771:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 (`T-1[8]5`, hallazgo `F-111'
+1
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `e332771`.** Las dos reproducen lo publicado arriba.
 
 ---
 
@@ -8710,5 +8720,12 @@ $ git show <hash>:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 
 - **Criterio de cierre:** la lista numerada del Paso 6 va de 1 a 5 sin repetir.
 
 ```
-$ git show <hash>:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\. ' | sed -n '1,5p'
+$ git show e332771:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\. ' | sed -n '1,5p'
+304:1. se copia cada archivo aprobado, **respetando el final de linea del destino** (Paso 4);
+305:2. las carpetas nuevas se crean con su contenido **completo**, no a medias;
+306:3. cada copia de la raiz aprobada se regenera **desde la plantilla ya copiada al esqueleto**, en el
+308:4. commit en el esqueleto, con un mensaje que diga **de que proyecto viene** la promocion, **que
+310:5. push.
 ```
+
+📌 **Anclada por el Paso 7c-bis al commit `e332771`.** La orden reproduce lo publicado arriba.
