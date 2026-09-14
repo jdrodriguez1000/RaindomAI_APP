@@ -136,7 +136,7 @@
 | [T-125](#t-125---subir-de-cinco-a-seis-los-agentes-que-exige-la-casilla-2-de-_phases000_preprojectmd-d-122) | Subir de cinco a seis los agentes que exige la casilla 2 de `_phases/000_preproject.md` (`D-122`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-126](#t-126---exigir-el-acta-de-la-etapa-anterior-en-las-entradas-de-_phases005_discoverymd-d-121) | Exigir el acta de la etapa anterior en las entradas de `_phases/005_discovery.md` (`D-121`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-127](#t-127---decidir-quien-escribe-y-commitea-en-el-repositorio-de-lecciones-globales-d-123) | Decidir quien escribe y commitea en el repositorio de lecciones globales (`D-123`) | Implementada | Alta | Bloqueante | `000_preproject` |
-| [T-128](#t-128---hacer-la-cosecha-de-las-lecciones-de-la-etapa-preparatoria-d-123) | Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`) | No implementada | Alta | No bloqueante | `000_preproject` |
+| [T-128](#t-128---hacer-la-cosecha-de-las-lecciones-de-la-etapa-preparatoria-d-123) | Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-129](#t-129---hacer-y-registrar-la-consulta-de-arranque-a-las-lecciones-globales-d-123) | Hacer y registrar la consulta de arranque a las lecciones globales (`D-123`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-130](#t-130---fijar-por-nota-fechada-las-cifras-de-ordenes-distintas-de-s-029-f-083) | Fijar por nota fechada las cifras de ordenes distintas de `S-029` (`F-083`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-131](#t-131---suprimir-del-paso-2d-de-protocol-close-la-cifra-de-ordenes-distintas-f-083) | Suprimir del Paso 2d de `protocol-close` la cifra de ordenes distintas (`F-083`) | Implementada | Alta | No bloqueante | `000_preproject` |
@@ -164,7 +164,7 @@
 | [T-153](#t-153---fijar-por-nota-fechada-las-dos-salidas-de-la-seccion-2-de-s-033-f-096) | Fijar por nota fechada las dos salidas de la seccion 2 de `S-033` (`F-096`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-154](#t-154---publicar-por-nota-fechada-la-salida-del-control-de-cifra-adyacente-de-s-033-f-097) | Publicar por nota fechada la salida del CONTROL DE CIFRA ADYACENTE de `S-033` (`F-097`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-155](#t-155---rotular-la-nota-de-cierre-y-dar-al-cierre-el-paso-7c-ter-f-097-d-144) | Rotular la NOTA DE CIERRE y dar al cierre el Paso 7c-ter (`F-097`, `D-144`) | Implementada | Alta | No bloqueante | `000_preproject` |
-| [T-156](#t-156---construir-el-esqueleto-reutilizable-de-arranque-de-proyecto-d-143) | Construir el esqueleto reutilizable de arranque de proyecto (`D-143`) | No implementada | Alta | Bloqueante | `000_preproject` |
+| [T-156](#t-156---construir-el-esqueleto-reutilizable-de-arranque-de-proyecto-d-143) | Construir el esqueleto reutilizable de arranque de proyecto (`D-143`) | Implementada | Alta | Bloqueante | `000_preproject` |
 | [T-157](#t-157---crear-el-repositorio-del-esqueleto-y-commitear-su-estado-actual-d-145) | Crear el repositorio del esqueleto y commitear su estado actual (`D-145`) | Implementada | Alta | Bloqueante | `000_preproject` |
 | [T-158](#t-158---sincronizar-las-seis-areas-agnosticas-del-esqueleto-d-146) | Sincronizar las seis areas agnosticas del esqueleto (`D-146`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-159](#t-159---registrar-en-projectmd-la-ubicacion-del-esqueleto-d-147) | Registrar en `project.md` la ubicacion del esqueleto (`D-147`) | Implementada | Alta | No bloqueante | `000_preproject` |
@@ -195,6 +195,9 @@
 | [T-184](#t-184---fijar-por-nota-fechada-la-procedencia-y-el-control-de-cifra-adyacente-de-la-seccion-7-de-s-040-f-110) | Fijar por nota fechada la procedencia y el control de cifra adyacente de la seccion 7 de `S-040` (`F-110`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-185](#t-185---publicar-la-orden-y-la-salida-de-los-dos-resultados-que-el-registro-afirmo-sin-ellas-f-111) | Publicar la orden y la salida de los dos resultados que el registro afirmo sin ellas (`F-111`) | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-186](#t-186---renumerar-el-push-del-paso-6-de-protocol-promote-f-112) | Renumerar el push del Paso 6 de `protocol-promote` (`F-112`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-187](#t-187---fijar-por-nota-fechada-el-recuento-de-filas-del-paso-2e-que-progressmd-publica-en-s-041-f-113) | Fijar por nota fechada el recuento de filas del Paso 2e que `progress.md` publica en `S-041` (`F-113`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-188](#t-188---fijar-por-nota-fechada-la-salida-entera-del-grep-de-la-seccion-2-de-s-041-f-114) | Fijar por nota fechada la salida entera del `grep` de la seccion 2 de `S-041` (`F-114`) | No implementada | Baja | No bloqueante | `000_preproject` |
+| [T-189](#t-189---publicar-ancladas-las-dos-comprobaciones-declaradas-no-anclables-en-s-041-y-d-163-f-115) | Publicar ancladas las dos comprobaciones declaradas «no anclables» en `S-041` y `D-163` (`F-115`) | No implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -5736,12 +5739,17 @@ ancla el Paso 7c-bis del cierre. Tiene que devolver `1`.
 ### T-128 - Hacer la cosecha de las lecciones de la etapa preparatoria (`D-123`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
 | Origen | usuario |
 | Sesion | S-029 |
+
+📌 **Cerrada en `S-042` por `D-168`.** Se ejecuto la cosecha completa: 59 lecciones de `000_preproject`
+evaluadas, seis suben (`LG-99` a `LG-104`) y una enmienda (`LG-32`), commit `5a32165` en el repositorio
+de lecciones. El criterio de cierre de esta tarea es el mismo que verifica `D-168`, con la misma orden
+anclada al commit de esta sesion.
 
 - **Que:** la cosecha completa, en los cinco pasos que fija `D-123`: recorrer la columna
   `Portabilidad`, leer los cuatro filtros **en el archivo global**, clasificar cada leccion en uno de
@@ -6846,12 +6854,18 @@ publicados no llevan los rotulos y **no se reescriben** para llevarlos.
 ### T-156 - Construir el esqueleto reutilizable de arranque de proyecto (`D-143`)
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Alta |
 | Urgencia | Bloqueante |
 | Etapa | `000_preproject` |
 | Origen | usuario |
 | Sesion | S-034 |
+
+📌 **Cerrada en `S-042`.** Las siete subtareas (`T-157` a `T-163`) estan `Implementada`; la tercera
+promocion (`D-166`, esqueleto en `707d572`) cerro la unica linea de diferencia que dejaba abierto el
+Paso 2f. Criterio de cierre verificado con la misma orden del Paso 2f de `protocol-close` — **no
+anclable por naturaleza**, compara el arbol de trabajo de este repositorio contra el del esqueleto, los
+dos vivos —, corrida sobre el arbol de esta sesion: cero lineas.
 
 - **Que:** dejar listo un **repositorio independiente** que sirva de punto de partida para cualquier
   proyecto de desarrollo de software: la estructura de carpetas, los protocolos, los agentes y las
@@ -8729,3 +8743,72 @@ $ git show e332771:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\
 ```
 
 📌 **Anclada por el Paso 7c-bis al commit `e332771`.** La orden reproduce lo publicado arriba.
+
+---
+
+### T-187 - Fijar por nota fechada el recuento de filas del Paso 2e que `progress.md` publica en `S-041` (`F-113`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-042 |
+
+- **Que:** `progress.md` publica tres veces «8 filas» para la tabla del Paso 2e de `S-041`, que tiene 10.
+- **Por que importa:** `progress.md` es lo primero que se lee al abrir sesion, y afirma un resultado de
+  control que su propio informe contradice.
+- **Como se corrige:** nota fechada al final de la entrada `S-041` de la bitacora, sin reescribir las
+  tres menciones, con el recuento anclado. Las menciones de las secciones 1 y 2 las sustituye el cierre
+  siguiente al reescribir esas secciones; la de la bitacora queda, y la nota va junto a ella.
+- ⚠️ **La segunda parte de la recomendacion no se adopta** —extender el CONTROL DE CIFRA ADYACENTE a
+  `progress.md`—: `D-167`.
+- **Criterio de cierre:** la nota esta en el commit de la sesion, y sus ordenes, extraidas por el rango
+  de la nota, devuelven lo que publica.
+
+---
+
+### T-188 - Fijar por nota fechada la salida entera del `grep` de la seccion 2 de `S-041` (`F-114`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-042 |
+
+- **Que:** el bloque de la seccion 2 de `S-041` pega cuatro filas como salida de una orden que devuelve
+  cinco; la de `T-039` se quito del bloque y se explico en la prosa.
+- **Por que importa:** un bloque de salida cruda tiene que ser lo que su orden emite; el filtrado va en
+  la prosa. Es la familia de `F-108` y `F-110`.
+- **Como se corrige:** nota fechada al final de la seccion 2 de `S-041`, sin reescribir el bloque, con
+  la salida entera anclada a `e332771`.
+- ⚠️ **Sin regla nueva:** que la salida se pegue tal cual ya es regla; lo que fallo fue cumplirla.
+- **Criterio de cierre:** la nota esta en el commit de la sesion, y su orden devuelve lo que publica.
+
+---
+
+### T-189 - Publicar ancladas las dos comprobaciones declaradas «no anclables» en `S-041` y `D-163` (`F-115`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-042 |
+
+- **Que:** (a) la fila 16 de la seccion 7 de `S-041` declara «no anclable por naturaleza» un
+  `git ls-files` sobre un archivo versionado; (b) `D-163` afirma sin orden el desfase del Paso 1 y el
+  barrido de despues, con la razon «mide arboles vivos y no se puede anclar».
+- **Por que importa:** «no anclable» aceptado sin contraste sirve para no publicar evidencia de nada; el
+  repositorio muestra que las dos se pueden anclar.
+- **Como se corrige:** (a) nota fechada al final de la seccion 7 de `S-041` con `git ls-tree` anclado a
+  `e332771`; (b) nota fechada al final de `D-163` con el contraste de las seis areas por hash de blob,
+  anclado a `c7d0a87`/`a3bb32e` (desfase) y a `a3bb32e`/`afeedf4`/`bf8c56e` (despues).
+- 🔑 **La promocion de esta misma sesion (`D-166`) ya publica su barrido de despues anclado**, con la
+  misma forma.
+- **Criterio de cierre:** las dos notas estan en el commit de la sesion, y sus ordenes devuelven lo que
+  publican.

@@ -50,6 +50,7 @@
 | `S-039.md` | S-039 | 2026-09-14 | `62ff0d2` | `R-039.md` | Con hallazgos (1) | F-109 |
 | `S-040.md` | S-040 | 2026-09-14 | `4962db2` | `R-040.md` | Con hallazgos (3) | F-110, F-111, F-112 |
 | `S-041.md` | S-041 | 2026-09-14 | `e332771` | `R-041.md` | Con hallazgos (3) | F-113, F-114, F-115 |
+| `S-042.md` | S-042 | 2026-09-14 | Pendiente | Pendiente | Pendiente | - |
 
 > 📌 **Nota del 2026-09-06 (`F-060`, sesion S-023).** La columna `Fecha` de este tablero **no
 > coincide con la fecha del commit** en ocho de las veintidos filas. `F-060` lo abrio sobre `S-021` y

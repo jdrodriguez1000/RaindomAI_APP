@@ -174,6 +174,9 @@
 | [D-163](#d-163---segunda-promocion-al-esqueleto-sube-protocol-promote-con-el-defecto-de-f-112-desde-a3bb32e-a-afeedf4) | Segunda promocion al esqueleto: sube `protocol-promote` con el defecto de `F-112`, desde `a3bb32e` a `afeedf4` | 2026-09-14 | Vigente | usuario |
 | [D-164](#d-164---la-guia-de-arranque-se-publica-como-readmemd-en-la-raiz-del-esqueleto-bf8c56e) | La guia de arranque se publica como `README.md` en la raiz del esqueleto (`bf8c56e`) | 2026-09-14 | Vigente | usuario |
 | [D-165](#d-165---_outbound-lleva-un-gitkeep-para-existir-en-el-arbol-aunque-este-vacia) | `_outbound/` lleva un `.gitkeep` para existir en el arbol aunque este vacia | 2026-09-14 | Vigente | usuario |
+| [D-166](#d-166---tercera-promocion-al-esqueleto-sube-la-correccion-de-f-112-desde-d2ee2aa-a-707d572) | Tercera promocion al esqueleto: sube la correccion de `F-112`, desde `d2ee2aa` a `707d572` | 2026-09-14 | Vigente | usuario |
+| [D-167](#d-167---el-control-de-cifra-adyacente-no-se-extiende-a-progressmd-no-veria-la-cifra-de-f-113) | El CONTROL DE CIFRA ADYACENTE no se extiende a `progress.md`: no veria la cifra de `F-113` | 2026-09-14 | Vigente | report_auditor |
+| [D-168](#d-168---cosecha-de-000_preproject-59-lecciones-evaluadas-suben-lg-99-a-lg-104-y-se-enmienda-lg-32-version-3-5a32165) | Cosecha de `000_preproject`: 59 lecciones evaluadas, suben `LG-99` a `LG-104` y se enmienda `LG-32` (version 3, `5a32165`) | 2026-09-14 | Vigente | usuario |
 
 ---
 
@@ -10590,6 +10593,28 @@ $ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for p in 005_pr
   aqui y sube en la promocion siguiente.
 - **Reversible a criterio** en lo tecnico, pero **publicado**: por eso llevo puerta, y la paso.
 
+📌 **Nota del 2026-09-14 (`T-189`, hallazgo `F-115`) — el «Desfase medido (Paso 1)» y el «Barrido de
+despues» de arriba se afirman sin orden, y la razon dada para el segundo no se sostiene.** No se
+reescribe nada. Los dos se pueden anclar contrastando los objetos de las seis areas por hash de blob
+(mismo hash = mismo contenido). El desfase, entre el esqueleto antes de promover (`c7d0a87`) y el
+origen (`a3bb32e`), da una sola diferencia; el de despues, contra los dos commits del esqueleto, da
+ninguna:
+
+```
+$ E="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; A='.claude CLAUDE.md _phases _methodology _templates _workflow'; diff <(git -C "$E" ls-tree -r c7d0a87 -- $A) <(git ls-tree -r a3bb32e -- $A); echo "fin del contraste exit=$?"
+13c13
+< 100644 blob a4dad55c91f1c1bfad57fdfe4ad5bed8031e3160	.claude/skills/protocol-promote/SKILL.md
+---
+> 100644 blob fd16fd17177d40c63b8088987247a1f22d7bccf4	.claude/skills/protocol-promote/SKILL.md
+fin del contraste exit=1
+
+$ E="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; A='.claude CLAUDE.md _phases _methodology _templates _workflow'; diff <(git ls-tree -r a3bb32e -- $A) <(git -C "$E" ls-tree -r afeedf4 -- $A); echo "fin del contraste exit=$?"
+fin del contraste exit=0
+
+$ E="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; A='.claude CLAUDE.md _phases _methodology _templates _workflow'; diff <(git ls-tree -r a3bb32e -- $A) <(git -C "$E" ls-tree -r bf8c56e -- $A); echo "fin del contraste exit=$?"
+fin del contraste exit=0
+```
+
 ---
 
 ### D-164 - La guia de arranque se publica como `README.md` en la raiz del esqueleto (`bf8c56e`)
@@ -10675,3 +10700,239 @@ _outbound/.gitkeep
   cierre senalando una carpeta declarada la mayor parte del tiempo.
 - **Reversible a criterio** — un archivo vacio; un commit lo revierte.
 - **Criterio de cierre:** `_outbound/.gitkeep` esta en el commit de la sesion.
+
+---
+
+### D-166 - Tercera promocion al esqueleto: sube la correccion de `F-112`, desde `d2ee2aa` a `707d572`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-163` promovio `protocol-promote` con el «4.» duplicado del Paso 6 (`F-112`) y dejo
+  la correccion para el lote siguiente. La correccion (`T-186`) entro en `e332771` y la audito `R-041`.
+  Al abrir la sesion siguiente el usuario pide, en este orden, promoverla, evaluar `F-113` a `F-115` y
+  seguir con el cierre de la etapa; el orden coincide con `D-160`.
+- **Disparadores (Paso 0):** lo pidio el usuario; las seis areas sin cambios y `main` sin `ahead`; ninguna
+  auditoria en curso sobre `e332771`.
+
+```
+$ git status --short -- .claude CLAUDE.md _phases _methodology _templates _workflow
+$ git status -sb
+## main...origin/main
+```
+
+- **Desfase medido (Paso 1):** un solo candidato, `.claude/skills/protocol-promote/SKILL.md`, que
+  difiere; **nada solo en el esqueleto**. **Copias de la raiz (Paso 1b):** las diez a `0`, nada que
+  regenerar (salida de 1b anclada mas abajo, sobre `707d572`).
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for d in .claude _phases _methodology _templates _workflow; do diff -rq --strip-trailing-cr "$ESQ/$d" "$d"; done; diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+Files C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS/.claude/skills/protocol-promote/SKILL.md and .claude/skills/protocol-promote/SKILL.md differ
+```
+
+- **Lo que se borro alli (Paso 2), leido:** 1 linea, `4. push.`, la numeracion duplicada que describe
+  `F-112`. **La premisa de sentido unico se sostuvo.**
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; diff --strip-trailing-cr "$ESQ/.claude/skills/protocol-promote/SKILL.md" .claude/skills/protocol-promote/SKILL.md
+310c310
+< 4. push.
+---
+> 5. push.
+```
+
+- **Controles (Paso 3) y final de linea (Paso 4):** los tres barridos a cero lineas; LF en los dos
+  lados (CR=0, LF=414); copia byte a byte.
+
+```
+$ git grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" d2ee2aa -- .claude CLAUDE.md _phases _methodology _templates _workflow; echo "exit=$?"
+exit=1
+
+$ git grep -noE '\b[A-Z]{1,2}-[0-9]+\b' d2ee2aa -- _phases _workflow | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+
+$ git grep -nE 'github\.com|gitlab|bitbucket|gmail|hotmail|outlook\.|@[A-Za-z0-9-]+\.(com|org|net|io)|[A-Za-z]:[\/][Uu]sers|/home/[a-z]|USUARIO|jdrodriguez|[Tt]riple[Ss]|[Rr]aidom|[Rr]aindom|SDAI|Company_' d2ee2aa -- .claude/skills/protocol-promote/SKILL.md; echo "exit=$?"
+exit=1
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 707d572:.claude/skills/protocol-promote/SKILL.md | tr -dc '\r' | wc -c
+0
+```
+
+- **La puerta (Paso 5):** el usuario aprobo el archivo. No quedo nada sin subir.
+- **Commits:** origen `d2ee2aa` en este repositorio (el archivo es identico al de `e332771`, el commit
+  auditado); esqueleto **`707d572`**, subido, `status -sb` sin `ahead`. El `numstat` coincide con la
+  puerta (1 entra, 1 sale).
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show --numstat --format='%h %s' 707d572
+707d572 Promocion del andamiaje desde RaidomAI_App (origen d2ee2aa)
+
+1	1	.claude/skills/protocol-promote/SKILL.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 707d572:.claude/skills/protocol-promote/SKILL.md | cmp - <(git show d2ee2aa:.claude/skills/protocol-promote/SKILL.md) && echo "identicos"
+identicos
+
+$ git show e332771:.claude/skills/protocol-promote/SKILL.md | cmp - <(git show d2ee2aa:.claude/skills/protocol-promote/SKILL.md) && echo "identicos e332771-d2ee2aa"
+identicos e332771-d2ee2aa
+```
+
+- **Copias de la raiz sobre el commit del esqueleto (Paso 7.3):**
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; H=707d572; for p in 005_project.md:project.md 010_progress.md:_persistence/progress.md 015_tasks.md:_persistence/tasks.md 020_decisions.md:_persistence/decisions.md 025_constraints.md:_persistence/constraints.md 030_assumptions.md:_persistence/assumptions.md 035_lessons.md:_persistence/lessons.md 040_techdebt.md:_persistence/techdebt.md 045_audit_index.md:_audit/index.md 050_audit_findings.md:_audit/findings.md; do t=${p%%:*}; c=${p#*:}; printf '%3d  %s\n' "$(diff --strip-trailing-cr <(git -C "$ESQ" show $H:_templates/000_preproject/$t) <(git -C "$ESQ" show $H:$c) | grep -c '^[<>]')" "$c"; done
+  0  project.md
+  0  _persistence/progress.md
+  0  _persistence/tasks.md
+  0  _persistence/decisions.md
+  0  _persistence/constraints.md
+  0  _persistence/assumptions.md
+  0  _persistence/lessons.md
+  0  _persistence/techdebt.md
+  0  _audit/index.md
+  0  _audit/findings.md
+```
+
+- 🔑 **Barrido de despues (Paso 7.2):** el del Paso 1 sobre los dos arboles, corrido tras subir `707d572`,
+  salio vacio: **el desfase cerro**. Ademas se publica **anclado**, contrastando los objetos de las seis
+  areas en los dos commits (mismo hash de blob = mismo contenido byte a byte):
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for d in .claude _phases _methodology _templates _workflow; do diff -rq --strip-trailing-cr "$ESQ/$d" "$d"; done; diff -q --strip-trailing-cr "$ESQ/CLAUDE.md" CLAUDE.md
+
+$ E="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; A='.claude CLAUDE.md _phases _methodology _templates _workflow'; diff <(git ls-tree -r d2ee2aa -- $A) <(git -C "$E" ls-tree -r 707d572 -- $A); echo "fin del contraste exit=$?"
+fin del contraste exit=0
+```
+- 🔑 **Consecuencia para `T-156`:** su criterio —seis areas agnosticas sin diferencia entre proyecto y
+  esqueleto— queda cumplido a fecha de hoy. El estado de la tarea lo actualiza el cierre desde la
+  evidencia; aqui solo se deja dicho.
+- **Alternativas descartadas:** ninguna de fondo — `D-163` ya fijo que la correccion subia en este lote.
+- **Reversible a criterio** en lo tecnico, pero **publicado**: por eso llevo puerta, y la paso.
+
+---
+
+### D-167 - El CONTROL DE CIFRA ADYACENTE no se extiende a `progress.md`: no veria la cifra de `F-113`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | report_auditor |
+
+- **Contexto:** `F-113` (`R-041`) recomienda, ademas de la nota fechada (`T-187`), «valorar que el
+  control de cifra adyacente cubra las cifras de control que `progress.md` repite».
+- **Decision:** no se extiende. El control del Paso 6b de `protocol-close` solo mira las tres lineas de
+  prosa que siguen a un bloque de salida cruda. La entrada `S-041` de la bitacora, donde vive la cifra
+  que queda, no tiene ningun bloque: aplicado a `progress.md`, el control **no habria devuelto esa
+  linea**. Extenderlo anade una salida mas que leer en cada cierre sin cubrir el caso que motiva el
+  hallazgo.
+
+```
+$ git show e332771:_persistence/progress.md | sed -n '/^### S-041/,/^## 6\./p' | grep -c '^```'
+0
+```
+
+- **Por que no es rechazo por coste (sin `DT-XXX`):** el hallazgo se acepta entero en su parte de
+  hecho —la cifra es falsa y se corrige en `T-187`—; lo que se descarta es un mecanismo concreto que la
+  evidencia muestra que no lo detecta. No queda una deuda con nombre: la regla que obliga a sacar la
+  cifra de la salida ya existe, y lo que fallo fue cumplirla.
+- **Alternativas descartadas:** (a) **extender el control tal cual** — no ve la cifra, como muestra la
+  orden de arriba; (b) **un control nuevo** que contraste las cifras de `progress.md` con las del
+  informe — diseno nuevo sin un segundo caso que lo justifique; si la familia reaparece en
+  `progress.md`, ese sera el hallazgo nuevo con evidencia nueva.
+- **Reversible a criterio** — no cambia ningun archivo del andamiaje.
+
+---
+
+### D-168 - Cosecha de `000_preproject`: 59 lecciones evaluadas, suben `LG-99` a `LG-104` y se enmienda `LG-32` (version 3, `5a32165`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** el usuario pide seguir con el cierre de la etapa. La casilla 10 de la condicion de salida
+  exige la cosecha antes de la firma (`T-128`). Sus dos dependencias estan resueltas: `T-127`
+  `Implementada` y `A-017` `Confirmado`. Disparadores: cierre de etapa en curso, y ninguna auditoria
+  abierta sobre lo cosechado (`R-041` terminada; `S-042` sin cerrar).
+- **Barrido (Paso 1):** las 59 lecciones del registro son de `000_preproject` y las 59 estaban
+  `Sin evaluar`.
+
+```
+$ git show d2ee2aa:_persistence/lessons.md | grep -E '^\| \[L-' | grep '000_preproject' | grep -c 'Sin evaluar'
+59
+```
+
+- **Filtros (Paso 2):** leidos en la seccion «Promocion» del archivo global. ⚠️ **Discrepancia de
+  forma, no de fondo:** el archivo global anade «solo cuando se repite» y lo explica como parte del
+  filtro 2; el protocolo no lo menciona, y la convencion de `lessons.md` define `Solo proyecto` solo
+  por el filtro 1. Mando el archivo global: las lecciones de un solo caso salen `Solo proyecto`
+  (filtro 2), y asi se dijo en la puerta. Otra discrepancia: el global dice «se poda antes de anadir»
+  y el protocolo prohibe podar durante la cosecha. **No se podo**; queda para decidir aparte.
+- **Clasificacion (Paso 3), con el filtro que decide cada una:**
+
+| Destino | Lecciones | Razon |
+|---|---|---|
+| `LG-99` nueva | L-001, L-039, L-051 | pasa los cuatro; tres casos de la misma forma (foto del presente en lo que se lee despues) |
+| `LG-100` nueva | L-008, L-011, L-040, L-042, L-055 | pasa los cuatro; forma repetida (correccion por texto frente a control), no cubierta por `LG-25` |
+| `LG-101` nueva | L-010, L-037, L-048, L-053, L-056 | pasa los cuatro; cinco casos de una busqueda que cuenta sus propias citas |
+| `LG-102` nueva | L-002, L-030 | pasa los cuatro; dos casos de procedencia filtrada a lo reutilizable |
+| `LG-103` nueva | L-024, L-029, L-038, L-057 | pasa los cuatro; cuatro casos de escapes corrompidos entre capas |
+| `LG-104` nueva | L-035, L-047 | pasa los cuatro; dos casos; cara distinta de `LG-33` (quien redacta la regla, no quien la traspasa) |
+| enmienda a `LG-32` | L-023, L-027, L-028, L-058 | filtro 4: cara nueva de `LG-32` (de numeros a todo dato derivable) |
+| ya cubierta, filtro 4 | L-006, L-012, L-021, L-025, L-052 → `LG-04`; L-014, L-015, L-026 → `LG-26`; L-003, L-046, L-054 → `LG-98`; L-016, L-020 → `LG-10`; L-034, L-049 → `LG-37`; L-004 → `LG-32`; L-007 → `LG-29`; L-009 → `LG-33`; L-013 → `LG-97`; L-019 → `LG-11`; L-022 → `LG-01`; L-031 → `LG-70`; L-036 → `LG-06`; L-041 → `LG-84`; L-043 → `LG-03`; L-044 → `LG-14`; L-045 → `LG-13`; L-050 → `LG-08` | el archivo global ya lo dice |
+| `Solo proyecto`, filtro 1 | L-005 | depende de la estructura de agentes de la herramienta |
+| `Solo proyecto`, filtro 2 | L-017, L-018, L-032, L-033, L-059 | un solo caso, sin coste demostrado |
+
+  Contraste: 26 + 4 + 23 + 1 + 5 = **59**, igual al recuento del barrido. La suma de la tabla la
+  hace la orden de abajo sobre la columna ya escrita, no la mano.
+
+- **La puerta (Paso 5):** se presentaron los seis textos enteros, la enmienda con antes y despues, los
+  descartes con su filtro y los cambios de cabecera e indices. **El usuario aprobo todo.**
+- ⚠️ **Una diferencia con lo presentado, declarada:** en la puerta, el «Por que» de `LG-103` terminaba
+  con un parentesis, «(volvio a pasar hoy mismo, en `D-166`)». **No se escribio.** Era un comentario
+  para el usuario sobre esta sesion, no parte de la leccion: con el, la entrada llevaria una foto del
+  presente y un codigo de este registro, justo lo que `LG-99` y `LG-102` prohiben. Si el usuario lo
+  quiere dentro, entra por enmienda en la cosecha siguiente.
+- **Escritura (Paso 6):** commit **`5a32165`** en el repositorio de lecciones, subido, `status -sb` sin
+  `ahead`. Version declarada: **3 · 2026-09-14**, 104 lecciones. Tambien se actualizaron §2 (`LG-100`
+  en «el mismo error se repite aunque este documentado»), §3 (fila J: `LG-96`–`LG-104`, 9) y el
+  registro de revisiones. LF como el resto del archivo; cero bytes de control.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/TripleS_Lessons" show --numstat --format='%h %s' 5a32165
+5a32165 Cosecha de 000_preproject desde RaindomAI: LG-99 a LG-104 y enmienda de LG-32 (version 3)
+
+13	6	global_lessons.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/TripleS_Lessons" show 5a32165:global_lessons.md | grep -oE '^\| \*\*LG-(32|99|10[0-4])\*\* \|'
+| **LG-32** |
+| **LG-99** |
+| **LG-100** |
+| **LG-101** |
+| **LG-102** |
+| **LG-103** |
+| **LG-104** |
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/TripleS_Lessons" show 5a32165:global_lessons.md | grep -n '^> \*\*Versión'
+26:> **Versión: 3 · 2026-09-14** · 104 lecciones · 10 bloques
+```
+
+- **Registro de vuelta (Paso 7):** la columna `Portabilidad` de las 59 filas pasa a su valor final. La
+  enmienda se anota `Promovida a LG-32`.
+- **Observaciones fuera de alcance, no tocadas:** la cabecera del archivo global aun dice que nace
+  «dentro del repositorio de un proyecto y de forma transitoria», que ya no es cierto; y los codigos
+  pasan a tres cifras (`LG-100`), que un patron `LG-[0-9]{2}\b` no veria.
+- **Alternativas descartadas:** (a) **una entrada por leccion** — lo impide el filtro 4 y hace crecer un
+  archivo cuyo enemigo declarado es su tamano; (b) **enmendar `LG-25` en vez de crear `LG-100`** — `LG-25`
+  habla de porteros sobre la clase entera en pruebas, y la reincidencia como senal de la clase de
+  correccion es otra idea; (c) **podar antes de anadir** — prohibido durante la cosecha.
+- **Irreversible** en el sentido de `CLAUDE.md` (escribe fuera y lo leen otros proyectos): por eso llevo
+  puerta, y la paso.
+- **Criterio de cierre:** ninguna leccion de `000_preproject` queda `Sin evaluar`, y la suma de los
+  destinos es 59.
+
+```
+$ git show <hash>:_persistence/lessons.md | grep -E '^\| \[L-' | grep '000_preproject' | grep -c 'Sin evaluar'
+$ git show <hash>:_persistence/lessons.md | grep -E '^\| \[L-' | grep -cE '\| (Promovida a|Ya cubierta por) LG-[0-9]+ \|$|\| Solo proyecto \|$'
+```

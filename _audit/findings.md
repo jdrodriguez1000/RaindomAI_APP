@@ -124,9 +124,9 @@
 | [F-110](#f-110---la-seccion-7-de-s-040-publica-como-salida-cruda-dos-bloques-que-su-orden-no-produce) | La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce | R-040 | Media | Implementado |
 | [F-111](#f-111---dos-resultados-nuevos-del-registro-se-afirman-sin-su-orden-ni-su-salida) | Dos resultados nuevos del registro se afirman sin su orden ni su salida | R-040 | Baja | Implementado |
 | [F-112](#f-112---el-paso-6-de-protocol-promote-queda-con-dos-pasos-numerados-4) | El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.» | R-040 | Baja | Implementado |
-| [F-113](#f-113---progressmd-publica-tres-veces-8-filas-para-la-tabla-del-paso-2e-que-tiene-10) | `progress.md` publica tres veces «8 filas» para la tabla del Paso 2e, que tiene 10 | R-041 | Media | Abierto |
-| [F-114](#f-114---la-seccion-2-de-s-041-publica-como-salida-de-su-grep-cuatro-filas-y-la-orden-devuelve-cinco) | La seccion 2 de `S-041` publica como salida de su `grep` cuatro filas, y la orden devuelve cinco | R-041 | Baja | Abierto |
-| [F-115](#f-115---dos-comprobaciones-se-declaran-no-anclables-cuando-si-lo-son-y-una-de-ellas-se-afirma-sin-orden-ni-salida) | Dos comprobaciones se declaran «no anclables» cuando si lo son, y una de ellas se afirma sin orden ni salida | R-041 | Baja | Abierto |
+| [F-113](#f-113---progressmd-publica-tres-veces-8-filas-para-la-tabla-del-paso-2e-que-tiene-10) | `progress.md` publica tres veces «8 filas» para la tabla del Paso 2e, que tiene 10 | R-041 | Media | Aceptado — pendiente |
+| [F-114](#f-114---la-seccion-2-de-s-041-publica-como-salida-de-su-grep-cuatro-filas-y-la-orden-devuelve-cinco) | La seccion 2 de `S-041` publica como salida de su `grep` cuatro filas, y la orden devuelve cinco | R-041 | Baja | Aceptado — pendiente |
+| [F-115](#f-115---dos-comprobaciones-se-declaran-no-anclables-cuando-si-lo-son-y-una-de-ellas-se-afirma-sin-orden-ni-salida) | Dos comprobaciones se declaran «no anclables» cuando si lo son, y una de ellas se afirma sin orden ni salida | R-041 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -5376,8 +5376,8 @@ $ git show a3bb32e:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\
 | Auditoria | R-041 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-187`, `D-167` |
 | Cerrado en | |
 
 - **Que se observo:** `_persistence/progress.md` en `e332771` dice «con los dos contrastes cuadrando (8
@@ -5413,8 +5413,8 @@ $ git diff --name-only --diff-filter=d a3bb32e e332771 -- ':(exclude)_audit/S-04
 | Auditoria | R-041 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-188` |
 | Cerrado en | |
 
 - **Que se observo:** el bloque de la seccion 2 pega la orden `sed -n '/^## Indice/,/^---/p'
@@ -5448,8 +5448,8 @@ $ git show e332771:_persistence/tasks.md | sed -n '/^## Indice/,/^---/p' | grep 
 | Auditoria | R-041 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-189` |
 | Cerrado en | |
 
 - **Que se observo:** (a) la fila 16 de la seccion 7 de `S-041` clasifica `git ls-files _outbound`
