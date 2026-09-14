@@ -10933,6 +10933,10 @@ $ git -C "C:/Users/USUARIO/Documents/Company_TripleS/TripleS_Lessons" show 5a321
   destinos es 59.
 
 ```
-$ git show <hash>:_persistence/lessons.md | grep -E '^\| \[L-' | grep '000_preproject' | grep -c 'Sin evaluar'
-$ git show <hash>:_persistence/lessons.md | grep -E '^\| \[L-' | grep -cE '\| (Promovida a|Ya cubierta por) LG-[0-9]+ \|$|\| Solo proyecto \|$'
+$ git show 9564675:_persistence/lessons.md | grep -E '^\| \[L-' | grep '000_preproject' | grep -c 'Sin evaluar'
+0
+$ git show 9564675:_persistence/lessons.md | grep -E '^\| \[L-' | grep -cE '\| (Promovida a|Ya cubierta por) LG-[0-9]+ \|$|\| Solo proyecto \|$'
+59
 ```
+
+📌 **Ancladas por el Paso 7c-bis al commit `9564675`.** Las dos reproducen lo publicado arriba.
