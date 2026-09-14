@@ -118,8 +118,9 @@
 | [F-104](#f-104---la-orden-que-sostiene-d-153-usa-un-marcador-en-vez-de-la-ruta-y-no-es-ejecutable) | La orden que sostiene `D-153` usa un marcador en vez de la ruta, y no es ejecutable | R-037 | Baja | Implementado |
 | [F-105](#f-105---la-nota-que-corrige-f-103-vuelve-a-publicar-en-assumptionsmd-una-cifra-que-ya-no-reproducia-en-ese-mismo-commit) | La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit | R-037 | Baja | Implementado |
 | [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Implementado |
-| [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Aceptado — pendiente |
-| [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Aceptado — pendiente |
+| [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Implementado |
+| [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Implementado |
+| [F-109](#f-109---la-seccion-1-del-informe-atribuye-a-t-180-las-tres-reincidencias-de-la-nota-de-l-056-y-la-tercera-es-de-t-179) | La seccion 1 del informe atribuye a `T-180` las tres reincidencias de la nota de `L-056`, y la tercera es de `T-179` | R-039 | Baja | Abierto |
 
 ---
 
@@ -5013,9 +5014,9 @@ salidas en `_audit/R-038.md`, seccion 1g.
 | Auditoria | R-038 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-180` |
-| Cerrado en | |
+| Cerrado en | `R-039` (commit `62ff0d2`) |
 
 - **Que se observo:** las tres copias del bucle de desfase con el esqueleto que anade `S-038` (nota
   `T-176` bajo `A-018`, tratamiento de `F-105` en este archivo, verificacion de `T-176`) publican `0`
@@ -5072,6 +5073,11 @@ sesion al ver que el riesgo que la aplazaba se habia materializado.
 ⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
 
 
+✅ **Verificado por `R-039` sobre `62ff0d2`: Implementado.** La nota fechada bajo `A-018` (cifra `2` en
+el commit y `0` en el padre, y la aclaracion de que `D-156` ya evaluaba la seccion 5 de `R-036`) y la
+nota bajo `T-176` estan en el commit; extraidas por su rango de la version del commit y reejecutadas,
+sus cuatro ordenes reproducen. Ordenes y salidas en `_audit/R-039.md`, seccion 1g.
+
 ---
 
 ### F-108 - El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado
@@ -5080,9 +5086,9 @@ sesion al ver que el riesgo que la aplazaba se habia materializado.
 | Auditoria | R-038 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-181`, `D-157` |
-| Cerrado en | |
+| Cerrado en | `R-039` (commit `62ff0d2`) |
 
 - **Que se observo:** el bloque publicado como salida de la orden de procedencia incluye la linea
   `b/_audit/findings.md :: same file also carries the git -C log line (see above)`, que ninguna orden
@@ -5134,3 +5140,43 @@ $ git diff -U0 e822ae3^ e822ae3 -- _persistence _audit ':(exclude)_audit/S-038.m
   cruda. Lo que fallo fue cumplirla, no escribirla. Lo decide **`D-157`**, con la evidencia.
 
 ⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
+✅ **Verificado por `R-039` sobre `62ff0d2`: Implementado.** La nota fechada en la seccion 7 de `S-038`
+esta en el commit y sus dos ordenes reproducen; la atribucion de las filas 4, 5 y 10 coincide con la
+orden anclada. La mitad no adoptada queda registrada en `D-157`, cuyas citas de `protocol-close`
+existen en `d35bc91`. Ordenes y salidas en `_audit/R-039.md`, secciones 1g y 1h.
+
+---
+
+### F-109 - La seccion 1 del informe atribuye a `T-180` las tres reincidencias de la nota de `L-056`, y la tercera es de `T-179`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-039 |
+| Fecha | 2026-09-14 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la seccion 1 de `S-039` describe la nota anadida a `L-056` como «tres formas del
+  mismo defecto en `T-180`». La nota dice que en `T-180` paso dos veces y que la tercera fue en `T-179`.
+
+```
+$ git show e04681b:_audit/S-039.md | grep -n "tres formas"
+43:- **`_persistence/lessons.md`** — 1 hunk. No nace ninguna entrada; se edita la existente `L-056` con una nota de reincidencia (tres formas del mismo defecto en `T-180`).
+
+$ git show 62ff0d2:_persistence/lessons.md | sed -n '2084,2086p;2095,2097p'
+> 🕒 **Nota de reincidencia del 2026-09-14 (`T-180`, `F-107`).** Volvio a pasar dos veces en la misma
+> tarea, y las dos se cazaron antes de publicar. **La primera, con otra forma:** la verificacion
+> extraia las ordenes de una nota por un rango `sed -n '/inicio/,/fin/p'`, y la ficha de la tarea,
+>
+> ⚠️ **Y una tercera vez en la misma jornada (`T-179`)**, ahora con la salida **tecleada** junto a la
+> orden: un `grep -n … tasks.md` que encontraba su propia linea y un `cut -c` que corta por bytes y
+```
+
+  Salida completa (incluida la cabecera de `L-056`) en `_audit/R-039.md`, seccion 2.
+- **Por que importa:** la seccion 1 es la lista contra la que se audita el diff; atribuir a `T-180` la
+  reincidencia de `T-179` borra que la verificacion de la tarea que cambia `protocol-close` se tecleo
+  con el mismo defecto que `L-056` describe. `Baja`: no cambia ningun estado ni cifra, y `L-056` esta bien.
+- **Que lo corregiria:** una nota fechada en la seccion 1 de `S-039` con la atribucion correcta (dos en
+  `T-180`, una en `T-179`), sin reescribir la linea. ⚠️ Es una recomendacion, no una orden.
