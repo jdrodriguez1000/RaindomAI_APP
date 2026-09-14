@@ -115,9 +115,11 @@
 | [F-101](#f-101---el-bloque-de-verificacion-de-t-157-publica-el-resultado-de-un-segundo-barrido-sin-su-patron-ni-su-salida) | El bloque de verificacion de `T-157` publica el resultado de un segundo barrido sin su patron ni su salida | R-035 | Media | Implementado |
 | [F-102](#f-102---la-tabla-de-reejecucion-del-paso-2d-de-s-036-atribuye-salidas-a-las-ordenes-equivocadas) | La tabla de reejecucion del Paso 2d de `S-036` atribuye salidas a las ordenes equivocadas | R-036 | Media | Implementado |
 | [F-103](#f-103---el-bloque-de-a-018-en-assumptionsmd-publica-una-orden-que-ya-no-reproduce-y-queda-sin-corregir-y-sin-tarea) | El bloque de `A-018` en `assumptions.md` publica una orden que ya no reproduce, y queda sin corregir y sin tarea | R-036 | Media | Implementado |
-| [F-104](#f-104---la-orden-que-sostiene-d-153-usa-un-marcador-en-vez-de-la-ruta-y-no-es-ejecutable) | La orden que sostiene `D-153` usa un marcador en vez de la ruta, y no es ejecutable | R-037 | Baja | Aceptado — pendiente |
-| [F-105](#f-105---la-nota-que-corrige-f-103-vuelve-a-publicar-en-assumptionsmd-una-cifra-que-ya-no-reproducia-en-ese-mismo-commit) | La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit | R-037 | Baja | Aceptado — pendiente |
-| [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Aceptado — pendiente |
+| [F-104](#f-104---la-orden-que-sostiene-d-153-usa-un-marcador-en-vez-de-la-ruta-y-no-es-ejecutable) | La orden que sostiene `D-153` usa un marcador en vez de la ruta, y no es ejecutable | R-037 | Baja | Implementado |
+| [F-105](#f-105---la-nota-que-corrige-f-103-vuelve-a-publicar-en-assumptionsmd-una-cifra-que-ya-no-reproducia-en-ese-mismo-commit) | La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit | R-037 | Baja | Implementado |
+| [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Implementado |
+| [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Abierto |
+| [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Abierto |
 
 ---
 
@@ -4792,9 +4794,9 @@ commit de este lo fija.
 | Auditoria | R-037 |
 | Fecha | 2026-09-11 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-175` |
-| Cerrado en | |
+| Cerrado en | `R-038` (commit `e822ae3`) |
 
 - **Que se observo:** `D-153` publica la medicion que justifica la decision con un marcador donde
   deberia ir la ruta, y asi escrita no es ejecutable.
@@ -4841,6 +4843,10 @@ $ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS
 
 ⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
 
+✅ **Verificado por `R-038` sobre `e822ae3`: Implementado.** La nota fechada bajo `D-153` publica la
+orden con la ruta literal, y corrida devuelve el `0` publicado (estado vivo del esqueleto, `1748f0a`).
+El bloque original no se reescribio. Ordenes y salidas en `_audit/R-038.md`, seccion 1g.
+
 ---
 
 ### F-105 - La nota que corrige `F-103` vuelve a publicar en `assumptions.md` una cifra que ya no reproducia en ese mismo commit
@@ -4849,9 +4855,9 @@ $ grep -c '^| Esqueleto de arranque' "C:/Users/USUARIO/Documents/Company_TripleS
 | Auditoria | R-037 |
 | Fecha | 2026-09-11 |
 | Gravedad | Baja |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-176` |
-| Cerrado en | |
+| Cerrado en | `R-038` (commit `e822ae3`) |
 
 - **Que se observo:** la nota del 2026-09-11 bajo `A-018` (`T-173`) publica `4 0 0 0 0 0 0`.
   Reejecutada, la septima cifra es `3`:
@@ -4914,6 +4920,11 @@ sin hallazgo y merece su propia decision; este tratamiento no la da por evaluada
 
 ⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
 
+✅ **Verificado por `R-038` sobre `e822ae3`: Implementado.** La segunda nota bajo `A-018` deja
+constancia del desfase de la septima cifra con la salida de hoy (`3`), que cuadra con el commit, sin
+reescribir la nota de `T-173`. ⚠️ Que esa misma nota publique `0` para `protocol-close/SKILL.md`
+cuando su commit da `2` es **evidencia nueva** y va como `F-107`, no como reapertura.
+
 ---
 
 ### F-106 - El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto`
@@ -4922,9 +4933,9 @@ sin hallazgo y merece su propia decision; este tratamiento no la da por evaluada
 | Auditoria | R-037 |
 | Fecha | 2026-09-11 |
 | Gravedad | Media |
-| Estado | Aceptado — pendiente |
+| Estado | Implementado |
 | Registrado en | `T-177` |
-| Cerrado en | |
+| Cerrado en | `R-038` (commit `e822ae3`) |
 
 - **Que se observo:** el indice pasa los dos hallazgos a `Aceptado — pendiente`, y la ficha de
   detalle de cada uno sigue con `Estado | Abierto` y `Registrado en` vacio:
@@ -4987,3 +4998,94 @@ $ for c in F-102 F-103; do git show a864dd1:_audit/findings.md | sed -n "/^### $
 ```
 
 ⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
+✅ **Verificado por `R-038` sobre `e822ae3`: Implementado.** `CLAUDE.md` nombra fila y ficha (linea
+166), y el Paso 2b de `protocol-close` lleva el barrido y su linea de reporte. Extraido de la skill en
+la version del commit, el barrido sale vacio sobre `e822ae3`, senala `F-102` y `F-103` sobre `3b20720`,
+y detecta tambien los casos intermedios (solo la ficha cambiada, solo la fila cambiada). Ordenes y
+salidas en `_audit/R-038.md`, seccion 1g.
+
+---
+
+### F-107 - La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada`
+| Campo | Valor |
+|---|---|
+| Auditoria | R-038 |
+| Fecha | 2026-09-14 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** las tres copias del bucle de desfase con el esqueleto que anade `S-038` (nota
+  `T-176` bajo `A-018`, tratamiento de `F-105` en este archivo, verificacion de `T-176`) publican `0`
+  para `.claude/skills/protocol-close/SKILL.md`. En `e822ae3` esa cifra es `2`: `T-178` edito ese
+  archivo en la misma sesion, despues de correr la orden; el esqueleto sigue en `1748f0a`. `T-176` fija
+  como criterio de cierre que la orden «devuelve la salida que publica», y figura `Implementada`.
+  Ademas, la nota bajo `A-018` dice que la recomendacion de la seccion 5 de `R-036` «sigue sin
+  evaluar», y `D-156`, en el mismo commit, la evalua y la rechaza. El informe lo declara y lo deja sin
+  corregir y sin `T-XXX`.
+
+```
+$ git show e822ae3:_persistence/assumptions.md | grep -n '0  .claude/skills/protocol-close/SKILL.md'
+1131:  0  .claude/skills/protocol-close/SKILL.md
+1178:  0  .claude/skills/protocol-close/SKILL.md
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; git -C "$ESQ" log -1 --format='%h %ad' --date=short; for f in .claude/skills/protocol-close/SKILL.md; do printf '%3d  %s\n' "$(git show e822ae3:"$f" | diff --strip-trailing-cr "$ESQ/$f" - | grep -c '^<')" "$f"; done
+1748f0a 2026-09-11
+  2  .claude/skills/protocol-close/SKILL.md
+
+$ git show e822ae3:_persistence/assumptions.md | grep -n 'sigue sin evaluar'
+1197:anclada, o declara en su linea que mide un estado vivo—, que **sigue sin evaluar**.
+```
+
+  Salida completa (las tres copias, las siete cifras y el contraste con `e822ae3^`) en
+  `_audit/R-038.md`, seccion 2.
+- **Por que importa:** es la cuarta vez que el registro publica una cifra que su propio commit no
+  sostiene por el mismo mecanismo, esta vez dentro de la correccion del hallazgo que lo describia; la
+  nota afirma ademas que una medida de raiz esta pendiente cuando ya se rechazo, y `T-176` queda
+  `Implementada` con su criterio incumplido. `Media`: el registro se contradice en tres archivos, pero
+  la cifra no sostiene ninguna conclusion y el informe lo declaro.
+- **Que lo corregiria:** una nota fechada bajo `A-018` (y su constancia junto a `T-176`) con la cifra
+  del commit y la aclaracion de que `D-156` ya evaluo la recomendacion, sin reescribir nada; o
+  registrar el pendiente como `T-XXX`/`DT-XXX`. ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-108 - El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado
+| Campo | Valor |
+|---|---|
+| Auditoria | R-038 |
+| Fecha | 2026-09-14 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** el bloque publicado como salida de la orden de procedencia incluye la linea
+  `b/_audit/findings.md :: same file also carries the git -C log line (see above)`, que ninguna orden
+  emite. El equivalente anclado devuelve 18 lineas sin ella, con las filas 4 y 5 en
+  `_persistence/assumptions.md`; la tabla de reejecucion las atribuye a `_audit/findings.md`, y el
+  parrafo siguiente situa la fila 10 fuera de `_persistence/tasks.md`, donde esta.
+
+```
+$ git show e822ae3:_audit/S-038.md | grep -n 'same file also carries'
+252:b/_audit/findings.md :: same file also carries the git -C log line (see above)
+
+$ git diff -U0 e822ae3^ e822ae3 -- _persistence _audit ':(exclude)_audit/S-038.md' | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | cut -c1-70 | cat -n | sed -n '1,6p'
+     1	b/_audit/findings.md :: +$ grep -c '^| Esqueleto de arranque' "C:/User
+     2	b/_audit/findings.md :: +$ ESQ="C:/Users/USUARIO/Documents/Company_Tri
+     3	b/_audit/findings.md :: +$ git -C "C:/Users/USUARIO/Documents/Company_
+     4	b/_persistence/assumptions.md :: +$ ESQ="C:/Users/USUARIO/Documents/Co
+     5	b/_persistence/assumptions.md :: +$ git -C "C:/Users/USUARIO/Documents
+     6	b/_persistence/decisions.md :: +$ grep -c '^| Esqueleto de arranque' "
+```
+
+  Salida completa (18 lineas) en `_audit/R-038.md`, seccion 2.
+- **Por que importa:** la seccion 7 existe para que la procedencia sea derivada y reproducible, y
+  publica como salida cruda un texto que la orden no produce; quien la contraste tiene que rehacer el
+  barrido para saber cual es la real. `Media`, no `Alta`: el recuento (`18`), las repetidas y las
+  conclusiones sobre que reproduce son correctas.
+- **Que lo corregiria:** una nota fechada en la seccion 7 de `S-038` con la salida anclada real y la
+  atribucion correcta de las filas 4, 5 y 10, sin reescribir el bloque; y que ningun comentario vaya
+  dentro de un bloque de salida. ⚠️ Es una recomendacion, no una orden.
