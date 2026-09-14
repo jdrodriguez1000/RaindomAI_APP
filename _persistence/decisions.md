@@ -171,6 +171,9 @@
 | [D-160](#d-160---si-hay-andamiaje-por-promover-se-promueve-al-abrir-sesion-antes-de-trabajar-los-hallazgos) | Si hay andamiaje por promover, se promueve al abrir sesion, antes de trabajar los hallazgos | 2026-09-14 | Vigente | usuario |
 | [D-161](#d-161---el-brief-no-lleva-plantilla-y-temporal-no-se-versiona-la-crea-el-usuario-cuando-la-necesite) | El brief no lleva plantilla, y `temporal/` no se versiona: la crea el usuario cuando la necesite | 2026-09-14 | Vigente | usuario |
 | [D-162](#d-162---las-copias-de-la-raiz-del-esqueleto-se-regeneran-desde-su-plantilla-en-cada-promocion) | Las copias de la raiz del esqueleto se regeneran desde su plantilla en cada promocion | 2026-09-14 | Vigente | usuario |
+| [D-163](#d-163---segunda-promocion-al-esqueleto-sube-protocol-promote-con-el-defecto-de-f-112-desde-a3bb32e-a-afeedf4) | Segunda promocion al esqueleto: sube `protocol-promote` con el defecto de `F-112`, desde `a3bb32e` a `afeedf4` | 2026-09-14 | Vigente | usuario |
+| [D-164](#d-164---la-guia-de-arranque-se-publica-como-readmemd-en-la-raiz-del-esqueleto-bf8c56e) | La guia de arranque se publica como `README.md` en la raiz del esqueleto (`bf8c56e`) | 2026-09-14 | Vigente | usuario |
+| [D-165](#d-165---_outbound-lleva-un-gitkeep-para-existir-en-el-arbol-aunque-este-vacia) | `_outbound/` lleva un `.gitkeep` para existir en el arbol aunque este vacia | 2026-09-14 | Vigente | usuario |
 
 ---
 
@@ -10307,6 +10310,28 @@ $ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 841dc53:
 - **Reversible a criterio** en lo tecnico —un commit en el esqueleto se revierte—, pero **publicado**:
   por eso llevo puerta, y la paso.
 
+📌 **Nota del 2026-09-14 (`T-185`, hallazgo `F-111`) — la medicion del final de linea que la vineta
+«Final de linea (Paso 4)» afirma sin publicar.** La vineta no se reescribe. La medicion, rehecha sobre
+los dos commits de la promocion —el de origen y el del esqueleto justo antes de recibirla—, y con la
+misma forma que manda el Paso 4 (`tr -dc` y `wc -c`, no `grep -c`). `protocol-promote` no existia
+en el esqueleto, asi que su lado da `0` en las dos cuentas; el final que usan sus vecinos es el de la
+ultima orden:
+
+```
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for f in .claude/skills/protocol-close/SKILL.md .claude/skills/protocol-harvest/SKILL.md .claude/skills/protocol-promote/SKILL.md _templates/000_preproject/005_project.md _templates/000_preproject/015_tasks.md CLAUDE.md; do printf '%s  origen CR=%s LF=%s  esqueleto CR=%s LF=%s\n' "$f" "$(git show db0e613:$f | tr -dc '\r' | wc -c)" "$(git show db0e613:$f | tr -dc '\n' | wc -c)" "$(git -C "$ESQ" show 1748f0a:$f 2>/dev/null | tr -dc '\r' | wc -c)" "$(git -C "$ESQ" show 1748f0a:$f 2>/dev/null | tr -dc '\n' | wc -c)"; done
+.claude/skills/protocol-close/SKILL.md  origen CR=0 LF=2087  esqueleto CR=0 LF=1929
+.claude/skills/protocol-harvest/SKILL.md  origen CR=0 LF=312  esqueleto CR=0 LF=312
+.claude/skills/protocol-promote/SKILL.md  origen CR=0 LF=349  esqueleto CR=0 LF=0
+_templates/000_preproject/005_project.md  origen CR=0 LF=289  esqueleto CR=0 LF=271
+_templates/000_preproject/015_tasks.md  origen CR=0 LF=110  esqueleto CR=0 LF=109
+CLAUDE.md  origen CR=0 LF=520  esqueleto CR=0 LF=516
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show 1748f0a:.claude/skills/protocol-harvest/SKILL.md | tr -dc '\r' | wc -c
+0
+```
+
+**Cero retornos de carro en los dos lados de las seis parejas**: la vineta era cierta.
+
 ---
 
 ### D-160 - Si hay andamiaje por promover, se promueve al abrir sesion, antes de trabajar los hallazgos
@@ -10481,3 +10506,172 @@ $ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show c7d0a87:
 - **Criterio de cierre:** la skill lleva el Paso 1b con su orden, su item en la puerta, su paso en la
   escritura, su comprobacion en el registro de vuelta y su linea en el reporte; y la prueba de arriba
   marca las dos copias en `841dc53` y da diez ceros en `c7d0a87`.
+
+---
+
+### D-163 - Segunda promocion al esqueleto: sube `protocol-promote` con el defecto de `F-112`, desde `a3bb32e` a `afeedf4`
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** al abrir `S-041` el usuario pide evaluar `F-109` a `F-112`, publicar la guia de
+  arranque y promover `protocol-promote`. Dos choques, consultados antes de tocar nada: `F-112` corrige
+  justo el archivo que se promueve —y corregirlo y promoverlo en la misma sesion subiria una version
+  sin cierre ni auditoria, que la skill prohibe («nada de lo que promuevas puede nacer aqui»)—; y
+  `D-160` pone la promocion **antes** de los hallazgos.
+- **Decision del usuario:** se promueve **ya** la version commiteada y auditada (`R-040`), con el «4.»
+  duplicado del Paso 6 dentro; despues se publica la guia y se evaluan los hallazgos. La correccion de
+  `F-112` sube en el lote siguiente.
+- **Alternativas descartadas:** (a) **corregir `F-112` y promover en otra sesion** — el esqueleto
+  seguiria una sesion mas sin el Paso 1b (67 lineas) por un defecto de numeracion; (b) **corregir y
+  promover hoy** — rompe la regla de que lo promovido ya paso por cierre y auditoria.
+- **Desfase medido (Paso 1):** un solo candidato, `.claude/skills/protocol-promote/SKILL.md`, que
+  difiere; **nada solo en el esqueleto**. **Copias de la raiz (Paso 1b):** las diez a `0`, nada que
+  regenerar.
+- **Lo que se borro alli (Paso 2), leido linea por linea:** 2 lineas, `3. commit en el esqueleto, …` y
+  `3. **El indice y la entrada, …`: numeraciones que se desplazan al insertar los pasos nuevos. **La
+  premisa de sentido unico se sostuvo.**
+- **Controles (Paso 3), final de linea (Paso 4) y copia:** los tres barridos a cero lineas; LF en los
+  dos lados; copia byte a byte desde `git show a3bb32e:`.
+
+```
+$ git grep -nE "[Rr]aidom|[Rr]aindom|[Tt]riple[_ ]?S|SDAI|jdrodriguez|Users/USUARIO|Company_" a3bb32e -- .claude CLAUDE.md _phases _methodology _templates _workflow; echo "exit=$?"
+exit=1
+
+$ git grep -noE '\b[A-Z]{1,2}-[0-9]+\b' a3bb32e -- _phases _workflow | grep -vE ':PI-[0-9]+$'; echo "exit=$?"
+exit=1
+
+$ git grep -nE 'github\.com|gitlab|bitbucket|gmail|hotmail|outlook\.|@[A-Za-z0-9-]+\.(com|org|net|io)|[A-Za-z]:[\/][Uu]sers|/home/[a-z]|USUARIO|jdrodriguez|[Tt]riple[Ss]|[Rr]aidom|SDAI' a3bb32e -- .claude/skills/protocol-promote/SKILL.md; echo "exit=$?"
+exit=1
+
+$ git show a3bb32e:.claude/skills/protocol-promote/SKILL.md | tr -dc '\r' | wc -c
+0
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show c7d0a87:.claude/skills/protocol-promote/SKILL.md | tr -dc '\r' | wc -c
+0
+
+$ diff --strip-trailing-cr <(git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show c7d0a87:.claude/skills/protocol-promote/SKILL.md) <(git show a3bb32e:.claude/skills/protocol-promote/SKILL.md) | grep '^<'
+< 3. commit en el esqueleto, con un mensaje que diga **de que proyecto viene** la promocion, **que
+< 3. **El indice y la entrada, en la misma pasada.** Una entrada sin fila en el indice es invisible.
+```
+
+- **La puerta (Paso 5):** el usuario aprobo el archivo. No quedo nada sin subir.
+- **Commits:** origen `a3bb32e` en este repositorio; esqueleto **`afeedf4`**, subido, `status -sb` sin
+  `ahead`. El `numstat` coincide con lo presentado en la puerta (67 entran, 2 salen).
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show --numstat --format='%h %s' afeedf4
+afeedf4 Promocion del andamiaje desde RaidomAI_App (origen a3bb32e)
+
+67	2	.claude/skills/protocol-promote/SKILL.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show afeedf4:.claude/skills/protocol-promote/SKILL.md | cmp - <(git show a3bb32e:.claude/skills/protocol-promote/SKILL.md) && echo "identicos"
+identicos
+
+$ ESQ="C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS"; for p in 005_project.md:project.md 010_progress.md:_persistence/progress.md 015_tasks.md:_persistence/tasks.md 020_decisions.md:_persistence/decisions.md 025_constraints.md:_persistence/constraints.md 030_assumptions.md:_persistence/assumptions.md 035_lessons.md:_persistence/lessons.md 040_techdebt.md:_persistence/techdebt.md 045_audit_index.md:_audit/index.md 050_audit_findings.md:_audit/findings.md; do t=${p%%:*}; c=${p#*:}; printf '%3d  %s\n' "$(diff --strip-trailing-cr <(git -C "$ESQ" show afeedf4:_templates/000_preproject/$t) <(git -C "$ESQ" show afeedf4:$c) | grep -c '^[<>]')" "$c"; done
+  0  project.md
+  0  _persistence/progress.md
+  0  _persistence/tasks.md
+  0  _persistence/decisions.md
+  0  _persistence/constraints.md
+  0  _persistence/assumptions.md
+  0  _persistence/lessons.md
+  0  _persistence/techdebt.md
+  0  _audit/index.md
+  0  _audit/findings.md
+```
+
+- 🔑 **Barrido de despues (Paso 7.2):** el del Paso 1 sobre los dos arboles, corrido tras subir `afeedf4`
+  y `bf8c56e`, salio vacio: **el desfase cerro**. Mide arboles vivos y no se puede anclar; lo anclado
+  es el `cmp` de arriba.
+- ⚠️ **Lo que queda en el esqueleto a sabiendas:** el Paso 6 con dos pasos «4.» (`F-112`). Se corrige
+  aqui y sube en la promocion siguiente.
+- **Reversible a criterio** en lo tecnico, pero **publicado**: por eso llevo puerta, y la paso.
+
+---
+
+### D-164 - La guia de arranque se publica como `README.md` en la raiz del esqueleto (`bf8c56e`)
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `D-153` dejo la guia para despues de que la plantilla de `project.md` llegara al
+  esqueleto, y `D-162` regenero las copias de la raiz en `c7d0a87`. El borrador vivia en
+  `_outbound/skeleton_readme.md`, puesto al dia y commiteado en `4962db2` y auditado por `R-040`. El
+  usuario pide publicarla (`T-162`).
+- **Decision:** la guia se publica **tal cual esta en `a3bb32e`**, con el nombre `README.md` en la raiz
+  del esqueleto, que no tenia ninguno. Y, por `D-154`, `_outbound/skeleton_readme.md` se borra en la
+  misma pasada: desde ahora manda la del esqueleto.
+- **Contraste antes de la puerta**, contra el esqueleto en `c7d0a87`: el brief llega vacio, la linea
+  de `temporal/` esta en `.gitignore` y `project.md` lleva las tres filas que la guia manda rellenar.
+  Barridos sobre la guia (datos propios, ensanchado, codigos instanciados): cero lineas.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" ls-tree -r --long c7d0a87 -- _brief
+100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391       0	_brief/client_brief.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show c7d0a87:.gitignore | grep -n '^temporal/$'
+5:temporal/
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show c7d0a87:project.md | grep -c '^| Esqueleto de arranque'
+3
+
+$ git grep -nE 'github\.com|gitlab|bitbucket|gmail|hotmail|outlook\.|@[A-Za-z0-9-]+\.(com|org|net|io)|[A-Za-z]:[\/][Uu]sers|/home/[a-z]|USUARIO|jdrodriguez|[Tt]riple[Ss]|[Rr]aidom|[Rr]aindom|SDAI|Company_' a3bb32e -- _outbound/skeleton_readme.md; echo "exit=$?"
+exit=1
+
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H|LG)-[0-9]{2,3}\b' a3bb32e -- _outbound/skeleton_readme.md; echo "exit=$?"
+exit=1
+```
+
+- **La puerta:** el usuario aprobo la escritura. **Commit en el esqueleto `bf8c56e`**, subido, `status
+  -sb` sin `ahead`; LF como sus vecinos; identico byte a byte al borrador de origen.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show --numstat --format='%h %s' bf8c56e
+bf8c56e Publica la guia de arranque como README.md (origen a3bb32e)
+
+187	0	README.md
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show bf8c56e:README.md | cmp - <(git show a3bb32e:_outbound/skeleton_readme.md) && echo "identicos"
+identicos
+```
+
+- **Alternativas descartadas:** (a) **otro nombre** (`START.md`, `GUIDE.md`) — `README.md` es lo que un
+  clone muestra primero, en la terminal y en el remoto; (b) **conservar la copia de `_outbound/`** — dos
+  originales, lo que `D-154` prohibe.
+- ⚠️ **No se ha ejercitado:** si la guia basta para arrancar a quien no escribio el andamiaje es `A-020`,
+  y su disparador es el primer arranque real.
+- **Reversible a criterio** en lo tecnico, pero **publicado**: por eso llevo puerta.
+- **Criterio de cierre:** la guia esta en la raiz del esqueleto y el borrador ya no esta en `_outbound/`.
+  Las ordenes de arriba lo muestran para el esqueleto; el borrado, el commit de la sesion.
+
+---
+
+### D-165 - `_outbound/` lleva un `.gitkeep` para existir en el arbol aunque este vacia
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** al publicar la guia (`D-164`) se borro el unico archivo de `_outbound/`, y git no
+  versiona carpetas vacias: la carpeta desaparecio del arbol. `project.md` la declara y afirma que
+  «existe en el arbol, asi que el control no la senala», y el criterio de cierre de `D-154` pide que
+  exista. Vaciarla —que es lo que `D-154` manda al publicar— la borraba.
+
+```
+$ git ls-files _outbound
+_outbound/.gitkeep
+```
+
+- **Decision del usuario:** `_outbound/` lleva un archivo vacio `.gitkeep`, que no se borra al publicar
+  una pieza. La regla «se vacia» de `D-154` se refiere a las piezas, no a ese archivo.
+- **Alternativas descartadas:** (b) **reescribir `project.md` y `D-154`** para que la carpeta solo
+  exista mientras tenga algo pendiente — cambia dos reglas escritas y deja al control de carpetas del
+  cierre senalando una carpeta declarada la mayor parte del tiempo.
+- **Reversible a criterio** — un archivo vacio; un commit lo revierte.
+- **Criterio de cierre:** `_outbound/.gitkeep` esta en el commit de la sesion.

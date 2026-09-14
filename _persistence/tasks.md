@@ -170,7 +170,7 @@
 | [T-159](#t-159---registrar-en-projectmd-la-ubicacion-del-esqueleto-d-147) | Registrar en `project.md` la ubicacion del esqueleto (`D-147`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-160](#t-160---anadir-al-cierre-el-barrido-de-desfase-con-el-esqueleto-d-148) | Anadir al cierre el barrido de desfase con el esqueleto (`D-148`) | Implementada | Alta | No bloqueante | `000_preproject` |
 | [T-161](#t-161---escribir-la-skill-de-promocion-al-esqueleto-con-su-puerta-d-146) | Escribir la skill de promocion al esqueleto, con su puerta (`D-146`) | Implementada | Alta | No bloqueante | `000_preproject` |
-| [T-162](#t-162---escribir-la-guia-de-arranque-del-esqueleto) | Escribir la guia de arranque del esqueleto | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-162](#t-162---escribir-la-guia-de-arranque-del-esqueleto) | Escribir la guia de arranque del esqueleto | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-163](#t-163---resolver-los-dos-huecos-menores-del-esqueleto-brief-y-temporal) | Resolver los dos huecos menores del esqueleto: brief y `temporal/` | Implementada | Baja | No bloqueante | `000_preproject` |
 | [T-164](#t-164---fijar-por-nota-fechada-la-orden-de-la-seccion-1-de-s-034-f-098) | Fijar por nota fechada la orden de la seccion 1 de `S-034` (`F-098`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-165](#t-165---fijar-por-nota-fechada-la-descripcion-de-la-vineta-de-findingsmd-en-s-034-f-099) | Fijar por nota fechada la descripcion de la vineta de `findings.md` en `S-034` (`F-099`) | Implementada | Baja | No bloqueante | `000_preproject` |
@@ -191,6 +191,10 @@
 | [T-180](#t-180---fijar-por-nota-fechada-la-cifra-y-el-parrafo-desfasados-de-la-nota-de-t-176-f-107) | Fijar por nota fechada la cifra y el parrafo desfasados de la nota de `T-176` (`F-107`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-181](#t-181---fijar-por-nota-fechada-la-procedencia-real-de-la-seccion-7-de-s-038-f-108) | Fijar por nota fechada la procedencia real de la seccion 7 de `S-038` (`F-108`) | Implementada | Media | No bloqueante | `000_preproject` |
 | [T-182](#t-182---que-la-promocion-regenere-las-copias-de-la-raiz-del-esqueleto-desde-su-plantilla-d-162) | Que la promocion regenere las copias de la raiz del esqueleto desde su plantilla (`D-162`) | Implementada | Alta | No bloqueante | `000_preproject` |
+| [T-183](#t-183---fijar-por-nota-fechada-la-atribucion-de-la-nota-de-l-056-en-la-seccion-1-de-s-039-f-109) | Fijar por nota fechada la atribucion de la nota de `L-056` en la seccion 1 de `S-039` (`F-109`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-184](#t-184---fijar-por-nota-fechada-la-procedencia-y-el-control-de-cifra-adyacente-de-la-seccion-7-de-s-040-f-110) | Fijar por nota fechada la procedencia y el control de cifra adyacente de la seccion 7 de `S-040` (`F-110`) | Implementada | Media | No bloqueante | `000_preproject` |
+| [T-185](#t-185---publicar-la-orden-y-la-salida-de-los-dos-resultados-que-el-registro-afirmo-sin-ellas-f-111) | Publicar la orden y la salida de los dos resultados que el registro afirmo sin ellas (`F-111`) | Implementada | Baja | No bloqueante | `000_preproject` |
+| [T-186](#t-186---renumerar-el-push-del-paso-6-de-protocol-promote-f-112) | Renumerar el push del Paso 6 de `protocol-promote` (`F-112`) | Implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -7510,7 +7514,7 @@ Files <ESQ>/CLAUDE.md and CLAUDE.md differ
 ### T-162 - Escribir la guia de arranque del esqueleto
 | Campo | Valor |
 |---|---|
-| Estado | No implementada |
+| Estado | Implementada |
 | Importancia | Media |
 | Urgencia | No bloqueante |
 | Etapa | `000_preproject` |
@@ -7538,6 +7542,44 @@ que las copias de la raiz se mantienen iguales a su plantilla (`D-162`); y la se
 por entrada» donde la promocion aprueba archivo por archivo. Barridos de datos propios y de codigos
 instanciados sobre el borrador: cero lineas. ⚠️ **Sigue `No implementada`:** la guia se publica desde
 su version commiteada, igual que una promocion, asi que va en la ventana siguiente (`D-160`).
+
+📌 **Nota del 2026-09-14 (`T-185`, hallazgo `F-111`) — los barridos que la nota de arriba da a cero
+lineas, con su patron y su ambito.** La nota no se reescribe. No publico ni la orden ni el patron, asi
+que no se puede saber cual se corrio: estos son **rehechos**, con los patrones de la puerta de la
+promocion, sobre el borrador tal como quedo en el commit de esa nota. Los dos salen limpios, y dicen lo
+mismo que la nota:
+
+```
+$ git grep -nE 'github\.com|gitlab|bitbucket|gmail|hotmail|outlook\.|@[A-Za-z0-9-]+\.(com|org|net|io)|[A-Za-z]:[\/][Uu]sers|/home/[a-z]|USUARIO|jdrodriguez|[Tt]riple[Ss]|[Rr]aidom|[Rr]aindom|SDAI|Company_' 4962db2 -- _outbound/skeleton_readme.md; echo "exit=$?"
+exit=1
+
+$ git grep -nE '\b(S|T|D|C|A|L|R|F|DT|N|I|FT|SC|H|LG)-[0-9]{2,3}\b' 4962db2 -- _outbound/skeleton_readme.md; echo "exit=$?"
+exit=1
+```
+
+📌 **Nota del 2026-09-14 (`D-164`) — publicada.** La guia esta en la raiz del esqueleto como `README.md`,
+commit `bf8c56e`, identica byte a byte a `_outbound/skeleton_readme.md` en `a3bb32e`; el borrador se
+borra en la misma pasada (`D-154`). Nombra los diez archivos de instancia (seccion 3), el procedimiento
+de arranque (seccion 1) y lo que el clone no trae (seccion 2), como pedian el criterio y `D-150`. Se
+escribe a mano por la segunda excepcion de este archivo: la publicacion ocurre en otro repositorio y no
+aparece en el diff de este.
+
+```
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show bf8c56e:README.md | cmp - <(git show a3bb32e:_outbound/skeleton_readme.md) && echo "identicos"
+identicos
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show bf8c56e:README.md | grep -n '^## '
+8:## Que es esto, y que no
+24:## 1. Arrancar un proyecto nuevo
+52:## 2. Lo que un clone NO trae
+66:## 3. Rellenar: los diez archivos de instancia
+130:## 4. Lo que no se toca
+154:## 5. El primer ciclo de trabajo
+178:## 6. Las dos cosas que hay que entender antes de empezar
+
+$ git -C "C:/Users/USUARIO/Documents/Company_TripleS/SDAI_TripleS" show bf8c56e:README.md | grep -cE '^\| (10|[1-9]) \| `'
+10
+```
 
 ---
 
@@ -8564,3 +8606,109 @@ REPRODUCE (2 ordenes)
   auditoria (`D-160`).
 - **Criterio de cierre:** el de `D-162`; su prueba en negativo y en positivo, con las ordenes y su
   salida, esta alli y reproduce.
+
+---
+
+### T-183 - Fijar por nota fechada la atribucion de la nota de `L-056` en la seccion 1 de `S-039` (`F-109`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-041 |
+
+- **Que:** la seccion 1 de `S-039` resume la nota anadida a `L-056` como «tres formas del mismo defecto
+  en `T-180`», y la nota dice dos en `T-180` y la tercera en `T-179`.
+- **Por que importa:** la seccion 1 es la lista contra la que se audita el diff, y la atribucion
+  borrada es justo la incomoda: la verificacion de la tarea que cambio `protocol-close` se tecleo.
+- **Como se corrige:** nota fechada al final de la seccion 1 de `S-039`, con la orden anclada a
+  `62ff0d2`, sin reescribir la vineta.
+- **Criterio de cierre:** la nota esta en su commit, y su orden, extraida por el rango de la nota,
+  devuelve lo que publica.
+
+```
+$ git show <hash>:_audit/S-039.md | grep -c 'T-183`, hallazgo `F-109'
+```
+
+---
+
+### T-184 - Fijar por nota fechada la procedencia y el control de cifra adyacente de la seccion 7 de `S-040` (`F-110`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-041 |
+
+- **Que:** el bloque «Procedencia por archivo» de `S-040` pega una 17.ª linea que su propio filtro
+  excluye, con una nota que lo explica al reves; y la salida del CONTROL DE CIFRA ADYACENTE cita numeros
+  de linea de un borrador, no del informe commiteado.
+- **Por que importa:** es la familia de `F-108` y `L-056`, reaparecida en el commit siguiente a su
+  cierre; y un control corrido sobre un borrador no revisa lo que se publico.
+- **Como se corrige:** nota fechada al final de la seccion 7 de `S-040`, sin reescribir los bloques,
+  con la procedencia anclada a `4962db2` (16 lineas), el control corrido sobre las dos versiones
+  commiteadas del informe (`4962db2` y `97ccbe1`) y la lectura de las lineas de la version anclada.
+- ⚠️ **Sin regla nueva:** que la salida se pegue de la ejecucion ya es regla (`D-157`); lo que fallo fue
+  cumplirla.
+- **Criterio de cierre:** la nota esta en su commit, y sus cuatro ordenes, extraidas por el rango de la
+  nota, devuelven lo que publica.
+
+```
+$ git show <hash>:_audit/S-040.md | grep -c 'T-184`, hallazgo `F-110'
+```
+
+---
+
+### T-185 - Publicar la orden y la salida de los dos resultados que el registro afirmo sin ellas (`F-111`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-041 |
+
+- **Que:** la nota del 2026-09-14 bajo `T-162` afirma barridos a cero lineas sin su orden, y `D-159`
+  afirma el final de linea de las seis parejas sin la medicion del Paso 4.
+- **Por que importa:** `CLAUDE.md` exige patron y ambito para todo resultado afirmado; sin ellos,
+  contrastarlo obliga a rehacer el barrido adivinando el patron.
+- **Como se corrige:** una nota fechada bajo cada una, con las ordenes ancladas a sus commits
+  (`4962db2` para el borrador; `db0e613` y `1748f0a` para la promocion). ⚠️ **Los barridos de `T-162`
+  se rehacen, no se recuperan:** la orden original no se publico, y la nota lo dice.
+- **Criterio de cierre:** las dos notas estan en su commit, y sus ordenes, extraidas por el rango de cada
+  nota, devuelven lo que publican.
+
+```
+$ git show <hash>:_persistence/decisions.md | grep -c 'T-185`, hallazgo `F-111'
+$ git show <hash>:_persistence/tasks.md | grep -c '📌 \*\*Nota del 2026-09-14 (`T-1[8]5`, hallazgo `F-111'
+```
+
+---
+
+### T-186 - Renumerar el push del Paso 6 de `protocol-promote` (`F-112`)
+| Campo | Valor |
+|---|---|
+| Estado | Implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-041 |
+
+- **Que:** al insertar el paso 3 nuevo del Paso 6 (`T-182`), el commit paso a «4.» y el push siguio en
+  «4.».
+- **Por que importa:** el procedimiento se cita por numero de paso, y el archivo vive tambien en el
+  esqueleto.
+- **Como se corrige:** el push pasa a «5.». Nada mas del archivo cambia.
+- ⚠️ **El esqueleto ya lleva la version con el defecto** (`D-163`, por decision del usuario): la
+  correccion sube en la promocion siguiente.
+- **Criterio de cierre:** la lista numerada del Paso 6 va de 1 a 5 sin repetir.
+
+```
+$ git show <hash>:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\. ' | sed -n '1,5p'
+```

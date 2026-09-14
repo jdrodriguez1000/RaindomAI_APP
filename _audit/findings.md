@@ -120,10 +120,10 @@
 | [F-106](#f-106---el-tratamiento-de-f-102-y-f-103-cambia-la-fila-del-indice-de-findingsmd-pero-deja-la-ficha-diciendo-abierto) | El tratamiento de `F-102` y `F-103` cambia la fila del indice de `findings.md` pero deja la ficha diciendo `Abierto` | R-037 | Media | Implementado |
 | [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Implementado |
 | [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Implementado |
-| [F-109](#f-109---la-seccion-1-del-informe-atribuye-a-t-180-las-tres-reincidencias-de-la-nota-de-l-056-y-la-tercera-es-de-t-179) | La seccion 1 del informe atribuye a `T-180` las tres reincidencias de la nota de `L-056`, y la tercera es de `T-179` | R-039 | Baja | Abierto |
-| [F-110](#f-110---la-seccion-7-de-s-040-publica-como-salida-cruda-dos-bloques-que-su-orden-no-produce) | La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce | R-040 | Media | Abierto |
-| [F-111](#f-111---dos-resultados-nuevos-del-registro-se-afirman-sin-su-orden-ni-su-salida) | Dos resultados nuevos del registro se afirman sin su orden ni su salida | R-040 | Baja | Abierto |
-| [F-112](#f-112---el-paso-6-de-protocol-promote-queda-con-dos-pasos-numerados-4) | El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.» | R-040 | Baja | Abierto |
+| [F-109](#f-109---la-seccion-1-del-informe-atribuye-a-t-180-las-tres-reincidencias-de-la-nota-de-l-056-y-la-tercera-es-de-t-179) | La seccion 1 del informe atribuye a `T-180` las tres reincidencias de la nota de `L-056`, y la tercera es de `T-179` | R-039 | Baja | Aceptado — pendiente |
+| [F-110](#f-110---la-seccion-7-de-s-040-publica-como-salida-cruda-dos-bloques-que-su-orden-no-produce) | La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce | R-040 | Media | Aceptado — pendiente |
+| [F-111](#f-111---dos-resultados-nuevos-del-registro-se-afirman-sin-su-orden-ni-su-salida) | Dos resultados nuevos del registro se afirman sin su orden ni su salida | R-040 | Baja | Aceptado — pendiente |
+| [F-112](#f-112---el-paso-6-de-protocol-promote-queda-con-dos-pasos-numerados-4) | El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.» | R-040 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -5157,8 +5157,8 @@ existen en `d35bc91`. Ordenes y salidas en `_audit/R-039.md`, secciones 1g y 1h.
 | Auditoria | R-039 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-183` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 1 de `S-039` describe la nota anadida a `L-056` como «tres formas del
@@ -5184,6 +5184,20 @@ $ git show 62ff0d2:_persistence/lessons.md | sed -n '2084,2086p;2095,2097p'
 - **Que lo corregiria:** una nota fechada en la seccion 1 de `S-039` con la atribucion correcta (dos en
   `T-180`, una en `T-179`), sin reescribir la linea. ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-14 (`S-041`) — ACEPTADO.** Verificado contra `HEAD` (`a3bb32e`): la vineta
+sigue diciendo «tres formas del mismo defecto en `T-180`».
+
+```
+$ git show a3bb32e:_audit/S-039.md | grep -c 'tres formas del mismo defecto en `T-180`'
+1
+```
+
+- **La correccion** la implementa **`T-183`**: nota fechada al final de la seccion 1 de `S-039`, con la
+  orden anclada a `62ff0d2` y la atribucion correcta (dos en `T-180`, una en `T-179`), sin reescribir la
+  vineta.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-110 - La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce
@@ -5192,8 +5206,8 @@ $ git show 62ff0d2:_persistence/lessons.md | sed -n '2084,2086p;2095,2097p'
 | Auditoria | R-040 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-184` |
 | Cerrado en | |
 
 - **Que se observo:** (a) el bloque «Procedencia por archivo» de la seccion 7 de `S-040` pega 17
@@ -5221,6 +5235,25 @@ exit=1
   procedencia reproducida (16 lineas) y el control corrido sobre `git show 4962db2:_audit/S-040.md`.
   ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-14 (`S-041`) — ACEPTADO.** Verificado contra `HEAD` (`a3bb32e`): la orden de
+procedencia sigue dando 16 lineas y la nota que explica la 17.ª sigue en el informe.
+
+```
+$ git diff -U0 db0e613 4962db2 -- _persistence _audit ':(exclude)_audit/S-040.md' | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+16
+
+$ git show a3bb32e:_audit/S-040.md | grep -c 'devuelve 17 lineas'
+2
+```
+
+- **La correccion** la implementa **`T-184`**: nota fechada al final de la seccion 7 de `S-040`, sin
+  reescribir los bloques, con la procedencia anclada a `4962db2`, el control corrido sobre las dos
+  versiones commiteadas del informe (`4962db2` y `97ccbe1`) y la lectura de cada linea de la anclada,
+  incluidas las 418-419 que no se habian mirado.
+- **Sin regla nueva:** pegar la salida de la ejecucion ya es regla (`D-157`).
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-111 - Dos resultados nuevos del registro se afirman sin su orden ni su salida
@@ -5229,8 +5262,8 @@ exit=1
 | Auditoria | R-040 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-185` |
 | Cerrado en | |
 
 - **Que se observo:** la nota del 2026-09-14 bajo `T-162` afirma «Barridos de datos propios y de
@@ -5251,6 +5284,23 @@ $ git show 4962db2:_persistence/decisions.md | grep -n "Final de linea (Paso 4)"
 - **Que lo corregiria:** notas fechadas bajo `T-162` y `D-159` con las ordenes y su salida, ancladas a
   `4962db2`. ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-14 (`S-041`) — ACEPTADO.** Verificado contra `HEAD` (`a3bb32e`): los dos
+resultados siguen sin orden.
+
+```
+$ git show a3bb32e:_persistence/tasks.md | sed -n '/el borrador de `_outbound\/` se pone al dia/,/^### T-163/p' | grep -c '^```'
+0
+
+$ git show a3bb32e:_persistence/decisions.md | grep -n "Final de linea (Paso 4)"
+10271:- **Final de linea (Paso 4):** todas las parejas LF en los dos lados; copia byte a byte desde el
+```
+
+- **La correccion** la implementa **`T-185`**: nota fechada bajo `T-162` con los dos barridos —rehechos,
+  porque el patron original no se publico, y la nota lo dice— anclados a `4962db2`; y nota fechada bajo
+  `D-159` con la medicion del Paso 4 anclada a `db0e613` y `1748f0a`.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-112 - El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.»
@@ -5259,8 +5309,8 @@ $ git show 4962db2:_persistence/decisions.md | grep -n "Final de linea (Paso 4)"
 | Auditoria | R-040 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-186`, `D-163` |
 | Cerrado en | |
 
 - **Que se observo:** al insertar el paso 3 nuevo del Paso 6 (`T-182`), el commit paso a «4.» y el push
@@ -5279,3 +5329,20 @@ $ git show 4962db2:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\
   esqueleto en el proximo lote. `Baja`: el orden del texto es correcto.
 - **Que lo corregiria:** renumerar el push a «5.» antes de promover. ⚠️ Es una recomendacion, no una
   orden.
+
+🕐 **Tratamiento del 2026-09-14 (`S-041`) — ACEPTADO, y promovido antes de corregirse.** Verificado
+contra `HEAD` (`a3bb32e`):
+
+```
+$ git show a3bb32e:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\. ' | sed -n '4,5p'
+308:4. commit en el esqueleto, con un mensaje que diga **de que proyecto viene** la promocion, **que
+310:4. push.
+```
+
+- **La correccion** la implementa **`T-186`**: el push pasa a «5.».
+- ⚠️ **La recomendacion decia «antes de promover», y no se siguio en ese orden.** El usuario decidio
+  promover la version auditada con el defecto dentro y corregirlo despues (`D-163`): corregir y promover
+  en la misma sesion subiria una version sin cierre ni auditoria. El esqueleto lleva el «4.» duplicado
+  desde `afeedf4` hasta la promocion siguiente.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.

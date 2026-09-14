@@ -64,6 +64,7 @@
 | [S-038](#s-038---se-aceptan-f-104-a-f-106-t-175-a-t-177-nace-d-155-fila-y-ficha-de-un-hallazgo-y-d-156-evalua-r-036-endurece-el-7c-quater-t-178-se-aplaza-t-179) | Se aceptan `F-104` a `F-106` (`T-175` a `T-177`); nace `D-155` (fila y ficha de un hallazgo) y `D-156` evalua `R-036` y endurece el 7c-quater (`T-178`); se aplaza `T-179` | 2026-09-14 | `000_preproject` |
 | [S-039](#s-039---se-aceptan-f-107-y-f-108-t-180-t-181-se-retoma-t-179-nace-d-158-el-cierre-abre-tarea-con-origen-session-closer-y-nace-a-021) | Se aceptan `F-107` y `F-108` (`T-180`, `T-181`); se retoma `T-179` y queda `Implementada` (`D-158`: el cierre abre `T-XXX` con `Origen: session-closer` cuando el Paso 2d halla una orden que no reproduce en un archivo ajeno); `D-157` no adopta la mitad hacia adelante de `F-108`; nace `A-021` | 2026-09-14 | `000_preproject` |
 | [S-040](#s-040---primera-promocion-al-esqueleto-d-159-nace-el-paso-1b-de-protocol-promote-d-160-a-d-162-t-182-se-cierra-t-163) | Primera promocion real al esqueleto (`D-159`); se fija cuando promover (`D-160`); se resuelven brief y `temporal/` (`D-161`, `T-163` implementada); nace el Paso 1b de `protocol-promote` — las copias de la raiz se regeneran desde su plantilla (`D-162`, `T-182`) | 2026-09-14 | `000_preproject` |
+| [S-041](#s-041---se-aceptan-f-109-a-f-112-t-183-a-t-186-segunda-promocion-protocol-promote-con-el-defecto-de-f-112-d-163-se-publica-la-guia-de-arranque-d-164-y-nace-d-165-outbound-gitkeep) | Se aceptan `F-109` a `F-112` (`T-183` a `T-186`); segunda promocion — `protocol-promote` con el defecto de `F-112` (`D-163`); se publica la guia de arranque como `README.md` (`D-164`, `T-162` implementada); nace `D-165` (`_outbound/.gitkeep`) | 2026-09-14 | `000_preproject` |
 
 ---
 
@@ -89,98 +90,89 @@ entrada en la [Bitacora](#5-bitacora).
 | Campo | Valor |
 |---|---|
 | Etapa actual | `000_preproject` |
-| Ultima actualizacion | 2026-09-14 (S-040) |
+| Ultima actualizacion | 2026-09-14 (S-041) |
 | Salud | En marcha |
-| Avance de la etapa | Primera promocion real de `protocol-promote`: seis candidatos suben del proyecto (`db0e613`) al esqueleto, sin nada que exista solo alli; la puerta los aprueba uno por uno (`D-159`, commit del esqueleto `841dc53`). El usuario fija que la ventana para promover es al abrir sesion o justo tras registrarse una auditoria, antes de trabajar hallazgos — evita el ciclo hallazgos-cierre-auditoria que impedia promover nunca (`D-160`). Se resuelven los dos huecos de `T-163`: el brief no lleva plantilla —lo escribe el cliente como lo entregue— y `temporal/` no se crea en el clone, la anade el usuario cuando la necesite; lo obligatorio es su linea en `.gitignore`, ya presente (`D-161`; `T-163` pasa a `Implementada`). Se detecta que dos de las diez copias de la raiz del esqueleto (`project.md`, `_persistence/tasks.md`) habian quedado por detras de su plantilla porque la promocion solo toca las seis areas agnosticas; se regeneran a mano con puerta (commit del esqueleto `c7d0a87`) y nace el Paso 1b de `protocol-promote`, que mide las diez parejas plantilla↔copia en cada promocion y regenera las que no den `0` (`D-162`, `T-182`). El cambio de la skill queda commiteado aqui y sube al esqueleto en el proximo lote. Los controles de fuga (Pasos 1b, 1c) y de indices (Paso 2b, incluida fila↔ficha de `findings.md`) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas en `project.md`; el Paso 2d (16 lineas, ninguna repetida) reproduce entero — las 16 anclan a commits del repositorio del esqueleto via `-C`, forma que el patron estrecho del control no reconoce pero que reproduce igual; el Paso 2e (primera pasada) da 16 ocurrencias de `\x08`, las 16 heredadas de `HEAD` (assumptions.md 4, decisions.md 7, tasks.md 5), cero nuevas; el Paso 2f (desfase con el esqueleto) devuelve una linea — `protocol-promote/SKILL.md`, el propio cambio de esta sesion, pendiente del proximo lote. Queda sin evaluar `F-109` (`R-039`, `Baja`), que esta sesion no trabajo: es el primer pendiente de la siguiente. |
-| Bloqueos activos | El alcance y el objetivo del proyecto siguen sin definir (`T-001`, aplazada por `D-143`; se retoma cuando `A-004` quede confirmado **y** `005_discovery` este activa); `A-003` sigue sin verificar y `T-003` sigue `Suspendida` (`D-143`); del esqueleto de arranque quedan `T-156` (construir el esqueleto reutilizable en si — `Bloqueante`) y `T-162` (guia de arranque, bloqueada por `D-153` hasta que se promueva la plantilla), ambas `No implementada` |
+| Avance de la etapa | Se evaluan y registran los cuatro hallazgos que dejo `R-039`/`R-040`: `F-109` a `F-112`, los cuatro `Aceptado — pendiente` con su `T-XXX` (`T-183` a `T-186`), verificados contra `HEAD` antes de tratarlos. Las correcciones de `F-109` a `F-111` son notas fechadas en `_audit/S-039.md`, `_audit/S-040.md`, `_persistence/decisions.md` y `_persistence/tasks.md`, sin reescribir ningun bloque anterior; la de `F-112` (renumerar el push del Paso 6 de `protocol-promote`) se aplica sobre la skill. Con la skill ya corregida, el usuario pide la **segunda promocion real** al esqueleto: se consulta primero el choque entre corregir `F-112` antes de subir y `D-160` (promover antes de trabajar hallazgos), y el usuario decide promover **ya** la version auditada (`R-040`), con el defecto de `F-112` dentro; la correccion sube en el lote siguiente (`D-163`, commit del esqueleto **`afeedf4`**, desde `a3bb32e`). Se publica ademas la guia de arranque, ya redactada en `_outbound/skeleton_readme.md`, como `README.md` en la raiz del esqueleto (`D-164`, commit **`bf8c56e`**; `T-162` pasa a `Implementada`), y el borrador se borra en la misma pasada (`D-154`). Al vaciar `_outbound/` git deja de versionar la carpeta que `project.md` declara existente; nace `D-165`: lleva un `.gitkeep` que no se borra al publicar. Los controles de fuga (Pasos 1b, 1c) y de indices (Paso 2b, incluida fila↔ficha de `findings.md`) de este cierre salen limpios; el Paso 2c muestra las mismas dos diferencias ya conocidas y documentadas en `project.md`; el Paso 2d (25 lineas) tiene 20 que reproducen por la misma clase de falso positivo conocida (ancladas por `-C` a otro repositorio, o con dos hashes tras `diff -U0`, formas que el patron estrecho no reconoce) y 5 con `<hash>` literal en los criterios de cierre de `T-183` a `T-186` (`tasks.md`), ancladas por el Paso 7c-bis; el Paso 2e (primera pasada) da 13 ocurrencias de `\x08`, las 13 heredadas de `HEAD` (`findings.md` 1, `decisions.md` 7, `tasks.md` 5), cero nuevas, con los dos contrastes cuadrando (8 filas, suma 13); el Paso 2f (desfase con el esqueleto) devuelve una linea — `protocol-promote/SKILL.md`, el defecto de `F-112` que `D-163` dejo a sabiendas para el proximo lote. |
+| Bloqueos activos | El alcance y el objetivo del proyecto siguen sin definir (`T-001`, aplazada por `D-143`; se retoma cuando `A-004` quede confirmado **y** `005_discovery` este activa); `A-003` sigue sin verificar y `T-003` sigue `Suspendida` (`D-143`); del esqueleto de arranque queda `T-156` (construir el esqueleto reutilizable en si — `Bloqueante`), `No implementada`: su criterio pide las seis areas agnosticas sin una linea de diferencia, y el Paso 2f sigue devolviendo una (`protocol-promote/SKILL.md`) |
 
 ---
 
 ## 2. Ultimo realizado
 
-Con el repositorio en `db0e613` (limpio, subido, con `R-039` ya registrada) el usuario pide la
-**primera promocion real** del andamiaje al esqueleto de arranque. `manager` ejecuta
-`protocol-promote` completo:
+Con el repositorio en `a3bb32e` (limpio, subido, `R-039` y `R-040` ya registradas) el usuario pide
+evaluar `F-109` a `F-112`, publicar la guia de arranque y promover `protocol-promote`. `manager`
+trata los cuatro hallazgos primero:
 
-- **Desfase (Paso 1):** seis candidatos —cinco archivos que difieren y uno solo aqui
-  (`protocol-promote/SKILL.md`, nueva)—, y nada que existiera solo en el esqueleto.
-- **Lo que se borraba alli (Paso 2), leido linea por linea:** 13 lineas, todas versiones anteriores
-  de parrafos reescritos aqui; ninguna se perdia.
-- **Controles (Paso 3):** datos propios y codigos instanciados, cero lineas; el barrido ensanchado
-  encontro una coincidencia legitima (la firma de commit, que el esqueleto ya tenia).
-- **La puerta (Paso 5):** el usuario aprobo los seis. Commit en el esqueleto **`841dc53`**, subido;
-  el `numstat` coincide con lo presentado.
+- **`F-109`** (seccion 1 de `S-039` atribuye a `T-180` las tres reincidencias de la nota de
+  `L-056`, y la tercera es de `T-179`) — `T-183`: nota fechada al final de la seccion 1, sin
+  reescribir la vineta.
+- **`F-110`** (la seccion 7 de `S-040` publica una 17.ª linea que su propio filtro excluye, y el
+  CONTROL DE CIFRA ADYACENTE cita numeros de linea de un borrador) — `T-184`: nota fechada con la
+  procedencia reanclada a `4962db2` (16 lineas) y el control corrido sobre las dos versiones
+  commiteadas del informe.
+- **`F-111`** (dos resultados nuevos del registro —los barridos de `T-162` y el final de linea de
+  `D-159`— se afirman sin orden ni salida) — `T-185`: dos notas fechadas con los barridos rehechos
+  (la orden original no se publico, y la nota lo dice) y la medicion del Paso 4 anclada a `db0e613`
+  y `1748f0a`.
+- **`F-112`** (el Paso 6 de `protocol-promote` queda con dos pasos «4.» tras `T-182`) — `T-186`: el
+  push pasa a «5.».
 
-Queda registrado en **`D-159`**, con el barrido de despues (anclado por los dos lados) saliendo
-vacio: el desfase cerro.
+Los cuatro quedan `Aceptado — pendiente` en `findings.md`, verificados contra `HEAD` (`a3bb32e`)
+antes de tratarlos, con su fila y su ficha en la misma pasada.
 
-El usuario zanja ademas dos asuntos que la promocion dejo ver:
+Con `protocol-promote` ya corregida, el usuario pide la **segunda promocion real**. `manager`
+consulta dos choques antes de tocar nada: promover el archivo que la propia sesion acaba de corregir
+subiria una version sin cierre ni auditoria (la skill lo prohibe: «nada de lo que promuevas puede
+nacer aqui»), y `D-160` pone la promocion antes de los hallazgos. El usuario decide: se promueve
+**ya** la version commiteada y auditada (`R-040`, con el «4.» duplicado de `F-112` dentro); la
+correccion sube en el lote siguiente (**`D-163`**). Desfase de un solo candidato
+(`protocol-promote/SKILL.md`), nada solo en el esqueleto; dos lineas leidas antes de borrarse,
+numeraciones que se desplazan; controles, final de linea y copia limpios; puerta aprobada; commit del
+esqueleto **`afeedf4`**, subido, `numstat` coincidente; barrido de despues vacio.
 
-- **`D-160`** — el orden «hallazgos primero, promocion despues» es un ciclo sin salida (trabajar
-  hallazgos toca `_persistence/`, eso obliga a cerrar y auditar, y la sesion siguiente vuelve a
-  empezar por los hallazgos). La ventana para promover, cuando hay desfase, es **al abrir sesion o
-  justo tras registrarse una auditoria**, antes de tocar nada.
-- **`D-161`** — los dos huecos de `T-163`: el brief **no lleva plantilla** (lo escribe el cliente
-  como lo entregue, sin imponerle forma), y `temporal/` **no se crea** en el clone —la anade el
-  usuario a mano cuando la necesite—; lo unico obligatorio es su linea en `.gitignore`, que ya esta
-  en los dos repositorios. `T-163` queda `Implementada`.
-
-Al aplicar `D-161`, `manager` detecta que dos de las diez copias de la raiz del esqueleto
-(`project.md`, `_persistence/tasks.md` — archivos de instancia que `protocol-promote` no toca,
-porque solo lleva las seis areas agnosticas) habian quedado por detras de su propia plantilla. El
-usuario decide que **nada del esqueleto puede quedar viejo**: se regeneran a mano con puerta (commit
-del esqueleto **`c7d0a87`**), y `protocol-promote` gana un **Paso 1b** permanente que mide las diez
-parejas plantilla↔copia en cada promocion y regenera las que no den `0`, desde la plantilla, nunca
-desde la instancia de este repositorio (**`D-162`**, **`T-182`**). La prueba del paso se corrio en
-negativo (sobre `841dc53`: marca las dos copias) y en positivo (sobre `c7d0a87`: diez ceros), con sus
-ordenes y salidas ancladas. El cambio de la skill queda commiteado en este cierre; sube al esqueleto
-en el proximo lote, por `D-160`.
-
-`_outbound/skeleton_readme.md` se pone al dia con las tres decisiones (`temporal/`, el brief y «archivo
-por archivo» en vez de «entrada por entrada»); sigue `No implementada` porque se publica desde su
-version commiteada, como cualquier promocion.
+Se publica ademas la guia de arranque (`_outbound/skeleton_readme.md`, puesta al dia y auditada en
+`S-040`/`R-040`) como `README.md` en la raiz del esqueleto, sin nombre hasta ahora (**`D-164`**,
+commit **`bf8c56e`**, identico byte a byte al borrador de origen; `T-162` pasa a `Implementada`). Por
+`D-154` el borrador se borra en la misma pasada. Al vaciar `_outbound/`, git deja de versionar la
+carpeta que `project.md` declara existente en el arbol: nace **`D-165`**, un `.gitkeep` que no se
+borra al publicar una pieza.
 
 **Controles de este cierre:** fuga de datos propios y de codigos instanciados (Pasos 1b, 1c), cero
 lineas; indices y fila↔ficha de `findings.md` (Paso 2b), al dia; el Paso 2c muestra las mismas dos
 diferencias ya conocidas y documentadas en `project.md` (`010_prototype/`, `temporal/`). El Paso 2d
-devuelve 16 lineas (ninguna repetida) y reproduce entera: las 16 anclan a commits del **esqueleto**
-via `git -C "<ruta>" show <hash>:...`, forma que el patron estrecho del control no reconoce como
-ancla pero que reproduce igual (el mismo falso positivo conocido, en su variante `-C`). El Paso 2e
-(primera pasada, sobre staging) encuentra 16 ocurrencias de `\x08` en tres archivos, las 16
-heredadas de `HEAD` (`assumptions.md` 4, `decisions.md` 7, `tasks.md` 5; `head` = `staged` en los
-tres), con los dos contrastes de su tabla cuadrando (5 filas, suma 16). El Paso 2f (desfase con el
-esqueleto) devuelve **una** linea: `protocol-promote/SKILL.md`, el propio cambio de esta sesion,
-pendiente del proximo lote — no frena el cierre.
+devuelve 25 lineas: 20 reproducen por la misma clase de falso positivo conocida desde `S-040` (ancladas
+via `git -C "<ruta>" show <hash>:...` a otro repositorio, o con `git diff -U0 <hash1> <hash2>`, formas
+que el patron estrecho `git (show|grep|log|diff) [0-9a-f]{7,40}` no reconoce) y 5 llevan `<hash>`
+literal en los criterios de cierre de `T-183` a `T-186` (`_persistence/tasks.md`), ancladas por el
+Paso 7c-bis de este mismo cierre. El Paso 2e (primera pasada, sobre staging) encuentra 13
+ocurrencias de `\x08` en tres archivos, las 13 heredadas de `HEAD` (`findings.md` 1, `decisions.md`
+7, `tasks.md` 5; `head` = `staged` en los tres), con los dos contrastes de su tabla cuadrando (8
+filas, suma 13). El Paso 2f devuelve **una** linea: `protocol-promote/SKILL.md`, el defecto de
+`F-112` que `D-163` dejo a sabiendas, pendiente del proximo lote — no frena el cierre.
 
-- **Que quedo abierto:** `F-109` (`R-039`, `Baja`) no se trabajo esta sesion —la promocion ocupo la
-  ventana entera—; es el primer pendiente de `S-041`. De la familia del esqueleto queda `T-156`
-  (tarea paraguas, `Bloqueante`) y `T-162` (guia de arranque, bloqueada por `D-153`), ambas `No
-  implementada`. `T-001` y `T-144` siguen `No implementada` (aplazadas, etapa no iniciada). `T-003`
+- **Que quedo abierto:** de la familia del esqueleto queda `T-156` (tarea paraguas, `Bloqueante`),
+  `No implementada`: su criterio de cierre exige las seis areas sin una linea de diferencia, y sigue
+  habiendo una. `T-001` y `T-144` siguen `No implementada` (aplazadas, etapa no iniciada). `T-003`
   sigue `Suspendida`. `T-128` (la primera cosecha real) sigue `No implementada`, sin bloqueo.
   `DT-002` a `DT-007` siguen `Propuesta (pendiente del usuario)`. `A-019` (la skill de promocion
-  funciona de punta a punta) recibe su primera ejecucion completa, con nota fechada bajo esa entrada,
-  pero **sigue `Abierto`**: el registro de vuelta todavia no lo audito nadie. `A-006` a `A-009`,
-  `A-011` a `A-015`, `A-018`, `A-019`, `A-020` y `A-021` siguen abiertos; `A-016`/`A-017` siguen
-  `Confirmado`, `A-010` `Refutado`. La autorreferencia del criterio de cierre de `D-088` sigue sin
-  resolver.
+  funciona de punta a punta) recibe su segunda ejecucion completa esta sesion, y **sigue `Abierto`**:
+  el registro de vuelta todavia no lo audito nadie. `A-006` a `A-009`, `A-011` a `A-015`, `A-018` a
+  `A-021` siguen abiertos; `A-016`/`A-017` siguen `Confirmado`, `A-010` `Refutado`. La
+  autorreferencia del criterio de cierre de `D-088` sigue sin resolver.
 
 ---
 
 ## 3. Siguiente paso
 
-Lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que los seis archivos
-promovidos en `841dc53` y las dos copias regeneradas en `c7d0a87` coinciden con lo que `D-159` y
-`D-162` afirman, que el Paso 1b quedo escrito en `protocol-promote/SKILL.md` tal como `D-162`/`T-182`
-lo describen, y que `A-019` sigue `Abierto` con su nota de primera ejecucion sin confirmar.
+Lanzar `report_auditor` sobre el commit de este cierre: tiene que comprobar que las cuatro notas
+fechadas de `F-109` a `F-112` no reescriben ningun bloque anterior y reproducen lo que afirman, que
+el commit del esqueleto `afeedf4` coincide con `a3bb32e` y lleva el «4.» duplicado a sabiendas
+(`D-163`), que `bf8c56e` es identico byte a byte al borrador de `a3bb32e` (`D-164`), y que
+`_outbound/.gitkeep` esta en el commit de la sesion (`D-165`).
 
-**El primer trabajo de `S-041` es evaluar `F-109`** (`R-039`, `Baja`, sobre la seccion 1 de `S-039`),
-que esta sesion no llego a tocar.
-
-El siguiente trabajo de fondo sigue siendo **el esqueleto de arranque**: ahora que `T-163` esta
-resuelta, falta **`T-162`** —publicar la guia de arranque, ya redactada y al dia en
-`_outbound/skeleton_readme.md`, en la raiz del esqueleto— y promover el lote pendiente que deja el
-Paso 2f (`protocol-promote/SKILL.md`, con su Paso 1b nuevo). Con esas dos cosas, `T-156` quedaria
-lista para cerrarse.
+El siguiente trabajo de fondo sigue siendo **el esqueleto de arranque**: con `T-162` y `T-163` ya
+resueltas, lo unico que falta para `T-156` es promover el lote que deja el Paso 2f —
+`protocol-promote/SKILL.md`, con la correccion de `F-112` dentro—, en la ventana que fija `D-160`.
 
 Sigue pendiente la primera cosecha real de `000_preproject` con `protocol-harvest` (`T-128`), pero
 solo cuando la etapa se vaya a cerrar de verdad (`_phases/000_preproject.md` exige que corra **antes**
@@ -2053,6 +2045,48 @@ $ git show ce0ac4e:project.md | grep -ciE "esqueleto|version de partida"
   `A-006` a `A-009`, `A-011` a `A-015`, `A-018`, `A-020` y `A-021` siguen abiertos; `A-010` sigue
   `Refutado`, `A-016`/`A-017` siguen `Confirmado`. La autorreferencia del criterio de cierre de
   `D-088` sigue sin resolver.
+
+---
+
+### S-041 - Se aceptan `F-109` a `F-112` (`T-183` a `T-186`); segunda promocion — `protocol-promote` con el defecto de `F-112` (`D-163`); se publica la guia de arranque (`D-164`); nace `D-165` (`_outbound/.gitkeep`)
+
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-14 |
+| Etapa | `000_preproject` |
+| Tareas | T-162, T-183, T-184, T-185, T-186 |
+
+- **Que se hizo:** con el repositorio en `a3bb32e` (limpio, subido, `R-039`/`R-040` registradas), se
+  evaluan y registran `F-109` a `F-112`: los cuatro `Aceptado — pendiente`, verificados contra `HEAD`
+  antes de tratarlos, con nota fechada que corrige cada uno sin reescribir ningun bloque anterior
+  (`T-183` en `_audit/S-039.md`, `T-184` en `_audit/S-040.md`, `T-185` en `decisions.md` y
+  `tasks.md`, `T-186` en `protocol-promote/SKILL.md`). Con la skill corregida, el usuario pide la
+  segunda promocion real: se consulta el choque entre `F-112` recien corregido y `D-160`, y se
+  decide promover **ya** la version commiteada y auditada, con el defecto dentro; la correccion sube
+  en el lote siguiente (`D-163`, commit del esqueleto `afeedf4`, desde `a3bb32e`, subido). Se publica
+  la guia de arranque como `README.md` en la raiz del esqueleto, identica byte a byte al borrador de
+  `_outbound/skeleton_readme.md` (`D-164`, commit `bf8c56e`; `T-162` pasa a `Implementada`); el
+  borrador se borra por `D-154`. Al vaciar `_outbound/`, git deja de versionarla; nace `D-165`: lleva
+  un `.gitkeep` que no se borra al publicar.
+
+  Controles de este cierre: fuga de datos propios y codigos instanciados (Pasos 1b, 1c), cero
+  lineas; indices y fila↔ficha de `findings.md` (Paso 2b), al dia; Paso 2c con las mismas dos
+  diferencias documentadas en `project.md`. El Paso 2d devuelve 25 lineas: 20 reproducen por la misma
+  clase de falso positivo conocida desde `S-040` (ancladas via `-C` a otro repositorio, o con dos
+  hashes tras `diff -U0`) y 5 llevan `<hash>` literal en los criterios de cierre de `T-183` a `T-186`
+  (`tasks.md`), ancladas por el Paso 7c-bis de este cierre. El Paso 2e (primera pasada) da 13
+  ocurrencias de `\x08` en tres archivos, las 13 heredadas de `HEAD` (`findings.md` 1, `decisions.md`
+  7, `tasks.md` 5), cero nuevas, con los dos contrastes cuadrando (8 filas, suma 13). El Paso 2f
+  devuelve una sola linea — `protocol-promote/SKILL.md`, el defecto de `F-112` dejado a sabiendas —,
+  pendiente del proximo lote, sin frenar el cierre.
+- **Que quedo abierto:** `T-156` (`Bloqueante`) sigue `No implementada`: su criterio exige las seis
+  areas sin una linea de diferencia y el Paso 2f sigue devolviendo una. `T-001` y `T-144` siguen `No
+  implementada` (aplazadas). `T-003` sigue `Suspendida`. `T-128` sigue `No implementada`, sin
+  bloqueo. `DT-002` a `DT-007` siguen `Propuesta (pendiente del usuario)`. `A-019` recibe su segunda
+  ejecucion completa y sigue `Abierto`: falta que una auditoria audite el registro de vuelta. `A-006`
+  a `A-009`, `A-011` a `A-015`, `A-018` a `A-021` siguen abiertos; `A-010` sigue `Refutado`,
+  `A-016`/`A-017` siguen `Confirmado`. La autorreferencia del criterio de cierre de `D-088` sigue sin
+  resolver.
 
 ---
 

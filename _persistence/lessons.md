@@ -2098,6 +2098,12 @@ la comprobacion posterior, asi que esa es la mitad que hay que tratar como oblig
 > partia los caracteres acentuados. El bloque no reproducia. 🔑 **Lo que lo arreglo no fue revisar
 > mejor, sino no teclear:** el bloque se genero corriendo las ordenes desde un archivo y pegando lo que
 > devolvieron, y se contrasto con un `diff` antes de darlo por bueno.
+>
+> 🕒 **Nota de reincidencia del 2026-09-14 (`D-164`, nota bajo `T-162`).** Otra vez la salida
+> **tecleada**: los numeros de linea de un `grep -n '^## '` sobre la guia publicada se escribieron
+> estimados, y los siete estaban mal. Lo cazo el mismo mecanismo —extraer las ordenes de la nota,
+> reejecutarlas y `diff`— antes de commitear. 🔑 **Confirma la leccion en su forma mas simple: la
+> salida que no se pega de la ejecucion no es salida, aunque la orden sea trivial.**
 
 ---
 
