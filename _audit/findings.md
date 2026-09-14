@@ -121,6 +121,9 @@
 | [F-107](#f-107---la-nota-que-corrige-f-105-publica-en-assumptionsmd-findingsmd-y-tasksmd-una-cifra-que-ya-no-reproducia-en-su-propio-commit-y-t-176-queda-implementada) | La nota que corrige `F-105` publica, en `assumptions.md`, `findings.md` y `tasks.md`, una cifra que ya no reproducia en su propio commit, y `T-176` queda `Implementada` | R-038 | Media | Implementado |
 | [F-108](#f-108---el-bloque-procedencia-por-archivo-de-la-seccion-7-de-s-038-contiene-una-linea-que-su-orden-no-produce-y-la-tabla-de-reejecucion-atribuye-dos-ordenes-al-archivo-equivocado) | El bloque «Procedencia por archivo» de la seccion 7 de `S-038` contiene una linea que su orden no produce, y la tabla de reejecucion atribuye dos ordenes al archivo equivocado | R-038 | Media | Implementado |
 | [F-109](#f-109---la-seccion-1-del-informe-atribuye-a-t-180-las-tres-reincidencias-de-la-nota-de-l-056-y-la-tercera-es-de-t-179) | La seccion 1 del informe atribuye a `T-180` las tres reincidencias de la nota de `L-056`, y la tercera es de `T-179` | R-039 | Baja | Abierto |
+| [F-110](#f-110---la-seccion-7-de-s-040-publica-como-salida-cruda-dos-bloques-que-su-orden-no-produce) | La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce | R-040 | Media | Abierto |
+| [F-111](#f-111---dos-resultados-nuevos-del-registro-se-afirman-sin-su-orden-ni-su-salida) | Dos resultados nuevos del registro se afirman sin su orden ni su salida | R-040 | Baja | Abierto |
+| [F-112](#f-112---el-paso-6-de-protocol-promote-queda-con-dos-pasos-numerados-4) | El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.» | R-040 | Baja | Abierto |
 
 ---
 
@@ -5180,3 +5183,99 @@ $ git show 62ff0d2:_persistence/lessons.md | sed -n '2084,2086p;2095,2097p'
   con el mismo defecto que `L-056` describe. `Baja`: no cambia ningun estado ni cifra, y `L-056` esta bien.
 - **Que lo corregiria:** una nota fechada en la seccion 1 de `S-039` con la atribucion correcta (dos en
   `T-180`, una en `T-179`), sin reescribir la linea. ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-110 - La seccion 7 de `S-040` publica como salida cruda dos bloques que su orden no produce
+| Campo | Valor |
+|---|---|
+| Auditoria | R-040 |
+| Fecha | 2026-09-14 |
+| Gravedad | Media |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** (a) el bloque «Procedencia por archivo» de la seccion 7 de `S-040` pega 17
+  lineas, y la 17.ª (`b/_persistence/decisions.md :: $ git show db0e613:.gitignore | grep -n '^temporal/$'`)
+  la excluye el propio `grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'` de la orden; la nota que
+  sigue explica la diferencia 17/16 con un argumento que el mismo filtro contradice. (b) La salida del
+  CONTROL DE CIFRA ADYACENTE cita las lineas 33, 34, 97, 98, 249, 250, 303, 304, 363, 364, 379 y 380, que
+  no salen corriendo la orden ni sobre `4962db2` ni sobre `97ccbe1`: corresponde a un borrador.
+
+```
+$ git diff -U0 db0e613 4962db2 -- _persistence _audit ':(exclude)_audit/S-040.md' | awk '/^\+\+\+ /{f=$2} /^\+\$ /{print f" :: "$0}' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}' | wc -l
+16
+
+$ echo '$ git show db0e613:.gitignore | grep -n' | grep -vE 'git (show|grep|log|diff) [0-9a-f]{7,40}'; echo "exit=$?"
+exit=1
+```
+
+  Salida completa de (b), sobre las dos versiones del informe, en `_audit/R-040.md`, seccion 2.
+- **Por que importa:** es la familia de defecto de `F-108` y `L-056` —una linea en un bloque de salida
+  cruda que su orden no emite—, reaparecida en el commit siguiente a su cierre y con una explicacion
+  que el bloque contradice; y un control de cifra adyacente publicado sobre un borrador no revisa el
+  informe commiteado (sus lineas 418-419 en `97ccbe1`, con cifras nuevas, no se miraron). `Media`: las
+  cifras de resultado (16, 8) son ciertas; falla la evidencia que dice respaldarlas.
+- **Que lo corregiria:** nota fechada en la seccion 7 de `S-040`, sin reescribir los bloques, con la
+  procedencia reproducida (16 lineas) y el control corrido sobre `git show 4962db2:_audit/S-040.md`.
+  ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-111 - Dos resultados nuevos del registro se afirman sin su orden ni su salida
+| Campo | Valor |
+|---|---|
+| Auditoria | R-040 |
+| Fecha | 2026-09-14 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** la nota del 2026-09-14 bajo `T-162` afirma «Barridos de datos propios y de
+  codigos instanciados sobre el borrador: cero lineas» sin bloque de codigo; `D-159` afirma «todas las
+  parejas LF en los dos lados; copia byte a byte» sin la medicion del Paso 4 de `protocol-promote`.
+
+```
+$ git show 4962db2:_persistence/tasks.md | sed -n '/el borrador de `_outbound\/` se pone al dia/,/^### T-163/p' | grep -c '^```'
+0
+
+$ git show 4962db2:_persistence/decisions.md | grep -n "Final de linea (Paso 4)"
+10271:- **Final de linea (Paso 4):** todas las parejas LF en los dos lados; copia byte a byte desde el
+```
+
+  Los dos resultados reproducen (ordenes y salida en `_audit/R-040.md`, secciones 1e y 2).
+- **Por que importa:** `CLAUDE.md` exige patron y ambito para todo resultado afirmado; sin la orden,
+  contrastarlo obliga a rehacer el barrido adivinando el patron. `Baja`: el contenido es cierto.
+- **Que lo corregiria:** notas fechadas bajo `T-162` y `D-159` con las ordenes y su salida, ancladas a
+  `4962db2`. ⚠️ Es una recomendacion, no una orden.
+
+---
+
+### F-112 - El Paso 6 de `protocol-promote` queda con dos pasos numerados «4.»
+| Campo | Valor |
+|---|---|
+| Auditoria | R-040 |
+| Fecha | 2026-09-14 |
+| Gravedad | Baja |
+| Estado | Abierto |
+| Registrado en | |
+| Cerrado en | |
+
+- **Que se observo:** al insertar el paso 3 nuevo del Paso 6 (`T-182`), el commit paso a «4.» y el push
+  siguio en «4.».
+
+```
+$ git show 4962db2:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\. ' | sed -n '1,5p'
+304:1. se copia cada archivo aprobado, **respetando el final de linea del destino** (Paso 4);
+305:2. las carpetas nuevas se crean con su contenido **completo**, no a medias;
+306:3. cada copia de la raiz aprobada se regenera **desde la plantilla ya copiada al esqueleto**, en el
+308:4. commit en el esqueleto, con un mensaje que diga **de que proyecto viene** la promocion, **que
+310:4. push.
+```
+
+- **Por que importa:** es un procedimiento que se cita por numero de paso, y el archivo sube al
+  esqueleto en el proximo lote. `Baja`: el orden del texto es correcto.
+- **Que lo corregiria:** renumerar el push a «5.» antes de promover. ⚠️ Es una recomendacion, no una
+  orden.
