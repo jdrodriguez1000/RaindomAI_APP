@@ -198,6 +198,10 @@
 | [T-187](#t-187---fijar-por-nota-fechada-el-recuento-de-filas-del-paso-2e-que-progressmd-publica-en-s-041-f-113) | Fijar por nota fechada el recuento de filas del Paso 2e que `progress.md` publica en `S-041` (`F-113`) | No implementada | Media | No bloqueante | `000_preproject` |
 | [T-188](#t-188---fijar-por-nota-fechada-la-salida-entera-del-grep-de-la-seccion-2-de-s-041-f-114) | Fijar por nota fechada la salida entera del `grep` de la seccion 2 de `S-041` (`F-114`) | No implementada | Baja | No bloqueante | `000_preproject` |
 | [T-189](#t-189---publicar-ancladas-las-dos-comprobaciones-declaradas-no-anclables-en-s-041-y-d-163-f-115) | Publicar ancladas las dos comprobaciones declaradas «no anclables» en `S-041` y `D-163` (`F-115`) | No implementada | Baja | No bloqueante | `000_preproject` |
+| [T-190](#t-190---fijar-por-nota-fechada-los-recuentos-de-la-cosecha-que-contradicen-la-tabla-de-d-168-f-116) | Fijar por nota fechada los recuentos de la cosecha que contradicen la tabla de `D-168` (`F-116`) | No implementada | Media | No bloqueante | `000_preproject` |
+| [T-191](#t-191---publicar-la-orden-y-la-salida-de-la-verificacion-contra-head-de-f-113-a-f-115-f-117) | Publicar la orden y la salida de la verificacion contra `HEAD` de `F-113` a `F-115` (`F-117`) | No implementada | Baja | No bloqueante | `000_preproject` |
+| [T-192](#t-192---publicar-anclada-la-comprobacion-que-la-nota-de-cierre-de-t-156-declara-no-anclable-f-118) | Publicar anclada la comprobacion que la nota de cierre de `T-156` declara «no anclable» (`F-118`) | No implementada | Baja | No bloqueante | `000_preproject` |
+| [T-193](#t-193---fijar-por-nota-fechada-la-salida-y-la-referencia-del-bloque-del-item-2-de-la-seccion-7-de-s-042-f-119) | Fijar por nota fechada la salida y la referencia del bloque del item 2 de la seccion 7 de `S-042` (`F-119`) | No implementada | Baja | No bloqueante | `000_preproject` |
 
 ---
 
@@ -8812,3 +8816,126 @@ $ git show e332771:.claude/skills/protocol-promote/SKILL.md | grep -nE '^[0-9]+\
   misma forma.
 - **Criterio de cierre:** las dos notas estan en el commit de la sesion, y sus ordenes devuelven lo que
   publican.
+
+---
+
+### T-190 - Fijar por nota fechada los recuentos de la cosecha que contradicen la tabla de `D-168` (`F-116`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Media |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-043 |
+
+- **Que:** el registro publica «26 promueven (seis nuevas y una enmienda), 23 ya cubiertas, 6 `Solo
+  proyecto`» en `progress.md`, en `D-168` («Contraste: 26 + 4 + 23 + 1 + 5 = 59») y en la seccion 3 de
+  `S-042`. La tabla de `D-168` y la columna `Portabilidad` de `lessons.md` dan **21** nuevas, **4** de
+  la enmienda —25 promovidas— y **28** ya cubiertas.
+- **Por que importa:** el registro afirma un resultado comprobablemente falso en tres archivos, uno de
+  ellos `progress.md`, que es lo primero que se lee al abrir sesion. Es la familia de `F-113`, en la
+  sesion que corrige `F-113`.
+- **Como se corrige:** notas fechadas junto a los tres sitios, **sin reescribirlos** (`D-019` rige hacia
+  adelante), con los recuentos por destino sacados de la columna por orden anclada. Ademas, nota fechada
+  bajo el «Criterio de cierre» de `D-168` que anada la orden por destino: la publicada solo cuenta el
+  total, y un total correcto no ve dos sumandos cambiados en sentidos opuestos (−5 y +5).
+- 🔑 **La clasificacion leccion a leccion es correcta**, y lo promovido al archivo global tambien: lo
+  falso son los recuentos resumidos.
+- **Criterio de cierre:**
+
+```
+$ git show <hash>:_persistence/lessons.md | grep -E '^\| \[L-' | grep -oE '\| (Promovida a LG-[0-9]+|Ya cubierta por LG-[0-9]+|Solo proyecto) \|$' | sed -E 's/ LG-[0-9]+//' | sort | uniq -c
+$ git show <hash>:_persistence/progress.md | grep -c '26 promueven'
+```
+
+  La primera devuelve `25 Promovida a`, `6 Solo proyecto`, `28 Ya cubierta por`; la segunda sigue
+  devolviendo `1`, porque la mencion no se reescribe: lo que cambia es que a su lado hay una nota
+  fechada con esa salida.
+
+---
+
+### T-191 - Publicar la orden y la salida de la verificacion contra `HEAD` de `F-113` a `F-115` (`F-117`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-043 |
+
+- **Que:** la seccion 0 de `S-042` y `progress.md` dicen que los tres hallazgos se «verificaron contra
+  `HEAD` (`d2ee2aa`) antes de tratarlos», y esa orden no se publica en ningun sitio. `T-187` a `T-189`
+  no tienen ningun bloque de verificacion, y las fichas `F-113` a `F-115` no tienen el bloque de
+  tratamiento que si tienen las del lote anterior (`F-109` a `F-112`).
+- **Por que importa:** `CLAUDE.md` pide que la verificacion previa y toda decision con
+  `Origen: report_auditor` lleven la orden literal y su salida. «Verificado contra `HEAD`» sin orden es
+  un veredicto, no evidencia.
+- **Como se corrige:** notas fechadas en las fichas `F-113` a `F-115` de `_audit/findings.md` con las
+  ordenes corridas sobre `d2ee2aa`, que es lo que `HEAD` era entonces.
+- ⚠️ **Los tres defectos siguen siendo ciertos** y las notas de `T-187` a `T-189` si traen sus ordenes
+  ancladas: lo que falta es la comprobacion **previa**, la que decide si el hallazgo seguia vivo.
+- **Criterio de cierre:**
+
+```
+$ for f in 113 114 115; do echo "F-$f tratamiento=$(git show <hash>:_audit/findings.md | sed -n "/^### F-$f /,/^---$/p" | grep -c 'Tratamiento del')"; done
+```
+
+  Devuelve `1` para los tres.
+
+---
+
+### T-192 - Publicar anclada la comprobacion que la nota de cierre de `T-156` declara «no anclable» (`F-118`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-043 |
+
+- **Que:** la nota «Cerrada en `S-042`» de `T-156` declara su criterio «**no anclable por naturaleza**»
+  y afirma «cero lineas» sin orden ni salida. En el mismo commit, `D-166` publica **anclada** la misma
+  pregunta (`d2ee2aa` ↔ `707d572`, `exit=0`).
+- **Por que importa:** es exactamente lo que `F-115` corrigio, repetido en la tarea `Bloqueante` que la
+  sesion cierra. El resultado es cierto, pero quien lea la ficha tiene que rehacer el barrido o saber
+  que la evidencia esta en otra entrada.
+- **Como se corrige:** nota fechada bajo `T-156` que copie la orden anclada de `D-166` con su salida, y
+  que diga que la comprobacion **si es anclable** por hash de blob.
+- **Criterio de cierre:**
+
+```
+$ git show <hash>:_persistence/tasks.md | sed -n '/^### T-156 /,/^---/p' | grep -c '^```'
+```
+
+  Devuelve `3` o mas: al bloque preexistente se le suma el de la nota.
+
+---
+
+### T-193 - Fijar por nota fechada la salida y la referencia del bloque del item 2 de la seccion 7 de `S-042` (`F-119`)
+| Campo | Valor |
+|---|---|
+| Estado | No implementada |
+| Importancia | Baja |
+| Urgencia | No bloqueante |
+| Etapa | `000_preproject` |
+| Origen | report_auditor |
+| Sesion | S-043 |
+
+- **Que:** bajo la orden del item 2 de la seccion 7 de `S-042` se pega una linea entre parentesis en
+  lugar de la salida, y remite a `D-166`. La salida entera esta en la nota de `D-163`, y `D-166` no
+  cita `c7d0a87`.
+- **Por que importa:** un bloque de salida cruda tiene que ser lo que su orden emite. Es la familia de
+  `F-108`, `F-110` y `F-114`, en la sesion que corrige `F-114`, y ademas la referencia manda a una
+  decision donde la salida no esta.
+- **Como se corrige:** nota fechada al final de la seccion 7 de `S-042`, sin reescribir el bloque, con
+  las cuatro lineas de `diff` y `fin del contraste exit=1`, y la referencia corregida a `D-163`.
+- **Criterio de cierre:**
+
+```
+$ git show <hash>:_audit/S-042.md | grep -c 'D-163'
+```
+
+  Devuelve al menos `1` desde la seccion 7: la nota nombra la decision donde la salida si esta.

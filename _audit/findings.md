@@ -127,10 +127,10 @@
 | [F-113](#f-113---progressmd-publica-tres-veces-8-filas-para-la-tabla-del-paso-2e-que-tiene-10) | `progress.md` publica tres veces «8 filas» para la tabla del Paso 2e, que tiene 10 | R-041 | Media | Implementado |
 | [F-114](#f-114---la-seccion-2-de-s-041-publica-como-salida-de-su-grep-cuatro-filas-y-la-orden-devuelve-cinco) | La seccion 2 de `S-041` publica como salida de su `grep` cuatro filas, y la orden devuelve cinco | R-041 | Baja | Implementado |
 | [F-115](#f-115---dos-comprobaciones-se-declaran-no-anclables-cuando-si-lo-son-y-una-de-ellas-se-afirma-sin-orden-ni-salida) | Dos comprobaciones se declaran «no anclables» cuando si lo son, y una de ellas se afirma sin orden ni salida | R-041 | Baja | Implementado |
-| [F-116](#f-116---los-recuentos-de-la-cosecha-26-promueven-23-ya-cubiertas-contradicen-la-tabla-de-d-168-y-la-columna-portabilidad) | Los recuentos de la cosecha («26 promueven, 23 ya cubiertas») contradicen la tabla de `D-168` y la columna `Portabilidad` | R-042 | Media | Abierto |
-| [F-117](#f-117---la-verificacion-contra-head-de-f-113-a-f-115-se-afirma-sin-orden-ni-salida-y-sus-tareas-no-llevan-bloque-de-verificacion) | La verificacion contra `HEAD` de `F-113` a `F-115` se afirma sin orden ni salida, y sus tareas no llevan bloque de verificacion | R-042 | Baja | Abierto |
-| [F-118](#f-118---la-nota-que-cierra-t-156-vuelve-a-declarar-no-anclable-por-naturaleza-una-comprobacion-que-el-mismo-commit-publica-anclada-y-afirma-cero-lineas-sin-orden-ni-salida) | La nota que cierra `T-156` vuelve a declarar «no anclable por naturaleza» una comprobacion que el mismo commit publica anclada, y afirma «cero lineas» sin orden ni salida | R-042 | Baja | Abierto |
-| [F-119](#f-119---la-seccion-7-de-s-042-pega-como-salida-de-una-orden-un-texto-que-la-orden-no-emite-y-lo-remite-a-la-decision-equivocada) | La seccion 7 de `S-042` pega como salida de una orden un texto que la orden no emite, y lo remite a la decision equivocada | R-042 | Baja | Abierto |
+| [F-116](#f-116---los-recuentos-de-la-cosecha-26-promueven-23-ya-cubiertas-contradicen-la-tabla-de-d-168-y-la-columna-portabilidad) | Los recuentos de la cosecha («26 promueven, 23 ya cubiertas») contradicen la tabla de `D-168` y la columna `Portabilidad` | R-042 | Media | Aceptado — pendiente |
+| [F-117](#f-117---la-verificacion-contra-head-de-f-113-a-f-115-se-afirma-sin-orden-ni-salida-y-sus-tareas-no-llevan-bloque-de-verificacion) | La verificacion contra `HEAD` de `F-113` a `F-115` se afirma sin orden ni salida, y sus tareas no llevan bloque de verificacion | R-042 | Baja | Aceptado — pendiente |
+| [F-118](#f-118---la-nota-que-cierra-t-156-vuelve-a-declarar-no-anclable-por-naturaleza-una-comprobacion-que-el-mismo-commit-publica-anclada-y-afirma-cero-lineas-sin-orden-ni-salida) | La nota que cierra `T-156` vuelve a declarar «no anclable por naturaleza» una comprobacion que el mismo commit publica anclada, y afirma «cero lineas» sin orden ni salida | R-042 | Baja | Aceptado — pendiente |
+| [F-119](#f-119---la-seccion-7-de-s-042-pega-como-salida-de-una-orden-un-texto-que-la-orden-no-emite-y-lo-remite-a-la-decision-equivocada) | La seccion 7 de `S-042` pega como salida de una orden un texto que la orden no emite, y lo remite a la decision equivocada | R-042 | Baja | Aceptado — pendiente |
 
 ---
 
@@ -5510,8 +5510,8 @@ contrastes por hash de blob, que reproducen. La repeticion de la clase en `T-156
 | Auditoria | R-042 |
 | Fecha | 2026-09-14 |
 | Gravedad | Media |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-190` |
 | Cerrado en | |
 
 - **Que se observo:** `D-168`, la seccion 3 de `S-042` y `progress.md` publican que de 59 lecciones
@@ -5542,6 +5542,33 @@ $ git grep -nE '26 promueven|23 ya cubiertas|26 \+ 4 \+ 23' 9564675 -- _persiste
   de la columna por orden, y que el criterio de `D-168` cuente por destino. ⚠️ Es una recomendacion, no
   una orden.
 
+🕐 **Tratamiento del 2026-09-15 (`S-043`) — ACEPTADO.** Verificado contra `HEAD` (`0be1a20`,
+«auditoria R-042 sobre S-042 (9564675)») antes de tratarlo: los recuentos siguen vivos en los tres
+archivos, y el recuento por destino sobre la columna `Portabilidad` los desmiente.
+
+```
+$ git grep -nE '26 promueven|26 \+ 4 \+ 23' 0be1a20 -- _persistence _audit/S-042.md | cut -c1-72
+0be1a20:_audit/S-042.md:119:salen `Solo proyecto` por el filtro 2, y no 
+0be1a20:_persistence/decisions.md:10887:  Contraste: 26 + 4 + 23 + 1 + 5
+0be1a20:_persistence/progress.md:96:| Avance de la etapa | Se evaluan `F
+0be1a20:_persistence/progress.md:136:forma con el protocolo, declarada y
+
+$ git show 0be1a20:_persistence/lessons.md | grep -E '^\| \[L-' | grep -oE '\| (Promovida a LG-[0-9]+|Ya cubierta por LG-[0-9]+|Solo proyecto) \|$' | sed -E 's/ LG-[0-9]+//' | sort | uniq -c
+     25 | Promovida a |
+      6 | Solo proyecto |
+     28 | Ya cubierta por |
+```
+
+- **La correccion** la implementa **`T-190`**: notas fechadas junto a los tres sitios, sin reescribirlos.
+- ✅ **Se acepta tambien la segunda mitad de la recomendacion** —que el criterio de `D-168` cuente por
+  destino y no solo el total—, y va en la misma tarea: la orden publicada solo mira el total, y un total
+  correcto no ve dos sumandos cambiados en sentidos opuestos (−5 y +5). Es justo el hueco por el que
+  paso este defecto.
+- 🔑 **Lo que el hallazgo NO toca, y conviene dejarlo escrito:** la clasificacion leccion a leccion
+  y lo promovido a `LG-99`…`LG-104` son correctos. El defecto esta en los recuentos resumidos.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-117 - La verificacion contra `HEAD` de `F-113` a `F-115` se afirma sin orden ni salida, y sus tareas no llevan bloque de verificacion
@@ -5550,8 +5577,8 @@ $ git grep -nE '26 promueven|23 ya cubiertas|26 \+ 4 \+ 23' 9564675 -- _persiste
 | Auditoria | R-042 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-191` |
 | Cerrado en | |
 
 - **Que se observo:** la seccion 0 de `S-042` y `progress.md` dicen «verificados contra `HEAD`
@@ -5580,6 +5607,32 @@ F-115 tratamiento=0
 - **Que lo corregiria:** notas fechadas con las ordenes corridas sobre `d2ee2aa`. ⚠️ Es una
   recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-15 (`S-043`) — ACEPTADO.** Verificado contra `HEAD` (`0be1a20`): la
+afirmacion sigue viva y los bloques siguen sin existir.
+
+```
+$ git grep -n 'Verificado contra `HEAD`' 0be1a20 -- _audit/S-042.md | cut -c1-72
+0be1a20:_audit/S-042.md:13:Verificado contra `HEAD` (`d2ee2aa`, «auditoria
+
+$ for t in 187 188 189; do echo "T-$t fences=$(git show 0be1a20:_persistence/tasks.md | sed -n "/^### T-$t /,/^---/p" | grep -c '^```')"; done
+T-187 fences=0
+T-188 fences=0
+T-189 fences=0
+
+$ for f in 113 114 115; do echo "F-$f tratamiento=$(git show 0be1a20:_audit/findings.md | sed -n "/^### F-$f /,/^---$/p" | grep -c 'Tratamiento del')"; done
+F-113 tratamiento=0
+F-114 tratamiento=0
+F-115 tratamiento=0
+```
+
+- **La correccion** la implementa **`T-191`**: notas fechadas en las fichas `F-113` a `F-115` con las
+  ordenes corridas sobre `d2ee2aa`.
+- 🔑 **El hallazgo se acepta entero y sin matices.** «Verificado contra `HEAD`» es exactamente el
+  tipo de veredicto que `CLAUDE.md` prohibe publicar sin su orden, y esta ficha —con su bloque— es la
+  forma que esa comprobacion tenia que haber tenido.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-118 - La nota que cierra `T-156` vuelve a declarar «no anclable por naturaleza» una comprobacion que el mismo commit publica anclada, y afirma «cero lineas» sin orden ni salida
@@ -5588,8 +5641,8 @@ F-115 tratamiento=0
 | Auditoria | R-042 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-192` |
 | Cerrado en | |
 
 - **Que se observo:**
@@ -5607,6 +5660,27 @@ $ git show 9564675:_persistence/tasks.md | sed -n '/^### T-156 /,/^---/p' | grep
 - **Que lo corregiria:** nota fechada bajo `T-156` que remita a la orden anclada de `D-166` o la copie.
   ⚠️ Es una recomendacion, no una orden.
 
+🕐 **Tratamiento del 2026-09-15 (`S-043`) — ACEPTADO.** Verificado contra `HEAD` (`0be1a20`): la
+nota sigue declarando la comprobacion «no anclable por naturaleza» y afirmando «cero lineas» sin orden,
+y el unico bloque de la ficha es el anterior a `S-042`.
+
+```
+$ git show 0be1a20:_persistence/tasks.md | sed -n '/^### T-156 /,/^---/p' | sed -n '13,15p'
+Paso 2f. Criterio de cierre verificado con la misma orden del Paso 2f de `protocol-close` — **no
+anclable por naturaleza**, compara el arbol de trabajo de este repositorio contra el del esqueleto, los
+dos vivos —, corrida sobre el arbol de esta sesion: cero lineas.
+
+$ git show 0be1a20:_persistence/tasks.md | sed -n '/^### T-156 /,/^---/p' | grep -c '^```'
+2
+```
+
+- **La correccion** la implementa **`T-192`**: nota fechada bajo `T-156` con la orden anclada por hash
+  de blob que `D-166` ya publica, y la constancia de que si es anclable.
+- 🔑 **El resultado es cierto** —las seis areas no difieren entre `9564675` y `707d572`—; lo que falta
+  es que la ficha lo muestre sin obligar a rehacer el barrido. Reproducibilidad, no contenido.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
+
 ---
 
 ### F-119 - La seccion 7 de `S-042` pega como salida de una orden un texto que la orden no emite, y lo remite a la decision equivocada
@@ -5615,8 +5689,8 @@ $ git show 9564675:_persistence/tasks.md | sed -n '/^### T-156 /,/^---/p' | grep
 | Auditoria | R-042 |
 | Fecha | 2026-09-14 |
 | Gravedad | Baja |
-| Estado | Abierto |
-| Registrado en | |
+| Estado | Aceptado — pendiente |
+| Registrado en | `T-193` |
 | Cerrado en | |
 
 - **Que se observo:** bajo la orden del item 2 (contraste `c7d0a87` ↔ `a3bb32e`), el bloque de salida
@@ -5638,3 +5712,26 @@ $ git show 9564675:_persistence/decisions.md | sed -n '/^### D-163/,/^### D-164/
   su orden emite—, en la sesion que corrige `F-114`. `Baja`: el hecho resumido es cierto.
 - **Que lo corregiria:** nota fechada al final de la seccion 7 de `S-042` con la salida entera y la
   referencia a `D-163`. ⚠️ Es una recomendacion, no una orden.
+
+🕐 **Tratamiento del 2026-09-15 (`S-043`) — ACEPTADO.** Verificado contra `HEAD` (`0be1a20`): la
+linea entre parentesis sigue ocupando el sitio de la salida, y la decision a la que remite sigue sin
+contener la orden; la que si la contiene es `D-163`.
+
+```
+$ git show 0be1a20:_audit/S-042.md | grep -n 'salida completa ya publicada en'
+261:(una diferencia de blob en protocol-promote/SKILL.md; salida completa ya publicada en D-166, _persistence/decisions.md)
+
+$ git show 0be1a20:_persistence/decisions.md | sed -n '/^### D-166/,/^### D-167/p' | grep -c 'c7d0a87'
+0
+
+$ git show 0be1a20:_persistence/decisions.md | sed -n '/^### D-163/,/^### D-164/p' | grep -c 'ls-tree -r c7d0a87'
+1
+```
+
+- **La correccion** la implementa **`T-193`**: nota fechada al final de la seccion 7 de `S-042` con la
+  salida entera y la referencia corregida a `D-163`.
+- 🔑 **Son dos defectos en un sitio**, y el segundo es el que mas cuesta: una referencia equivocada
+  manda a quien contrasta a una entrada donde la evidencia no esta, y de ahi se sale concluyendo que no
+  existe.
+
+⚠️ **El estado no lo cierra `manager`:** queda `Aceptado — pendiente`.
