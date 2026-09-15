@@ -177,6 +177,7 @@
 | [D-166](#d-166---tercera-promocion-al-esqueleto-sube-la-correccion-de-f-112-desde-d2ee2aa-a-707d572) | Tercera promocion al esqueleto: sube la correccion de `F-112`, desde `d2ee2aa` a `707d572` | 2026-09-14 | Vigente | usuario |
 | [D-167](#d-167---el-control-de-cifra-adyacente-no-se-extiende-a-progressmd-no-veria-la-cifra-de-f-113) | El CONTROL DE CIFRA ADYACENTE no se extiende a `progress.md`: no veria la cifra de `F-113` | 2026-09-14 | Vigente | report_auditor |
 | [D-168](#d-168---cosecha-de-000_preproject-59-lecciones-evaluadas-suben-lg-99-a-lg-104-y-se-enmienda-lg-32-version-3-5a32165) | Cosecha de `000_preproject`: 59 lecciones evaluadas, suben `LG-99` a `LG-104` y se enmienda `LG-32` (version 3, `5a32165`) | 2026-09-14 | Vigente | usuario |
+| [D-169](#d-169---la-etapa-000_preproject-queda-cerrada-firma-del-patrocinador-sobre-el-acta-001) | La etapa `000_preproject` queda CERRADA: firma del patrocinador sobre el acta 001 | 2026-09-15 | Vigente | usuario |
 
 ---
 
@@ -10940,3 +10941,46 @@ $ git show 9564675:_persistence/lessons.md | grep -E '^\| \[L-' | grep -cE '\| (
 ```
 
 📌 **Ancladas por el Paso 7c-bis al commit `9564675`.** Las dos reproducen lo publicado arriba.
+
+---
+
+### D-169 - La etapa `000_preproject` queda CERRADA: firma del patrocinador sobre el acta 001
+| Campo | Valor |
+|---|---|
+| Fecha | 2026-09-15 |
+| Estado | Vigente |
+| Origen | usuario |
+
+- **Contexto:** `phase_exit_auditor` levanto el acta `_audit/000_preproject/005_phase_exit_record_001.md`
+  sobre el commit `999179b` y firmo la revision tecnica con dictamen `CASILLAS SATISFECHAS`, 10 casillas
+  `CUMPLE` de 10, sin hallazgos y sin ninguna casilla `NO COMPROBABLE`. El acta quedo commiteada en
+  `7ca6390`, con la seccion 5.2 en blanco: mientras falte la segunda firma, la etapa sigue abierta.
+- **Decision:** el patrocinador **JD Rodriguez** da la etapa `000_preproject` por **CERRADA** el
+  2026-09-15, con esa evidencia delante. La seccion 5.2 del acta se rellena en la misma pasada que esta
+  entrada.
+- 🔑 **Por que hacia falta esta firma y no bastaba el dictamen.** El archivo de la etapa lo dice sin
+  rodeos: `phase_exit_auditor` **certifica la etapa que lo creo**. Arrancar en frio le da independencia
+  sobre la evidencia, pero el criterio con el que mide lo escribio quien iba a ser medido. Esta es la
+  unica parte del acta que no sale de este repositorio, y por eso no la puede poner `manager`.
+- **Lo que el patrocinador acepta a sabiendas**, porque no sale en el dictamen y no es deuda tecnica:
+  - quedan cuatro hallazgos `Aceptado — pendiente` (`F-116` a `F-119`, con `T-190` a `T-193`). La
+    casilla 8 no exige que esten cerrados —cerrar un hallazgo es de la auditoria siguiente—, asi que la
+    etapa sale con cuatro correcciones por hacer, ya registradas y con dueno;
+  - siguen vivos dos desfases de registro que corrige el cierre siguiente: `T-187` a `T-189` en
+    `No implementada` contra unos `F-113` a `F-115` ya `Implementado`, y el Paso 3 de `progress.md`
+    pidiendo una auditoria ya corrida.
+- **Alternativas descartadas:** (a) **`ETAPA NO CERRADA` hasta corregir `F-116` a `F-119`** — la
+  condicion de salida no lo pide, y exigirlo convertiria cada auditoria de cierre en una etapa nueva,
+  porque toda pasada abre hallazgos; (b) **firmar sin acta**, dando las casillas por ciertas al leerlas
+  — el archivo de la etapa lo prohibe literalmente: una condicion de salida que se firma a ojo es una
+  etapa que se cierra sola.
+- ⚠️ **Irreversible por su efecto, no por el archivo:** la firma se puede reescribir, pero lo que abre
+  —salir de `000_preproject` y entrar en la etapa siguiente— no se deshace sin rehacer trabajo. Por eso
+  la decidio el usuario y no `manager`.
+- **Criterio de cierre:**
+
+```
+$ git show <hash>:_audit/000_preproject/005_phase_exit_record_001.md | sed -n '/^### 5.2/,$p'
+```
+
+  Devuelve la tabla con `JD Rodriguez, patrocinador`, `2026-09-15`, `**ETAPA CERRADA**` y `D-169`.

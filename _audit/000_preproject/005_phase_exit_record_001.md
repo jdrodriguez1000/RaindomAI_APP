@@ -451,7 +451,7 @@ Ninguna. Las diez casillas se resolvieron con orden y salida cruda.
 
 | Campo | Valor |
 |---|---|
-| Quien | `<nombre o rol del patrocinador>` |
-| Fecha | `<AAAA-MM-DD — se rellena el dia que firma, no antes>` |
-| Decision | `<ETAPA CERRADA / ETAPA NO CERRADA>` |
-| Donde queda registrada | `_persistence/decisions.md`, con su `D-XXX` |
+| Quien | JD Rodriguez, patrocinador |
+| Fecha | 2026-09-15 |
+| Decision | **ETAPA CERRADA** |
+| Donde queda registrada | `_persistence/decisions.md`, `D-169` |
